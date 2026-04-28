@@ -473,19 +473,6 @@ button{-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none}
 
 
 
-/* ASSISTED MODE */
-.assist-toggle{
-  display:flex;align-items:center;justify-content:center;gap:7px;
-  width:100%;padding:9px 12px;margin-top:6px;
-  background:var(--card);color:var(--g);
-  border:1.5px solid var(--g);border-radius:9px;
-  font-size:12px;font-weight:700;cursor:pointer;font-family:var(--f);
-  transition:.15s;
-}
-.assist-toggle:hover{background:var(--g);color:#fff}
-.assist-toggle.on{background:var(--g);color:#fff;box-shadow:0 0 0 3px var(--ga)}
-.assist-toggle svg{width:15px;height:15px;stroke-width:2.2}
-
 .a11y-badge{
   margin-top:10px;padding:9px 11px;
   background:var(--gll);border:1px solid var(--ga);
@@ -496,38 +483,6 @@ button{-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none}
 .a11y-badge b{font-size:11px;font-weight:800;color:var(--gd);letter-spacing:.4px;display:block;line-height:1.2}
 .a11y-badge span{font-size:9.5px;color:var(--muted);font-weight:500;display:block;line-height:1.2;margin-top:1px}
 [data-theme="dark"] .a11y-badge{background:var(--gl);border-color:var(--gd)}
-
-/* Student name pill in header */
-#student-pill{
-  display:none;align-items:center;gap:6px;
-  padding:4px 9px 4px 5px;background:rgba(255,255,255,.18);
-  border-radius:99px;font-size:11px;font-weight:600;color:var(--hdr-txt);
-  margin-right:4px;max-width:180px;
-}
-#student-pill.vis{display:inline-flex}
-#student-pill .sp-ico{
-  width:20px;height:20px;border-radius:50%;background:rgba(255,255,255,.25);
-  display:flex;align-items:center;justify-content:center;flex-shrink:0;
-  font-size:10px;font-weight:700;
-}
-#student-pill .sp-name{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-#student-pill .sp-edit{background:none;border:none;color:inherit;cursor:pointer;padding:0 0 0 3px;opacity:.7;display:flex}
-#student-pill .sp-edit:hover{opacity:1}
-#student-pill .sp-edit svg{width:12px;height:12px;stroke-width:2.5}
-
-/* Assisted mode: scale up everything + thicker focus rings + bigger tap targets */
-html[data-assist="on"]{font-size:18px}
-html[data-assist="on"] .bub{font-size:17px;line-height:1.6;padding:13px 16px}
-html[data-assist="on"] .ms-item{font-size:16px;padding:13px 15px;min-height:48px}
-html[data-assist="on"] .ch{font-size:15px;padding:11px 17px;min-height:44px}
-html[data-assist="on"] #btn-cont{font-size:16px;padding:14px;min-height:48px}
-html[data-assist="on"] .fc-hd-name{font-size:16px}
-html[data-assist="on"] .fc-hd-meta{font-size:13px}
-html[data-assist="on"] *:focus-visible{outline:3px solid var(--g)!important;outline-offset:3px!important}
-html[data-assist="on"] #footer{font-size:12px}
-html[data-assist="on"] #hdr-name{font-size:15px}
-html[data-assist="on"] #hdr-pre{font-size:11.5px}
-html[data-assist="on"] #hdr-sub{font-size:11px}
 
 /* TTS speak button on bot bubbles */
 .bub-actions{
@@ -544,9 +499,6 @@ html[data-assist="on"] #hdr-sub{font-size:11px}
 .bub-act:hover{background:var(--gll);color:var(--g);border-color:var(--g)}
 .bub-act.speaking{background:var(--g);color:#fff;border-color:var(--g)}
 .bub-act svg{width:11px;height:11px;stroke-width:2.4}
-html[data-assist="on"] .bub-actions{opacity:1}
-html[data-assist="on"] .bub-act{font-size:13px;padding:5px 11px}
-html[data-assist="on"] .bub-act svg{width:14px;height:14px}
 
 /* SHARE BOX */
 .share-box{
@@ -565,17 +517,59 @@ html[data-assist="on"] .bub-act svg{width:14px;height:14px}
 .share-b svg{width:16px;height:16px;stroke-width:2.2}
 .share-tip{font-size:11px;color:var(--muted);margin-top:8px;font-style:italic}
 
-/* PRINT styles: only show messages */
+/* PRINT styles: solo apoyos, sin chat — fcards siempre expandidas */
+@page{margin:14mm 12mm 16mm}
+.print-only{display:none}
 @media print{
-  body{background:#fff!important;color:#000!important}
-  #sidebar,#hdr,#opts-wrap,#footer,.share-box,.cta-box .cta-a,#assist-toggle{display:none!important}
-  #shell{box-shadow:none!important;max-width:100%!important;height:auto!important}
-  #msgs{overflow:visible!important;height:auto!important;background:#fff!important;padding:20px!important}
-  .bub{break-inside:avoid;page-break-inside:avoid;border:1px solid #ccc!important;background:#fff!important;color:#000!important;max-width:100%!important}
-  .fcard,.disc,.no-res,.conv-disclaimer,.cta-box{break-inside:avoid;page-break-inside:avoid}
-  .res-section-hdr{break-after:avoid}
-  a{color:#000!important;text-decoration:underline}
-  .msg.usr{display:none!important}
+  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+  body{background:#fff!important;color:#102017!important;font-family:'Plus Jakarta Sans',system-ui,sans-serif}
+  #sidebar,#hdr,#opts-wrap,#footer,.share-box,.cta-box .cta-a,
+  .msg,.bub-actions,.fc-chev,.cta-box{display:none!important}
+  #shell{box-shadow:none!important;max-width:100%!important;height:auto!important;display:block!important}
+  #chat-panel{display:block!important;height:auto!important}
+  #msgs{overflow:visible!important;height:auto!important;max-height:none!important;background:#fff!important;padding:0!important;display:block!important}
+
+  /* Cabecera solo-impresión */
+  .print-only{display:block!important}
+  .print-hdr{
+    display:flex!important;align-items:center;justify-content:space-between;gap:14px;
+    padding:0 0 10px;margin-bottom:14px;border-bottom:2px solid #0e6e3a;
+  }
+  .print-hdr .ph-title{font-size:18px;font-weight:800;color:#0e6e3a;letter-spacing:.2px}
+  .print-hdr .ph-sub{font-size:11px;color:#5a6b62;margin-top:2px;font-weight:500}
+  .print-hdr .ph-meta{font-size:10.5px;color:#5a6b62;text-align:right;line-height:1.5}
+  .print-foot{
+    display:block!important;margin-top:16px;padding-top:10px;border-top:1px solid #d6dfd9;
+    font-size:10px;color:#5a6b62;line-height:1.55;text-align:center;
+  }
+
+  /* Forzar expansión de las tarjetas */
+  .fcard{break-inside:avoid;page-break-inside:avoid;box-shadow:none!important;border:1px solid #cfd8d2!important;margin-bottom:10px!important;background:#fff!important}
+  .fcard::before{display:none!important}
+  .fcard .fc-hd{cursor:default!important;padding:11px 14px 9px!important}
+  .fcard .fc-body{display:block!important;border-top:1px dashed #cfd8d2!important;background:#fafbf9!important;padding:11px 14px 13px!important}
+  .fcard .fc-name{font-size:13.5px;color:#102017}
+  .fcard .fc-sub{font-size:11px;color:#5a6b62}
+  .fcard .fc-body p,.fcard .fc-body li{font-size:11.5px;color:#102017;line-height:1.55}
+  .fcard .fc-body h5{font-size:11px;color:#0e6e3a;margin-top:8px;margin-bottom:4px}
+  .fcard .monto{font-size:11.5px;background:#eef6f0!important;color:#0e6e3a!important;border:1px solid #c9e0d2!important}
+  .fcard .conv-note{font-size:11px;background:#fff7df!important;color:#5a4418!important;border:1px solid #e7d089!important}
+  .fcard .tag{font-size:9.5px;padding:2px 6px}
+  .fcard .fc-link{font-size:11px;background:#0e6e3a!important;color:#fff!important;padding:6px 10px}
+
+  .ccf-card{break-inside:avoid;page-break-inside:avoid;box-shadow:none!important;border:1px solid #cfd8d2!important;background:#fff!important;margin-bottom:8px!important}
+  .ccf-card::before{display:none!important}
+  .ccf-card h4{font-size:12.5px;color:#102017}
+  .ccf-card .ccf-desc{font-size:11px;color:#5a6b62}
+  .ccf-card .ccf-a{background:#0e6e3a!important;color:#fff!important;font-size:10.5px}
+
+  .disc{break-inside:avoid;font-size:11px;background:#eef6f0!important;border:1px solid #c9e0d2!important;color:#102017!important;padding:10px 12px!important;margin-bottom:10px!important}
+  .conv-disclaimer{break-inside:avoid;font-size:11px;background:#fff7df!important;border:1px solid #e7d089!important;color:#5a4418!important;padding:10px 12px!important;margin-bottom:10px!important}
+  .res-section-hdr{break-after:avoid;font-size:12px;color:#0e6e3a;margin-top:14px;margin-bottom:8px;padding-bottom:4px;border-bottom:1px solid #d6dfd9}
+  .no-res{break-inside:avoid;font-size:11px}
+
+  a{color:#0e6e3a!important;text-decoration:none}
+  a[href]:not(.fc-link):not(.ccf-a)::after{content:" ("attr(href)")";font-size:9px;color:#5a6b62;font-weight:400}
 }
 /* No results */
 .no-res{
@@ -907,14 +901,6 @@ html[data-assist="on"] .bub-act svg{width:14px;height:14px}
         <span id="theme-label">Claro</span>
       </div>
       <button class="theme-toggle" onclick="toggleTheme()" aria-label="Cambiar tema"></button>
-      <div class="sb-meta" style="margin-top:6px">
-        <b>Modo asistido</b>
-        <span id="assist-label" style="font-size:10.5px;opacity:.85">Off</span>
-      </div>
-      <button class="assist-toggle" onclick="toggleAssist()" aria-label="Activar/desactivar modo asistido" id="assist-toggle-btn">
-        <i data-lucide="headset"></i>
-        <span>Activar</span>
-      </button>
       <div class="a11y-badge" title="Cumple WCAG 2.1 nivel AA en contraste, navegación por teclado, regiones aria-live, etiquetas de formulario y compatibilidad con lectores de pantalla">
         <i data-lucide="accessibility"></i>
         <div>
@@ -933,11 +919,6 @@ html[data-assist="on"] .bub-act svg{width:14px;height:14px}
         <div id="hdr-pre">Dirección de Bienestar Universitario</div>
         <div id="hdr-name">Asesor de Apoyos Externos</div>
         <div id="hdr-sub">Fondos de sostenimiento · 2026</div>
-      </div>
-      <div id="student-pill" role="status" aria-live="polite">
-        <span class="sp-ico">👤</span>
-        <span class="sp-name"></span>
-        <button class="sp-edit" onclick="askStudentName()" aria-label="Cambiar nombre del estudiante" title="Cambiar nombre"><i data-lucide="pencil"></i></button>
       </div>
       <button id="btn-theme-mobile" class="hdr-btn icon" onclick="toggleTheme()" aria-label="Cambiar tema" title="Cambiar tema">
         <span id="btn-theme-slot"><i data-lucide="moon"></i></span>
@@ -1015,7 +996,7 @@ const CCF_MAP = {
      esapTag:'MEDIA ⚠️',afil:true},
   ],
   bolivar:[
-    {n:'Comfamiliar Cartagena',web:'https://www.comfamiliar.org',
+    {n:'Comfamiliar Cartagena',web:'https://comfamiliar.org.co/',
      desc:'Subsidio monetario familiar con componente educativo. Crédito educativo con tasas preferenciales para afiliados.',
      esapTag:'MEDIA ⚠️',afil:true},
     {n:'Comfenalco Cartagena',web:'https://www.comfenalcocartagena.com',
@@ -1127,7 +1108,7 @@ const CCF_MAP = {
     {n:'Comfenalco Quindío',web:'https://www.comfenalcoquindio.com',
      desc:'Crédito educativo y convenios con IES del eje cafetero.',
      esapTag:'MEDIA ⚠️',afil:true},
-    {n:'Comfamiliar Risaralda',web:'https://www.comfamiliar.com',
+    {n:'Comfamiliar Risaralda',web:'https://www.comfamiliar.com.co',
      desc:'Crédito educativo y convenios con IES de Risaralda. Verificar convenio ESAP–Comfamiliar Risaralda.',
      esapTag:'MEDIA ⚠️',afil:true},
   ],
@@ -1757,52 +1738,6 @@ function goBack() {
 
 
 
-/* ════════════════════════════════════════════════════
-   ASSISTED MODE
-════════════════════════════════════════════════════ */
-function toggleAssist(){
-  const html = document.documentElement;
-  const on = html.getAttribute('data-assist') === 'on';
-  if (on){
-    html.removeAttribute('data-assist');
-    document.getElementById('assist-toggle-btn').classList.remove('on');
-    document.getElementById('assist-toggle-btn').querySelector('span').textContent = 'Activar';
-    document.getElementById('assist-label').textContent = 'Off';
-    setStudentName('');
-    try{localStorage.setItem('esap-assist','off')}catch(e){}
-  } else {
-    html.setAttribute('data-assist','on');
-    document.getElementById('assist-toggle-btn').classList.add('on');
-    document.getElementById('assist-toggle-btn').querySelector('span').textContent = 'Activado';
-    document.getElementById('assist-label').textContent = 'On';
-    try{localStorage.setItem('esap-assist','on')}catch(e){}
-    setTimeout(askStudentName, 200);
-  }
-  renderIcons();
-}
-function askStudentName(){
-  const cur = (document.querySelector('#student-pill .sp-name')||{}).textContent || '';
-  const n = window.prompt('¿Nombre del estudiante que está llamando? (opcional)', cur);
-  if (n === null) return;
-  setStudentName(n.trim());
-}
-function setStudentName(name){
-  const pill = document.getElementById('student-pill');
-  if (!pill) return;
-  if (name){ pill.querySelector('.sp-name').textContent = name; pill.classList.add('vis'); }
-  else { pill.querySelector('.sp-name').textContent = ''; pill.classList.remove('vis'); }
-}
-function restoreAssist(){
-  let saved = null;
-  try{ saved = localStorage.getItem('esap-assist'); }catch(e){}
-  if (saved === 'on'){
-    document.documentElement.setAttribute('data-assist','on');
-    const btn = document.getElementById('assist-toggle-btn');
-    if (btn){ btn.classList.add('on'); btn.querySelector('span').textContent = 'Activado'; }
-    const lbl = document.getElementById('assist-label');
-    if (lbl) lbl.textContent = 'On';
-  }
-}
 /* TTS */
 let ttsCurrentBtn = null;
 function stripHtmlForTts(html){
@@ -1837,12 +1772,72 @@ if ('speechSynthesis' in window) { window.speechSynthesis.onvoiceschanged = () =
 
 /* Share to WhatsApp - sends a summary text */
 function shareWhatsApp() {
-  const cards = document.querySelectorAll('#msgs .fcard .fc-hd-name');
-  const names = [...cards].map(el => '• ' + el.textContent.trim()).slice(0, 12);
-  let txt = '*Mis resultados — Asesor de Apoyos Externos ESAP*\n\n';
-  if (names.length) txt += 'Fondos sugeridos:\n' + names.join('\n') + '\n\n';
-  else txt += 'No encontré fondos directos. Voy a pedir cita con Orientación Socioeconómica.\n\n';
-  txt += 'Más info y cita: https://www.esap.edu.co/portal/index.php/bienestar-universitario/';
+  const collect = (sectionSelector) => {
+    const hdr = document.querySelector(sectionSelector);
+    if (!hdr) return [];
+    const out = [];
+    let el = hdr.nextElementSibling;
+    while (el && !el.classList.contains('res-section-hdr')) {
+      if (el.classList.contains('fcard')) {
+        const name = el.querySelector('.fc-name')?.textContent.trim() || '';
+        const sub  = el.querySelector('.fc-sub')?.textContent.trim() || '';
+        const link = el.querySelector('.fc-link')?.getAttribute('href') || '';
+        if (name) out.push({ name, sub, link });
+      } else if (el.classList.contains('ccf-card')) {
+        const name = el.querySelector('h4')?.textContent.trim() || '';
+        const link = el.querySelector('.ccf-a')?.getAttribute('href') || '';
+        if (name) out.push({ name, sub: '', link });
+      }
+      el = el.nextElementSibling;
+    }
+    return out;
+  };
+
+  const directos = collect('#msgs .res-section-hdr.sec-direct');
+  const convenio = collect('#msgs .res-section-hdr.sec-conv');
+  const ccfs     = collect('#msgs .res-section-hdr.sec-ccf');
+
+  const fmt = (item) => {
+    let line = '• *' + item.name + '*';
+    if (item.sub)  line += '\n   ' + item.sub;
+    if (item.link) line += '\n   ' + item.link;
+    return line;
+  };
+
+  let txt = '*Mis resultados - Asesor de Apoyos Externos ESAP*\n';
+  txt += '_Direccion de Bienestar Universitario_\n\n';
+
+  const total = directos.length + convenio.length;
+  if (total === 0 && ccfs.length === 0) {
+    txt += 'No encontre fondos que coincidan exactamente con mi perfil. Voy a pedir cita con *Orientacion Socioeconomica* para revisarlo.\n\n';
+  } else {
+    txt += `Encontre *${total} fondo${total!==1?'s':''}*` + (ccfs.length ? ` y *${ccfs.length} Caja${ccfs.length>1?'s':''} de Compensacion*` : '') + ' que podrian aplicar para mi:\n\n';
+  }
+
+  if (directos.length) {
+    txt += '------------------------------\n';
+    txt += '*PUEDO SOLICITAR DIRECTAMENTE* (' + directos.length + ')\n';
+    txt += '------------------------------\n';
+    txt += directos.map(fmt).join('\n\n') + '\n\n';
+  }
+  if (convenio.length) {
+    txt += '------------------------------\n';
+    txt += '*FONDOS POTENCIALES - REQUIEREN CONVENIO ESAP* (' + convenio.length + ')\n';
+    txt += '------------------------------\n';
+    txt += convenio.map(fmt).join('\n\n') + '\n\n';
+  }
+  if (ccfs.length) {
+    txt += '------------------------------\n';
+    txt += '*CAJAS DE COMPENSACION FAMILIAR* (' + ccfs.length + ')\n';
+    txt += '------------------------------\n';
+    txt += ccfs.map(fmt).join('\n\n') + '\n\n';
+  }
+
+  txt += '_Informacion orientativa - verificar vigencia con cada entidad antes de aplicar._\n\n';
+  txt += '*Pedir cita de Orientacion Socioeconomica:*\nhttps://outlook.office365.com/book/EstamosContigo@esap.edu.co/?ismsaljsauthenabled=true\n\n';
+  txt += '*ICETEX:* 01 8000 180672\n';
+  txt += '*Correo Bienestar:* bienestaruniversitario@esap.edu.co';
+
   const url = 'https://wa.me/?text=' + encodeURIComponent(txt);
   window.open(url, '_blank');
 }
@@ -2081,6 +2076,21 @@ async function renderResults() {
       `🎉 Encontré <b>${total} apoyo${total !== 1 ? 's' : ''}</b> que podrían aplicar para ti.${ccfList.length ? ` También tienes <b>${ccfList.length} Caja${ccfList.length>1?'s':''} de Compensación</b> que puedes consultar.` : ''} Toca cada uno para ver detalles y pasos de aplicación.`,
     ]);
 
+    // Cabecera solo-impresión (PDF)
+    const printHdr = document.createElement('div');
+    printHdr.className = 'print-only print-hdr';
+    const today = new Date().toLocaleDateString('es-CO',{year:'numeric',month:'long',day:'numeric'});
+    printHdr.innerHTML = `
+      <div>
+        <div class="ph-title">Asesor de Apoyos Externos · ESAP</div>
+        <div class="ph-sub">Resultados de fondos de sostenimiento — Dirección de Bienestar Universitario</div>
+      </div>
+      <div class="ph-meta">
+        Generado: ${today}<br>
+        ${total} fondo${total!==1?'s':''}${ccfList.length?` · ${ccfList.length} CCF`:''}
+      </div>`;
+    $msgs.appendChild(printHdr);
+
     // Disclaimer
     const disc = document.createElement('div');
     disc.className = 'disc';
@@ -2160,17 +2170,15 @@ async function renderResults() {
     <a class="cta-a sec" href="tel:018000180672"><i data-lucide="phone"></i> ICETEX: 01 8000 180672</a>`;
   $msgs.appendChild(cta);
 
-  // SHARE / EXPORT
-  const share = document.createElement('div');
-  share.className = 'share-box';
-  share.innerHTML = '<h4><span>📥</span> Guarda o comparte tus resultados</h4>'+
-    '<div class="share-btns">'+
-      '<button class="share-b" onclick="window.print()" type="button"><i data-lucide="printer"></i> Imprimir / PDF</button>'+
-      '<button class="share-b" onclick="shareWhatsApp()" type="button"><i data-lucide="message-circle"></i> WhatsApp</button>'+
-    '</div>'+
-    '<p class="share-tip">Tip: si tienes señal débil, guarda en PDF para leer sin internet.</p>';
-  $msgs.appendChild(share);
-  renderIcons();
+  // Pie solo-impresión (PDF)
+  const printFoot = document.createElement('div');
+  printFoot.className = 'print-only print-foot';
+  printFoot.innerHTML = `
+    <b>Información orientativa</b> — verificar vigencia con cada entidad antes de aplicar.<br>
+    Cita de Orientación Socioeconómica: outlook.office365.com/book/EstamosContigo@esap.edu.co · ICETEX: 01 8000 180672 · Bienestar ESAP: bienestaruniversitario@esap.edu.co<br>
+    Última verificación: abril 2026`;
+  $msgs.appendChild(printFoot);
+
   // Scroll to first result card, not bottom
   const firstEl = $msgs.querySelector('.disc,.no-res');
   if(firstEl) setTimeout(()=>firstEl.scrollIntoView({behavior:'smooth',block:'start'}),100);
@@ -2180,6 +2188,18 @@ async function renderResults() {
     { l: '↺ Nueva consulta',          fn: restart },
     { l: '✏️ Cambiar mis respuestas', fn: () => goBack() },
   ]);
+
+  // SHARE / EXPORT — debajo de las acciones
+  const share = document.createElement('div');
+  share.className = 'share-box';
+  share.innerHTML = '<h4><span>📥</span> Guarda o comparte tus resultados</h4>'+
+    '<div class="share-btns">'+
+      '<button class="share-b" onclick="window.print()" type="button"><i data-lucide="printer"></i> Imprimir / PDF</button>'+
+      '<button class="share-b" onclick="shareWhatsApp()" type="button"><i data-lucide="message-circle"></i> WhatsApp</button>'+
+    '</div>'+
+    '<p class="share-tip">Tip: si tienes señal débil, guarda en PDF para leer sin internet.</p>';
+  $opts.appendChild(share);
+  renderIcons();
 }
 
 /* ── BUILD FUND CARD ── */
@@ -2469,7 +2489,6 @@ document.addEventListener('click', (e) => {
 document.addEventListener('DOMContentLoaded', () => {
   renderIcons();
   initTheme();
-  restoreAssist();
   updateSidebarSteps();
   goToStep('welcome');
 });
