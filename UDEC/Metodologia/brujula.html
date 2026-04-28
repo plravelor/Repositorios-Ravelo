@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brújula Ética — Investigación Cualitativa · UDEC</title>
+<style>
+  :root {
+    --verde: #1a5c3a; --verde-claro: #e8f5ee; --verde-med: #2d7a52;
+    --gris: #3d3d3a; --gris-suave: #f5f4f0; --borde: #d0cec7;
+    --rojo: #6b1a1a; --rojo-claro: #fdf0f0;
+    --azul: #1a3a5c; --azul-claro: #e8f0f8;
+    --amb: #7a5c00; --amb-claro: #fef8e8;
+    --purp: #3a1a5c; --purp-claro: #f0e8f8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 14px; line-height: 1.7; color: var(--gris);
+    background: #f0ede8; min-height: 100vh;
+  }
+  header {
+    background: var(--verde); color: #fff;
+    padding: 14px 20px; position: sticky; top: 0; z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+  header h1 { font-size: 16px; font-weight: 700; }
+  header p { font-size: 11px; opacity: 0.8; margin-top: 2px; }
+  nav {
+    display: flex; overflow-x: auto; background: #fff;
+    border-bottom: 2px solid var(--verde-claro); gap: 0;
+    position: sticky; top: 58px; z-index: 99;
+  }
+  nav button {
+    flex-shrink: 0; padding: 10px 14px; font-size: 12px; font-weight: 600;
+    border: none; background: none; cursor: pointer; color: #888;
+    border-bottom: 3px solid transparent; transition: all 0.2s; white-space: nowrap;
+  }
+  nav button.active { color: var(--verde); border-bottom-color: var(--verde); background: var(--verde-claro); }
+  nav button:hover:not(.active) { background: #f5f5f0; color: var(--gris); }
+  .modulo { display: none; padding: 20px; max-width: 760px; margin: 0 auto; }
+  .modulo.visible { display: block; }
+
+  /* Cards */
+  .card {
+    background: #fff; border-radius: 12px; padding: 18px;
+    margin-bottom: 16px; border: 1px solid var(--borde);
+  }
+  .card h3 { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+  .card-verde { border-left: 4px solid var(--verde); }
+  .card-azul { border-left: 4px solid var(--azul); }
+  .card-rojo { border-left: 4px solid var(--rojo); }
+  .card-amb { border-left: 4px solid var(--amb); }
+  .card-purp { border-left: 4px solid var(--purp); }
+
+  /* Dilemmas */
+  .dilema {
+    background: #fff; border-radius: 12px; margin-bottom: 14px;
+    border: 1.5px solid var(--borde); overflow: hidden;
+  }
+  .dilema-header {
+    padding: 16px 18px; cursor: pointer;
+    display: flex; gap: 12px; align-items: flex-start;
+  }
+  .dilema-num {
+    background: var(--verde); color: #fff; font-size: 12px; font-weight: 700;
+    min-width: 26px; height: 26px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;
+  }
+  .dilema-texto { font-size: 14px; font-weight: 500; flex: 1; }
+  .dilema-btn {
+    background: var(--verde-claro); color: var(--verde); border: none;
+    padding: 5px 12px; border-radius: 16px; font-size: 12px; font-weight: 700;
+    cursor: pointer; flex-shrink: 0; margin-top: 2px;
+  }
+  .dilema-tension {
+    display: none; padding: 14px 18px 18px;
+    background: var(--rojo-claro); border-top: 1px solid #f0c0c0;
+  }
+  .dilema-tension.visible { display: block; }
+  .dilema-tension .label {
+    font-size: 11px; font-weight: 700; color: var(--rojo);
+    text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px;
+  }
+
+  /* Criteria table */
+  .criteria-grid {
+    display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 16px;
+  }
+  .criterio {
+    background: #fff; border-radius: 10px; border: 1px solid var(--borde);
+    overflow: hidden; cursor: pointer;
+  }
+  .criterio-header {
+    display: flex; gap: 12px; align-items: center; padding: 14px 16px;
+    background: var(--verde-claro);
+  }
+  .criterio-icono {
+    font-size: 20px; min-width: 32px; text-align: center;
+  }
+  .criterio-nombres { flex: 1; }
+  .criterio-nombres .cua { font-size: 14px; font-weight: 700; color: var(--verde); }
+  .criterio-nombres .cuan { font-size: 12px; color: var(--verde-med); font-style: italic; }
+  .criterio-expand { font-size: 11px; font-weight: 700; color: var(--verde-med); }
+  .criterio-body { display: none; padding: 14px 16px; }
+  .criterio-body.visible { display: block; }
+  .criterio-body h5 { font-size: 12px; font-weight: 700; color: var(--gris); margin: 8px 0 4px; text-transform: uppercase; letter-spacing: 0.04em; }
+  .criterio-body h5:first-child { margin-top: 0; }
+  .tag {
+    display: inline-block; font-size: 11px; font-weight: 700;
+    padding: 2px 8px; border-radius: 10px; margin-right: 4px; margin-bottom: 4px;
+  }
+  .tag-verde { background: var(--verde-claro); color: var(--verde); }
+  .tag-rojo { background: var(--rojo-claro); color: var(--rojo); }
+
+  /* Ethics principles */
+  .principio { background: #fff; border-radius: 10px; margin-bottom: 12px; overflow: hidden; border: 1px solid var(--borde); }
+  .principio-header {
+    display: flex; align-items: center; gap: 12px; padding: 14px 16px;
+    cursor: pointer; background: var(--azul-claro);
+  }
+  .principio-icon { font-size: 18px; }
+  .principio-titulo { font-size: 14px; font-weight: 700; color: var(--azul); flex: 1; }
+  .principio-body { display: none; padding: 14px 16px; }
+  .principio-body.visible { display: block; }
+  .res-box {
+    background: var(--amb-claro); border-left: 3px solid var(--amb);
+    border-radius: 0 8px 8px 0; padding: 10px 14px; margin-top: 10px;
+    font-size: 12px;
+  }
+  .res-box .res-label { font-size: 11px; font-weight: 700; color: var(--amb); text-transform: uppercase; margin-bottom: 4px; }
+
+  /* Tensiones */
+  .tension { background: #fff; border-radius: 10px; margin-bottom: 12px; border: 1px solid var(--borde); }
+  .tension-q {
+    padding: 16px; font-size: 14px; font-weight: 600; font-style: italic;
+    color: var(--purp); cursor: pointer; display: flex; align-items: flex-start; gap: 10px;
+    background: var(--purp-claro); border-radius: 10px;
+  }
+  .tension-q.open { border-radius: 10px 10px 0 0; }
+  .tension-icon { font-size: 18px; flex-shrink: 0; }
+  .tension-body { display: none; padding: 14px 16px; }
+  .tension-body.visible { display: block; }
+  .tension-posicion {
+    margin-bottom: 10px; padding: 10px 14px; border-radius: 8px; font-size: 13px;
+  }
+  .pos-a { background: #e8f5ee; border-left: 3px solid var(--verde); }
+  .pos-b { background: var(--rojo-claro); border-left: 3px solid var(--rojo); }
+  .pos-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 4px; }
+  .pos-a .pos-label { color: var(--verde); }
+  .pos-b .pos-label { color: var(--rojo); }
+
+  /* Pasaporte generator */
+  .form-group { margin-bottom: 14px; }
+  .form-group label {
+    display: block; font-size: 13px; font-weight: 700; color: var(--gris);
+    margin-bottom: 5px;
+  }
+  .form-group textarea, .form-group select, .form-group input {
+    width: 100%; padding: 10px 12px; border: 1.5px solid var(--borde);
+    border-radius: 8px; font-size: 13px; font-family: inherit;
+    line-height: 1.5; resize: vertical; color: var(--gris); background: #fff;
+    transition: border-color 0.2s;
+  }
+  .form-group textarea:focus, .form-group select:focus, .form-group input:focus {
+    outline: none; border-color: var(--verde);
+  }
+  .form-group .hint { font-size: 11px; color: #888; margin-top: 3px; font-style: italic; }
+  .btn-primary {
+    background: var(--verde); color: #fff; border: none; padding: 12px 24px;
+    border-radius: 8px; font-size: 14px; font-weight: 700; cursor: pointer;
+    width: 100%; margin-top: 8px; transition: background 0.2s;
+  }
+  .btn-primary:hover { background: var(--verde-med); }
+  .btn-copy {
+    background: var(--azul-claro); color: var(--azul); border: 1.5px solid var(--azul);
+    padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 700;
+    cursor: pointer; margin-top: 10px; transition: all 0.2s;
+  }
+  .btn-copy:hover { background: var(--azul); color: #fff; }
+  .pasaporte-output {
+    display: none; background: var(--gris-suave); border-radius: 10px;
+    padding: 18px; margin-top: 16px; border: 1.5px solid var(--borde);
+  }
+  .pasaporte-output.visible { display: block; }
+  .pasaporte-output h3 {
+    color: var(--verde); font-size: 15px; font-weight: 700;
+    margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid var(--verde-claro);
+  }
+  .pasaporte-campo { margin-bottom: 10px; }
+  .pasaporte-campo .pc-label { font-size: 11px; font-weight: 700; color: var(--verde); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 2px; }
+  .pasaporte-campo .pc-valor { font-size: 13px; }
+  .prompt-box {
+    background: #1a1a1a; color: #e8e8e8; border-radius: 8px;
+    padding: 14px; margin-top: 14px; font-size: 12px; font-family: monospace; line-height: 1.6;
+  }
+  .prompt-box .prompt-label { color: #4ade80; font-weight: 700; font-size: 11px; margin-bottom: 8px; display: block; }
+
+  /* Practica */
+  .ejercicio {
+    background: #fff; border-radius: 10px; margin-bottom: 14px;
+    border: 1px solid var(--borde); overflow: hidden;
+  }
+  .ejercicio-header {
+    padding: 14px 16px; background: var(--gris-suave);
+    display: flex; align-items: flex-start; gap: 12px;
+  }
+  .ej-num {
+    background: var(--verde); color: #fff; font-size: 12px; font-weight: 700;
+    min-width: 26px; height: 26px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .ej-titulo { font-size: 14px; font-weight: 700; flex: 1; }
+  .ej-tipo { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 10px; }
+  .tipo-ind { background: #e8f0f8; color: #1a3a5c; }
+  .tipo-coop { background: var(--verde-claro); color: var(--verde); }
+  .ejercicio-body { padding: 14px 16px; }
+  .ejercicio-respuesta { display: none; background: var(--verde-claro); border-radius: 8px; padding: 12px; margin-top: 10px; }
+  .ejercicio-respuesta.visible { display: block; }
+  .ver-respuesta {
+    background: none; border: 1.5px solid var(--verde); color: var(--verde);
+    padding: 6px 14px; border-radius: 16px; font-size: 12px; font-weight: 700;
+    cursor: pointer; margin-top: 10px;
+  }
+
+  /* Copy feedback */
+  .copy-feedback {
+    display: none; color: var(--verde); font-size: 12px; font-weight: 700;
+    margin-top: 6px; text-align: center;
+  }
+  .copy-feedback.visible { display: block; }
+
+  /* Section titles */
+  .seccion-titulo {
+    font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--verde-med); margin: 20px 0 10px; padding-bottom: 4px;
+    border-bottom: 1px solid var(--verde-claro);
+  }
+  .intro-text {
+    background: var(--verde); color: #fff; border-radius: 10px;
+    padding: 16px 18px; margin-bottom: 18px; font-size: 14px; line-height: 1.7;
+  }
+  p { margin-bottom: 8px; }
+  ul, ol { padding-left: 20px; margin-bottom: 8px; }
+  li { margin-bottom: 4px; }
+  strong { font-weight: 600; }
+  em { font-style: italic; }
+  .nota {
+    background: var(--amb-claro); border-left: 3px solid var(--amb);
+    border-radius: 0 8px 8px 0; padding: 10px 14px; margin: 10px 0; font-size: 13px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Brújula Ética y de Calidad · Investigación Cualitativa</h1>
+  <p>Seminario de Investigación II · Psicología · UdeC Facatativá · Sesión 7</p>
+</header>
+
+<nav>
+  <button class="active" onclick="mostrar(0)">0. Descubrir</button>
+  <button onclick="mostrar(1)">1. Calidad</button>
+  <button onclick="mostrar(2)">2. Ética</button>
+  <button onclick="mostrar(3)">3. Tensiones</button>
+  <button onclick="mostrar(4)">4. Pasaporte Ético</button>
+  <button onclick="mostrar(5)">5. Práctica</button>
+</nav>
+
+
+<!-- MÓDULO 0: DESCUBRIR -->
+<div class="modulo visible" id="mod-0">
+  <div class="intro-text">
+    Antes de cualquier definición: cuatro situaciones reales que investigadores cualitativos en psicología han enfrentado. Para cada una, lee el caso y luego revela la tensión que esconde.
+  </div>
+
+  <div class="dilema">
+    <div class="dilema-header">
+      <div class="dilema-num">1</div>
+      <div class="dilema-texto">Llevas tres meses haciendo observación participante en una comunidad. Tu diseño emergente te llevó a lugares que no anticipaste. Un participante te confiesa algo que podría implicar daño a terceros.</div>
+      <button class="dilema-btn" onclick="revelar('d1')">Revelar tensión</button>
+    </div>
+    <div class="dilema-tension" id="d1">
+      <div class="label">La tensión</div>
+      <p>La confidencialidad que prometiste en el consentimiento informado choca con tu obligación ética de prevenir un daño. La Resolución 8430 no resuelve esto directamente. ¿El consentimiento que firmó incluía esta posibilidad? ¿Firmó para que guardes silencio ante cualquier cosa?</p>
+      <p style="margin-top:8px"><strong>Pregunta clave:</strong> ¿La confidencialidad es un derecho del participante o una herramienta del investigador para acceder a información sensible?</p>
+    </div>
+  </div>
+
+  <div class="dilema">
+    <div class="dilema-header">
+      <div class="dilema-num">2</div>
+      <div class="dilema-texto">Al presentar tus resultados a la comunidad que estudiaste, ellos no se reconocen en el retrato que hiciste. Lo describen como injusto e incompleto. Pero tus datos respaldan tu interpretación.</div>
+      <button class="dilema-btn" onclick="revelar('d2')">Revelar tensión</button>
+    </div>
+    <div class="dilema-tension" id="d2">
+      <div class="label">La tensión</div>
+      <p>¿Quién tiene la última palabra sobre los significados que emergen de una investigación cualitativa? Si el paradigma asume que la realidad se construye intersubjetivamente, ¿puede el investigador imponer su construcción sobre la de los participantes?</p>
+      <p style="margin-top:8px"><strong>Pregunta clave:</strong> La <em>confirmabilidad</em> (Lincoln & Guba) exige que los hallazgos sean rastreables a los datos. Pero, ¿qué pasa cuando los datos son interpretables de más de una manera y los participantes eligen otra?</p>
+    </div>
+  </div>
+
+  <div class="dilema">
+    <div class="dilema-header">
+      <div class="dilema-num">3</div>
+      <div class="dilema-texto">Tu diseño emergente cambió significativamente a mitad del proceso. Las preguntas que haces ahora son distintas a las que describiste en el formulario de consentimiento que firmaron al inicio.</div>
+      <button class="dilema-btn" onclick="revelar('d3')">Revelar tensión</button>
+    </div>
+    <div class="dilema-tension" id="d3">
+      <div class="label">La tensión</div>
+      <p>El consentimiento informado fue dado para una investigación que ya no existe. Hammersley argumenta que el diseño emergente es una fortaleza metodológica, pero el marco ético colombiano asume que el investigador sabe lo que va a hacer antes de iniciar.</p>
+      <p style="margin-top:8px"><strong>Pregunta clave:</strong> ¿El consentimiento es un momento (firma al inicio) o un proceso continuo? ¿Qué implica esto para tu diseño?</p>
+    </div>
+  </div>
+
+  <div class="dilema">
+    <div class="dilema-header">
+      <div class="dilema-num">4</div>
+      <div class="dilema-texto">Eres estudiante de psicología investigando bienestar en una comunidad donde la psicología tiene mala reputación por intervenciones anteriores que dejaron consecuencias negativas.</div>
+      <button class="dilema-btn" onclick="revelar('d4')">Revelar tensión</button>
+    </div>
+    <div class="dilema-tension" id="d4">
+      <div class="label">La tensión</div>
+      <p>El poder no es solo legal (tener aprobación ética institucional). Es también histórico y estructural. Una investigación técnicamente correcta puede seguir reproduciendo una relación extractiva si el investigador llega, toma información y se va sin dejar nada.</p>
+      <p style="margin-top:8px"><strong>Pregunta clave:</strong> ¿Qué recibe la comunidad a cambio de su participación en tu estudio? ¿Has pensado en eso como una dimensión ética, no solo logística?</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- MÓDULO 1: CALIDAD -->
+<div class="modulo" id="mod-1">
+  <div class="intro-text">
+    La investigación cualitativa no usa <em>validez</em> ni <em>confiabilidad</em> en el mismo sentido que la cuantitativa — esos criterios asumen una realidad única y medible. Lincoln y Guba (1985) propusieron criterios equivalentes pero coherentes con la lógica cualitativa: el marco de <strong>trustworthiness</strong> (rigor o confiabilidad cualitativa).
+  </div>
+
+  <div class="seccion-titulo">Los cuatro criterios de Lincoln y Guba</div>
+
+  <div class="criteria-grid">
+
+    <div class="criterio">
+      <div class="criterio-header" onclick="toggleCriterio('c1')">
+        <div class="criterio-icono">🎯</div>
+        <div class="criterio-nombres">
+          <div class="cua">Credibilidad</div>
+          <div class="cuan">≈ Validez interna (cuantitativa)</div>
+        </div>
+        <div class="criterio-expand" id="exp-c1">▼ Ver</div>
+      </div>
+      <div class="criterio-body" id="c1">
+        <p><strong>¿Qué pregunta responde?</strong> ¿Los hallazgos representan realmente las experiencias de los participantes?</p>
+        <h5>Estrategias para lograrla</h5>
+        <span class="tag tag-verde">Triangulación de fuentes</span>
+        <span class="tag tag-verde">Chequeo con participantes (member checking)</span>
+        <span class="tag tag-verde">Observación prolongada</span>
+        <span class="tag tag-verde">Revisión por pares</span>
+        <span class="tag tag-verde">Análisis de casos negativos</span>
+        <h5 style="margin-top:10px">Amenazas frecuentes</h5>
+        <span class="tag tag-rojo">Ver solo lo que confirma la hipótesis previa</span>
+        <span class="tag tag-rojo">Entrevistas muy cortas</span>
+        <span class="tag tag-rojo">No volver con los participantes</span>
+        <div class="nota" style="margin-top:10px">
+          <strong>Para tu investigación:</strong> ¿Tienes previsto algún mecanismo para verificar que tu interpretación corresponde a lo que los participantes realmente quisieron decir?
+        </div>
+      </div>
+    </div>
+
+    <div class="criterio">
+      <div class="criterio-header" onclick="toggleCriterio('c2')">
+        <div class="criterio-icono">🗺</div>
+        <div class="criterio-nombres">
+          <div class="cua">Transferibilidad</div>
+          <div class="cuan">≈ Validez externa / generalización</div>
+        </div>
+        <div class="criterio-expand" id="exp-c2">▼ Ver</div>
+      </div>
+      <div class="criterio-body" id="c2">
+        <p><strong>¿Qué pregunta responde?</strong> ¿En qué medida los hallazgos podrían aplicarse a otros contextos similares?</p>
+        <p style="margin-top:6px"><em>Nota crítica:</em> No es el investigador quien generaliza — es el lector quien decide si los hallazgos son transferibles a su propio contexto. El investigador solo provee suficiente detalle para que esa decisión sea posible.</p>
+        <h5>Estrategias para lograrla</h5>
+        <span class="tag tag-verde">Descripción densa (thick description)</span>
+        <span class="tag tag-verde">Descripción detallada del contexto</span>
+        <span class="tag tag-verde">Caracterización exhaustiva de los participantes</span>
+        <h5 style="margin-top:10px">Amenazas frecuentes</h5>
+        <span class="tag tag-rojo">Contexto descrito en una sola oración</span>
+        <span class="tag tag-rojo">Participantes descritos solo con variables demográficas</span>
+        <div class="nota" style="margin-top:10px">
+          <strong>Para tu investigación:</strong> ¿Tu sección de metodología describe el contexto con suficiente detalle para que alguien en otra ciudad pueda decidir si tus hallazgos aplican allá?
+        </div>
+      </div>
+    </div>
+
+    <div class="criterio">
+      <div class="criterio-header" onclick="toggleCriterio('c3')">
+        <div class="criterio-icono">📋</div>
+        <div class="criterio-nombres">
+          <div class="cua">Dependabilidad</div>
+          <div class="cuan">≈ Confiabilidad / consistencia</div>
+        </div>
+        <div class="criterio-expand" id="exp-c3">▼ Ver</div>
+      </div>
+      <div class="criterio-body" id="c3">
+        <p><strong>¿Qué pregunta responde?</strong> ¿El proceso fue consistente y podría ser auditado por otro investigador?</p>
+        <p style="margin-top:6px">No significa que otro investigador obtendría los mismos resultados — la realidad cualitativa no es replicable en ese sentido. Significa que las decisiones tomadas en el camino son rastreables, explícitas y justificadas.</p>
+        <h5>Estrategias para lograrla</h5>
+        <span class="tag tag-verde">Auditoría del proceso (decision trail)</span>
+        <span class="tag tag-verde">Registro de decisiones metodológicas</span>
+        <span class="tag tag-verde">Bitácora de campo detallada</span>
+        <h5 style="margin-top:10px">Amenazas frecuentes</h5>
+        <span class="tag tag-rojo">Cambiar de criterio de análisis sin documentarlo</span>
+        <span class="tag tag-rojo">No registrar por qué se excluyó a ciertos participantes</span>
+        <div class="nota" style="margin-top:10px">
+          <strong>Para tu investigación:</strong> Si alguien te pregunta por qué tomaste cada decisión metodológica, ¿tienes registrado el argumento en algún lugar? ¿O solo está en tu cabeza?
+        </div>
+      </div>
+    </div>
+
+    <div class="criterio">
+      <div class="criterio-header" onclick="toggleCriterio('c4')">
+        <div class="criterio-icono">🔍</div>
+        <div class="criterio-nombres">
+          <div class="cua">Confirmabilidad</div>
+          <div class="cuan">≈ Objetividad</div>
+        </div>
+        <div class="criterio-expand" id="exp-c4">▼ Ver</div>
+      </div>
+      <div class="criterio-body" id="c4">
+        <p><strong>¿Qué pregunta responde?</strong> ¿Los hallazgos reflejan los datos y la perspectiva de los participantes, y no solo los sesgos del investigador?</p>
+        <p style="margin-top:6px"><em>Atención:</em> No se busca neutralidad — la investigación cualitativa asume que el investigador influye. Se busca <strong>reflexividad</strong>: hacer explícita esa influencia para que el lector la considere.</p>
+        <h5>Estrategias para lograrla</h5>
+        <span class="tag tag-verde">Reflexividad explícita en el texto</span>
+        <span class="tag tag-verde">Auditoría externa</span>
+        <span class="tag tag-verde">Triangulación de investigadores</span>
+        <span class="tag tag-verde">Corchete fenomenológico (epoché)</span>
+        <h5 style="margin-top:10px">Amenazas frecuentes</h5>
+        <span class="tag tag-rojo">Ocultar el posicionamiento del investigador</span>
+        <span class="tag tag-rojo">Presentar interpretaciones como si fueran hechos</span>
+        <div class="nota" style="margin-top:10px">
+          <strong>Para tu investigación:</strong> ¿En qué parte de tu monografía aparece <em>quién eres tú</em> como investigador y por qué eso importa para entender tus hallazgos?
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="seccion-titulo">Tracy (2010) — Los ocho grandes criterios</div>
+  <div class="card card-azul">
+    <h3>Una propuesta más reciente y más amplia</h3>
+    <p>Sarah Tracy (2010) propone que la calidad en investigación cualitativa no puede reducirse a cuatro criterios. Su marco de "eight big-tent criteria" —aceptable en múltiples tradiciones metodológicas— agrega dimensiones que Lincoln y Guba no contemplaron explícitamente:</p>
+    <ul style="margin-top:10px;font-size:13px">
+      <li><strong>Tema digno:</strong> ¿el problema es relevante, oportuno y significativo?</li>
+      <li><strong>Rigor:</strong> trabajo de campo suficiente, análisis suficientemente desarrollado.</li>
+      <li><strong>Sinceridad:</strong> reflexividad y transparencia sobre el proceso.</li>
+      <li><strong>Credibilidad</strong> (coincide con Lincoln & Guba).</li>
+      <li><strong>Resonancia:</strong> ¿los hallazgos generan comprensión en quienes los leen?</li>
+      <li><strong>Contribución significativa:</strong> teórica, práctica o metodológica.</li>
+      <li><strong>Ética:</strong> trato digno a los participantes y a la comunidad académica.</li>
+      <li><strong>Coherencia con el paradigma:</strong> ¿el método corresponde al problema?</li>
+    </ul>
+    <p style="margin-top:10px;font-size:12px;font-style:italic">Referencia: Tracy, S. J. (2010). Qualitative quality: Eight "big-tent" criteria for excellent qualitative research. <em>Qualitative Inquiry, 16</em>(10), 837–851.</p>
+  </div>
+</div>
+
+
+<!-- MÓDULO 2: ÉTICA -->
+<div class="modulo" id="mod-2">
+  <div class="intro-text">
+    La ética en investigación cualitativa no se reduce a llenar un formulario de consentimiento. En la ruta cualitativa, la relación entre investigador y participante es prolongada, asimétrica en poder, y a menudo se adentra en experiencias íntimas o sensibles. Esto genera obligaciones éticas que los protocolos estándar no siempre contemplan.
+  </div>
+
+  <div class="seccion-titulo">Principios fundamentales</div>
+
+  <div class="principio">
+    <div class="principio-header" onclick="togglePrincipio('p1')">
+      <div class="principio-icon">📝</div>
+      <div class="principio-titulo">Consentimiento informado</div>
+    </div>
+    <div class="principio-body" id="p1">
+      <p>El participante debe entender qué está autorizando: qué se hará con la información, quién tendrá acceso, hasta cuándo se guardará, qué riesgos existen y que puede retirarse en cualquier momento sin consecuencias.</p>
+      <p style="margin-top:8px"><strong>El problema cualitativo:</strong> si el diseño es emergente —como plantea Hammersley— el investigador no puede describir completamente lo que va a pasar. El consentimiento tradicional asume que el investigador sabe adónde va. La solución ética es el <em>consentimiento continuo o procesual</em>: re-negociar el permiso a medida que el estudio evoluciona.</p>
+      <div class="res-box">
+        <div class="res-label">Resolución 8430 de 1993 — Colombia</div>
+        <p>Artículo 14: el consentimiento informado debe ser escrito, libre, voluntario y fundamentado. Artículo 15: establece los elementos mínimos que debe contener. Las categorías de riesgo (Art. 11) determinan si se requiere revisión por comité de ética.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="principio">
+    <div class="principio-header" onclick="togglePrincipio('p2')">
+      <div class="principio-icon">🔒</div>
+      <div class="principio-titulo">Confidencialidad y anonimato</div>
+    </div>
+    <div class="principio-body" id="p2">
+      <p><strong>Confidencialidad:</strong> la información no se divulga a terceros no autorizados. <strong>Anonimato:</strong> la información no puede vincularse a una persona específica. No son lo mismo: se puede tener confidencialidad sin anonimato (sabes quién dijo qué pero no lo publicas) y es difícil garantizar anonimato en comunidades pequeñas donde las historias son reconocibles.</p>
+      <p style="margin-top:8px"><strong>Tensión cualitativa:</strong> la descripción densa que exige la transferibilidad puede ser incompatible con el anonimato. Mientras más detalle contextual ofreces, más fácil es identificar a los participantes. Hay que negociar explícitamente con ellos qué puede publicarse y en qué forma.</p>
+    </div>
+  </div>
+
+  <div class="principio">
+    <div class="principio-header" onclick="togglePrincipio('p3')">
+      <div class="principio-icon">⚖️</div>
+      <div class="principio-titulo">Riesgo mínimo y beneficio</div>
+    </div>
+    <div class="principio-body" id="p3">
+      <p>El principio de no-maleficencia en investigación: los riesgos para los participantes deben ser mínimos y proporcionales a los beneficios esperados del conocimiento producido.</p>
+      <div class="res-box">
+        <div class="res-label">Categorías de riesgo — Resolución 8430, Art. 11</div>
+        <ul style="font-size:12px;margin-top:4px">
+          <li><strong>Sin riesgo:</strong> revisión de datos existentes, sin intervención ni contacto.</li>
+          <li><strong>Riesgo mínimo:</strong> técnicas no invasivas — entrevistas, cuestionarios sobre temas no sensibles.</li>
+          <li><strong>Riesgo mayor que el mínimo:</strong> temas sensibles (abuso, trauma, salud mental), grupos vulnerables, intervenciones.</li>
+        </ul>
+      </div>
+      <p style="margin-top:8px"><strong>Ojo:</strong> una entrevista sobre experiencias de discriminación, violencia o salud mental se clasifica como riesgo mayor que el mínimo. Muchas tesis de psicología no contemplan esto.</p>
+    </div>
+  </div>
+
+  <div class="principio">
+    <div class="principio-header" onclick="togglePrincipio('p4')">
+      <div class="principio-icon">🤝</div>
+      <div class="principio-titulo">Relación de poder y devolución de resultados</div>
+    </div>
+    <div class="principio-body" id="p4">
+      <p>En la investigación cualitativa, el investigador tiene poder sobre la representación del otro: decide qué citar, cómo interpretar, qué enfatizar y qué omitir. Esta asimetría es constitutiva de la práctica investigativa y no desaparece con buenas intenciones.</p>
+      <p style="margin-top:8px">La <strong>devolución de resultados</strong> a la comunidad o a los participantes no es solo un gesto ético adicional — en paradigmas críticos y en IAP es una obligación metodológica. En diseños interpretativos es al menos un imperativo ético: las personas que dieron su tiempo y su experiencia tienen derecho a conocer lo que se construyó con ellas.</p>
+      <p style="margin-top:8px"><strong>Pregunta incómoda para tu investigación:</strong> ¿qué recibirán tus participantes a cambio de su participación? ¿Lo has pensado como parte del diseño o solo como un trámite?</p>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- MÓDULO 3: TENSIONES -->
+<div class="modulo" id="mod-3">
+  <div class="intro-text">
+    Los criterios de calidad y los principios éticos no son fáciles de cumplir simultáneamente. Estos son los puntos donde la investigación cualitativa en psicología enfrenta sus dilemas más reales. No hay respuestas únicas — hay posturas con argumentos.
+  </div>
+
+  <div class="tension">
+    <div class="tension-q" onclick="toggleTension('t1')">
+      <div class="tension-icon">⚡</div>
+      <div>¿Puede haber consentimiento informado en un diseño verdaderamente emergente?</div>
+    </div>
+    <div class="tension-body" id="t1">
+      <div class="tension-posicion pos-a">
+        <div class="pos-label">Postura A — El consentimiento como proceso</div>
+        El consentimiento no es un momento sino una negociación continua. Se puede firmar un consentimiento inicial de "ingreso al estudio" y re-negociar cada vez que el diseño cambia significativamente. Esto es más honesto que pretender que todo está predefinido.
+      </div>
+      <div class="tension-posicion pos-b">
+        <div class="pos-label">Postura B — El límite de la emergencia</div>
+        Un participante no puede dar consentimiento para algo que nadie puede describir. Hay un punto en el que la "emergencia del diseño" se convierte en una justificación para hacer lo que sea. El marco ético exige al menos un esquema de lo que se hará.
+      </div>
+      <p style="margin-top:10px;font-size:13px"><strong>¿Qué implica esto para tu diseño?</strong> Si dices que tu diseño es emergente, ¿tienes un protocolo de reconsentimiento o solo el formulario del inicio?</p>
+    </div>
+  </div>
+
+  <div class="tension">
+    <div class="tension-q" onclick="toggleTension('t2')">
+      <div class="tension-icon">⚡</div>
+      <div>¿La confidencialidad protege al participante o al investigador?</div>
+    </div>
+    <div class="tension-body" id="t2">
+      <div class="tension-posicion pos-a">
+        <div class="pos-label">Postura A — La confidencialidad como protección</div>
+        Sin confidencialidad, los participantes no hablarían con honestidad sobre temas sensibles. La confidencialidad crea el espacio de confianza necesario para la producción de información rica y auténtica.
+      </div>
+      <div class="tension-posicion pos-b">
+        <div class="pos-label">Postura B — La confidencialidad como control</div>
+        La promesa de confidencialidad también protege al investigador: si algo sale mal, hay menos responsabilidad. Además, en comunidades pequeñas, el anonimato es imposible de garantizar — y prometarlo crea una falsa seguridad que puede ser más dañina que no prometarlo.
+      </div>
+      <p style="margin-top:10px;font-size:13px"><strong>Para tu investigación:</strong> ¿Puedes garantizar realmente el anonimato, dado el tamaño de tu contexto de investigación?</p>
+    </div>
+  </div>
+
+  <div class="tension">
+    <div class="tension-q" onclick="toggleTension('t3')">
+      <div class="tension-icon">⚡</div>
+      <div>Credibilidad vs. descripción densa: ¿se puede tener los dos?</div>
+    </div>
+    <div class="tension-body" id="t3">
+      <div class="tension-posicion pos-a">
+        <div class="pos-label">La tensión</div>
+        La transferibilidad exige descripción densa del contexto y los participantes. Pero más descripción = más posibilidad de identificar a las personas. Hay estudios donde cumplir el criterio de transferibilidad implica violar el de confidencialidad. No existe una solución perfecta — solo decisiones explícitas y negociadas con los participantes.
+      </div>
+      <p style="margin-top:10px;font-size:13px"><strong>Para tu investigación:</strong> ¿Cuánto detalle contextual necesitas para que tus hallazgos sean transferibles? ¿Es compatible con el anonimato que prometiste?</p>
+    </div>
+  </div>
+
+  <div class="tension">
+    <div class="tension-q" onclick="toggleTension('t4')">
+      <div class="tension-icon">⚡</div>
+      <div>¿Cuándo la investigación cualitativa se convierte en extracción de información?</div>
+    </div>
+    <div class="tension-body" id="t4">
+      <div class="tension-posicion pos-a">
+        <div class="pos-label">La línea que no siempre está clara</div>
+        Una investigación es extractiva cuando: el investigador llega, toma lo que necesita y se va sin dejar nada a la comunidad; cuando los hallazgos circulan en ámbitos académicos sin llegar a quienes los produjeron; cuando la experiencia de los participantes es tratada como "datos" sin reconocer la dimensión relacional del proceso.
+      </div>
+      <div class="tension-posicion pos-b">
+        <div class="pos-label">El paradigma crítico como respuesta</div>
+        La IAP y la investigación acción fueron diseñadas precisamente para romper con esta lógica: los participantes son co-investigadores, el proceso produce aprendizaje colectivo, y los hallazgos se devuelven como herramienta de transformación. No toda investigación puede (ni debe) ser participativa, pero toda investigación debe pensar en la devolución.
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- MÓDULO 4: PASAPORTE ÉTICO -->
+<div class="modulo" id="mod-4">
+  <div class="intro-text">
+    Completa este formulario con los datos de tu investigación. Al final, genera tu <strong>Pasaporte Ético</strong> — un documento estructurado que resume las decisiones éticas de tu diseño. Lo usarás para la actividad con Claude en clase.
+  </div>
+
+  <div class="card">
+    <h3>Información de la investigación</h3>
+
+    <div class="form-group">
+      <label>Tema o título provisional</label>
+      <input type="text" id="f-tema" placeholder="Ej: Experiencias de duelo en mujeres migrantes en Facatativá">
+    </div>
+
+    <div class="form-group">
+      <label>Enfoque metodológico declarado</label>
+      <select id="f-enfoque">
+        <option value="">Selecciona...</option>
+        <option>Cualitativo — fenomenológico</option>
+        <option>Cualitativo — narrativo / biográfico</option>
+        <option>Cualitativo — teoría fundamentada</option>
+        <option>Cualitativo — hermenéutico</option>
+        <option>Cualitativo — etnográfico</option>
+        <option>IAP / investigación acción</option>
+        <option>Cuantitativo</option>
+        <option>Mixto</option>
+        <option>No definido aún</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>¿Quiénes son tus participantes? (características, edad, contexto)</label>
+      <textarea id="f-participantes" rows="2" placeholder="Ej: Mujeres entre 30 y 55 años, residentes en Facatativá, que hayan vivido la pérdida de un familiar en los últimos 2 años..."></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>Técnica(s) de recolección de información</label>
+      <textarea id="f-tecnica" rows="2" placeholder="Ej: Entrevista en profundidad, observación participante, grupo focal..."></textarea>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Dimensiones éticas</h3>
+
+    <div class="form-group">
+      <label>¿Cómo obtendrás el consentimiento informado? ¿Es un momento o un proceso?</label>
+      <textarea id="f-consentimiento" rows="3" placeholder="Describe cuándo, cómo y en qué formato. Si tu diseño es emergente, explica cómo reconsentirás si el estudio cambia..."></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>¿Qué riesgos podría implicar la participación en tu estudio?</label>
+      <textarea id="f-riesgos" rows="3" placeholder="Considera: riesgo emocional (revivir experiencias difíciles), riesgo social (que otros sepan que participó), riesgo a la intimidad..."></textarea>
+      <div class="hint">Categoría Resolución 8430: sin riesgo / riesgo mínimo / mayor que mínimo</div>
+    </div>
+
+    <div class="form-group">
+      <label>¿Cómo protegerás la confidencialidad? ¿Puedes garantizar anonimato real?</label>
+      <textarea id="f-confidencialidad" rows="2" placeholder="Seudónimos, almacenamiento seguro, qué nivel de detalle contextual publicarás..."></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>¿Qué pasaría si emerge información sensible durante el trabajo de campo?</label>
+      <textarea id="f-emergencia" rows="2" placeholder="¿Tienes protocolo de contención? ¿Qué harías si un participante revela una situación de riesgo?"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>¿Qué recibirán los participantes a cambio de su participación?</label>
+      <textarea id="f-devolucion" rows="2" placeholder="Devolución de resultados, talleres, beneficio directo, reconocimiento... ¿O nada?"></textarea>
+    </div>
+  </div>
+
+  <button class="btn-primary" onclick="generarPasaporte()">Generar Pasaporte Ético</button>
+
+  <div class="pasaporte-output" id="pasaporte-resultado">
+    <h3>🛂 Pasaporte Ético de Investigación</h3>
+    <div id="pasaporte-contenido"></div>
+
+    <div class="seccion-titulo" style="margin-top:16px">Actividad con Claude</div>
+    <p style="font-size:13px;margin-bottom:10px">Copia tu pasaporte (botón abajo) y pégalo a Claude con el siguiente mensaje:</p>
+    <div class="prompt-box">
+      <span class="prompt-label">// Prompt para pegar junto con tu Pasaporte Ético</span>
+      Eres un revisor ético especializado en investigación cualitativa en psicología. Lee este pasaporte ético y haz lo siguiente:
+      1. Identifica TRES riesgos éticos que el equipo investigador posiblemente no ha contemplado, usando el marco de Lincoln y Guba y la Resolución 8430 de Colombia.
+      2. Para cada riesgo: (a) describe el problema, (b) a qué criterio o principio afecta, (c) sugiere una acción concreta para abordarlo.
+      3. Termina con UNA pregunta que el equipo debería responder antes de continuar.
+      Sé específico con el tema de la investigación. No hagas críticas genéricas.
+    </div>
+    <button class="btn-copy" onclick="copiarPasaporte()">Copiar pasaporte para Claude</button>
+    <div class="copy-feedback" id="copy-ok">✓ Copiado — pégalo en Claude junto con el prompt de arriba</div>
+  </div>
+</div>
+
+
+<!-- MÓDULO 5: PRÁCTICA -->
+<div class="modulo" id="mod-5">
+  <div class="intro-text">
+    Ejercicios para casa. Los marcados como individuales los haces solo; los cooperativos los resuelves con tu pareja antes de la sesión 8.
+  </div>
+
+  <div class="ejercicio">
+    <div class="ejercicio-header">
+      <div class="ej-num">1</div>
+      <div>
+        <div class="ej-titulo">Diagnóstico de criterios en un artículo real</div>
+        <span class="ej-tipo tipo-ind">Individual</span>
+      </div>
+    </div>
+    <div class="ejercicio-body">
+      <p>Toma uno de los artículos de tu marco teórico que sea investigación cualitativa. Lee la sección de metodología y evalúa: ¿el artículo evidencia los cuatro criterios de Lincoln y Guba? ¿Cuáles menciona explícitamente? ¿Cuáles están implícitos? ¿Cuáles ausentes?</p>
+      <p style="margin-top:8px;font-size:13px;font-style:italic">Escribe media página con tu análisis. No busques que el artículo falle — busca entender cómo investigadores reales manejan estos criterios.</p>
+    </div>
+  </div>
+
+  <div class="ejercicio">
+    <div class="ejercicio-header">
+      <div class="ej-num">2</div>
+      <div>
+        <div class="ej-titulo">La categoría de riesgo de tu investigación</div>
+        <span class="ej-tipo tipo-ind">Individual</span>
+      </div>
+    </div>
+    <div class="ejercicio-body">
+      <p>Lee los artículos 5 al 15 de la Resolución 8430 de 1993. Clasifica tu investigación en la categoría de riesgo que corresponde según el artículo 11. Justifica en tres oraciones por qué corresponde a esa categoría y no a las otras dos. Si tu categoría exige revisión por comité de ética, ¿qué implicaciones tiene eso para tu cronograma?</p>
+    </div>
+  </div>
+
+  <div class="ejercicio">
+    <div class="ejercicio-header">
+      <div class="ej-num">3</div>
+      <div>
+        <div class="ej-titulo">El formulario de consentimiento de tu investigación</div>
+        <span class="ej-tipo tipo-coop">Cooperativo</span>
+      </div>
+    </div>
+    <div class="ejercicio-body">
+      <p>Con tu pareja, redacten el borrador de un formulario de consentimiento informado para su investigación. Debe incluir todos los elementos del artículo 15 de la Resolución 8430. Luego intercámbienlo con otra pareja y verifiquen si el formulario del otro cumple los mismos elementos.</p>
+      <p style="margin-top:8px;font-size:13px;font-style:italic">Pregunta crítica para incluir en su revisión: ¿el formulario de la otra pareja cubre lo que pasaría si su diseño emergente cambia significativamente?</p>
+    </div>
+  </div>
+
+  <div class="ejercicio">
+    <div class="ejercicio-header">
+      <div class="ej-num">4</div>
+      <div>
+        <div class="ej-titulo">La reflexividad en tu monografía</div>
+        <span class="ej-tipo tipo-ind">Individual</span>
+      </div>
+    </div>
+    <div class="ejercicio-body">
+      <p>Escribe un párrafo de reflexividad para tu investigación: ¿quién eres tú en relación con el fenómeno que estudias? ¿Qué posición ocupas respecto a los participantes (edad, género, clase, profesión)? ¿Qué sesgos podrías tener que afecten la interpretación? ¿Cómo los vas a gestionar?</p>
+      <p style="margin-top:8px;font-size:13px;font-style:italic">Este párrafo va en tu monografía — en la sección metodológica, bajo "posición del investigador" o "reflexividad".</p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function mostrar(n) {
+    document.querySelectorAll('.modulo').forEach((m,i) => {
+      m.classList.toggle('visible', i === n);
+    });
+    document.querySelectorAll('nav button').forEach((b,i) => {
+      b.classList.toggle('active', i === n);
+    });
+    window.scrollTo(0,0);
+  }
+
+  function revelar(id) {
+    const el = document.getElementById(id);
+    const btn = el.previousElementSibling.querySelector('.dilema-btn');
+    el.classList.toggle('visible');
+    btn.textContent = el.classList.contains('visible') ? 'Ocultar' : 'Revelar tensión';
+  }
+
+  function toggleCriterio(id) {
+    const body = document.getElementById(id);
+    const exp = document.getElementById('exp-' + id);
+    body.classList.toggle('visible');
+    exp.textContent = body.classList.contains('visible') ? '▲ Cerrar' : '▼ Ver';
+  }
+
+  function togglePrincipio(id) {
+    const body = document.getElementById(id);
+    body.classList.toggle('visible');
+  }
+
+  function toggleTension(id) {
+    const body = document.getElementById(id);
+    const header = body.previousElementSibling;
+    body.classList.toggle('visible');
+    header.classList.toggle('open');
+  }
+
+  function generarPasaporte() {
+    const tema = document.getElementById('f-tema').value || '(sin especificar)';
+    const enfoque = document.getElementById('f-enfoque').value || '(sin especificar)';
+    const participantes = document.getElementById('f-participantes').value || '(sin especificar)';
+    const tecnica = document.getElementById('f-tecnica').value || '(sin especificar)';
+    const consentimiento = document.getElementById('f-consentimiento').value || '(sin especificar)';
+    const riesgos = document.getElementById('f-riesgos').value || '(sin especificar)';
+    const confidencialidad = document.getElementById('f-confidencialidad').value || '(sin especificar)';
+    const emergencia = document.getElementById('f-emergencia').value || '(sin especificar)';
+    const devolucion = document.getElementById('f-devolucion').value || '(sin especificar)';
+
+    const html = `
+      <div class="pasaporte-campo"><div class="pc-label">Tema</div><div class="pc-valor">${tema}</div></div>
+      <div class="pasaporte-campo"><div class="pc-label">Enfoque</div><div class="pc-valor">${enfoque}</div></div>
+      <div class="pasaporte-campo"><div class="pc-label">Participantes</div><div class="pc-valor">${participantes}</div></div>
+      <div class="pasaporte-campo"><div class="pc-label">Técnica(s)</div><div class="pc-valor">${tecnica}</div></div>
+      <div class="pasaporte-campo"><div class="pc-label">Consentimiento informado</div><div class="pc-valor">${consentimiento}</div></div>
+      <div class="pasaporte-campo"><div class="pc-label">Riesgos identificados</div><div class="pc-valor">${riesgos}</div></div>
+      <div class="pasaporte-campo"><div class="pc-label">Confidencialidad / anonimato</div><div class="pc-valor">${confidencialidad}</div></div>
+      <div class="pasaporte-campo"><div class="pc-label">Protocolo ante información sensible emergente</div><div class="pc-valor">${emergencia}</div></div>
+      <div class="pasaporte-campo"><div class="pc-label">Devolución a participantes</div><div class="pc-valor">${devolucion}</div></div>
+    `;
+    document.getElementById('pasaporte-contenido').innerHTML = html;
+    document.getElementById('pasaporte-resultado').classList.add('visible');
+    document.getElementById('pasaporte-resultado').scrollIntoView({behavior:'smooth'});
+
+    window._pasaporte_texto = `PASAPORTE ÉTICO DE INVESTIGACIÓN\n\nTema: ${tema}\nEnfoque: ${enfoque}\nParticipantes: ${participantes}\nTécnica(s): ${tecnica}\nConsentimiento informado: ${consentimiento}\nRiesgos identificados: ${riesgos}\nConfidencialidad/anonimato: ${confidencialidad}\nProtocolo ante información sensible emergente: ${emergencia}\nDevolución a participantes: ${devolucion}`;
+  }
+
+  function copiarPasaporte() {
+    const texto = window._pasaporte_texto || 'Primero genera el pasaporte.';
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(texto).then(() => {
+        document.getElementById('copy-ok').classList.add('visible');
+        setTimeout(() => document.getElementById('copy-ok').classList.remove('visible'), 3000);
+      });
+    } else {
+      const ta = document.createElement('textarea');
+      ta.value = texto; document.body.appendChild(ta);
+      ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+      document.getElementById('copy-ok').classList.add('visible');
+      setTimeout(() => document.getElementById('copy-ok').classList.remove('visible'), 3000);
+    }
+  }
+</script>
+</body>
+</html>
