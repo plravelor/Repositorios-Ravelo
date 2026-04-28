@@ -1,0 +1,2211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Asesor de Apoyos Externos – ESAP 2026</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --g:#003DA5;--gd:#002a75;--gl:#e6eefc;--gll:#f2f6fd;--ga:#a8c2ea;
+  --card:#fff;--border:#dde3ec;--bg:#e4e8ef;
+  --txt:#1a1d24;--muted:#68748a;
+  --warn:#fff8e6;--warnb:#f0ac00;--warnc:#7a5500;
+  --red:#fce9e7;--redc:#b83030;
+  --blue:#e8f0fe;--bluec:#1a56c4;
+  --sos:#e8f5e9;--sosc:#2e7d32;
+  --conv-bg:#fff3cd;--conv-b:#e6a817;
+  --f:'Plus Jakarta Sans',system-ui,sans-serif;
+  --fd:'Fraunces',Georgia,serif;
+  --shadow:0 6px 48px rgba(12,30,22,.18);
+  --esap-logo:url("data:image/png;base64,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");
+  /* WA-inspired surfaces */
+  --chat-bg:#efeae2;
+  --sidebar-bg:#f6f3ee;
+  --sidebar-hover:#ede8e0;
+  --hdr-bg:var(--g);
+  --hdr-txt:#fff;
+  --bot-bub:#ffffff;
+  --bot-bub-b:#ece6dd;
+  --usr-bub:var(--g);
+  --usr-bub-txt:#ffffff;
+  --scroll-th:#cdc7bc;
+}
+[data-theme="dark"]{
+  --g:#7aafff;--gd:#9bc4ff;--gl:#142f5f;--gll:#0f2346;--ga:#3b6cbf;
+  --card:#111b21;--border:#243339;--bg:#0a0f12;
+  --txt:#e9edef;--muted:#8696a0;
+  --warn:#3a2c08;--warnb:#c89212;--warnc:#ffd96b;
+  --red:#3a1f1d;--redc:#f5927a;
+  --blue:#13283f;--bluec:#7fb6ff;
+  --sos:#0d3a23;--sosc:#69d89c;
+  --conv-bg:#2b2007;--conv-b:#a97d1a;
+  --shadow:0 8px 60px rgba(0,0,0,.6);
+  --chat-bg:#0b141a;
+  --sidebar-bg:#111b21;
+  --sidebar-hover:#182229;
+  --hdr-bg:#003DA5;
+  --hdr-txt:#e9edef;
+  --bot-bub:#1f2c33;
+  --bot-bub-b:#263036;
+  --usr-bub:#005c4b;
+  --usr-bub-txt:#e9edef;
+  --scroll-th:#2f3b42;
+}
+html,body{height:100%;font-family:var(--f);background:var(--bg);color:var(--txt);transition:background .35s ease,color .35s ease}
+button{-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none}
+.ms-item:focus,.ch:focus{outline:none}
+.ms-item:focus-visible,.ch:focus-visible{outline:2px solid var(--g);outline-offset:2px}
+
+/* ── SHELL ── */
+#shell{
+  max-width:520px;margin:0 auto;height:100dvh;
+  display:flex;flex-direction:column;
+  background:var(--card);box-shadow:var(--shadow);overflow:hidden;
+  transition:background .35s ease;
+}
+#chat-panel{
+  flex:1;min-width:0;min-height:0;
+  display:flex;flex-direction:column;
+  background:var(--chat-bg);
+  transition:background .35s ease;
+}
+
+/* ── SIDEBAR (desktop only) ── */
+#sidebar{display:none}
+
+/* ── HEADER ── */
+#hdr{
+  flex-shrink:0;display:flex;align-items:center;gap:12px;
+  padding:13px 16px;background:var(--hdr-bg);color:var(--hdr-txt);
+  transition:background .35s ease,color .35s ease;
+  position:relative;z-index:2;
+}
+#hdr-logo{
+  width:112px;height:34px;flex-shrink:0;
+  background-image:var(--esap-logo);
+  background-size:contain;background-repeat:no-repeat;background-position:left center;
+  filter:drop-shadow(0 1px 2px rgba(0,0,0,.18));
+  transition:opacity .25s ease;
+}
+#hdr-div{
+  width:1px;height:28px;background:rgba(255,255,255,.25);
+  flex-shrink:0;margin:0 2px;
+}
+#hdr-info{flex:1;min-width:0;overflow:hidden}
+#hdr-pre{font-size:10.5px;font-weight:600;opacity:.85;letter-spacing:.2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:1px;text-transform:uppercase}
+#hdr-name{font-size:13.5px;font-weight:700;letter-spacing:-.1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#hdr-sub{font-size:10.5px;opacity:.82;margin-top:2px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr-btn{
+  flex-shrink:0;border:none;background:rgba(255,255,255,.16);color:inherit;
+  border-radius:9px;padding:7px 11px;font-size:12px;font-weight:600;
+  cursor:pointer;font-family:var(--f);transition:.2s cubic-bezier(.4,0,.2,1);
+  display:inline-flex;align-items:center;gap:6px;line-height:1;
+  backdrop-filter:blur(4px);
+}
+.hdr-btn:hover{background:rgba(255,255,255,.28);transform:translateY(-1px);box-shadow:0 3px 10px rgba(0,0,0,.15)}
+.hdr-btn:active{transform:translateY(0)}
+.hdr-btn.icon{padding:7px;width:32px;height:32px;justify-content:center}
+.hdr-btn svg{width:15px;height:15px;stroke-width:2.2}
+.hdr-btn.icon svg{width:16px;height:16px}
+#btn-restart{display:none}
+#btn-restart.vis{display:inline-flex}
+
+/* ── PROGRESS ── */
+#prog-wrap{
+  flex-shrink:0;padding:9px 16px 8px;background:var(--card);
+  border-bottom:1px solid var(--border);display:none;
+  transition:background .35s ease,border-color .35s ease;
+  position:relative;z-index:2;
+}
+#prog-lbl{font-size:11px;color:var(--muted);margin-bottom:5px;font-weight:600;letter-spacing:.3px;text-transform:uppercase}
+#prog-track{height:4px;background:var(--border);border-radius:99px;overflow:hidden}
+#prog-fill{height:100%;background:linear-gradient(90deg,var(--g),var(--gd));border-radius:99px;transition:width .5s cubic-bezier(.4,0,.2,1);box-shadow:0 0 8px rgba(0,61,165,.4)}
+
+/* ── MESSAGES ── */
+#msgs{
+  flex:1;overflow-y:auto;
+  padding:18px 14px 10px;
+  display:flex;flex-direction:column;gap:9px;
+  scroll-behavior:smooth;
+  min-height:0; /* critical for flex child to scroll */
+  background-color:var(--chat-bg);
+  background-image:
+    radial-gradient(circle at 12% 18%,rgba(0,61,165,.05) 0,transparent 42%),
+    radial-gradient(circle at 88% 82%,rgba(0,61,165,.04) 0,transparent 38%),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'><g fill='none' stroke='%23000' stroke-opacity='.035' stroke-width='1'><path d='M30 30 L45 45 M150 30 L135 45 M30 150 L45 135 M150 150 L135 135'/><circle cx='90' cy='90' r='3' fill='%23000' fill-opacity='.04' stroke='none'/><path d='M60 90 Q90 60 120 90 T180 90' stroke-opacity='.025'/><path d='M0 60 Q30 30 60 60 T120 60' stroke-opacity='.025'/></g></svg>");
+  transition:background-color .35s ease;
+}
+[data-theme="dark"] #msgs{
+  background-image:
+    radial-gradient(circle at 12% 18%,rgba(77,133,217,.07) 0,transparent 42%),
+    radial-gradient(circle at 88% 82%,rgba(77,133,217,.06) 0,transparent 38%),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'><g fill='none' stroke='%23fff' stroke-opacity='.03' stroke-width='1'><path d='M30 30 L45 45 M150 30 L135 45 M30 150 L45 135 M150 150 L135 135'/><circle cx='90' cy='90' r='3' fill='%23fff' fill-opacity='.035' stroke='none'/><path d='M60 90 Q90 60 120 90 T180 90' stroke-opacity='.02'/><path d='M0 60 Q30 30 60 60 T120 60' stroke-opacity='.02'/></g></svg>");
+}
+#msgs::-webkit-scrollbar{width:6px}
+#msgs::-webkit-scrollbar-thumb{background:var(--scroll-th);border-radius:99px}
+#msgs::-webkit-scrollbar-thumb:hover{background:var(--muted)}
+#msgs > *{flex-shrink:0}
+
+.msg{display:flex;flex-direction:column;max-width:90%}
+.msg.bot{align-self:flex-start}
+.msg.usr{align-self:flex-end}
+.bub{
+  padding:10px 14px;border-radius:9px;font-size:15px;line-height:1.55;
+  box-shadow:0 1px 1px rgba(0,0,0,.08),0 0 0 .5px rgba(0,0,0,.04);
+  position:relative;
+}
+.bot .bub{background:var(--bot-bub);border-top-left-radius:3px;color:var(--txt)}
+.usr .bub{background:var(--usr-bub);color:var(--usr-bub-txt);border-top-right-radius:3px}
+.bub b{font-weight:700}
+.bub a{color:inherit;text-decoration:underline}
+.bub ul{padding-left:16px;margin-top:4px}
+.bub li{margin-bottom:3px}
+.ts{font-size:10.5px;color:var(--muted);margin-top:3px;padding:0 4px;letter-spacing:.2px}
+.msg.usr .ts{text-align:right}
+
+/* Typing */
+#typing{
+  align-self:flex-start;display:none;
+  background:var(--bot-bub);
+  border-radius:9px;border-top-left-radius:3px;
+  padding:12px 15px;margin-left:14px;
+  box-shadow:0 1px 1px rgba(0,0,0,.08);
+}
+.dot{
+  display:inline-block;width:6px;height:6px;border-radius:50%;
+  background:var(--g);margin:0 2px;animation:jmp 1.1s infinite;
+}
+.dot:nth-child(2){animation-delay:.18s}
+.dot:nth-child(3){animation-delay:.36s}
+@keyframes jmp{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-6px)}}
+
+/* ── OPTIONS PANEL ── KEY LAYOUT FIX ── */
+#opts-wrap{
+  flex-shrink:0;
+  border-top:1px solid var(--border);
+  background:var(--card);
+  display:flex;flex-direction:column;
+  max-height:42vh; /* prevents opts from pushing messages off screen */
+  transition:background .35s ease,border-color .35s ease,max-height .35s ease;
+  position:relative;z-index:2;
+  box-shadow:0 -4px 20px rgba(0,0,0,.04);
+}
+[data-theme="dark"] #opts-wrap{box-shadow:0 -4px 20px rgba(0,0,0,.25)}
+#btn-back{
+  flex-shrink:0;display:none;align-items:center;gap:5px;
+  border:none;background:none;color:var(--muted);
+  font-size:12.5px;font-weight:600;cursor:pointer;
+  font-family:var(--f);padding:7px 14px 3px;transition:.15s;
+}
+#btn-back svg{width:14px;height:14px;stroke-width:2.2}
+#btn-back:hover{color:var(--g);transform:translateX(-2px)}
+#opts-inner{
+  overflow-y:auto; /* scrolls inside the panel */
+  padding:4px 14px 12px;
+  flex:1;min-height:0;
+}
+#opts-inner::-webkit-scrollbar{width:3px}
+#opts-inner::-webkit-scrollbar-thumb{background:var(--border);border-radius:99px}
+#opts-wrap.has-cont{border-top:1px solid var(--border)}
+#opts-wrap.has-cont #btn-cont{border-top:1px solid var(--border);position:relative}
+#opts-wrap.has-cont{max-height:52vh}
+
+/* ── CHIPS ── */
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips.col{flex-direction:column;gap:5px}
+.ch{
+  border:1.5px solid var(--g);border-radius:99px;
+  padding:9px 15px;font-size:14px;font-weight:600;
+  background:var(--card);color:var(--g);
+  cursor:pointer;font-family:var(--f);transition:.14s;text-align:left;
+}
+.ch.wide{border-radius:10px;width:100%}
+@media(hover:hover){.ch:hover{background:var(--g);color:#fff}}
+.chips.col .ch{border-radius:10px;width:100%}
+
+/* ── SEARCH FILTER (for long option lists) ── */
+.opt-search{
+  position:sticky;top:0;z-index:3;
+  display:flex;align-items:center;gap:8px;
+  padding:6px 2px 10px;background:var(--card);
+  margin-bottom:2px;
+}
+.opt-search-inp{
+  flex:1;border:1.5px solid var(--border);background:var(--card);
+  color:var(--txt);border-radius:10px;
+  padding:9px 12px 9px 36px;font-family:var(--f);font-size:13px;
+  font-weight:500;outline:none;transition:.18s;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2368748a' stroke-width='2.3' stroke-linecap='round' stroke-linejoin='round'><circle cx='11' cy='11' r='8'/><path d='m21 21-4.3-4.3'/></svg>");
+  background-repeat:no-repeat;background-position:12px center;background-size:15px;
+  width:100%;
+}
+[data-theme="dark"] .opt-search-inp{
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238696a0' stroke-width='2.3' stroke-linecap='round' stroke-linejoin='round'><circle cx='11' cy='11' r='8'/><path d='m21 21-4.3-4.3'/></svg>");
+}
+.opt-search-inp:focus{border-color:var(--g);box-shadow:0 0 0 3px rgba(0,61,165,.15)}
+.opt-search-inp::placeholder{color:var(--muted);font-weight:500}
+.opt-count{
+  font-size:11px;color:var(--muted);font-weight:700;flex-shrink:0;
+  letter-spacing:.3px;
+}
+
+/* ── MULTISELECT ── */
+.ms-list{display:flex;flex-direction:column;gap:5px}
+/* Multi-column list on wider screens */
+@media (min-width:768px){
+  .ms-list.cols{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+  .ms-list.cols .ms-item{margin:0}
+}
+@media (min-width:1280px){
+  .ms-list.cols-3{grid-template-columns:repeat(3,1fr)}
+}
+.ms-item.hidden{display:none}
+.ms-list.cols .ms-item.none-opt{grid-column:1 / -1}
+.ms-sect{
+  font-size:10.5px;font-weight:700;color:var(--muted);
+  text-transform:uppercase;letter-spacing:.6px;
+  padding:8px 2px 2px;
+}
+.ms-sect:first-child{padding-top:2px}
+.ms-item{
+  display:flex;align-items:center;gap:9px;
+  padding:10px 13px;border:1.5px solid var(--border);
+  border-radius:10px;cursor:pointer;
+  font-size:14px;color:var(--txt);font-weight:500;
+  font-family:var(--f);background:var(--card);transition:.14s;
+}
+@media(hover:hover){.ms-item:hover{border-color:var(--g);background:var(--gll)}}
+.ms-item.sel{border-color:var(--g);background:var(--gl);color:var(--gd)}
+.ms-item:active{transform:scale(.98)}
+.ms-item.none-opt{border-style:dashed}
+.ms-em{font-size:15px;flex-shrink:0;width:20px;text-align:center}
+.ms-lbl{flex:1}
+.ms-cb{
+  width:17px;height:17px;border-radius:4px;
+  border:2px solid var(--border);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:10px;transition:.12s;
+}
+.ms-item.sel .ms-cb{background:var(--g);border-color:var(--g);color:#fff}
+#btn-cont{
+  display:none;width:calc(100% - 28px);margin:8px 14px 12px;padding:12px;
+  background:var(--g);color:#fff;border:none;border-radius:10px;
+  font-size:13.5px;font-weight:700;cursor:pointer;font-family:var(--f);
+  transition:.2s cubic-bezier(.4,0,.2,1);
+  flex-shrink:0;
+  box-shadow:0 4px 14px rgba(0,61,165,.25);
+}
+#btn-cont:hover{background:var(--gd);transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,61,165,.35)}
+#btn-cont.vis{display:block}
+
+/* ── RESULT CARDS ── */
+.res-section-hdr{
+  display:flex;align-items:center;gap:10px;
+  padding:14px 12px 10px;margin:8px 0 4px;
+  border-radius:10px;
+  background:linear-gradient(90deg,var(--accent-bg,var(--card)) 0%,transparent 70%);
+  border-left:4px solid var(--accent,var(--g));
+}
+.res-section-hdr.sec-direct{--accent:#2e7d32;--accent-bg:var(--sos)}
+.res-section-hdr.sec-conv{--accent:#c89212;--accent-bg:var(--warn)}
+.res-section-hdr.sec-ccf{--accent:#1a56c4;--accent-bg:var(--blue)}
+[data-theme="dark"] .res-section-hdr.sec-direct{--accent:#69d89c}
+[data-theme="dark"] .res-section-hdr.sec-conv{--accent:#ffd96b}
+[data-theme="dark"] .res-section-hdr.sec-ccf{--accent:#7fb6ff}
+.res-section-hdr h3 svg{width:20px;height:20px}
+.res-section-hdr h3{font-size:13px;font-weight:700;color:var(--txt);display:inline-flex;align-items:center;gap:8px}
+.res-section-hdr h3 svg{width:16px;height:16px;stroke-width:2.2;color:var(--g);flex-shrink:0}
+.res-section-hdr span{
+  font-size:11px;padding:2px 8px;border-radius:99px;font-weight:700;
+}
+.res-section-hdr span.g{background:var(--sos);color:var(--sosc)}
+.res-section-hdr span.o{background:var(--warn);color:var(--warnc)}
+.res-section-hdr span.b{background:var(--blue);color:var(--bluec)}
+
+.conv-disclaimer{
+  background:var(--conv-bg);border:1px solid var(--conv-b);
+  border-radius:10px;padding:10px 13px;
+  font-size:12px;color:#6b4400;line-height:1.6;margin-bottom:8px;
+}
+.conv-disclaimer b{color:#4a2e00}
+
+.ccf-section{margin-top:8px}
+.ccf-card{
+  position:relative;border:1px solid var(--border);border-radius:14px;
+  padding:12px 14px 12px 17px;margin-bottom:6px;background:var(--card);
+  box-shadow:0 1px 2px rgba(16,30,22,.05),0 2px 8px rgba(16,30,22,.04);
+  transition:transform .22s cubic-bezier(.4,0,.2,1),box-shadow .22s ease,border-color .22s ease;
+}
+.ccf-card::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:linear-gradient(180deg,#1a56c4,#1344a3);
+  opacity:.82;border-radius:14px 0 0 14px;
+}
+.ccf-card:hover{transform:translateY(-1px);box-shadow:0 6px 22px rgba(16,30,22,.09);border-color:#b6c9ea}
+.ccf-card h4{font-size:13px;font-weight:700;margin-bottom:4px;display:inline-flex;align-items:center;gap:7px}
+.ccf-card h4 svg{width:15px;height:15px;stroke-width:2.2;color:var(--g);flex-shrink:0}
+.ccf-card .ccf-desc{font-size:12.5px;color:var(--muted);line-height:1.6;margin-bottom:6px}
+.ccf-links{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.ccf-a{
+  display:inline-flex;align-items:center;gap:5px;padding:6px 11px;
+  background:var(--gl);color:var(--gd);border-radius:8px;
+  font-size:12px;font-weight:700;text-decoration:none;
+  transition:.18s ease;
+}
+.ccf-a:hover{background:var(--g);color:#fff;transform:translateY(-1px)}
+.ccf-a svg{width:13px;height:13px;stroke-width:2.2}
+.ccf-tag{
+  display:inline-block;font-size:10.5px;padding:2px 8px;
+  border-radius:99px;font-weight:600;margin:0 3px 3px 0;
+}
+.ccf-no-afil{background:var(--sos);color:var(--sosc)}
+.ccf-afil{background:var(--blue);color:var(--bluec)}
+.ccf-verif{background:var(--warn);color:var(--warnc)}
+
+/* Fund card */
+.fcard{
+  position:relative;background:var(--card);
+  border:1px solid var(--border);border-radius:14px;
+  overflow:hidden;margin-bottom:6px;
+  transition:transform .22s cubic-bezier(.4,0,.2,1),box-shadow .22s ease,border-color .22s ease;
+  box-shadow:0 1px 2px rgba(16,30,22,.05),0 2px 8px rgba(16,30,22,.04);
+}
+.fcard::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:linear-gradient(180deg,var(--g) 0%,var(--gd) 100%);
+  opacity:.92;
+}
+.fcard:hover{
+  box-shadow:0 6px 22px rgba(16,30,22,.1),0 2px 6px rgba(16,30,22,.05);
+  transform:translateY(-1px);
+  border-color:var(--ga);
+}
+.fcard.conv-card{background:#fffaed;border-color:#e9c56b}
+.fcard.conv-card::before{background:linear-gradient(180deg,#e6a817,#b88313)}
+.fcard.open{box-shadow:0 8px 28px rgba(16,30,22,.1),0 2px 6px rgba(16,30,22,.05)}
+.fc-hd{display:flex;align-items:flex-start;gap:11px;padding:13px 14px 13px 17px;cursor:pointer;user-select:none}
+.fc-ico{
+  width:36px;height:36px;border-radius:9px;background:var(--gl);
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;flex-shrink:0;
+}
+.fcard.conv-card .fc-ico{background:var(--conv-bg)}
+.fc-meta{flex:1;min-width:0}
+.fc-name{font-size:13px;font-weight:700;line-height:1.35}
+.fc-sub{font-size:11.5px;color:var(--muted);margin-top:2px}
+.fc-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:5px}
+.tag{font-size:10.5px;padding:2px 7px;border-radius:99px;font-weight:600}
+.tag.g{background:var(--gl);color:var(--gd)}
+.tag.s{background:var(--sos);color:var(--sosc)}
+.tag.o{background:var(--warn);color:var(--warnc)}
+.tag.b{background:var(--blue);color:var(--bluec)}
+.tag.r{background:var(--red);color:var(--redc)}
+.fc-chev{font-size:12px;color:var(--muted);transition:.2s;flex-shrink:0;margin-top:2px}
+.fcard.open .fc-chev{transform:rotate(90deg)}
+.fc-body{display:none;padding:13px 14px 15px 17px;border-top:1px dashed var(--border);background:linear-gradient(180deg,transparent 0%,rgba(0,0,0,.015) 100%)}
+[data-theme="dark"] .fc-body{background:linear-gradient(180deg,transparent 0%,rgba(255,255,255,.02) 100%)}
+.fcard.open .fc-body{display:block}
+.fc-body p{font-size:13px;line-height:1.6;margin-bottom:6px}
+.fc-body h5{
+  font-size:10px;font-weight:800;color:var(--muted);
+  text-transform:uppercase;letter-spacing:1.2px;
+  margin:14px 0 6px;display:flex;align-items:center;gap:6px;
+}
+.fc-body h5:first-child{margin-top:0}
+.fc-body h5 svg{width:13px;height:13px;stroke-width:2.2;color:var(--g)}
+.fc-body ul,
+.fc-body ol{padding-left:16px}
+.fc-body li{font-size:13px;line-height:1.65;margin-bottom:2px}
+.monto{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--gl);color:var(--gd);
+  font-size:13px;font-weight:700;padding:6px 11px;
+  border-radius:8px;margin-bottom:9px;
+}
+.monto svg{width:14px;height:14px;stroke-width:2.2}
+.conv-note{
+  background:var(--conv-bg);border:1px solid var(--conv-b);
+  border-radius:8px;padding:10px 12px;
+  font-size:12px;color:#6b4400;margin-top:8px;line-height:1.6;
+  display:flex;gap:8px;align-items:flex-start;
+}
+.conv-note svg{width:15px;height:15px;stroke-width:2.2;color:var(--conv-b);flex-shrink:0;margin-top:2px}
+.fc-link{
+  display:inline-flex;align-items:center;gap:6px;margin-top:10px;padding:9px 15px;
+  background:var(--g);color:#fff;border-radius:9px;
+  font-size:13px;font-weight:700;text-decoration:none;
+  transition:.2s ease;
+}
+.fc-link:hover{background:var(--gd);transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,61,165,.3)}
+.fc-link svg{width:14px;height:14px;stroke-width:2.2}
+
+/* Disclaimer */
+.disc{
+  background:var(--warn);border:1px solid var(--warnb);
+  border-radius:11px;padding:11px 13px;
+  font-size:12px;color:var(--warnc);line-height:1.6;margin-bottom:7px;
+  display:flex;gap:9px;align-items:flex-start;
+}
+.disc svg{width:17px;height:17px;stroke-width:2.2;color:var(--warnb);flex-shrink:0;margin-top:1px}
+.disc b{color:#5a3c00}
+
+/* CTA */
+.cta-box{
+  background:linear-gradient(135deg,var(--gll),#edf9f4);
+  border:1.5px solid var(--ga);border-radius:13px;
+  padding:15px;text-align:center;margin-top:10px;margin-bottom:4px;
+}
+.cta-box h4{font-size:14px;font-weight:700;color:var(--gd);margin-bottom:5px}
+.cta-box p{font-size:12px;color:var(--gd);line-height:1.55;margin-bottom:10px}
+.cta-a{
+  display:inline-flex;align-items:center;gap:7px;padding:10px 18px;background:var(--g);color:#fff;
+  border-radius:10px;font-size:13px;font-weight:700;text-decoration:none;margin:3px;
+  transition:.2s ease;
+}
+.cta-a:hover{background:var(--gd);transform:translateY(-1px);box-shadow:0 6px 16px rgba(0,61,165,.35)}
+.cta-a svg{width:15px;height:15px;stroke-width:2.2}
+.cta-a.sec{background:var(--gl);color:var(--gd)}
+.cta-a.sec:hover{background:var(--ga);box-shadow:0 4px 10px rgba(0,61,165,.2)}
+
+/* No results */
+.no-res{
+  background:var(--warn);border:1px solid var(--warnb);
+  border-radius:11px;padding:14px;font-size:13px;color:var(--warnc);line-height:1.65;
+}
+/* Footer */
+#footer{
+  flex-shrink:0;text-align:center;
+  padding:7px 14px 11px;font-size:10.5px;color:var(--muted);line-height:1.6;
+  border-top:1px solid var(--border);background:var(--card);
+  transition:background .35s ease,border-color .35s ease,color .35s ease;
+  position:relative;z-index:2;
+}
+#footer a{color:var(--g);font-weight:600}
+
+/* Extra dark-mode card adjustments */
+[data-theme="dark"] .fcard{background:#182229;border-color:#243339;box-shadow:0 1px 2px rgba(0,0,0,.3),0 2px 10px rgba(0,0,0,.2)}
+[data-theme="dark"] .fcard:hover{box-shadow:0 6px 24px rgba(0,0,0,.45);border-color:#3a5648}
+[data-theme="dark"] .fcard.conv-card{background:#231d0e;border-color:#5a4418}
+[data-theme="dark"] .fcard.conv-card::before{background:linear-gradient(180deg,#d4a017,#a87d13)}
+[data-theme="dark"] .fc-ico{background:#0f4530}
+[data-theme="dark"] .ccf-card{background:#182229;border-color:#243339;box-shadow:0 1px 2px rgba(0,0,0,.3),0 2px 10px rgba(0,0,0,.2)}
+[data-theme="dark"] .ccf-card:hover{border-color:#3a5648;box-shadow:0 6px 22px rgba(0,0,0,.4)}
+[data-theme="dark"] .ccf-card::before{background:linear-gradient(180deg,#4d85d9,#2d5ea8)}
+[data-theme="dark"] .fc-body{border-top-color:#2a3942}
+[data-theme="dark"] .disc{background:#2a2108;border-color:#7a5a12;color:#ffd96b}
+[data-theme="dark"] .disc b{color:#ffe79e}
+[data-theme="dark"] .conv-disclaimer{color:#ffd993}
+[data-theme="dark"] .conv-disclaimer b{color:#ffe5b8}
+[data-theme="dark"] .cta-box{background:linear-gradient(145deg,#102a22,#0c1f1a);border-color:#1a5c44}
+[data-theme="dark"] .cta-box h4,[data-theme="dark"] .cta-box p{color:#b9ebd4}
+[data-theme="dark"] .no-res{color:#ffd96b}
+[data-theme="dark"] .ms-item{color:var(--txt);background:var(--card)}
+@media(hover:hover){[data-theme="dark"] .ms-item:hover{background:#0f2419;border-color:var(--g)}}
+[data-theme="dark"] .ms-item.sel{background:#0f4530;color:#b9ebd4}
+[data-theme="dark"] .ch{background:transparent}
+[data-theme="dark"] #opts-inner::-webkit-scrollbar-thumb{background:var(--scroll-th)}
+
+/* ══════════════════════════════════════════════════════
+   SIDEBAR + DESKTOP LAYOUT (WA-inspired split view)
+══════════════════════════════════════════════════════ */
+#sidebar{
+  width:320px;flex-shrink:0;
+  background:var(--sidebar-bg);
+  border-right:1px solid var(--border);
+  flex-direction:column;
+  transition:background .35s ease,border-color .35s ease;
+}
+#sb-brand{
+  display:flex;flex-direction:column;align-items:flex-start;gap:10px;
+  padding:22px 22px 18px;
+  background:var(--hdr-bg);color:var(--hdr-txt);
+  position:relative;overflow:hidden;
+  border-bottom:1px solid rgba(0,0,0,.15);
+}
+#sb-brand::after{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(circle at 90% 20%,rgba(255,255,255,.14),transparent 55%),
+    radial-gradient(circle at 10% 110%,rgba(0,0,0,.18),transparent 50%);
+  pointer-events:none;
+}
+#sb-logo-img{
+  width:148px;height:44px;max-width:100%;
+  background-image:var(--esap-logo);
+  background-size:contain;background-repeat:no-repeat;background-position:left center;
+  filter:drop-shadow(0 2px 6px rgba(0,0,0,.25));
+  position:relative;z-index:1;
+}
+#sb-brand p{
+  font-size:11px;opacity:.85;font-weight:500;
+  letter-spacing:.3px;position:relative;z-index:1;
+  border-top:1px solid rgba(255,255,255,.18);
+  padding-top:10px;width:100%;line-height:1.5;
+}
+#sb-body{
+  flex:1;overflow-y:auto;
+  padding:20px 20px 16px;
+  display:flex;flex-direction:column;gap:22px;
+}
+#sb-body::-webkit-scrollbar{width:4px}
+#sb-body::-webkit-scrollbar-thumb{background:var(--scroll-th);border-radius:99px}
+.sb-section h3{
+  font-size:10px;font-weight:800;color:var(--muted);
+  text-transform:uppercase;letter-spacing:1.4px;
+  margin-bottom:12px;padding-left:2px;
+}
+#sb-steps{list-style:none;position:relative;padding-left:22px}
+#sb-steps::before{
+  content:'';position:absolute;left:7px;top:8px;bottom:8px;
+  width:2px;background:var(--border);border-radius:2px;
+}
+#sb-steps li{
+  font-size:12.5px;color:var(--muted);
+  padding:6px 0;line-height:1.4;position:relative;
+  transition:color .25s ease,transform .25s ease;
+  font-weight:500;
+}
+#sb-steps li::before{
+  content:'';position:absolute;left:-22px;top:10px;
+  width:10px;height:10px;border-radius:50%;
+  background:var(--sidebar-bg);
+  border:2px solid var(--border);
+  transition:all .3s cubic-bezier(.4,0,.2,1);
+}
+#sb-steps li.done{color:var(--txt)}
+#sb-steps li.done::before{background:var(--g);border-color:var(--g)}
+#sb-steps li.current{color:var(--g);font-weight:700;transform:translateX(3px)}
+#sb-steps li.current::before{
+  background:var(--g);border-color:var(--g);
+  box-shadow:0 0 0 4px rgba(0,61,165,.2),0 0 14px rgba(0,61,165,.5);
+  transform:scale(1.15);
+}
+#sb-links{list-style:none;display:flex;flex-direction:column;gap:4px}
+#sb-links button{
+  all:unset;cursor:pointer;
+  display:flex;align-items:center;gap:11px;
+  padding:9px 11px;border-radius:9px;
+  font-size:12.5px;color:var(--txt);font-weight:600;
+  transition:background .18s ease,transform .18s ease;
+}
+#sb-links button:hover{background:var(--sidebar-hover);transform:translateX(2px)}
+#sb-links button:hover .lk-ico{background:var(--g);color:#fff;transform:scale(1.05)}
+#sb-links .lk-ico{
+  width:28px;height:28px;border-radius:8px;
+  background:var(--gl);color:var(--gd);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;transition:all .22s ease;
+}
+#sb-links .lk-ico svg{width:15px;height:15px;stroke-width:2.1}
+#sb-footer{
+  border-top:1px solid var(--border);
+  padding:14px 20px;
+  display:flex;align-items:center;gap:10px;
+  background:var(--sidebar-bg);
+}
+#sb-footer .sb-meta{flex:1;font-size:10.5px;color:var(--muted);line-height:1.5}
+#sb-footer .sb-meta b{color:var(--txt);font-weight:700;display:block;font-size:11.5px}
+
+/* Theme toggle button */
+.theme-toggle{
+  position:relative;width:46px;height:26px;
+  border-radius:99px;border:1.5px solid var(--border);
+  background:var(--card);cursor:pointer;
+  transition:all .3s ease;flex-shrink:0;
+  padding:0;font-family:var(--f);
+}
+.theme-toggle::before{
+  content:'';position:absolute;left:2px;top:50%;
+  transform:translateY(-50%);
+  width:20px;height:20px;border-radius:50%;
+  background:linear-gradient(145deg,#ffd369,#e6a817);
+  box-shadow:0 1px 4px rgba(0,0,0,.2),inset -2px -2px 4px rgba(0,0,0,.15);
+  transition:all .35s cubic-bezier(.4,0,.2,1);
+}
+[data-theme="dark"] .theme-toggle::before{
+  left:24px;
+  background:linear-gradient(145deg,#e6ecf3,#a8b5c2);
+  box-shadow:0 1px 4px rgba(0,0,0,.5),inset -2px -2px 4px rgba(0,0,0,.2);
+}
+.theme-toggle::after{
+  content:'☀️';position:absolute;right:6px;top:50%;
+  transform:translateY(-50%);font-size:10px;
+  opacity:.35;transition:.3s;
+}
+[data-theme="dark"] .theme-toggle::after{content:'🌙';left:6px;right:auto}
+
+/* ── TABLET BREAKPOINT (sidebar visible, compact) ── */
+@media (min-width:768px){
+  body{
+    margin:0;padding:0;min-height:100vh;
+    background:
+      radial-gradient(ellipse at 12% 0%,rgba(0,61,165,.10),transparent 55%),
+      radial-gradient(ellipse at 88% 100%,rgba(0,42,117,.10),transparent 55%),
+      var(--bg);
+  }
+  [data-theme="dark"] body{
+    background:
+      radial-gradient(ellipse at 12% 0%,rgba(77,133,217,.07),transparent 55%),
+      radial-gradient(ellipse at 88% 100%,rgba(77,133,217,.05),transparent 55%),
+      var(--bg);
+  }
+  #shell{
+    max-width:none;width:100vw;
+    height:100vh;height:100dvh;
+    margin:0;border-radius:0;border:none;
+    display:flex;flex-direction:row;
+    box-shadow:none;
+  }
+  #sidebar{display:flex;width:260px}
+  #sb-brand{padding:16px 18px 14px}
+  #sb-logo{width:38px;height:38px;font-size:18px;border-radius:11px}
+  #sb-brand h1{font-size:18px}
+  #sb-brand p{font-size:10.5px}
+  #sb-body{padding:18px 16px 14px;gap:20px}
+  #sb-steps li{font-size:12px}
+  #sb-links button{font-size:12px;padding:8px 10px}
+  #hdr{padding:14px 20px}
+  #opts-wrap{max-height:32vh;min-height:100px}
+  #opts-inner{padding:8px 18px 14px}
+  #msgs{padding:20px max(22px,calc((100% - 780px)/2)) 14px}
+  .msg{max-width:520px}
+  .bub{font-size:14px;padding:10px 14px}
+  #hdr-name{font-size:15px}
+  #hdr-av{width:40px;height:40px;font-size:19px}
+  /* on tablet+ the sidebar owns the theme switch; header mobile toggle hidden */
+  #btn-theme-mobile{display:none}
+}
+
+/* ── DESKTOP (≥1024px) ── */
+@media (min-width:1024px){
+  #sidebar{width:320px}
+  #sb-brand{padding:18px 20px 16px}
+  #sb-logo{width:44px;height:44px;font-size:22px;border-radius:13px}
+  #sb-brand h1{font-size:20px}
+  #sb-brand p{font-size:11px}
+  #sb-body{padding:22px 20px 16px;gap:24px}
+  #sb-steps li{font-size:12.5px}
+  #sb-links button{font-size:12.5px;padding:9px 11px}
+  #hdr{padding:16px 28px}
+  #msgs{padding:26px max(28px,calc((100% - 860px)/2)) 18px;gap:10px}
+  .msg{max-width:560px}
+  .bub{font-size:14px;padding:11px 15px;line-height:1.6}
+  #hdr-name{font-size:16px}
+  #hdr-av{width:44px;height:44px;font-size:21px}
+  #opts-wrap{max-height:30vh;min-height:110px}
+  #opts-inner{padding:8px max(28px,calc((100% - 860px)/2)) 16px}
+  #footer{padding:9px 28px 12px;font-size:11px}
+  .ms-item{font-size:13.5px;padding:10px 14px}
+}
+
+/* ── LARGE DESKTOP (≥1440px) ── */
+@media (min-width:1440px){
+  #sidebar{width:360px}
+  #sb-brand{padding:22px 24px 18px}
+  #sb-brand h1{font-size:22px;letter-spacing:-.5px}
+  #sb-body{padding:26px 24px 18px;gap:28px}
+  #sb-steps li{font-size:13px;padding:7px 0}
+  #sb-links button{font-size:13px;padding:10px 12px}
+  #hdr{padding:18px 36px}
+  #hdr-name{font-size:17px}
+  #msgs{padding:32px max(40px,calc((100% - 960px)/2)) 22px}
+  .msg{max-width:620px}
+  .bub{font-size:14.5px;padding:12px 16px}
+  #opts-wrap{max-height:28vh;min-height:120px}
+  #opts-inner{padding:10px max(40px,calc((100% - 960px)/2)) 18px}
+  #footer{padding:11px 36px 14px;font-size:11.5px}
+}
+
+/* ── ULTRAWIDE (≥1920px) ── */
+@media (min-width:1920px){
+  #opts-wrap{max-height:26vh;min-height:130px}
+  #msgs{padding:36px max(48px,calc((100% - 1040px)/2)) 24px}
+  #opts-inner{padding:12px max(48px,calc((100% - 1040px)/2)) 20px}
+  .msg{max-width:680px}
+}
+
+@media (max-width:767px){
+  #btn-theme-mobile{display:inline-flex}
+  #hdr{gap:8px;padding:10px 12px;flex-wrap:nowrap}
+  #hdr-logo{width:58px;height:26px;flex-shrink:0}
+  #hdr-div{display:none}
+  #hdr-info{display:block;flex:1;min-width:0}
+  #hdr-pre{font-size:9.5px;margin-bottom:0}
+  #hdr-name{font-size:12.5px;line-height:1.2}
+  #hdr-sub{font-size:9.5px;margin-top:1px;line-height:1.2}
+  #btn-theme-mobile{width:30px;height:30px;padding:6px}
+  #btn-theme-mobile svg{width:14px;height:14px}
+  #btn-restart.vis{padding:6px;width:30px;height:30px;justify-content:center;font-size:0;gap:0}
+  #btn-restart.vis svg{width:15px;height:15px}
+  /* Tighter mobile opts panel & prevent continuar button overlap */
+  #opts-wrap{max-height:40vh}
+  #opts-wrap.has-cont{max-height:45vh}
+  #opts-inner{padding:4px 12px 10px}
+  #btn-cont{margin:6px 12px 10px;padding:11px;font-size:14px}
+  #footer{padding:6px 12px 9px;font-size:10px;line-height:1.5}
+}
+@media (max-width:380px){
+  #hdr-logo{width:48px;height:22px}
+  #hdr-pre{font-size:9px}
+  #hdr-name{font-size:11.5px}
+  #hdr-sub{font-size:9px}
+}
+
+/* Motion: reveal */
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.msg,.fcard,.ccf-card,.disc,.res-section-hdr,.conv-disclaimer,.cta-box,.no-res{
+  animation:fadeUp .32s cubic-bezier(.4,0,.2,1) both;
+}
+</style>
+</head>
+<body>
+<div id="shell">
+  <aside id="sidebar" aria-label="Navegación y progreso">
+    <div id="sb-brand">
+      <div id="sb-logo-img" role="img" aria-label="Escuela Superior de Administración Pública"></div>
+      <p>Asesor de Apoyos Externos · 2026</p>
+    </div>
+    <div id="sb-body">
+      <div class="sb-section">
+        <h3>Progreso de la consulta</h3>
+        <ol id="sb-steps">
+          <li data-step="welcome">Bienvenida</li>
+          <li data-step="condiciones">Condiciones especiales</li>
+          <li data-step="nacimiento">Departamento de nacimiento</li>
+          <li data-step="programa">Programa académico</li>
+          <li data-step="estudio">Lugar de estudio</li>
+          <li data-step="estrato">Estrato socioeconómico</li>
+          <li data-step="sisben">Sisbén</li>
+          <li data-step="momento">Momento académico</li>
+          <li data-step="ccf_preg">Caja de Compensación</li>
+          <li data-step="results">Resultados</li>
+        </ol>
+      </div>
+      <div class="sb-section">
+        <h3>Acciones rápidas</h3>
+        <ul id="sb-links">
+          <li><button onclick="restart()"><span class="lk-ico"><i data-lucide="rotate-ccw"></i></span>Nueva consulta</button></li>
+          <li><button onclick="goBack()"><span class="lk-ico"><i data-lucide="arrow-left"></i></span>Paso anterior</button></li>
+          <li><button onclick="window.open('https://outlook.office365.com/book/bienestaruniversitario@esap.edu.co/?ismsaljsauthenabled=true','_blank')"><span class="lk-ico"><i data-lucide="calendar-check"></i></span>Pedir cita Orientación Socioeconómica</button></li>
+          <li><button onclick="window.open('tel:018000180672')"><span class="lk-ico"><i data-lucide="phone"></i></span>ICETEX: 01 8000 180672</button></li>
+        </ul>
+      </div>
+    </div>
+    <div id="sb-footer">
+      <div class="sb-meta">
+        <b>Tema</b>
+        <span id="theme-label">Claro</span>
+      </div>
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Cambiar tema"></button>
+    </div>
+  </aside>
+
+  <main id="chat-panel" aria-label="Asesor de apoyos ESAP">
+    <div id="hdr">
+      <div id="hdr-logo" role="img" aria-label="ESAP"></div>
+      <span id="hdr-div"></span>
+      <div id="hdr-info">
+        <div id="hdr-pre">Dirección de Bienestar Universitario</div>
+        <div id="hdr-name">Asesor de Apoyos Externos</div>
+        <div id="hdr-sub">Fondos de sostenimiento · 2026</div>
+      </div>
+      <button id="btn-theme-mobile" class="hdr-btn icon" onclick="toggleTheme()" aria-label="Cambiar tema" title="Cambiar tema">
+        <span id="btn-theme-slot"><i data-lucide="moon"></i></span>
+      </button>
+      <button id="btn-restart" class="hdr-btn" onclick="restart()"><i data-lucide="rotate-ccw"></i> Reiniciar</button>
+    </div>
+
+    <div id="prog-wrap">
+      <div id="prog-lbl">Completado: 14%</div>
+      <div id="prog-track"><div id="prog-fill" style="width:0"></div></div>
+    </div>
+
+    <div id="msgs" role="log" aria-live="polite" aria-atomic="false" aria-label="Conversación con el asesor">
+      <div id="typing" style="display:none">
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+      </div>
+    </div>
+
+    <div id="opts-wrap" role="group" aria-label="Opciones de respuesta">
+      <button id="btn-back" onclick="goBack()"><i data-lucide="arrow-left"></i> Volver</button>
+      <div id="opts-inner"></div>
+    </div>
+
+    <div id="footer">
+      ⚠️ Información orientativa — verificar vigencia con cada entidad antes de aplicar.<br>
+      <span id="ft-line">ICETEX: 01 8000 180672 · Bienestar ESAP: bienestaruniversitario<span class="at-sign">&#64;</span>esap.edu.co</span><br>
+      <span id="verif-note">Última verificación: abril 2026</span>
+    </div>
+  </main>
+</div>
+
+<script src="https://unpkg.com/lucide@0.454.0/dist/umd/lucide.min.js"></script>
+<script>
+/* ══════════════════════════════════════════════════════
+   CCF MAP  — por departamento/territorial
+══════════════════════════════════════════════════════ */
+const CCF_MAP = {
+  bogota:[
+    {n:'Colsubsidio',web:'https://www.colsubsidio.com',
+     desc:'Crédito educativo para afiliados activos (empleados dependientes). Para ESAP —que no cobra matrícula— el crédito puede financiar gastos de sostenimiento. No tiene beca propiamente dicha para IES externas.',
+     esapTag:'MEDIA – crédito educativo',afil:true},
+    {n:'Compensar',web:'https://corporativo.compensar.com',
+     desc:'Crédito educativo con tasas preferenciales para afiliados con antigüedad ≥3 meses (categoría A o B). La beca del 40% es exclusiva de la Fundación UCompensar (no aplica ESAP).',
+     esapTag:'MEDIA – crédito educativo',afil:true},
+    {n:'CAFAM',web:'https://www.cafam.com.co',
+     desc:'Crédito educativo propio para afiliados (categorías A y B). La beca del 90% es exclusiva de la Fundación Universitaria Cafam (no aplica ESAP).',
+     esapTag:'MEDIA – crédito educativo',afil:true},
+  ],
+  cundinamarca:[
+    {n:'Comfacundi',web:'https://www.comfacundi.com',
+     desc:'Crédito educativo y convenios con IES de Cundinamarca. ESAP tiene gran cobertura en los 116 municipios. Verificar si hay convenio ESAP–Comfacundi activo.',
+     esapTag:'ALTA ✅',afil:true},
+    {n:'CAFAM',web:'https://www.cafam.com.co',
+     desc:'También opera en Cundinamarca. Crédito educativo para afiliados.',
+     esapTag:'MEDIA',afil:true},
+  ],
+  antioquia:[
+    {n:'COMFAMA',web:'https://www.comfama.com',
+     desc:'La principal razón de consulta aquí es el Fondo Fraternidad Medellín (hasta 4 SMLMV/sem de manutención en IES pública). ¡NO requiere afiliación a Comfama! También ofrece crédito educativo propio para afiliados.',
+     esapTag:'SÍ ✅ (Fondo Fraternidad)',afil:false,
+     link:'https://fraternidadmedellin.org/educacion-superior/becas/',linkLbl:'📋 Fondo Fraternidad'},
+    {n:'Comfenalco Antioquia',web:'https://www.comfenalcoantioquia.com.co',
+     desc:'Descuentos 5-20% en matrícula en IES aliadas + crédito educativo con tasas preferenciales. Para ESAP (gratuita), el crédito puede financiar gastos adicionales.',
+     esapTag:'MEDIA ⚠️',afil:true},
+  ],
+  atlantico:[
+    {n:'Cajacopi Atlántico',web:'https://www.cajacopi.com',
+     desc:'Tuvo subsidio de ~$500.000 para universitarios (2021). Verificar si sigue vigente en 2026. Descuentos en algunas IES.',
+     esapTag:'Verificar ⚠️',afil:true},
+    {n:'Combarranquilla',web:'https://www.combarranquilla.com',
+     desc:'Crédito educativo con tasas preferenciales. Convenios con IES de Barranquilla. Verificar si ESAP Barranquilla tiene convenio activo.',
+     esapTag:'MEDIA ⚠️',afil:true},
+    {n:'Comfamiliar Atlántico',web:'https://www.comfamiliaratlantico.com',
+     desc:'Crédito educativo y convenios con IES del Atlántico para afiliados.',
+     esapTag:'MEDIA ⚠️',afil:true},
+  ],
+  bolivar:[
+    {n:'Comfamiliar Cartagena',web:'https://www.comfamiliar.org',
+     desc:'Subsidio monetario familiar con componente educativo. Crédito educativo con tasas preferenciales para afiliados.',
+     esapTag:'MEDIA ⚠️',afil:true},
+    {n:'Comfenalco Cartagena',web:'https://www.comfenalcocartagena.com',
+     desc:'Crédito educativo y convenios con IES de Cartagena. Verificar si ESAP Cartagena tiene convenio activo.',
+     esapTag:'MEDIA ⚠️',afil:true},
+  ],
+  santander:[
+    {n:'Cajasan',web:'https://www.cajasan.com',
+     desc:'Gran CCF de Santander con crédito educativo de tasas bajas y convenios con IES de Bucaramanga. ESAP tiene sede en Bucaramanga. Verificar convenio ESAP–Cajasan.',
+     esapTag:'ALTA ✅',afil:true},
+    {n:'Cafaba – Barrancabermeja',web:'https://www.cafaba.com.co',
+     desc:'Crédito educativo y subsidios para afiliados del Magdalena Medio. Complementa el Fondo Oleoducto Bicentenario.',
+     esapTag:'MEDIA',afil:true},
+    {n:'Comfenalco Santander',web:'https://www.comfenalcosantander.com',
+     desc:'Crédito educativo y convenios con IES de Santander.',
+     esapTag:'MEDIA',afil:true},
+  ],
+  nsantander:[
+    {n:'Comfaoriente',web:'https://www.comfaoriente.com',
+     desc:'Crédito educativo y subsidios para afiliados de Norte de Santander.',
+     esapTag:'MEDIA ⚠️',afil:true},
+    {n:'Comfanorte',web:'https://www.comfanorte.com.co',
+     desc:'Crédito educativo con tasas preferenciales para afiliados.',
+     esapTag:'MEDIA ⚠️',afil:true},
+  ],
+  boyaca:[
+    {n:'Comfaboy',web:'https://www.comfaboy.com.co',
+     desc:'Crédito educativo y posibles subsidios de educación superior para afiliados de Boyacá.',
+     esapTag:'MEDIA ⚠️',afil:true},
+  ],
+  casanare:[
+    {n:'Comfacasanare',web:'https://www.comfacasanare.gov.co',
+     desc:'Subsidios educativos para afiliados. Zona petrolera con recursos disponibles para educación superior.',
+     esapTag:'ALTA ✅',afil:true},
+  ],
+  huila:[
+    {n:'Comfamiliar Huila',web:'https://www.comfamiliarhuila.com',
+     desc:'Convenios con IES del Huila y crédito educativo para afiliados. ESAP tiene sede en Neiva. Verificar convenio ESAP–Comfamiliar Huila.',
+     esapTag:'ALTA ✅',afil:true},
+  ],
+  meta:[
+    {n:'Cofrem',web:'https://www.cofrem.com.co',
+     desc:'Crédito educativo y convenios con IES del Meta. ESAP tiene sede en Villavicencio. Zona PDET. Verificar convenio ESAP–Cofrem.',
+     esapTag:'ALTA ✅',afil:true},
+  ],
+  sanandres:[
+    {n:'Cajasai',web:'https://www.cajasai.com',
+     desc:'Subsidio educativo y crédito para afiliados del archipiélago. ESAP tiene sede en San Andrés. Complementa los fondos Excellence y Archipiélago Avanza.',
+     esapTag:'ALTA ✅',afil:true},
+  ],
+  arauca:[
+    {n:'Comfiar',web:'https://www.comfiar.com.co',
+     desc:'Subsidio educativo para afiliados. Zona PDET de alta relevancia para la ESAP. Verificar convocatorias de educación superior vigentes en 2026.',
+     esapTag:'Verificar ⚠️',afil:true},
+  ],
+  guajira:[
+    {n:'Comfaguajira',web:'https://www.comfaguajira.com',
+     desc:'Subsidio familiar con componente educativo. La Guajira: zona Wayuu, víctimas, PDET. Verificar si tiene programa universitario específico activo.',
+     esapTag:'Verificar ⚠️',afil:true},
+  ],
+  cauca:[
+    {n:'Comfacauca',web:'https://www.comfacauca.com',
+     desc:'Crédito educativo y subsidios para afiliados. Zona de alta diversidad étnica (indígenas, afros, víctimas, PDET). Verificar en comfacauca.com.',
+     esapTag:'ALTA ✅',afil:true},
+  ],
+  narino:[
+    {n:'Comfamiliar Nariño',web:'https://www.comfamiliarnarino.com',
+     desc:'Crédito educativo y subsidios para afiliados nariñenses. ESAP tiene sede en Pasto. Verificar convenio ESAP–Comfamiliar Nariño.',
+     esapTag:'ALTA ✅',afil:true},
+  ],
+  choco:[
+    {n:'Comfamiliar Chocó',web:'https://www.comfachoco.com.co',
+     desc:'Subsidio familiar con componente educativo. Zona étnica y PDET de alta relevancia. Verificar si tiene programa universitario activo en 2026.',
+     esapTag:'Verificar ⚠️',afil:true},
+  ],
+  cordoba:[
+    {n:'Comfacor',web:'https://www.comfacor.com.co',
+     desc:'Crédito educativo y subsidios educativos para afiliados de Córdoba.',
+     esapTag:'MEDIA ⚠️',afil:true},
+    {n:'Comfasucre',web:'https://www.comfasucre.com.co',
+     desc:'Subsidio familiar con componente educativo para afiliados de Sucre. Verificar vigencia de programas 2026.',
+     esapTag:'Verificar ⚠️',afil:true},
+  ],
+  cesar:[
+    {n:'Comfacesar',web:'https://www.comfacesar.com',
+     desc:'Subsidio y crédito educativo para afiliados de Cesar.',
+     esapTag:'MEDIA ⚠️',afil:true},
+    {n:'Cajamag',web:'https://www.cajamag.org',
+     desc:'Subsidio y crédito educativo para afiliados de Magdalena.',
+     esapTag:'MEDIA ⚠️',afil:true},
+  ],
+  tolima:[
+    {n:'Comfatolima',web:'https://www.comfatolima.com',
+     desc:'Crédito educativo con tasas preferenciales. ESAP tiene sede en Ibagué. Verificar convenio ESAP–Comfatolima.',
+     esapTag:'MEDIA ⚠️',afil:true},
+    {n:'Comfenalco Tolima',web:'https://www.comfenalcotolima.com',
+     desc:'Crédito educativo y convenios con IES del Tolima.',
+     esapTag:'MEDIA ⚠️',afil:true},
+    {n:'Cafasur',web:'https://www.cafasur.com.co',
+     desc:'Subsidio familiar con componente educativo para la zona sur del Tolima.',
+     esapTag:'Verificar ⚠️',afil:true},
+  ],
+  caldas:[
+    {n:'Confa (Caldas)',web:'https://www.confa.com.co',
+     desc:'Crédito educativo y convenios con IES del eje cafetero. Verificar si ESAP Manizales tiene convenio activo.',
+     esapTag:'MEDIA ⚠️',afil:true},
+  ],
+  quindio:[
+    {n:'Comfenalco Quindío',web:'https://www.comfenalcoquindio.com',
+     desc:'Crédito educativo y convenios con IES del eje cafetero.',
+     esapTag:'MEDIA ⚠️',afil:true},
+    {n:'Comfamiliar Risaralda',web:'https://www.comfamiliar.com',
+     desc:'Crédito educativo y convenios con IES de Risaralda. Verificar convenio ESAP–Comfamiliar Risaralda.',
+     esapTag:'MEDIA ⚠️',afil:true},
+  ],
+  caqueta:[
+    {n:'Comfaca',web:'https://www.comfaca.com',
+     desc:'Subsidio familiar con componente educativo. Zona PDET de alta relevancia ESAP. Verificar si tiene programa universitario activo.',
+     esapTag:'Verificar ⚠️',afil:true},
+    {n:'Comfaputumayo',web:'https://www.comfaputumayo.com',
+     desc:'Subsidio familiar con componente educativo en Putumayo. Zona PDET fronteriza. Verificar programa universitario activo.',
+     esapTag:'Verificar ⚠️',afil:true},
+  ],
+  amazonas:[
+    {n:'Cafamaz',web:'https://www.ssf.gov.co/directorio2',
+     desc:'Verificar en el directorio oficial de la Superintendencia de Subsidio Familiar (ssf.gov.co). Puede tener subsidio educativo para afiliados del Amazonas.',
+     esapTag:'Verificar ⚠️',afil:true},
+  ],
+  valle:[
+    {n:'Comfandi',web:'https://www.comfandi.com.co',
+     desc:'Alianza Educación Superior: 0.5 SMLMV/semestre de sostenimiento real para afiliados categoría B (~15 cupos/semestre, 30/año). ESAP sede Cali. La más concreta del Valle en sostenimiento.',
+     esapTag:'ALTA ✅ – 0.5 SMLMV/sem sostenimiento',afil:true},
+    {n:'Comfenalco Valle DelaGente',web:'https://www.comfenalcovalle.com.co',
+     desc:'Crédito educativo y convenios con IES del Valle del Cauca.',
+     esapTag:'MEDIA',afil:true},
+  ],
+  otro:[
+    {n:'Comcaja (Nacional – trabajadores rurales)',web:'https://www.comcaja.gov.co',
+     desc:'Caja de Compensación para trabajadores del sector agropecuario. Si tus padres trabajan en el campo, podría aplicar. Verificar programas de educación superior.',
+     esapTag:'Verificar ⚠️',afil:true},
+  ],
+};
+
+/* ══════════════════════════════════════════════════════
+   FUNDS DATABASE
+══════════════════════════════════════════════════════ */
+// Filter helper: defined before DB so closures work
+const loc  = (p,d) => p.nac===d || p.est===d;
+const locN = (p,d) => p.nac===d;
+const locE = (p,d) => p.est===d;
+const isEstrato    = (p,...ks) => ks.includes(p.estrato);
+const hasSisben    = p => ['sbA','sbB','sbC','sbX'].includes(p.sisben);
+const hasLowSisben = p => ['sbA','sbB','sbX'].includes(p.sisben);
+const isVulnerable = p => isEstrato(p,'e1','e2','e3','sinEst')||hasSisben(p)||p.sisben==='noSisben';
+
+const DB = [
+  /* ── CONDICIÓN ESPECIAL – ICETEX NACIONAL ─────────────── */
+  {id:'victimas',ico:'🕊️',
+   n:'Fondo Reparación Víctimas del Conflicto Armado',
+   ent:'ICETEX + UARIV + Agencia Atenea + MEN',cob:'Nacional',est:'Activo ✅',conv:false,
+   tags:[{l:'Sostenimiento directo semestral',c:'s'},{l:'Crédito condonable 100%',c:'g'}],
+   monto:'Giro directo de sostenimiento semestral (monto variable). En ESAP (IES pública + gratuidad) = 100% a sostenimiento.',
+   res:'Para víctimas registradas en el RUV. Como la ESAP no cobra matrícula, el crédito condonable se aplica íntegramente a tu sostenimiento económico. Aplica en todos los departamentos.',
+   req:['Estar activo/a en el RUV (Registro Único de Víctimas – unidadvictimas.gov.co)','Sisbén A o B (prioritario, no excluyente de otras categorías)','Admisión vigente en la ESAP','No tener otro crédito ICETEX activo para el mismo fin','Deudor solidario'],
+   pasos:['Descarga tu constancia RUV en unidadvictimas.gov.co','Obtén constancia de admisión o matrícula vigente de la ESAP','Crea cuenta en web.icetex.gov.co','Busca "Fondos Especiales → Reparación Víctimas Conflicto Armado"','Adjunta: constancia RUV + Sisbén + admisión ESAP + deudor solidario','Espera resolución en fechas de convocatoria semestral'],
+   link:'https://web.icetex.gov.co/creditos/fondos-en-administracion/programas-especiales',
+   f:p=>p.conds.has('victima')},
+
+  {id:'afro',ico:'✊',
+   n:'Fondo Comunidades Negras, Afrocolombianas, Raizales y Palenqueras',
+   ent:'ICETEX + Ministerio del Interior',cob:'Nacional',est:'Activo ✅',conv:false,
+   tags:[{l:'Sostenimiento directo semestral',c:'s'},{l:'Crédito condonable 100%',c:'g'}],
+   monto:'Giro directo de sostenimiento. En ESAP = 100% a sostenimiento. Fondo más consolidado del ICETEX para grupos étnicos (activo desde 1996).',
+   res:'Para miembros de comunidades negras, afrocolombianas, raizales y palenqueras. Cubre todo el país: Caribe, Pacífico, Urabá, Chocó y San Andrés.',
+   req:['Certificado de pertenencia a comunidad negra (Consejo Comunitario o Ministerio del Interior – Dirección de Asuntos Étnicos)','Sisbén A, B o C bajo','Admisión vigente en la ESAP','No crédito ICETEX simultáneo para el mismo fin','Deudor solidario (o propio según reglamento)'],
+   pasos:['Obtén el certificado de pertenencia de tu Consejo Comunitario o del MinInterior','Consigue constancia de admisión o matrícula ESAP','Ingresa a web.icetex.gov.co → Fondos Especiales → Comunidades Negras','Llena formulario en las fechas de convocatoria semestral'],
+   link:'https://web.icetex.gov.co/es/-/comunidades-negras',
+   f:p=>p.conds.has('afro')},
+
+  {id:'indigena',ico:'🌿',
+   n:'Fondo Álvaro Ulcué Chocué – Pueblos Indígenas',
+   ent:'ICETEX + Ministerio del Interior',cob:'Nacional',est:'Activo ✅',conv:false,
+   tags:[{l:'Sostenimiento directo semestral',c:'s'},{l:'Crédito condonable 100%',c:'g'}],
+   monto:'Giro de sostenimiento semestral. En ESAP = 100% a sostenimiento. Aplica en resguardos de todos los departamentos.',
+   res:'Para colombianos de pueblos indígenas reconocidos por el MinInterior. Cubre Cauca, Nariño, Amazonia, Chocó, Sierra Nevada y más.',
+   req:['Certificado de pertenencia al resguardo o cabildo (emitido por la autoridad indígena – gobernador del cabildo)','Admisión vigente en la ESAP','Sisbén o acreditar condición de vulnerabilidad socioeconómica','No tener otro crédito ICETEX para el mismo fin'],
+   pasos:['Solicita el certificado de pertenencia a la autoridad de tu pueblo','Tramita constancia de admisión en la ESAP','Ingresa a web.icetex.gov.co → Fondos Especiales → Pueblos Indígenas','Adjunta los documentos y espera convocatoria semestral'],
+   link:'https://web.icetex.gov.co/creditos/fondos-en-administracion/programas-especiales',
+   f:p=>p.conds.has('indigena')},
+
+  {id:'rrom',ico:'🎪',
+   n:'Fondo Pueblo RROM (Gitanos – Romaníes)',
+   ent:'ICETEX + Ministerio del Interior',cob:'Nacional',est:'Verificar ⚠️',conv:false,
+   tags:[{l:'Sostenimiento',c:'s'},{l:'Verificar vigencia',c:'o'}],
+   monto:'Subsidio incluido según reglamento. Verificar monto en convocatoria vigente llamando al ICETEX.',
+   res:'Para miembros del pueblo RROM registrados en el censo oficial del MinInterior. Presente en Bogotá, Cúcuta, Girón, Sampués y Pasto.',
+   req:['Certificación oficial RROM (DAIMIROM – Dirección Asuntos Indígenas, Minorías y Rom del MinInterior)','Admisión vigente en la ESAP','No tener otro crédito ICETEX activo para el mismo fin'],
+   pasos:['Contacta la DAIMIROM del MinInterior para obtener la certificación','Llama al ICETEX (01 8000 180672) para confirmar si la convocatoria está abierta','Presenta la solicitud en web.icetex.gov.co → Fondos Especiales'],
+   link:'https://web.icetex.gov.co/creditos/fondos-en-administracion/programas-especiales',
+   f:p=>p.conds.has('rrom')},
+
+  {id:'discapacidad',ico:'♿',
+   n:'EDUMINIGUALDAD – Discapacidad (Cód. 122156)',
+   ent:'ICETEX + Ministerio de Igualdad y Equidad',cob:'Nacional',est:'Activo ✅',conv:false,
+   tags:[{l:'100% sostenimiento en ESAP',c:'s'},{l:'~115 cupos/semestre',c:'b'},{l:'Crédito condonable',c:'g'}],
+   monto:'Bolsa 2025-2: $5.000 millones (~115 beneficiarios/semestre). En ESAP (IES pública, gratuita) el 100% va a sostenimiento directo.',
+   res:'Para personas con discapacidad certificada. Requisitos documentales directos: no exige Sisbén específico. Es uno de los fondos con mayor bolsa presupuestal.',
+   req:['Certificación oficial de discapacidad (EPS, médico especialista o MinSalud)','Sisbén A, B o C (preferente, no excluyente)','Admisión vigente en la ESAP','No tener otro crédito ICETEX para el mismo fin','Deudor solidario o propio según reglamento','Formulario en portal ICETEX'],
+   pasos:['Obtén la certificación médica de discapacidad de tu EPS o médico especialista','Crea cuenta en web.icetex.gov.co','Busca "EDUMINIGUALDAD Discapacidad (Cód. 122156)"','Adjunta: certificación discapacidad + admisión ESAP + deudor solidario'],
+   link:'https://web.icetex.gov.co/es/-/fondo-edu-minigualdad-discapacidad',
+   f:p=>p.conds.has('discapacidad')},
+
+  {id:'lgbti',ico:'🌈',
+   n:'EDUMINIGUALDAD – LGBTIQ+ (Cód. 122159)',
+   ent:'ICETEX + Ministerio de Igualdad y Equidad',cob:'Nacional',est:'Activo ✅',conv:false,
+   tags:[{l:'100% sostenimiento en ESAP',c:'s'},{l:'~74 cupos/semestre',c:'b'},{l:'Solo autorreconocimiento',c:'g'}],
+   monto:'Bolsa 2025-2: $3.300 millones (~74 beneficiarios/semestre). En ESAP el 100% va a sostenimiento. Es el fondo con los requisitos más simples de toda la lista.',
+   res:'Solo se necesita el formulario de autorreconocimiento en línea. No requiere certificados médicos ni documentación externa de ningún tipo.',
+   req:['Formulario de autorreconocimiento LGBTIQ+ en el portal ICETEX (sin documentación externa)','Admisión vigente en la ESAP','No tener crédito ICETEX activo para el mismo fin','Deudor solidario'],
+   pasos:['Ingresa a web.icetex.gov.co','Busca "EDUMINIGUALDAD LGBTIQ+ (Cód. 122159)"','Diligencia el formulario de autorreconocimiento (100% en línea)','Adjunta solo: admisión ESAP + deudor solidario'],
+   link:'https://web.icetex.gov.co/es/-/fondo-eduminigualdad-lgbtiq-',
+   f:p=>p.conds.has('lgbti')},
+
+  {id:'mindefensa',ico:'🎖️',
+   n:'Fondo Ministerio de Defensa – Ley 1699/2013',
+   ent:'ICETEX + Ministerio de Defensa Nacional',cob:'Nacional',est:'Activo ✅',conv:false,
+   tags:[{l:'Sostenimiento',c:'s'},{l:'Crédito condonable',c:'g'}],
+   monto:'Según reglamento. En ESAP (IES pública, gratuita) = 100% a sostenimiento.',
+   res:'Para miembros de FF.MM./Policía con discapacidad por actos del servicio, pensionados por invalidez, y cónyuge o huérfanos (menores de 25) de personal fallecido en servicio.',
+   req:['Certificación del MinDefensa o Policía (invalidez en servicio / fallecimiento en actos del servicio / ser huérfano menor de 25)','Admisión vigente en la ESAP','No tener otro crédito ICETEX para el mismo fin'],
+   pasos:['Solicita la certificación en la Oficina de Personal de la entidad (Ejército, Fuerza Aérea, Armada, Policía)','Ingresa a web.icetex.gov.co → Fondos Ministerios → MinDefensa','Adjunta certificación + admisión ESAP'],
+   link:'https://web.icetex.gov.co/es/-/administracion-del-ministerio-de-defensa-nacional',
+   f:p=>p.conds.has('fuerzapublica')},
+
+  /* ── BOGOTÁ ────────────────────────────────────────── */
+  {id:'fradec',ico:'🏛️',
+   n:'FRADEC – Empleados Públicos Distrito Capital',
+   ent:'DASCD – Departamento Administrativo del Servicio Civil Distrital',
+   cob:'Bogotá D.C.',est:'Activo ✅ (Conv. 14 – 2024-2)',conv:true,
+   tags:[{l:'100% a sostenimiento en ESAP',c:'s'},{l:'Para servidores públicos DC',c:'b'},{l:'Crédito condonable',c:'g'}],
+   monto:'Crédito condonable 100%. En ESAP (gratuidad) = 100% va a tu sostenimiento directo.',
+   res:'Diseñado exactamente para servidores públicos del Distrito que estudian Administración Pública. Si trabajas en una entidad distrital y estudias en la ESAP, este es tu fondo prioritario.',
+   req:['Empleado/a público/a del Distrito con derechos de carrera ≥1 año (libre nombramiento: >4 años mismo cargo/entidad)','Sin sanciones disciplinarias en el año anterior','Evaluación de desempeño favorable','Admisión en IES elegible de la convocatoria','Deudor solidario'],
+   pasos:['Consulta convocatoria vigente en serviciocivil.gov.co o llama al DASCD','Verifica que la ESAP esté en la lista de IES elegibles de esa convocatoria','Solicita carta de postulación de tu jefe inmediato','Presenta formulario con evaluación de desempeño + certificado carrera + admisión ESAP'],
+   link:'https://web.icetex.gov.co/es/-/fondo-fradec',
+   f:p=>locE(p,'bogota')&&p.conds.has('servidorDC')},
+
+  {id:'fest',ico:'📚',
+   n:'FEST – Fondo Educación Superior para Todos (Bogotá)',
+   ent:'Secretaría de Educación del Distrito – ICETEX',
+   cob:'Bogotá D.C.',est:'Activo ✅',conv:true,
+   tags:[{l:'Crédito condonable 70-100%',c:'g'},{l:'Posible sostenimiento',c:'s'}],
+   monto:'Crédito condonable 70-100%. Puede incluir subsidio de sostenimiento según la convocatoria.',
+   res:'Programa histórico de Bogotá (desde 1999). Para bachilleres de colegios de Bogotá desde 2009. La condonación es 70% al graduarse + 30% adicional por pasantía social en entidad pública.',
+   req:['Bachiller de colegio de Bogotá (oficial o privado SED) egresado desde 2009','Saber 11 presentado en Bogotá','Admisión en IES de Bogotá con registro calificado','No haber sido beneficiario de otro fondo SED/ATENEA','65 años o menos','Historial crediticio favorable'],
+   pasos:['Consulta fechas en web.icetex.gov.co → FEST (Cód. 120952)','Verifica que la ESAP esté en la lista de IES elegibles','Adjunta: acta grado + Saber 11 + admisión ESAP'],
+   link:'https://web.icetex.gov.co/es/-/fondo-educacion-superior-para-todos-fest',
+   f:p=>locN(p,'bogota')&&locE(p,'bogota')},
+
+  {id:'ciudad_edu',ico:'🌆',
+   n:'Alianza Bogotá Ciudad Educadora (Cód. 121899)',
+   ent:'SED Bogotá + Agencia ATENEA – ICETEX',
+   cob:'Bogotá D.C.',est:'Activo ✅',conv:true,
+   tags:[{l:'Sostenimiento 1 SMLMV/semestre',c:'s'},{l:'Matrícula 100%',c:'g'},{l:'Estratos 1-2-3',c:'b'}],
+   monto:'1 SMLMV/semestre de sostenimiento EXPLÍCITO + matrícula. El más claro en sostenimiento de los fondos distritales.',
+   res:'Para bachilleres de Bogotá estrato 1-2-3 sin título universitario previo. Incluye sostenimiento explícito de 1 SMLMV/semestre.',
+   req:['Colombiano/a','Estrato 1, 2 o 3','Bachiller de colegio de Bogotá (SED)','Saber 11 en Bogotá','Sin título universitario previo','No ser beneficiario de FEST, Jóvenes a la U anterior u otro fondo SED/ATENEA','Admisión en IES universitaria de Bogotá (verificar lista)','Deudor solidario'],
+   pasos:['Consulta en web.icetex.gov.co o agenciaatenea.gov.co','Verifica que la ESAP esté en la lista de IES elegibles','Adjunta: acta grado + Saber 11 + admisión ESAP'],
+   link:'https://web.icetex.gov.co/es/-/alianza-bogota-ciudad-educadora-suma-a-tu-region',
+   f:p=>locN(p,'bogota')&&locE(p,'bogota')&&(isEstrato(p,'e1','e2','e3')||hasLowSisben(p))},
+
+  {id:'atenea_u',ico:'⚡',
+   n:'Jóvenes a la U – IES Públicas (Agencia ATENEA Bogotá)',
+   ent:'Agencia Distrital ATENEA – Alcaldía Mayor de Bogotá',
+   cob:'Bogotá D.C.',est:'Activo ✅ (conv. nov.-dic. 2025 para 2026)',conv:true,
+   tags:[{l:'Matrícula 100%',c:'g'},{l:'Sostenimiento 1 SMLMV/sem',c:'s'},{l:'~2.600 cupos/conv.',c:'b'}],
+   monto:'100% matrícula + 1 SMLMV/semestre de sostenimiento. Requiere pasantía social como retribución.',
+   res:'El programa de mayor cobertura de Bogotá para IES públicas. La ESAP debe estar en la lista de IES públicas elegibles de ATENEA.',
+   req:['Bachiller de colegio de Bogotá','Máximo 28 años','Saber 11 en Bogotá','Admisión en IES pública elegible (verificar lista ATENEA)','Pasantía social como retribución (no interfiere con los estudios)'],
+   pasos:['Ingresa a agenciaatenea.gov.co para ver la convocatoria y la lista de IES públicas elegibles','Confirma que la ESAP esté en la lista','Registra tu solicitud con: acta grado + Saber 11 + admisión ESAP'],
+   link:'https://agenciaatenea.gov.co',
+   f:p=>locN(p,'bogota')&&locE(p,'bogota')},
+
+  /* ── CUNDINAMARCA ───────────────────────────────────── */
+  {id:'cundinamarca_tv',ico:'🌄',
+   n:'Transformando Vidas – Cundinamarca (Cód. 122042)',
+   ent:'Gobernación de Cundinamarca – ICETEX',
+   cob:'116 municipios de Cundinamarca (NO Bogotá)',est:'Activo ✅',conv:true,
+   tags:[{l:'Sostenimiento 1–1.5 SMLMV/sem',c:'s'},{l:'Transporte hasta 1 SMLMV',c:'g'},{l:'⚠️ Solo PRESENCIAL',c:'o'}],
+   monto:'1 SMLMV/sem (IES <60 km) ó 1.5 SMLMV/sem (IES >60 km) + hasta 1 SMLMV de transporte por semestre.',
+   res:'Uno de los apoyos más claros del país. ⚠️ CRÍTICO: el sostenimiento aplica SOLO para modalidad PRESENCIAL. Para modalidad a distancia (APT), no hay sostenimiento en este fondo.',
+   req:['Nacer o residir ≥5 años en uno de los 116 municipios de Cundinamarca (NO Bogotá)','Bachiller de colegio de Cundinamarca desde 2016','Sisbén Cundinamarca (cualquier puntaje)','Haber presentado Saber 11','Admisión en IES aliada del fondo','MODALIDAD PRESENCIAL obligatoria'],
+   pasos:['Ingresa a siempreenclase.cundinamarca.gov.co para verificar si la ESAP está en IES aliadas','Si está: inscríbete en las fechas de convocatoria (generalmente diciembre)','Adjunta: certificado residencia/nacimiento Cundinamarca + Sisbén + admisión ESAP'],
+   link:'https://siempreenclase.cundinamarca.gov.co/secsuperior/',
+   f:p=>locN(p,'cundinamarca')&&p.prog!=='apt'},
+
+  {id:'cundinamarca_mas',ico:'🌄',
+   n:'Cundinamarca Más Profesional – Permanencia',
+   ent:'Gobernación de Cundinamarca',
+   cob:'116 municipios de Cundinamarca',est:'Activo ✅',conv:true,
+   tags:[{l:'0.3–1 SMLMV/mes',c:'s'},{l:'Transporte',c:'g'},{l:'⚠️ Solo PRESENCIAL',c:'o'}],
+   monto:'0.3–1 SMLMV por mes de sostenimiento + apoyo de transporte. Miles de cupos (estrategia amplia).',
+   res:'Estrategia de permanencia más amplia de la Gobernación. También requiere PRESENCIAL para el sostenimiento.',
+   req:['Sisbén (cualquier puntaje)','Nacer o residir en Cundinamarca','Bachiller local post-2016','Modalidad PRESENCIAL','No tener otro subsidio de permanencia activo'],
+   pasos:['Consulta en siempreenclase.cundinamarca.gov.co si la ESAP está en las IES elegibles','Inscríbete en las fechas indicadas con Sisbén + admisión ESAP'],
+   link:'https://siempreenclase.cundinamarca.gov.co',
+   f:p=>locN(p,'cundinamarca')&&p.prog!=='apt'},
+
+  /* ── SAN ANDRÉS ─────────────────────────────────────── */
+  {id:'sanandres_exc',ico:'🏝️',
+   n:'Excellence Makes The Difference – San Andrés (Cód. 121955)',
+   ent:'Gobernación San Andrés – ICETEX',
+   cob:'San Andrés, Providencia y Santa Catalina',est:'Activo ✅',conv:false,
+   tags:[{l:'4.5 SMLMV/sem sostenimiento',c:'s'},{l:'🏆 El mayor apoyo del catálogo',c:'g'},{l:'Requiere OCCRE',c:'b'}],
+   monto:'4.5 SMLMV/semestre de sostenimiento + matrícula hasta 6.9 SMLMV/sem. Es el apoyo de sostenimiento más alto de toda la base de datos.',
+   res:'El fondo con mayor sostenimiento del catálogo. ESAP tiene sede en San Andrés.',
+   req:['Tarjeta OCCRE vigente','Sisbén ≤59 puntos (Sisbén IV) O estrato 1, 2 o 3','Nuevos: presentar Saber 11. Quienes ya estudian: máx. 4.º semestre + promedio ≥3.6','Admisión en IES presencial aprobada por MEN (incluye ESAP San Andrés)','No ser beneficiario de otro financiamiento activo','Deudor solidario'],
+   pasos:['Verifica tu tarjeta OCCRE en la Gobernación de San Andrés','Obtén constancia de admisión en la ESAP sede San Andrés','Ingresa a web.icetex.gov.co → Fondos Departamentos → San Andrés → Excellence Makes The Difference','Adjunta: OCCRE + Sisbén/estrato + Saber 11 + admisión ESAP + deudor solidario'],
+   link:'https://web.icetex.gov.co/es/-/excellence-makes-the-difference-en-san-andres-islas',
+   f:p=>loc(p,'sanandres')},
+
+  {id:'sanandres_arq',ico:'🏝️',
+   n:'El Archipiélago Avanza – San Andrés (Cód. 122162)',
+   ent:'Gobernación San Andrés – ICETEX',
+   cob:'San Andrés, Providencia y Santa Catalina',est:'Activo ✅',conv:false,
+   tags:[{l:'Sostenimiento (verificar monto)',c:'s'},{l:'Matrícula',c:'g'},{l:'Requiere OCCRE',c:'b'}],
+   monto:'~4.5 SMLMV/semestre (verificar en convocatoria específica). Segundo fondo de San Andrés.',
+   res:'Complementa el fondo Excellence. Si no calificas para el primero (por no cumplir promedio o semestre), evalúa este.',
+   req:['Tarjeta OCCRE vigente','Sisbén ≤59 puntos O estrato 1-2-3','Bachiller admitido en IES aprobada por MEN','No otro financiamiento activo','Deudor solidario'],
+   pasos:['Ingresa a web.icetex.gov.co → Fondos Departamentos → San Andrés → El Archipiélago Avanza','Adjunta: OCCRE + Sisbén + Saber 11 + admisión ESAP'],
+   link:'https://web.icetex.gov.co/creditos/fondos-en-administracion/instituciones-de-gobierno/departamentos',
+   f:p=>loc(p,'sanandres')},
+
+  /* ── SANTANDER ──────────────────────────────────────── */
+  {id:'santander_perm',ico:'🏔️',
+   n:'Fondo Apoyo Permanencia Santander (Cód. 122155)',
+   ent:'Gobernación de Santander – ICETEX',
+   cob:'82 municipios no certificados de Santander',est:'Activo ✅',conv:false,
+   tags:[{l:'Sostenimiento PURO',c:'s'},{l:'$400k–$2M/semestre',c:'g'},{l:'Cualquier IES del país',c:'b'}],
+   monto:'$400.000–$600.000/semestre. Los 2 mejores Saber 11 de municipios no certificados: $2.000.000/semestre.',
+   res:'SOSTENIMIENTO PURO. La clave: aplica para estudiar en CUALQUIER IES del país, incluida la ESAP, SIN convenio previo. No necesitas que la ESAP gestione nada.',
+   req:['Nacer o ser bachiller en alguno de los 82 municipios NO certificados de Santander (excluye área metropolitana Bucaramanga)','Cursando pregrado en CUALQUIER IES del país','Sisbén A, B o C','Certificación de matrícula vigente','No recibir otro subsidio de sostenimiento por el mismo concepto'],
+   pasos:['Verifica si tu municipio está en los 82 no certificados (consulta Gobernación de Santander o ICETEX)','Ingresa a web.icetex.gov.co → Fondos Departamentos → Santander','Adjunta: constancia municipio de nacimiento/bachillerato + Sisbén + certificación matrícula ESAP','Convocatorias semestrales'],
+   link:'https://web.icetex.gov.co/es/-/fondo-departamental-apoyo-permanencia-educacion-superior',
+   f:p=>locN(p,'santander')},
+
+  /* ── HUILA ──────────────────────────────────────────── */
+  {id:'huila_jenaro',ico:'☀️',
+   n:'Fondo Jenaro Díaz Jordán – Huila (Cód. 120005)',
+   ent:'Gobernación del Huila – ICETEX / INFIHUILA',
+   cob:'Huila',est:'Verificar ⚠️ (transición INFIHUILA)',conv:false,
+   tags:[{l:'Crédito condonable',c:'g'},{l:'Posible sostenimiento',c:'s'},{l:'En transición',c:'o'}],
+   monto:'Variable según línea (Excelencia, Excélsior, Avancemos). Las líneas condonables incluyen subsidio.',
+   res:'⚠️ La Asamblea del Huila aprobó trasladar la operación de ICETEX a INFIHUILA. Verificar estado actual antes de aplicar. ESAP tiene sede en Neiva.',
+   req:['Ser huilense de nacimiento o residente ≥5 años en el Huila','Estrato 1, 2 o 3','Admisión en IES nacional (incluye ESAP Neiva)','Línea Excelencia: top 3 Saber 11 del municipio'],
+   pasos:['Llama al ICETEX (01 8000 180672) o a INFIHUILA para confirmar qué entidad opera actualmente el fondo','Si está activo: busca en el portal ICETEX o INFIHUILA','Adjunta: nacimiento/residencia en Huila + Sisbén/estrato + admisión ESAP'],
+   link:'https://web.icetex.gov.co/es/-/fomento-educativo-jenaro-diaz-jordan',
+   f:p=>locN(p,'huila')},
+
+  /* ── META ───────────────────────────────────────────── */
+  {id:'meta_fses',ico:'🌾',
+   n:'FSES – Fondo Social Educación Superior del Meta',
+   ent:'Gobernación del Meta – FSES',
+   cob:'Meta (prioridad municipios PDET)',est:'Activo ✅ (Conv. Cumaral 2026)',conv:false,
+   tags:[{l:'Apoyos financieros directos',c:'s'},{l:'Prioridad municipios PDET',c:'g'}],
+   monto:'Montos variables por convocatoria. Conv. Cumaral 2026: para mejores Saber 11 del municipio.',
+   res:'Fondo territorial del Meta. Prioriza municipios PDET de los Llanos. Algunas convocatorias son para mejores Saber 11, otras para vulnerabilidad.',
+   req:['Ser del Meta','Bajo nivel socioeconómico','Admisión en IES (verificar si incluye ESAP Villavicencio)','Horas de servicio social como contraprestación','Algunas conv. exigen Saber 11 destacado'],
+   pasos:['Ingresa a sites.google.com/meta.gov.co/fses/inicio','Consulta las convocatorias vigentes para 2026','Regístrate en el sistema SIACE: fses.meta.gov.co','Adjunta documentos según la convocatoria específica'],
+   link:'https://sites.google.com/meta.gov.co/fses/inicio',
+   f:p=>loc(p,'meta')},
+
+  /* ── BOYACÁ ─────────────────────────────────────────── */
+  {id:'boyaca_puertob',ico:'🏞️',
+   n:'Fondo Pilos en Puerto Boyacá (Cód. 121902)',
+   ent:'Alcaldía Puerto Boyacá (Boyacá) – ICETEX',
+   cob:'Puerto Boyacá (Boyacá)',est:'Activo ✅',conv:false,
+   tags:[{l:'2 SMLMV/sem en IES pública',c:'s'},{l:'Matrícula 100%',c:'g'},{l:'ESAP = IES pública → más apoyo',c:'b'}],
+   monto:'IES pública (ESAP): 2 SMLMV/semestre de sostenimiento. IES privada: 1 SMLMV/semestre. Ser IES pública es ventajoso.',
+   res:'ESAP recibe el MAYOR apoyo de este fondo (2 SMLMV/sem) precisamente por ser IES pública. Exclusivo para bachilleres de Puerto Boyacá.',
+   req:['Ser bachiller del municipio de Puerto Boyacá','Sisbén (verificar rango exacto en convocatoria)','Estrato 1, 2 o 3','Saber 11 mínimo 270 puntos','Admisión en IES','No ser beneficiario simultáneo de otro programa'],
+   pasos:['Ingresa a web.icetex.gov.co → Fondos Municipios → Boyacá → Pilos Puerto Boyacá (Cód. 121902)','Verifica los rangos exactos de Sisbén para la convocatoria vigente','Adjunta: acta grado + Saber 11 + Sisbén + estrato + admisión ESAP'],
+   link:'https://web.icetex.gov.co/es/-/pilos-puerto-boyaca',
+   f:p=>locN(p,'boyaca')},
+
+  /* ── ÁREA DEL OLEODUCTO ─────────────────────────────── */
+  {id:'oleoducto',ico:'🛢️',
+   n:'Fondo Oleoducto Bicentenario (Cód. 121862)',
+   ent:'Cenit Transporte (Ecopetrol) – ICETEX',
+   cob:'Área del oleoducto: Arauca, Boyacá, Santander, N. Santander, Meta, Casanare',
+   est:'Activo ✅',conv:true,
+   tags:[{l:'4 SMLMV/sem sostenimiento',c:'s'},{l:'Matrícula 100%',c:'g'},{l:'Zona PDET',c:'b'}],
+   monto:'4 SMLMV/semestre de sostenimiento + matrícula 100%. Uno de los mayores apoyos privados.',
+   res:'Para residentes en el área del oleoducto. ESAP tiene presencia en varios de estos departamentos. Muy relevante para municipios PDET de Arauca y Llanos.',
+   req:['Residir en municipio del área de influencia del oleoducto','Estrato 1, 2 o 3','Admisión en IES en los departamentos del área','No ser beneficiario simultáneo de otro programa','Deudor solidario'],
+   pasos:['Ingresa a web.icetex.gov.co → Fondos Empresas Privadas → Oleoducto Bicentenario (Cód. 121862)','Verifica que tu municipio esté en el área de influencia','Adjunta: constancia residencia en zona + Sisbén/estrato + admisión IES'],
+   link:'https://web.icetex.gov.co/es/-/oleoducto-bicentenario-de-colombia',
+   f:p=>['arauca','santander','meta','boyaca','casanare','nsantander'].some(d=>locN(p,d))&&isVulnerable(p)},
+
+  /* ── ATLÁNTICO ──────────────────────────────────────── */
+  {id:'atl_fondos',ico:'🌊',
+   n:'Fondos Atlántico – Coco (121979) y Pilo (121945)',
+   ent:'Gobernación del Atlántico – ICETEX',
+   cob:'Atlántico',est:'Verificar ⚠️',conv:false,
+   tags:[{l:'Verificar vigencia',c:'o'},{l:'ESAP sede Barranquilla',c:'b'}],
+   monto:'Verificar directamente en portal ICETEX si incluye sostenimiento y montos vigentes.',
+   res:'Dos fondos del Atlántico para estudiantes con vulnerabilidad. ESAP tiene sede en Barranquilla. Verificar vigencia y si incluyen sostenimiento.',
+   req:['Ser estudiante del Atlántico con vulnerabilidad socioeconómica','Verificar requisitos específicos en ICETEX o Sec. Educación Atlántico'],
+   pasos:['Llama al ICETEX (01 8000 180672) para confirmar vigencia de los fondos Atlántico','Busca en web.icetex.gov.co → Fondos Departamentos → Atlántico'],
+   link:'https://web.icetex.gov.co/creditos/fondos-en-administracion/instituciones-de-gobierno/departamentos',
+   f:p=>loc(p,'atlantico')},
+
+  /* ── BOLÍVAR / CARTAGENA ─────────────────────────────── */
+  {id:'cartagena500',ico:'🏰',
+   n:'Becas Cartagena 500 Años – Fondo Educativo Inclusivo',
+   ent:'Alcaldía de Cartagena – Secretaría de Educación Distrital',
+   cob:'Cartagena de Indias',est:'Activo ✅ (Conv. 2026-1 abierta)',conv:true,
+   tags:[{l:'Matrícula 100%',c:'g'},{l:'1 SMLMV/sem sostenimiento',c:'s'},{l:'Cupos afro, víctimas, LGBTI',c:'b'}],
+   monto:'100% matrícula en 20 IES aliadas + 1 SMLMV/semestre de sostenimiento. Inversión total: >$15.000 millones.',
+   res:'El Fondo Educativo Inclusivo tiene 100 cupos específicos: 40 para afrocolombianos, 30 para víctimas, 10 LGBTIQ+, 10 discapacidad. Muy potente para la población ESAP.',
+   req:['Egresado/a de IE oficial o privada de Cartagena (últimos 8 años)','Estrato 1, 2 o 3','Sisbén A, B o C','Admisión en IES aliada (verificar lista SED Cartagena)'],
+   pasos:['Consulta sedcartagena.gov.co para ver si la ESAP está en las 20 IES aliadas','Si está: inscríbete en las fechas de convocatoria 2026-1','Adjunta: acta grado + Sisbén + admisión ESAP'],
+   link:'https://www.sedcartagena.gov.co/becas-cartagena-500-anos-aplica-ya-a-la-convocatoria-2026-1/',
+   f:p=>loc(p,'bolivar')},
+
+  /* ── CAUCA ──────────────────────────────────────────── */
+  {id:'cauca_fondo',ico:'🏔️',
+   n:'Cauca – Ser Estudioso Cuenta (Cód. 121943)',
+   ent:'Gobernación del Cauca – ICETEX',
+   cob:'Cauca',est:'Verificar ⚠️',conv:false,
+   tags:[{l:'Enfoque indígenas/afrocaucanos',c:'g'},{l:'Verificar vigencia',c:'o'}],
+   monto:'Verificar en portal ICETEX.',
+   res:'Para estudiantes del Cauca con vulnerabilidad y enfoque diferencial. ESAP tiene sede en Popayán. Alta relevancia por diversidad: indígenas, afros, víctimas, PDET.',
+   req:['Ser estudiante del Cauca con vulnerabilidad','Verificar requisitos en ICETEX o Sec. Educación del Cauca'],
+   pasos:['Llama al ICETEX para confirmar vigencia del fondo Cauca','Consulta en web.icetex.gov.co → Fondos Departamentos → Cauca'],
+   link:'https://web.icetex.gov.co/creditos/fondos-en-administracion/instituciones-de-gobierno/departamentos',
+   f:p=>loc(p,'cauca')},
+
+  /* ── VALLE DEL CAUCA ─────────────────────────────────── */
+  {id:'cali_beca',ico:'🌃',
+   n:'Mi Cali Beca – Sostenimiento en IES Pública',
+   ent:'Alcaldía de Santiago de Cali – ICETEX',
+   cob:'Santiago de Cali',est:'Activo ✅ (verificar conv. 2026-2)',conv:true,
+   tags:[{l:'1 SMLMV/sem toda la carrera',c:'s'},{l:'Solo IES pública',c:'g'},{l:'Solo egresados colegios oficiales Cali',c:'o'}],
+   monto:'1 SMLMV/semestre durante TODA la duración de la carrera. Sostenimiento puro para IES pública.',
+   res:'Sostenimiento puro de 1 SMLMV/sem en IES pública (ESAP aplica). SOLO para egresados 2025 de colegios OFICIALES de Cali.',
+   req:['Egresado/a 2025 de colegio OFICIAL de Cali','Admisión en IES pública elegible (verificar que ESAP esté en lista)'],
+   pasos:['Consulta web.icetex.gov.co buscando "Mi Cali Beca"','Verifica que la ESAP sede Cali esté en la lista de IES públicas elegibles','Inscríbete con: acta grado colegio oficial + admisión ESAP'],
+   link:'https://web.icetex.gov.co/es/-/mi-cali-beca-gran-apuesta-educacion-superior-en-cali',
+   f:p=>loc(p,'valle')},
+
+  {id:'val_fan',ico:'📋',
+   n:'Valle del Cauca – Fondo FAN (Cód. 121925)',
+   ent:'Gobernación Valle del Cauca – ICETEX',
+   cob:'Valle del Cauca',est:'Verificar ⚠️',conv:false,
+   tags:[{l:'Verificar sostenimiento',c:'o'},{l:'ESAP sede Cali',c:'b'}],
+   monto:'Verificar directamente en portal ICETEX.',
+   res:'Fondo departamental del Valle para estudiantes con vulnerabilidad. ESAP tiene sede en Cali. Verificar vigencia y si incluye sostenimiento.',
+   req:['Ser del Valle del Cauca con vulnerabilidad','Verificar en ICETEX o Sec. Educación del Valle'],
+   pasos:['Llama al ICETEX (01 8000 180672) para confirmar vigencia','Busca en web.icetex.gov.co → Fondos Departamentos → Valle del Cauca → FAN'],
+   link:'https://web.icetex.gov.co/creditos/fondos-en-administracion/instituciones-de-gobierno/departamentos',
+   f:p=>loc(p,'valle')},
+
+  {id:'digicampus',ico:'💻',
+   n:'DigiCampus Valle del Cauca – Beca Virtual',
+   ent:'Gobernación del Valle del Cauca',
+   cob:'42 municipios del Valle',est:'Activo ✅ (conv. anuales)',conv:true,
+   tags:[{l:'Matrícula 100%',c:'g'},{l:'Solo modalidad VIRTUAL',c:'o'},{l:'41 programas disponibles',c:'b'}],
+   monto:'Beca 100% de matrícula en modalidad virtual. Verificar si incluye apoyo de sostenimiento.',
+   res:'Para egresados 2024 del Valle en programas virtuales. ⚠️ Debes verificar si Administración Pública Territorial (ESAP) está en los 41 programas disponibles en campusdigital.valledelcauca.gov.co.',
+   req:['Bachiller 2024 en municipio del Valle del Cauca','Residencia en Valle del Cauca','Sisbén A/B/C para beca 100%','Admisión en IES convenida con el programa específico'],
+   pasos:['Entra a campusdigital.valledelcauca.gov.co','Busca si los programas de la ESAP están en los 41 disponibles','Si están: inscríbete en las fechas de convocatoria'],
+   link:'https://campusdigital.valledelcauca.gov.co/informacion-becas',
+   f:p=>loc(p,'valle')&&p.prog==='apt'},
+
+  /* ── ANTIOQUIA ──────────────────────────────────────── */
+  {id:'fraternidad',ico:'🤝',
+   n:'Fondo Fraternidad Medellín (vía Comfama)',
+   ent:'Fundación Fraternidad Medellín',
+   cob:'27 municipios de Antioquia: Oriente, Suroeste y Urabá',
+   est:'Activo ✅ (Conv. 2026-1: oct-nov 2025)',conv:true,
+   tags:[{l:'Hasta 4 SMLMV/sem manutención',c:'s'},{l:'Matrícula 100% IES pública',c:'g'},{l:'⭐ Sin req. de afiliación Comfama',c:'b'}],
+   monto:'Hasta 4 SMLMV/semestre por manutención + 100% matrícula en IES pública. El apoyo de sostenimiento privado más alto del catálogo.',
+   res:'⭐ Dato clave: NO requiere afiliación a Comfama (abierto a cualquier estudiante de los 27 municipios). Municipios: Oriente (San Carlos, Granada, El Peñol...), Suroeste (Jericó, Jardín...) y Urabá (Carepa, Necoclí...).',
+   req:['Residir ≥1 año en uno de los 27 municipios con presencia de Fraternidad Medellín','15-40 años','Sisbén hasta C18 (Sisbén IV) – sin restricción de estrato','No tener estudios previos del mismo nivel','No recibir otro apoyo económico para estudios','Promedio ≥3.5 (o ≥3.2 en el primer 30% del programa)','Admisión en IES aliada del fondo'],
+   pasos:['Confirma que tu municipio está entre los 27 en fraternidadmedellin.org','Verifica que la ESAP esté en las IES aliadas o escríbeles a becasfraternidad@comfama.com','Postúlate en el portal en las fechas (oct.-nov. para 2026-1)'],
+   link:'https://fraternidadmedellin.org/educacion-superior/becas/',
+   f:p=>loc(p,'antioquia')},
+
+  {id:'sapiencia',ico:'🔬',
+   n:'Fondos Sapiencia – Créditos Condonables Medellín',
+   ent:'Sapiencia – Alcaldía de Medellín',
+   cob:'Medellín',est:'Activo ✅ (359 cupos 2026-I)',conv:true,
+   tags:[{l:'Crédito condonable + sostenimiento',c:'s'},{l:'359 cupos 2026-I',c:'g'}],
+   monto:'Crédito condonable con componente de sostenimiento. En IES pública = más porcentaje a sostenimiento.',
+   res:'Programa de créditos condonables de la Alcaldía de Medellín con 359 cupos nuevos en 2026-I para residentes de Medellín en estratos bajos.',
+   req:['Residente en Medellín','Estratos bajos (1 o 2 principalmente)','Admisión en IES elegible de Sapiencia'],
+   pasos:['Ingresa a medellin.gov.co/sapiencia para ver la convocatoria y la lista de IES elegibles','Verifica que la ESAP esté en la lista de IES elegibles','Regístrate y adjunta los documentos solicitados'],
+   link:'https://www.medellin.gov.co/sapiencia',
+   f:p=>loc(p,'antioquia')},
+
+  {id:'pa_lante',ico:'🚀',
+   n:'Becas Jóvenes Pa\' Lante Antioquia + Becas Regiones',
+   ent:'Corporación Gilberto Echeverri Mejía / Gobernación Antioquia',
+   cob:'Antioquia (todos los municipios)',est:'Activo ✅ (conv. semestrales)',conv:true,
+   tags:[{l:'Matrícula 2 SMLMV/sem',c:'g'},{l:'Sostenimiento hasta 3 SMLMV/sem',c:'s'},{l:'Estratos 1-2-3',c:'b'}],
+   monto:'Matrícula 2 SMLMV/sem + sostenimiento hasta 3 SMLMV/sem en IES aliada.',
+   res:'Para jóvenes de cualquier municipio de Antioquia estrato 1-2-3. Las Becas Regiones cubren subregiones PDET: Bajo Cauca, Nordeste, Urabá, Oriente antioqueño.',
+   req:['Egresado/a de IE de Antioquia','Estrato 1, 2 o 3','Admisión en IES aliada de la Corporación','Méritos académicos (según convocatoria)'],
+   pasos:['Consulta corporaciongilbertoecheverri.gov.co para ver convocatoria vigente','Confirma que la ESAP esté en la lista de IES aliadas','Presenta: acta grado + Sisbén/estrato + admisión ESAP'],
+   link:'https://corporaciongilbertoecheverri.gov.co/becas-jovenes-pa-lante-antioquia/',
+   f:p=>loc(p,'antioquia')&&isEstrato(p,'e1','e2','e3')},
+
+  {id:'mineros',ico:'⛏️',
+   n:'Beca Líderes de Oro – Fundación Mineros (Bajo Cauca)',
+   ent:'Fundación Mineros (empresa minera Bajo Cauca Antioquia)',
+   cob:'Bajo Cauca Antioquia: El Bagre, Nechí, Zaragoza, Caucasia (rural)',
+   est:'Activo ✅ (vigente hasta 2029)',conv:true,
+   tags:[{l:'1.25 SMLMV/sem sostenimiento',c:'s'},{l:'Alimentación incluida',c:'g'},{l:'Zona PDET',c:'b'}],
+   monto:'1.25 SMLMV/semestre de sostenimiento + apoyo en alimentación. Hasta 10 semestres.',
+   res:'Para jóvenes del Bajo Cauca Antioqueño (zona PDET). Incluye alimentación además del sostenimiento. Requiere servicio social en el municipio de origen.',
+   req:['Residir en El Bagre, Nechí, Zaragoza o zona rural de Caucasia','Estrato 1, 2 o 3','Acreditar dificultades económicas','No tener más de 2 subsidios vigentes simultáneos','40 horas de servicio social en municipio de origen'],
+   pasos:['Consulta afecolombia.org/beca-lideres-de-oro','Pregunta si la ESAP está en las IES elegibles','Presenta documentos de vulnerabilidad económica y residencia en el Bajo Cauca'],
+   link:'https://afecolombia.org/beca-lideres-de-oro',
+   f:p=>loc(p,'antioquia')},
+
+  /* ── LA GUAJIRA ─────────────────────────────────────── */
+  {id:'fondecor',ico:'🌵',
+   n:'Fundación Fondecor – Beca Talento La Guajira',
+   ent:'Fundación Fondecor (RSE del Cerrejón)',
+   cob:'La Guajira',est:'Activo ✅',conv:true,
+   tags:[{l:'Matrícula 100%',c:'g'},{l:'~$520k/mes sostenimiento',c:'s'},{l:'Computador portátil',c:'b'},{l:'~15 cupos/conv.',c:'o'}],
+   monto:'100% matrícula + ~40% SMLMV/mes de sostenimiento (~$520.000) + computador portátil. Modalidad especial para Mujeres Wayuu.',
+   res:'Para jóvenes guajiros de escasos recursos con buen rendimiento (promedio ≥4.0). Requiere servicio social de 40 horas de retorno comunitario.',
+   req:['Nacer en La Guajira','Egresado/a de IE de La Guajira','15-25 años','Sisbén A1-B7 (Sisbén IV)','Estrato 1 o 2','Promedio ≥4.0 (sin sanciones académicas)','Admisión en IES aliada (desde el 2.º semestre)','Ensayo escrito + video ≤2 minutos','Servicio social: 40 horas en municipio de origen'],
+   pasos:['Consulta fundacionfondecor.org.co para ver si la ESAP está en IES aliadas','Si no está, contacta a Fondecor para gestionar inclusión','Si está: regístrate con Sisbén + acta grado + admisión + ensayo + video'],
+   link:'https://fundacionfondecor.org.co/talento-guajiro/',
+   f:p=>locN(p,'guajira')},
+
+  /* ── ANDRES BELLO (NACIONAL) ─────────────────────────── */
+  {id:'andres_bello',ico:'🏅',
+   n:'Bachilleres con Distinción Andrés Bello – ICETEX',
+   ent:'ICETEX + MEN',cob:'Nacional',est:'Activo ✅',conv:false,
+   tags:[{l:'Matrícula 100% + sostenimiento',c:'s'},{l:'Top Saber 11 por dpto.',c:'b'},{l:'IES pública',c:'g'}],
+   monto:'100% matrícula en IES pública + apoyo de sostenimiento (varía según ubicación). En ESAP = todo va a sostenimiento.',
+   res:'Para los mejores puntajes Saber 11 del departamento. En dptos. prioritarios (Amazonas, Arauca, Caquetá, Casanare, Cesar, Chocó, Guainía, Guaviare, Guajira, San Andrés, Putumayo, Vaupés, Vichada): top 10. Resto del país: top 3.',
+   req:['Top 3 (o top 10 en dptos. prioritarios) mejores puntajes Saber 11 del departamento','Puntaje mínimo 345 en Saber 11','Sisbén vigente (salvo indígenas reconocidos)','Admisión en IES pública (incluye ESAP)'],
+   pasos:['Si tienes puntaje Saber 11 destacado, consulta en ICETEX si quedaste en el top departamental','Ingresa a portal.icetex.gov.co → "Andrés Bello"','Presenta admisión en la ESAP (IES pública) y Sisbén'],
+   link:'https://portal.icetex.gov.co/el-icetex/biblioteca/archivo-de-lineas-de-credito/bachilleres-con-distincion-andres-bello',
+   f:p=>p.momento==='bachiller'},
+
+  /* ── FUNDACIONES PRIVADAS NACIONALES ────────────────── */
+  {id:'sura',ico:'💎',
+   n:'Beca Nicanor Restrepo Santamaría – Fundación SURA',
+   ent:'Fundación SURA (Grupo SURA)',cob:'Nacional',est:'Activo ✅ (conv. anual jun-jul)',conv:true,
+   tags:[{l:'Ciencias sociales = ESAP ✅',c:'s'},{l:'Matrícula 100% + manutención',c:'g'},{l:'Estratos 1-4',c:'b'}],
+   monto:'100% matrícula + porcentaje de manutención (monto según caso). Convocatoria anual junio-julio.',
+   res:'⭐ El fondo privado MÁS ALINEADO con la ESAP. Es ESPECÍFICO para ciencias sociales, económicas y humanas = exactamente Administración Pública y Economía Pública. No aplica para ingeniería, salud ni artes.',
+   req:['Colombiano/a o residente ≥1 año en Colombia','Estrato 1, 2, 3 o 4','Promedio mínimo 3.5','Liderazgo comunitario comprobable (cartas, fotos, referencias)','Carrera en CIENCIAS SOCIALES, ECONÓMICAS o HUMANAS','Estudios deben iniciar máximo en 2.º semestre de 2026'],
+   pasos:['Consulta fundacionsura.com para fechas (generalmente junio-julio cada año)','Verifica que la ESAP esté en la lista de IES elegibles','Prepara tu portafolio de liderazgo comunitario','Adjunta: promedio + cartas de referencia + documentación liderazgo'],
+   link:'https://www.fundacionsura.com/iniciativas/beca-nicanor-restrepo-santamaria/',
+   f:p=>isEstrato(p,'e1','e2')},
+
+  {id:'ventanas',ico:'🪟',
+   n:'Fundación Ventanas – Programa Quiero Estudiar',
+   ent:'Fundación Ventanas (alianza EY + sector privado)',cob:'Nacional (principalmente Bogotá)',
+   est:'Activo ✅ (conv. nov. y mayo)',conv:true,
+   tags:[{l:'Solo estratos 1 y 2',c:'r'},{l:'16-25 años sin hijos',c:'o'},{l:'~10-20 cupos/semestre',c:'o'}],
+   monto:'Tope $6.000.000/semestre de matrícula. Nota: Como la ESAP no cobra matrícula, este monto podría negociarse para redirigirlo a sostenimiento.',
+   res:'Para jóvenes de estrato 1-2 con alta motivación y buen rendimiento (promedio ≥3.8). Pocos cupos. Administración Pública aplica como carrera social.',
+   req:['Estrato 1 ó 2 EXCLUSIVAMENTE','16-25 años','Soltero/a sin hijos','ICFES mínimo 250 puntos','Promedio ≥3.8 (si ya está en la universidad)','Alta motivación vocacional y claridad de proyecto de vida','Apoyo familiar','Al graduarse: retribuir al Fondo (sin intereses)'],
+   pasos:['Convocatoria Sem. I: 1-30 noviembre. Sem. II: 1-31 mayo','Postúlate en fundacionventanas.org/quiero-estudiar','Si ESAP no está en IES convenidas, escríbeles a contacto@fundacionventanas.org explicando tu situación'],
+   link:'https://fundacionventanas.org/quiero-estudiar/',
+   f:p=>isEstrato(p,'e1','e2')},
+
+  {id:'ventanas_rescate',ico:'🔁',
+   n:'Fundación Ventanas – Programa Rescate',
+   ent:'Fundación Ventanas',cob:'Nacional',est:'Activo ✅',conv:true,
+   tags:[{l:'Para quienes interrumpieron',c:'o'},{l:'Últimos semestres',c:'g'}],
+   monto:'Tope $6M/semestre para los semestres restantes hasta terminar la carrera.',
+   res:'Para estudiantes que tuvieron que abandonar sus estudios y quieren terminar. La Fundación patrocina los semestres restantes.',
+   req:['Haber interrumpido los estudios por causa justificada (económica, familiar, etc.)','Estar en los últimos semestres de la carrera','Documentar la causa de la interrupción','Condición de vulnerabilidad económica'],
+   pasos:['Visita fundacionventanas.org/rescate','Escribe a contacto@fundacionventanas.org explicando tu situación y que estudias en la ESAP','El proceso incluye revisión de historial académico y entrevista'],
+   link:'https://fundacionventanas.org/rescate/',
+   f:p=>p.momento==='retoma'},
+
+  {id:'ecopetrol',ico:'🛢️',
+   n:'Beca Mario Galán Gómez – Ecopetrol',
+   ent:'Ecopetrol S.A.',cob:'Nacional',est:'Conv. 2026: 2 mar – 1 abr 2026',conv:true,
+   tags:[{l:'100 becas/año',c:'g'},{l:'Matrícula + alimentación + alojamiento',c:'s'},{l:'Solo bachilleres 2025',c:'o'}],
+   monto:'100% matrícula + $1.305.448/sem alimentación/transporte + $2.752.730/sem alojamiento (si traslado) + inglés + derechos de grado.',
+   res:'Una de las becas más completas del país. ⚠️ REQUIERE que la IES tenga acreditación de alta calidad del MEN. Verificar si la ESAP tiene esa acreditación activa.',
+   req:['Colombiano/a','Bachiller IE pública egresado en 2025','Saber 11 2025 ≥250 puntos','No tener otra beca (o renunciar a ella)','Admisión en universidad con acreditación de alta calidad del MEN','Ensayo de 500 palabras'],
+   pasos:['Conv. 2026: 2 mar – 1 abr 2026. Entra a ecopetrol.com.co → Bachilleres','Confirma si la ESAP tiene acreditación de alta calidad en mineducacion.gov.co','Llena formulario + ensayo antes del 1 de abril de 2026','Resultados: 30 de abril de 2026'],
+   link:'https://www.ecopetrol.com.co/wps/portal/Home/bachilleresecopetrol',
+   f:p=>p.momento==='bachiller'},
+];
+
+/* ══════════════════════════════════════════════════════
+   STATE
+══════════════════════════════════════════════════════ */
+const S = {
+  step: 'welcome',
+  profile: {
+    conds: new Set(), // condiciones especiales
+    nac: null,        // nacimiento / residencia (dpto)
+    est: null,        // estudio / sede ESAP (dpto)
+    prog: null,       // programa
+    estrato: null,    // estrato (un solo valor)
+    sisben: null,     // sisben (un solo valor)
+    momento: null,    // momento académico
+    ccf: null,        // tiene afiliación CCF?
+  },
+  hist: [],
+  ms: new Set(),      // pending multiselect selections
+};
+
+/* ══════════════════════════════════════════════════════
+   DOM
+══════════════════════════════════════════════════════ */
+const $msgs   = document.getElementById('msgs');
+const $opts   = document.getElementById('opts-inner');
+const $back   = document.getElementById('btn-back');
+const $rst    = document.getElementById('btn-restart');
+const $prog   = document.getElementById('prog-wrap');
+const $pLbl   = document.getElementById('prog-lbl');
+const $pFill  = document.getElementById('prog-fill');
+
+/* ══════════════════════════════════════════════════════
+   HELPERS
+══════════════════════════════════════════════════════ */
+const ts = () => {
+  const d = new Date();
+  return `${d.getHours()}:${String(d.getMinutes()).padStart(2,'0')}`;
+};
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+const clearOpts = () => {
+  $opts.innerHTML = '';
+  const wrap = document.getElementById('opts-wrap');
+  wrap.classList.remove('has-cont');
+  const stray = document.getElementById('btn-cont');
+  if (stray) stray.remove();
+};
+const scrollMsgsToBottom = () => {
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => { $msgs.scrollTop = $msgs.scrollHeight; });
+  });
+};
+
+function addMsg(role, html) {
+  const w = document.createElement('div');
+  w.className = `msg ${role}`;
+  const b = document.createElement('div');
+  b.className = 'bub';
+  b.innerHTML = html;
+  const t = document.createElement('div');
+  t.className = 'ts';
+  t.textContent = ts();
+  w.append(b, t);
+  $msgs.appendChild(w);
+  $msgs.scrollTop = $msgs.scrollHeight;
+}
+
+function showTyping() {
+  document.getElementById('typing').style.display = 'flex';
+  $msgs.scrollTop = $msgs.scrollHeight;
+}
+function hideTyping() { document.getElementById('typing').style.display = 'none'; }
+
+async function botSay(arr, delay = 500) {
+  showTyping();
+  for (let i = 0; i < arr.length; i++) {
+    await sleep(i === 0 ? delay : 600);
+    hideTyping();
+    addMsg('bot', arr[i]);
+    $msgs.scrollTop = $msgs.scrollHeight;
+    if (i < arr.length - 1) { await sleep(200); showTyping(); }
+  }
+}
+
+// Progress: pct from 0-100
+function setProg(pct) {
+  if (pct === null) { $prog.style.display = 'none'; return; }
+  $prog.style.display = 'block';
+  $pFill.style.width = pct + '%';
+  $pLbl.textContent = `Completado: ${pct}%`;
+}
+
+/* ══════════════════════════════════════════════════════
+   NAVIGATION
+══════════════════════════════════════════════════════ */
+function saveHist() {
+  S.hist.push({
+    step: S.step,
+    profile: { ...S.profile, conds: new Set(S.profile.conds), socio: new Set(S.profile.socio) },
+    ms: new Set(S.ms),
+    msgCount: $msgs.children.length,
+  });
+}
+
+function goBack() {
+  if (!S.hist.length) return;
+  const prev = S.hist.pop();
+  // Remove messages added since we saved
+  while ($msgs.children.length > prev.msgCount) {
+    $msgs.removeChild($msgs.lastChild);
+  }
+  S.step = prev.step;
+  S.profile = prev.profile;
+  S.ms = prev.ms;
+  renderStep(true);
+}
+
+function restart() {
+  S.step = 'welcome';
+  S.profile = { conds: new Set(), nac: null, est: null, prog: null, socio: new Set(), momento: null, ccf: null };
+  S.hist = [];
+  S.ms = new Set();
+  while ($msgs.children.length > 1) $msgs.removeChild($msgs.lastChild); // keep typing div
+  clearOpts();
+  $back.style.display = 'none';
+  $rst.classList.remove('vis');
+  setProg(null);
+  goToStep('welcome');
+}
+
+async function goToStep(stepId, userLabel) {
+  if (stepId !== 'welcome') saveHist();
+  S.step = stepId;
+  if (userLabel) { addMsg('usr', userLabel); await sleep(350); }
+  renderStep();
+}
+
+/* ══════════════════════════════════════════════════════
+   STEP RENDERER
+══════════════════════════════════════════════════════ */
+async function renderStep(isBack = false) {
+  clearOpts();
+  $back.style.display = S.hist.length ? 'flex' : 'none';
+  $rst.classList.toggle('vis', S.step !== 'welcome');
+  updateSidebarSteps();
+
+  switch (S.step) {
+    case 'welcome':    setProg(null); await renderWelcome();             break;
+    case 'info':       setProg(null); await renderInfo();                break;
+    case 'condiciones':setProg(14);   await renderCondiciones(isBack);   break;
+    case 'nacimiento': setProg(28);   await renderNacimiento(isBack);    break;
+    case 'programa':   setProg(42);   await renderPrograma(isBack);      break;
+    case 'estudio':    setProg(57);   await renderEstudio(isBack);       break;
+    case 'estrato':    setProg(55);   await renderEstrato(isBack);       break;
+    case 'sisben':     setProg(70);   await renderSisben(isBack);        break;
+    case 'momento':    setProg(85);   await renderMomento(isBack);       break;
+    case 'ccf_preg':   setProg(100);  await renderCCFPreg(isBack);       break;
+    case 'results':    setProg(null); await renderResults();             break;
+  }
+}
+
+/* ── WELCOME ── */
+async function renderWelcome() {
+  await botSay([
+    '¡Hola! 👋 Soy el asesor virtual de apoyos de la <b>ESAP</b>.',
+    'Te haré <b>7 preguntas cortas</b> para encontrar fondos de <b>sostenimiento, transporte o alimentación</b> que se ajusten a ti. 🎯<br><br>En la ESAP ya tienes <b>matrícula gratuita</b>, así que buscamos apoyos para cubrir tus gastos de vida mientras estudias. ¿Comenzamos?',
+  ], 400);
+  chips([
+    { l: '🚀 Sí, quiero encontrar fondos para mí', fn: () => goToStep('condiciones', '¡Comencemos!') },
+    { l: 'ℹ️ ¿Qué tipos de fondos existen?',       fn: () => goToStep('info', '¿Qué tipos de fondos existen?') },
+  ]);
+}
+
+/* ── INFO ── */
+async function renderInfo() {
+  await botSay([
+    '🗂️ Hay <b>4 tipos</b> de apoyos en el catálogo:<br><ul><li><b>Fondos ICETEX por condición especial</b>: víctimas, afro, indígenas, LGBTIQ+, discapacidad, RROM, familia de militares/policías.</li><li><b>Fondos territoriales</b>: cada gobernación y algunas alcaldías tienen fondos propios para su región.</li><li><b>Fundaciones privadas</b>: SURA, Ventanas, Fraternidad Medellín, Mineros, Ecopetrol, Fondecor…</li><li><b>Cajas de Compensación Familiar (CCF)</b>: si eres empleado/a dependiente o hijo/a de uno, puede haber beneficios educativos.</li></ul>Las preguntas me permiten cruzar tu perfil con cada fondo. ¿Seguimos?',
+  ]);
+  chips([{ l: '¡Listo, hagamos las preguntas! 🚀', fn: () => goToStep('condiciones', '¡Vamos con las preguntas!') }]);
+}
+
+/* ── CONDICIONES ── */
+async function renderCondiciones(isBack) {
+  if (!isBack) await botSay(['Primero: ¿Tienes alguna de estas condiciones o pertenencias? Selecciona <b>todas las que apliquen</b> y toca "Continuar".']);
+  const items = [
+    { k: 'victima',     em: '🕊️', l: 'Soy víctima del conflicto armado (estoy en el RUV)' },
+    { k: 'afro',        em: '✊',  l: 'Soy de comunidad negra, afrocolombiana, raizal o palenquera' },
+    { k: 'indigena',    em: '🌿',  l: 'Soy de pueblo indígena' },
+    { k: 'rrom',        em: '🎪',  l: 'Soy del pueblo RROM (gitano/romaní)' },
+    { k: 'discapacidad',em: '♿',  l: 'Tengo discapacidad certificada (física, sensorial, intelectual o psicosocial)' },
+    { k: 'lgbti',       em: '🌈',  l: 'Me identifico como LGBTIQ+' },
+    { k: 'fuerzapublica',em:'🎖️', l: 'Soy familiar de militar/policía fallecido o inválido en actos del servicio' },
+    { k: 'servidorDC',  em: '🏛️', l: 'Soy empleado/a público/a activo/a del Distrito Capital (Bogotá)' },
+  ];
+  multiselect(items, '🚫 Ninguna de estas aplica para mí', 'conds', () => {
+    const lbl = S.profile.conds.size === 0
+      ? 'Ninguna condición especial'
+      : [...S.profile.conds].map(k => items.find(i => i.k === k)?.l || k).join(' · ');
+    goToStep('nacimiento', lbl);
+  });
+}
+
+/* ── NACIMIENTO ── */
+async function renderNacimiento(isBack) {
+  if (!isBack) await botSay(['¿En qué <b>departamento naciste</b> o has vivido durante <b>más de 5 años</b>?<br><br>Esto nos permite identificar fondos de tu región de origen (como subsidios departamentales que exigen nacer o residir allí).']);
+  locationChips('nac', 'programa');
+}
+
+/* ── PROGRAMA ── */
+async function renderPrograma(isBack) {
+  if (!isBack) await botSay(['¿Qué programa estudias o planeas estudiar en la ESAP?']);
+  chips([
+    { l: '🏛️ Administración Pública (AP) — Presencial · Sede Bogotá', fn: () => {
+      S.profile.prog = 'ap';
+      S.profile.est  = 'bogota'; // AP is always Bogotá
+      addMsg('bot', '📍 Perfecto. AP es presencial exclusivamente en <b>Bogotá</b>, así que tu sede ESAP queda registrada automáticamente.');
+      sleep(300).then(() => goToStep('estrato', 'Administración Pública – Presencial (Bogotá)'));
+    }},
+    { l: '🗺️ Administración Pública Territorial (APT) — A distancia · 311+ municipios', fn: async () => {
+      S.profile.prog = 'apt';
+      addMsg('usr', 'Administración Pública Territorial – A distancia');
+      await sleep(350);
+      addMsg('bot', '📍 APT se cursa a <b>distancia</b> (no se ofrece en Bogotá). <b>Ten en cuenta:</b> algunos fondos de sostenimiento exigen que la carrera sea <b>presencial</b>, por lo que podrían no aplicar para APT. En los resultados te doy más detalle y el equipo de <b>Orientación Socioeconómica</b> puede ayudarte a verificar cuáles sí aplican en tu caso.');
+      await sleep(800);
+      // advance without re-adding the user label
+      saveHist();
+      S.step = 'estudio';
+      renderStep();
+    }},
+    { l: '📊 Economía Pública — Presencial · Sede Bogotá', fn: () => {
+      S.profile.prog = 'ep';
+      S.profile.est  = 'bogota'; // EP is always Bogotá
+      addMsg('bot', '📍 Perfecto. Economía Pública es presencial exclusivamente en <b>Bogotá</b>, así que tu sede ESAP queda registrada automáticamente.');
+      sleep(300).then(() => goToStep('estrato', 'Economía Pública – Presencial (Bogotá)'));
+    }},
+    { l: '❓ Aún no lo tengo claro', fn: () => {
+      S.profile.prog = 'noSabe';
+      goToStep('estudio', 'Aún no he decidido el programa');
+    }},
+  ], 'wide');
+}
+
+/* ── ESTUDIO ── */
+async function renderEstudio(isBack) {
+  const isAPT = S.profile.prog === 'apt';
+  if (!isBack) await botSay([
+    isAPT
+      ? 'APT se cursa a distancia en más de 311 municipios del país. ¿En qué <b>departamento está la seccional (territorial) de la ESAP</b> donde estudias o planeas estudiar?<br><br>Si no estás seguro/a, elige el departamento donde vives actualmente.'
+      : '¿En qué <b>departamento planeas estudiar</b> en la ESAP?',
+  ]);
+  locationChips('est', 'estrato');
+}
+
+/* -- ESTRATO -- */
+async function renderEstrato(isBack) {
+  const aptNote = S.profile.prog === 'apt'
+    ? ''
+    : '';
+  if (!isBack) await botSay([`\u00bfCu\u00e1l es tu <b>estrato socioecon\u00f3mico</b>?${aptNote}<br><br>Elige <b>una opci\u00f3n</b>.`]);
+  radioChips([
+    {l:'1\ufe0f\u20e3 Estrato 1',v:'e1'},
+    {l:'2\ufe0f\u20e3 Estrato 2',v:'e2'},
+    {l:'3\ufe0f\u20e3 Estrato 3',v:'e3'},
+    {l:'4\ufe0f\u20e3 Estrato 4',v:'e4'},
+    {l:'5\ufe0f\u20e3 Estrato 5 o 6',v:'e56'},
+    {l:'\ud83c\udfe1 Sin estrato (zona rural, vereda, \u00e1rea no estratificada)',v:'sinEst'},
+    {l:'\u2753 No s\u00e9 / no aplica ninguna',v:'noSabe_est'},
+  ], v=>{S.profile.estrato=v;}, 'sisben');
+}
+
+/* -- SISBEN -- */
+async function renderSisben(isBack) {
+  if (!isBack) await botSay(['\u00bfTienes <b>Sisb\u00e9n</b>? \u00bfEn qu\u00e9 grupo est\u00e1s?<br><br>Elige <b>una opci\u00f3n</b>.']);
+  radioChips([
+    {l:'&#127120; Sisb\u00e9n grupo A (A1-A5) \u2013 nivel muy bajo',v:'sbA'},
+    {l:'&#127121; Sisb\u00e9n grupo B (B1-B7) \u2013 nivel bajo',v:'sbB'},
+    {l:'&#127187; Sisb\u00e9n grupo C (C1-C18) \u2013 nivel medio-bajo',v:'sbC'},
+    {l:'\ud83d\udccb Tengo Sisb\u00e9n pero no s\u00e9 mi grupo / est\u00e1 desactualizado',v:'sbX'},
+    {l:'\u274c No tengo Sisb\u00e9n (nunca me han encuestado)',v:'noSisben'},
+    {l:'\u2753 No s\u00e9 / prefiero no responder',v:'noSabe_sb'},
+  ], v=>{S.profile.sisben=v;}, 'momento');
+}
+
+/* ── MOMENTO ── */
+async function renderMomento(isBack) {
+  if (!isBack) await botSay(['¿Cuál es tu momento académico actual?']);
+  chips([
+    { l: '📝 Bachiller recién egresado/a (2024-2025) – Aún no ingreso a la ESAP', fn: () => { S.profile.momento = 'bachiller'; goToStep('ccf_preg', 'Bachiller recién egresado/a'); } },
+    { l: '🎒 Ya estoy estudiando en la ESAP',                                      fn: () => { S.profile.momento = 'estudiante'; goToStep('ccf_preg', 'Ya estoy estudiando en la ESAP'); } },
+    { l: '🔄 Interrumpí mis estudios y quiero retomar',                            fn: () => { S.profile.momento = 'retoma'; goToStep('ccf_preg', 'Quiero retomar mis estudios'); } },
+  ], 'wide');
+}
+
+/* ── CCF PREGUNTA ── */
+async function renderCCFPreg(isBack) {
+  if (!isBack) await botSay(['Última pregunta: ¿Tú o un familiar directo (papá, mamá, cónyuge) es trabajador/a <b>dependiente con contrato formal</b>? Es decir, ¿tienen afiliación activa a una <b>Caja de Compensación Familiar (CCF)</b>?']);
+  chips([
+    { l: '✅ Sí, yo o mi familia tenemos afiliación a una CCF',          fn: () => { S.profile.ccf = true;  goToStep('results', 'Sí, tenemos afiliación CCF'); } },
+    { l: '❌ No, ninguno trabaja dependiente con contrato formal',        fn: () => { S.profile.ccf = false; goToStep('results', 'No tenemos afiliación CCF'); } },
+    { l: '❓ No estoy seguro/a',                                          fn: () => { S.profile.ccf = null;  goToStep('results', 'No estoy seguro/a sobre la CCF'); } },
+  ], 'wide');
+}
+
+/* ══════════════════════════════════════════════════════
+   RESULTS
+══════════════════════════════════════════════════════ */
+async function renderResults() {
+  clearOpts();
+  const p = S.profile;
+
+  // Filter funds
+  const allFunds = DB.filter(f => {
+    if (!f.f(p)) return false;
+    // Exclude presencial-only funds for APT students
+    if (p.prog === 'apt' && ['cundinamarca_tv', 'cundinamarca_mas'].includes(f.id)) return false;
+    return true;
+  });
+  // Dedup
+  const seen = new Set();
+  const funds = allFunds.filter(f => { if (seen.has(f.id)) return false; seen.add(f.id); return true; });
+
+  const directos = funds.filter(f => !f.conv);
+  const convenio = funds.filter(f => f.conv);
+
+  // CCF lookup
+  const ccfDptos = [...new Set([p.nac, p.est].filter(Boolean))];
+  const ccfList = [];
+  if (p.ccf !== false) {
+    ccfDptos.forEach(d => {
+      (CCF_MAP[d] || []).forEach(c => {
+        if (!ccfList.some(x => x.n === c.n)) ccfList.push(c);
+      });
+    });
+  }
+
+  if (funds.length === 0 && ccfList.length === 0) {
+    await botSay(['Hmm… con el perfil que me indicaste no encontré fondos específicos en la base de datos. Pero hay muchas opciones que no están aún registradas aquí.']);
+    const d = document.createElement('div');
+    d.className = 'no-res';
+    d.innerHTML = `<b><i data-lucide="phone-call"></i> Te recomendamos:</b><br>
+      1. Llamar al ICETEX: <b>01 8000 180672</b> para consultar fondos de tu departamento.<br>
+      2. Portal completo de fondos: <a href="https://web.icetex.gov.co/creditos/fondos-en-administracion" target="_blank">web.icetex.gov.co → Fondos en administración</a><br>
+      3. <b>Pedir una cita de Orientación Socioeconómica</b> con la Dirección de Bienestar de la ESAP:
+      <a href="https://outlook.office365.com/book/bienestaruniversitario@esap.edu.co/?ismsaljsauthenabled=true" target="_blank">Reservar cita aquí</a>`;
+    $msgs.appendChild(d);
+  } else {
+    const total = funds.length;
+    await botSay([
+      `🎉 Encontré <b>${total} apoyo${total !== 1 ? 's' : ''}</b> que podrían aplicar para ti.${ccfList.length ? ` También tienes <b>${ccfList.length} Caja${ccfList.length>1?'s':''} de Compensación</b> que puedes consultar.` : ''} Toca cada uno para ver detalles y pasos de aplicación.`,
+    ]);
+
+    // Disclaimer
+    const disc = document.createElement('div');
+    disc.className = 'disc';
+    disc.innerHTML = `<i data-lucide="triangle-alert"></i><div><b>Lee esto antes de aplicar:</b> Esta información es orientativa, basada en una búsqueda general de fuentes públicas. Es <b>responsabilidad de cada estudiante</b> verificar directamente con cada entidad los requisitos actualizados, fechas de convocatoria y condiciones vigentes. La ESAP <b>no administra</b> estos fondos y no se hace responsable por cambios en convocatorias de terceros.<br><br>En todo caso, el equipo de <b>Orientación Socioeconómica de la Dirección de Bienestar de la ESAP</b> te asesora sobre todo lo relacionado con estos apoyos. Más abajo te indicamos cómo <b>sacar cita</b>.</div>`;
+    $msgs.appendChild(disc);
+
+    // SECTION 0 (APT only): presencial caveat
+    if (p.prog === 'apt') {
+      const aptBox = document.createElement('div');
+      aptBox.className = 'conv-disclaimer';
+      aptBox.style.background = 'var(--blue)';
+      aptBox.style.borderColor = 'var(--bluec)';
+      aptBox.style.color = 'var(--bluec)';
+      aptBox.innerHTML = '<b>⚠️ Nota importante para APT (a distancia):</b> Algunos fondos de sostenimiento <b>exigen que la carrera sea presencial</b> (por ejemplo, varios fondos departamentales). Esta herramienta <b>no tiene registrado</b> cuáles fondos tienen ese requisito específico, así que te recomendamos <b>verificar directamente</b> con cada entidad, o mejor aún, <b>pedir una cita de Orientación Socioeconómica</b>: una de las cosas que revisamos contigo es exactamente ese requisito de presencialidad.';
+      $msgs.appendChild(aptBox);
+    }
+
+    // SECTION 1: Directos
+    if (directos.length > 0) {
+      const hdr = document.createElement('div');
+      hdr.className = 'res-section-hdr';
+      hdr.className = 'res-section-hdr sec-direct';
+      hdr.innerHTML = `<h3><i data-lucide="badge-check"></i> Puedes solicitar directamente</h3><span class="g">${directos.length} fondo${directos.length>1?'s':''}</span>`;
+      $msgs.appendChild(hdr);
+      directos.forEach(f => $msgs.appendChild(buildCard(f, false)));
+    }
+
+    // SECTION 2: Requieren convenio
+    if (convenio.length > 0) {
+      const hdr = document.createElement('div');
+      hdr.className = 'res-section-hdr';
+      hdr.className = 'res-section-hdr sec-conv';
+      hdr.innerHTML = `<h3><i data-lucide="clipboard-list"></i> Fondos potenciales (requieren convenio ESAP)</h3><span class="o">${convenio.length} fondo${convenio.length>1?'s':''}</span>`;
+      $msgs.appendChild(hdr);
+      const convDisc = document.createElement('div');
+      convDisc.className = 'conv-disclaimer';
+      convDisc.innerHTML = `<b>¿Qué significa esto?</b> Estos fondos aplican para tu perfil, pero actualmente necesitan que la ESAP haya firmado un <b>convenio previo</b> con la entidad para que puedas postular. Esto puede significar que <b>no puedas aplicar directamente hoy</b>.<br><br>Si alguno te interesa, puedes <b>manifestarlo al equipo de Orientación Socioeconómica de Bienestar</b>: ellos pueden gestionar el convenio o informarte si ya existe uno activo. <b>Ten en cuenta que gestionar un convenio puede tomar tiempo</b>, por lo que conviene iniciar la conversación cuanto antes.`;
+      $msgs.appendChild(convDisc);
+      convenio.forEach(f => $msgs.appendChild(buildCard(f, true)));
+    }
+
+    // SECTION 3: CCF
+    if (ccfList.length > 0 || p.ccf === null) {
+      const hdr = document.createElement('div');
+      hdr.className = 'res-section-hdr';
+      hdr.className = 'res-section-hdr sec-ccf';
+      hdr.innerHTML = `<h3><i data-lucide="building-2"></i> Cajas de Compensación Familiar</h3><span class="b">${ccfList.length > 0 ? ccfList.length + ' CCF' : 'Consulta recomendada'}</span>`;
+      $msgs.appendChild(hdr);
+      const ccfSec = document.createElement('div');
+      ccfSec.className = 'ccf-section';
+      if (p.ccf === null) {
+        const nota = document.createElement('div');
+        nota.className = 'conv-disclaimer';
+        nota.innerHTML = 'No estás seguro/a de la afiliación CCF. Si tu empleador o el de tus padres paga salario con <b>contrato formal</b>, casi seguramente están afiliados. Consúltalo con tu empleador o revisa el desprendible de pago – ahí aparece la caja. Aquí van las CCFs de tu región:';
+        ccfSec.appendChild(nota);
+      }
+      ccfList.forEach(c => ccfSec.appendChild(buildCCFCard(c)));
+      $msgs.appendChild(ccfSec);
+    }
+  }
+
+  // CTA
+  const cta = document.createElement('div');
+  cta.className = 'cta-box';
+  cta.innerHTML = `<h4>¿Necesitas ayuda para aplicar?</h4>
+    <p>El equipo de <b>Orientación Socioeconómica</b> de la Dirección de Bienestar Universitario de la ESAP puede acompañarte en el proceso de postulación, gestionar convenios y orientarte paso a paso.</p>
+    <a class="cta-a" href="https://outlook.office365.com/book/bienestaruniversitario@esap.edu.co/?ismsaljsauthenabled=true" target="_blank"><i data-lucide="calendar-check"></i> Pedir cita de Orientación Socioeconómica</a>
+    <a class="cta-a sec" href="tel:018000180672"><i data-lucide="phone"></i> ICETEX: 01 8000 180672</a>`;
+  $msgs.appendChild(cta);
+  renderIcons();
+  // Scroll to first result card, not bottom
+  const firstEl = $msgs.querySelector('.disc,.no-res');
+  if(firstEl) setTimeout(()=>firstEl.scrollIntoView({behavior:'smooth',block:'start'}),100);
+  else $msgs.scrollTop=0;
+
+  chips([
+    { l: '↺ Nueva consulta',          fn: restart },
+    { l: '✏️ Cambiar mis respuestas', fn: () => goBack() },
+  ]);
+}
+
+/* ── BUILD FUND CARD ── */
+function buildCard(f, isConv) {
+  const card = document.createElement('div');
+  card.className = 'fcard' + (isConv ? ' conv-card' : '');
+
+  const estCls = f.est.includes('Activo') ? 'g' : f.est.includes('Verificar') ? 'o' : 'r';
+
+  card.innerHTML = `
+    <div class="fc-hd" onclick="toggleCard(this.parentElement)">
+      <div class="fc-ico">${f.ico}</div>
+      <div class="fc-meta">
+        <div class="fc-name">${f.n}</div>
+        <div class="fc-sub">${f.ent} · ${f.cob}</div>
+        <div class="fc-tags">
+          ${f.tags.map(t => `<span class="tag ${t.c}">${t.l}</span>`).join('')}
+          <span class="tag ${estCls}">${f.est}</span>
+        </div>
+      </div>
+      <div class="fc-chev">▶</div>
+    </div>
+    <div class="fc-body">
+      <p>${f.res}</p>
+      <div class="monto"><i data-lucide="banknote"></i> ${f.monto}</div>
+      ${isConv ? `<div class="conv-note"><i data-lucide="triangle-alert"></i> <span>Este fondo requiere convenio previo entre la ESAP y la entidad. Si te interesa, cuéntaselo al equipo de <b>Orientación Socioeconómica de Bienestar</b> para que gestionen el convenio o te informen si ya existe.</span></div>` : ''}
+      <h5><i data-lucide="list-checks"></i> Requisitos clave</h5>
+      <ul>${f.req.map(r => `<li>${r}</li>`).join('')}</ul>
+      <h5><i data-lucide="map-pin"></i> Pasos para aplicar</h5>
+      <ol>${f.pasos.map(r => `<li>${r}</li>`).join('')}</ol>
+      <a class="fc-link" href="${f.link}" target="_blank"><i data-lucide="external-link"></i> Ver convocatoria oficial</a>
+    </div>`;
+  return card;
+}
+
+function buildCCFCard(c) {
+  const card = document.createElement('div');
+  card.className = 'ccf-card';
+  const tagCls = c.esapTag.includes('✅') || c.esapTag.includes('ALTA') ? 'ccf-no-afil' : c.esapTag.includes('Verificar') ? 'ccf-verif' : 'ccf-afil';
+  const afilTag = c.afil
+    ? '<span class="ccf-tag ccf-afil">Requiere afiliación activa</span>'
+    : '<span class="ccf-tag ccf-no-afil">⭐ Sin afiliación requerida</span>';
+  card.innerHTML = `
+    <h4><i data-lucide="building-2"></i> ${c.n}</h4>
+    <div class="ccf-desc">${c.desc}</div>
+    <span class="ccf-tag ${tagCls}">Relevancia ESAP: ${c.esapTag}</span>
+    ${afilTag}
+    <div class="ccf-links">
+      <a class="ccf-a" href="${c.web}" target="_blank"><i data-lucide="external-link"></i> Sitio web</a>
+      ${c.link ? `<a class="ccf-a" href="${c.link}" target="_blank"><i data-lucide="file-text"></i> ${c.linkLbl || 'Más info'}</a>` : ''}
+    </div>`;
+  return card;
+}
+
+function toggleCard(card) {
+  card.classList.toggle('open');
+  card.querySelector('.fc-chev').textContent = card.classList.contains('open') ? '▼' : '▶';
+  if (card.classList.contains('open')) card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+/* ══════════════════════════════════════════════════════
+   UI COMPONENTS
+══════════════════════════════════════════════════════ */
+
+// Standard chips (horizontal wrap or vertical)
+function chips(opts, cls = '') {
+  const d = document.createElement('div');
+  d.className = 'chips' + (cls === 'wide' ? '' : '');
+  opts.forEach(o => {
+    const b = document.createElement('button');
+    b.className = 'ch' + (cls === 'wide' ? ' wide' : '');
+    b.textContent = o.l;
+    b.onclick = o.fn;
+    d.appendChild(b);
+  });
+  $opts.appendChild(d);
+  scrollMsgsToBottom();
+}
+
+// Location list: always vertical column (avoids overflow)
+
+/* Generic multiselect for condiciones */
+function multiselect(items, noneLabel, stateKey, onCont) {
+  const sel = new Set(S.ms);
+  const list = document.createElement('div');
+  list.className = 'ms-list' + (items.length > 5 ? ' cols' : '');
+
+  function mkItem(em, lbl, key, isNone) {
+    const b = document.createElement('button');
+    b.className = 'ms-item' + (isNone ? ' none-opt' : '') + (sel.has(key) ? ' sel' : '');
+    b.innerHTML = `<span class="ms-em">${em}</span><span class="ms-lbl">${lbl}</span><span class="ms-cb">${sel.has(key) ? '✓' : ''}</span>`;
+    b.onclick = () => {
+      if (isNone) {
+        sel.clear();
+        sel.add('__none__');
+        list.querySelectorAll('.ms-item:not(.none-opt)').forEach(x => {
+          x.classList.remove('sel'); x.querySelector('.ms-cb').textContent = '';
+        });
+        b.classList.add('sel'); b.querySelector('.ms-cb').textContent = '✓';
+      } else {
+        sel.delete('__none__');
+        const noneEl = list.querySelector('.none-opt');
+        if (noneEl) { noneEl.classList.remove('sel'); noneEl.querySelector('.ms-cb').textContent = ''; }
+        if (sel.has(key)) {
+          sel.delete(key); b.classList.remove('sel'); b.querySelector('.ms-cb').textContent = '';
+        } else {
+          sel.add(key); b.classList.add('sel'); b.querySelector('.ms-cb').textContent = '✓';
+        }
+      }
+      S.ms = new Set(sel);
+      upd();
+    };
+    return b;
+  }
+
+  items.forEach(i => list.appendChild(mkItem(i.em, i.l, i.k, false)));
+  list.appendChild(mkItem('🚫', noneLabel, '__none__', true));
+
+  const cont = document.createElement('button');
+  cont.id = 'btn-cont';
+  cont.textContent = 'Continuar →';
+  if (sel.size) cont.classList.add('vis');
+
+  function upd() {
+    cont.classList.toggle('vis', sel.size > 0);
+    const n = sel.has('__none__') ? 0 : sel.size;
+    cont.textContent = n > 0 ? `Continuar (${n} seleccionada${n !== 1 ? 's' : ''}) →` : 'Continuar →';
+  }
+
+  cont.onclick = () => {
+    S.profile.conds = sel.has('__none__') ? new Set() : new Set(sel);
+    S.ms = new Set();
+    document.getElementById('opts-wrap').classList.remove('has-cont');
+    onCont();
+  };
+
+  $opts.appendChild(list);
+  document.getElementById('opts-wrap').appendChild(cont);
+  document.getElementById('opts-wrap').classList.add('has-cont');
+  scrollMsgsToBottom();
+}
+
+/* radioChips: single select for estrato/sisben */
+function radioChips(opts, onSelect, nextStep) {
+  const d = document.createElement('div');
+  d.className = 'ms-list' + (opts.length > 4 ? ' cols' : '');
+  opts.forEach(o => {
+    const b = document.createElement('button');
+    b.className = 'ms-item';
+    b.innerHTML = `<span class="ms-lbl">${o.l}</span><span class="ms-cb"></span>`;
+    b.onclick = () => {
+      d.querySelectorAll('.ms-item').forEach(x => {
+        x.classList.remove('sel');
+        x.querySelector('.ms-cb').textContent = '';
+      });
+      b.classList.add('sel');
+      b.querySelector('.ms-cb').textContent = '\u2713';
+      onSelect(o.v);
+      setTimeout(() => goToStep(nextStep, o.l), 280);
+    };
+    d.appendChild(b);
+  });
+  $opts.appendChild(d);
+  scrollMsgsToBottom();
+}
+
+/* Location chips (department list, vertical scroll) */
+const DEPTS = [
+  {l:'\ud83c\udfd9\ufe0f Bogot\u00e1 D.C.',v:'bogota'},
+  {l:'\ud83c\udf04 Cundinamarca (municipios, no Bogot\u00e1)',v:'cundinamarca'},
+  {l:'\u2615 Antioquia / Medell\u00edn',v:'antioquia'},
+  {l:'\ud83c\udf3f Valle del Cauca / Cali',v:'valle'},
+  {l:'\ud83c\udf0a Atl\u00e1ntico / Barranquilla',v:'atlantico'},
+  {l:'\ud83c\udfc0 Bol\u00edvar / Cartagena',v:'bolivar'},
+  {l:'\ud83c\udfd4\ufe0f Santander / Bucaramanga',v:'santander'},
+  {l:'\ud83c\udf99\ufe0f Norte de Santander / C\u00facuta',v:'nsantander'},
+  {l:'\ud83e\udd85 Boyac\u00e1 / Tunja',v:'boyaca'},
+  {l:'\u26fd Casanare / Yopal',v:'casanare'},
+  {l:'\u2600\ufe0f Huila / Neiva',v:'huila'},
+  {l:'\ud83c\udf3e Meta / Villavicencio',v:'meta'},
+  {l:'\ud83c\udfd5\ufe0f San Andr\u00e9s (islas)',v:'sanandres'},
+  {l:'\u26a1 Arauca',v:'arauca'},
+  {l:'\ud83c\udf35 La Guajira / Riohacha',v:'guajira'},
+  {l:'\ud83e\udd8b Cauca / Popay\u00e1n',v:'cauca'},
+  {l:'\ud83c\udf2e Nari\u00f1o / Pasto',v:'narino'},
+  {l:'\ud83e\udd81 Choc\u00f3 / Quibd\u00f3',v:'choco'},
+  {l:'\ud83d\udc20 C\u00f3rdoba / Sucre',v:'cordoba'},
+  {l:'\ud83c\udf34 Cesar / Magdalena',v:'cesar'},
+  {l:'\ud83c\udf36\ufe0f Tolima / Ibagu\u00e9',v:'tolima'},
+  {l:'\u2615 Caldas / Manizales',v:'caldas'},
+  {l:'\ud83c\udf43 Quind\u00edo / Risaralda',v:'quindio'},
+  {l:'\ud83c\udf33 Caquet\u00e1 / Putumayo',v:'caqueta'},
+  {l:'\ud83c\udf0a Amazonas / Vaup\u00e9s / Vichada / Guain\u00eda',v:'amazonas'},
+  {l:'\ud83d\udccd Otro departamento',v:'otro'},
+];
+
+function locationChips(stateKey, nextStep) {
+  // Search bar
+  const search = document.createElement('div');
+  search.className = 'opt-search';
+  search.innerHTML = `
+    <input type="text" class="opt-search-inp" placeholder="Buscar departamento…" autocomplete="off">
+    <span class="opt-count">${DEPTS.length} opciones</span>`;
+  $opts.appendChild(search);
+
+  const d = document.createElement('div');
+  d.className = 'ms-list cols';
+  const items = DEPTS.map(o => {
+    const b = document.createElement('button');
+    b.className = 'ms-item';
+    b.innerHTML = `<span class="ms-lbl">${o.l}</span>`;
+    b.dataset.search = o.l.toLowerCase();
+    b.onclick = () => { S.profile[stateKey] = o.v; goToStep(nextStep, o.l); };
+    d.appendChild(b);
+    return b;
+  });
+  $opts.appendChild(d);
+
+  const inp = search.querySelector('.opt-search-inp');
+  const cnt = search.querySelector('.opt-count');
+  inp.addEventListener('input', () => {
+    const q = inp.value.trim().toLowerCase();
+    let visible = 0;
+    items.forEach(b => {
+      const match = !q || b.dataset.search.includes(q);
+      b.classList.toggle('hidden', !match);
+      if (match) visible++;
+    });
+    cnt.textContent = `${visible} / ${DEPTS.length}`;
+  });
+  setTimeout(() => inp.focus({preventScroll:true}), 250);
+  scrollMsgsToBottom();
+}
+
+/* ══════════════════════════════════════════════════════
+   THEME + SIDEBAR
+══════════════════════════════════════════════════════ */
+const STEP_ORDER = ['welcome','condiciones','nacimiento','programa','estudio','estrato','sisben','momento','ccf_preg','results'];
+
+function updateSidebarSteps() {
+  const currentIdx = STEP_ORDER.indexOf(S.step);
+  if (currentIdx === -1) return;
+  document.querySelectorAll('#sb-steps li').forEach(li => {
+    const step = li.dataset.step;
+    const idx = STEP_ORDER.indexOf(step);
+    li.classList.toggle('done', idx !== -1 && idx < currentIdx);
+    li.classList.toggle('current', step === S.step);
+  });
+}
+
+function renderIcons() {
+  if (window.lucide && typeof lucide.createIcons === 'function') {
+    try { lucide.createIcons(); } catch(e) {}
+  }
+}
+
+function toggleTheme() {
+  const cur = document.documentElement.getAttribute('data-theme') || 'light';
+  const next = cur === 'dark' ? 'light' : 'dark';
+  applyTheme(next);
+  try { localStorage.setItem('esap-theme', next); } catch(e){}
+}
+
+function applyTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  const slot = document.getElementById('btn-theme-slot');
+  const label = document.getElementById('theme-label');
+  if (slot) slot.innerHTML = `<i data-lucide="${theme === 'dark' ? 'sun' : 'moon'}"></i>`;
+  if (label) label.textContent = theme === 'dark' ? 'Oscuro' : 'Claro';
+  renderIcons();
+}
+
+function initTheme() {
+  let saved = null;
+  try { saved = localStorage.getItem('esap-theme'); } catch(e){}
+  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  applyTheme(saved || (prefersDark ? 'dark' : 'light'));
+}
+
+/* Blur tapped chips/items so mobile :focus doesn't persist as pre-selected look */
+document.addEventListener('click', (e) => {
+  const t = e.target.closest('.ch, .ms-item, .hdr-btn, .fc-hd, .ccf-a, .fc-link');
+  if (t && typeof t.blur === 'function') setTimeout(() => t.blur(), 50);
+}, true);
+
+/* INIT */
+document.addEventListener('DOMContentLoaded', () => {
+  renderIcons();
+  initTheme();
+  updateSidebarSteps();
+  goToStep('welcome');
+});
+</script>
+</body>
+</html>
