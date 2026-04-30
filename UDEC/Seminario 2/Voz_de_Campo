@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Voz de Campo — La entrevista en profundidad · Sesión 9</title>
+<style>
+/* ═══ VARIABLES ═══ */
+:root{
+  --v:#1a5c3a;--vc:#e8f5ee;--vm:#2d7a52;
+  --a:#1a3a5c;--ac:#e4edf8;
+  --o:#7a5c00;--oc:#fef5e0;
+  --p:#3a1a5c;--pc:#f0e8f8;
+  --r:#6b1a1a;--rc:#fdeaea;
+  --g:#2c2c2a;--gs:#f6f5f1;--bd:#ccc9c2;
+  --fondo:#edeae4;
+  --focus:#0055cc;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+
+/* ═══ SKIP LINK ═══ */
+.skip{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;background:#fff;color:var(--v);font-weight:700;padding:12px 20px;font-size:14px;z-index:9999;border:2px solid var(--v)}
+.skip:focus{left:8px;top:8px;width:auto;height:auto;overflow:visible}
+
+/* ═══ LIVE REGION ═══ */
+#live{position:absolute;left:-10000px}
+
+/* ═══ BODY ═══ */
+body{font-family:Georgia,'Times New Roman',serif;font-size:15px;line-height:1.75;color:var(--g);background:var(--fondo);min-height:100vh}
+
+/* ═══ HEADER ═══ */
+header{background:var(--v);color:#fff;padding:14px 20px}
+header h1{font-family:system-ui,sans-serif;font-size:17px;font-weight:700}
+header p{font-size:11px;opacity:.82;margin-top:2px;font-family:system-ui,sans-serif}
+
+/* ═══ NAV TABS ═══ */
+nav[role="tablist"]{
+  background:#fff;border-bottom:3px solid var(--vc);
+  overflow-x:auto;display:flex;
+  position:sticky;top:0;z-index:100;
+  box-shadow:0 2px 6px rgba(0,0,0,.08)
+}
+nav[role="tablist"] button{
+  flex-shrink:0;padding:11px 14px;font-size:12px;
+  font-family:system-ui,sans-serif;font-weight:600;
+  border:none;background:none;cursor:pointer;
+  color:#777;border-bottom:3px solid transparent;
+  margin-bottom:-3px;transition:all .2s;white-space:nowrap;
+  line-height:1.3
+}
+nav[role="tablist"] button:focus{outline:3px solid var(--focus);outline-offset:-3px;background:#e8efff}
+nav[role="tablist"] button[aria-selected="true"]{color:var(--v);border-bottom-color:var(--v);background:var(--vc)}
+nav[role="tablist"] button:hover:not([aria-selected="true"]){background:#f5f4f0;color:var(--g)}
+
+/* ═══ MAIN ═══ */
+main{max-width:780px;margin:0 auto;padding:22px 18px 80px}
+section[role="tabpanel"]{display:none}
+section[role="tabpanel"].vis{display:block}
+section[role="tabpanel"]:focus{outline:none}
+
+/* ═══ BADGES EN/CASA ═══ */
+.en-clase,.en-casa{display:inline-flex;align-items:center;gap:5px;font-family:system-ui,sans-serif;font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px;letter-spacing:.03em;margin-bottom:12px}
+.en-clase{background:var(--vc);color:var(--v);border:1.5px solid var(--vm)}
+.en-casa{background:var(--pc);color:var(--p);border:1.5px solid var(--p)}
+
+/* ═══ TYPOGRAPHY ═══ */
+h2{font-family:system-ui,sans-serif;font-size:20px;font-weight:700;color:var(--v);margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid var(--vc)}
+h3{font-family:system-ui,sans-serif;font-size:16px;font-weight:700;color:var(--v);margin:20px 0 8px}
+h4{font-family:system-ui,sans-serif;font-size:14px;font-weight:700;color:var(--g);margin:14px 0 6px}
+p{margin-bottom:9px;font-size:15px}
+ul,ol{padding-left:22px;margin-bottom:9px}
+li{margin-bottom:5px;font-size:15px}
+strong{font-weight:700}
+em{font-style:italic}
+
+/* ═══ CARDS ═══ */
+.card{background:#fff;border-radius:10px;padding:18px 20px;margin-bottom:16px;border:1px solid var(--bd)}
+.card-v{border-left:5px solid var(--v)}
+.card-a{border-left:5px solid var(--a)}
+.card-o{border-left:5px solid var(--o)}
+.card-p{border-left:5px solid var(--p)}
+.card-r{border-left:5px solid var(--r)}
+
+/* ═══ INTRO BANNER ═══ */
+.banner{background:var(--v);color:#fff;border-radius:10px;padding:16px 20px;margin-bottom:20px;font-size:15px;line-height:1.7}
+.banner strong{color:#b8f0d0}
+
+/* ═══ ACCORDION ═══ */
+.acorde{background:#fff;border-radius:10px;margin-bottom:10px;border:1px solid var(--bd);overflow:hidden}
+.acorde-btn{
+  width:100%;text-align:left;padding:14px 18px;
+  background:var(--gs);border:none;cursor:pointer;
+  display:flex;align-items:flex-start;gap:12px;
+  font-family:system-ui,sans-serif;font-size:14px;font-weight:700;
+  color:var(--g);transition:background .2s
+}
+.acorde-btn:hover{background:var(--vc)}
+.acorde-btn:focus{outline:3px solid var(--focus);outline-offset:-3px}
+.acorde-ico{font-size:20px;flex-shrink:0;margin-top:1px}
+.acorde-tit{flex:1;line-height:1.4}
+.acorde-sub{font-size:12px;font-weight:400;color:#888;display:block;margin-top:2px}
+.acorde-chev{flex-shrink:0;font-size:13px;color:var(--vm);transition:transform .25s;margin-top:3px}
+.acorde-btn[aria-expanded="true"] .acorde-chev{transform:rotate(180deg)}
+.acorde-btn[aria-expanded="true"]{background:var(--vc);color:var(--v)}
+.acorde-body{display:none;padding:14px 18px 18px;border-top:1px solid var(--vc)}
+.acorde-body.open{display:block}
+
+/* ═══ DILEMA ═══ */
+.dilema{background:#fff;border-radius:10px;margin-bottom:12px;border:1.5px solid var(--bd);overflow:hidden}
+.dil-head{padding:14px 18px;background:var(--gs);display:flex;align-items:flex-start;gap:12px}
+.dil-num{background:var(--v);color:#fff;font-family:system-ui,sans-serif;font-size:12px;font-weight:700;min-width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.dil-txt{flex:1;font-size:14px}
+.btn-rev{background:var(--vc);color:var(--v);border:2px solid var(--v);padding:6px 14px;border-radius:20px;font-family:system-ui,sans-serif;font-size:12px;font-weight:700;cursor:pointer;flex-shrink:0;margin-top:2px;transition:all .2s}
+.btn-rev:hover{background:var(--v);color:#fff}
+.btn-rev:focus{outline:3px solid var(--focus);outline-offset:2px}
+.dil-tension{padding:14px 18px;background:var(--rc);border-top:1px solid #e8c0c0;display:none}
+.dil-tension.vis{display:block}
+.dil-lbl{font-family:system-ui,sans-serif;font-size:11px;font-weight:700;color:var(--r);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+
+/* ═══ TABLA TIPOLOGÍA ═══ */
+.tipo-grid{display:grid;grid-template-columns:1fr;gap:12px;margin-bottom:16px}
+@media(min-width:600px){.tipo-grid{grid-template-columns:1fr 1fr}}
+.tipo-card{background:#fff;border-radius:10px;padding:16px;border:1.5px solid var(--bd);border-top:4px solid}
+.tc-en{border-top-color:var(--v)}.tc-semi{border-top-color:var(--vm)}.tc-prof{border-top-color:var(--a)}
+.tc-foc{border-top-color:var(--o)}.tc-nod{border-top-color:var(--p)}.tc-grp{border-top-color:#5c1a1a}
+.tipo-card h4{font-size:14px;margin:0 0 6px}
+.tc-en h4{color:var(--v)}.tc-semi h4{color:var(--vm)}.tc-prof h4{color:var(--a)}
+.tc-foc h4{color:var(--o)}.tc-nod h4{color:var(--p)}.tc-grp h4{color:#5c1a1a}
+.tipo-card p{font-size:13px}
+.tag-mini{display:inline-block;font-family:system-ui,sans-serif;font-size:11px;font-weight:700;padding:2px 8px;border-radius:8px;margin:2px 2px 2px 0}
+.tag-ok{background:var(--vc);color:var(--v)}.tag-no{background:var(--rc);color:var(--r)}
+.tag-amb{background:var(--oc);color:var(--o)}
+
+/* ═══ NIVELES DE PREGUNTAS ═══ */
+.nivel-pregunta{background:#fff;border-radius:10px;margin-bottom:10px;overflow:hidden;border:1px solid var(--bd)}
+.niv-hdr{padding:12px 18px;display:flex;align-items:center;gap:12px;cursor:pointer}
+.niv-num{font-family:system-ui,sans-serif;font-size:20px;font-weight:700;min-width:32px;text-align:center}
+.niv-body{padding:0 18px;max-height:0;overflow:hidden;transition:max-height .3s ease,padding .2s}
+.niv-body.open{max-height:600px;padding:12px 18px 18px}
+
+/* ═══ FORM ═══ */
+.form-g{margin-bottom:14px}
+.form-g label{display:block;font-family:system-ui,sans-serif;font-size:13px;font-weight:700;color:var(--g);margin-bottom:5px}
+.form-g textarea,.form-g input,.form-g select{
+  width:100%;padding:10px 12px;border:2px solid var(--bd);
+  border-radius:8px;font-size:14px;font-family:Georgia,serif;
+  line-height:1.5;resize:vertical;color:var(--g);background:#fff;transition:border-color .2s
+}
+.form-g textarea:focus,.form-g input:focus,.form-g select:focus{outline:none;border-color:var(--focus);box-shadow:0 0 0 3px rgba(0,85,204,.18)}
+.form-g .hint{font-family:system-ui,sans-serif;font-size:12px;color:#888;margin-top:3px;font-style:italic}
+
+/* ═══ BUTTONS ═══ */
+.btn-p{background:var(--v);color:#fff;border:none;padding:12px 22px;border-radius:8px;font-family:system-ui,sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:background .2s;width:100%;margin-top:8px}
+.btn-p:hover{background:var(--vm)}
+.btn-p:focus{outline:3px solid var(--focus);outline-offset:2px}
+.btn-s{background:#fff;color:var(--v);border:2px solid var(--v);padding:10px 20px;border-radius:8px;font-family:system-ui,sans-serif;font-size:13px;font-weight:700;cursor:pointer;margin-top:8px;transition:all .2s}
+.btn-s:hover{background:var(--vc)}
+.btn-s:focus{outline:3px solid var(--focus);outline-offset:2px}
+
+/* ═══ NOTA ═══ */
+.nota{background:var(--oc);border-left:4px solid var(--o);border-radius:0 8px 8px 0;padding:12px 16px;margin:10px 0;font-size:14px}
+.nota .nl{font-family:system-ui,sans-serif;font-size:11px;font-weight:700;color:var(--o);text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px}
+
+/* ═══ QUIZ ═══ */
+.quiz-qcard{background:#fff;border-radius:10px;border:1px solid var(--bd);overflow:hidden;margin-bottom:14px}
+.quiz-qhdr{padding:14px 18px;background:var(--gs);display:flex;align-items:flex-start;gap:12px}
+.quiz-qnum{background:var(--v);color:#fff;font-family:system-ui,sans-serif;font-size:12px;font-weight:700;min-width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.quiz-qtxt{font-size:14px;flex:1;line-height:1.6}
+.quiz-opts{padding:12px 18px 16px}
+.quiz-opt{display:block;padding:9px 14px;margin-bottom:8px;border:2px solid var(--bd);border-radius:8px;cursor:pointer;font-size:14px;font-family:Georgia,serif;transition:all .2s;background:#fff}
+.quiz-opt:hover{border-color:var(--vm);background:var(--vc)}
+.quiz-opt:focus-within{outline:3px solid var(--focus);outline-offset:2px}
+.quiz-opt input[type="radio"]{margin-right:10px;accent-color:var(--v)}
+.quiz-opt.correct{background:#e8f5ee;border-color:var(--v);color:var(--v)}
+.quiz-opt.wrong{background:var(--rc);border-color:var(--r);color:var(--r)}
+.quiz-opt.correct-missed{background:#fff3cd;border-color:#d4a900;color:#7a5500}
+.quiz-feedback{display:none;padding:10px 18px 14px;font-size:13px;font-family:system-ui,sans-serif}
+.quiz-feedback.vis{display:block}
+.feedback-ok{color:var(--v);font-weight:700}
+.feedback-exp{color:var(--g);margin-top:4px}
+
+.quiz-score-banner{background:var(--v);color:#fff;border-radius:12px;padding:22px;text-align:center;margin-bottom:20px}
+.quiz-score-big{font-size:52px;font-weight:700;font-family:system-ui,sans-serif;line-height:1}
+.quiz-score-lbl{font-size:14px;opacity:.85;margin-top:4px;font-family:system-ui,sans-serif}
+.quiz-score-nota{font-size:24px;font-weight:700;font-family:system-ui,sans-serif;margin-top:8px;opacity:.9}
+.quiz-saved-note{background:var(--oc);border-radius:8px;padding:12px 16px;text-align:center;margin-bottom:16px;font-family:system-ui,sans-serif;font-size:13px;color:var(--o);font-weight:600}
+
+/* ═══ STEP PROTOCOL ═══ */
+.paso{display:flex;gap:12px;margin-bottom:12px;align-items:flex-start}
+.paso-n{background:var(--vm);color:#fff;font-size:12px;font-weight:700;font-family:system-ui,sans-serif;min-width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+
+/* ═══ READING CARDS ═══ */
+.lect-card{border:1.5px solid var(--bd);border-radius:10px;overflow:hidden;margin-bottom:14px}
+.lect-hdr{padding:11px 16px;font-family:system-ui,sans-serif;font-size:13px;font-weight:700}
+.lect-hdr.a{background:var(--ac);color:var(--a)}.lect-hdr.b{background:var(--pc);color:var(--p)}
+.lect-body{padding:14px 16px}
+.lect-body h5{font-family:system-ui,sans-serif;font-size:13px;font-weight:700;color:var(--g);margin:10px 0 5px}
+.lect-body h5:first-child{margin-top:0}
+
+/* ═══ PROGRESS TEXT ═══ */
+.prog-txt{font-family:system-ui,sans-serif;font-size:12px;color:#999;text-align:right;margin-bottom:8px}
+hr{border:none;border-top:1px solid var(--bd);margin:22px 0}
+</style>
+</head>
+<body>
+
+<a class="skip" href="#main-content">Saltar al contenido principal</a>
+<div id="live" aria-live="polite" aria-atomic="true"></div>
+
+<header>
+  <h1>Voz de Campo — La entrevista en profundidad</h1>
+  <p>Seminario de Investigación II · Psicología · UdeC Facatativá · Sesión 9</p>
+</header>
+
+<nav aria-label="Módulos de la herramienta" role="tablist">
+  <button role="tab" aria-selected="true"  aria-controls="t0" id="b0" onclick="ir(0)">0. Descubrir<br><span style="font-size:10px;font-weight:400">📍 Clase</span></button>
+  <button role="tab" aria-selected="false" aria-controls="t1" id="b1" onclick="ir(1)">1. Interaprendizaje<br><span style="font-size:10px;font-weight:400">📍 Clase</span></button>
+  <button role="tab" aria-selected="false" aria-controls="t2" id="b2" onclick="ir(2)">2. Tipología<br><span style="font-size:10px;font-weight:400">📍 Clase</span></button>
+  <button role="tab" aria-selected="false" aria-controls="t3" id="b3" onclick="ir(3)">3. En profundidad<br><span style="font-size:10px;font-weight:400">📍 Clase</span></button>
+  <button role="tab" aria-selected="false" aria-controls="t4" id="b4" onclick="ir(4)">4. Mi entrevista<br><span style="font-size:10px;font-weight:400">🏠 Casa</span></button>
+  <button role="tab" aria-selected="false" aria-controls="t5" id="b5" onclick="ir(5)">5. Quiz<br><span style="font-size:10px;font-weight:400">🏠 Casa</span></button>
+  <button role="tab" aria-selected="false" aria-controls="t6" id="b6" onclick="ir(6)">6. Lecturas S10<br><span style="font-size:10px;font-weight:400">🏠 Casa</span></button>
+</nav>
+
+<main id="main-content">
+
+<!-- ══════════════ MÓDULO 0: DESCUBRIR ══════════════ -->
+<section role="tabpanel" id="t0" aria-labelledby="b0" class="vis" tabindex="-1">
+  <h2 id="h0">Módulo 0 — Descubrir</h2>
+  <div class="prog-txt" aria-hidden="true">Módulo 1 de 7 · <span class="en-clase">📍 Trabajo en clase</span></div>
+
+  <div class="banner">
+    Antes de cualquier definición: cuatro situaciones de campo. Lee cada caso, escribe en el cuaderno qué tensión ves, y luego revela lo que esconde.
+  </div>
+
+  <div class="dilema">
+    <div class="dil-head">
+      <div class="dil-num" aria-hidden="true">1</div>
+      <div class="dil-txt">Una estudiante le pregunta a una mujer de 60 años que vive en la Sabana de Occidente sobre su experiencia con el desplazamiento forzado. La mujer empieza a contar, se emociona y dice: "ya no puedo más". La estudiante, nerviosa, dice: "tranquila, pasemos a la siguiente pregunta".</div>
+    </div>
+    <div style="padding:0 18px 12px;background:var(--gs)">
+      <button class="btn-rev" onclick="rev('d1')" aria-expanded="false" aria-controls="ten-d1">¿Qué está pasando aquí?</button>
+    </div>
+    <div class="dil-tension" id="ten-d1" role="region" aria-label="Tensión caso 1">
+      <div class="dil-lbl">La tensión</div>
+      <p>La entrevistadora está siguiendo su guion en lugar de seguir a la persona. Robles (2011) llama a esto el momento crítico de la entrevista en profundidad: cuando el participante abre algo profundo, el investigador tiene que tomar una decisión relacional, no técnica. "Pasar a la siguiente pregunta" es la respuesta de quien extrae información; quedarse y acompañar el silencio es la respuesta de quien co-construye.</p>
+      <p style="margin-top:8px"><strong>Para tu investigación:</strong> ¿tienes previsto qué harás si un participante se emociona o se quiebra en medio de la entrevista?</p>
+    </div>
+  </div>
+
+  <div class="dilema">
+    <div class="dil-head">
+      <div class="dil-num" aria-hidden="true">2</div>
+      <div class="dil-txt">Un investigador quiere estudiar el consumo de sustancias en jóvenes de Facatativá. Su guía tiene 18 preguntas numeradas y ordenadas. La primera: "¿Cuántas veces por semana consumes sustancias?" La décima: "¿Cómo afecta eso tus relaciones familiares?"</div>
+    </div>
+    <div style="padding:0 18px 12px;background:var(--gs)">
+      <button class="btn-rev" onclick="rev('d2')" aria-expanded="false" aria-controls="ten-d2">¿Qué hay de problemático?</button>
+    </div>
+    <div class="dil-tension" id="ten-d2" role="region" aria-label="Tensión caso 2">
+      <div class="dil-lbl">La tensión</div>
+      <p>Lo que llama "entrevista" es en realidad un cuestionario. La pregunta 1 es cerrada (cuantifica frecuencia), lo que ya impone una categoría antes de saber cómo el participante entiende su propia experiencia. Bautista (2021) señala que la entrevista estructurada puede ser útil para comparar respuestas, pero no para comprender significados. Una entrevista en profundidad sobre consumo comenzaría pidiendo al participante que narre, no que reporte.</p>
+    </div>
+  </div>
+
+  <div class="dilema">
+    <div class="dil-head">
+      <div class="dil-num" aria-hidden="true">3</div>
+      <div class="dil-txt">Después de 45 minutos de entrevista con una enfermera del Hospital de Facatativá sobre agotamiento laboral, el investigador nota que ya respondió todo lo que tenía en la guía. La enfermera sigue hablando por su cuenta de algo que el investigador no tenía planeado preguntar. El investigador dice: "Muchas gracias, eso es suficiente para la investigación."</div>
+    </div>
+    <div style="padding:0 18px 12px;background:var(--gs)">
+      <button class="btn-rev" onclick="rev('d3')" aria-expanded="false" aria-controls="ten-d3">¿Qué oportunidad se perdió?</button>
+    </div>
+    <div class="dil-tension" id="ten-d3" role="region" aria-label="Tensión caso 3">
+      <div class="dil-lbl">La tensión</div>
+      <p>Lo que la enfermera estaba diciendo "por su cuenta" puede ser exactamente lo más valioso — el momento en que el participante deja de responder al investigador y empieza a narrar desde sí mismo. Robles describe esto como el punto de quiebre hacia la profundidad real. El investigador que termina cuando terminó la guía nunca llega ahí. La saturación teórica (Robles) ocurre cuando los datos dejan de aportar lo nuevo, no cuando se acaban las preguntas.</p>
+    </div>
+  </div>
+
+  <div class="dilema">
+    <div class="dil-head">
+      <div class="dil-num" aria-hidden="true">4</div>
+      <div class="dil-txt">Una pareja de séptimo semestre declara "entrevista en profundidad" en su metodología. En la entrevista hacen preguntas abiertas pero después de cada respuesta del participante dicen "perfecto" o "muy bien", asienten vigorosamente y pasan a la siguiente pregunta.</div>
+    </div>
+    <div style="padding:0 18px 12px;background:var(--gs)">
+      <button class="btn-rev" onclick="rev('d4')" aria-expanded="false" aria-controls="ten-d4">¿Qué valida involuntariamente?</button>
+    </div>
+    <div class="dil-tension" id="ten-d4" role="region" aria-label="Tensión caso 4">
+      <div class="dil-lbl">La tensión</div>
+      <p>El "perfecto" y el "muy bien" son refuerzos que moldean lo que el participante seguirá diciendo. Al validar ciertas respuestas, el entrevistador está construyendo los datos, no recogiéndolos. Esto es un riesgo real de sesgo en la confirmabilidad (Lincoln & Guba, S7). La escucha activa que Robles describe no es silencio pasivo ni validación entusiasta — es acompañamiento sin juicio que abre espacio para la emergencia de lo inesperado.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════ MÓDULO 1: INTERAPRENDIZAJE ══════════════ -->
+<section role="tabpanel" id="t1" aria-labelledby="b1" tabindex="-1">
+  <h2 id="h1">Módulo 1 — Interaprendizaje: Bautista ↔ Robles</h2>
+  <div class="prog-txt" aria-hidden="true">Módulo 2 de 7 · <span class="en-clase">📍 Primera actividad de la clase · 20 minutos</span></div>
+
+  <div class="card card-v">
+    <h3 style="margin-top:0">¿Por qué esta actividad primero?</h3>
+    <p>Cada uno leyó un texto diferente y se convirtió en experto de algo que su compañero no sabe. La única forma de dominar los dos es enseñárselo al otro. El quiz del módulo 5 incluye preguntas de ambas lecturas — necesitan a su compañero para responderlas todas bien.</p>
+    <p>Esto es lo que Duran (2014) llama <em>aprenseñar</em>: quien explica también aprende. No es un repaso — es producción de conocimiento compartido.</p>
+  </div>
+
+  <h3>Estructura de la sesión (20 minutos)</h3>
+
+  <div class="card">
+    <div style="background:var(--vc);border-radius:8px;padding:12px 16px;margin-bottom:14px">
+      <strong style="color:var(--v);font-family:system-ui,sans-serif;font-size:13px">⏱ RONDA 1 — 8 minutos</strong><br>
+      <p style="font-size:13px;margin-top:4px">Quien leyó <strong>Bautista</strong> usa sus tres preguntas preparadas para explicarle la tipología de entrevistas a quien leyó Robles. Quien escucha conecta con lo que leyó.</p>
+    </div>
+    <div style="background:var(--pc);border-radius:8px;padding:12px 16px;margin-bottom:14px">
+      <strong style="color:var(--p);font-family:system-ui,sans-serif;font-size:13px">⏱ RONDA 2 — 8 minutos</strong><br>
+      <p style="font-size:13px;margin-top:4px">Cambian. Quien leyó <strong>Robles</strong> usa sus tres preguntas para explicar cómo funciona una entrevista en profundidad desde adentro.</p>
+    </div>
+    <div style="background:var(--oc);border-radius:8px;padding:12px 16px">
+      <strong style="color:var(--o);font-family:system-ui,sans-serif;font-size:13px">✍ SÍNTESIS — 4 minutos</strong><br>
+      <p style="font-size:13px;margin-top:4px">Respondan juntos en el cuaderno: ¿qué tipo de entrevista usarán en su investigación? ¿Por qué esa y no otra? Citen los dos textos para argumentar.</p>
+    </div>
+  </div>
+
+  <h3>Preguntas de apoyo si la conversación se estanca</h3>
+  <div class="card card-a">
+    <p style="font-size:13px;font-style:italic"><strong>Para el experto en Bautista:</strong> "Según la tipología, ¿hay algún tipo de entrevista que no podría usarse en una investigación fenomenológica? ¿Por qué?"</p>
+    <p style="font-size:13px;font-style:italic;margin-top:8px"><strong>Para el experto en Robles:</strong> "Si la entrevista construye significados conjuntamente, ¿qué tipo de Bautista permite más esa construcción?"</p>
+    <p style="font-size:13px;font-style:italic;margin-top:8px"><strong>Para la síntesis:</strong> "¿Qué cambia en la descripción de Bautista si le aplicamos la lente de Robles encima?"</p>
+  </div>
+
+  <div class="nota">
+    <div class="nl">Interdependencia positiva (Johnson & Johnson, 2009)</div>
+    <p style="font-size:13px">No se puede completar el quiz sin saber los dos textos. No se puede saber los dos textos sin el compañero. Esta estructura hace que la cooperación no sea opcional sino necesaria para el éxito individual.</p>
+  </div>
+</section>
+
+
+<!-- ══════════════ MÓDULO 2: TIPOLOGÍA ══════════════ -->
+<section role="tabpanel" id="t2" aria-labelledby="b2" tabindex="-1">
+  <h2 id="h2">Módulo 2 — Tipología de entrevistas cualitativas</h2>
+  <div class="prog-txt" aria-hidden="true">Módulo 3 de 7 · <span class="en-clase">📍 Clase (referencia proyectable)</span></div>
+
+  <p>Según Bautista (2021, pp. 170–176), los tipos de entrevista no son intercambiables — cada uno implica supuestos distintos sobre cómo se produce el conocimiento y qué tipo de datos puede generar. El error más frecuente en tesis de psicología en Colombia: declarar un tipo y operar con la lógica de otro.</p>
+
+  <div class="tipo-grid">
+    <div class="tipo-card tc-en">
+      <h4>Entrevista estructurada</h4>
+      <p>Preguntas fijas, orden predefinido, igual para todos los participantes. Permite comparación sistemática.</p>
+      <span class="tag-mini tag-ok">Cuantitativa / mixta</span>
+      <span class="tag-mini tag-no">No: fenomenología</span>
+      <p style="font-size:12px;margin-top:8px;font-style:italic">Contexto: encuesta cara a cara sobre hábitos de consumo en jóvenes de Zipaquirá.</p>
+    </div>
+    <div class="tipo-card tc-semi">
+      <h4>Semiestructurada / No directiva</h4>
+      <p>Temas definidos, preguntas flexibles. El investigador puede seguir los hilos del participante dentro del marco temático.</p>
+      <span class="tag-mini tag-ok">Cualitativa general</span>
+      <span class="tag-mini tag-amb">Cuidado con el guion rígido</span>
+      <p style="font-size:12px;margin-top:8px;font-style:italic">Contexto: explorar estrategias de afrontamiento en vendedores del mercado de Facatativá.</p>
+    </div>
+    <div class="tipo-card tc-prof">
+      <h4>Entrevista en profundidad</h4>
+      <p>Sin preguntas fijas — solo un propósito y una relación. El participante narra; el investigador acompaña y relanza. Puede extenderse a múltiples sesiones.</p>
+      <span class="tag-mini tag-ok">Fenomenología / narrativa</span>
+      <span class="tag-mini tag-ok">Constructivismo</span>
+      <p style="font-size:12px;margin-top:8px;font-style:italic">Contexto: comprender la experiencia vivida de ser madre adolescente en la Sabana de Occidente.</p>
+    </div>
+    <div class="tipo-card tc-foc">
+      <h4>Entrevista focalizada</h4>
+      <p>Centrada en un evento o experiencia específica. El investigador guía hacia ese foco sin perderlo, pero con flexibilidad para la narración.</p>
+      <span class="tag-mini tag-ok">Evento delimitado</span>
+      <span class="tag-mini tag-amb">No para fenómenos amplios</span>
+      <p style="font-size:12px;margin-top:8px;font-style:italic">Contexto: la experiencia de recibir un diagnóstico psiquiátrico por primera vez.</p>
+    </div>
+    <div class="tipo-card tc-nod">
+      <h4>Entrevista no estructurada / informal</h4>
+      <p>Conversación natural sin protocolo previo. Útil en etnografía para no romper la espontaneidad del campo.</p>
+      <span class="tag-mini tag-ok">Etnografía</span>
+      <span class="tag-mini tag-no">No como único método</span>
+      <p style="font-size:12px;margin-top:8px;font-style:italic">Contexto: conversaciones con habitantes de un barrio durante observación participante.</p>
+    </div>
+    <div class="tipo-card tc-grp">
+      <h4>Grupo focal</h4>
+      <p>Entrevista grupal. El conocimiento emerge de la interacción entre participantes, no de la relación uno a uno. Requiere moderación experta.</p>
+      <span class="tag-mini tag-ok">Construcción colectiva</span>
+      <span class="tag-mini tag-no">No: experiencias íntimas</span>
+      <p style="font-size:12px;margin-top:8px;font-style:italic">Contexto: percepciones sobre salud mental en un grupo de estudiantes universitarios.</p>
+    </div>
+  </div>
+
+  <div class="nota">
+    <div class="nl">La confusión más frecuente en tesis colombianas</div>
+    <p><strong>Semiestructurada ≠ En profundidad.</strong> La semiestructurada tiene temas predefinidos y cierta flexibilidad de preguntas. La en profundidad no tiene preguntas fijas — tiene un propósito y una relación. Muchas tesis dicen "en profundidad" y luego presentan 12 preguntas numeradas. Eso es una entrevista semiestructurada, en el mejor caso. En el peor, es un cuestionario.</p>
+  </div>
+
+  <h3>Coherencia verbo-tipo (sesión 6 + sesión 9)</h3>
+  <div class="card">
+    <div style="overflow-x:auto">
+      <table style="width:100%;border-collapse:collapse;font-size:13px;font-family:system-ui,sans-serif">
+        <thead><tr style="background:var(--v);color:#fff">
+          <th style="padding:8px 12px;text-align:left">Si tu verbo es…</th>
+          <th style="padding:8px 12px;text-align:left">El tipo coherente es…</th>
+          <th style="padding:8px 12px;text-align:left">Evitar…</th>
+        </tr></thead>
+        <tbody>
+          <tr style="background:var(--gs)"><td style="padding:7px 12px;border-bottom:1px solid var(--bd)">comprender, explorar la experiencia de</td><td style="padding:7px 12px;border-bottom:1px solid var(--bd)">En profundidad / narrativa</td><td style="padding:7px 12px;border-bottom:1px solid var(--bd)">Estructurada</td></tr>
+          <tr><td style="padding:7px 12px;border-bottom:1px solid var(--bd)">describir, explorar (fenómeno acotado)</td><td style="padding:7px 12px;border-bottom:1px solid var(--bd)">Semiestructurada / focalizada</td><td style="padding:7px 12px;border-bottom:1px solid var(--bd)">No estructurada</td></tr>
+          <tr style="background:var(--gs)"><td style="padding:7px 12px;border-bottom:1px solid var(--bd)">identificar, determinar</td><td style="padding:7px 12px;border-bottom:1px solid var(--bd)">Estructurada (si el diseño es cuantitativo)</td><td style="padding:7px 12px;border-bottom:1px solid var(--bd)">Profundidad (incoherente)</td></tr>
+          <tr><td style="padding:7px 12px">co-construir, transformar</td><td style="padding:7px 12px">Grupo focal / entrevista participativa</td><td style="padding:7px 12px">Cualquiera sin devolución</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════ MÓDULO 3: EN PROFUNDIDAD ══════════════ -->
+<section role="tabpanel" id="t3" aria-labelledby="b3" tabindex="-1">
+  <h2 id="h3">Módulo 3 — La entrevista en profundidad por dentro</h2>
+  <div class="prog-txt" aria-hidden="true">Módulo 4 de 7 · <span class="en-clase">📍 Clase</span></div>
+
+  <div class="banner">
+    Robles (2011) describe la entrevista en profundidad como una <strong>"plática entre iguales"</strong>. No porque investigador y participante tengan el mismo poder — sino porque el participante tiene el derecho de llevar la conversación a donde le resulte significativo. El investigador no cancela ese derecho con preguntas que solo permiten respuestas predefinidas.
+  </div>
+
+  <h3>Los tres niveles de preguntas</h3>
+  <p>Robles los describe como repertorios, no como fases secuenciales. El investigador los activa según lo que el participante ofrece.</p>
+
+  <div class="nivel-pregunta">
+    <div class="niv-hdr" onclick="toggleNiv('n1')" style="background:var(--vc)" role="button" tabindex="0" aria-expanded="false" aria-controls="nb1" onkeydown="if(event.key==='Enter'||event.key===' '){toggleNiv('n1')}">
+      <span class="niv-num" style="color:var(--v)">1</span>
+      <div><strong style="color:var(--v);font-family:system-ui,sans-serif">Preguntas descriptivas</strong><br><span style="font-size:13px;color:#666">Abren el espacio — el participante narra</span></div>
+    </div>
+    <div class="niv-body" id="nb1">
+      <p>Permiten que el participante describa su mundo desde sus propias categorías, sin que el investigador imponga las suyas. Son el punto de entrada.</p>
+      <div style="background:var(--gs);border-radius:8px;padding:12px;margin-top:10px">
+        <strong style="font-size:13px;font-family:system-ui,sans-serif">Ejemplos en contexto colombiano:</strong>
+        <ul style="margin-top:6px;font-size:13px">
+          <li>"Cuénteme cómo es un día normal trabajando en el semáforo."</li>
+          <li>"¿Qué pasó desde que supo el diagnóstico hasta hoy?"</li>
+          <li>"Descríbame cómo fue ese momento en la JAC."</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="nivel-pregunta">
+    <div class="niv-hdr" onclick="toggleNiv('n2')" style="background:var(--ac)" role="button" tabindex="0" aria-expanded="false" aria-controls="nb2" onkeydown="if(event.key==='Enter'||event.key===' '){toggleNiv('n2')}">
+      <span class="niv-num" style="color:var(--a)">2</span>
+      <div><strong style="color:var(--a);font-family:system-ui,sans-serif">Preguntas estructurales</strong><br><span style="font-size:13px;color:#666">Profundizan en la organización del mundo del participante</span></div>
+    </div>
+    <div class="niv-body" id="nb2">
+      <p>El investigador ya tiene algo de información y pregunta por la organización interna: qué tipos hay, qué diferencias, qué elementos. Exploran la estructura del conocimiento del participante.</p>
+      <div style="background:var(--ac);border-radius:8px;padding:12px;margin-top:10px">
+        <strong style="font-size:13px;font-family:system-ui,sans-serif">Ejemplos:</strong>
+        <ul style="margin-top:6px;font-size:13px">
+          <li>"¿Hay diferencia entre los días que la cosa funciona bien y los que no? ¿En qué se nota?"</li>
+          <li>"Usted mencionó 'las de afuera' — ¿quiénes son para usted 'las de afuera'?"</li>
+          <li>"¿Qué situaciones hacen que todo cambie?"</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="nivel-pregunta">
+    <div class="niv-hdr" onclick="toggleNiv('n3')" style="background:var(--pc)" role="button" tabindex="0" aria-expanded="false" aria-controls="nb3" onkeydown="if(event.key==='Enter'||event.key===' '){toggleNiv('n3')}">
+      <span class="niv-num" style="color:var(--p)">3</span>
+      <div><strong style="color:var(--p);font-family:system-ui,sans-serif">Preguntas de contraste</strong><br><span style="font-size:13px;color:#666">Revelan significados comparando</span></div>
+    </div>
+    <div class="niv-body" id="nb3">
+      <p>Preguntan por diferencias, cambios, excepciones. Obligan al participante a articular distinciones que normalmente no verbaliza. Son las más poderosas para revelar supuestos implícitos.</p>
+      <div style="background:var(--pc);border-radius:8px;padding:12px;margin-top:10px">
+        <strong style="font-size:13px;font-family:system-ui,sans-serif">Ejemplos:</strong>
+        <ul style="margin-top:6px;font-size:13px">
+          <li>"¿Qué es diferente entre pedir ayuda a la familia y pedir ayuda al psicólogo?"</li>
+          <li>"¿Antes del diagnóstico y después — en qué se parece y en qué no su vida cotidiana?"</li>
+          <li>"¿Qué haría diferente si volviera a empezar?"</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <h3>El relanzamiento — qué hacer cuando hay silencio o bloqueo</h3>
+  <p>Robles describe varias técnicas. Todas comparten el mismo principio: mantener el tema abierto sin presionar.</p>
+
+  <div class="acorde">
+    <button class="acorde-btn" aria-expanded="false" aria-controls="rel1" onclick="acorde(this,'rel1')">
+      <span class="acorde-ico" aria-hidden="true">🔁</span>
+      <span class="acorde-tit">Retomar las últimas palabras<span class="acorde-sub">El participante dijo algo — repítelo como pregunta</span></span>
+      <span class="acorde-chev" aria-hidden="true">▼</span>
+    </button>
+    <div class="acorde-body" id="rel1">
+      <p>Si el participante dice "ahí ya fue todo diferente" y se queda en silencio, el entrevistador repite: "¿Todo diferente…?" El silencio entre la repetición y la respuesta es el espacio de emergencia.</p>
+    </div>
+  </div>
+
+  <div class="acorde">
+    <button class="acorde-btn" aria-expanded="false" aria-controls="rel2" onclick="acorde(this,'rel2')">
+      <span class="acorde-ico" aria-hidden="true">🔄</span>
+      <span class="acorde-tit">Reformulación desde otro ángulo<span class="acorde-sub">Cambiar la entrada al mismo tema</span></span>
+      <span class="acorde-chev" aria-hidden="true">▼</span>
+    </button>
+    <div class="acorde-body" id="rel2">
+      <p>Si el participante no puede responder "¿cómo se sintió?", intentar "¿qué pasaba en su cuerpo en ese momento?" o "¿qué le hubiera dicho a alguien que hubiera estado ahí?". El mismo tema, diferente puerta.</p>
+    </div>
+  </div>
+
+  <div class="acorde">
+    <button class="acorde-btn" aria-expanded="false" aria-controls="rel3" onclick="acorde(this,'rel3')">
+      <span class="acorde-ico" aria-hidden="true">🤐</span>
+      <span class="acorde-tit">El silencio activo<span class="acorde-sub">No todo silencio exige ser llenado</span></span>
+      <span class="acorde-chev" aria-hidden="true">▼</span>
+    </button>
+    <div class="acorde-body" id="rel3">
+      <p>Esperar 10–15 segundos después de que el participante termina de hablar. Ese silencio puede producir la continuación más valiosa de la entrevista. El impulso del entrevistador de llenar el silencio es uno de los mayores enemigos de la profundidad.</p>
+    </div>
+  </div>
+
+  <h3>Análisis de la información — las tres etapas de Robles</h3>
+  <div class="card">
+    <div class="paso">
+      <div class="paso-n">1</div>
+      <div><strong>Descubrimiento</strong> — leer las transcripciones buscando temas emergentes sin imponer categorías previas. Se busca lo que sorprende, no lo que confirma.</div>
+    </div>
+    <div class="paso">
+      <div class="paso-n">2</div>
+      <div><strong>Codificación</strong> — agrupar los temas en categorías y subcategorías que emergen de los datos. No usar categorías del marco teórico como jaulas previas.</div>
+    </div>
+    <div class="paso">
+      <div class="paso-n">3</div>
+      <div><strong>Relativización</strong> — interpretar los datos considerando el contexto en que fueron producidos: ¿qué influía en lo que el participante dijo? ¿Qué rol jugó el entrevistador? ¿Qué no se dijo y por qué?</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════ MÓDULO 4: MI ENTREVISTA ══════════════ -->
+<section role="tabpanel" id="t4" aria-labelledby="b4" tabindex="-1">
+  <h2 id="h4">Módulo 4 — Mi entrevista: diagnóstico y diseño</h2>
+  <div class="prog-txt" aria-hidden="true">Módulo 5 de 7 · <span class="en-casa">🏠 Trabajo para casa</span></div>
+
+  <div class="card card-o">
+    <p>Este módulo es para casa. Completa el diagnóstico de tu guía actual y diseña o revisa las preguntas para tu investigación. Trae el resultado a la sesión 10.</p>
+  </div>
+
+  <h3>Diagnóstico de tu guía actual</h3>
+  <div class="form-g">
+    <label for="tipo-ent">Tipo de entrevista declarado en tu metodología</label>
+    <select id="tipo-ent">
+      <option value="">Selecciona...</option>
+      <option>En profundidad</option>
+      <option>Semiestructurada</option>
+      <option>No directiva / informal</option>
+      <option>Estructurada</option>
+      <option>Focalizada</option>
+      <option>Grupo focal</option>
+      <option>Aún no lo tengo definido</option>
+    </select>
+  </div>
+  <div class="form-g">
+    <label for="verbo-ent">Verbo principal de tu objetivo general</label>
+    <input type="text" id="verbo-ent" placeholder="Ej: comprender, explorar, determinar, identificar...">
+  </div>
+  <div class="form-g">
+    <label for="preg1">Tu primera pregunta de la guía (o la que más usas)</label>
+    <textarea id="preg1" rows="2" placeholder="Escríbela textualmente como la harías en la entrevista..."></textarea>
+  </div>
+
+  <button class="btn-p" onclick="diagnosticar()">Generar diagnóstico</button>
+
+  <div id="diag-result" style="display:none;margin-top:16px">
+    <div class="card card-v">
+      <h4 id="diag-titulo" style="color:var(--v);font-family:system-ui,sans-serif;margin-bottom:10px"></h4>
+      <p id="diag-texto"></p>
+      <p id="diag-pregunta" style="margin-top:10px;font-style:italic;color:#555"></p>
+    </div>
+  </div>
+
+  <hr>
+
+  <h3>Construye o revisa tus preguntas</h3>
+  <p>Diseña al menos tres preguntas para tu investigación. Para cada una, indica el nivel (descriptiva, estructural, de contraste) y evalúa si permite que el participante lleve la conversación.</p>
+
+  <div id="preguntas-container">
+    <div class="preg-bloque" id="pb0">
+      <div class="form-g">
+        <label for="preg-text-0">Pregunta 1</label>
+        <textarea id="preg-text-0" rows="2" placeholder="Escríbela como la harías en la entrevista..."></textarea>
+      </div>
+      <div class="form-g">
+        <label for="preg-nivel-0">Nivel según Robles</label>
+        <select id="preg-nivel-0">
+          <option value="">Selecciona...</option>
+          <option>Descriptiva — el participante narra</option>
+          <option>Estructural — profundiza en la organización</option>
+          <option>De contraste — compara, diferencia</option>
+          <option>Híbrida / no estoy seguro</option>
+        </select>
+      </div>
+      <div class="form-g">
+        <label for="preg-eval-0">¿Esta pregunta permite que el participante te lleve a donde él considere significativo?</label>
+        <select id="preg-eval-0">
+          <option value="">Selecciona...</option>
+          <option>Sí — es abierta y no presupone la respuesta</option>
+          <option>Parcialmente — tiene guion implícito pero algo de flexibilidad</option>
+          <option>No — solo permite responder lo que ya decidí preguntar</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn-s" onclick="añadirPregunta()">+ Añadir otra pregunta</button>
+
+  <div class="nota" style="margin-top:16px">
+    <div class="nl">Clínica de la sesión (en clase)</div>
+    <p style="font-size:13px">Lleva estas preguntas a clase. La pareja de al lado las revisará usando solo preguntas: "¿Esta pregunta permite que el participante narre o solo que responda?" · "¿Qué pasaría si el participante responde con silencio?"</p>
+  </div>
+</section>
+
+
+<!-- ══════════════ MÓDULO 5: QUIZ ══════════════ -->
+<section role="tabpanel" id="t5" aria-labelledby="b5" tabindex="-1">
+  <h2 id="h5">Módulo 5 — Quiz de autoevaluación</h2>
+  <div class="prog-txt" aria-hidden="true">Módulo 6 de 7 · <span class="en-casa">🏠 Trabajo para casa</span></div>
+
+  <div class="card card-o">
+    <p>Responde las ocho preguntas. La nota solo aparece cuando respondas todas. El puntaje queda guardado en este dispositivo — aunque recargues la página, aparece tu primera nota.</p>
+    <p style="font-size:13px;margin-top:8px;font-style:italic">Las preguntas cubren ambas lecturas. Si no leíste la de tu compañero, el quiz te lo hará saber.</p>
+  </div>
+
+  <div id="quiz-saved-display" style="display:none"></div>
+  <div id="quiz-area"></div>
+</section>
+
+
+<!-- ══════════════ MÓDULO 6: LECTURAS S10 ══════════════ -->
+<section role="tabpanel" id="t6" aria-labelledby="b6" tabindex="-1">
+  <h2 id="h6">Módulo 6 — Lecturas para la sesión 10</h2>
+  <div class="prog-txt" aria-hidden="true">Módulo 7 de 7 · <span class="en-casa">🏠 Para casa · Traer tres preguntas escritas</span></div>
+
+  <div class="banner">
+    Sesión 10: <strong>Método biográfico.</strong> Misma dinámica: cada integrante lee un texto diferente. Ambos entran en el parcial. Sin el compañero, no se puede saber todo.
+  </div>
+
+  <div class="card card-a">
+    <p style="font-family:system-ui,sans-serif;font-size:14px;font-weight:700;margin-bottom:12px">⚠ Traigan escritas tres preguntas para interrogar a su compañero sobre su lectura. No resúmenes — preguntas que conecten el texto con su propia investigación.</p>
+  </div>
+
+  <div class="lect-card">
+    <div class="lect-hdr a">Estudiante A — Bautista (2021), Cap. 7, pp. 177–183 — Historia y relatos de vida</div>
+    <div class="lect-body">
+      <p><strong>Referencia:</strong> Bautista, N. P. (2021). <em>Proceso de la investigación cualitativa. Epistemología, metodología y aplicaciones</em> (2da ed.). Manual Moderno.</p>
+      <p style="margin-top:8px"><strong>Qué vas a encontrar:</strong> Cómo funciona el método biográfico: las historias de vida, los relatos de vida y sus diferencias. Bautista explica cuándo es adecuado pedirle a alguien que narre toda su trayectoria versus cuándo basta con un relato focalizado. También aborda el rol del investigador en la construcción del relato.</p>
+
+      <h5>Responde ANTES de leer</h5>
+      <ol style="font-size:14px">
+        <li>¿Qué diferencia hay entre pedirle a alguien que "te cuente su vida" y pedirle que "te cuente cómo llegó a ser lo que es"? ¿Son la misma pregunta?</li>
+        <li>Si tu investigación usara el método biográfico, ¿qué aspecto de la vida de los participantes sería el eje narrativo?</li>
+      </ol>
+
+      <h5>Responde DESPUÉS de leer</h5>
+      <ol style="font-size:14px">
+        <li>Bautista distingue historia de vida y relato de vida. ¿Cuál sería más coherente con los verbos de tu objetivo y por qué?</li>
+        <li>¿En qué tipo de fenómeno psicológico tiene más sentido usar el método biográfico que una entrevista en profundidad convencional?</li>
+        <li><strong>Pregunta incómoda:</strong> Si usas el método biográfico, ¿quién decide qué parte de la vida del participante es "relevante" para la investigación? ¿Tú o él?</li>
+      </ol>
+
+      <h5>Lo que traes a la sesión 10</h5>
+      <p style="font-size:14px">Tres preguntas para interrogar a tu compañero sobre Cornejo et al. (2008). Que conecten con las decisiones de diseño que implicaría usar el método biográfico en su investigación.</p>
+    </div>
+  </div>
+
+  <div class="lect-card">
+    <div class="lect-hdr b">Estudiante B — Cornejo, Mendoza y Rojas (2008) — La investigación con relatos de vida</div>
+    <div class="lect-body">
+      <p><strong>Referencia:</strong> Cornejo, M., Mendoza, F. y Rojas, R. C. (2008). La investigación con relatos de vida: pistas y opciones del diseño metodológico. <em>Psykhe, 17</em>(1), 29–39. Disponible en Scielo.</p>
+      <p style="margin-top:8px"><strong>Qué vas a encontrar:</strong> Un artículo desde la psicología clínica y social latinoamericana que reflexiona sobre las decisiones de diseño al usar relatos de vida: qué preguntar, cuánto contextualizar, cómo manejar la co-construcción del relato y las implicaciones éticas de que el participante re-narre su historia. Tiene ejemplos desde Chile que son cercanos al contexto colombiano.</p>
+
+      <h5>Responde ANTES de leer</h5>
+      <ol style="font-size:14px">
+        <li>¿Qué pasa en la persona que narra cuando alguien le pide que cuente su historia? ¿Es un proceso neutro de recuperación de memoria o algo más?</li>
+        <li>¿Qué implicaciones éticas tiene pedirle a alguien que narre experiencias difíciles o traumáticas de su vida para una investigación?</li>
+      </ol>
+
+      <h5>Responde DESPUÉS de leer</h5>
+      <ol style="font-size:14px">
+        <li>Cornejo et al. describen el relato de vida como un proceso de co-construcción. ¿Cómo se conecta eso con lo que Robles (sesión 9) decía sobre la "plática entre iguales"?</li>
+        <li>¿Qué decisiones de diseño señalan los autores que el investigador debe tomar antes de empezar a recoger relatos de vida?</li>
+        <li><strong>Pregunta incómoda:</strong> Si el relato de vida lo construyen conjuntamente investigador y participante, ¿de quién es ese relato al final?</li>
+      </ol>
+
+      <h5>Lo que traes a la sesión 10</h5>
+      <p style="font-size:14px">Tres preguntas para interrogar a tu compañero sobre Bautista (pp. 177–183). Que conecten con qué tipo de fenómenos psicológicos estudiados en Colombia se beneficiarían del método biográfico.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script>
+// ═══════════════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════════════
+const NOMBRES=['Descubrir','Interaprendizaje','Tipología de entrevistas','Entrevista en profundidad','Mi entrevista','Quiz','Lecturas Sesión 10'];
+
+function ir(n){
+  document.querySelectorAll('section[role="tabpanel"]').forEach((s,i)=>{s.classList.toggle('vis',i===n)});
+  document.querySelectorAll('nav[role="tablist"] button').forEach((b,i)=>{b.setAttribute('aria-selected',i===n?'true':'false')});
+  const h=document.getElementById('h'+n);
+  if(h){h.setAttribute('tabindex','-1');h.focus()}
+  document.getElementById('live').textContent='Módulo '+(n+1)+' de 7: '+NOMBRES[n];
+  window.scrollTo(0,0);
+  if(n===5) initQuiz();
+}
+
+document.querySelectorAll('nav[role="tablist"] button').forEach((b,i,arr)=>{
+  b.addEventListener('keydown',e=>{
+    if(e.key==='ArrowRight'){e.preventDefault();arr[Math.min(i+1,arr.length-1)].focus()}
+    if(e.key==='ArrowLeft'){e.preventDefault();arr[Math.max(i-1,0)].focus()}
+    if(e.key==='Home'){e.preventDefault();arr[0].focus()}
+    if(e.key==='End'){e.preventDefault();arr[arr.length-1].focus()}
+  });
+});
+
+// ═══════════════════════════════════════════════
+// REVEAL (dilemas)
+// ═══════════════════════════════════════════════
+function rev(id){
+  const el=document.getElementById('ten-'+id);
+  const btn=el.previousElementSibling.querySelector('.btn-rev');
+  const visible=el.classList.contains('vis');
+  el.classList.toggle('vis',!visible);
+  btn.setAttribute('aria-expanded',visible?'false':'true');
+  btn.textContent=visible?'¿Qué está pasando aquí?':(btn.textContent.startsWith('¿Qué')?'¿Qué está pasando aquí?':'Mostrar');
+  // Update button text properly
+  if(!visible) btn.textContent='Ocultar'; else btn.textContent=btn.dataset.orig||'Revelar';
+  document.getElementById('live').textContent=visible?'Tensión ocultada':'Tensión revelada';
+  if(!visible) el.focus();
+}
+// Set original button text on load
+document.querySelectorAll('.btn-rev').forEach(b=>{b.dataset.orig=b.textContent});
+
+// ═══════════════════════════════════════════════
+// ACCORDION
+// ═══════════════════════════════════════════════
+function acorde(btn,id){
+  const body=document.getElementById(id);
+  const open=btn.getAttribute('aria-expanded')==='true';
+  btn.setAttribute('aria-expanded',open?'false':'true');
+  body.classList.toggle('open',!open);
+  document.getElementById('live').textContent=open?'Sección cerrada':'Sección abierta: '+btn.querySelector('.acorde-tit').firstChild.textContent.trim();
+}
+
+// ═══════════════════════════════════════════════
+// NIVEL PREGUNTAS (expandibles)
+// ═══════════════════════════════════════════════
+function toggleNiv(id){
+  const body=document.getElementById('nb'+id.slice(1));
+  const hdr=body.previousElementSibling;
+  const open=body.classList.contains('open');
+  body.classList.toggle('open',!open);
+  hdr.setAttribute('aria-expanded',open?'false':'true');
+}
+
+// ═══════════════════════════════════════════════
+// DIAGNÓSTICO
+// ═══════════════════════════════════════════════
+function diagnosticar(){
+  const tipo=document.getElementById('tipo-ent').value;
+  const verbo=document.getElementById('verbo-ent').value.toLowerCase().trim();
+  const preg=document.getElementById('preg1').value.trim();
+  if(!tipo||!verbo){alert('Completa el tipo de entrevista y el verbo antes de continuar.');return}
+
+  let titulo='', texto='', pregunta='';
+  const positivistas=['determinar','establecer','medir','identificar','calcular','comprobar','verificar'];
+  const cuali=['comprender','explorar','describir','interpretar','construir','generar','visibilizar'];
+  const isPositivista=positivistas.some(v=>verbo.includes(v));
+  const isCuali=cuali.some(v=>verbo.includes(v));
+  const esProf=tipo.includes('profundidad');
+  const esSemi=tipo.includes('semi');
+  const esEstruct=tipo.includes('estructurada');
+
+  if(isPositivista && esProf){
+    titulo='⚠ Tensión paradigmática detectada';
+    texto='El verbo "'+verbo+'" corresponde a una lógica positivista (busca determinar, establecer, medir). La entrevista en profundidad, en cambio, busca comprender el significado desde el participante. El tipo de entrevista no puede producir lo que el verbo promete. Revisa los verbos de tus objetivos (sesión 6) o cambia a una técnica más coherente con tu paradigma.';
+    pregunta='Pregunta para reflexionar: ¿Qué tipo de conocimiento esperas producir con esta entrevista?';
+  } else if(isCuali && esProf){
+    titulo='✔ Coherencia paradigmática';
+    texto='El verbo "'+verbo+'" es coherente con la entrevista en profundidad. Ambos responden a la lógica interpretativa: no se busca capturar hechos sino construir comprensión desde la perspectiva del participante.';
+    pregunta='Ahora verifica: ¿tu guía de entrevista tiene preguntas fijas numeradas, o tiene un propósito y herramientas de relanzamiento?';
+  } else if(isCuali && esEstruct){
+    titulo='⚠ Incoherencia de técnica con paradigma';
+    texto='El verbo "'+verbo+'" apunta a una epistemología interpretativa, pero la entrevista estructurada cierra el espacio que ese tipo de comprensión exige. Las preguntas fijas no permiten que el participante lleve la conversación a donde le sea significativo.';
+    pregunta='¿Por qué elegiste la entrevista estructurada? ¿Fue por comparabilidad o por facilidad de aplicación? ¿Hay una razón epistemológica?';
+  } else if(isPositivista && esSemi){
+    titulo='Coherencia parcial';
+    texto='El verbo "'+verbo+'" y la entrevista semiestructurada son más compatibles que la combinación anterior. Sin embargo, si el objetivo real es determinar o establecer algo, considera si una entrevista es la técnica más adecuada o si un instrumento estandarizado sirve mejor tu propósito.';
+    pregunta='¿Qué harás con la información que emerja más allá de tus preguntas predefinidas?';
+  } else {
+    titulo='Diagnóstico en proceso';
+    texto='Con la información ingresada, el diagnóstico es ambiguo. Revisa el módulo 2 (tipología) y el módulo de verbos (sesión 6) para identificar la coherencia entre lo que prometes hacer y la técnica que elegiste.';
+    pregunta='¿Qué tipo de conocimiento quieres producir sobre tu fenómeno? ¿Quieres describir, comprender, medir o transformar?';
+  }
+
+  // Analizar la primera pregunta
+  if(preg){
+    const cerradas=['¿cuántas','¿cuántos','¿qué tanto','¿ha','¿usa','¿tiene'];
+    const abiertas=['cuénteme','descríbame','cómo fue','qué pasó','qué significa'];
+    const esCerrada=cerradas.some(p=>preg.toLowerCase().includes(p));
+    const esAbierta=abiertas.some(p=>preg.toLowerCase().includes(p));
+    if(esCerrada&&esProf) texto+=' Además, tu primera pregunta ("'+preg.slice(0,60)+'...") parece cerrada — no invita a la narración sino a una respuesta puntual.';
+    else if(esAbierta) texto+=' Tu primera pregunta invita a narrar, lo cual es un buen punto de partida.';
+  }
+
+  document.getElementById('diag-titulo').textContent=titulo;
+  document.getElementById('diag-texto').textContent=texto;
+  document.getElementById('diag-pregunta').textContent=pregunta;
+  document.getElementById('diag-result').style.display='block';
+  document.getElementById('diag-result').scrollIntoView({behavior:'smooth'});
+}
+
+// ═══════════════════════════════════════════════
+// AÑADIR PREGUNTAS
+// ═══════════════════════════════════════════════
+let pregCount=1;
+function añadirPregunta(){
+  const i=pregCount++;
+  const c=document.getElementById('preguntas-container');
+  const div=document.createElement('div');
+  div.className='preg-bloque';
+  div.id='pb'+i;
+  div.style.borderTop='1px solid var(--bd)';
+  div.style.paddingTop='16px';
+  div.style.marginTop='8px';
+  div.innerHTML=`
+    <div class="form-g"><label for="preg-text-${i}">Pregunta ${i+1}</label>
+    <textarea id="preg-text-${i}" rows="2" placeholder="Escríbela como la harías en la entrevista..."></textarea></div>
+    <div class="form-g"><label for="preg-nivel-${i}">Nivel según Robles</label>
+    <select id="preg-nivel-${i}"><option value="">Selecciona...</option>
+    <option>Descriptiva — el participante narra</option><option>Estructural — profundiza en la organización</option>
+    <option>De contraste — compara, diferencia</option><option>Híbrida / no estoy seguro</option></select></div>
+    <div class="form-g"><label for="preg-eval-${i}">¿Esta pregunta permite que el participante te lleve donde él quiera?</label>
+    <select id="preg-eval-${i}"><option value="">Selecciona...</option>
+    <option>Sí — es abierta</option><option>Parcialmente</option><option>No — solo permite lo que ya decidí preguntar</option></select></div>`;
+  c.appendChild(div);
+}
+
+// ═══════════════════════════════════════════════
+// QUIZ DATA
+// ═══════════════════════════════════════════════
+const QUIZ=[
+  {q:"Una investigadora quiere explorar cómo jóvenes que venden minutos en semáforos de Bogotá construyen sentido de futuro. Declara enfoque fenomenológico. ¿Cuál tipo de entrevista (Bautista, 2021) es más coherente con ese objetivo?",
+   opts:["Entrevista estructurada: garantiza comparar las respuestas de los 20 participantes.","Entrevista focalizada: permite profundizar en el evento específico del rebusque sin perder el foco.","Entrevista en profundidad: su carácter relacional y emergente permite que el significado de 'futuro' aflore desde las categorías propias del participante, sin cerrarlo con preguntas predefinidas.","Grupo focal: enriquece la perspectiva al confrontar distintas voces sobre el mismo fenómeno."],
+   correct:2,
+   fb:["Error: la comparabilidad de la estructurada implica imponer las mismas categorías a todos los participantes, lo opuesto a lo que exige la fenomenología.","Parcialmente válida: la focalizada puede servir, pero su énfasis en un evento específico no corresponde bien a explorar 'sentido de futuro', que es un fenómeno amplio y emergente.","Correcta: Bautista describe la entrevista en profundidad como la que permite que el significado emerja del participante sin imponer la estructura del investigador.","No óptima: el grupo focal produce conocimiento colectivo; la fenomenología busca la estructura de la experiencia individual vivida."]},
+  {q:"Robles (2011) describe la entrevista en profundidad como una 'plática entre iguales'. La implicación metodológica más precisa de esa definición es:",
+   opts:["El investigador co-construye el sentido de lo que el participante dice: el dato no preexiste a la conversación, sino que emerge de ella.","Investigador y participante deben tener el mismo nivel educativo para que no haya jerarquías que distorsionen la información.","La entrevista prescinde del guion porque la igualdad entre pares hace que la conversación se autorregule sola.","El investigador debe mantenerse neutral y callado, interviniendo solo con preguntas técnicas para no contaminar las respuestas."],
+   correct:0,
+   fb:["Correcta: 'plática entre iguales' significa que el participante tiene el derecho de llevar la conversación; el investigador no cancela ese derecho con preguntas que predeterminan la respuesta.","Error: la 'igualdad' de Robles es epistemológica (el participante es experto en su experiencia), no sociológica (mismo nivel educativo).","Error: 'plática entre iguales' no implica ausencia de guion; implica apertura al participante. El guion existe, pero no es una jaula.","Error: la escucha activa de Robles no es silencio pasivo sino acompañamiento que abre espacio para la emergencia de lo inesperado."]},
+  {q:"Una pareja investiga experiencias de maternidad adolescente en Facatativá. Su guía tiene: '1. ¿Cuántos años tenías cuando quedaste embarazada? 2. ¿Cómo reaccionó tu familia? 3. ¿Qué cambió en tu vida? 4. ¿Qué le dirías a otra chica en tu situación?' Según Bautista (2021) y Robles (2011), la evaluación más precisa:",
+   opts:["La guía es coherente con la entrevista en profundidad: combina preguntas cerradas y abiertas para triangular.","La guía es una entrevista semiestructurada adecuada: los temas están definidos pero las preguntas son flexibles.","El problema está en la pregunta 1: mezclar datos cuantitativos ('¿cuántos años?') en una entrevista cualitativa invalida todo el instrumento.","La guía es un cuestionario disfrazado de entrevista: las cuatro preguntas están cerradas por tema, predefinidas en orden y no contemplan que el participante narre desde donde le sea significativo."],
+   correct:3,
+   fb:["Error: no hay triangulación entre preguntas cerradas y abiertas — hay un cuestionario con algunos ítems abiertos. La entrevista en profundidad no tiene preguntas fijas numeradas.","Parcialmente válida, pero la guía tiene más rigidez de la que una semiestructurada debería tener: el orden es fijo, los temas están todos predeterminados y no hay espacio para emergencia.","Error de diagnóstico: el problema real no es la pregunta 1 aislada sino la estructura completa de guion cerrado. Además, preguntar la edad puede ser relevante sin invalidar la entrevista.","Correcta: Bautista y Robles coinciden en que la entrevista en profundidad pide narrar, no responder preguntas específicas. Esta guía produce respuestas, no relatos."]},
+  {q:"Un investigador entrevista a un habitante de calle en Bogotá sobre estrategias de supervivencia. El participante dice 'no sé cómo explicarle eso' y guarda silencio. Según Robles (2011), la respuesta más adecuada del investigador es:",
+   opts:["Pasar a la siguiente pregunta de la guía para no generar más incomodidad.","Usar una técnica de relanzamiento: retomar las últimas palabras del participante o reformular la pregunta desde otro ángulo, manteniendo el tema abierto.","Interrumpir la grabación y continuar con temas menos sensibles.","Interpretar el silencio como saturación: si el participante no puede articular la respuesta, ese tema está agotado."],
+   correct:1,
+   fb:["Error: pasar a la siguiente pregunta abandona el momento más valioso de la entrevista. El silencio después de 'no sé cómo explicarle' suele preceder a la apertura más honesta.","Correcta: Robles describe el relanzamiento exactamente así — mantener el tema sin presionar, dando tiempo y cambiando el ángulo de entrada.","Error: interrumpir la grabación en ese momento rompe el rapport y señaliza al participante que el investigador no puede acompañar la profundidad.","Error: el silencio no es señal de saturación — es frecuentemente la antesala de lo más significativo. Robles habla explícitamente del silencio activo como herramienta."]},
+  {q:"Un equipo realizó 8 entrevistas en profundidad con madres de niños con TDAH en Facatativá. Después de la octava, los datos siguen generando categorías nuevas. Según Robles (2011), la decisión más apropiada:",
+   opts:["Continuar: la saturación teórica no se alcanza cuando los datos todavía generan categorías nuevas. Solo cuando las entrevistas adicionales ya no aporten nada nuevo se puede detener la recolección.","Detenerse en 8: Robles establece que la saturación se alcanza entre 6 y 10 participantes en estudios cualitativos.","Calcular el tamaño muestral con fórmula estadística para garantizar rigor.","Hacer entrevistas de seguimiento con los mismos 8 participantes para profundizar hasta saturar."],
+   correct:0,
+   fb:["Correcta: la saturación teórica es exactamente eso — el punto en que las entrevistas adicionales dejan de aportar categorías nuevas. Si siguen apareciendo, la recolección debe continuar.","Error de detalles: Robles no establece un número fijo. El umbral entre 6 y 10 es una tendencia observada, no una regla. Lo que determina la saturación es la emergencia de categorías nuevas, no el número de participantes.","Error fundamental: el tamaño de muestra en investigación cualitativa no se calcula con fórmulas estadísticas. La representatividad estadística no es el criterio — la saturación teórica sí lo es.","Parcialmente válida como complemento, pero no como sustituto. La saturación se verifica comparando nuevos participantes, no solo profundizando con los mismos."]},
+  {q:"Una investigadora estudia la experiencia de ser primera generación universitaria en familias campesinas de Cundinamarca. Declara enfoque fenomenológico. Escribe: 'Se realizarán entrevistas estructuradas a 25 participantes para identificar los factores que inciden en la permanencia universitaria.' ¿Cuál es el diagnóstico más preciso?",
+   opts:["Coherente: la entrevista estructurada permite comparar los 25 casos; en fenomenología la comparación sistemática revela las invariantes de la experiencia.","El problema es el número: 25 participantes es demasiado para fenomenología.","Doble incoherencia: (1) 'identificar factores que inciden' es verbo positivista incompatible con fenomenología; (2) la entrevista estructurada cierra el espacio de emergencia que la fenomenología exige.","Solo hay problema en el verbo: cambiando 'identificar' por 'explorar', el diseño queda coherente con entrevista estructurada."],
+   correct:2,
+   fb:["Error: la entrevista estructurada no revela invariantes fenomenológicas — revela frecuencias de respuesta. La fenomenología exige apertura al mundo vivido del participante, lo opuesto de las preguntas fijas.","Error de diagnóstico: en fenomenología el problema no es el número sino el tipo de instrumento. Con 3 participantes y entrevista estructurada el problema es el mismo.","Correcta: los verbos 'identificar factores que inciden' implican variables causales (lógica positivista) y la entrevista estructurada cierra el espacio de emergencia. Son dos incoherencias que se refuerzan mutuamente.","Error de análisis: cambiar el verbo sin cambiar la técnica solo resuelve la mitad del problema. La entrevista estructurada sigue siendo incompatible con la apertura fenomenológica."]},
+  {q:"Según Robles (2011), la 'relativización' en el análisis de la entrevista en profundidad hace referencia a:",
+   opts:["Reducir el peso de los hallazgos que contradicen la hipótesis para mantener coherencia teórica.","Calcular la frecuencia relativa de cada categoría para determinar cuáles tienen mayor validez.","Adaptar las conclusiones a las particularidades culturales del contexto, relativizando su universalidad.","Interpretar los datos considerando el contexto de producción: cómo influyó la situación de entrevista, la presencia del investigador y el momento en que ocurrió la conversación."],
+   correct:3,
+   fb:["Error grave: reducir el peso de hallazgos contradictorios es exactamente lo opuesto del rigor metodológico. El análisis de casos negativos (Lincoln & Guba) exige integrar las contradicciones.","Error: la frecuencia de categorías no determina validez en investigación cualitativa. Introducir conteos es importar lógica cuantitativa sin justificación.","Parcialmente relacionado, pero no es la definición de Robles. La relativización en su marco es más específica: se refiere al contexto de producción del dato, no a la aplicabilidad cultural de las conclusiones.","Correcta: Robles usa 'relativización' para señalar que el dato no existe en abstracto — fue producido en una situación específica (la entrevista) que el investigador debe considerar al interpretar."]},
+  {q:"Una pareja diseña preguntas para entrevistar a jóvenes sobre acoso escolar en Zipaquirá. Su secuencia: 'Cuénteme cómo es un día normal en el colegio → ¿Hay momentos difíciles? → Descríbame una de esas situaciones → ¿Cómo se sintió?' Según los niveles de preguntas de Robles (2011), esta secuencia:",
+   opts:["Es incorrecta: mezclar preguntas descriptivas con preguntas sobre sentimientos viola el principio de no-directividad.","Es metodológicamente adecuada: va de preguntas descriptivas a estructurales y avanza hacia la experiencia emocional, respetando la progresión que permite construir confianza antes de abordar el tema sensible.","El error está en empezar por 'un día normal': al no mencionar el acoso directamente, se arriesga a no llegar al tema.","Es adecuada para semiestructurada pero no para en profundidad: Robles especifica que la en profundidad debe empezar directamente con el tema central."],
+   correct:1,
+   fb:["Error: Robles no prohíbe mezclar niveles de preguntas. Al contrario, la progresión de descriptivo a emocional es una estrategia que construye confianza antes de llegar a lo sensible.","Correcta: la secuencia respeta el principio de progresión de Robles — partir de lo cotidiano (descriptivo) hacia lo que le resulta difícil (estructural) y luego hacia la experiencia vivida (contraste con 'cómo se sintió').","Error de estrategia: en entrevistas sobre temas sensibles como el acoso, ir directo al tema en la primera pregunta puede generar cierre defensivo. Empezar por lo cotidiano es una estrategia relacional justificada.","Error: Robles no establece esa regla. La entrevista en profundidad puede y debe comenzar desde donde el participante se sienta más cómodo para avanzar progresivamente."]},
+];
+
+// ═══════════════════════════════════════════════
+// QUIZ LOGIC
+// ═══════════════════════════════════════════════
+const STORE_KEY='quiz_s9_udec_v2';
+let quizInitialized=false;
+
+function initQuiz(){
+  if(quizInitialized) return;
+  quizInitialized=true;
+  const saved=localStorage.getItem(STORE_KEY);
+  if(saved){
+    try{
+      const data=JSON.parse(saved);
+      showSavedResult(data);
+    }catch(e){renderQuizForm()}
+  } else {
+    renderQuizForm();
+  }
+}
+
+function showSavedResult(data){
+  const pct=(data.score/QUIZ.length*100).toFixed(0);
+  const nota=(data.score/QUIZ.length*5).toFixed(2);
+  const fecha=new Date(data.ts).toLocaleDateString('es-CO',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
+
+  let html=`<div class="quiz-saved-note" role="alert">📌 Primera nota guardada el ${fecha} — el puntaje no cambia al recargar la página.</div>
+  <div class="quiz-score-banner" aria-live="polite">
+    <div class="quiz-score-big">${data.score}/${QUIZ.length}</div>
+    <div class="quiz-score-lbl">${pct}% de preguntas correctas</div>
+    <div class="quiz-score-nota">Nota: ${nota} / 5.0</div>
+  </div>`;
+
+  // Render each question with answer revealed
+  QUIZ.forEach((q,i)=>{
+    const chosen=data.answers[i];
+    const correct=q.correct;
+    html+=`<div class="quiz-qcard">
+      <div class="quiz-qhdr">
+        <div class="quiz-qnum" aria-hidden="true">${i+1}</div>
+        <div class="quiz-qtxt">${q.q}</div>
+      </div>
+      <div class="quiz-opts">`;
+    q.opts.forEach((o,j)=>{
+      let cls='quiz-opt';
+      if(j===correct) cls+=' correct';
+      else if(j===chosen&&chosen!==correct) cls+=' wrong';
+      html+=`<div class="${cls}" aria-label="Opción ${String.fromCharCode(65+j)}${j===correct?' (correcta)':''}${j===chosen&&chosen!==correct?' (tu respuesta, incorrecta)':''}">${String.fromCharCode(97+j)}) ${o}</div>`;
+    });
+    html+=`</div>
+      <div class="quiz-feedback vis" aria-live="polite">
+        <div class="feedback-ok">${chosen===correct?'✔ Correcta':'✘ Respuesta incorrecta'}</div>
+        <div class="feedback-exp">${q.fb[chosen!==undefined?chosen:correct]}</div>
+      </div></div>`;
+  });
+
+  document.getElementById('quiz-area').innerHTML=html;
+  document.getElementById('quiz-saved-display').innerHTML='';
+}
+
+function renderQuizForm(){
+  let html='<form id="quiz-form" onsubmit="submitQuiz(event)" novalidate>';
+  QUIZ.forEach((q,i)=>{
+    html+=`<div class="quiz-qcard" id="qc${i}">
+      <div class="quiz-qhdr">
+        <div class="quiz-qnum" aria-hidden="true">${i+1}</div>
+        <div class="quiz-qtxt">${q.q}</div>
+      </div>
+      <div class="quiz-opts" role="group" aria-labelledby="ql${i}">
+        <span id="ql${i}" class="sr-only">Pregunta ${i+1}: ${q.q}</span>`;
+    q.opts.forEach((o,j)=>{
+      html+=`<label class="quiz-opt" for="q${i}o${j}">
+        <input type="radio" name="q${i}" id="q${i}o${j}" value="${j}" required>
+        ${String.fromCharCode(97+j)}) ${o}
+      </label>`;
+    });
+    html+=`</div>
+      <div class="quiz-feedback" id="fb${i}" aria-live="polite"></div>
+    </div>`;
+  });
+  html+=`<button type="submit" class="btn-p" style="margin-top:8px">Ver mi nota y retroalimentación</button></form>`;
+  document.getElementById('quiz-area').innerHTML=html;
+
+  // Live option highlighting
+  QUIZ.forEach((_,i)=>{
+    document.querySelectorAll(`input[name="q${i}"]`).forEach(r=>{
+      r.addEventListener('change',()=>{
+        document.querySelectorAll(`input[name="q${i}"]`).forEach(x=>{
+          x.parentElement.style.borderColor='';
+          x.parentElement.style.background='';
+        });
+        r.parentElement.style.borderColor='var(--v)';
+        r.parentElement.style.background='var(--vc)';
+      });
+    });
+  });
+}
+
+function submitQuiz(e){
+  e.preventDefault();
+  let score=0; const answers=[];
+  let allAnswered=true;
+  QUIZ.forEach((q,i)=>{
+    const sel=document.querySelector(`input[name="q${i}"]:checked`);
+    if(!sel){allAnswered=false;document.getElementById('qc'+i).scrollIntoView({behavior:'smooth'});return}
+    const chosen=parseInt(sel.value);
+    answers.push(chosen);
+    const correct=q.correct;
+    if(chosen===correct) score++;
+    // Show feedback
+    document.querySelectorAll(`input[name="q${i}"]`).forEach((r,j)=>{
+      const lbl=r.parentElement;
+      lbl.classList.remove('correct','wrong','correct-missed');
+      if(j===correct) lbl.classList.add('correct');
+      else if(j===chosen&&chosen!==correct) lbl.classList.add('wrong');
+      r.disabled=true;
+    });
+    const fb=document.getElementById('fb'+i);
+    fb.innerHTML=`<div class="feedback-ok">${chosen===correct?'✔ Correcta':'✘ Incorrecta — la respuesta correcta es la opción ${String.fromCharCode(97+correct)}'}</div><div class="feedback-exp">${q.fb[chosen]}</div>`;
+    fb.classList.add('vis');
+  });
+  if(!allAnswered){alert('Responde todas las preguntas antes de ver la nota.');return}
+
+  const nota=(score/QUIZ.length*5).toFixed(2);
+  const pct=(score/QUIZ.length*100).toFixed(0);
+  const scoreBanner=document.createElement('div');
+  scoreBanner.className='quiz-score-banner';
+  scoreBanner.setAttribute('role','alert');
+  scoreBanner.setAttribute('aria-live','assertive');
+  scoreBanner.innerHTML=`<div class="quiz-score-big">${score}/${QUIZ.length}</div>
+    <div class="quiz-score-lbl">${pct}% de preguntas correctas</div>
+    <div class="quiz-score-nota">Nota: ${nota} / 5.0</div>
+    <div style="font-family:system-ui,sans-serif;font-size:12px;opacity:.75;margin-top:8px">📌 Este puntaje queda guardado en tu dispositivo</div>`;
+
+  const form=document.getElementById('quiz-form');
+  const btn=form.querySelector('button[type="submit"]');
+  btn.parentElement.insertBefore(scoreBanner, btn);
+  btn.remove();
+
+  // Disable all
+  document.querySelectorAll('#quiz-form input[type="radio"]').forEach(r=>r.disabled=true);
+
+  // Save to localStorage (first time only)
+  if(!localStorage.getItem(STORE_KEY)){
+    localStorage.setItem(STORE_KEY,JSON.stringify({score,total:QUIZ.length,answers,ts:Date.now()}));
+  }
+  scoreBanner.scrollIntoView({behavior:'smooth'});
+}
+</script>
+</body>
+</html>
