@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Clara · Sesión 9 · Diseños de Investigación I</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#F2F0EB; --header:#1E3A5F; --header2:#2A5298;
+  --bot:#FFFFFF; --bot-txt:#1A1A2E;
+  --user:#1E3A5F; --user-txt:#FFFFFF;
+  --chip:#FFFFFF; --chip-b:#C0BBC0; --chip-txt:#1E3A5F;
+  --send:#1E3A5F;
+  --ve:#1B5E3B; --ve-l:#E6F4EC; --ve2:#2E7D52;
+  --am:#C67C00; --am2:#F9A825; --am-l:#FFF8E1;
+  --az-l:#EBF1FB; --ro-l:#FFEBEE; --ro2:#C0392B;
+  --sh:0 1px 4px rgba(0,0,0,.10);
+  --f:'Nunito',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;font-family:var(--f);background:var(--bg);overflow:hidden}
+
+.wrap{display:flex;flex-direction:column;height:100dvh;max-width:600px;margin:0 auto}
+
+/* HEADER */
+.hdr{background:linear-gradient(135deg,var(--header),var(--header2));color:white;padding:14px 16px 10px;flex-shrink:0;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.hdr-row{display:flex;align-items:center;gap:12px}
+.av{width:44px;height:44px;background:rgba(255,255,255,.18);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.hdr-name{font-size:17px;font-weight:800;line-height:1.2}
+.hdr-st{font-size:12.5px;opacity:.75;margin-top:1px}
+.hdr-pill{display:inline-block;background:rgba(255,255,255,.18);border-radius:20px;padding:3px 11px;font-size:11.5px;font-weight:700;margin-top:7px;letter-spacing:.03em}
+
+/* MODULE SELECTOR */
+.mod-bar{background:rgba(0,0,0,.25);padding:8px 12px;display:flex;gap:6px;overflow-x:auto;flex-shrink:0;-webkit-overflow-scrolling:touch}
+.mod-btn{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.8);border-radius:20px;padding:5px 12px;font-family:var(--f);font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0;transition:all .15s}
+.mod-btn.on{background:rgba(255,255,255,.3);color:white;border-color:rgba(255,255,255,.6)}
+.mod-btn:active{opacity:.7}
+
+/* MESSAGES */
+.msgs{flex:1;overflow-y:auto;padding:14px 13px 6px;display:flex;flex-direction:column;gap:9px;-webkit-overflow-scrolling:touch}
+.msg{display:flex;flex-direction:column;max-width:86%}
+.msg.bot{align-self:flex-start}
+.msg.user{align-self:flex-end}
+.bub{padding:12px 15px;font-size:16px;line-height:1.6;box-shadow:var(--sh)}
+.msg.bot .bub{background:var(--bot);color:var(--bot-txt);border-radius:4px 18px 18px 18px}
+.msg.user .bub{background:var(--user);color:var(--user-txt);border-radius:18px 4px 18px 18px}
+.bub strong{font-weight:800}
+.bub em{font-style:italic}
+.msg.user .bub em{color:rgba(255,255,255,.85)}
+.bub ul{padding-left:18px;margin:5px 0}
+.bub li{margin-bottom:4px}
+.bub .hl{background:#FFF3CD;border-radius:3px;padding:1px 5px;font-weight:800;color:#7A5000}
+.ts{font-size:11px;color:#AAA;margin-top:3px;padding:0 3px}
+.msg.user .ts{text-align:right}
+
+/* TYPING */
+.typ{display:flex;align-self:flex-start;background:var(--bot);border-radius:4px 18px 18px 18px;padding:13px 17px;gap:5px;box-shadow:var(--sh)}
+.dot{width:8px;height:8px;background:#BBB;border-radius:50%;animation:b 1.2s infinite ease-in-out}
+.dot:nth-child(2){animation-delay:.2s}
+.dot:nth-child(3){animation-delay:.4s}
+@keyframes b{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-7px)}}
+
+/* CHIPS */
+.chips{padding:7px 12px 3px;display:flex;flex-wrap:wrap;gap:7px;flex-shrink:0}
+.chip{background:var(--chip);border:1.8px solid var(--chip-b);color:var(--chip-txt);border-radius:22px;padding:9px 15px;font-family:var(--f);font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,.07);transition:all .12s;-webkit-tap-highlight-color:transparent}
+.chip:active{background:#E8F0FC;border-color:var(--header);transform:scale(.97)}
+
+/* INPUT */
+.inp-area{background:var(--bg);padding:9px 13px 12px;flex-shrink:0;border-top:1px solid #D5D0CA}
+.inp-row{display:flex;align-items:flex-end;gap:9px}
+.inp{flex:1;background:white;border:1.8px solid #D5D0CA;border-radius:24px;padding:12px 17px;font-family:var(--f);font-size:16px;color:var(--bot-txt);resize:none;max-height:108px;line-height:1.4;outline:none;box-shadow:var(--sh);transition:border-color .15s}
+.inp:focus{border-color:var(--header)}
+.inp::placeholder{color:#BBB}
+.snd{width:50px;height:50px;background:var(--send);border:none;border-radius:50%;color:white;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 2px 8px rgba(30,58,95,.28);transition:transform .12s}
+.snd:active{transform:scale(.93)}
+.snd svg{width:22px;height:22px}
+
+.ddiv{text-align:center;font-size:12px;color:#AAA;background:rgba(0,0,0,.05);border-radius:12px;padding:3px 11px;align-self:center;margin:3px 0}
+.scrd{background:var(--am-l);border:1.5px solid var(--am2);border-radius:11px;padding:11px 14px;font-size:13.5px;color:#7A5000;align-self:center;max-width:92%;text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HEADER -->
+  <div class="hdr">
+    <div class="hdr-row">
+      <div class="av">🎓</div>
+      <div>
+        <div class="hdr-name">Clara · Asistente de clase</div>
+        <div class="hdr-st">● En línea · Sesión 9</div>
+      </div>
+    </div>
+    <div class="hdr-pill">Diseños de Investigación I · UdeC Facatativá · 2026-I</div>
+  </div>
+
+  <!-- MODULE BAR — same modules as main tool -->
+  <div class="mod-bar" id="modBar">
+    <button class="mod-btn on" onclick="setMod(0,this)">⚡ Tensiones</button>
+    <button class="mod-btn" onclick="setMod(1,this)">📌 Hipótesis</button>
+    <button class="mod-btn" onclick="setMod(2,this)">🔗 Variables</button>
+    <button class="mod-btn" onclick="setMod(3,this)">🗂️ Tipos</button>
+    <button class="mod-btn" onclick="setMod(4,this)">🔨 Constructor</button>
+    <button class="mod-btn" onclick="setMod(5,this)">🧪 PI</button>
+    <button class="mod-btn" onclick="setMod(6,this)">🎯 Quiz</button>
+    <button class="mod-btn" onclick="setMod(7,this)">📖 Próxima</button>
+  </div>
+
+  <!-- MESSAGES -->
+  <div class="msgs" id="msgs">
+    <div class="ddiv">Hoy · Sesión 9</div>
+    <div class="scrd">💡 Toca el módulo en el que está trabajando tu grupo, o escribe tu pregunta directamente.</div>
+  </div>
+
+  <!-- CHIPS — update dynamically -->
+  <div class="chips" id="chips">
+    <button class="chip" onclick="sc('Explícame la situación 1 de las tensiones')">Situación 1</button>
+    <button class="chip" onclick="sc('Explícame la situación 2 de las tensiones')">Situación 2</button>
+    <button class="chip" onclick="sc('Explícame la situación 3 de las tensiones')">Situación 3</button>
+    <button class="chip" onclick="sc('Explícame la situación 4 de las tensiones')">Situación 4</button>
+    <button class="chip" onclick="sc('¿Cómo aporto al debate de mi grupo?')">¿Cómo participo?</button>
+  </div>
+
+  <!-- INPUT -->
+  <div class="inp-area">
+    <div class="inp-row">
+      <textarea id="inp" class="inp" placeholder="Escribe aquí…" rows="1"
+        onkeydown="hk(event)" oninput="ar(this)"></textarea>
+      <button class="snd" onclick="send()" aria-label="Enviar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+          stroke-linecap="round" stroke-linejoin="round">
+          <line x1="22" y1="2" x2="11" y2="13"/>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+</div>
+<script>
+// ══════════════════════════════════════════════════
+// SYSTEM PROMPT — mirrors main tool content exactly,
+// adapted for conversational delivery
+// ══════════════════════════════════════════════════
+const SYS = `Eres Clara, la asistente pedagógica de Diseños de Investigación I (Psicología, UdeC Facatativá, 2026-I). Estás dentro de la herramienta de clase de la Sesión 9 sobre formulación de hipótesis.
+
+La estudiante que usa esta versión necesita el mismo contenido que sus compañeros, pero explicado de forma conversacional y con más detalle. Ella hace parte de un grupo cooperativo que está usando la herramienta principal al mismo tiempo. Tu misión es que pueda participar en las mismas actividades de su grupo, con la misma profundidad.
+
+La herramienta tiene 8 módulos. La estudiante te indica en cuál está su grupo (a través del botón de módulo que seleccionó). Adapta todo lo que digas a ese módulo.
+
+══════════ CONTENIDO COMPLETO SESIÓN 9 ══════════
+
+── MÓDULO 0: TENSIONES INICIALES (apertura cooperativa, 20 min en clase) ──
+El grupo discute 4 situaciones sin necesidad de lectura previa. Son tensiones que revelan lo que necesitan aprender.
+
+SITUACIÓN 1: Un grupo recolecta datos durante 2 semanas, ve que quienes estudian más tienen mejores notas, y LUEGO formula la hipótesis. ¿Es eso una hipótesis científica?
+→ El problema: una hipótesis debe formularse ANTES de recolectar datos. Si la formulas después es una observación, no una predicción. Esto se llama "hipótesis post-hoc" y viola el principio de la investigación científica.
+
+SITUACIÓN 2: Un estudio sobre el duelo en mayores de la Sabana de Occidente. La directora dice que no necesita hipótesis.
+→ Tiene razón. Estudios exploratorios (sobre temas poco o nada investigados) no requieren hipótesis porque no hay suficiente teoría para hacer una predicción fundamentada. Sampieri lo aclara en Cap. 7.
+
+SITUACIÓN 3: Valentina escribe "El uso excesivo de redes sociales afecta la autoestima." Su compañero dice que no sirve.
+→ El compañero tiene razón. Falta precisión: ¿qué es "excesivo"? ¿cómo se mide la autoestima? Una hipótesis científica necesita términos precisos y observables.
+
+SITUACIÓN 4: Julián tiene H₁ y H₀ para el mismo estudio. Su compañera cree que son contradictorias.
+→ No son contradictorias — son complementarias. H₁ es la predicción del investigador. H₀ es el "punto de partida estadístico": se asume que no hay efecto hasta que los datos demuestren lo contrario. Son las dos caras de la misma moneda.
+
+── MÓDULO 1: ¿QUÉ ES UNA HIPÓTESIS? ──
+Una hipótesis es una PREDICCIÓN FUNDAMENTADA sobre lo que se espera encontrar, formulada ANTES de recoger los datos, basada en teoría o evidencia previa.
+
+Definición Sampieri (Cap. 7, p. 104): "Las hipótesis indican lo que tratamos de probar y se definen como explicaciones tentativas del fenómeno investigado, formuladas a manera de proposiciones."
+
+La cadena lógica: Pregunta → Objetivos → Marco teórico → HIPÓTESIS → Datos → Resultados
+
+¿Todo estudio necesita hipótesis? NO.
+- Estudios exploratorios y descriptivos: generalmente no las requieren
+- Estudios correlacionales y explicativos: sí las requieren
+
+Características (Sampieri pp. 107-111):
+1. Se refieren a una situación real y verificable
+2. Usan términos precisos, comprensibles y concretos
+3. La relación entre variables es lógicamente posible
+4. Las variables son observables y medibles
+5. Se pueden probar con técnicas disponibles
+
+── MÓDULO 2: VARIABLES ──
+Una hipótesis relaciona al menos 2 variables.
+
+VARIABLE INDEPENDIENTE (VI): La causa o predictor. Lo que varía primero o lo que el investigador manipula.
+Ejemplo: horas de sueño, grupo cultural, dosis de un medicamento.
+
+VARIABLE DEPENDIENTE (VD): El efecto o resultado. Lo que se mide para ver si cambió.
+Ejemplo: rendimiento académico, exactitud de detección, nivel de ansiedad.
+
+Variables del Proyecto Integrador (PI):
+- Cultura (AO/Occidental) → VI (factor de agrupación)
+- Condición experimental (Misma/Expansión/Aleatoria) → VI (manipulada)
+- d' (exactitud de detección) → VD principal
+- TR_focal (tiempo reacción tarea focal) → VD complementaria
+
+── MÓDULO 3: TIPOS DE HIPÓTESIS ──
+1. H₁ — Hipótesis de investigación: la predicción del investigador. Lo que espera encontrar.
+   Ej: "Los estudiantes que duermen más de 8 horas obtienen mejores notas."
+
+2. H₀ — Hipótesis nula: niega la relación. Punto de partida estadístico.
+   Ej: "No existe diferencia significativa en las notas según las horas de sueño."
+
+3. Ha — Hipótesis alternativa: otra posibilidad si H₁ no se confirma.
+   Ej: "Si el sueño no afecta las notas generales, sí puede afectar las notas de exámenes de concentración."
+
+4. Hipótesis estadística: versión numérica de H₁ y H₀ (con símbolos: μ₁ ≠ μ₂).
+
+DIRECCIONAL vs NO DIRECCIONAL:
+- Direccional: especifica la dirección del efecto ("mayor que", "más que", "positivamente").
+  Usar cuando la teoría ya es suficientemente clara.
+- No direccional: predice diferencia o relación sin especificar dirección.
+  Usar cuando la evidencia es mixta.
+
+── MÓDULO 4: CONSTRUCTOR DE HIPÓTESIS ──
+Pasos para construir una hipótesis:
+1. Identificar la VI (con operacionalización)
+2. Identificar la VD (con instrumento de medición)
+3. Definir el tipo de relación esperada y su dirección
+4. Especificar la población
+5. Formular H₁: "En [población], [VD] [tipo de relación] [VI]."
+6. Formular H₀: "En [población], no existe diferencia/relación entre [VI] y [VD]."
+
+Verificar con los 5 criterios de Sampieri (módulo 1).
+
+── MÓDULO 5: PROYECTO INTEGRADOR (PI) ──
+Experimento real sobre diferencias culturales en atención visual.
+
+PREGUNTA CENTRAL: ¿La cultura influye en cómo distribuimos la atención visual?
+
+DOS GRUPOS: Asiático Oriental (AO) vs. Occidental.
+Hipótesis teórica de partida: el grupo AO tiene un foco atencional más amplio (distribución periférica). El grupo Occidental tiene un foco más estrecho (concentración central).
+
+TRES CONDICIONES:
+- Misma: los estímulos aparecen en las mismas posiciones → mínima demanda de búsqueda
+- Expansión: los estímulos se mueven hacia la periferia → exige ampliar el foco
+- Aleatoria: posiciones al azar → demanda de búsqueda compleja
+
+VARIABLES MEDIDAS:
+- d' (d-prima): medida de exactitud de detección de señales. Más alto = mejor desempeño.
+- TR_ms: tiempo de reacción general
+- TR_focal: tiempo en tarea donde aparece UN solo cuadrado en el CENTRO. Si alguien tiene atención expandida → tardará MÁS en esto.
+
+ENTREGAS DEL PI:
+1. Revisión bibliográfica (mínimo 5 artículos empíricos desde 2010): atención visual, cultura y cognición, memoria de trabajo visual, procesamiento global vs. local.
+2. Análisis de datos: depuración, estadísticas descriptivas, inferencial, gráficos.
+3. Discusión académica: interpretar resultados, comparar con literatura, limitaciones, propuestas futuras.
+
+IMPORTANTE: No busquen el experimento fuente. Construyan el marco teórico desde cero.
+
+── MÓDULO 6: QUIZ (evaluación) ──
+7 preguntas sobre:
+Q1: Definición de hipótesis científica
+Q2: Identificar la VI en un estudio dado
+Q3: Formular H₀ correctamente para el PI
+Q4: Características de hipótesis (Sampieri)
+Q5: Diferencia entre direccional y no direccional
+Q6: Tipo y función de TR_focal en el PI
+Q7: Qué NO es característica de una hipótesis
+
+── MÓDULO 7: PRÓXIMA SESIÓN ──
+Sesión 10: Diseños Experimentales y No Experimentales.
+Lectura obligatoria: Mize, T. D. & Manago, B. (2022). The past, present, and future of experimental methods in the social sciences. Social Science Research, 108, 102799.
+Consigna: ¿qué distingue a un experimento de otros diseños? ¿ventajas y limitaciones? Conéctalo con el diseño del PI.
+Avance PI: traer al menos 2 artículos localizados para la Actividad 1.
+
+═══════════════ FIN DEL CONTENIDO ═══════════════
+
+CÓMO HABLAR CON ELLA:
+1. Frases claras y cortas. Máximo 3 oraciones por párrafo.
+2. Siempre empieza con un ejemplo concreto o cotidiano antes del concepto técnico.
+3. Un término técnico nuevo por mensaje, explicado de inmediato.
+4. Cuando ella mencione el módulo en que está su grupo, PRIMERO explica el contenido de ese módulo tal como aparece en la herramienta de sus compañeros. Así puede participar en la misma discusión.
+5. Si hace el quiz (módulo 6), hazlo conversacionalmente: una pregunta a la vez, espera su respuesta, da retroalimentación gentil.
+6. Valida siempre su participación: "¡Exacto!", "Muy buena observación", "Eso es justo lo que dice Sampieri."
+7. Si pregunta algo fuera de la sesión, redirige amablemente.
+8. Mantén en mente que ella está en un grupo cooperativo que usa la herramienta principal. Puedes decirle cosas como "ahora que tu grupo está discutiendo esto, tú puedes aportar que..."
+9. Cuando el grupo pasa a un módulo nuevo, ella lo indica tocando el botón de módulo. Ese es tu señal para orientarte hacia ese contenido.
+10. Usa ocasionalmente emojis para hacer el texto más cálido.`;
+
+// ══════════════════════════════════════════════════
+// MODULE CHIPS — same modules as main tool
+// ══════════════════════════════════════════════════
+const MOD_CHIPS = [
+  // 0: Tensiones
+  ['Situación 1','Situación 2','Situación 3','Situación 4','¿Cómo participo en el debate?'],
+  // 1: Hipótesis
+  ['¿Qué es una hipótesis?','La cadena de la investigación','¿Siempre hay hipótesis?','Características'],
+  // 2: Variables
+  ['¿Qué es la VI?','¿Qué es la VD?','Variables del PI','Pon un ejemplo mío'],
+  // 3: Tipos
+  ['H₁ de investigación','H₀ nula','Hipótesis alternativa','Direccional vs. no direccional','Dame ejemplos'],
+  // 4: Constructor
+  ['Cómo construir H₁ paso a paso','Verificar mi hipótesis','Ayúdame a formular la de mi grupo'],
+  // 5: PI
+  ['¿Qué es el PI?','El experimento','Las variables del PI','Actividad 1 — búsqueda','Actividad 2 — datos','Fechas de entrega'],
+  // 6: Quiz
+  ['Empezar el quiz','¿Cómo funciona?'],
+  // 7: Próxima
+  ['¿Qué toca leer?','Consigna de lectura','Avance del PI'],
+];
+
+const MOD_LABELS = [
+  '⚡ Tensiones','📌 Hipótesis','🔗 Variables','🗂️ Tipos',
+  '🔨 Constructor','🧪 PI','🎯 Quiz','📖 Próxima'
+];
+
+let curMod = 0;
+const KEY = 'disenios_s9_clara_v2';
+let hist = [];
+
+try { const s=localStorage.getItem(KEY); if(s) hist=JSON.parse(s); } catch(e){}
+
+// ── HELPERS ─────────────────────────────────────────
+function ftime(){ return new Date().toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'}); }
+function scrollBot(){ const m=document.getElementById('msgs'); m.scrollTop=m.scrollHeight; }
+function ar(el){ el.style.height='auto'; el.style.height=Math.min(el.scrollHeight,108)+'px'; }
+
+function fmt(t){
+  return t
+    .replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')
+    .replace(/\*(.*?)\*/g,'<em>$1</em>')
+    .replace(/`(.*?)`/g,'<span class="hl">$1</span>')
+    .replace(/\n\n/g,'</p><p style="margin-top:7px">')
+    .replace(/\n- /g,'</li><li style="margin-bottom:4px">')
+    .replace(/\n\d+\. /g,'</li><li style="margin-bottom:4px">');
+}
+
+function addMsg(role, text){
+  const m=document.getElementById('msgs');
+  const d=document.createElement('div');
+  d.className=`msg ${role}`;
+  const b=document.createElement('div');
+  b.className='bub';
+  b.innerHTML=`<p>${fmt(text)}</p>`;
+  d.appendChild(b);
+  const ts=document.createElement('div');
+  ts.className='ts'; ts.textContent=ftime();
+  d.appendChild(ts);
+  m.appendChild(d);
+  scrollBot();
+}
+
+function showTyp(){
+  const m=document.getElementById('msgs');
+  const d=document.createElement('div');
+  d.className='typ'; d.id='typ';
+  d.innerHTML='<div class="dot"></div><div class="dot"></div><div class="dot"></div>';
+  m.appendChild(d); scrollBot();
+}
+function rmTyp(){ const t=document.getElementById('typ'); if(t)t.remove(); }
+
+function setChips(modIdx){
+  const c=document.getElementById('chips');
+  c.innerHTML='';
+  (MOD_CHIPS[modIdx]||[]).forEach(label=>{
+    const btn=document.createElement('button');
+    btn.className='chip';
+    btn.textContent=label;
+    btn.onclick=()=>sc(label);
+    c.appendChild(btn);
+  });
+}
+
+function setMod(idx, btn){
+  curMod=idx;
+  document.querySelectorAll('.mod-btn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  setChips(idx);
+  // Notify bot of module change
+  const note=`Mi grupo está ahora en el módulo: **${MOD_LABELS[idx]}**. ¿Me explicas qué toca hacer aquí y cómo puedo participar?`;
+  sc(note);
+}
+
+function save(){ try{ localStorage.setItem(KEY,JSON.stringify(hist)); }catch(e){} }
+
+// ── SEND ─────────────────────────────────────────────
+async function send(){
+  const inp=document.getElementById('inp');
+  const txt=inp.value.trim();
+  if(!txt) return;
+  inp.value=''; inp.style.height='auto'; ar(inp);
+  addMsg('user',txt);
+  hist.push({role:'user',content:txt});
+  showTyp();
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:1000,
+        system:SYS,
+        messages:hist
+      })
+    });
+    const d=await res.json();
+    rmTyp();
+    let reply='';
+    if(d.content&&d.content[0]&&d.content[0].text) reply=d.content[0].text;
+    else reply='⚠️ Problema de conexión. Intenta de nuevo.';
+    hist.push({role:'assistant',content:reply});
+    if(hist.length>40) hist=hist.slice(-40);
+    save();
+    addMsg('bot',reply);
+  }catch(e){
+    rmTyp();
+    addMsg('bot','⚠️ Sin conexión. Verifica el internet e intenta de nuevo. Tu conversación está guardada.');
+  }
+}
+
+function sc(txt){ document.getElementById('inp').value=txt; send(); }
+function hk(e){ if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); send(); } }
+
+// ── INIT ─────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded',()=>{
+  setChips(0);
+  if(hist.length===0){
+    showTyp();
+    setTimeout(()=>{
+      rmTyp();
+      const g=`¡Hola! 😊 Soy **Clara**, tu asistente para la Sesión 9.
+
+Estoy conectada al mismo contenido que la herramienta que está usando tu grupo. Los módulos de arriba (⚡ Tensiones, 📌 Hipótesis, etc.) corresponden a las mismas pestañas que ven tus compañeros.
+
+**Cómo funciona:** cuando tu grupo pase a un módulo nuevo, toca el botón de ese módulo aquí arriba. Yo te explico exactamente ese contenido para que puedas participar en la discusión.
+
+¿Empezamos? Tu grupo probablemente está en las **⚡ Tensiones**. ¿Cuál de las 4 situaciones te genera más preguntas?`;
+      addMsg('bot',g);
+      hist.push({role:'assistant',content:g});
+      save();
+    },1600);
+  } else {
+    const m=document.getElementById('msgs');
+    const dd=document.createElement('div');
+    dd.className='ddiv'; dd.textContent='— Retomando la conversación —';
+    m.appendChild(dd);
+    hist.forEach(msg=>addMsg(msg.role==='user'?'user':'bot',msg.content));
+    setTimeout(()=>{
+      showTyp();
+      setTimeout(()=>{
+        rmTyp();
+        const r='¡Bienvenida de nuevo! 😊 Toca el módulo en el que está tu grupo y seguimos.';
+        addMsg('bot',r);
+        hist.push({role:'assistant',content:r});
+        save();
+      },1100);
+    },200);
+  }
+});
+</script>
+</body>
+</html>
