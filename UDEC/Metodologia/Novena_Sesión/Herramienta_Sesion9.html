@@ -1,0 +1,1310 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sesión 9 — Formulación de Hipótesis | Diseños de Investigación I</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ── TOKENS ──────────────────────────────────────────────────── */
+:root{
+  --az:#1E3A5F; --az2:#2A5298; --az-l:#EBF1FB; --az-ll:#F4F7FD;
+  --ve:#1B5E3B; --ve2:#2E7D52; --ve-l:#E6F4EC; --ve-ll:#F2FAF5;
+  --am:#C67C00; --am2:#F9A825; --am-l:#FFF8E1;
+  --ro:#8B1A1A; --ro2:#C0392B; --ro-l:#FFEBEE;
+  --mo:#4A235A; --mo2:#7B4FA6; --mo-l:#F3E5F5;
+  --ci:#0277BD; --ci-l:#E1F5FE;
+  --gr:#F0F2F6; --gr2:#E2E6EE;
+  --txt:#1A1A2E; --txt2:#4A5568; --txt3:#718096;
+  --wht:#FFFFFF;
+  --shadow: 0 2px 8px rgba(30,58,95,.09);
+  --rad:12px; --rad-s:8px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;font-size:15px;color:var(--txt);background:#F5F7FB;line-height:1.65;min-height:100vh}
+
+/* ── HEADER ──────────────────────────────────────────────────── */
+.topbar{background:linear-gradient(135deg,var(--az) 0%,var(--az2) 100%);color:white;padding:0}
+.topbar-inner{max-width:940px;margin:0 auto;padding:20px 20px 0;display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.topbar h1{font-family:'DM Serif Display',serif;font-size:22px;line-height:1.2}
+.topbar-sub{font-size:12.5px;opacity:.78;margin-top:3px}
+.topbar-badge{font-size:11px;font-weight:600;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:3px 10px;white-space:nowrap}
+
+/* ── NAV TABS ─────────────────────────────────────────────────── */
+.tab-nav{background:var(--az);padding:0 0 0 0;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tab-nav-inner{max-width:940px;margin:0 auto;display:flex;gap:2px;padding:0 16px}
+.tab-btn{
+  font-family:'DM Sans',sans-serif;font-size:12.5px;font-weight:600;
+  color:rgba(255,255,255,.6);background:transparent;border:none;cursor:pointer;
+  padding:11px 14px;border-bottom:3px solid transparent;white-space:nowrap;
+  transition:all .2s;letter-spacing:.02em;
+}
+.tab-btn:hover{color:rgba(255,255,255,.9)}
+.tab-btn.active{color:white;border-bottom-color:var(--am2)}
+
+/* ── TAGS ─────────────────────────────────────────────────────── */
+.tag{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:700;letter-spacing:.08em;padding:3px 9px;border-radius:20px;text-transform:uppercase}
+.tag-clase{background:var(--az);color:white}
+.tag-casa{background:var(--ve-l);color:var(--ve);border:1.5px solid var(--ve2)}
+.tag-coop{background:var(--ve);color:white}
+.tag-pi{background:var(--am-l);color:var(--am);border:1.5px solid var(--am2)}
+
+/* ── LAYOUT ──────────────────────────────────────────────────── */
+.content{max-width:940px;margin:0 auto;padding:24px 16px 60px}
+.tab-panel{display:none}.tab-panel.active{display:block}
+
+/* ── CARD ────────────────────────────────────────────────────── */
+.card{background:var(--wht);border-radius:var(--rad);box-shadow:var(--shadow);margin-bottom:18px;overflow:hidden}
+.card-header{padding:14px 18px;font-weight:600;font-size:14.5px;border-bottom:1px solid var(--gr2);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.card-body{padding:18px}
+
+/* ── SECTION TITLE ───────────────────────────────────────────── */
+.sec-title{font-family:'DM Serif Display',serif;font-size:19px;color:var(--az);margin-bottom:16px;padding-bottom:6px;border-bottom:2px solid var(--az-l)}
+.sec-intro{font-size:14px;color:var(--txt2);margin-bottom:18px;line-height:1.7}
+
+/* ── ALERT / INFO BOX ───────────────────────────────────────── */
+.alert{border-radius:var(--rad-s);padding:14px 16px;margin-bottom:16px;font-size:13.5px;display:flex;gap:12px;align-items:flex-start}
+.alert-ico{font-size:20px;flex-shrink:0;margin-top:1px}
+.alert.info{background:var(--az-l);border-left:4px solid var(--az2)}
+.alert.ve{background:var(--ve-l);border-left:4px solid var(--ve2)}
+.alert.am{background:var(--am-l);border-left:4px solid var(--am2)}
+.alert.ro{background:var(--ro-l);border-left:4px solid var(--ro2)}
+.alert p{margin-bottom:4px;font-size:13.5px}
+.alert strong{font-weight:700}
+
+/* ── JIGSAW QUESTIONS ───────────────────────────────────────── */
+.jigsaw-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+@media(max-width:620px){.jigsaw-grid{grid-template-columns:1fr}}
+.jigsaw-card{border-radius:var(--rad-s);padding:16px;border:2px solid}
+.jigsaw-a{background:#EBF1FB;border-color:var(--az2)}
+.jigsaw-b{background:var(--ve-ll);border-color:var(--ve2)}
+.jigsaw-label{font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
+.jigsaw-a .jigsaw-label{color:var(--az)}
+.jigsaw-b .jigsaw-label{color:var(--ve)}
+.jigsaw-title{font-weight:700;font-size:13.5px;margin-bottom:10px}
+.jigsaw-card ol{padding-left:16px;font-size:13px;color:var(--txt2)}
+.jigsaw-card li{margin-bottom:7px;line-height:1.5}
+.jigsaw-card li strong{color:var(--txt)}
+
+.exchange-timer{background:var(--gr);border-radius:var(--rad-s);padding:12px 16px;font-size:13px;color:var(--txt2);text-align:center;margin-top:8px}
+
+/* ── DEFINITION BOXES ───────────────────────────────────────── */
+.def-box{background:var(--az-ll);border-left:4px solid var(--az2);border-radius:0 var(--rad-s) var(--rad-s) 0;padding:14px 16px;margin-bottom:12px}
+.def-box .def-label{font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--az);margin-bottom:4px}
+.def-box .def-text{font-size:13.5px;color:var(--txt)}
+.def-box .def-source{font-size:11px;color:var(--txt3);margin-top:5px;font-style:italic}
+
+/* ── CHAIN VIZ ──────────────────────────────────────────────── */
+.chain{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:16px 0;justify-content:center}
+.chain-step{background:white;border:2px solid var(--gr2);border-radius:var(--rad-s);padding:10px 14px;text-align:center;font-size:12.5px;font-weight:600;color:var(--txt);min-width:110px}
+.chain-step.active{border-color:var(--az2);background:var(--az-l);color:var(--az)}
+.chain-arrow{color:var(--txt3);font-size:18px;font-weight:300}
+
+/* ── HYPOTHESIS TYPE CARDS ──────────────────────────────────── */
+.hyp-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:16px}
+@media(max-width:620px){.hyp-grid{grid-template-columns:1fr}}
+.hyp-card{border-radius:var(--rad-s);padding:14px 16px;border:1.5px solid}
+.hyp-card .hyp-label{font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
+.hyp-card .hyp-name{font-weight:700;font-size:14px;margin-bottom:6px}
+.hyp-card .hyp-def{font-size:13px;color:var(--txt2);margin-bottom:8px}
+.hyp-card .hyp-ex{font-size:12px;background:rgba(255,255,255,.7);border-radius:5px;padding:8px 10px;font-style:italic;color:var(--txt)}
+.h1-card{background:#EBF1FB;border-color:var(--az2)}.h1-card .hyp-label{color:var(--az2)}
+.h0-card{background:var(--ro-l);border-color:var(--ro2)}.h0-card .hyp-label{color:var(--ro2)}
+.ha-card{background:var(--ve-ll);border-color:var(--ve2)}.ha-card .hyp-label{color:var(--ve2)}
+.hd-card{background:var(--mo-l);border-color:var(--mo2)}.hd-card .hyp-label{color:var(--mo2)}
+
+/* ── CHARACTERISTICS ────────────────────────────────────────── */
+.char-list{display:flex;flex-direction:column;gap:8px}
+.char-item{display:grid;grid-template-columns:32px 1fr;gap:10px;align-items:start;background:white;border-radius:var(--rad-s);padding:10px 12px;border:1px solid var(--gr2);box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.char-num{background:var(--az);color:white;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:1px}
+.char-title{font-weight:700;font-size:13.5px;margin-bottom:2px}
+.char-desc{font-size:12.5px;color:var(--txt2)}
+
+/* ── BUILDER ─────────────────────────────────────────────────── */
+.builder-step{background:white;border-radius:var(--rad-s);padding:16px;border:1.5px solid var(--gr2);margin-bottom:12px}
+.builder-step-num{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;background:var(--az);color:white;border-radius:50%;font-size:12px;font-weight:700;margin-right:8px}
+.builder-step-title{font-weight:600;font-size:13.5px;display:inline;color:var(--txt)}
+.builder-input{width:100%;margin-top:10px;padding:10px 13px;border:1.5px solid var(--gr2);border-radius:var(--rad-s);font-family:'DM Sans',sans-serif;font-size:13.5px;color:var(--txt);resize:vertical;min-height:48px;transition:border-color .2s}
+.builder-input:focus{outline:none;border-color:var(--az2);box-shadow:0 0 0 3px rgba(42,82,152,.1)}
+select.builder-input{min-height:42px;resize:none}
+.builder-preview{background:var(--ve-ll);border:1.5px solid var(--ve2);border-radius:var(--rad-s);padding:14px 16px;margin-top:14px;font-size:13.5px}
+.builder-preview .prev-label{font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ve);margin-bottom:6px}
+.builder-preview .h1-text{color:var(--txt);font-style:italic;margin-bottom:8px}
+.builder-preview .h0-text{color:var(--txt2);font-style:italic;font-size:13px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:var(--rad-s);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .18s}
+.btn-primary{background:var(--az);color:white}.btn-primary:hover{background:var(--az2)}
+.btn-secondary{background:var(--gr);color:var(--txt)}.btn-secondary:hover{background:var(--gr2)}
+.btn-ve{background:var(--ve);color:white}.btn-ve:hover{background:var(--ve2)}
+
+/* ── VARIABLE IDENTIFIER ────────────────────────────────────── */
+.var-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+@media(max-width:600px){.var-grid{grid-template-columns:1fr}}
+.var-card{border-radius:var(--rad-s);padding:12px 14px;text-align:center;border:2px solid var(--gr2);cursor:pointer;transition:all .18s;background:white}
+.var-card:hover{border-color:var(--az2);transform:translateY(-1px);box-shadow:0 4px 12px rgba(42,82,152,.12)}
+.var-card.selected{border-color:var(--az2);background:var(--az-l)}
+.var-card .var-type{font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:3px}
+.var-card .var-name{font-weight:600;font-size:13px}
+.vi{--c:var(--az2)}.vd{--c:var(--ve2)}.vm{--c:var(--mo2)}
+.var-card .var-type{color:var(--c,var(--az2))}
+.var-card.selected{border-color:var(--c,var(--az2));background:white}
+
+/* ── PI MODULE ───────────────────────────────────────────────── */
+.pi-header{background:linear-gradient(135deg,var(--am) 0%,#E65100 100%);color:white;border-radius:var(--rad) var(--rad) 0 0;padding:20px 22px}
+.pi-header h2{font-family:'DM Serif Display',serif;font-size:20px;margin-bottom:4px}
+.pi-header p{font-size:13px;opacity:.88}
+.dataset-table{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:12px}
+.dataset-table th{background:var(--az);color:white;padding:8px 10px;text-align:left;font-weight:600;font-size:12px}
+.dataset-table td{padding:7px 10px;border-bottom:1px solid var(--gr2)}
+.dataset-table tr:hover td{background:var(--az-ll)}
+.dataset-table tr:nth-child(even) td{background:#FAFBFD}
+.culture-ao{color:var(--az2);font-weight:600}
+.culture-oc{color:var(--ve2);font-weight:600}
+.cond-badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600}
+.cond-same{background:#FFF3CD;color:#856404}
+.cond-exp{background:#D1FAE5;color:#065F46}
+.cond-ran{background:#FCE7F3;color:#9D174D}
+.pi-hypothesis-form{background:var(--am-l);border:1.5px solid var(--am2);border-radius:var(--rad-s);padding:16px;margin-top:14px}
+.pi-hypothesis-form label{font-weight:600;font-size:13px;display:block;margin-bottom:6px;color:var(--am)}
+
+/* ── QUIZ ────────────────────────────────────────────────────── */
+#quiz-stored-notice{background:var(--ve-l);border:1.5px solid var(--ve2);border-radius:var(--rad-s);padding:14px 16px;font-size:13.5px;display:none;margin-bottom:18px}
+.quiz-q{background:white;border-radius:var(--rad-s);padding:16px;border:1.5px solid var(--gr2);margin-bottom:14px}
+.quiz-q .q-num{font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--az);margin-bottom:6px}
+.quiz-q .q-text{font-weight:600;font-size:14px;margin-bottom:12px;line-height:1.55}
+.quiz-option{display:flex;align-items:flex-start;gap:10px;padding:9px 12px;border-radius:6px;cursor:pointer;transition:background .15s;margin-bottom:5px;border:1.5px solid transparent}
+.quiz-option:hover{background:var(--az-ll)}
+.quiz-option input[type=radio]{margin-top:3px;flex-shrink:0;accent-color:var(--az2)}
+.quiz-option label{font-size:13.5px;cursor:pointer;line-height:1.5}
+.quiz-option.correct{background:#E8F5E9;border-color:var(--ve2)}
+.quiz-option.wrong{background:var(--ro-l);border-color:var(--ro2)}
+.quiz-feedback{font-size:12.5px;border-radius:5px;padding:8px 12px;margin-top:8px;display:none}
+.quiz-feedback.show{display:block}
+.quiz-feedback.correct{background:#E8F5E9;color:var(--ve);border-left:3px solid var(--ve2)}
+.quiz-feedback.wrong{background:var(--ro-l);color:var(--ro2);border-left:3px solid var(--ro2)}
+.quiz-result{background:var(--az-l);border:2px solid var(--az2);border-radius:var(--rad);padding:22px;text-align:center;display:none;margin-top:14px}
+.quiz-result.show{display:block}
+.quiz-result .score{font-family:'DM Serif Display',serif;font-size:48px;color:var(--az);line-height:1}
+.quiz-result .score-label{font-size:14px;color:var(--txt2);margin-top:4px}
+.quiz-result .score-msg{font-size:13.5px;margin-top:12px;color:var(--txt)}
+
+/* ── READINGS NEXT ───────────────────────────────────────────── */
+.next-reading{background:white;border-radius:var(--rad-s);padding:16px 18px;border-left:4px solid var(--az2);margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.next-reading .nr-label{font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--az);margin-bottom:4px}
+.next-reading .nr-title{font-weight:600;font-size:14px;margin-bottom:3px}
+.next-reading .nr-meta{font-size:12px;color:var(--txt2);margin-bottom:8px}
+.next-reading .nr-doi{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ci);word-break:break-all}
+.next-reading .nr-consigna{margin-top:10px;background:var(--az-l);border-radius:5px;padding:9px 12px;font-size:12.5px;color:var(--az)}
+
+/* ── ACCORDION ───────────────────────────────────────────────── */
+.acc{border:1.5px solid var(--gr2);border-radius:var(--rad-s);overflow:hidden;margin-bottom:8px}
+.acc-head{display:flex;align-items:center;justify-content:space-between;padding:12px 15px;cursor:pointer;background:white;font-weight:600;font-size:13.5px;transition:background .15s;user-select:none}
+.acc-head:hover{background:var(--az-ll)}
+.acc-arrow{transition:transform .25s;color:var(--txt3);font-size:16px}
+.acc-body{display:none;padding:14px 16px;font-size:13.5px;border-top:1px solid var(--gr2);background:white}
+.acc-body.open{display:block}
+
+/* ── MISC ────────────────────────────────────────────────────── */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:560px){.two-col{grid-template-columns:1fr}}
+.pill-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.pill{display:inline-flex;align-items:center;gap:4px;padding:4px 11px;border-radius:20px;font-size:12px;font-weight:600;background:var(--gr);color:var(--txt2)}
+hr.div{border:none;border-top:1px solid var(--gr2);margin:16px 0}
+.mono{font-family:'JetBrains Mono',monospace;font-size:12.5px;background:var(--gr);padding:2px 6px;border-radius:4px}
+.progress-bar{height:6px;background:var(--gr2);border-radius:3px;overflow:hidden;margin-top:6px}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--az),var(--az2));border-radius:3px;transition:width .4s}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <div>
+      <div style="font-size:11.5px;opacity:.65;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px">Diseños de Investigación I · Sesión 9</div>
+      <h1>Formulación de hipótesis<br>+ Proyecto Integrador</h1>
+      <div class="topbar-sub">Definición · Tipos · Características · Variables · Primera aproximación al PI</div>
+    </div>
+    <span class="topbar-badge">Sampieri Cap. 7</span>
+  </div>
+
+  <!-- TABS -->
+  <div class="tab-nav">
+    <div class="tab-nav-inner">
+      <button class="tab-btn active" onclick="showTab('t0')">⚡ Tensiones iniciales</button>
+      <button class="tab-btn" onclick="showTab('t1')">📌 ¿Qué es una hipótesis?</button>
+      <button class="tab-btn" onclick="showTab('t2')">🔗 Variables</button>
+      <button class="tab-btn" onclick="showTab('t3')">🗂️ Tipos de hipótesis</button>
+      <button class="tab-btn" onclick="showTab('t4')">🔨 Constructor</button>
+      <button class="tab-btn" onclick="showTab('t5')">🧪 Proyecto Integrador</button>
+      <button class="tab-btn" onclick="showTab('t6')">🎯 Quiz</button>
+      <button class="tab-btn" onclick="showTab('t7')">📖 Próxima sesión</button>
+    </div>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- ═══════════════ M0 APERTURA — TENSIONES ═══════════════════ -->
+<div class="tab-panel active" id="t0">
+  <div class="sec-title">⚡ Apertura — Tensiones para pensar</div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px">
+    <span class="tag tag-clase">🏫 En clase — primeros 20 min</span>
+    <span class="tag tag-coop">Discusión en tríos</span>
+  </div>
+
+  <div class="alert ve">
+    <div class="alert-ico">🧠</div>
+    <div>
+      <strong>¿Para qué sirve esta actividad?</strong>
+      <p>No necesitan haber leído nada previo. Cada situación de abajo plantea una tensión real sobre investigación. Discútanlas en el grupo usando lo que ya saben — de clase, de la vida, de la experiencia. Al final sabrán exactamente qué preguntas necesitan responder esta sesión.</p>
+    </div>
+  </div>
+
+  <!-- ROLES -->
+  <div class="card">
+    <div class="card-header">🎭 Protocolo — 20 minutos en trío</div>
+    <div class="card-body">
+      <div class="char-list">
+        <div class="char-item">
+          <div class="char-num">1</div>
+          <div><div class="char-title">Individual — 2 min</div><div class="char-desc">Cada uno lee las 4 situaciones en silencio y elige la que más le genera duda o desacuerdo. Solo una.</div></div>
+        </div>
+        <div class="char-item">
+          <div class="char-num">2</div>
+          <div><div class="char-title">En trío — 14 min</div><div class="char-desc">El Coordinador da la palabra por turno. Cada uno explica cuál eligió y por qué. No hay respuestas incorrectas — se busca tensión, no consenso. El Secretario anota los desacuerdos que no pudieron resolver.</div></div>
+        </div>
+        <div class="char-item">
+          <div class="char-num">3</div>
+          <div><div class="char-title">Cierre — 4 min</div><div class="char-desc">El Vocero comparte al grupo grande: ¿cuál fue la situación más polémica y por qué no lograron resolverla solos?</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TENSIONES -->
+  <p style="font-weight:700;font-size:15px;margin:20px 0 12px;color:var(--az)">Las 4 situaciones — lean cada una con cuidado:</p>
+
+  <!-- T1 -->
+  <div class="card" style="border-left:4px solid var(--az2)">
+    <div class="card-header" style="background:var(--az-l)">
+      <span style="font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--az)">SITUACIÓN 1</span>
+    </div>
+    <div class="card-body">
+      <p style="font-size:14.5px;font-weight:600;margin-bottom:10px;line-height:1.55">"Llevamos dos semanas recopilando notas de 80 estudiantes de la UDEC y viendo cuántas horas estudian por día. Ahora que tenemos todos los datos, nos damos cuenta de que los que estudian más tienen mejores notas. Entonces nuestra hipótesis es: a más horas de estudio, mejor rendimiento académico."</p>
+      <div class="alert am">
+        <div class="alert-ico">🤔</div>
+        <div><strong>Discutan:</strong> ¿Esta afirmación es una hipótesis científica? ¿Qué tiene de diferente a una hipótesis real? ¿El momento en que se formula importa?</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- T2 -->
+  <div class="card" style="border-left:4px solid var(--ve2);margin-top:10px">
+    <div class="card-header" style="background:var(--ve-ll)">
+      <span style="font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--ve)">SITUACIÓN 2</span>
+    </div>
+    <div class="card-body">
+      <p style="font-size:14.5px;font-weight:600;margin-bottom:10px;line-height:1.55">Un grupo quiere estudiar cómo viven el duelo las personas mayores de la Sabana de Occidente cuando pierden a un familiar. Nunca antes se ha estudiado exactamente eso en esa región. Su directora les dice: "Este estudio no necesita hipótesis."</p>
+      <div class="alert am">
+        <div class="alert-ico">🤔</div>
+        <div><strong>Discutan:</strong> ¿Tienen razón? ¿Por qué un estudio podría no necesitar hipótesis? ¿Eso lo hace menos científico?</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- T3 -->
+  <div class="card" style="border-left:4px solid var(--mo2);margin-top:10px">
+    <div class="card-header" style="background:var(--mo-l)">
+      <span style="font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--mo2)">SITUACIÓN 3</span>
+    </div>
+    <div class="card-body">
+      <p style="font-size:14.5px;font-weight:600;margin-bottom:10px;line-height:1.55">Valentina escribe su hipótesis así: <em>"El uso excesivo de redes sociales afecta la autoestima."</em> Su compañero le dice que eso no sirve. Valentina se defiende: "Está claro lo que digo, ¿no? Todo el mundo entiende a qué me refiero."</p>
+      <div class="alert am">
+        <div class="alert-ico">🤔</div>
+        <div><strong>Discutan:</strong> ¿Tiene razón Valentina o su compañero? ¿Qué le falta a esa hipótesis? ¿"Todo el mundo entiende" es suficiente en investigación científica?</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- T4 -->
+  <div class="card" style="border-left:4px solid var(--ro2);margin-top:10px">
+    <div class="card-header" style="background:var(--ro-l)">
+      <span style="font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--ro2)">SITUACIÓN 4</span>
+    </div>
+    <div class="card-body">
+      <p style="font-size:14.5px;font-weight:600;margin-bottom:10px;line-height:1.55">Julián formula dos hipótesis para su mismo estudio sobre motivación y rendimiento:<br>
+      <em>H₁: "Los estudiantes con mayor motivación intrínseca tienen mejor rendimiento académico."</em><br>
+      <em>H₀: "No existe diferencia en el rendimiento entre estudiantes con alta y baja motivación intrínseca."</em><br>
+      Su compañera le pregunta: "¿Para qué pones las dos? ¿No son contradictorias?"</p>
+      <div class="alert am">
+        <div class="alert-ico">🤔</div>
+        <div><strong>Discutan:</strong> ¿Son contradictorias? ¿Para qué sirve poner las dos? ¿Cuál de las dos espera el investigador que resulte verdadera?</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CIERRE -->
+  <div style="background:var(--ve-l);border:1.5px solid var(--ve2);border-radius:10px;padding:16px 18px;margin-top:16px">
+    <p style="font-weight:700;font-size:13.5px;color:var(--ve);margin-bottom:8px">📝 Al terminar — el Secretario registra:</p>
+    <div class="char-list">
+      <div class="char-item">
+        <div class="char-num">A</div>
+        <div><div class="char-title">¿Cuál situación generó más desacuerdo en el grupo?</div><div class="char-desc">Escríbanla en una oración.</div></div>
+      </div>
+      <div class="char-item">
+        <div class="char-num">B</div>
+        <div><div class="char-title">¿Qué pregunta les quedó sin responder?</div><div class="char-desc">Esa pregunta es exactamente lo que vendremos a resolver en los siguientes módulos.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ M1 QUÉ ES ════════════════════════════════════ -->
+<div class="tab-panel" id="t1">
+  <div class="sec-title">📌 ¿Qué es una hipótesis?</div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px">
+    <span class="tag tag-clase">🏫 En clase — magistral</span>
+    <span class="tag tag-casa">🏠 Profundizar en casa</span>
+  </div>
+
+  <!-- CHAIN -->
+  <div class="card">
+    <div class="card-header">🔗 La cadena lógica de la investigación cuantitativa</div>
+    <div class="card-body">
+      <p style="font-size:13.5px;color:var(--txt2);margin-bottom:14px">Una hipótesis no aparece de la nada — es el paso que sigue cuando tienes un problema claro, un marco teórico construido y objetivos definidos.</p>
+      <div class="chain">
+        <div class="chain-step">Pregunta de investigación</div>
+        <div class="chain-arrow">→</div>
+        <div class="chain-step">Objetivos</div>
+        <div class="chain-arrow">→</div>
+        <div class="chain-step">Marco teórico</div>
+        <div class="chain-arrow">→</div>
+        <div class="chain-step active">Hipótesis</div>
+        <div class="chain-arrow">→</div>
+        <div class="chain-step">Diseño y datos</div>
+      </div>
+      <div class="alert info" style="margin-top:0">
+        <div class="alert-ico">🧭</div>
+        <div>Una hipótesis es una <strong>predicción fundamentada</strong> — no es una suposición ni una intuición. Deriva de lo que ya sabemos y anuncia lo que esperamos encontrar.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DEFINICIÓN -->
+  <div class="def-box">
+    <div class="def-label">Definición — Sampieri et al. (2014)</div>
+    <div class="def-text">Las hipótesis son las guías de una investigación o estudio. Las hipótesis indican lo que tratamos de probar y se definen como <em>explicaciones tentativas del fenómeno investigado</em>, formuladas a manera de proposiciones. Se generan antes de recolectar y analizar los datos.</div>
+    <div class="def-source">Hernández-Sampieri, R., Fernández, C. y Baptista, P. (2014). Metodología de la investigación (6ª ed., p. 104).</div>
+  </div>
+
+  <!-- CUÁNDO SE FORMULAN -->
+  <div class="card" style="margin-top:16px">
+    <div class="card-header">🤔 ¿Todos los estudios necesitan hipótesis?</div>
+    <div class="card-body">
+      <p style="font-size:13.5px;color:var(--txt2);margin-bottom:12px">No. Sampieri (Cap. 7) es claro al respecto:</p>
+      <div class="two-col">
+        <div>
+          <div class="alert ve" style="margin-bottom:8px">
+            <div class="alert-ico">✅</div>
+            <div><strong>Sí requieren hipótesis:</strong><br>Estudios correlacionales, causales y explicativos. Cuando se plantea una relación entre variables.</div>
+          </div>
+        </div>
+        <div>
+          <div class="alert ro">
+            <div class="alert-ico">❌</div>
+            <div><strong>Pueden no requerirlas:</strong><br>Estudios exploratorios y descriptivos. Cuando no hay suficiente literatura que permita hacer una predicción fundamentada.</div>
+          </div>
+        </div>
+      </div>
+      <div class="alert am" style="margin-top:8px">
+        <div class="alert-ico">💬</div>
+        <div><strong>¿Y su proyecto?</strong> El alcance que identificaron en sesiones anteriores (¿correlacional? ¿explicativo?) determina si deben o no formular hipótesis.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARACTERÍSTICAS -->
+  <div class="card" style="margin-top:16px">
+    <div class="card-header">✅ Características de una hipótesis científica <span style="font-size:11px;color:var(--txt3);font-weight:400;margin-left:8px">(Sampieri Cap. 7, pp. 107–111)</span></div>
+    <div class="card-body">
+      <div class="char-list">
+        <div class="char-item">
+          <div class="char-num">1</div>
+          <div><div class="char-title">Se refieren a una situación social real</div><div class="char-desc">No son filosofía abstracta — deben poder confrontarse con datos del mundo.</div></div>
+        </div>
+        <div class="char-item">
+          <div class="char-num">2</div>
+          <div><div class="char-title">Los términos son comprensibles, precisos y concretos</div><div class="char-desc">"Bienestar" sin definir no sirve. "Bienestar medido con la SWLS de Diener" sí.</div></div>
+        </div>
+        <div class="char-item">
+          <div class="char-num">3</div>
+          <div><div class="char-title">La relación entre variables es clara y verosímil</div><div class="char-desc">Debe ser posible que esa relación exista — no puede ser absurda o lógicamente imposible.</div></div>
+        </div>
+        <div class="char-item">
+          <div class="char-num">4</div>
+          <div><div class="char-title">Los términos y la relación son observables y medibles</div><div class="char-desc">Si no se puede medir, no se puede probar. Una hipótesis no medible no es científica.</div></div>
+        </div>
+        <div class="char-item">
+          <div class="char-num">5</div>
+          <div><div class="char-title">Están relacionadas con técnicas disponibles para probarlas</div><div class="char-desc">De poco sirve una hipótesis elegante si no hay método para verificarla.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ M2 VARIABLES ══════════════════════════════════ -->
+<div class="tab-panel" id="t2">
+  <div class="sec-title">🔗 Variables en la hipótesis</div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px">
+    <span class="tag tag-clase">🏫 En clase</span>
+    <span class="tag tag-coop">Actividad cooperativa</span>
+  </div>
+
+  <div class="alert info">
+    <div class="alert-ico">🎯</div>
+    <div>Una hipótesis pone en relación al menos dos variables. Saber qué tipo de variable es cada una determina el diseño que necesitan y el análisis que van a hacer.</div>
+  </div>
+
+  <div class="hyp-grid">
+    <div class="hyp-card h1-card">
+      <div class="hyp-label">Variable independiente (VI)</div>
+      <div class="hyp-name">La causa o predictor</div>
+      <div class="hyp-def">Lo que el investigador manipula (en experimentos) o lo que se considera el antecedente. Influye sobre la VD.</div>
+      <div class="hyp-ex">Ejemplo: "el uso diario de Instagram" — varía entre personas y se supone que predice algo.</div>
+    </div>
+    <div class="hyp-card h0-card" style="background:#FFF3E0;border-color:#E65100">
+      <div class="hyp-label" style="color:#E65100">Variable dependiente (VD)</div>
+      <div class="hyp-name">El efecto o resultado</div>
+      <div class="hyp-def">Lo que se mide para ver si cambió en función de la VI. Es el resultado que la hipótesis predice.</div>
+      <div class="hyp-ex">Ejemplo: "autoestima global, medida con la Escala de Rosenberg" — varía según la exposición a Instagram.</div>
+    </div>
+    <div class="hyp-card ha-card">
+      <div class="hyp-label">Variable moderadora</div>
+      <div class="hyp-name">Condiciona la relación</div>
+      <div class="hyp-def">Una tercera variable que cambia la intensidad o dirección de la relación VI → VD. No siempre aparece en hipótesis simples.</div>
+      <div class="hyp-ex">Ejemplo: "el sexo modera la relación entre Instagram y autoestima — el efecto es mayor en mujeres que en hombres."</div>
+    </div>
+    <div class="hyp-card hd-card">
+      <div class="hyp-label">Variable de control</div>
+      <div class="hyp-name">Se mantiene constante</div>
+      <div class="hyp-def">Variables que podrían afectar la VD pero que el diseño intenta neutralizar para que no interfieran.</div>
+      <div class="hyp-ex">Ejemplo: solo incluir participantes de 18-22 años para controlar el efecto de la edad.</div>
+    </div>
+  </div>
+
+  <!-- INTERACTIVE: Identifier for PI variables -->
+  <div class="card">
+    <div class="card-header">🧩 Identifique las variables del Proyecto Integrador <span class="tag tag-pi" style="margin-left:8px">Proyecto Integrador</span></div>
+    <div class="card-body">
+      <p style="font-size:13.5px;color:var(--txt2);margin-bottom:14px">El experimento del PI tiene cuatro variables medidas. Para cada una, seleccionen el tipo que les corresponde.</p>
+
+      <div id="var-identifier" style="display:flex;flex-direction:column;gap:12px">
+        <!-- Variable 1 -->
+        <div style="background:var(--gr);border-radius:var(--rad-s);padding:12px 14px">
+          <div style="font-weight:600;font-size:13.5px;margin-bottom:8px">Variable: <span class="mono">Cultura (Asiático Oriental / Occidental)</span></div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button onclick="selectVarType(this,'v1','VI')" class="btn btn-secondary" data-var="v1" data-type="VI">Variable independiente</button>
+            <button onclick="selectVarType(this,'v1','VD')" class="btn btn-secondary" data-var="v1" data-type="VD">Variable dependiente</button>
+            <button onclick="selectVarType(this,'v1','VM')" class="btn btn-secondary" data-var="v1" data-type="VM">Variable moderadora</button>
+          </div>
+          <div id="fb-v1" style="font-size:12.5px;margin-top:8px;display:none"></div>
+        </div>
+        <!-- Variable 2 -->
+        <div style="background:var(--gr);border-radius:var(--rad-s);padding:12px 14px">
+          <div style="font-weight:600;font-size:13.5px;margin-bottom:8px">Variable: <span class="mono">Condición experimental (Misma / Expansión / Aleatoria)</span></div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button onclick="selectVarType(this,'v2','VI')" class="btn btn-secondary" data-var="v2" data-type="VI">Variable independiente</button>
+            <button onclick="selectVarType(this,'v2','VD')" class="btn btn-secondary" data-var="v2" data-type="VD">Variable dependiente</button>
+            <button onclick="selectVarType(this,'v2','VM')" class="btn btn-secondary" data-var="v2" data-type="VM">Variable de control</button>
+          </div>
+          <div id="fb-v2" style="font-size:12.5px;margin-top:8px;display:none"></div>
+        </div>
+        <!-- Variable 3 -->
+        <div style="background:var(--gr);border-radius:var(--rad-s);padding:12px 14px">
+          <div style="font-weight:600;font-size:13.5px;margin-bottom:8px">Variable: <span class="mono">d' (d-prima / exactitud de detección)</span></div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button onclick="selectVarType(this,'v3','VI')" class="btn btn-secondary" data-var="v3" data-type="VI">Variable independiente</button>
+            <button onclick="selectVarType(this,'v3','VD')" class="btn btn-secondary" data-var="v3" data-type="VD">Variable dependiente</button>
+            <button onclick="selectVarType(this,'v3','VM')" class="btn btn-secondary" data-var="v3" data-type="VM">Variable moderadora</button>
+          </div>
+          <div id="fb-v3" style="font-size:12.5px;margin-top:8px;display:none"></div>
+        </div>
+        <!-- Variable 4 -->
+        <div style="background:var(--gr);border-radius:var(--rad-s);padding:12px 14px">
+          <div style="font-weight:600;font-size:13.5px;margin-bottom:8px">Variable: <span class="mono">TR_focal (tiempo de reacción en tarea focal central)</span></div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button onclick="selectVarType(this,'v4','VI')" class="btn btn-secondary" data-var="v4" data-type="VI">Variable independiente</button>
+            <button onclick="selectVarType(this,'v4','VD')" class="btn btn-secondary" data-var="v4" data-type="VD">Variable dependiente</button>
+            <button onclick="selectVarType(this,'v4','VM')" class="btn btn-secondary" data-var="v4" data-type="VM">Variable de control</button>
+          </div>
+          <div id="fb-v4" style="font-size:12.5px;margin-top:8px;display:none"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ M3 TIPOS ══════════════════════════════════════ -->
+<div class="tab-panel" id="t3">
+  <div class="sec-title">🗂️ Tipos de hipótesis</div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px">
+    <span class="tag tag-casa">🏠 Profundizar en casa</span>
+    <span class="tag tag-clase">🏫 Intro en clase</span>
+  </div>
+
+  <div class="hyp-grid" style="grid-template-columns:1fr 1fr">
+
+    <div class="hyp-card h1-card">
+      <div class="hyp-label">Hipótesis de investigación (H₁)</div>
+      <div class="hyp-name">La que el estudio quiere demostrar</div>
+      <div class="hyp-def">Plantea la relación esperada entre variables. Es la predicción del investigador basada en teoría o evidencia previa.</div>
+      <div class="hyp-ex">"Los estudiantes universitarios con mayor uso diario de Instagram mostrarán menores puntajes en la Escala de Rosenberg que los que lo usan menos de 1 hora/día."</div>
+    </div>
+
+    <div class="hyp-card h0-card">
+      <div class="hyp-label">Hipótesis nula (H₀)</div>
+      <div class="hyp-name">La que el análisis intenta rechazar</div>
+      <div class="hyp-def">Niega la relación o diferencia planteada en H₁. En estadística es el punto de partida — se asume verdadera hasta que la evidencia indique lo contrario.</div>
+      <div class="hyp-ex">"No existe diferencia significativa en la autoestima entre estudiantes con alto y bajo uso de Instagram."</div>
+    </div>
+
+    <div class="hyp-card ha-card">
+      <div class="hyp-label">Hipótesis alternativa (Ha)</div>
+      <div class="hyp-name">La del "¿y si pasa algo distinto?"</div>
+      <div class="hyp-def">Plantea que si H₁ no se confirma, hay otra relación posible. No es lo mismo que H₀. Sampieri las incluye como posibilidad ante resultados inesperados.</div>
+      <div class="hyp-ex">"Si el uso de Instagram no predice autoestima global, sí podría predecir la dimensión de comparación social de la autoestima."</div>
+    </div>
+
+    <div class="hyp-card hd-card">
+      <div class="hyp-label">Hipótesis estadística</div>
+      <div class="hyp-name">La versión numérica de H₁ y H₀</div>
+      <div class="hyp-def">Traduce las hipótesis conceptuales al lenguaje de la estadística inferencial. Especifica parámetros y valores.</div>
+      <div class="hyp-ex" style="font-family:'JetBrains Mono',monospace;font-size:11.5px">H₀: μ₁ = μ₂ (medias iguales)<br>H₁: μ₁ ≠ μ₂ (medias diferentes)</div>
+    </div>
+
+  </div>
+
+  <!-- DIRECCIONAL vs NO DIRECCIONAL -->
+  <div class="card">
+    <div class="card-header">🧭 Hipótesis direccional vs. no direccional</div>
+    <div class="card-body">
+      <div class="two-col">
+        <div>
+          <div class="alert ve">
+            <div class="alert-ico">↑</div>
+            <div>
+              <strong>Direccional</strong><br>
+              <span style="font-size:13px">Especifica la dirección del efecto: "más que", "mayor que", "positivamente relacionado con".</span>
+              <div style="margin-top:8px;font-size:12.5px;font-style:italic;background:var(--ve-l);padding:7px 10px;border-radius:5px">"Los participantes de cultura asiático-oriental obtendrán un d' <strong>mayor</strong> en la condición de Expansión que los participantes occidentales."</div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="alert info">
+            <div class="alert-ico">↔️</div>
+            <div>
+              <strong>No direccional</strong><br>
+              <span style="font-size:13px">Predice que habrá diferencia o relación, pero sin especificar hacia dónde.</span>
+              <div style="margin-top:8px;font-size:12.5px;font-style:italic;background:var(--az-l);padding:7px 10px;border-radius:5px">"Existen diferencias significativas en el d' entre los grupos culturales en la condición de Expansión."</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="alert am" style="margin-top:10px">
+        <div class="alert-ico">🤔</div>
+        <div><strong>¿Cuándo usar cada una?</strong> Si la literatura es suficientemente clara sobre la dirección del efecto → direccional. Si hay resultados mixtos o es un tema menos estudiado → no direccional es más honesto.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EJEMPLOS EXPANDIBLES -->
+  <div style="margin-top:16px">
+    <p style="font-weight:600;margin-bottom:10px;font-size:14px">Analice estos ejemplos — ¿son correctas o tienen problemas?</p>
+
+    <div class="acc">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <span>"La ansiedad afecta el rendimiento." — ¿Es una hipótesis válida?</span>
+        <span class="acc-arrow">▾</span>
+      </div>
+      <div class="acc-body">
+        <span class="tag tag-casa" style="margin-bottom:10px;display:inline-flex">❌ Incompleta</span>
+        <p style="font-size:13.5px;color:var(--txt2)">No es válida como hipótesis científica: (1) "afecta" no especifica la dirección ni la magnitud del efecto; (2) ninguna variable está operacionalizada — ¿qué instrumento mide ansiedad? ¿qué indica rendimiento?; (3) ¿en quién, dónde, bajo qué condiciones?</p>
+        <div class="def-box" style="margin-top:10px">
+          <div class="def-label">Versión mejorada</div>
+          <div class="def-text">"Los estudiantes de cuarto semestre de Psicología de la UDEC Facatativá con puntajes altos en el Inventario de Ansiedad de Beck (BAI ≥ 26) obtendrán un promedio académico semestral significativamente menor que los estudiantes con puntajes bajos (BAI ≤ 10)."</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="acc">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <span>"Los adolescentes de Facatativá con mayor uso de redes sociales tienen menor autoestima." — ¿Qué tipo de hipótesis es?</span>
+        <span class="acc-arrow">▾</span>
+      </div>
+      <div class="acc-body">
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">
+          <span class="tag tag-ve" style="background:var(--ve);color:white">H₁ de investigación</span>
+          <span class="tag" style="background:#E3F2FD;color:#1565C0;border:1.5px solid #1565C0">Direccional</span>
+        </div>
+        <p style="font-size:13.5px;color:var(--txt2)">Es una hipótesis de investigación (plantea una relación esperada) y es direccional (especifica que es "menor"). Podría mejorar operacionalizando ambas variables: ¿cómo se mide "uso de redes sociales"? ¿con qué escala se mide la autoestima?</p>
+      </div>
+    </div>
+
+    <div class="acc">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <span>"No existe diferencia en el tiempo de reacción entre culturas en la tarea de expansión." — ¿H₁ o H₀?</span>
+        <span class="acc-arrow">▾</span>
+      </div>
+      <div class="acc-body">
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">
+          <span class="tag" style="background:var(--ro-l);color:var(--ro2);border:1.5px solid var(--ro2)">H₀ nula</span>
+          <span class="tag" style="background:#E3F2FD;color:#1565C0;border:1.5px solid #1565C0">No direccional (implícita)</span>
+        </div>
+        <p style="font-size:13.5px;color:var(--txt2)">Es una hipótesis nula — niega la diferencia. En el análisis estadístico, esta es la hipótesis que se "pone a prueba": si el p-valor es menor que el nivel de significancia (generalmente .05), se rechaza H₀ y se acepta H₁.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ M4 CONSTRUCTOR ════════════════════════════════ -->
+<div class="tab-panel" id="t4">
+  <div class="sec-title">🔨 Constructor de hipótesis</div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px">
+    <span class="tag tag-clase">🏫 En clase — AC2</span>
+    <span class="tag tag-casa">🏠 Completar en casa</span>
+  </div>
+
+  <div class="alert ve">
+    <div class="alert-ico">🤝</div>
+    <div><strong>Actividad cooperativa en clase (AC2):</strong> Los tres integrantes del grupo construyen juntos la hipótesis. El Secretario la registra. El Vocero la presenta al grupo grande.</div>
+  </div>
+
+  <!-- SELECTOR DE VARIABLE DE GRUPO -->
+  <div class="card">
+    <div class="card-header">📁 Seleccionen la variable de su grupo</div>
+    <div class="card-body">
+      <div id="var-selector" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
+        <button onclick="selectGroupVar('Mentira')" class="btn btn-secondary grp-var-btn">Mentira</button>
+        <button onclick="selectGroupVar('Resiliencia académica')" class="btn btn-secondary grp-var-btn">Resiliencia académica</button>
+        <button onclick="selectGroupVar('Estrés postraumático')" class="btn btn-secondary grp-var-btn">Estrés postraumático</button>
+        <button onclick="selectGroupVar('Autoestima')" class="btn btn-secondary grp-var-btn">Autoestima</button>
+        <button onclick="selectGroupVar('Motivación')" class="btn btn-secondary grp-var-btn">Motivación</button>
+        <button onclick="selectGroupVar('Inteligencia')" class="btn btn-secondary grp-var-btn">Inteligencia</button>
+        <button onclick="selectGroupVar('Bienestar emocional')" class="btn btn-secondary grp-var-btn">Bienestar emocional</button>
+        <button onclick="selectGroupVar('Trastorno explosivo intermitente')" class="btn btn-secondary grp-var-btn">TEI</button>
+        <button onclick="selectGroupVar('Otra')" class="btn btn-secondary grp-var-btn">Otra variable →</button>
+      </div>
+      <div id="custom-var-wrap" style="display:none;margin-bottom:12px">
+        <input id="custom-var-input" class="builder-input" placeholder="Escriban aquí su variable..." style="min-height:40px">
+      </div>
+    </div>
+  </div>
+
+  <!-- BUILDER STEPS -->
+  <div id="builder-section" style="display:none">
+    <div class="builder-step">
+      <span class="builder-step-num">1</span>
+      <span class="builder-step-title">¿Qué variable independiente o predictora están estudiando?</span>
+      <p style="font-size:12.5px;color:var(--txt2);margin-top:6px">La VI es lo que suponen que causa o predice el cambio. Puede ser un grupo, una condición, una característica.</p>
+      <input class="builder-input" id="b-vi" placeholder="Ej: el nivel de estrés académico medido con el SISCO..." oninput="updatePreview()">
+    </div>
+
+    <div class="builder-step">
+      <span class="builder-step-num">2</span>
+      <span class="builder-step-title">¿Cuál es la variable dependiente? ¿Cómo la van a medir?</span>
+      <p style="font-size:12.5px;color:var(--txt2);margin-top:6px">La VD es lo que esperan que cambie. Deben incluir el instrumento o el indicador de medición.</p>
+      <input class="builder-input" id="b-vd" placeholder="Ej: la autoestima global medida con la Escala de Rosenberg (EAR)..." oninput="updatePreview()">
+    </div>
+
+    <div class="builder-step">
+      <span class="builder-step-num">3</span>
+      <span class="builder-step-title">¿Qué relación esperan y en qué dirección?</span>
+      <select class="builder-input" id="b-rel" onchange="updatePreview()">
+        <option value="">— Seleccionen el tipo de relación —</option>
+        <option value="se relaciona positivamente con">Relación positiva (a más VI → más VD)</option>
+        <option value="se relaciona negativamente con">Relación negativa (a más VI → menos VD)</option>
+        <option value="predice significativamente">Predicción significativa</option>
+        <option value="es mayor en quienes tienen alto nivel de">Diferencia de grupos (H > L)</option>
+        <option value="es menor en quienes tienen alto nivel de">Diferencia de grupos (H < L)</option>
+        <option value="se relaciona con">Sin dirección (no direccional)</option>
+      </select>
+    </div>
+
+    <div class="builder-step">
+      <span class="builder-step-num">4</span>
+      <span class="builder-step-title">¿En qué población?</span>
+      <input class="builder-input" id="b-pop" placeholder="Ej: estudiantes de primer semestre de Psicología, UDEC Facatativá, 2026..." oninput="updatePreview()">
+    </div>
+
+    <!-- PREVIEW -->
+    <div class="builder-preview" id="builder-preview" style="display:none">
+      <div class="prev-label">📝 Hipótesis de investigación (H₁) — Vista previa</div>
+      <div class="h1-text" id="prev-h1"></div>
+      <hr style="border:none;border-top:1px solid rgba(46,125,82,.2);margin:10px 0">
+      <div class="prev-label" style="color:var(--ro2)">H₀ — Hipótesis nula</div>
+      <div class="h0-text" id="prev-h0"></div>
+      <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+        <button onclick="checkHypothesis()" class="btn btn-ve">✅ Verificar con los criterios de Sampieri</button>
+        <button onclick="copyHypothesis()" class="btn btn-secondary">📋 Copiar H₁</button>
+      </div>
+    </div>
+
+    <!-- CHECKER RESULT -->
+    <div id="check-result" style="display:none;margin-top:12px"></div>
+  </div>
+</div>
+
+<!-- ═══════════════ M5 PROYECTO INTEGRADOR ════════════════════════ -->
+<div class="tab-panel" id="t5">
+  <div style="background:linear-gradient(135deg,var(--am) 0%,#E65100 100%);color:white;border-radius:var(--rad) var(--rad) 0 0;padding:22px;margin-bottom:18px">
+    <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;opacity:.75;margin-bottom:6px">Sesión 9 · Introducción</div>
+    <h2 style="font-family:'DM Serif Display',serif;font-size:22px;margin-bottom:6px">🧪 Proyecto Integrador</h2>
+    <p style="font-size:13.5px;opacity:.9">Un experimento real, datos reales, un informe que integra todo lo que aprendemos en el semestre.</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
+      <span style="background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.4);padding:4px 11px;border-radius:20px;font-size:11.5px;font-weight:600">🏫 En clase — lanzamiento</span>
+      <span style="background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.4);padding:4px 11px;border-radius:20px;font-size:11.5px;font-weight:600">Articulado con Cognición</span>
+    </div>
+  </div>
+
+  <!-- QUÉ ES -->
+  <div class="card">
+    <div class="card-header">📋 ¿Qué es el Proyecto Integrador?</div>
+    <div class="card-body">
+      <p style="font-size:13.5px;color:var(--txt2);margin-bottom:14px">Este semestre, los grupos de Diseños de Investigación I y Cognición trabajarán conjuntamente en un proyecto de investigación. Tendrán acceso a un conjunto de datos proveniente de un experimento real sobre <strong>diferencias culturales en atención visual</strong>. Su trabajo consistirá en analizar esos datos y producir un informe de investigación completo.</p>
+      <div class="char-list">
+        <div class="char-item">
+          <div class="char-num">1</div>
+          <div><div class="char-title">Actividad 1 — Revisión de literatura</div><div class="char-desc">Mínimo 5 artículos empíricos (desde 2010) en Scopus, PsycINFO, Google Scholar. Síntesis teórica de conceptos clave.</div></div>
+        </div>
+        <div class="char-item">
+          <div class="char-num">2</div>
+          <div><div class="char-title">Actividad 2 — Análisis de datos</div><div class="char-desc">Depuración, análisis descriptivo e inferencial de los datos del experimento. Gráficos comparativos.</div></div>
+        </div>
+        <div class="char-item">
+          <div class="char-num">3</div>
+          <div><div class="char-title">Actividad 3 — Discusión académica</div><div class="char-desc">Interpretación de resultados, comparación con literatura, limitaciones, propuestas futuras.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EL EXPERIMENTO -->
+  <div class="card">
+    <div class="card-header">🔬 El experimento — Lo que necesitan saber ahora</div>
+    <div class="card-body">
+      <div class="alert am">
+        <div class="alert-ico">🌎</div>
+        <div><strong>Pregunta central del experimento:</strong> ¿La cultura influye en la forma en que distribuimos la atención en el espacio visual? ¿Difieren las personas de distintos contextos culturales en la amplitud de su foco atencional?</div>
+      </div>
+
+      <p style="font-size:13.5px;color:var(--txt2);margin:14px 0 10px">El experimento comparó dos grupos culturales en una tarea de detección de cambios visuales con tres condiciones:</p>
+
+      <div class="hyp-grid" style="grid-template-columns:repeat(3,1fr)">
+        <div style="background:var(--am-l);border:1.5px solid var(--am2);border-radius:var(--rad-s);padding:12px;text-align:center">
+          <div style="font-size:20px;margin-bottom:4px">🔲</div>
+          <div style="font-weight:700;font-size:13px;margin-bottom:4px;color:var(--am)">MISMA</div>
+          <div style="font-size:12px;color:var(--txt2)">Los estímulos aparecen en las mismas posiciones en ambas presentaciones</div>
+        </div>
+        <div style="background:var(--ve-l);border:1.5px solid var(--ve2);border-radius:var(--rad-s);padding:12px;text-align:center">
+          <div style="font-size:20px;margin-bottom:4px">↔️</div>
+          <div style="font-weight:700;font-size:13px;margin-bottom:4px;color:var(--ve)">EXPANSIÓN</div>
+          <div style="font-size:12px;color:var(--txt2)">Los estímulos se desplazan hacia la periferia — el participante debe distribuir su atención en un área mayor</div>
+        </div>
+        <div style="background:var(--mo-l);border:1.5px solid var(--mo2);border-radius:var(--rad-s);padding:12px;text-align:center">
+          <div style="font-size:20px;margin-bottom:4px">🔀</div>
+          <div style="font-weight:700;font-size:13px;margin-bottom:4px;color:var(--mo)">ALEATORIA</div>
+          <div style="font-size:12px;color:var(--txt2)">Los estímulos cambian de posición aleatoriamente — rompe la estructura espacial</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DATASET PREVIEW -->
+  <div class="card">
+    <div class="card-header">📊 Vista previa de los datos — Primeras filas</div>
+    <div class="card-body">
+      <p style="font-size:12.5px;color:var(--txt2);margin-bottom:10px">Estos son algunos de los datos del experimento. Hay 54 observaciones en total. <strong>d'</strong> mide la exactitud de detección (valores más altos = mejor desempeño). <strong>TR_ms</strong> es el tiempo de reacción en milisegundos. <strong>TR_focal</strong> es el tiempo en la tarea de detección focal central.</p>
+      <div style="overflow-x:auto">
+        <table class="dataset-table">
+          <thead><tr><th>ID</th><th>Cultura</th><th>Condición</th><th>d'</th><th>TR (ms)</th><th>TR focal</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td class="culture-ao">Asiático Oriental</td><td><span class="cond-badge cond-exp">Expansión</span></td><td>3.2</td><td>1040</td><td>1500</td></tr>
+            <tr><td>2</td><td class="culture-ao">Asiático Oriental</td><td><span class="cond-badge cond-exp">Expansión</span></td><td>3.0</td><td>1080</td><td>1520</td></tr>
+            <tr><td>10</td><td class="culture-ao">Asiático Oriental</td><td><span class="cond-badge cond-same">Misma</span></td><td>2.6</td><td>1050</td><td>1550</td></tr>
+            <tr><td>18</td><td class="culture-ao">Asiático Oriental</td><td><span class="cond-badge cond-ran">Aleatoria</span></td><td>2.3</td><td>1120</td><td>1600</td></tr>
+            <tr><td>28</td><td class="culture-oc">Occidental</td><td><span class="cond-badge cond-exp">Expansión</span></td><td>2.5</td><td>900</td><td>800</td></tr>
+            <tr><td>37</td><td class="culture-oc">Occidental</td><td><span class="cond-badge cond-same">Misma</span></td><td>2.7</td><td>880</td><td>780</td></tr>
+            <tr><td>45</td><td class="culture-oc">Occidental</td><td><span class="cond-badge cond-ran">Aleatoria</span></td><td>2.3</td><td>930</td><td>830</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:11.5px;color:var(--txt3);margin-top:8px">* El dataset completo (54 filas) se compartirá por el canal del curso. Tendrán acceso completo desde hoy para iniciar la Actividad 1.</p>
+    </div>
+  </div>
+
+  <!-- HIPÓTESIS TENTATIVA PI -->
+  <div class="card">
+    <div class="card-header" style="background:var(--am-l)">🔮 Primera hipótesis tentativa del PI — Trabajo grupal <span class="tag tag-pi" style="margin-left:8px">🏫 En clase</span></div>
+    <div class="card-body">
+      <div class="alert am">
+        <div class="alert-ico">💡</div>
+        <div>Antes de buscar artículos y antes de analizar los datos, formulen una hipótesis basándose solo en lo que ya saben. ¿Qué esperan encontrar? Esto se llama <strong>hipótesis a priori</strong> y es metodológicamente importante: evita que los datos dicten la hipótesis.</div>
+      </div>
+      <div class="pi-hypothesis-form">
+        <label>Hipótesis tentativa del grupo para el PI:</label>
+        <p style="font-size:12px;color:var(--txt2);margin-bottom:8px">Usen el formato: "En el experimento sobre atención visual y cultura, esperamos que [grupo cultural] muestre [qué resultado] en la condición de [condición] porque [razón teórica tentativa]."</p>
+        <textarea class="builder-input" id="pi-hyp" rows="3" placeholder="Formulen aquí su hipótesis tentativa..."></textarea>
+
+        <label style="margin-top:12px;display:block">¿Es direccional o no direccional?</label>
+        <select class="builder-input" id="pi-dir" style="min-height:38px">
+          <option value="">— Seleccionen —</option>
+          <option value="direccional">Direccional — especificamos quién tendrá mejor desempeño</option>
+          <option value="no-direccional">No direccional — predecimos diferencia pero no dirección</option>
+        </select>
+
+        <label style="margin-top:12px;display:block">¿En qué variable(s) del dataset basan esa predicción?</label>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:6px">
+          <label style="display:flex;align-items:center;gap:5px;font-size:13px;cursor:pointer;font-weight:400"><input type="checkbox" style="accent-color:var(--am)"> d' (exactitud)</label>
+          <label style="display:flex;align-items:center;gap:5px;font-size:13px;cursor:pointer;font-weight:400"><input type="checkbox" style="accent-color:var(--am)"> TR_ms (tiempo de reacción general)</label>
+          <label style="display:flex;align-items:center;gap:5px;font-size:13px;cursor:pointer;font-weight:400"><input type="checkbox" style="accent-color:var(--am)"> TR_focal (tiempo tarea focal)</label>
+        </div>
+
+        <button onclick="savePIHyp()" class="btn btn-primary" style="margin-top:14px;background:var(--am);border:none">💾 Guardar hipótesis tentativa del grupo</button>
+        <div id="pi-hyp-saved" style="display:none;margin-top:10px;font-size:13px;color:var(--ve);font-weight:600">✅ Guardada. La verán en la sesión de análisis para comparar con los resultados reales.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROADMAP PI -->
+  <div class="card">
+    <div class="card-header">🗺️ Ruta del Proyecto Integrador — Próximas sesiones</div>
+    <div class="card-body">
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="display:grid;grid-template-columns:80px 1fr;gap:10px;align-items:center;background:var(--am-l);border-radius:var(--rad-s);padding:10px 13px;border-left:4px solid var(--am2)">
+          <div style="font-weight:700;font-size:12px;color:var(--am);text-align:center">S9<br>Hoy</div>
+          <div style="font-size:13px"><strong>Formulación de hipótesis + Inicio búsqueda bibliográfica</strong> — Actividad 1 comienza hoy</div>
+        </div>
+        <div style="display:grid;grid-template-columns:80px 1fr;gap:10px;align-items:center;background:white;border-radius:var(--rad-s);padding:10px 13px;border:1px solid var(--gr2)">
+          <div style="font-weight:700;font-size:12px;color:var(--txt3);text-align:center">S10</div>
+          <div style="font-size:13px;color:var(--txt2)">Diseños experimentales — Comprender el diseño del experimento del PI</div>
+        </div>
+        <div style="display:grid;grid-template-columns:80px 1fr;gap:10px;align-items:center;background:white;border-radius:var(--rad-s);padding:10px 13px;border:1px solid var(--gr2)">
+          <div style="font-weight:700;font-size:12px;color:var(--txt3);text-align:center">S12</div>
+          <div style="font-size:13px;color:var(--txt2)">Muestra y recolección — Comprender quiénes son los participantes del PI</div>
+        </div>
+        <div style="display:grid;grid-template-columns:80px 1fr;gap:10px;align-items:center;background:white;border-radius:var(--rad-s);padding:10px 13px;border:1px solid var(--gr2)">
+          <div style="font-weight:700;font-size:12px;color:var(--txt3);text-align:center">S13</div>
+          <div style="font-size:13px;color:var(--txt2)">Experimentos en PsychoPy — Comprender cómo se recogieron los datos del PI</div>
+        </div>
+        <div style="display:grid;grid-template-columns:80px 1fr;gap:10px;align-items:center;background:var(--ve-l);border-radius:var(--rad-s);padding:10px 13px;border-left:4px solid var(--ve2)">
+          <div style="font-weight:700;font-size:12px;color:var(--ve);text-align:center">S14</div>
+          <div style="font-size:13px"><strong>Sustentación del Proyecto Integrador</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACTIVITY 1 START -->
+  <div class="card">
+    <div class="card-header" style="background:var(--ve-l)">🔍 Actividad 1 — Empieza hoy <span class="tag tag-casa" style="margin-left:8px">🏠 Para la casa</span></div>
+    <div class="card-body">
+      <p style="font-size:13.5px;color:var(--txt2);margin-bottom:12px">Con la hipótesis tentativa formulada, ya saben qué buscar. Ingresen a Scopus, Google Scholar o PsycINFO y busquen artículos sobre:</p>
+      <div class="pill-row" style="margin-bottom:14px">
+        <span class="pill">Atención visual y cultura</span>
+        <span class="pill">Memoria de trabajo visual</span>
+        <span class="pill">Procesamiento global vs. local</span>
+        <span class="pill">East Asian cognition</span>
+        <span class="pill">Cultural differences attention</span>
+        <span class="pill">Change detection task</span>
+      </div>
+      <div class="alert info">
+        <div class="alert-ico">📌</div>
+        <div><strong>Criterios obligatorios:</strong> artículos empíricos (no divulgativos), publicados desde 2010, en revistas indexadas. Mínimo 5 artículos para el informe final.</div>
+      </div>
+      <div class="alert am" style="margin-top:8px">
+        <div class="alert-ico">🚫</div>
+        <div><strong>Importante:</strong> No busquen el experimento específico en el que se basan los datos. Si lo encuentran, no lo usen como referencia directa. La idea es que <em>ustedes</em> construyan el contexto teórico desde cero.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════ M6 QUIZ ════════════════════════════════════════ -->
+<div class="tab-panel" id="t6">
+  <div class="sec-title">🎯 Quiz de autoevaluación — Sesión 9</div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px">
+    <span class="tag tag-casa">🏠 Para la casa</span>
+  </div>
+
+  <!-- STORED NOTICE -->
+  <div id="quiz-stored-notice">
+    <strong>📊 Ya respondiste este quiz.</strong> Tu primera nota fue: <strong id="stored-score-display">—</strong><br>
+    <span style="font-size:12.5px;color:var(--txt2)">Puedes volver a practicar, pero tu primera nota ya está guardada.</span>
+  </div>
+
+  <div class="alert info">
+    <div class="alert-ico">💡</div>
+    <div><strong>¿Cómo funciona?</strong> Responde todas las preguntas y presiona "Calificar". La primera nota queda guardada en este dispositivo aunque recargues la página. Las retroalimentaciones se muestran al calificar.</div>
+  </div>
+
+  <div id="quiz-form">
+
+    <!-- Q1 -->
+    <div class="quiz-q">
+      <div class="q-num">Pregunta 1 de 7</div>
+      <div class="q-text">Una hipótesis científica en investigación cuantitativa es fundamentalmente:</div>
+      <div class="quiz-option"><input type="radio" name="q1" value="a" id="q1a"><label for="q1a">a) Una pregunta de investigación reformulada como afirmación, que guía el estudio sin necesidad de sustento teórico previo.</label></div>
+      <div class="quiz-option"><input type="radio" name="q1" value="b" id="q1b"><label for="q1b">b) Una predicción fundamentada en teoría o evidencia empírica previa sobre la relación esperada entre dos o más variables, que se formula antes de recolectar datos.</label></div>
+      <div class="quiz-option"><input type="radio" name="q1" value="c" id="q1c"><label for="q1c">c) El objetivo general del estudio expresado en forma de resultado esperado, equivalente a la hipótesis de trabajo del investigador.</label></div>
+      <div class="quiz-option"><input type="radio" name="q1" value="d" id="q1d"><label for="q1d">d) Una afirmación provisional que el investigador asume como verdadera para comenzar el estudio y que no necesita ser verificada empíricamente.</label></div>
+      <div class="quiz-feedback" id="fb1"></div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="quiz-q">
+      <div class="q-num">Pregunta 2 de 7</div>
+      <div class="q-text">Un grupo de cuarto semestre declara paradigma postpositivista y quiere estudiar si el número de horas de estudio predice el rendimiento académico en estudiantes de la UDEC Facatativá. ¿Cuál es la variable independiente (VI)?</div>
+      <div class="quiz-option"><input type="radio" name="q2" value="a" id="q2a"><label for="q2a">a) El rendimiento académico medido con el promedio ponderado del semestre.</label></div>
+      <div class="quiz-option"><input type="radio" name="q2" value="b" id="q2b"><label for="q2b">b) Los estudiantes de cuarto semestre de psicología de la UDEC.</label></div>
+      <div class="quiz-option"><input type="radio" name="q2" value="c" id="q2c"><label for="q2c">c) El número de horas diarias de estudio, que varía entre personas y se supone que predice el resultado.</label></div>
+      <div class="quiz-option"><input type="radio" name="q2" value="d" id="q2d"><label for="q2d">d) El paradigma postpositivista, que define el marco desde el cual se interpreta la relación entre variables.</label></div>
+      <div class="quiz-feedback" id="fb2"></div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="quiz-q">
+      <div class="q-num">Pregunta 3 de 7</div>
+      <div class="q-text">En el experimento del Proyecto Integrador, la hipótesis nula (H₀) más precisa para la condición de Expansión sería:</div>
+      <div class="quiz-option"><input type="radio" name="q3" value="a" id="q3a"><label for="q3a">a) Los participantes de cultura asiático-oriental tienen mayor foco atencional periférico que los occidentales en todas las condiciones.</label></div>
+      <div class="quiz-option"><input type="radio" name="q3" value="b" id="q3b"><label for="q3b">b) La cultura determina el desempeño en la tarea de detección de cambios porque los sistemas atencionales son culturalmente específicos.</label></div>
+      <div class="quiz-option"><input type="radio" name="q3" value="c" id="q3c"><label for="q3c">c) No existe diferencia estadísticamente significativa en la exactitud de detección (d') entre los grupos culturales en la condición de Expansión.</label></div>
+      <div class="quiz-option"><input type="radio" name="q3" value="d" id="q3d"><label for="q3d">d) Los participantes occidentales responden más rápido en la condición de Expansión porque tienen un foco atencional más estrecho y centrado.</label></div>
+      <div class="quiz-feedback" id="fb3"></div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="quiz-q">
+      <div class="q-num">Pregunta 4 de 7</div>
+      <div class="q-text">Según Sampieri (Cap. 7), una hipótesis bien formulada debe ser (selecciona la descripción más completa):</div>
+      <div class="quiz-option"><input type="radio" name="q4" value="a" id="q4a"><label for="q4a">a) Verificable empíricamente, referida a variables medibles, lógicamente coherente con el marco teórico, y debe expresar con claridad la relación esperada entre las variables.</label></div>
+      <div class="quiz-option"><input type="radio" name="q4" value="b" id="q4b"><label for="q4b">b) Redactada en forma de pregunta, basada principalmente en la experiencia del investigador, y contener al menos tres variables para ser suficientemente compleja.</label></div>
+      <div class="quiz-option"><input type="radio" name="q4" value="c" id="q4c"><label for="q4c">c) Aprobada por la comunidad científica antes de iniciar el estudio y respaldada por una única teoría dominante en el campo.</label></div>
+      <div class="quiz-option"><input type="radio" name="q4" value="d" id="q4d"><label for="q4d">d) Contener el método de análisis estadístico que se usará para verificarla, de modo que el lector sepa desde el inicio cómo se probará.</label></div>
+      <div class="quiz-feedback" id="fb4"></div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="quiz-q">
+      <div class="q-num">Pregunta 5 de 7</div>
+      <div class="q-text">Una hipótesis direccional establece que:</div>
+      <div class="quiz-option"><input type="radio" name="q5" value="a" id="q5a"><label for="q5a">a) Las variables estudiadas están relacionadas, sin especificar hacia dónde va esa relación — solo que existe.</label></div>
+      <div class="quiz-option"><input type="radio" name="q5" value="b" id="q5b"><label for="q5b">b) No existe relación entre las variables estudiadas, que es el punto de partida estadístico.</label></div>
+      <div class="quiz-option"><input type="radio" name="q5" value="c" id="q5c"><label for="q5c">c) La relación tiene una dirección específica (mayor que, menor que, más que, positivamente), basada en evidencia o teoría previa.</label></div>
+      <div class="quiz-option"><input type="radio" name="q5" value="d" id="q5d"><label for="q5d">d) El estudio explorará la dirección de la relación durante el análisis de los datos, sin predecirla de antemano.</label></div>
+      <div class="quiz-feedback" id="fb5"></div>
+    </div>
+
+    <!-- Q6 -->
+    <div class="quiz-q">
+      <div class="q-num">Pregunta 6 de 7</div>
+      <div class="q-text">El experimento del PI incluye la variable TR_focal: el tiempo de reacción del participante en una tarea donde aparece un único cuadrado en el centro. ¿Qué tipo de variable es y qué función teórica cumple?</div>
+      <div class="quiz-option"><input type="radio" name="q6" value="a" id="q6a"><label for="q6a">a) Es la variable independiente del experimento porque el investigador la manipula colocando el estímulo justo en el centro para todos.</label></div>
+      <div class="quiz-option"><input type="radio" name="q6" value="b" id="q6b"><label for="q6b">b) Es una variable dependiente que mide la eficiencia del procesamiento atencional central — si alguien distribuye su atención ampliamente, tardará más en responder a un estímulo estrictamente central.</label></div>
+      <div class="quiz-option"><input type="radio" name="q6" value="c" id="q6c"><label for="q6c">c) Es una variable moderadora que indica cuándo la relación entre cultura y exactitud de detección cambia de dirección.</label></div>
+      <div class="quiz-option"><input type="radio" name="q6" value="d" id="q6d"><label for="q6d">d) Es una variable de control que se elimina del análisis para que no interfiera con la relación entre cultura y condición experimental.</label></div>
+      <div class="quiz-feedback" id="fb6"></div>
+    </div>
+
+    <!-- Q7 -->
+    <div class="quiz-q">
+      <div class="q-num">Pregunta 7 de 7</div>
+      <div class="q-text">¿Cuál de las siguientes NO es una característica de una hipótesis científica según Sampieri?</div>
+      <div class="quiz-option"><input type="radio" name="q7" value="a" id="q7a"><label for="q7a">a) Debe referirse a una situación real y verificable — no puede ser una afirmación filosófica o metafísica.</label></div>
+      <div class="quiz-option"><input type="radio" name="q7" value="b" id="q7b"><label for="q7b">b) Los términos o variables incluidas en la hipótesis deben ser comprensibles, precisos y concretos.</label></div>
+      <div class="quiz-option"><input type="radio" name="q7" value="c" id="q7c"><label for="q7c">c) Debe ser verdadera antes de iniciar la investigación — de lo contrario no tiene sentido diseñar el estudio.</label></div>
+      <div class="quiz-option"><input type="radio" name="q7" value="d" id="q7d"><label for="q7d">d) Debe estar relacionada con técnicas disponibles para probarla — si no existe método para verificarla, no es científicamente útil.</label></div>
+      <div class="quiz-feedback" id="fb7"></div>
+    </div>
+
+    <button onclick="gradeQuiz()" class="btn btn-primary" style="font-size:15px;padding:12px 28px;margin-top:8px">🎯 Calificar quiz</button>
+  </div>
+
+  <div class="quiz-result" id="quiz-result">
+    <div class="score" id="result-score">—</div>
+    <div class="score-label">preguntas correctas de 7</div>
+    <div class="score-msg" id="result-msg"></div>
+  </div>
+</div>
+
+<!-- ═══════════════ M7 PRÓXIMA SESIÓN ═════════════════════════════ -->
+<div class="tab-panel" id="t7">
+  <div class="sec-title">📖 Próxima sesión — Sesión 10</div>
+  <div class="alert am" style="margin-bottom:18px">
+    <div class="alert-ico">🗓️</div>
+    <div><strong>Tema:</strong> Diseños de Investigación: Experimental. Diseños experimentales y no experimentales. Orientación del diseño según problema y objetivos.</div>
+  </div>
+
+  <div class="next-reading">
+    <div class="nr-label">📄 Lectura obligatoria — Sesión 10</div>
+    <div class="nr-title">The past, present, and future of experimental methods in the social sciences</div>
+    <div class="nr-meta">Mize, T. D., & Manago, B. (2022). <em>Social Science Research, 108</em>, 102799.</div>
+    <div class="nr-doi">https://doi.org/10.1016/j.ssresearch.2022.102799</div>
+    <div class="nr-consigna">
+      📌 <strong>Consigna de lectura:</strong> Lleguen con una respuesta a esta pregunta: según Mize y Manago, ¿qué distingue a un experimento de otros diseños de investigación? ¿Y qué ventajas y limitaciones tiene para el tipo de preguntas que hacemos en psicología?<br><br>
+      🔗 <strong>Conexión con el PI:</strong> El experimento del Proyecto Integrador es exactamente el tipo de diseño que describe este artículo. Léanlo con los datos del PI en mente. ¿Cumple todos los criterios que Mize y Manago proponen?
+    </div>
+  </div>
+
+  <div class="alert ve" style="margin-top:16px">
+    <div class="alert-ico">🗂️</div>
+    <div>
+      <strong>Avance del PI para Sesión 10:</strong> Traigan al menos 2 artículos localizados para la Actividad 1. No necesitan haberlos leído completos — con el título, abstract y doi es suficiente para el inicio de la sesión 10.
+    </div>
+  </div>
+
+  <div class="alert info" style="margin-top:10px">
+    <div class="alert-ico">🔄</div>
+    <div>Los roles cooperativos rotan en la próxima sesión. El Secretario de hoy será Coordinador. El Coordinador será Verificador. Etc.</div>
+  </div>
+</div>
+
+</div><!-- /content -->
+
+<script>
+// ═══════════ TABS ══════════════════════════════════════
+function showTab(id){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.currentTarget.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ═══════════ ACCORDION ═════════════════════════════════
+function toggleAcc(head){
+  const body=head.nextElementSibling;
+  const arrow=head.querySelector('.acc-arrow');
+  body.classList.toggle('open');
+  arrow.textContent=body.classList.contains('open')?'▴':'▾';
+}
+
+// ═══════════ VAR TYPE IDENTIFIER ═══════════════════════
+const varAnswers={v1:'VI',v2:'VI',v3:'VD',v4:'VD'};
+const varFeedback={
+  v1:{
+    VI:'✅ Correcto. La cultura (Asiático Oriental / Occidental) es la variable independiente — es el factor de agrupación que el experimento usa para comparar. En un diseño experimental, la VI es lo que se manipula o el factor de clasificación.',
+    VD:'❌ No. La cultura no es el resultado — es el punto de partida de la comparación. El rendimiento (d\', TR) sería el resultado.',
+    VM:'❌ No exactamente. La cultura es el factor principal de comparación, no una variable que "modere" la relación entre otras dos.'
+  },
+  v2:{
+    VI:'✅ Correcto. La condición experimental (Misma / Expansión / Aleatoria) es también una VI — de hecho, es la VI que el investigador manipuló directamente. El experimento tiene dos VI: cultura (entre sujetos) y condición (dentro de sujetos).',
+    VD:'❌ No. La condición es lo que el investigador varió — es la causa, no el efecto.',
+    VM:'❌ No. La condición no "controla" la relación entre otras variables — es una de las fuentes de variación principal.'
+  },
+  v3:{
+    VI:'❌ No. El d\' es el resultado medido — lo que varía según cultura y condición. No lo manipuló el investigador.',
+    VD:'✅ Correcto. El d\' (d-prima) es una medida de la sensibilidad de detección — un índice de exactitud de la teoría de detección de señales. Es la VD principal del experimento: mide qué tan bien detectó el participante el cambio.',
+    VM:'❌ No. El d\' no condiciona la relación entre otras variables — es el resultado directo de la tarea.'
+  },
+  v4:{
+    VI:'❌ No. El TR_focal es el tiempo que tarda el participante en responder — es un resultado medido, no algo que el investigador manipuló.',
+    VD:'✅ Correcto. El TR_focal es una variable dependiente adicional que mide el costo de tener la atención distribuida: si alguien tiene la atención muy expandida hacia la periferia, tarda más en detectar un estímulo estrictamente central.',
+    VM:'❌ No. El TR_focal se mide, no se usa para controlar otra relación.'
+  }
+};
+function selectVarType(btn,varId,type){
+  document.querySelectorAll(`[data-var="${varId}"]`).forEach(b=>{b.className='btn btn-secondary';b.dataset.selected='';});
+  btn.className=type==='VD'?'btn btn-ve':'btn btn-primary';
+  const fb=document.getElementById('fb-'+varId);
+  fb.style.display='block';
+  const ans=varAnswers[varId];
+  fb.style.color=type===ans?'var(--ve)':'var(--ro2)';
+  fb.style.background=type===ans?'var(--ve-l)':'var(--ro-l)';
+  fb.style.borderRadius='6px';
+  fb.style.padding='8px 12px';
+  fb.textContent=varFeedback[varId][type]||'';
+}
+
+// ═══════════ GROUP VAR SELECTOR ════════════════════════
+function selectGroupVar(v){
+  document.querySelectorAll('.grp-var-btn').forEach(b=>b.className='btn btn-secondary');
+  event.currentTarget.className='btn btn-primary';
+  document.getElementById('builder-section').style.display='block';
+  const cw=document.getElementById('custom-var-wrap');
+  cw.style.display=v==='Otra'?'block':'none';
+}
+
+// ═══════════ HYPOTHESIS BUILDER ════════════════════════
+function updatePreview(){
+  const vi=document.getElementById('b-vi').value.trim();
+  const vd=document.getElementById('b-vd').value.trim();
+  const rel=document.getElementById('b-rel').value;
+  const pop=document.getElementById('b-pop').value.trim();
+  const prev=document.getElementById('builder-preview');
+  if(!vi||!vd||!rel||!pop){prev.style.display='none';return;}
+  prev.style.display='block';
+  document.getElementById('prev-h1').textContent=
+    `H₁: En ${pop}, ${vd} ${rel} ${vi}.`;
+  document.getElementById('prev-h0').textContent=
+    `H₀: En ${pop}, no existe diferencia significativa / relación entre ${vi} y ${vd}.`;
+}
+
+function checkHypothesis(){
+  const vi=document.getElementById('b-vi').value.trim();
+  const vd=document.getElementById('b-vd').value.trim();
+  const rel=document.getElementById('b-rel').value;
+  const pop=document.getElementById('b-pop').value.trim();
+  const res=document.getElementById('check-result');
+  let checks=[];
+  let score=0;
+  if(vi.length>20){checks.push({ok:true,msg:'✅ VI especificada'});score++;}
+  else{checks.push({ok:false,msg:'⚠️ La VI parece muy corta — ¿está operacionalizada?'});}
+  if(vd.length>20&&(vd.toLowerCase().includes('escala')||vd.toLowerCase().includes('medida')||vd.toLowerCase().includes('puntaje')||vd.toLowerCase().includes('cuestionario')||vd.toLowerCase().includes('inventario'))){
+    checks.push({ok:true,msg:'✅ VD operacionalizada con instrumento'});score++;}
+  else{checks.push({ok:false,msg:'⚠️ La VD debería incluir cómo se va a medir (instrumento o indicador)'});}
+  if(rel){checks.push({ok:true,msg:'✅ Relación esperada especificada'});score++;}
+  if(pop.length>15){checks.push({ok:true,msg:'✅ Población definida'});score++;}
+  else{checks.push({ok:false,msg:'⚠️ La población debería ser más específica'});}
+  res.style.display='block';
+  res.innerHTML=`<div style="background:${score>=3?'var(--ve-l)':'var(--am-l)'};border:1.5px solid ${score>=3?'var(--ve2)':'var(--am2)'};border-radius:8px;padding:12px 15px">
+    <div style="font-weight:700;font-size:13.5px;margin-bottom:8px;color:${score>=3?'var(--ve)':'var(--am)'}">
+      ${score>=3?'👍 Tu hipótesis cumple los criterios básicos de Sampieri':'⚠️ Tu hipótesis puede mejorar'}
+    </div>
+    ${checks.map(c=>`<div style="font-size:13px;margin-bottom:5px;color:${c.ok?'var(--ve)':'var(--am)'}">${c.msg}</div>`).join('')}
+  </div>`;
+}
+
+function copyHypothesis(){
+  const text=document.getElementById('prev-h1').textContent;
+  navigator.clipboard.writeText(text).then(()=>{
+    const btn=event.currentTarget;
+    btn.textContent='✅ Copiada';
+    setTimeout(()=>btn.textContent='📋 Copiar H₁',2000);
+  });
+}
+
+// ═══════════ PI HYPOTHESIS SAVE ════════════════════════
+function savePIHyp(){
+  const hyp=document.getElementById('pi-hyp').value;
+  if(!hyp.trim()){alert('Primero escriban su hipótesis tentativa.');return;}
+  localStorage.setItem('disenios_s9_pi_hyp',JSON.stringify({hyp,date:new Date().toISOString()}));
+  document.getElementById('pi-hyp-saved').style.display='block';
+}
+
+// ═══════════ QUIZ ═══════════════════════════════════════
+const QUIZ_KEY='disenios_inv1_s9_quiz_v1';
+const correct={q1:'b',q2:'c',q3:'c',q4:'a',q5:'c',q6:'b',q7:'c'};
+const feedbacks={
+  q1:{
+    b:'✅ Correcto. Sampieri (Cap. 7, p. 104) define las hipótesis como "explicaciones tentativas del fenómeno investigado, formuladas a manera de proposiciones" basadas en teoría o evidencia empírica previa.',
+    a:'❌ Un objetivo reformulado como afirmación no es automáticamente una hipótesis. Las hipótesis implican predicción de relaciones entre variables, no solo descripción de metas.',
+    c:'❌ El objetivo general y la hipótesis son distintos. El objetivo describe qué va a hacer el estudio; la hipótesis predice qué va a encontrar.',
+    d:'❌ Una hipótesis que no se verifica no es científica. La verificabilidad es precisamente una de las características clave según Sampieri.'
+  },
+  q2:{
+    c:'✅ Correcto. La VI es lo que el investigador identifica como el predictor o la causa hipotética. Las horas de estudio varían entre personas y se supone que influyen sobre el rendimiento.',
+    a:'❌ El rendimiento académico es la VD — lo que cambia según las horas de estudio. Es el efecto, no la causa.',
+    b:'❌ Los estudiantes de psicología son la población, no una variable del estudio.',
+    d:'❌ El paradigma no es una variable del estudio — es el marco epistemológico desde el cual se diseña y se interpreta.'
+  },
+  q3:{
+    c:'✅ Correcto. La H₀ siempre niega la relación o diferencia planteada en H₁. Para este experimento, afirmar que "no existe diferencia significativa en d\' entre grupos culturales" en la condición de Expansión es precisamente el punto de partida estadístico que el análisis intentará rechazar.',
+    a:'❌ Esta es una hipótesis de investigación (H₁) direccional, no una H₀. La H₀ niega la diferencia.',
+    b:'❌ Esta afirma una relación causal — tampoco es H₀. Es más una hipótesis teórica que una hipótesis estadística formal.',
+    d:'❌ Esta es H₁ alternativa para el grupo occidental. No es la H₀.'
+  },
+  q4:{
+    a:'✅ Correcto. Sampieri (pp. 107–111) describe estas características: verificabilidad, términos concretos y medibles, relación lógicamente coherente y viable, y relación con técnicas disponibles para probarla.',
+    b:'❌ Las hipótesis se formulan como afirmaciones, no preguntas. Tampoco necesitan basarse solo en experiencia — requieren fundamento teórico o empírico.',
+    c:'❌ No existe un proceso de "aprobación científica previa" de hipótesis. Además, muchos estudios integran perspectivas de múltiples teorías.',
+    d:'❌ El método estadístico se especifica en la sección de análisis, no en la hipótesis. La hipótesis plantea la relación esperada, no el procedimiento para probarla.'
+  },
+  q5:{
+    c:'✅ Correcto. Una hipótesis direccional especifica tanto que hay una relación como la dirección de esa relación: mayor que, menor que, positivamente, negativamente. Requiere evidencia previa que justifique la predicción de dirección.',
+    a:'❌ Eso describe una hipótesis no direccional: se predice relación pero no su dirección.',
+    b:'❌ Eso describe una hipótesis nula (H₀): niega la relación.',
+    d:'❌ Explorar la dirección durante el análisis sin haberla predicido sería un error metodológico — las hipótesis se formulan antes de analizar los datos.'
+  },
+  q6:{
+    b:'✅ Correcto. El TR_focal es una VD adicional que funciona como medida de la "distribución de atención": si un participante tiene la atención distribuida hacia la periferia, tardará más en detectar un estímulo que aparece estrictamente en el centro. Mide el "costo" de tener un foco atencional amplio.',
+    a:'❌ La ubicación del estímulo es una decisión experimental — el investigador la controla. Pero el TR_focal mide la respuesta del participante, no la manipulación.',
+    c:'❌ Una variable moderadora condiciona la relación entre VI y VD. El TR_focal no hace eso — es un resultado medido adicional.',
+    d:'❌ El TR_focal no se elimina — se analiza como VD adicional para interpretar el patrón atencional junto con d\'.'
+  },
+  q7:{
+    c:'✅ Correcto. Esta NO es una característica de las hipótesis científicas. Una hipótesis es una predicción tentativa — puede resultar falsa, y eso está bien. Si ya supiera que es verdadera, no necesitaría investigarlo. Sampieri enfatiza que las hipótesis son explicaciones "tentativas" precisamente porque su verdad o falsedad se determina con los datos.',
+    a:'❌ Sí es una característica según Sampieri: las hipótesis deben referirse a situaciones reales verificables.',
+    b:'❌ Sí es una característica: los términos deben ser comprensibles y concretos.',
+    d:'❌ Sí es una característica: deben poderse probar con técnicas disponibles.'
+  }
+};
+
+function gradeQuiz(){
+  const stored=localStorage.getItem(QUIZ_KEY);
+  let score=0;
+  const answers={};
+  // Collect answers
+  for(let i=1;i<=7;i++){
+    const sel=document.querySelector(`input[name="q${i}"]:checked`);
+    if(!sel){alert('Responde todas las preguntas antes de calificar.');return;}
+    answers[`q${i}`]=sel.value;
+  }
+  // Grade and show feedback
+  for(let i=1;i<=7;i++){
+    const qKey=`q${i}`;
+    const ans=answers[qKey];
+    const isCorrect=ans===correct[qKey];
+    if(isCorrect)score++;
+    // Mark options
+    document.querySelectorAll(`input[name="${qKey}"]`).forEach(inp=>{
+      const opt=inp.closest('.quiz-option');
+      opt.classList.remove('correct','wrong');
+      if(inp.value===correct[qKey])opt.classList.add('correct');
+      else if(inp.value===ans&&!isCorrect)opt.classList.add('wrong');
+      inp.disabled=true;
+    });
+    // Show feedback
+    const fb=document.getElementById(`fb${i}`);
+    fb.textContent=feedbacks[qKey][ans]||'Revisa la respuesta correcta marcada en verde.';
+    fb.className=`quiz-feedback show ${isCorrect?'correct':'wrong'}`;
+  }
+  // Show result
+  const res=document.getElementById('quiz-result');
+  res.classList.add('show');
+  document.getElementById('result-score').textContent=`${score}/7`;
+  const pct=Math.round(score/7*100);
+  document.getElementById('result-msg').textContent=
+    score>=6?'🏆 Excelente dominio de los conceptos de formulación de hipótesis.':
+    score>=5?'✅ Buen desempeño. Revisa las retroalimentaciones de las preguntas incorrectas.':
+    score>=4?'📚 Desempeño aceptable. Relee Sampieri Cap. 7 con atención a los tipos de hipótesis.':
+    '📖 Necesitas reforzar los conceptos. Revisa el módulo de Tipos de Hipótesis y el Cap. 7.';
+  // Save if first attempt
+  if(!stored){
+    localStorage.setItem(QUIZ_KEY,JSON.stringify({score,total:7,pct,date:new Date().toISOString(),answers}));
+    document.getElementById('stored-score-display').textContent=`${score}/7 (${pct}%)`;
+    document.getElementById('quiz-stored-notice').style.display='block';
+  }
+  document.getElementById('quiz-form').querySelector('button').style.display='none';
+}
+
+// On load: check stored
+window.addEventListener('DOMContentLoaded',()=>{
+  const stored=localStorage.getItem(QUIZ_KEY);
+  if(stored){
+    const data=JSON.parse(stored);
+    document.getElementById('stored-score-display').textContent=`${data.score}/7 (${data.pct||Math.round(data.score/7*100)}%)`;
+    document.getElementById('quiz-stored-notice').style.display='block';
+  }
+  // Restore PI hyp if stored
+  const piH=localStorage.getItem('disenios_s9_pi_hyp');
+  if(piH){
+    const d=JSON.parse(piH);
+    const el=document.getElementById('pi-hyp');
+    if(el){el.value=d.hyp;document.getElementById('pi-hyp-saved').style.display='block';}
+  }
+});
+</script>
+</body>
+</html>
