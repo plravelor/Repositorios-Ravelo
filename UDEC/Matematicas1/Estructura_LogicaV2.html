@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Clase 8 — Lógica Matemática · Estructura · UdeC</title>
+<style>
+:root {
+  --bg: #f0ede4;
+  --card: #ffffff;
+  --border: rgba(15,130,120,.12);
+  --border2: rgba(15,130,120,.06);
+  --text: #1c1408;
+  --muted: #7a6850;
+  --muted2: #b5a88a;
+  --serif: Georgia,'Palatino Linotype',serif;
+  --sans: -apple-system,'Segoe UI','Helvetica Neue',Arial,sans-serif;
+  --mono: 'Courier New',Courier,monospace;
+  --T:#1b5250; --Tm:#0d9488; --Tl:rgba(13,148,136,.09); --Tb:rgba(13,148,136,.26);
+  --Am:#a16207; --Amm:#d97706; --Aml:rgba(161,98,7,.09); --Amb:rgba(217,119,6,.26);
+  --Co:#b91c1c; --Com:#ef4444; --Col:rgba(185,28,28,.09); --Cob:rgba(239,68,68,.26);
+  --G:#15803d; --Gm:#22c55e; --Gl:rgba(21,128,61,.09); --Gb:rgba(34,197,94,.26);
+  --E:#991b1b; --Em:#dc2626; --El:rgba(153,27,27,.09); --Eb:rgba(220,38,38,.26);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:var(--sans);color:var(--text);min-height:100vh;font-size:14px;line-height:1.65;
+  background-color:var(--bg);
+  background-image:
+    radial-gradient(ellipse 130% 55% at -5% -5%,rgba(13,148,136,.13) 0%,transparent 55%),
+    radial-gradient(ellipse 110% 60% at 105% 110%,rgba(217,119,6,.10) 0%,transparent 55%),
+    radial-gradient(ellipse 70% 50% at 50% 45%,rgba(255,255,255,.65) 0%,transparent 65%);
+  background-attachment:fixed;padding-bottom:60px;
+}
+
+/* ── STICKY HEADER ─────────────────── */
+.hdr{
+  position:sticky;top:0;z-index:100;
+  background:rgba(255,255,255,.90);
+  border-bottom:1.5px solid var(--border);
+  backdrop-filter:blur(20px);
+  padding:14px 18px 10px;overflow:hidden;
+}
+.hdr-deco{
+  position:absolute;right:14px;top:10px;
+  font-family:var(--mono);font-size:48px;font-weight:700;
+  color:rgba(13,148,136,.05);pointer-events:none;letter-spacing:-2px;
+}
+.hdr-meta{font-size:.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:4px;}
+.hdr h1{font-family:var(--serif);font-size:1.18rem;font-style:italic;font-weight:700;color:var(--T);margin-bottom:3px;}
+.hdr h1 em{color:var(--Amm);font-style:normal;}
+.hdr-pills{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px;}
+.pill{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:99px;font-size:.62rem;font-weight:700;}
+.print-btn{
+  padding:4px 11px;border-radius:99px;font-size:.62rem;font-weight:700;
+  background:rgba(255,255,255,.8);border:1.5px solid var(--border);
+  color:var(--muted);cursor:pointer;font-family:var(--sans);
+  transition:all .15s;
+}
+.print-btn:hover{background:#fff;border-color:var(--Tm);}
+
+/* ── NAV STRIP ─────────────────────── */
+.nav-strip{
+  display:flex;overflow-x:auto;gap:0;scrollbar-width:none;
+  background:rgba(255,255,255,.8);border-bottom:1px solid var(--border2);
+  position:sticky;top:78px;z-index:99;backdrop-filter:blur(14px);
+}
+.nav-strip::-webkit-scrollbar{display:none;}
+.nav-item{
+  flex-shrink:0;padding:8px 13px 7px;font-size:.6rem;font-weight:700;
+  color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;
+  text-decoration:none;white-space:nowrap;transition:all .2s;
+  text-transform:uppercase;letter-spacing:.3px;
+}
+.nav-item:hover{color:var(--T);}
+
+/* ── MAIN ──────────────────────────── */
+.main{max-width:760px;margin:0 auto;padding:20px 16px 24px;position:relative;z-index:1;}
+
+/* ── INTRO CARD ────────────────────── */
+.intro-card{
+  border-radius:16px;padding:18px;margin-bottom:18px;
+  background:linear-gradient(135deg,rgba(13,148,136,.1),rgba(161,98,7,.06));
+  border:1.5px solid rgba(13,148,136,.25);
+  box-shadow:0 4px 24px rgba(0,0,0,.06);
+}
+
+/* ── TIMELINE TABLE ────────────────── */
+.tl-tbl{width:100%;border-collapse:separate;border-spacing:0;margin-bottom:20px;border-radius:13px;overflow:hidden;border:1.5px solid var(--border);}
+.tl-tbl th{padding:9px 14px;font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;background:var(--Tl);color:var(--T);text-align:left;border-bottom:1.5px solid var(--Tb);}
+.tl-tbl td{padding:9px 14px;border-top:1px solid var(--border2);font-size:.83rem;vertical-align:top;}
+.tl-time{font-family:var(--mono);font-size:.74rem;font-weight:700;white-space:nowrap;color:var(--T);}
+.tl-tag{display:inline-flex;align-items:center;gap:4px;padding:2px 9px;border-radius:99px;font-size:.62rem;font-weight:800;}
+.tag-mag{background:var(--Tl);border:1px solid var(--Tb);color:var(--T);}
+.tag-coop{background:var(--Col);border:1px solid var(--Cob);color:var(--Co);}
+.tag-prac{background:var(--Gl);border:1px solid var(--Gb);color:var(--G);}
+.tag-quiz{background:var(--El);border:1px solid var(--Eb);color:var(--E);}
+.tag-casa{background:var(--Aml);border:1px solid var(--Amb);color:var(--Am);}
+
+/* ── BLOCKS ────────────────────────── */
+.block{border-radius:14px;margin-bottom:14px;overflow:hidden;background:var(--card);border:1.5px solid var(--border);box-shadow:0 2px 16px rgba(0,0,0,.05);}
+.block-hdr{
+  display:flex;align-items:center;gap:13px;padding:14px 18px;
+  cursor:pointer;user-select:none;background:rgba(0,0,0,.01);
+  border-bottom:1px solid transparent;transition:background .2s;
+}
+.block-hdr:hover{background:rgba(13,148,136,.03);}
+.block-hdr.open{border-bottom-color:var(--border2);}
+.block-icon{font-size:1.35rem;flex-shrink:0;}
+.block-meta{flex:1;}
+.block-title{font-family:var(--serif);font-size:1rem;font-weight:700;font-style:italic;color:var(--T);}
+.block-sub{font-size:.68rem;color:var(--muted);margin-top:2px;font-family:var(--mono);}
+.block-arrow{font-size:1rem;color:var(--muted);transition:transform .3s;flex-shrink:0;}
+.block-arrow.open{transform:rotate(90deg);}
+.block-body{padding:18px;display:none;}
+.block-body.open{display:block;}
+
+/* ── SCRIPT ────────────────────────── */
+.script{
+  background:rgba(13,148,136,.04);border-radius:11px;padding:15px 18px;
+  margin:13px 0;border-left:4px solid var(--Tm);
+}
+.script-label{font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:var(--Tm);margin-bottom:8px;}
+.script p{font-size:.87rem;line-height:1.8;margin-bottom:10px;}
+.script p:last-child{margin-bottom:0;}
+.script strong{color:var(--T);font-weight:700;}
+.script em{color:var(--Am);font-style:italic;}
+.script .pause{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:3px 10px;border-radius:99px;font-size:.65rem;font-weight:800;
+  background:var(--Aml);border:1px solid var(--Amb);color:var(--Am);
+  margin:4px 0;
+}
+
+/* ── INLINE TOOL REFERENCE ─────────── */
+.tool-ref{
+  display:flex;align-items:flex-start;gap:10px;
+  background:rgba(21,128,61,.06);border:1.5px solid var(--Gb);
+  border-radius:10px;padding:11px 14px;margin:10px 0;font-size:.82rem;
+}
+.tool-ref-icon{font-size:1.1rem;flex-shrink:0;margin-top:1px;}
+
+/* ── COOP BLOCK ────────────────────── */
+.coop-segment{
+  border-radius:12px;border:2px solid var(--Cob);
+  background:rgba(185,28,28,.04);padding:15px;margin:12px 0;
+}
+.coop-title{font-family:var(--serif);font-size:.98rem;font-weight:700;font-style:italic;color:var(--Co);margin-bottom:10px;}
+.coop-timer-big{font-family:var(--mono);font-size:.78rem;font-weight:800;padding:4px 12px;border-radius:99px;background:var(--Col);border:1px solid var(--Cob);color:var(--Co);display:inline-block;margin-bottom:10px;}
+.step-item{display:flex;align-items:flex-start;gap:9px;font-size:.83rem;line-height:1.55;margin-bottom:8px;}
+.step-n{min-width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:800;flex-shrink:0;background:var(--Col);color:var(--Co);border:1.5px solid var(--Cob);}
+.johnson-badge{font-size:.72rem;background:var(--Tl);border:1px solid var(--Tb);color:var(--T);padding:6px 11px;border-radius:9px;margin-top:8px;line-height:1.6;display:block;}
+
+/* ── NOTES / OBJECTIVES ────────────── */
+.obj-list{list-style:none;margin:8px 0;}
+.obj-list li{display:flex;align-items:flex-start;gap:8px;font-size:.84rem;line-height:1.6;margin-bottom:6px;padding:7px 10px;background:var(--Tl);border-radius:8px;border:1px solid var(--Tb);}
+.obj-list li::before{content:'✓';color:var(--T);font-weight:800;flex-shrink:0;}
+.note-box{background:var(--Aml);border:1.5px solid var(--Amb);border-radius:10px;padding:11px 14px;margin:10px 0;font-size:.81rem;line-height:1.65;color:var(--Am);}
+.warn-box{background:var(--El);border:1.5px solid var(--Eb);border-radius:10px;padding:11px 14px;margin:10px 0;font-size:.81rem;line-height:1.65;color:var(--E);}
+.concept-box{background:rgba(124,58,237,.08);border:1.5px solid rgba(124,58,237,.28);border-radius:10px;padding:12px 14px;margin:10px 0;}
+.concept-box-title{font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:#7c3aed;margin-bottom:6px;}
+.concept-box p{font-size:.84rem;line-height:1.65;}
+
+/* ── TWO COLUMN ────────────────────── */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0;}
+@media(max-width:500px){.two-col{grid-template-columns:1fr;}}
+
+/* ── FOOTER ────────────────────────── */
+.page-footer{margin-top:24px;border-top:1.5px solid var(--border);padding:18px;text-align:center;}
+
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:none;}}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-deco">p→q</div>
+  <div class="hdr-meta">Estructura · Docente · Matemáticas I · UdeC Facatativá · 2026</div>
+  <h1>Clase 8 — <em>Lógica Matemática</em></h1>
+  <div class="hdr-pills">
+    <span class="pill tag-mag">📖 Magistral</span>
+    <span class="pill tag-coop">👥 Cooperativo</span>
+    <span class="pill tag-prac">⚡ Práctica</span>
+    <span class="pill" style="background:rgba(27,82,74,.08);border:1px solid var(--Tb);color:var(--T);">Miller §3.1–3.3</span>
+    <span class="pill" style="background:rgba(255,255,255,.8);border:1px solid var(--border);color:var(--muted);">~95 min</span>
+    <button class="print-btn" onclick="window.print()">🖨 Imprimir</button>
+  </div>
+  <nav class="nav-strip">
+    <a class="nav-item" href="#intro">📋 Intro</a>
+    <a class="nav-item" href="#b0">🎭 B0 Gancho</a>
+    <a class="nav-item" href="#b1">📝 B1 Proposiciones</a>
+    <a class="nav-item" href="#b2">🔗 B2 Conectivos</a>
+    <a class="nav-item" href="#b3">⚡ B3 Condicional</a>
+    <a class="nav-item" href="#b4">👥 B4 Cooperativo</a>
+    <a class="nav-item" href="#b5">📊 B5 Quiz+Cierre</a>
+  </nav>
+</header>
+
+<main class="main">
+
+<!-- ══ INTRO ══════════════════════════════════════════ -->
+<section id="intro">
+  <div class="intro-card">
+    <div style="font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:var(--T);margin-bottom:8px;">Resumen de la sesión</div>
+    <p style="font-family:var(--serif);font-style:italic;font-size:.96rem;line-height:1.75;margin-bottom:12px;">La lógica matemática es el lenguaje formal del pensamiento riguroso. En esta sesión los estudiantes aprenden a identificar proposiciones, usar los conectivos lógicos (¬, ∧, ∨), entender el condicional como estructura de las hipótesis científicas, y detectar las dos falacias más comunes en la argumentación.</p>
+    <ul class="obj-list">
+      <li>Identificar si una oración es proposición y determinar si es compuesta</li>
+      <li>Aplicar correctamente negación, conjunción y disyunción con tablas de verdad</li>
+      <li>Usar las Leyes de De Morgan para negar proposiciones compuestas</li>
+      <li>Interpretar el condicional (p→q) como estructura de hipótesis y diagnósticos</li>
+      <li>Distinguir Modus Ponens, Modus Tollens y las dos falacias formales</li>
+    </ul>
+  </div>
+
+  <!-- TIMELINE -->
+  <table class="tl-tbl">
+    <thead><tr><th>Tiempo</th><th>Bloque</th><th>Actividad</th><th>Tipo</th><th>Herramienta</th></tr></thead>
+    <tbody>
+      <tr><td class="tl-time">0–8'</td><td><strong>B0</strong></td><td>Gancho — Pinocho + clasificador de proposiciones</td><td><span class="tl-tag tag-mag">Magistral</span></td><td>M0</td></tr>
+      <tr><td class="tl-time">8–22'</td><td><strong>B1</strong></td><td>Proposiciones: definición, tipos, enunciados compuestos</td><td><span class="tl-tag tag-mag">Magistral</span> <span class="tl-tag tag-prac">Práctica</span></td><td>M1</td></tr>
+      <tr><td class="tl-time">22–45'</td><td><strong>B2</strong></td><td>Conectivos ¬∧∨, tablas de verdad, De Morgan</td><td><span class="tl-tag tag-mag">Magistral</span> <span class="tl-tag tag-prac">Práctica</span></td><td>M2</td></tr>
+      <tr><td class="tl-time">45–62'</td><td><strong>B3</strong></td><td>El condicional p→q, MP, MT, falacias</td><td><span class="tl-tag tag-mag">Magistral</span> <span class="tl-tag tag-prac">Práctica</span></td><td>M3</td></tr>
+      <tr><td class="tl-time">62–84'</td><td><strong>B4</strong></td><td>Cooperativo "El Fiscal de la Lógica"</td><td><span class="tl-tag tag-coop">Cooperativo</span></td><td>M4</td></tr>
+      <tr><td class="tl-time">84–92'</td><td><strong>B5</strong></td><td>Quiz individual + cierre</td><td><span class="tl-tag tag-quiz">Quiz</span></td><td>M5</td></tr>
+      <tr><td class="tl-time">92–95'</td><td></td><td>Instrucciones para casa + entregable</td><td><span class="tl-tag tag-casa">Para casa</span></td><td>M6</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ══ BLOQUE 0 · GANCHO ═════════════════════════════ -->
+<section id="b0">
+<div class="block">
+  <div class="block-hdr open" onclick="toggle(this)">
+    <span class="block-icon">🎭</span>
+    <div class="block-meta">
+      <div class="block-title">B0 — El Gancho: Pinocho, políticos y el valor de verdad</div>
+      <div class="block-sub">0–8 min · Magistral + actividad individual · M0 proyectado</div>
+    </div>
+    <span class="block-arrow open">▶</span>
+  </div>
+  <div class="block-body open">
+
+    <div class="tool-ref">
+      <span class="tool-ref-icon">📱</span>
+      <div>Estudiantes abren la herramienta en sus celulares (M0 · Gancho). Proyectar la herramienta en la pantalla mientras se habla.</div>
+    </div>
+
+    <div class="script">
+      <div class="script-label">Guion magistral — Apertura (5 min)</div>
+      <p>Empiezo con la pantalla proyectando la escena de Pinocho en Shrek. Antes de explicar nada, dejo que lean la cita. Luego digo:</p>
+      <p><strong>"¿Recuerdan a Pinocho? Su nariz crece cuando miente. Pero en esta escena del Shrek Tercero, el Príncipe Encantador le pregunta directamente dónde está Shrek, y Pinocho responde con un laberinto de palabras que no dice absolutamente nada verificable. ¿Qué pasa? La nariz no crece. ¿Por qué? Porque técnicamente Pinocho no dijo nada falso. Pero tampoco dijo nada verdadero."</strong></p>
+      <p><strong>"Esto no es solo un chiste de película. Es una estrategia de comunicación que usan a diario los publicistas, algunos políticos y ciertas noticias. Hablar mucho diciendo nada que se pueda verificar. Frases que suenan a afirmación pero que no pueden ser verdaderas ni falsas. La lógica matemática estudia exactamente eso: ¿cuándo una afirmación puede calificarse como verdadera o falsa? Y si no puede calificarse así, ¿qué es?"</strong></p>
+      <p><strong>"Hoy aprenden el lenguaje formal que distingue entre hablar con rigor y hablar por hablar. Un lenguaje que van a necesitar cuando escriban hipótesis, cuando lean artículos de investigación, y cuando alguien intente convencerlos de algo con un argumento que suena sólido pero que en realidad tiene una trampa."</strong></p>
+
+      <span class="pause">⏸ Pausa activa — 3 min</span>
+      <p>Indicar que en la herramienta (M0) hay 6 frases. <em>"Sin haber visto nada todavía, toquen cada frase y decidan: ¿es una proposición o no? Solo confíen en su intuición por ahora."</em> Dar 2 minutos en silencio individual, luego preguntar en voz alta por 2 o 3 de las frases (la de la paradoja es especialmente útil para generar conversación).</p>
+    </div>
+
+    <div class="note-box">
+      <strong>Conexión con Wason:</strong> Recordar brevemente el ejercicio de las tarjetas del inicio del semestre. "¿Recuerdan que les puse unas tarjetas con vocales y números y todos fallaron, pero cuando puse el ejemplo de la discoteca y el alcohol lo hicieron bien?" La conexión: el razonamiento abstracto y el concreto son el mismo proceso lógico, solo que el contexto nos ayuda a activarlo. Hoy aprenden el formalismo detrás.
+    </div>
+
+  </div>
+</div>
+</section>
+
+<!-- ══ BLOQUE 1 · PROPOSICIONES ══════════════════════ -->
+<section id="b1">
+<div class="block">
+  <div class="block-hdr" onclick="toggle(this)">
+    <span class="block-icon">📋</span>
+    <div class="block-meta">
+      <div class="block-title">B1 — Proposiciones: qué son, qué no son, cómo se combinan</div>
+      <div class="block-sub">8–22 min · Magistral + práctica · M1</div>
+    </div>
+    <span class="block-arrow">▶</span>
+  </div>
+  <div class="block-body">
+
+    <div class="tool-ref">
+      <span class="tool-ref-icon">📱</span>
+      <div>Avanzar a M1 en la herramienta. Los estudiantes lo siguen en paralelo en sus celulares. Proyectar la definición y los ejemplos.</div>
+    </div>
+
+    <div class="script">
+      <div class="script-label">Guion magistral (12 min)</div>
+      <p><strong>"Bien. Entonces, ¿qué es una proposición? En lógica matemática, una proposición —o enunciado— es una oración declarativa que puede ser verdadera o falsa, pero no las dos cosas al mismo tiempo. Eso es todo. Parece sencillo, pero hay matices importantes."</strong></p>
+      <p><strong>"La clave es que la proposición DECLARA algo. No pregunta, no pide, no exclama — declara. 'El cielo es azul' es una proposición. 'El cielo es verde' también lo es — una proposición falsa, pero proposición al fin. ¿Por qué? Porque puedo calificarla como verdadera o como falsa."</strong></p>
+      <p><strong>"En cambio: '¿Cómo estás?' — pregunta, no proposición. 'Estudia más.' — mandato, no proposición. '¡Qué frío tan bacano!' — exclamación, no proposición. Ninguna de esas puede ser verdadera o falsa. No tienen valor de verdad."</strong></p>
+      <p><strong>"Ahora, en lógica las proposiciones las representamos con letras minúsculas: p, q, r. Es como un código. En lugar de escribir todo el enunciado cada vez, usamos la letra y combinamos."</strong></p>
+
+      <span class="pause">⏸ Ejemplo situado</span>
+      <p>Proyectar la proposición de la herramienta: <em>"La ansiedad en universitarios colombianos es significativamente mayor en época de parciales."</em> Preguntar: <strong>"¿Es proposición? ¿Pueden decirme si es verdadera o falsa?"</strong> Respuesta esperada: sí es proposición — se puede poner a prueba con datos. Es el tipo de afirmación que los psicólogos investigan. Eso es exactamente a lo que apunta la lógica: proposiciones investigables.</p>
+
+      <p><strong>"Un enunciado compuesto es aquel que está formado por dos o más proposiciones unidas por un conector lógico. Los conectores son palabras como 'y', 'o', 'no', 'si... entonces'. Cuando ven estas palabras en un argumento, ya saben que están ante un enunciado compuesto que se puede analizar formalmente."</strong></p>
+
+      <span class="pause">⏸ Pausa activa — 3 min</span>
+      <p>Indicar M1 en la herramienta: los 5 enunciados compuestos. <em>"Toquen cada uno. ¿Es compuesto? ¿Cuál es el conector lógico?"</em> Dar 2 minutos. Hacer énfasis en el caso de "La UdeC tiene sede en Facatativá y en Girardot" — aquí la palabra 'y' NO es conector lógico, sino un enumerador. Es el mismo punto que hace Miller con "Smith y Wesson".</p>
+    </div>
+
+    <div class="concept-box">
+      <div class="concept-box-title">Conexión con los conjuntos — la clase anterior</div>
+      <p>"¿Recuerdan los diagramas de Venn? Cuando decíamos 'pertenece al conjunto A Y al conjunto B', eso es la intersección A∩B. Hoy van a ver que esa misma idea — el 'y' — es la conjunción lógica p∧q. Los conjuntos y la lógica son dos notaciones del mismo lenguaje matemático."</p>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<!-- ══ BLOQUE 2 · CONECTIVOS ══════════════════════════ -->
+<section id="b2">
+<div class="block">
+  <div class="block-hdr" onclick="toggle(this)">
+    <span class="block-icon">🔗</span>
+    <div class="block-meta">
+      <div class="block-title">B2 — Conectivos lógicos, tablas de verdad y Leyes de De Morgan</div>
+      <div class="block-sub">22–45 min · Magistral + explorador interactivo + práctica De Morgan · M2</div>
+    </div>
+    <span class="block-arrow">▶</span>
+  </div>
+  <div class="block-body">
+
+    <div class="tool-ref">
+      <span class="tool-ref-icon">📱</span>
+      <div>Avanzar a M2. Proyectar el explorador interactivo de tablas de verdad. Manipular los valores de p y q mientras se explica.</div>
+    </div>
+
+    <div class="script">
+      <div class="script-label">Guion magistral — Negación y Conjunción (7 min)</div>
+      <p><strong>"Los tres conectivos que vamos a aprender hoy son la base de todo el sistema. El primero es el más simple: la negación. El símbolo es ¬ (o a veces ~). La negación de p se lee 'no p'. Si p es verdadera, ¬p es falsa. Si p es falsa, ¬p es verdadera. Simple: invierte el valor."</strong></p>
+      <p><strong>"Ejemplo: p = 'Hoy hay clase de matemáticas.' Si es verdad, ¬p = 'Hoy NO hay clase de matemáticas.' — falso. Y al revés."</strong></p>
+      <p><strong>"El segundo conector es la conjunción: el símbolo ∧ representa la palabra 'y'. p ∧ q es verdadera SOLO cuando AMBAS son verdaderas. Si cualquiera de las dos es falsa, la conjunción entera es falsa."</strong></p>
+      <p><em>Proyectar la tabla de verdad de la conjunción del explorador interactivo. Mientras manipulo los valores:</em> <strong>"Vean: si p = V y q = V, el resultado es V. Pero si cambio q a F... ya es F. Y si ambas son F, también es F. La conjunción es exigente: necesita que TODOS sus componentes sean verdaderos."</strong></p>
+
+      <span class="pause">⏸ Ejemplo psicología</span>
+      <p><strong>"En psicología comunitaria, para clasificar a alguien como 'en situación de vulnerabilidad multidimensional' se requiere que cumpla criterio A Y criterio B Y criterio C. Eso es una conjunción. Si falta uno, no hay clasificación. Mismo principio que p ∧ q."</strong></p>
+
+      <div class="script-label" style="margin-top:14px;">Guion magistral — Disyunción (5 min)</div>
+      <p><strong>"El tercer conector es la disyunción: el símbolo ∨ representa el 'o'. Pero atención: en lógica, 'o' es inclusivo. Significa 'p o q o los dos'. p ∨ q es verdadera cuando AL MENOS UNA de las partes es verdadera. El único caso en que es falsa es cuando AMBAS son falsas."</strong></p>
+      <p><em>Manipular el explorador:</em> <strong>"Si p = F y q = F... la disyunción es F. En cualquier otro caso es V. El 'o' lógico es generoso — solo falla cuando todo falla."</strong></p>
+      <p><strong>"Un ejemplo cotidiano: 'Voy a Transmilenio o cojo buseta para ir a Bogotá.' Si cualquiera de esas opciones es verdadera (o las dos), el enunciado compuesto es verdadero."</strong></p>
+
+      <span class="pause">⏸ Pausa activa — 3 min</span>
+      <p>Estudiantes prueban el explorador de tablas de verdad en M2. Pedirles que encuentren la combinación p=F, q=F y confirmen los tres resultados (¬p, p∧q, p∨q) antes de continuar. Preguntar en voz alta: <em>"¿Cuándo es el único momento en que p∨q es falso?"</em></p>
+
+      <div class="script-label" style="margin-top:14px;">Guion magistral — Leyes de De Morgan (8 min)</div>
+      <p><strong>"Ahora viene lo más importante de este bloque: las Leyes de De Morgan. Estas son las reglas que nos dicen cómo negar correctamente una proposición compuesta. Y se usan constantemente en la vida real, aunque la mayoría de gente las aplica mal."</strong></p>
+      <p><strong>"Primera Ley: ¬(p ∧ q) = ¬p ∨ ¬q. En palabras: la negación de una conjunción es la disyunción de las negaciones. El 'y' se convierte en 'o' cuando se niega toda la expresión."</strong></p>
+      <p><em>Proyectar el ejemplo de la herramienta:</em> <strong>"'No es cierto que (vivo en Faca y no tengo internet).' Usando De Morgan: 'No vivo en Faca O sí tengo internet.' ¿Lo ven? El 'y' interno se convirtió en 'o', y cada parte se negó."</strong></p>
+      <p><strong>"Segunda Ley: ¬(p ∨ q) = ¬p ∧ ¬q. La negación de la disyunción es la conjunción de las negaciones. El 'o' se convierte en 'y'."</strong></p>
+      <p><strong>"'No es cierto que (apruebo O descanso este fin de semana).' De Morgan: 'No apruebo Y no descanso este fin de semana.' El 'o' se convirtió en 'y', y cada parte se negó."</strong></p>
+      <p><strong>"El truco mnemotécnico es este: cuando niegan, el conector se INVIERTE (∧↔∨) y cada parte SE NIEGA. Siempre. Sin excepciones. Esta regla es la base de la negación en lógica, en matemáticas, en programación y en el razonamiento jurídico."</strong></p>
+
+      <span class="pause">⏸ Práctica De Morgan — 3 min</span>
+      <p>Estudiantes resuelven los 3 ejercicios de De Morgan en M2. Son de selección múltiple con retroalimentación inmediata. Circular y observar dónde tienen dificultad. Si la mayoría falla en el ejercicio 3 (el más contextual), hacer la corrección en voz alta proyectando el ejercicio.</p>
+    </div>
+
+    <div class="note-box">
+      <strong>Error frecuente a anticipar:</strong> Muchos negarán p∧q como ¬p∧¬q (solo niegan las partes, sin cambiar el conector). Hay que anticiparlo: "El error clásico es negar cada parte pero olvidar invertir el conector. Recuerden: siempre las dos cosas juntas."
+    </div>
+
+  </div>
+</div>
+</section>
+
+<!-- ══ BLOQUE 3 · CONDICIONAL ════════════════════════ -->
+<section id="b3">
+<div class="block">
+  <div class="block-hdr" onclick="toggle(this)">
+    <span class="block-icon">⚡</span>
+    <div class="block-meta">
+      <div class="block-title">B3 — El condicional p→q, argumentos válidos y falacias</div>
+      <div class="block-sub">45–62 min · Magistral + práctica · M3</div>
+    </div>
+    <span class="block-arrow">▶</span>
+  </div>
+  <div class="block-body">
+
+    <div class="tool-ref">
+      <span class="tool-ref-icon">📱</span>
+      <div>Avanzar a M3 en la herramienta. Proyectar la analogía de la promesa mientras se construye la tabla de verdad verbalmente.</div>
+    </div>
+
+    <div class="script">
+      <div class="script-label">Guion magistral — El condicional (10 min)</div>
+      <p><strong>"Este es el conector más importante para la psicología y para la ciencia en general: el condicional. Se escribe con una flecha: p → q. Se lee 'si p, entonces q'. La parte de la izquierda —p— se llama antecedente. La de la derecha —q— se llama consecuente."</strong></p>
+      <p><strong>"El condicional es la estructura de las hipótesis. Cada vez que un psicólogo dice 'si aplicamos esta intervención, esperamos ver esta mejora', está construyendo un condicional. Cada criterio diagnóstico del DSM-5 puede leerse como un condicional: 'si el paciente cumple estos criterios, se puede establecer este diagnóstico'."</strong></p>
+      <p><strong>"Para entender cuándo el condicional es verdadero o falso, voy a usar una promesa. Imaginen que yo les digo: 'Si apruebas todas las materias de este semestre, te invito a Crepes & Waffles.' Eso es p→q. p = 'apruebas todas'; q = 'te invito a Crepes'."</strong></p>
+      <p><em>Proyectar los 4 casos de la herramienta uno por uno:</em></p>
+      <p><strong>"Caso 1: Aprobaste y te invité. ¿Mentí? No — cumplí. p→q es V."</strong></p>
+      <p><strong>"Caso 2: Aprobaste pero NO te invité. ¿Mentí? ¡Sí! Rompí la promesa. p→q es F. Este es el ÚNICO caso en que el condicional es falso: cuando la condición se cumplió pero la consecuencia no ocurrió."</strong></p>
+      <p><strong>"Caso 3: No aprobaste pero te invité igual. ¿Mentí? No — yo prometí que SI apruebas te invito, no prometí que si no apruebas NO te invito. Fui generoso. p→q es V."</strong></p>
+      <p><strong>"Caso 4: No aprobaste y no te invité. ¿Mentí? No — la condición no se cumplió, entonces la promesa nunca se activó. p→q es V."</strong></p>
+      <p><strong>"La regla: el condicional es FALSO únicamente cuando la condición (p) es verdadera y la consecuencia (q) es falsa. En los tres casos restantes, es verdadero. Esto parece contraintuitivo, pero es perfectamente consistente con la idea de promesa o compromiso."</strong></p>
+
+      <span class="pause">⏸ Pausa activa</span>
+      <p>Preguntar: <em>"¿Cuándo mentiría un investigador que dice: 'Si aplico este tratamiento, los pacientes mejorarán'?"</em> Respuesta esperada: cuando aplica el tratamiento y los pacientes NO mejoran.</p>
+
+      <div class="script-label" style="margin-top:14px;">Guion magistral — Argumentos válidos e inválidos (7 min)</div>
+      <p><strong>"El condicional nos permite construir argumentos. Un argumento es un conjunto de premisas que llevan a una conclusión. Hay dos formas de argumentar con el condicional que son VÁLIDAS — la conclusión se sigue necesariamente — y dos que son FALACIAS — parecen válidas pero tienen trampa."</strong></p>
+      <p><strong>"La primera forma válida es el Modus Ponens — en latín, 'método de afirmar'. La estructura es: si tengo que p→q es verdadero, y además sé que p ocurrió, entonces puedo concluir que q también ocurrió. Ejemplo: 'Si el paciente cumple los 6 criterios del DSM-5 para TAG, se puede diagnosticar. El paciente cumple los 6 criterios. Por tanto, se puede diagnosticar.' Eso es Modus Ponens. Válido."</strong></p>
+      <p><strong>"La segunda forma válida es el Modus Tollens — 'método de negar'. Estructura: si p→q es verdadero y sé que q NO ocurrió, puedo concluir que p tampoco ocurrió. Ejemplo: 'Si el método es experimental, se asignan participantes al azar. Este estudio NO asignó al azar. Por tanto, el método NO es experimental.' Modus Tollens. Válido."</strong></p>
+      <p><strong>"Ahora las dos falacias. La primera se llama Afirmar el Consecuente. La estructura trampa es: tengo p→q, y sé que q ocurrió — y de ahí concluyo que p también ocurrió. Error: el condicional no funciona en esa dirección. Si alguien tiene formación universitaria, no significa que sea psicólogo — puede ser médico, abogado, economista. El consecuente puede ser verdadero por muchas razones distintas al antecedente."</strong></p>
+      <p><strong>"La segunda falacia se llama Negar el Antecedente. Estructura: tengo p→q, y sé que p NO ocurrió — y concluyo que q tampoco ocurrió. Error: el condicional no dice que sin p necesariamente no hay q. Si un joven no experimenta bullying, eso no significa que no tenga riesgo de depresión — puede haberlo por otras causas."</strong></p>
+      <p><strong>"Estas dos falacias aparecen constantemente en titulares de noticias, en publicidad de suplementos, en discursos políticos. Saber identificarlas es una habilidad de lectura crítica que van a usar toda su carrera."</strong></p>
+
+      <span class="pause">⏸ Práctica — 3 min</span>
+      <p>En M3, los 4 formas de argumento son interactivas. Los estudiantes tocan cada una para ver el análisis. Circular y responder dudas. El objetivo es que antes de la actividad cooperativa tengan clara la diferencia entre las 4 formas.</p>
+    </div>
+
+    <div class="warn-box">
+      <strong>Anticipar confusión:</strong> La pregunta más frecuente es "¿por qué F→V = V?" Responder siempre con la analogía de la promesa: "No puedes acusar a alguien de mentiroso si la condición bajo la cual prometió algo nunca se cumplió." Es una convención lógica, no un capricho.
+    </div>
+
+  </div>
+</div>
+</section>
+
+<!-- ══ BLOQUE 4 · COOPERATIVO ════════════════════════ -->
+<section id="b4">
+<div class="block">
+  <div class="block-hdr" onclick="toggle(this)">
+    <span class="block-icon">👥</span>
+    <div class="block-meta">
+      <div class="block-title">B4 — Actividad cooperativa: "El Fiscal de la Lógica"</div>
+      <div class="block-sub">62–84 min · Tríos con roles · M4 · 22 minutos</div>
+    </div>
+    <span class="block-arrow">▶</span>
+  </div>
+  <div class="block-body">
+
+    <div class="coop-segment">
+      <div class="coop-title">⚖️ "El Fiscal de la Lógica" — Diseño de la actividad cooperativa</div>
+      <div class="coop-timer-big">⏱ 22 minutos · Interdependencia positiva · Responsabilidad individual</div>
+
+      <p style="font-size:.84rem;line-height:1.7;margin-bottom:12px;">Los tríos actúan como equipos fiscales que deben dictaminar si cuatro argumentos de investigación psicológica son lógicamente válidos o contienen una falacia. Esta actividad es group-worthy (Lotan/Sharan): no puede resolverse individualmente con la misma calidad porque requiere perspectivas, debate y los tres roles funcionando.</p>
+
+      <div class="tool-ref" style="margin-bottom:12px;">
+        <span class="tool-ref-icon">📱</span>
+        <div>Indicar que avancen a M4. La actividad está completamente detallada en la herramienta para los estudiantes. El docente gestiona los tiempos y la plenaria.</div>
+      </div>
+
+      <div class="step-item"><div class="step-n">1</div><div><strong>Formación y roles (1 min):</strong> Confirmar los tríos fijos. Recordar la rotación de roles: el que fue COORD la clase anterior es hoy VOCERO. Proyectar los roles desde M4.</div></div>
+      <div class="step-item"><div class="step-n">2</div><div><strong>Lectura individual (2 min):</strong> Cada integrante lee los 4 argumentos en silencio. Sin hablar. Este momento de procesamiento individual es clave para la responsabilidad individual (Johnson & Johnson, 1994).</div></div>
+      <div class="step-item"><div class="step-n">3</div><div><strong>Análisis por argumento (12 min, ~3 min cada uno):</strong> El COORD lee cada argumento en voz alta. El grupo identifica la forma lógica, luego vota simultáneamente (válido / falacia) ANTES de debatir. Si hay desacuerdo, el COORD pregunta: "¿Cuál es exactamente la forma lógica de este argumento?" El SECRET registra en el Cuaderno de Equipo.</div></div>
+      <div class="step-item"><div class="step-n">4</div><div><strong>Preparación del Vocero (3 min):</strong> El VOCERO prepara la presentación del argumento que el docente asigne (anunciarlo antes: por ejemplo, argumento 3 para los tríos del lado izquierdo, argumento 4 para los del lado derecho).</div></div>
+      <div class="step-item"><div class="step-n">5</div><div><strong>Plenaria (4 min):</strong> Cada VOCERO presenta: forma lógica → veredicto → justificación. El docente no da la respuesta hasta que todos los voceros hayan presentado. Luego cierra con síntesis en M4.</div></div>
+
+      <span class="johnson-badge">
+        <strong>5 componentes Johnson & Johnson (1994):</strong> (1) Interdependencia positiva: un solo dictamen por equipo. (2) Responsabilidad individual: cualquier integrante puede ser interpelado en plenaria. (3) Interacción promotora: análisis cara a cara. (4) Habilidad social: votación simultánea antes de debatir. (5) Procesamiento grupal: la pregunta del Cuaderno de Equipo al final.
+      </span>
+    </div>
+
+    <div class="script">
+      <div class="script-label">Cierre de la plenaria — qué decir</div>
+      <p><strong>"Muy bien. Los argumentos 1 y 3 son válidos — Modus Ponens y Modus Tollens. Los argumentos 2 y 4 son falacias — Afirmar el Consecuente y Negar el Antecedente respectivamente. Noten algo importante: las falacias NO siempre llevan a conclusiones falsas — a veces, por coincidencia, la conclusión de una falacia resulta ser verdadera. Pero el argumento sigue siendo inválido, porque la conclusión no se sigue necesariamente de las premisas. Eso es lo que hace que sean falacias."</strong></p>
+      <p><strong>"¿Por qué nos engañan tan fácilmente estas falacias? Porque el cerebro tiene una tendencia natural a completar patrones — si p lleva a q, asumimos que q implica p. El psicólogo Daniel Kahneman llama a esto 'pensamiento rápido': es eficiente pero comete errores sistemáticos. La lógica matemática es una herramienta de 'pensamiento lento' — más esfuerzo, pero más confiable."</strong></p>
+    </div>
+
+    <div class="note-box">
+      <strong>Procesamiento grupal (Pujolàs & Lago, CA/AC):</strong> Antes de cerrar, pedir a los equipos 2 minutos en el Cuaderno de Equipo: "¿Qué tienen en común las dos falacias que encontramos? ¿Por qué el cerebro comete ese error?" Esta pregunta metacognitiva cierra el ciclo de aprendizaje cooperativo.
+    </div>
+
+  </div>
+</div>
+</section>
+
+<!-- ══ BLOQUE 5 · QUIZ + CIERRE ════════════════════════ -->
+<section id="b5">
+<div class="block">
+  <div class="block-hdr" onclick="toggle(this)">
+    <span class="block-icon">📊</span>
+    <div class="block-meta">
+      <div class="block-title">B5 — Quiz individual + cierre y asignación para casa</div>
+      <div class="block-sub">84–95 min · Quiz con localStorage · M5 y M6</div>
+    </div>
+    <span class="block-arrow">▶</span>
+  </div>
+  <div class="block-body">
+
+    <div class="tool-ref">
+      <span class="tool-ref-icon">📱</span>
+      <div>Indicar que avancen a M5. El quiz es completamente individual — 10 preguntas, localStorage guarda las respuestas. La nota aparece SOLO al presionar "Ver mi nota" al final.</div>
+    </div>
+
+    <div class="script">
+      <div class="script-label">Instrucciones para el quiz</div>
+      <p><em>"Avancen a la pestaña Quiz en la herramienta. Son 10 preguntas individuales. No hablen entre ustedes, no busquen en otros apuntes — es para que cada uno sepa qué tiene claro y qué le falta repasar. Sus respuestas se guardan automáticamente, así que aunque cierren la herramienta, estarán ahí. Cuando terminen todo, presionan 'Ver mi nota'. La retroalimentación aparece al final, no mientras responden."</em></p>
+      <p><strong>Dejar 8 minutos para el quiz. El docente circula, sin dar respuestas.</strong></p>
+    </div>
+
+    <div class="script">
+      <div class="script-label">Cierre magistral — para casa (3 min)</div>
+      <p><strong>"Para terminar: todo lo que vimos hoy — proposiciones, conectivos, condicional, De Morgan, falacias — es el andamiaje del pensamiento riguroso. No es matemática por el placer de los símbolos. Es el lenguaje que permite decir con precisión qué se está afirmando, cuándo un argumento es sólido y cuándo tiene una trampa."</strong></p>
+      <p><strong>"En la pestaña Para Casa hay 38 ejercicios divididos en 5 niveles. El plan de estudio sugiere hacerlos en 3 días — no todo el mismo día. La investigación en ciencias del aprendizaje es muy clara: la práctica distribuida fija el conocimiento mucho mejor que estudiar todo en un solo bloque. Hagan el Nivel A y B hoy, el C y D mañana, y el E antes de la próxima clase."</strong></p>
+      <p><strong>"Además hay un entregable: busquen en una noticia, un post de redes o una conversación cotidiana un argumento con estructura condicional y analícenlo con el formato que aparece en la herramienta. Lo traen la próxima clase. Eso, junto con el quiz de hoy, será la evidencia de que hicieron el trabajo."</strong></p>
+    </div>
+
+    <div class="note-box">
+      <strong>Bibliografía pedagógica detrás de la estructura de esta clase:</strong><br>
+      Rosenshine (2012) — revisiones frecuentes, práctica guiada → práctica independiente.<br>
+      Kapur (2016) — fallo productivo: M0 antes de la magistral activa la necesidad cognitiva.<br>
+      Johnson & Johnson (1994/2009) — 5 componentes del aprendizaje cooperativo en B4.<br>
+      Pujolàs & Lago (CA/AC) — roles rotativos, cuaderno de equipo, procesamiento grupal.<br>
+      Dunlosky et al. (2013) — práctica de recuperación y práctica distribuida en M6.
+    </div>
+
+  </div>
+</div>
+</section>
+
+</main>
+
+<footer class="page-footer">
+  <p style="font-family:var(--serif);font-style:italic;font-size:.88rem;color:var(--muted);">Clase 8 · Lógica Matemática · UdeC Facatativá · 2026</p>
+  <p style="font-size:.68rem;color:var(--muted2);margin-top:4px;line-height:1.8;">Miller §3.1–3.3 · Johnson & Johnson (1994) · Pujolàs & Lago (CA/AC) · Kapur (2016) · Rosenshine (2012)</p>
+</footer>
+
+<script>
+function toggle(hdr) {
+  hdr.classList.toggle('open');
+  hdr.nextElementSibling.classList.toggle('open');
+  const arrow = hdr.querySelector('.block-arrow');
+  arrow.classList.toggle('open');
+}
+
+// Open first block by default
+document.addEventListener('DOMContentLoaded', () => {
+  // All blocks closed except B0 which starts open
+  document.querySelectorAll('.block-body').forEach((body,i) => {
+    if (i !== 0) { body.style.display = 'none'; }
+  });
+});
+</script>
+</body>
+</html>
+principio del semestre — ilustra exactamente la falacia de afirmar el consecuente. Cuando elegían la carta "4" (el número par), estaban asumiendo el converso: que par implica vocal. Eso es afirmar el consecuente.</div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     BLOQUE 4 — COOPERATIVO
+══════════════════════════════════════════ -->
+<div id="b4" class="block">
+  <div class="block-hdr" onclick="tog(this)">
+    <span class="block-icon">👥</span>
+    <div class="block-meta">
+      <div class="block-title">Bloque 4 — Cooperativo: "El Detector de Falacias"</div>
+      <div class="block-sub">22 min · Tríos con roles · Johnson &amp; Johnson (1994) · Pujolàs &amp; Lago (CA/AC)</div>
+    </div>
+    <div class="block-arrow">›</div>
+  </div>
+  <div class="block-body">
+
+    <div class="obj"><strong>Objetivo:</strong> Aplicar las cuatro formas de argumento a casos reales de psicología colombiana. La actividad es group-worthy (Lotan/Sharan): los argumentos tienen ambigüedad suficiente para requerir debate genuino antes de la respuesta.</div>
+
+    <div class="coop-badge">👥 Actividad cooperativa estructurada — 5 componentes Johnson &amp; Johnson activos</div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:12px 0;font-size:.8rem;">
+      <div style="background:var(--Gl);border:1px solid var(--Gb);border-radius:11px;padding:10px 12px;">
+        <div style="font-size:.62rem;font-weight:800;color:var(--G);margin-bottom:5px;">✓ 5 componentes activos</div>
+        <div style="color:var(--G);line-height:1.7;">
+          <strong>1.</strong> Interdependencia positiva: un análisis por trío<br>
+          <strong>2.</strong> Responsabilidad individual: cualquier miembro expone<br>
+          <strong>3.</strong> Interacción promotora: debate cara a cara<br>
+          <strong>4.</strong> Habilidades sociales: roles COORD/SECRET/VOCERO<br>
+          <strong>5.</strong> Procesamiento grupal: reflexión al final
+        </div>
+      </div>
+      <div style="background:var(--Al);border:1px solid var(--Ab);border-radius:11px;padding:10px 12px;">
+        <div style="font-size:.62rem;font-weight:800;color:var(--A);margin-bottom:5px;">⚙ Group-worthy (Lotan/Sharan)</div>
+        <div style="color:var(--A);line-height:1.7;">
+          Los argumentos 2 y 3 parecen válidos a primera vista. Requieren debate genuino para identificar la falacia. El grupo aporta perspectivas diferentes que el trabajo individual no tendría.
+        </div>
+      </div>
+    </div>
+
+    <div class="script script-C">
+      <p><strong>Instrucción oral al grupo (leer con calma):</strong></p>
+      <p>— Vamos a hacer la actividad cooperativa del M4. Abran la herramienta en M4. El trío que ya tienen formado tiene roles asignados — giren el rol de hoy si corresponde según el cuaderno de equipo.</p>
+      <p>— La actividad se llama "El Detector de Falacias". Van a leer cuatro argumentos que vienen de contextos reales — dos de psicología clínica, uno de política pública, uno de investigación. Para cada uno deben: primero identificar la forma lógica (¿cuáles son p y q? ¿cuál es la premisa adicional?), luego clasificar: ¿válido o falacia? Si es falacia, ¿cuál?</p>
+      <span class="proj">📽 Proyectar: M4 de la herramienta en pantalla grande</span>
+      <p>— El Coordinador dirige. Todos leen en silencio los cuatro argumentos durante 3 minutos — sin hablar. Luego van argumento por argumento: el Coordinador lo lee en voz alta, el grupo vota simultáneamente con pulgar arriba (válido) o pulgar abajo (falacia). Si hay desacuerdo, debaten. El Secretario registra todo en el Cuaderno de Equipo.</p>
+      <p>— NO toquen la respuesta de la herramienta hasta que el grupo haya llegado a consenso y lo haya registrado. Las respuestas son para la plenaria, no para antes.</p>
+      <p>— Tienen 22 minutos. A los 15 minutos les aviso para que preparen la presentación del Argumento 4.</p>
+    </div>
+
+    <hr class="div">
+    <p style="font-size:.8rem;font-weight:700;color:var(--C);margin-bottom:8px;">⏱ Cronograma de facilitación:</p>
+    <div style="display:flex;flex-direction:column;gap:6px;font-size:.8rem;">
+      <div style="padding:8px 12px;background:var(--Cl);border:1px solid var(--Cb);border-radius:9px;color:var(--C);">
+        <strong>Min 0–3:</strong> Lectura silenciosa individual. Circular observando cuáles generan más duda.
+      </div>
+      <div style="padding:8px 12px;background:rgba(0,0,0,.04);border:1px solid var(--bdr);border-radius:9px;">
+        <strong>Min 3–15:</strong> Trabajo en grupos. No intervenir a menos que un grupo esté bloqueado más de 3 min. Si un grupo termina rápido, preguntar: "¿Están seguros del Argumento 3? ¿Cómo lo justificarían ante otro grupo?"
+      </div>
+      <div style="padding:8px 12px;background:var(--Al);border:1px solid var(--Ab);border-radius:9px;color:var(--A);">
+        <strong>Min 15:</strong> Aviso: "5 minutos — preparen la presentación del Argumento 4."
+      </div>
+      <div style="padding:8px 12px;background:var(--Tl);border:1px solid var(--Tb);border-radius:9px;color:var(--T);">
+        <strong>Min 20–22:</strong> Plenaria. Cada Vocero presenta el Arg. 4 (forma → clasificación → justificación). Síntesis del docente.
+      </div>
+    </div>
+
+    <div class="script script-C" style="margin-top:12px;">
+      <p><strong>Cierre de la plenaria (síntesis del docente):</strong></p>
+      <p>— Los Argumentos 1 y 4 son válidos — Modus Ponens y Modus Tollens respectivamente. Los 2 y 3 son falacias clásicas — Afirmar el consecuente y Negar el antecedente.</p>
+      <p>— Noten algo: las dos falacias suenan razonables. El Argumento 2 — que las redes sociales causan ansiedad — lo oyen todo el tiempo en titulares de noticias. El Argumento 3 — que si el gobierno no invierte no habrá mejora — es el argumento de la mitad de los editoriales políticos. Ahora tienen herramientas para detectar cuándo ese argumento tiene una falla de forma, independientemente de si la premisa es verdadera o falsa.</p>
+      <p>— Eso es lo que hace la lógica matemática: no les dice qué creer — les da las herramientas para verificar si lo que creen está bien respaldado.</p>
+
+      <div class="qa" style="margin-top:10px;">
+        <div class="q">Procesamiento grupal (30 segundos por trío): "¿Cuál argumento les generó más debate interno? ¿Por qué?"</div>
+        <div class="r">Esperado: el Argumento 3 (negar el antecedente sobre salud mental y gobierno). Tiene carga política además de lógica. Validar la dificultad: cuando hay carga emocional o ideológica, el análisis lógico es más difícil — y más necesario.</div>
+      </div>
+    </div>
+
+    <div class="mnote">Responsabilidad individual (Johnson &amp; Johnson): antes de cerrar la plenaria, preguntar a 2–3 estudiantes NO voceros que expliquen la forma lógica de un argumento específico. Esto no es para evaluar — es para activar la responsabilidad individual como componente del AC.</div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     BLOQUE 5 — QUIZ
+══════════════════════════════════════════ -->
+<div id="b5" class="block">
+  <div class="block-hdr" onclick="tog(this)">
+    <span class="block-icon">📝</span>
+    <div class="block-meta">
+      <div class="block-title">Bloque 5 — Quiz individual con localStorage</div>
+      <div class="block-sub">8 min · M5 herramienta · Silencio · Nota solo al final</div>
+    </div>
+    <div class="block-arrow">›</div>
+  </div>
+  <div class="block-body">
+
+    <div class="obj"><strong>Objetivo:</strong> Activar la recuperación activa (retrieval practice) de manera individual. Las respuestas se guardan en localStorage — si el estudiante cierra y vuelve, las recupera. La nota se muestra solo al presionar "Ver mi nota".</div>
+
+    <div class="script script-T">
+      <p>— Para cerrar la parte de clase, quiero que hagan el quiz individual del M5. Son 10 preguntas. Tienen 8 minutos. En silencio — no es trabajo en equipo, es individual.</p>
+      <p>— Sus respuestas se guardan automáticamente en este dispositivo. Si actualizan la página no pierden nada. Respondan todo primero y presionen "Ver mi nota" al final — la herramienta no les dice si cada respuesta está bien o mal mientras responden.</p>
+      <p>— Cuando terminen, la herramienta muestra la nota y la retroalimentación de cada pregunta. Si hay preguntas que quedaron mal, esas son exactamente las que deben trabajar en el M6.</p>
+    </div>
+
+    <div class="mnote">
+      Usar los 8 minutos para circular silenciosamente. Observar en qué preguntas hay más duda (la mayoría se detiene más en las preguntas de falacias — especialmente la Q10 sobre la correlación y la afirmación del consecuente). No responder preguntas durante el quiz — decir: "eso aparece en la retroalimentación al final."
+    </div>
+
+    <div style="background:var(--Xl);border:1.5px solid var(--Xb);border-radius:11px;padding:11px 14px;font-size:.8rem;color:var(--X);margin-top:10px;">
+      <strong>⚠️ Nota técnica:</strong> El quiz usa localStorage con la clave <span style="font-family:var(--mono);">logica_v2_c8_2026</span>. Si un estudiante cambia de dispositivo, pierde las respuestas guardadas. Funciona perfectamente en GitHub Pages. Si alguien reporta que no guarda, probablemente tiene el modo privado/incógnito activado — localStorage no funciona en incógnito.
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     BLOQUE 6 — CIERRE
+══════════════════════════════════════════ -->
+<div id="b6" class="block">
+  <div class="block-hdr" onclick="tog(this)">
+    <span class="block-icon">🏠</span>
+    <div class="block-meta">
+      <div class="block-title">Bloque 6 — Cierre y presentación del trabajo en casa</div>
+      <div class="block-sub">4 min · M6 herramienta · Plan de consolidación en 3 días</div>
+    </div>
+    <div class="block-arrow">›</div>
+  </div>
+  <div class="block-body">
+
+    <div class="obj"><strong>Objetivo:</strong> Comunicar la importancia del trabajo en casa para la consolidación del conocimiento y asegurar que todos conozcan el entregable calificable.</div>
+
+    <div class="script script-T">
+      <p>— Lo que aprendieron hoy necesita tiempo para consolidarse. La investigación en ciencias del aprendizaje es clara: la comprensión en clase es el primer paso, pero el conocimiento se consolida con práctica distribuida — en días diferentes, con variedad de contextos.</p>
+      <p>— El M6 tiene un plan de tres días con cinco niveles. No es para hacer todo de una vez — está diseñado para hacerse poco a poco. Los Niveles A y B son para hoy después de clase. Los C y D para mañana. El E y el entregable para el día antes de la próxima sesión.</p>
+      <span class="proj">📽 Proyectar: M6 herramienta — plan de estudio</span>
+      <p>— El entregable vale nota. Busquen en una noticia, en un artículo de psicología, en redes sociales — cualquier argumento con forma "si… entonces…". Lo analizan con la forma lógica que aprendieron hoy y lo traen a la próxima clase. Una hoja, manuscrita o impresa, con la fuente, el argumento y el análisis.</p>
+      <p>— El M6 también tiene los ejercicios del libro de Miller adaptados con ejemplos de psicología y Colombia. Son 41 ejercicios en total — no los van a hacer todos en un día, pero con el plan de tres días llegan bien al siguiente parcial.</p>
+
+      <div class="qa" style="margin-top:10px;">
+        <div class="q">— ¿Alguna pregunta de la clase de hoy que quede sin responder?</div>
+        <div class="r">Tomar máximo 2 preguntas. Las que no alcancen, invitar a escribirlas en el chat del grupo o traerlas a la próxima sesión.</div>
+      </div>
+    </div>
+
+    <hr class="div">
+    <div style="background:var(--Gl);border:1.5px solid var(--Gb);border-radius:12px;padding:13px 15px;font-size:.82rem;color:var(--G);">
+      <strong>Síntesis de la clase — para cerrar (30 segundos):</strong><br>
+      Hoy aprendieron el lenguaje formal de la lógica: qué es una proposición, cómo se niega, cómo se combinan con ∧ ∨ ¬ →, y cómo distinguir un argumento válido de una falacia. No van a usar estos símbolos todos los días — pero la forma de pensar que hay detrás sí la van a usar: cada vez que lean un artículo, escuchen un argumento político o construyan una hipótesis de investigación, van a estar usando lógica proposicional — con o sin símbolos.
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ DISEÑO PEDAGÓGICO ══ -->
+<div class="block" style="margin-top:20px;">
+  <div class="block-hdr" onclick="tog(this)">
+    <span class="block-icon">📚</span>
+    <div class="block-meta">
+      <div class="block-title">Notas de diseño pedagógico</div>
+      <div class="block-sub">Bibliografía · Decisiones de diseño · Cooperativo</div>
+    </div>
+    <div class="block-arrow">›</div>
+  </div>
+  <div class="block-body">
+    <div style="font-size:.81rem;line-height:1.75;color:var(--muted);">
+      <p><strong style="color:var(--T);">Principio herramienta-primero (Kapur, 2016):</strong> M0 se abre antes de la instrucción. Los estudiantes intentan clasificar proposiciones sin saber el concepto. Esto crea la "necesidad cognitiva" que hace que la magistral sea bienvenida como respuesta a una pregunta que ya se generaron.</p>
+      <p style="margin-top:8px;"><strong style="color:var(--T);">Magistral intercalada con práctica:</strong> Cada bloque magistral (12–13 min) va seguido de práctica inmediata en la herramienta (5–6 min). Esto sigue el modelo de instrucción directa con práctica guiada (Rosenshine, 2012): presentar un concepto, verificar comprensión, practicar antes de seguir.</p>
+      <p style="margin-top:8px;"><strong style="color:var(--T);">Actividad cooperativa group-worthy (Lotan/Sharan):</strong> "El Detector de Falacias" cumple los criterios: tiene más de una respuesta plausible antes de analizar, requiere perspectivas distintas, y el grupo llega a mejores conclusiones que el individuo. No es "trabajar en grupo" — es genuinamente group-worthy.</p>
+      <p style="margin-top:8px;"><strong style="color:var(--T);">Consolidación en casa (Sweller &amp; van Merriënboer, 2022; Rosenshine, 2012):</strong> El M6 está diseñado para práctica distribuida en 3 días, con 41 ejercicios en 5 niveles de dificultad creciente. La variedad de contextos (proposiciones, negaciones, conectivos, condicional, falacias) y la variación de ejemplos (psicología, política, vida cotidiana, Colombia) garantizan generalización del conocimiento.</p>
+      <p style="margin-top:8px;"><strong style="color:var(--T);">Referencias:</strong> Johnson, D. W., Johnson, R. T. y Holubec, E. J. (1994). <em>El aprendizaje cooperativo en el aula.</em> ASCD/Paidós. · Pujolàs, P. y Lago, J. R. (CA/AC). Universitat de Vic. · Duran, D. (2018). Aprendizaje entre iguales. · Sharan, Y. (2010). European Journal of Education, 45(2). · Kapur, M. (2016). Productive Failure. · Rosenshine, B. (2012). Principles of Instruction.</p>
+    </div>
+  </div>
+</div>
+
+</div><!-- /main -->
+
+<div class="footer">
+  <p><strong>Estructura de Clase 8 — Lógica Matemática · Matemáticas I · UdeC Facatativá · 2026</strong></p>
+  <p>Documento para uso del docente · Herramienta del estudiante: logica_herramienta_v2.html</p>
+  <p>Miller, Heeren &amp; Hornsby §3 · Johnson &amp; Johnson (1994) · Pujolàs &amp; Lago (CA/AC) · Duran (2018) · Kapur (2016)</p>
+</div>
+
+<script>
+function tog(hdr){
+  hdr.classList.toggle('open');
+  const arr=hdr.querySelector('.block-arrow');
+  const body=hdr.nextElementSibling;
+  arr.classList.toggle('open');
+  body.classList.toggle('open');
+}
+// Open first block by default
+document.addEventListener('DOMContentLoaded',()=>{
+  const first=document.querySelector('.block-hdr');
+  if(first&&!first.classList.contains('open')) tog(first);
+});
+</script>
+</body>
+</html>
