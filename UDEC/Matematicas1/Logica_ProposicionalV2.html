@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
+<title>Lógica Matemática · Clase 8 · UdeC Facatativá</title>
+<style>
+:root{
+  --bg:#f2ece0;--card:#fff;--card2:#faf8f4;
+  --txt:#1c130a;--muted:#7a6a54;--faint:#c0b09a;
+  --bdr:rgba(28,19,10,.09);--bdr2:rgba(28,19,10,.05);
+  --T:#0c4340;--Tm:#0d9488;--Tl:rgba(13,148,136,.08);--Tb:rgba(13,148,136,.24);
+  --A:#92400e;--Am:#d97706;--Al:rgba(217,119,6,.09);--Ab:rgba(217,119,6,.24);
+  --C:#9f1239;--Cm:#e11d48;--Cl:rgba(225,29,72,.08);--Cb:rgba(225,29,72,.24);
+  --G:#14532d;--Gm:#16a34a;--Gl:rgba(22,163,74,.09);--Gb:rgba(22,163,74,.24);
+  --X:#7f1d1d;--Xm:#dc2626;--Xl:rgba(220,38,38,.09);--Xb:rgba(220,38,38,.24);
+  --V:#4c1d95;--Vm:#7c3aed;--Vl:rgba(124,58,237,.08);--Vb:rgba(124,58,237,.24);
+  --serif:Georgia,'Palatino Linotype',serif;
+  --sans:-apple-system,'Segoe UI','Helvetica Neue',Arial,sans-serif;
+  --mono:'Courier New',Courier,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:var(--sans);color:var(--txt);font-size:15px;line-height:1.66;
+  background:var(--bg);padding-bottom:60px;
+  background-image:
+    radial-gradient(ellipse 150% 55% at -5% -5%,rgba(13,148,136,.13) 0%,transparent 52%),
+    radial-gradient(ellipse 130% 55% at 105% 105%,rgba(217,119,6,.10) 0%,transparent 52%),
+    radial-gradient(ellipse 90% 50% at 50% 45%,rgba(255,255,255,.65) 0%,transparent 60%);
+  background-attachment:fixed;
+}
+
+/* ── HEADER ─────────────────────────────── */
+.hdr{
+  position:relative;z-index:20;
+  background:rgba(255,255,255,.88);backdrop-filter:blur(20px);
+  border-bottom:1.5px solid var(--bdr);padding:15px 16px 0;overflow:hidden;
+}
+.hdr::after{
+  content:'p∧q→';position:absolute;right:8px;top:6px;
+  font:700 58px/1 var(--mono);color:rgba(12,67,64,.07);pointer-events:none;letter-spacing:-3px;
+}
+.hdr-badge{
+  display:inline-flex;align-items:center;gap:5px;
+  background:var(--Tl);border:1px solid var(--Tb);color:var(--T);
+  padding:3px 11px;border-radius:99px;
+  font-size:.57rem;font-weight:800;letter-spacing:.6px;text-transform:uppercase;margin-bottom:6px;
+}
+.hdr h1{font-family:var(--serif);color:var(--T);font-size:1.28rem;font-weight:700;font-style:italic;margin-bottom:1px;}
+.hdr h1 em{color:var(--Am);font-style:normal;}
+.hdr-sub{font-size:.69rem;color:var(--muted);margin-bottom:11px;}
+
+/* ── TABS ──────────────────────────────── */
+.tabs{display:flex;overflow-x:auto;scrollbar-width:none;border-top:1px solid var(--bdr2);margin:0 -16px;}
+.tabs::-webkit-scrollbar{display:none;}
+.tab{
+  flex-shrink:0;display:flex;flex-direction:column;align-items:center;
+  padding:8px 13px 7px;cursor:pointer;user-select:none;transition:all .18s;
+  border-bottom:3px solid transparent;white-space:nowrap;
+  font-size:.58rem;font-weight:800;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);
+}
+.tab .ti{font-size:.92rem;margin-bottom:1px;}
+.tab:hover{color:var(--txt);}
+.tab.on{color:var(--T);border-bottom-color:var(--Tm);background:rgba(13,148,136,.04);}
+.tab[data-m="0"].on{color:var(--A);border-bottom-color:var(--Am);}
+.tab[data-m="2"].on{color:var(--V);border-bottom-color:var(--Vm);}
+.tab[data-m="3"].on{color:var(--G);border-bottom-color:var(--Gm);}
+.tab[data-m="4"].on{color:var(--C);border-bottom-color:var(--Cm);}
+.tab[data-m="5"].on{color:var(--X);border-bottom-color:var(--Xm);}
+.tab[data-m="6"].on{color:#5b21b6;border-bottom-color:#8b5cf6;}
+
+/* ── LAYOUT ─────────────────────────────── */
+.wrap{max-width:520px;margin:0 auto;padding:18px 14px 10px;}
+.mod{display:none;}.mod.on{display:block;}
+
+/* ── BADGES ──────────────────────────────── */
+.srow{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:13px;}
+.sb{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:99px;font-size:.57rem;font-weight:800;text-transform:uppercase;letter-spacing:.4px;}
+.sb-clase{background:var(--Tl);border:1px solid var(--Tb);color:var(--T);}
+.sb-casa{background:var(--Al);border:1px solid var(--Ab);color:var(--A);}
+.sb-coop{background:var(--Cl);border:1px solid var(--Cb);color:var(--C);}
+
+/* ── CARDS ──────────────────────────────── */
+.card{
+  background:var(--card);border:1px solid var(--bdr);border-radius:16px;
+  padding:17px;margin-bottom:13px;
+  box-shadow:0 2px 14px rgba(0,0,0,.055),0 0 0 1px rgba(255,255,255,.85) inset;
+}
+.card-title{font-family:var(--serif);font-size:1.05rem;font-weight:700;font-style:italic;color:var(--T);margin-bottom:9px;}
+.ct{font-size:.57rem;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--faint);margin-bottom:9px;display:flex;align-items:center;gap:6px;}
+
+/* ── ALERTS ──────────────────────────────── */
+.al{padding:11px 14px;border-radius:12px;font-size:.81rem;line-height:1.65;margin:9px 0;border:1.5px solid;}
+.al-T{background:var(--Tl);border-color:var(--Tb);color:var(--T);}
+.al-A{background:var(--Al);border-color:var(--Ab);color:var(--A);}
+.al-G{background:var(--Gl);border-color:var(--Gb);color:var(--G);}
+.al-X{background:var(--Xl);border-color:var(--Xb);color:var(--X);}
+.al-V{background:var(--Vl);border-color:var(--Vb);color:var(--V);}
+.al-C{background:var(--Cl);border-color:var(--Cb);color:var(--C);}
+
+/* ── HINT ──────────────────────────────── */
+.hint{font-size:.77rem;color:var(--muted);border-left:3px solid var(--bdr);padding:6px 10px;border-radius:0 8px 8px 0;margin:7px 0;line-height:1.55;background:rgba(0,0,0,.025);}
+
+/* ── PROP CARDS (gancho) ─────────────────── */
+.pc{border:1.5px solid var(--bdr);border-radius:12px;padding:12px 14px;margin-bottom:8px;cursor:pointer;transition:all .18s;user-select:none;background:var(--card);}
+.pc:hover{border-color:var(--Tb);transform:translateY(-1px);box-shadow:0 4px 14px rgba(0,0,0,.07);}
+.pc .pc-text{font-family:var(--serif);font-style:italic;font-size:.88rem;line-height:1.55;margin-bottom:5px;}
+.pc .pc-tag{display:none;font-size:.74rem;font-weight:700;padding:4px 10px;border-radius:7px;margin-top:6px;line-height:1.4;}
+.pc.revealed .pc-tag{display:block;}
+.pc.is-prop.revealed{border-color:var(--Gb);}
+.pc.is-prop .pc-tag{background:var(--Gl);color:var(--G);}
+.pc.not-prop.revealed{border-color:var(--bdr);}
+.pc.not-prop .pc-tag{background:rgba(0,0,0,.06);color:var(--muted);}
+
+/* ── TRUTH TABLE ─────────────────────────── */
+.tt{width:100%;border-collapse:separate;border-spacing:0;font-family:var(--mono);font-size:.83rem;margin:10px 0;border-radius:11px;overflow:hidden;border:1px solid var(--bdr);}
+.tt th{padding:8px 10px;font-size:.61rem;font-weight:800;text-transform:uppercase;letter-spacing:.4px;text-align:center;background:var(--card2);color:var(--muted);border-bottom:1px solid var(--bdr);}
+.tt td{padding:8px 10px;text-align:center;border-top:1px solid var(--bdr2);vertical-align:middle;}
+.tt td:first-child,.tt td:nth-child(2){color:var(--muted);}
+.tv{font-weight:800;color:var(--G);}
+.tf{font-weight:800;color:var(--X);}
+.tt-hl{background:rgba(22,163,74,.04);}
+.tt-hlr{background:rgba(220,38,38,.06);}
+
+/* ── LOGIC DISPLAY ───────────────────────── */
+.logic{font-family:var(--mono);font-weight:700;font-size:1rem;text-align:center;padding:14px;border-radius:12px;margin:10px 0;border:1.5px solid;line-height:1.9;}
+.logic-T{background:var(--Tl);border-color:var(--Tb);color:var(--T);}
+.logic-V{background:var(--Vl);border-color:var(--Vb);color:var(--V);}
+.logic-G{background:var(--Gl);border-color:var(--Gb);color:var(--G);}
+
+/* ── CONNECTOR ROWS ──────────────────────── */
+.conn-wrap{display:flex;flex-direction:column;gap:8px;margin:10px 0;}
+.conn-row{display:flex;align-items:flex-start;gap:10px;padding:11px 13px;background:var(--card);border:1px solid var(--bdr);border-radius:12px;box-shadow:0 1px 6px rgba(0,0,0,.04);}
+.conn-sym{font-family:var(--mono);font-size:1.3rem;font-weight:800;min-width:32px;text-align:center;padding-top:1px;}
+.conn-info{flex:1;}
+.conn-name{font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px;}
+.conn-ex{font-size:.81rem;line-height:1.55;color:var(--muted);}
+.conn-ex em{font-style:normal;color:var(--txt);font-weight:600;}
+
+/* ── INTERACTIVE PICKER ──────────────────── */
+.pick-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:10px 0;}
+.pick-opt{padding:10px 13px;border:1.5px solid var(--bdr);border-radius:11px;cursor:pointer;font-size:.81rem;line-height:1.45;user-select:none;transition:all .16s;background:var(--card);}
+.pick-opt:hover{border-color:var(--Tb);}
+.pick-opt.sel{border-color:var(--Am);background:var(--Al);}
+.pick-opt.ok{border-color:var(--Gb);background:var(--Gl);color:var(--G);}
+.pick-opt.ko{border-color:var(--Xb);background:var(--Xl);color:var(--X);}
+
+/* ── PROMISE ROWS (conditional) ──────────── */
+.prom-rows{display:flex;flex-direction:column;gap:6px;margin:10px 0;}
+.prom-row{display:grid;grid-template-columns:auto auto auto 1fr;gap:6px;align-items:center;padding:10px 12px;border-radius:11px;border:1px solid var(--bdr);background:var(--card);}
+.prom-cell{font-family:var(--mono);font-size:.82rem;font-weight:700;text-align:center;padding:4px 6px;border-radius:7px;border:1px solid var(--bdr2);background:rgba(0,0,0,.03);}
+.prom-explain{font-size:.77rem;line-height:1.45;color:var(--muted);padding-left:4px;}
+.prom-row.false-row{background:rgba(220,38,38,.03);border-color:var(--Xb);}
+.prom-row.false-row .prom-cell:last-of-type{background:var(--Xl);color:var(--X);border-color:var(--Xb);}
+
+/* ── ARGUMENT CARDS ──────────────────────── */
+.arg-card{border:1.5px solid var(--bdr);border-radius:13px;padding:13px 15px;margin-bottom:9px;cursor:pointer;user-select:none;transition:all .18s;background:var(--card);}
+.arg-card:hover{border-color:var(--Tb);transform:translateY(-1px);}
+.arg-top{font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px;}
+.arg-text{font-family:var(--serif);font-style:italic;font-size:.85rem;line-height:1.6;margin-bottom:5px;}
+.arg-body{font-size:.79rem;}
+.arg-reveal{display:none;padding:9px 11px;border-radius:9px;font-size:.78rem;line-height:1.55;margin-top:7px;animation:fadeUp .22s ease;}
+.arg-card.open .arg-reveal{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(5px);}to{opacity:1;transform:none;}}
+.reveal-btn{display:inline-flex;align-items:center;gap:4px;font-size:.65rem;font-weight:700;padding:4px 11px;border-radius:99px;border:1px solid var(--bdr);background:rgba(0,0,0,.04);color:var(--muted);cursor:pointer;margin-top:5px;}
+
+/* ── COOPERATIVE ─────────────────────────── */
+.coop-wrap{background:linear-gradient(135deg,rgba(225,29,72,.05),rgba(225,29,72,.02));border:2px solid var(--Cb);border-radius:16px;padding:17px;margin-bottom:13px;}
+.coop-hdr{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+.coop-icon{font-size:1.5rem;}
+.coop-title{font-family:var(--serif);font-size:1.05rem;font-weight:700;font-style:italic;color:var(--C);}
+.coop-timer{font-family:var(--mono);font-size:.72rem;font-weight:800;padding:3px 10px;border-radius:99px;background:var(--Cl);border:1px solid var(--Cb);color:var(--C);}
+.coop-inter{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:99px;font-size:.61rem;font-weight:800;background:var(--Cl);border:1px solid var(--Cb);color:var(--C);margin-bottom:10px;}
+.coop-steps{display:flex;flex-direction:column;gap:8px;margin-bottom:12px;}
+.cstep{display:flex;align-items:flex-start;gap:9px;font-size:.82rem;line-height:1.55;}
+.cstep-n{min-width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:800;flex-shrink:0;margin-top:1px;background:var(--Cl);color:var(--C);border:1.5px solid var(--Cb);}
+.role-list{display:flex;flex-direction:column;gap:6px;margin-bottom:12px;}
+.role-row{display:flex;align-items:flex-start;gap:9px;padding:9px 12px;border-radius:10px;background:rgba(255,255,255,.6);border:1px solid var(--bdr);font-size:.8rem;line-height:1.5;}
+.role-tag{font-size:.56rem;font-weight:800;text-transform:uppercase;letter-spacing:.4px;padding:2px 8px;border-radius:99px;flex-shrink:0;margin-top:2px;}
+.rt-coord{background:var(--Al);color:var(--A);}
+.rt-sec{background:var(--Vl);color:var(--V);}
+.rt-voc{background:var(--Tl);color:var(--T);}
+.coop-note{background:rgba(255,255,255,.55);border-radius:10px;padding:10px 12px;font-size:.78rem;line-height:1.6;border:1px solid var(--bdr);font-family:var(--mono);}
+
+/* ── QUIZ ────────────────────────────────── */
+.quiz-q{background:var(--card);border:1px solid var(--bdr);border-radius:14px;padding:14px;margin-bottom:11px;box-shadow:0 1px 8px rgba(0,0,0,.04);}
+.quiz-num{font-size:.57rem;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:var(--faint);margin-bottom:5px;}
+.quiz-text{font-size:.87rem;line-height:1.65;margin-bottom:11px;}
+.quiz-text .mono{font-family:var(--mono);background:rgba(0,0,0,.06);padding:1px 5px;border-radius:4px;font-size:.82rem;}
+.quiz-opts{display:flex;flex-direction:column;gap:5px;}
+.quiz-opt{display:flex;align-items:flex-start;gap:9px;padding:9px 12px;border:1.5px solid var(--bdr);border-radius:10px;cursor:pointer;font-size:.82rem;line-height:1.44;transition:all .14s;user-select:none;background:var(--card);}
+.quiz-opt:hover{border-color:var(--Ab);}
+.quiz-opt.sel{background:var(--Al);border-color:var(--Ab);}
+.quiz-opt.ok{background:var(--Gl)!important;border-color:var(--Gb)!important;color:var(--G)!important;}
+.quiz-opt.ko{background:var(--Xl)!important;border-color:var(--Xb)!important;color:var(--X)!important;}
+.quiz-opt input[type=radio]{accent-color:var(--Am);margin-top:3px;flex-shrink:0;}
+.q-fb{display:none;font-size:.78rem;line-height:1.6;padding:8px 11px;border-radius:9px;margin-top:7px;border:1px solid;}
+.q-fb.ok{background:var(--Gl);border-color:var(--Gb);color:var(--G);}
+.q-fb.ko{background:var(--Xl);border-color:var(--Xb);color:var(--X);}
+.quiz-saved{display:none;align-items:center;gap:5px;font-size:.62rem;font-weight:700;padding:4px 10px;border-radius:99px;background:var(--Tl);border:1px solid var(--Tb);color:var(--T);margin-bottom:9px;}
+.quiz-saved.show{display:inline-flex;}
+.quiz-btn{width:100%;padding:13px;background:linear-gradient(135deg,var(--A),#b45309);color:#fff;border:none;border-radius:12px;font-size:.9rem;font-weight:800;cursor:pointer;margin-top:14px;font-family:var(--sans);transition:all .15s;letter-spacing:.2px;}
+.quiz-btn:hover{filter:brightness(1.08);}
+.quiz-btn:disabled{background:rgba(0,0,0,.12);cursor:not-allowed;color:var(--muted);}
+.score-box{background:linear-gradient(135deg,var(--Tl),var(--Al));border:1.5px solid var(--Tb);border-radius:16px;padding:24px 20px;margin-top:16px;text-align:center;display:none;animation:fadeUp .4s ease;}
+.score-big{font-family:var(--mono);font-size:3.8rem;font-weight:700;color:var(--A);display:block;line-height:1;}
+.score-bar{height:9px;border-radius:99px;background:rgba(0,0,0,.09);margin:14px 0;overflow:hidden;}
+.score-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--Gm),var(--Am));transition:width 1s ease;}
+.score-msg{font-family:var(--serif);font-style:italic;font-size:.9rem;color:var(--T);line-height:1.6;}
+
+/* ── HOMEWORK ────────────────────────────── */
+.hw-section{border-radius:14px;padding:14px;margin-bottom:13px;border:1.5px solid;}
+.hw-title{font-family:var(--serif);font-size:.98rem;font-weight:700;font-style:italic;margin-bottom:4px;}
+.hw-sub{font-size:.72rem;color:var(--muted);margin-bottom:11px;line-height:1.5;}
+.hw-ex{border:1px solid var(--bdr);border-radius:11px;padding:11px 13px;margin-bottom:8px;background:var(--card);cursor:pointer;user-select:none;transition:all .15s;}
+.hw-ex:hover{border-color:var(--Tb);}
+.hw-q{font-size:.83rem;line-height:1.55;margin-bottom:6px;}
+.hw-q .mono{font-family:var(--mono);background:rgba(0,0,0,.06);padding:1px 5px;border-radius:4px;font-size:.8rem;}
+.hw-opts{display:flex;flex-direction:column;gap:4px;margin:7px 0;}
+.hw-opt{display:flex;gap:8px;font-size:.8rem;padding:6px 9px;border-radius:8px;background:rgba(0,0,0,.03);border:1px solid var(--bdr);cursor:pointer;transition:all .12s;user-select:none;line-height:1.4;}
+.hw-opt:hover{border-color:var(--Ab);}
+.hw-opt.hsel{background:var(--Al);border-color:var(--Ab);}
+.hw-opt.hok{background:var(--Gl)!important;border-color:var(--Gb)!important;color:var(--G)!important;}
+.hw-opt.hko{background:var(--Xl)!important;border-color:var(--Xb)!important;color:var(--X)!important;}
+.hw-reveal{display:none;font-size:.77rem;padding:8px 10px;border-radius:8px;margin-top:6px;line-height:1.55;animation:fadeUp .2s ease;}
+.hw-ex.open .hw-reveal{display:block;}
+.hw-tag{display:inline-flex;align-items:center;padding:2px 8px;border-radius:6px;font-size:.65rem;font-weight:700;margin-right:6px;}
+
+/* ── STUDY PLAN ──────────────────────────── */
+.plan-rows{display:flex;flex-direction:column;gap:7px;}
+.plan-row{border-radius:12px;padding:12px 14px;border:1.5px solid;}
+.plan-day{font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px;}
+.plan-desc{font-size:.81rem;line-height:1.55;color:var(--muted);}
+
+/* ── NAV BUTTONS ─────────────────────────── */
+.nav-row{display:flex;gap:8px;margin-top:14px;}
+.btn{padding:10px 16px;border:none;border-radius:11px;font-size:.84rem;font-weight:700;cursor:pointer;transition:all .14s;font-family:var(--sans);}
+.btn:hover{filter:brightness(1.08);}
+.btn-next{flex:2;color:#fff;background:linear-gradient(135deg,var(--T),var(--Tm));}
+.btn-back{flex:1;background:rgba(0,0,0,.07);border:1px solid var(--bdr);color:var(--muted);}
+
+/* ── FOOTER ──────────────────────────────── */
+.footer{margin-top:26px;border-top:1px solid var(--bdr);padding:20px 16px 32px;text-align:center;background:rgba(255,255,255,.45);}
+.footer p{font-size:.68rem;color:var(--faint);line-height:1.7;}
+.footer strong{color:var(--muted);}
+
+/* ── TOAST ──────────────────────────────── */
+#toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--T);color:#fff;padding:8px 20px;border-radius:99px;font-size:.82rem;font-weight:700;z-index:9999;pointer-events:none;transition:transform .3s cubic-bezier(.34,1.56,.64,1);white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,.2);}
+#toast.show{transform:translateX(-50%) translateY(0);}
+
+@media(max-width:380px){.pick-grid{grid-template-columns:1fr;}.prom-row{grid-template-columns:auto auto auto 1fr;font-size:.77rem;}}
+</style>
+</head>
+<body>
+
+<!-- ══ HEADER ══ -->
+<div class="hdr">
+  <div class="hdr-badge">Clase 8 · Miller §3 · Matemáticas I · 2026</div>
+  <h1>Lógica <em>Matemática</em></h1>
+  <p class="hdr-sub">Psicología · UdeC Facatativá — El lenguaje del razonamiento científico</p>
+  <div class="tabs">
+    <div class="tab on" data-m="0" onclick="sw(0)"><span class="ti">🎬</span>Gancho</div>
+    <div class="tab" data-m="1" onclick="sw(1)"><span class="ti">💬</span>Proposiciones</div>
+    <div class="tab" data-m="2" onclick="sw(2)"><span class="ti">🔗</span>Conectivos</div>
+    <div class="tab" data-m="3" onclick="sw(3)"><span class="ti">➡️</span>Condicional</div>
+    <div class="tab" data-m="4" onclick="sw(4)"><span class="ti">👥</span>Cooperativo</div>
+    <div class="tab" data-m="5" onclick="sw(5)"><span class="ti">📝</span>Quiz</div>
+    <div class="tab" data-m="6" onclick="sw(6)"><span class="ti">🏠</span>Para casa</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- ═══════════════════════════════════════
+     M0 — GANCHO
+═══════════════════════════════════════ -->
+<div class="mod on" id="m0">
+  <div class="srow"><span class="sb sb-clase">🎬 Abrir ANTES de que empiece la clase</span></div>
+
+  <div class="card">
+    <div class="ct">El problema de Pinocho</div>
+    <p style="font-size:.84rem;line-height:1.68;margin-bottom:13px;">
+      En <em>Shrek Tercero</em>, el Príncipe Encantador le pregunta a Pinocho dónde está Shrek.
+      Pinocho, cuya nariz crece si miente, responde:<br><br>
+      <span style="font-family:var(--serif);font-style:italic;font-size:.88rem;color:var(--T);display:block;padding:10px 13px;border-left:3px solid var(--Tb);background:var(--Tl);border-radius:0 9px 9px 0;line-height:1.7;">
+        "No está inexacto suponer que no podría partir de que él esté o no esté, en un lugar que, si estuviera, no estaría..."
+      </span><br>
+      Pinocho no mintió — técnicamente. Pero tampoco dijo la verdad. Usó la lógica para enredar el lenguaje.
+    </p>
+    <p style="font-size:.83rem;line-height:1.65;color:var(--muted);margin-bottom:4px;">
+      Hoy aprenderás las herramientas que usó Pinocho (sin saberlo): el lenguaje formal de la lógica. Y con ellas podrás <strong style="color:var(--T);">detectar cuándo un argumento es válido — y cuándo te están enredando</strong>.
+    </p>
+  </div>
+
+  <div class="card">
+    <div class="ct">Antes de empezar — clasifica estas frases</div>
+    <p class="card-title" style="font-size:.97rem;">¿Cuáles pueden ser verdaderas o falsas?</p>
+    <p style="font-size:.83rem;color:var(--muted);line-height:1.6;margin-bottom:12px;">
+      Toca cada frase. Intenta clasificarla <strong>sin saber todavía nada de lógica</strong>. ¿Tiene valor de verdad (puede ser V o F)? ¿O no tiene sentido preguntarse si es verdadera?
+    </p>
+    <div id="gancho-cards"></div>
+    <div id="gancho-result" style="display:none;padding:12px 14px;border-radius:12px;font-size:.82rem;line-height:1.65;background:var(--Tl);border:1.5px solid var(--Tb);color:var(--T);margin-top:10px;"></div>
+    <button onclick="showGanchoResult()" class="btn btn-next" style="width:100%;margin-top:11px;">Ver el análisis →</button>
+  </div>
+
+  <div class="al al-A">
+    <strong>La pregunta clave de hoy:</strong> "Si un estudiante obtiene más de 63 puntos en el Inventario de Beck, ¿necesariamente tiene depresión severa?" Esta pregunta tiene una estructura lógica precisa. Al terminar la clase la sabrás analizar formalmente.
+  </div>
+
+  <div class="al al-T">
+    <strong>Conexión con clases anteriores:</strong> Ya trabajamos con conjuntos: A ∩ B es "los que están en A <em>y</em> en B". Hoy van a ver que eso <em>es</em> lógica matemática — la conjunción p ∧ q. Los conjuntos y la lógica son el mismo lenguaje, escrito diferente.
+  </div>
+
+  <div class="nav-row">
+    <button class="btn btn-next" onclick="sw(1)">Continuar — Proposiciones →</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     M1 — PROPOSICIONES
+═══════════════════════════════════════ -->
+<div class="mod" id="m1">
+  <div class="srow">
+    <span class="sb sb-clase">🏫 En clase — después de la magistral 1</span>
+  </div>
+
+  <div class="al al-T" style="margin-bottom:12px;">
+    <strong>¿Por qué le importa esto a quien estudia psicología?</strong><br>
+    Un artículo dice: <em>"Los estudiantes con ansiedad alta tienen menor rendimiento académico."</em> Esa frase es una <strong>proposición</strong>: puede ser V o F, y se puede verificar con datos. La lógica matemática les da el lenguaje para analizar si una conclusión se sostiene — o si el argumento tiene una falla oculta.
+  </div>
+
+  <div class="card">
+    <div class="ct">Concepto central</div>
+    <p class="card-title">¿Qué es una proposición?</p>
+    <p style="font-size:.84rem;line-height:1.66;margin-bottom:11px;">
+      Una <strong>proposición</strong> (o enunciado) es una oración declarativa que tiene exactamente un valor de verdad:
+      <span style="color:var(--G);font-weight:700;"> Verdadero (V)</span> o <span style="color:var(--X);font-weight:700;">Falso (F)</span> — nunca ambas a la vez.
+    </p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:10px 0;">
+      <div style="background:var(--Gl);border:1.5px solid var(--Gb);border-radius:11px;padding:11px;">
+        <div style="font-size:.62rem;font-weight:800;color:var(--G);margin-bottom:5px;text-transform:uppercase;letter-spacing:.4px;">✓ SÍ son proposiciones</div>
+        <div style="font-size:.79rem;line-height:1.65;color:var(--G);">
+          "La UdeC tiene sede en Faca."<br>
+          "Algunos estudiantes trabajan y estudian."<br>
+          "El 7 es número primo."
+        </div>
+      </div>
+      <div style="background:rgba(0,0,0,.04);border:1px solid var(--bdr);border-radius:11px;padding:11px;">
+        <div style="font-size:.62rem;font-weight:800;color:var(--muted);margin-bottom:5px;text-transform:uppercase;letter-spacing:.4px;">✗ NO son proposiciones</div>
+        <div style="font-size:.79rem;line-height:1.65;color:var(--muted);">
+          "¿Cuántos créditos llevas?"<br>
+          "¡Qué difícil el parcial!"<br>
+          "No uses el celular."
+        </div>
+      </div>
+    </div>
+    <div class="hint">Las preguntas, exclamaciones y mandatos <em>no</em> son proposiciones: no tienen valor de verdad.</div>
+  </div>
+
+  <div class="card">
+    <div class="ct">Negaciones — la operación más básica</div>
+    <p style="font-size:.84rem;line-height:1.65;margin-bottom:10px;">
+      La <strong>negación</strong> de una proposición invierte su valor de verdad. Hay un error muy común al negar enunciados con cuantificadores:
+    </p>
+    <div style="overflow-x:auto;">
+    <table class="tt">
+      <tr><th>Enunciado</th><th>Negación correcta</th><th>Error frecuente</th></tr>
+      <tr>
+        <td style="text-align:left;font-size:.79rem;color:var(--txt);">Todos los psicólogos trabajan en clínica.</td>
+        <td style="text-align:left;font-size:.79rem;" class="tv">Algún psicólogo NO trabaja en clínica.</td>
+        <td style="text-align:left;font-size:.79rem;" class="tf">Ningún psicólogo trabaja en clínica.</td>
+      </tr>
+      <tr>
+        <td style="text-align:left;font-size:.79rem;color:var(--txt);">Ningún participante firmó el consentimiento.</td>
+        <td style="text-align:left;font-size:.79rem;" class="tv">Algún participante sí firmó.</td>
+        <td style="text-align:left;font-size:.79rem;" class="tf">Todos firmaron.</td>
+      </tr>
+      <tr>
+        <td style="text-align:left;font-size:.79rem;color:var(--txt);">Algunos estudios no se han replicado.</td>
+        <td style="text-align:left;font-size:.79rem;" class="tv">Todos los estudios se han replicado.</td>
+        <td style="text-align:left;font-size:.79rem;" class="tf">Ninguno se ha replicado.</td>
+      </tr>
+    </table>
+    </div>
+    <div class="hint"><strong>Regla:</strong> negar "todos" → "alguno que no". Negar "alguno" → "ninguno". Negar "ninguno" → "alguno sí".</div>
+  </div>
+
+  <div class="card">
+    <div class="ct">Practica — ¿Es proposición?</div>
+    <p style="font-size:.83rem;color:var(--muted);margin-bottom:11px;">Toca cada frase para ver si es proposición y por qué.</p>
+    <div id="m1-practice"></div>
+  </div>
+
+  <div class="nav-row">
+    <button class="btn btn-back" onclick="sw(0)">← Gancho</button>
+    <button class="btn btn-next" onclick="sw(2)">Conectivos →</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     M2 — CONECTIVOS
+═══════════════════════════════════════ -->
+<div class="mod" id="m2">
+  <div class="srow">
+    <span class="sb sb-clase">🏫 En clase — después de la magistral 2</span>
+  </div>
+
+  <div class="card">
+    <div class="ct">Los tres conectivos básicos</div>
+    <p class="card-title">Construir ideas complejas a partir de ideas simples</p>
+    <p style="font-size:.83rem;color:var(--muted);line-height:1.6;margin-bottom:12px;">
+      En psicología — y en la ciencia en general — casi nunca trabajamos con una sola idea. Combinamos condiciones, filtramos datos, construimos criterios. Los conectivos lógicos son las herramientas para hacer eso con precisión.
+    </p>
+
+    <div class="conn-wrap">
+      <div class="conn-row">
+        <div class="conn-sym" style="color:var(--G);">∧</div>
+        <div class="conn-info">
+          <div class="conn-name" style="color:var(--G);">Conjunción — "y" — AND</div>
+          <div class="conn-ex"><em>"El participante es mayor de 18 ∧ firmó el consentimiento."</em><br>
+          Solo verdadera cuando <strong>ambas</strong> lo son. Como una cerradura con doble seguro: necesita llave Y código.</div>
+        </div>
+      </div>
+      <div class="conn-row">
+        <div class="conn-sym" style="color:var(--V);">∨</div>
+        <div class="conn-info">
+          <div class="conn-name" style="color:var(--V);">Disyunción — "o" — OR</div>
+          <div class="conn-ex"><em>"El paciente presenta ansiedad ∨ depresión."</em><br>
+          Falsa solo cuando <strong>ninguna</strong> lo es. Como Rappi: se entrega si hay domiciliario disponible O moto disponible — basta una.</div>
+        </div>
+      </div>
+      <div class="conn-row">
+        <div class="conn-sym" style="color:var(--X);">¬</div>
+        <div class="conn-info">
+          <div class="conn-name" style="color:var(--X);">Negación — "no" — NOT</div>
+          <div class="conn-ex"><em>"¬(el participante firmó)" = "el participante NO firmó."</em><br>
+          Invierte el valor de verdad. Si algo es V, su negación es F — y viceversa.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ct">Tablas de verdad</div>
+    <p style="font-size:.83rem;color:var(--muted);margin-bottom:10px;">
+      Sea <strong>p</strong> = "tengo Nequi con saldo" y <strong>q</strong> = "tengo internet en el celular".
+      Estas tablas muestran el resultado de cada combinación posible:
+    </p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:11px;">
+      <div>
+        <div style="font-size:.65rem;font-weight:800;color:var(--G);margin-bottom:5px;text-align:center;text-transform:uppercase;letter-spacing:.4px;">p ∧ q (y)</div>
+        <table class="tt">
+          <tr><th>p</th><th>q</th><th>p∧q</th></tr>
+          <tr><td class="tv">V</td><td class="tv">V</td><td class="tv">V</td></tr>
+          <tr><td class="tv">V</td><td class="tf">F</td><td class="tf">F</td></tr>
+          <tr><td class="tf">F</td><td class="tv">V</td><td class="tf">F</td></tr>
+          <tr><td class="tf">F</td><td class="tf">F</td><td class="tf">F</td></tr>
+        </table>
+      </div>
+      <div>
+        <div style="font-size:.65rem;font-weight:800;color:var(--V);margin-bottom:5px;text-align:center;text-transform:uppercase;letter-spacing:.4px;">p ∨ q (o)</div>
+        <table class="tt">
+          <tr><th>p</th><th>q</th><th>p∨q</th></tr>
+          <tr><td class="tv">V</td><td class="tv">V</td><td class="tv">V</td></tr>
+          <tr><td class="tv">V</td><td class="tf">F</td><td class="tv">V</td></tr>
+          <tr><td class="tf">F</td><td class="tv">V</td><td class="tv">V</td></tr>
+          <tr><td class="tf">F</td><td class="tf">F</td><td class="tf">F</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="hint"><strong>Memoria rápida:</strong> ∧ es falsa si algo falla. ∨ es falsa solo si todo falla.</div>
+  </div>
+
+  <div class="card">
+    <div class="ct">Lógica ↔ Conjuntos — la conexión que ya conoces</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:6px 0;">
+      <div class="al al-G" style="margin:0;text-align:center;">p <strong>∧</strong> q<br><small style="font-size:.72rem;">↕</small><br>A <strong>∩</strong> B</div>
+      <div class="al al-V" style="margin:0;text-align:center;">p <strong>∨</strong> q<br><small style="font-size:.72rem;">↕</small><br>A <strong>∪</strong> B</div>
+    </div>
+    <p style="font-size:.81rem;line-height:1.6;margin-top:9px;color:var(--muted);">
+      Cuando en clase 6 filtramos "participantes que cumplen criterio A Y criterio B", estábamos haciendo lógica matemática. Los conjuntos y la lógica son la misma herramienta con diferente notación.
+    </p>
+  </div>
+
+  <div class="card">
+    <div class="ct">Practica — calcula el valor de verdad</div>
+    <p style="font-size:.83rem;color:var(--muted);margin-bottom:11px;">
+      Sea <strong>p = V</strong> ("Estoy en Faca") y <strong>q = F</strong> ("Está lloviendo"). Calcula cada expresión y toca la respuesta.
+    </p>
+    <div id="m2-practice"></div>
+  </div>
+
+  <div class="nav-row">
+    <button class="btn btn-back" onclick="sw(1)">← Proposiciones</button>
+    <button class="btn btn-next" onclick="sw(3)">Condicional →</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     M3 — CONDICIONAL
+═══════════════════════════════════════ -->
+<div class="mod" id="m3">
+  <div class="srow">
+    <span class="sb sb-clase">🏫 En clase — después de la magistral 3</span>
+  </div>
+
+  <div class="al al-V" style="margin-bottom:12px;">
+    <strong>El condicional es el corazón del razonamiento científico.</strong><br>
+    Toda hipótesis de investigación tiene esta forma: <em>"Si [condición], entonces [efecto]"</em>.
+    El DSM-5 trabaja así: "Si el paciente cumple N criterios de esta lista, entonces puede establecerse el diagnóstico." La lógica del condicional es la lógica del diagnóstico.
+  </div>
+
+  <div class="card">
+    <div class="ct">El conectivo →</div>
+    <p class="card-title">La promesa: cómo entender el condicional</p>
+    <p style="font-size:.84rem;line-height:1.66;margin-bottom:10px;">
+      La mejor forma de entender <strong>p → q</strong> ("si p, entonces q") es como una promesa.
+      Imagina que le dices a un amigo: <em>"Si apruebo todas las materias, te invito a Crepes and Waffles en Bogotá."</em>
+    </p>
+
+    <div class="logic logic-V">p → q<br><small style="font-weight:400;font-size:.72rem;">"Si apruebo todas (p), te invito a Crepes (q)"</small></div>
+
+    <p style="font-size:.83rem;margin-bottom:10px;color:var(--muted);">Ahora analiza los cuatro casos posibles — toca cada uno para ver qué pasa con la promesa:</p>
+
+    <div class="prom-rows" id="prom-rows-cond"></div>
+
+    <div class="hint" style="margin-top:10px;">
+      <strong>La clave:</strong> el condicional es F <em>solo</em> cuando prometiste (p=V) y no cumpliste (q=F). En los otros tres casos, la promesa no se rompe.
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ct">Tabla de verdad completa del condicional</div>
+    <table class="tt">
+      <tr><th>p</th><th>q</th><th>p→q</th><th>Analogía</th></tr>
+      <tr class="tt-hl"><td class="tv">V</td><td class="tv">V</td><td class="tv">V</td><td style="text-align:left;font-size:.75rem;color:var(--G);">Prometí ✓, cumplí ✓ — perfecto.</td></tr>
+      <tr class="tt-hlr"><td class="tv">V</td><td class="tf">F</td><td class="tf">F</td><td style="text-align:left;font-size:.75rem;color:var(--X);font-weight:700;">Prometí ✓, NO cumplí ✗ — ¡rompí la promesa!</td></tr>
+      <tr class="tt-hl"><td class="tf">F</td><td class="tv">V</td><td class="tv">V</td><td style="text-align:left;font-size:.75rem;color:var(--G);">No prometí, pero invité igual — no hubo falta.</td></tr>
+      <tr class="tt-hl"><td class="tf">F</td><td class="tf">F</td><td class="tv">V</td><td style="text-align:left;font-size:.75rem;color:var(--G);">No prometí, no invité — tampoco falté.</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="ct">Formas de argumento con el condicional</div>
+    <p style="font-size:.83rem;color:var(--muted);margin-bottom:11px;">
+      El condicional es la base de cuatro formas de argumento. Dos son válidas. Dos son falacias clásicas. Toca cada una para ver el análisis:
+    </p>
+    <div id="arg-forms"></div>
+  </div>
+
+  <div class="nav-row">
+    <button class="btn btn-back" onclick="sw(2)">← Conectivos</button>
+    <button class="btn btn-next" onclick="sw(4)">Cooperativo →</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     M4 — COOPERATIVO
+═══════════════════════════════════════ -->
+<div class="mod" id="m4">
+  <div class="srow"><span class="sb sb-coop">👥 Actividad cooperativa — en clase · 22 minutos</span></div>
+
+  <div class="coop-wrap">
+    <div class="coop-hdr">
+      <span class="coop-icon">🔍</span>
+      <div>
+        <div class="coop-title">"El Detector de Falacias"</div>
+        <span class="coop-timer">⏱ 22 minutos · Tríos</span>
+      </div>
+    </div>
+
+    <div class="coop-inter">📎 Interdependencia positiva: un solo análisis por grupo — cada rol es indispensable</div>
+
+    <p style="font-size:.83rem;line-height:1.65;margin-bottom:12px;">
+      Su trío actuará como un <strong>equipo de revisión par</strong> que debe dictaminar si cuatro argumentos — tomados de contextos reales de psicología y vida colombiana — son válidos o contienen una falacia lógica. Si hay falacia, deben nombrarla y explicar por qué el argumento falla.
+    </p>
+
+    <div class="role-list">
+      <div class="role-row">
+        <span class="role-tag rt-coord">COORD.</span>
+        <div>Lee cada argumento en voz alta. Asegura que todos voten simultáneamente (sin revelar) antes de discutir. Si hay desacuerdo: "¿Cuál es la forma lógica exacta? ¿Cuáles son p y q?"</div>
+      </div>
+      <div class="role-row">
+        <span class="role-tag rt-sec">SECRET.</span>
+        <div>Registra en el Cuaderno de Equipo: la forma lógica identificada (p→q, premisa dada, conclusión), la clasificación del grupo, y ⚠️ si el equipo tardó más de 90 seg en consenso.</div>
+      </div>
+      <div class="role-row">
+        <span class="role-tag rt-voc">VOCERO</span>
+        <div>Presenta el Argumento 4 en la plenaria: primero la forma lógica, luego la clasificación, luego la evidencia que convenció al grupo. Sin leer el cuaderno.</div>
+      </div>
+    </div>
+
+    <div class="coop-steps">
+      <div class="cstep"><div class="cstep-n">1</div><div><strong>3 min:</strong> Cada integrante lee en silencio los 4 argumentos. Escribe en su cuaderno: forma lógica y clasificación tentativa. Sin discutir todavía.</div></div>
+      <div class="cstep"><div class="cstep-n">2</div><div><strong>12 min:</strong> Para cada argumento (3 min c/u): el Coordinador lo lee en voz alta, el grupo vota simultáneamente (válido / falacia) con pulgar arriba o abajo. Si hay desacuerdo, debaten identificando la forma lógica.</div></div>
+      <div class="cstep"><div class="cstep-n">3</div><div><strong>4 min:</strong> El grupo prepara la presentación del Argumento 4 para la plenaria (forma lógica → clasificación → justificación).</div></div>
+      <div class="cstep"><div class="cstep-n">4</div><div><strong>3 min:</strong> Plenaria — cada Vocero presenta. Procesamiento grupal final.</div></div>
+    </div>
+
+    <div id="coop-args"></div>
+
+    <div class="coop-note" style="margin-top:10px;">
+      <strong style="color:var(--C);">📓 Cuaderno de Equipo — registro obligatorio:</strong><br>
+      Para cada argumento: p = ___ · q = ___ · Forma: [MP / MT / AC / NA] · Válido/Falacia · Si falacia: ¿por qué falla?<br>
+      Al final — procesamiento grupal: <em>"¿Cuál argumento les generó más duda? ¿Por qué?"</em>
+    </div>
+  </div>
+
+  <div class="al al-V" style="margin-top:4px;">
+    <strong>Responsabilidad individual (Johnson &amp; Johnson):</strong> El docente puede preguntar a cualquier integrante — no solo al Vocero — que explique la forma lógica de cualquier argumento.
+  </div>
+
+  <div class="nav-row">
+    <button class="btn btn-back" onclick="sw(3)">← Condicional</button>
+    <button class="btn btn-next" onclick="sw(5)">Quiz →</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     M5 — QUIZ
+═══════════════════════════════════════ -->
+<div class="mod" id="m5">
+  <div class="srow"><span class="sb sb-clase">📝 Individual · silencio · responde todo antes de ver la nota</span></div>
+
+  <div class="card">
+    <div class="ct">Autoevaluación con guardado automático</div>
+    <p class="card-title">10 preguntas · Nota sobre 5.0</p>
+    <div class="quiz-saved" id="quiz-saved">💾 Respuestas guardadas en este dispositivo</div>
+    <p style="font-size:.81rem;color:var(--muted);line-height:1.6;">Tus respuestas se guardan automáticamente. Si actualizas la página, seguirán ahí. Responde todas y presiona <em>"Ver mi nota"</em> al final.</p>
+  </div>
+
+  <div id="quiz-container"></div>
+
+  <button class="quiz-btn" id="quiz-btn" onclick="gradeQuiz()">Ver mi nota →</button>
+  <button onclick="resetQuiz()" style="width:100%;padding:9px;margin-top:6px;background:rgba(0,0,0,.05);border:1px solid var(--bdr);border-radius:11px;font-size:.78rem;color:var(--muted);cursor:pointer;">↺ Reiniciar quiz</button>
+
+  <div class="score-box" id="score-box">
+    <div style="font-size:.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;">Tu nota</div>
+    <span class="score-big" id="score-big">0.0</span>
+    <div style="font-size:.75rem;color:var(--muted);margin-top:4px;">sobre 5.0</div>
+    <div class="score-bar"><div class="score-fill" id="score-fill" style="width:0%"></div></div>
+    <div class="score-msg" id="score-msg"></div>
+    <button onclick="sw(6)" style="margin-top:16px;background:linear-gradient(135deg,var(--T),var(--Tm));color:#fff;border:none;border-radius:11px;padding:11px 22px;font-size:.84rem;font-weight:700;cursor:pointer;width:100%;">Continuar → Trabajo para casa</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     M6 — PARA CASA
+═══════════════════════════════════════ -->
+<div class="mod" id="m6">
+  <div class="srow"><span class="sb sb-casa">🏠 Todo este módulo es para casa</span></div>
+
+  <div class="card" style="background:linear-gradient(135deg,rgba(13,148,136,.06),rgba(217,119,6,.04));border-color:var(--Tb);">
+    <div class="ct" style="color:var(--T);">Plan de consolidación — 3 días</div>
+    <p class="card-title" style="color:var(--T);">Cómo se aprende esto de verdad</p>
+    <p style="font-size:.83rem;line-height:1.68;margin-bottom:12px;">
+      La investigación en ciencias del aprendizaje (Rosenshine, 2012; Sweller &amp; van Merriënboer, 2022) muestra que la comprensión en clase es <em>solo el primer paso</em>. El conocimiento se consolida con <strong>práctica distribuida</strong> (en días diferentes), <strong>recuperación activa</strong> (recordar sin mirar) y <strong>variación de contextos</strong> (aplicar la misma idea en situaciones distintas). Este módulo está diseñado para eso.
+    </p>
+    <div class="plan-rows">
+      <div class="plan-row" style="background:var(--Gl);border-color:var(--Gb);">
+        <div class="plan-day" style="color:var(--G);">Día 1 — Hoy (después de clase)</div>
+        <div class="plan-desc">Nivel A: Identificar proposiciones (10 ejercicios). Nivel B: Negaciones (8 ejercicios). Objetivo: distinguir qué tiene valor de verdad y cómo se niega. ≈ 25 min.</div>
+      </div>
+      <div class="plan-row" style="background:var(--Vl);border-color:var(--Vb);">
+        <div class="plan-day" style="color:var(--V);">Día 2 — Mañana</div>
+        <div class="plan-desc">Nivel C: Conectivos y tablas de verdad (10 ejercicios). Nivel D: El condicional (8 ejercicios). Objetivo: calcular valores de verdad y reconocer las formas de argumento. ≈ 30 min.</div>
+      </div>
+      <div class="plan-row" style="background:var(--Al);border-color:var(--Ab);">
+        <div class="plan-day" style="color:var(--A);">Día 3 — Dos días antes de la próxima clase</div>
+        <div class="plan-desc">Nivel E: Falacias en contextos reales (5 ejercicios avanzados). Entregable. Objetivo: aplicar todo el esquema en argumentos reales de psicología. ≈ 35 min.</div>
+      </div>
+      <div class="plan-row" style="background:var(--Cl);border-color:var(--Cb);">
+        <div class="plan-day" style="color:var(--C);">Entregable — Traer a la próxima clase</div>
+        <div class="plan-desc">Busca un argumento real (artículo, noticia, redes, conversación) con forma "si… entonces…". Analízalo con la forma lógica. Vale como parte de la nota.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NIVEL A -->
+  <div class="hw-section" style="background:var(--Gl);border-color:var(--Gb);">
+    <p class="hw-title" style="color:var(--G);">Nivel A — Identificar proposiciones</p>
+    <p class="hw-sub">Toca cada frase. Decide antes de ver la respuesta. Puedes repetir el ejercicio.</p>
+    <div id="hw-a"></div>
+  </div>
+
+  <!-- NIVEL B -->
+  <div class="hw-section" style="background:var(--Vl);border-color:var(--Vb);">
+    <p class="hw-title" style="color:var(--V);">Nivel B — Negaciones</p>
+    <p class="hw-sub">Selecciona la negación correcta de cada enunciado. Toca para ver el análisis al final.</p>
+    <div id="hw-b"></div>
+  </div>
+
+  <!-- NIVEL C -->
+  <div class="hw-section" style="background:var(--Tl);border-color:var(--Tb);">
+    <p class="hw-title" style="color:var(--T);">Nivel C — Conectivos y tablas de verdad</p>
+    <p class="hw-sub">En todos los ejercicios: p = V ("Estoy en Faca"), q = F ("Está lloviendo"), r = V ("Tengo datos"). Calcula el valor.</p>
+    <div id="hw-c"></div>
+  </div>
+
+  <!-- NIVEL D -->
+  <div class="hw-section" style="background:var(--Al);border-color:var(--Ab);">
+    <p class="hw-title" style="color:var(--A);">Nivel D — El condicional y las formas de argumento</p>
+    <p class="hw-sub">Identifica la forma del argumento y si es válido o una falacia.</p>
+    <div id="hw-d"></div>
+  </div>
+
+  <!-- NIVEL E -->
+  <div class="hw-section" style="background:var(--Cl);border-color:var(--Cb);">
+    <p class="hw-title" style="color:var(--C);">Nivel E — Falacias en investigación y vida real</p>
+    <p class="hw-sub">Argumentos más complejos, del tipo que aparece en artículos de psicología y en debates cotidianos.</p>
+    <div id="hw-e"></div>
+  </div>
+
+  <!-- ENTREGABLE -->
+  <div class="card" style="border-color:var(--Cb);">
+    <div class="ct" style="color:var(--C);">📋 Entregable para la próxima clase (vale nota)</div>
+    <p style="font-size:.84rem;line-height:1.65;margin-bottom:11px;">
+      Busca en una noticia, red social, artículo de psicología o conversación cotidiana un argumento que tenga la forma condicional (si… entonces…). Analízalo así:
+    </p>
+    <div style="background:var(--card2);border-radius:11px;padding:13px;font-size:.79rem;line-height:1.9;font-family:var(--mono);border:1px solid var(--bdr);">
+      Fuente: ___________________________<br>
+      Argumento textual: _________________<br>
+      p (antecedente) = ___________________<br>
+      q (consecuente) = ___________________<br>
+      Forma: p→q · Premisa adicional dada: ___<br>
+      Tipo: [Modus Ponens / Modus Tollens / Afirma consecuente / Niega antecedente]<br>
+      ¿Es válido? __ Justificación: __________
+    </div>
+    <div class="hint" style="margin-top:9px;">💡 Busca en El Tiempo, Semana, artículos de la APA, o cualquier debate en redes. Cualquier frase del tipo "los que X tienden a Y" puede analizarse como condicional.</div>
+  </div>
+
+</div><!-- /m6 -->
+</div><!-- /wrap -->
+
+<div class="footer">
+  <p><strong>Lógica Matemática · Clase 8 · Matemáticas I · UdeC Facatativá · 2026</strong></p>
+  <p>Miller, Heeren &amp; Hornsby — §3 · Johnson &amp; Johnson (1994) · Pujolàs &amp; Lago (CA/AC) · Duran (2018)</p>
+  <p>Guardado en este dispositivo con localStorage — puedes cerrar y volver.</p>
+</div>
+
+<div id="toast"></div>
+
+<script>
+// ══════════════════════════════════════
+// DATA
+// ══════════════════════════════════════
+
+const QUIZ_KEY = 'logica_v2_c8_2026';
+
+const GANCHO_ITEMS = [
+  {text:'"La tasa de depresión en universitarios colombianos supera el 15%."',isP:true,why:'✓ Proposición — puede verificarse con datos del Ministerio de Salud o estudios epidemiológicos.'},
+  {text:'"¿Cuántos créditos llevas este semestre?"',isP:false,why:'✗ Pregunta — no tiene valor de verdad. No puede ser verdadera ni falsa.'},
+  {text:'"Todos los participantes del estudio firmaron el consentimiento informado."',isP:true,why:'✓ Proposición universal — verificable revisando la documentación del estudio.'},
+  {text:'"No uses el celular durante la exposición."',isP:false,why:'✗ Mandato/imperativo — no tiene valor de verdad.'},
+  {text:'"Esta frase es falsa."',isP:false,why:'✗ Paradoja — si es verdadera, entonces es falsa. Si es falsa, entonces es verdadera. No tiene valor de verdad estable.'},
+  {text:'"Algunos psicólogos trabajan en el sistema penitenciario colombiano."',isP:true,why:'✓ Proposición existencial — y es verdadera: el INPEC tiene psicólogos en muchos establecimientos.'}
+];
+
+const M1_PRACTICE = [
+  {text:'"La psicología forense aplica principios psicológicos al sistema legal."',isP:true,why:'✓ Proposición — afirmación verificable sobre una disciplina.'},
+  {text:'"¡Qué parcial tan difícil te pusieron!"',isP:false,why:'✗ Exclamación — no tiene valor de verdad.'},
+  {text:'"El 7 es un número primo."',isP:true,why:'✓ Proposición matemática — y es verdadera.'},
+  {text:'"Ojalá no llueva en Faca esta semana."',isP:false,why:'✗ Deseo — los deseos no son V ni F.'},
+  {text:'"Ningún diagnóstico psiquiátrico puede basarse solo en un cuestionario."',isP:true,why:'✓ Proposición universal — discutible empíricamente, pero tiene valor de verdad.'},
+  {text:'"Devuelve el libro de la biblioteca."',isP:false,why:'✗ Mandato — no tiene valor de verdad.'}
+];
+
+const M2_PRACTICE = [
+  {q:'¿Cuál es el valor de p ∧ q? (p=V, q=F)',opts:['Verdadero','Falso'],ans:1,fb:'V ∧ F = F. La conjunción requiere que AMBAS sean V.'},
+  {q:'¿Cuál es el valor de p ∨ q? (p=V, q=F)',opts:['Verdadero','Falso'],ans:0,fb:'V ∨ F = V. La disyunción es F solo cuando AMBAS son F.'},
+  {q:'¿Cuál es el valor de ¬p? (p=V)',opts:['Verdadero','Falso'],ans:1,fb:'¬V = F. La negación invierte el valor.'},
+  {q:'¿Cuál es el valor de ¬p ∧ q? (p=V, q=F)',opts:['Verdadero','Falso'],ans:1,fb:'¬p = F. F ∧ F = F.'},
+  {q:'¿Cuál es el valor de p ∨ ¬q? (p=V, q=F)',opts:['Verdadero','Falso'],ans:0,fb:'¬q = V. V ∨ V = V.'}
+];
+
+const PROM_ROWS = [
+  {p:'V',q:'V',result:'V',cls:'',explain:'Aprobaste todo ✓ e invitaste ✓ — cumpliste la promesa. El condicional es verdadero.'},
+  {p:'V',q:'F',result:'F',cls:'false-row',explain:'Aprobaste todo ✓ pero NO invitaste ✗ — ¡rompiste la promesa! ÚNICA fila falsa del condicional.'},
+  {p:'F',q:'V',result:'V',cls:'',explain:'No aprobaste todo ✗ pero invitaste igual ✓ — no rompiste la promesa (eras generoso). Verdadero.'},
+  {p:'F',q:'F',result:'V',cls:'',explain:'No aprobaste ✗ y no invitaste ✗ — pero eso no está en la promesa. No la rompiste. Verdadero.'}
+];
+
+const ARG_FORMS = [
+  {valid:true,name:'Modus Ponens',color:'G',symbol:'✓',
+   form:'p → q\np\n∴ q',
+   example:'"Si el estudiante cumple 6+ criterios de TDAH (p), puede diagnosticarse (q). Laura cumple 7 criterios (p). Por tanto, puede diagnosticarse (q)."',
+   explain:'VÁLIDO. Si la promesa es cierta y el antecedente ocurre, el consecuente debe seguirse. La forma más sólida del razonamiento clínico basado en criterios.'},
+  {valid:false,name:'Afirmar el consecuente',color:'X',symbol:'✗',
+   form:'p → q\nq\n∴ p',
+   example:'"Si hay trauma temprano (p), puede haber dificultades de apego (q). Esta persona tiene dificultades de apego (q). Por tanto, tuvo trauma temprano (p)."',
+   explain:'FALACIA. Las dificultades de apego pueden tener muchas otras causas: pérdida, abuso, separación, etc. El condicional no dice que p sea la ÚNICA causa de q.'},
+  {valid:true,name:'Modus Tollens',color:'G',symbol:'✓',
+   form:'p → q\n¬q\n∴ ¬p',
+   example:'"Si la intervención fue efectiva (p), los síntomas mejoran (q). Los síntomas NO mejoraron (¬q). Por tanto, la intervención NO fue efectiva (¬p)."',
+   explain:'VÁLIDO. Si la promesa es cierta y el consecuente NO ocurre, el antecedente tampoco pudo haber ocurrido. Muy usado en evaluación de programas.'},
+  {valid:false,name:'Negar el antecedente',color:'X',symbol:'✗',
+   form:'p → q\n¬p\n∴ ¬q',
+   example:'"Si hay acoso escolar (p), el estudiante baja sus notas (q). Pedro no tiene acoso escolar (¬p). Por tanto, Pedro no bajará sus notas (¬q)."',
+   explain:'FALACIA. Las notas pueden bajar por problemas familiares, económicos, de salud, o muchas otras razones. Que no haya acoso no garantiza que las notas estén bien.'}
+];
+
+const COOP_ARGS = [
+  {label:'Argumento 1',color:'G',verdict:'Modus Ponens — VÁLIDO',
+   text:'"En Colombia, si una persona puntúa más de 63 en el Inventario de Depresión de Beck (BDI-II), presenta criterios para depresión severa. Santiago puntúa 67. Por tanto, Santiago presenta criterios para depresión severa."',
+   explain:'Forma: p→q, p, ∴ q (Modus Ponens). Válido. Aunque en la práctica clínica siempre se complementa con entrevista, el argumento lógico en sí es correcto.'},
+  {label:'Argumento 2',color:'X',verdict:'Afirmar el consecuente — FALACIA',
+   text:'"Si alguien usa redes sociales más de 8 horas al día, tiene mayor riesgo de ansiedad. Valentina tiene mayor riesgo de ansiedad. Por tanto, usa redes más de 8 horas al día."',
+   explain:'Forma: p→q, q, ∴ p. Falacia. El riesgo de ansiedad puede tener otras causas: trabajo estresante, problemas académicos, factores genéticos, conflictos relacionales.'},
+  {label:'Argumento 3',color:'X',verdict:'Negar el antecedente — FALACIA',
+   text:'"Si el gobierno invierte en programas de salud mental comunitaria, la tasa de suicidio en jóvenes baja. El gobierno no invirtió en esos programas. Por tanto, la tasa no bajará."',
+   explain:'Forma: p→q, ¬p, ∴ ¬q. Falacia. La tasa puede bajar por otras razones: comunidades que se organizan, intervenciones privadas, campañas de universidades, etc.'},
+  {label:'Argumento 4',color:'G',verdict:'Modus Tollens — VÁLIDO',
+   text:'"Si la intervención psicosocial con víctimas de desplazamiento fue efectiva, los participantes reportarán menor nivel de estrés postraumático al final del programa. Los participantes NO reportaron menor nivel de estrés al final. Por tanto, la intervención no fue efectiva."',
+   explain:'Forma: p→q, ¬q, ∴ ¬p (Modus Tollens). Válido. Este es el razonamiento que usan los evaluadores de programas para determinar eficacia. La lógica es correcta — otra cosa es si la premisa condicional es verdadera (lo cual requiere evidencia).'}
+];
+
+const QUIZ = [
+  {q:'¿Cuál de los siguientes ES una proposición?',
+   opts:['¡Qué difícil está el parcial!','¿Dormiste bien anoche?','La prevalencia de ansiedad en universitarios colombianos supera el 20%.','No salgas sin el consentimiento informado.'],
+   ans:2,fb:'Solo la opción C puede ser verdadera o falsa — y verificarse con datos. Las demás son exclamación, pregunta y mandato: ninguna tiene valor de verdad.'},
+  {q:'La negación correcta de "Todos los psicólogos trabajan en clínica" es:',
+   opts:['Ningún psicólogo trabaja en clínica.','Algunos psicólogos no trabajan en clínica.','Todos los psicólogos no trabajan en clínica.','La mayoría trabaja en otra área.'],
+   ans:1,fb:'La negación de "todos" es "alguno que no". Solo necesitamos UN contraejemplo para refutar el universal. Decir "ninguno" es exagerado y generalmente falso.'},
+  {q:'Sea p = V y q = F. ¿Cuál es el valor de p ∧ q?',
+   opts:['Verdadero','Falso','Depende del contexto','Indeterminado'],
+   ans:1,fb:'V ∧ F = F. La conjunción solo es V cuando AMBAS son V. Como el doble seguro: si falta una condición, no se cumple.'},
+  {q:'Mismas variables: p = V, q = F. ¿Cuál es el valor de p ∨ q?',
+   opts:['Verdadero','Falso','El mismo que p ∧ q','No se puede calcular'],
+   ans:0,fb:'V ∨ F = V. La disyunción es F SOLO cuando ambas son F. Basta con que una sea verdadera.'},
+  {q:'En la tabla de verdad del condicional (→), ¿en cuál caso p → q es FALSO?',
+   opts:['p = V, q = V','p = V, q = F','p = F, q = V','p = F, q = F'],
+   ans:1,fb:'La única forma de "romper la promesa" es: prometiste (p=V) y no cumpliste (q=F). Cuando p=F, no importa qué pase con q — no se rompió ninguna promesa.'},
+  {q:'"Si alguien cumple 6+ criterios del DSM-5 para TDAH, el clínico puede diagnosticarlo. Laura cumple 7. Por tanto, el clínico puede diagnosticarla." Forma:',
+   opts:['Falacia — afirmar el consecuente','Falacia — negar el antecedente','Modus Tollens (válido)','Modus Ponens (válido)'],
+   ans:3,fb:'Modus Ponens: p→q, p, ∴ q. Válido. La premisa condicional es cierta, el antecedente se cumple (7 criterios), la conclusión se sigue necesariamente.'},
+  {q:'"Si la muestra es representativa, los resultados son generalizables. Los resultados NO son generalizables. Por tanto, la muestra NO fue representativa." Esto es:',
+   opts:['Modus Tollens (válido)','Falacia — negar el antecedente','Falacia — afirmar el consecuente','Modus Ponens'],
+   ans:0,fb:'Modus Tollens: p→q, ¬q, ∴ ¬p. Válido. Si la promesa es cierta y el consecuente no ocurre, el antecedente tampoco ocurrió.'},
+  {q:'"Si el candidato es honesto, no acepta sobornos. El candidato aceptó un soborno. Por tanto, no es honesto." ¿Cuál es la forma?',
+   opts:['Falacia de afirmar el consecuente','Modus Tollens (válido)','Falacia de negar el antecedente','Modus Ponens'],
+   ans:1,fb:'Modus Tollens: p→q (honesto→no-soborno), ¬q (aceptó soborno), ∴ ¬p (no es honesto). Válido — es la lógica básica del periodismo de investigación.'},
+  {q:'La conjunción p ∧ q corresponde a qué operación entre conjuntos:',
+   opts:['La unión A ∪ B','El complemento A\'','La intersección A ∩ B','La diferencia A − B'],
+   ans:2,fb:'p ∧ q es el "y" lógico: verdadero cuando AMBAS lo son. A ∩ B es el conjunto de los elementos que están en A Y en B. La misma lógica con diferente notación.'},
+  {q:'"Si hay correlación perfecta entre dos variables, r = 1. El coeficiente es r = 1. Por tanto, hay correlación perfecta." ¿Problema?',
+   opts:['Ninguno — Modus Ponens válido','Falacia de afirmar el consecuente: r=1 puede tener otras interpretaciones en contextos distintos','Falacia de negar el antecedente','Modus Tollens mal aplicado'],
+   ans:1,fb:'Afirmar el consecuente. Se asume que la única forma de llegar a r=1 es la correlación perfecta — pero el condicional no dice eso. Error clásico en interpretación de resultados estadísticos.'}
+];
+
+const HW_A = [
+  {text:'"La UdeC tiene sede en Facatativá."',isP:true,why:'Proposición ✓ — afirmación verificable. (Y es verdadera.)'},
+  {text:'"¡Cuánto calor hace hoy en Bogotá!"',isP:false,why:'No es proposición — exclamación. No tiene valor de verdad.'},
+  {text:'"Algunos estudiantes de psicología trabajan mientras estudian."',isP:true,why:'Proposición existencial ✓ — verificable con encuesta.'},
+  {text:'"No uses el celular durante la exposición."',isP:false,why:'No es proposición — mandato/imperativo.'},
+  {text:'"¿Cuántos créditos llevas este semestre?"',isP:false,why:'No es proposición — pregunta. No tiene valor de verdad.'},
+  {text:'"En Colombia, el suicidio es la segunda causa de muerte en jóvenes de 15 a 24 años."',isP:true,why:'Proposición ✓ — verificable con datos del Ministerio de Salud.'},
+  {text:'"Esta oración es falsa."',isP:false,why:'Paradoja — si es V, es F; si es F, es V. No tiene valor de verdad estable.'},
+  {text:'"Ningún diagnóstico psiquiátrico puede establecerse solo con un cuestionario."',isP:true,why:'Proposición universal ✓ — es verdadera según los estándares de práctica clínica basada en evidencia.'},
+  {text:'"Ojalá mejore la señal de wifi en el campus."',isP:false,why:'No es proposición — deseo. Los deseos no son V ni F.'},
+  {text:'"El número 7 es primo."',isP:true,why:'Proposición matemática ✓ — y es verdadera.'}
+];
+
+const HW_B = [
+  {q:'Negación de: "Todos los participantes firmaron el consentimiento informado."',
+   opts:['Nadie firmó el consentimiento.','Algunos participantes no firmaron el consentimiento.','Ningún participante firmó nada.','Los consentimientos son inválidos.'],
+   ans:1,fb:'Negación de "todos" → "alguno que no". Solo se necesita un caso de incumplimiento para refutar el universal.'},
+  {q:'Negación de: "Ningún psicólogo forense trabaja con menores de edad."',
+   opts:['Todos los psicólogos forenses trabajan con menores.','Algunos psicólogos forenses no trabajan con menores.','Algún psicólogo forense trabaja con menores de edad.','Nadie trabaja con menores.'],
+   ans:2,fb:'Negación de "ninguno" → "alguno sí". Si "ninguno" es falso, existe al menos uno que sí.'},
+  {q:'Negación de: "Algunos estudios de psicología social no han sido replicados."',
+   opts:['Todos los estudios han sido replicados.','Ningún estudio ha sido replicado.','Algunos estudios han sido replicados.','Los estudios son irrelevantes.'],
+   ans:0,fb:'Negación de "algunos no" → "todos sí". Si es falso que alguno no haya sido replicado, todos lo fueron.'},
+  {q:'Negación de: "El estrés académico afecta el rendimiento en exámenes."',
+   opts:['El estrés no afecta nada.','El estrés académico no afecta el rendimiento en exámenes.','Algunos estreses no afectan.','El rendimiento no importa.'],
+   ans:1,fb:'Negación de proposición simple: añadir "no". La negación invierte el valor de verdad directo.'},
+  {q:'Negación de x > 8 (sin usar ≠):',
+   opts:['x < 8','x ≥ 8','x ≤ 8','x = 8'],
+   ans:2,fb:'Si x no es mayor que 8, entonces x ≤ 8. Negación de > es ≤.'},
+  {q:'Negación de: "Todo diagnóstico requiere al menos una sesión de evaluación."',
+   opts:['Ningún diagnóstico requiere sesión.','Algunos diagnósticos no requieren sesión de evaluación.','Los diagnósticos son incorrectos.','Todos los diagnósticos son iguales.'],
+   ans:1,fb:'Negación de "todo" → "alguno que no". No decimos que NINGUNO requiere sesión — solo que hay al menos uno que no.'},
+  {q:'Negación de: "La tasa de ansiedad en universitarios no supera el 25%."',
+   opts:['La tasa sí supera el 25%.','La tasa es exactamente 25%.','La tasa está entre 0% y 25%.','La tasa es 0%.'],
+   ans:0,fb:'Negación de "no supera el 25%" (es decir, ≤ 25%) es "sí supera el 25%" (> 25%).'},
+  {q:'Negación de: "Hay estudiantes que aprueban el parcial sin estudiar."',
+   opts:['Ningún estudiante aprueba sin estudiar.','Todos los estudiantes aprueban sin estudiar.','Algunos no aprueban.','Estudiar no sirve de nada.'],
+   ans:0,fb:'"Hay estudiantes que..." = "algunos...". Negación de "alguno sí" = "ninguno sí".'}
+];
+
+const HW_C = [
+  {q:'p=V, q=F. ¿Valor de p ∧ q?',opts:['V','F'],ans:1,fb:'V ∧ F = F. La conjunción requiere que AMBAS sean V.'},
+  {q:'p=V, q=F. ¿Valor de p ∨ q?',opts:['V','F'],ans:0,fb:'V ∨ F = V. La disyunción es F solo cuando ambas son F.'},
+  {q:'p=V. ¿Valor de ¬p?',opts:['V','F'],ans:1,fb:'¬V = F. La negación invierte.'},
+  {q:'q=F. ¿Valor de ¬q?',opts:['V','F'],ans:0,fb:'¬F = V. La negación invierte.'},
+  {q:'p=V, q=F. ¿Valor de ¬p ∧ q?',opts:['V','F'],ans:1,fb:'¬p = F. F ∧ F = F.'},
+  {q:'p=V, q=F. ¿Valor de p ∨ ¬q?',opts:['V','F'],ans:0,fb:'¬q = V. V ∨ V = V.'},
+  {q:'p=V, q=F. ¿Valor de ¬(p ∧ q)?',opts:['V','F'],ans:0,fb:'p∧q = F. ¬F = V.'},
+  {q:'p=F, q=F. ¿Valor de p ∨ q?',opts:['V','F'],ans:1,fb:'F ∨ F = F. Única forma de que la disyunción sea F.'},
+  {q:'p=V, q=F. ¿Valor de p → q?',opts:['V','F'],ans:1,fb:'V→F = F. Prometiste (V) y no cumpliste (F) — única fila falsa del condicional.'},
+  {q:'p=F, q=V. ¿Valor de p → q?',opts:['V','F'],ans:0,fb:'F→V = V. No prometiste — no rompiste ninguna promesa.'}
+];
+
+const HW_D = [
+  {q:'"Si alguien tiene estrés crónico, su sistema inmunológico se debilita. Juan tiene estrés crónico. Por tanto, su sistema inmunológico se debilita." La forma es:',
+   opts:['Falacia de afirmar el consecuente','Modus Tollens (válido)','Modus Ponens (válido)','Falacia de negar el antecedente'],
+   ans:2,fb:'Modus Ponens: p→q, p, ∴ q. Válido. La premisa condicional se asume cierta, el antecedente se cumple, la conclusión se sigue.'},
+  {q:'"Si una intervención tiene evidencia científica, la EPS la puede cubrir. Esta intervención NO tiene evidencia. Por tanto, la EPS no la cubrirá." La forma es:',
+   opts:['Modus Ponens','Modus Tollens','Falacia de negar el antecedente','Falacia de afirmar el consecuente'],
+   ans:2,fb:'Falacia de negar el antecedente: p→q, ¬p, ∴ ¬q. Inválida. La EPS puede cubrirla por acuerdo legal, política pública, o presión de usuarios.'},
+  {q:'"Si el estudio tiene sesgos metodológicos, sus conclusiones son cuestionables. Las conclusiones son cuestionables. Por tanto, el estudio tiene sesgos." La forma es:',
+   opts:['Válido — Modus Ponens','Falacia de afirmar el consecuente','Válido — Modus Tollens','Falacia de negar el antecedente'],
+   ans:1,fb:'Falacia de afirmar el consecuente: p→q, q, ∴ p. Las conclusiones pueden ser cuestionables por muestra pequeña, falta de grupo control, errores de medición, etc.'},
+  {q:'"Si una persona tuvo trauma temprano, presenta dificultades de regulación emocional. Esta persona NO presenta dificultades de regulación. Por tanto, no tuvo trauma temprano." La forma es:',
+   opts:['Falacia de negar el antecedente','Modus Ponens','Falacia de afirmar el consecuente','Modus Tollens (válido)'],
+   ans:3,fb:'Modus Tollens: p→q, ¬q, ∴ ¬p. Válido. Si la premisa condicional es cierta y el consecuente no ocurre, el antecedente tampoco ocurrió.'},
+  {q:'¿Cuándo es la ÚNICA vez que el condicional p → q es FALSO?',
+   opts:['Cuando p=V y q=V','Cuando p=V y q=F','Cuando p=F y q=V','Cuando p=F y q=F'],
+   ans:1,fb:'Solo cuando prometiste (p=V) y no cumpliste (q=F). En los otros tres casos no hay ruptura de promesa.'},
+  {q:'"Si hay acoso escolar, el estudiante baja sus calificaciones. Pedro tiene bajas calificaciones. Por tanto, Pedro sufrió acoso escolar." El error lógico es:',
+   opts:['No hay error — Modus Ponens','Afirma el consecuente: las calificaciones bajas tienen muchas causas posibles','Niega el antecedente','Modus Tollens mal aplicado'],
+   ans:1,fb:'Afirmar el consecuente. Las calificaciones pueden bajar por problemas familiares, económicos, de salud, dificultades de aprendizaje. El acoso no es la única causa.'},
+  {q:'"Si se aplica correctamente el protocolo de crisis, el riesgo de suicidio disminuye. El riesgo NO disminuyó. Por tanto, el protocolo no se aplicó correctamente." La forma es:',
+   opts:['Falacia de negar el antecedente','Modus Ponens','Modus Tollens (válido)','Falacia de afirmar el consecuente'],
+   ans:2,fb:'Modus Tollens: p→q, ¬q, ∴ ¬p. Válido. Este es el razonamiento estándar en evaluación de programas de intervención.'},
+  {q:'¿Qué tienen en común el Modus Ponens y el Modus Tollens?',
+   opts:['Ambos son falacias','Ambos son formas VÁLIDAS de argumento con el condicional','Ambos requieren que p sea verdadera','Ambos son lo mismo aplicado al revés'],
+   ans:1,fb:'Ambos son argumentos válidos. MP va "hacia adelante" (del antecedente al consecuente). MT va "hacia atrás" (de la negación del consecuente a la negación del antecedente). Las dos formas correctas de razonar con "si... entonces".'}
+];
+
+const HW_E = [
+  {q:'Una noticia dice: "Los países que invierten más en educación tienen menos delincuencia. Dinamarca invierte mucho en educación. Luego, Dinamarca tiene poca delincuencia." ¿Es válido?',
+   opts:['Sí — Modus Ponens perfectamente válido','No — afirma el consecuente','No — niega el antecedente','Sí — Modus Tollens'],
+   ans:0,fb:'Sí, es Modus Ponens: p→q, p, ∴ q. El argumento es lógicamente válido. Si la PREMISA es discutible (¿es siempre así?), ese es un problema empírico, no un error de forma lógica.'},
+  {q:'Un político dice: "Los países sin corrupción tienen buena calidad de vida para todos. Colombia no tiene buena calidad de vida para todos. Por tanto, hay corrupción." ¿Forma lógica?',
+   opts:['Modus Ponens','Falacia de negar el antecedente','Modus Tollens (válido)','Falacia de afirmar el consecuente'],
+   ans:2,fb:'Modus Tollens: p→q, ¬q, ∴ ¬p. El argumento es lógicamente válido — aunque la premisa ("países sin corrupción tienen buena calidad para todos") pueda cuestionarse empíricamente.'},
+  {q:'Un influencer dice: "Si meditas 20 min al día, reduces el estrés. Yo no medito. Por tanto, tendré más estrés." Error lógico:',
+   opts:['Modus Tollens mal llamado','Falacia de negar el antecedente — hay otras formas de reducir el estrés','Modus Ponens inverso','No hay error'],
+   ans:1,fb:'Negar el antecedente: p→q, ¬p, ∴ ¬q. Inválida. El estrés puede reducirse con ejercicio, apoyo social, terapia, tiempo en naturaleza, sueño. La meditación no es la única vía.'},
+  {q:'Un investigador concluye: "Los estudiantes con estrés alto (p) también reportaron menor satisfacción de vida (q). Por tanto, p→q es una ley universal." ¿Problema?',
+   opts:['Ninguno — Modus Ponens correcto','La correlación en una muestra no establece una ley universal — hay un salto inductivo no justificado','Falacia de afirmar el consecuente','Modus Tollens incorrecto'],
+   ans:1,fb:'Este es el problema de la inducción: de casos observados no puede concluirse una ley universal. La lógica proposicional asume premisas verdaderas — verificar si las premisas son universalmente verdaderas es trabajo empírico.'},
+  {q:'"Si el niño fue negligenciado (p), puede desarrollar apego ansioso (q). Si tiene apego ansioso (q), puede tener dificultades en relaciones adultas (r). Sebastián fue negligenciado." ¿Qué se puede concluir?',
+   opts:['Nada — los condicionales no se encadenan','Sebastián puede tener dificultades en relaciones adultas (Silogismo hipotético + Modus Ponens)','Solo que Sebastián tiene apego ansioso','Es una falacia de afirmar el consecuente'],
+   ans:1,fb:'Silogismo hipotético: p→q, q→r, ∴ p→r. Luego Modus Ponens: p→r, p, ∴ r. Válido. Este encadenamiento de condicionales es el razonamiento clínico típico: premisas basadas en evidencia conectadas para llegar a predicciones fundadas.'}
+];
+
+// ══════════════════════════════════════
+// STATE
+// ══════════════════════════════════════
+let qAnswers = {}, qGraded = false;
+
+function loadStorage(){
+  try{
+    const d = JSON.parse(localStorage.getItem(QUIZ_KEY)||'{}');
+    qAnswers = d.a||{}; qGraded = d.g||false;
+  }catch(e){}
+}
+
+function saveStorage(){
+  try{
+    localStorage.setItem(QUIZ_KEY,JSON.stringify({a:qAnswers,g:qGraded}));
+    document.getElementById('quiz-saved').classList.add('show');
+  }catch(e){}
+}
+
+// ══════════════════════════════════════
+// TAB SWITCH
+// ══════════════════════════════════════
+function sw(n){
+  document.querySelectorAll('.mod').forEach((m,i)=>m.classList.toggle('on',i===n));
+  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('on',i===n));
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ══════════════════════════════════════
+// TOAST
+// ══════════════════════════════════════
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2000);
+}
+
+// ══════════════════════════════════════
+// GANCHO
+// ══════════════════════════════════════
+function buildGancho(){
+  const c=document.getElementById('gancho-cards');
+  if(!c)return;
+  GANCHO_ITEMS.forEach((it,i)=>{
+    const d=document.createElement('div');
+    d.className='pc '+(it.isP?'is-prop':'not-prop');
+    d.innerHTML=`<div class="pc-text">${it.text}</div>
+    <div class="pc-tag">${it.why}</div>`;
+    d.onclick=()=>{d.classList.add('revealed');};
+    c.appendChild(d);
+  });
+}
+
+function showGanchoResult(){
+  const r=document.getElementById('gancho-result');
+  r.innerHTML='<strong>Así se llama lo que acabas de hacer: clasificar proposiciones.</strong><br>Las que tienen valor de verdad son proposiciones lógicas — el objeto de estudio de la lógica proposicional. Las que son preguntas, mandatos, exclamaciones o paradojas no pueden analizarse con este lenguaje. Hoy aprenderán a trabajar con las primeras.';
+  r.style.display='block';
+  document.querySelectorAll('.pc').forEach(el=>el.classList.add('revealed'));
+}
+
+// ══════════════════════════════════════
+// M1 PRACTICE
+// ══════════════════════════════════════
+function buildM1(){
+  const c=document.getElementById('m1-practice');
+  if(!c)return;
+  M1_PRACTICE.forEach(it=>{
+    const d=document.createElement('div');
+    d.className='pc '+(it.isP?'is-prop':'not-prop');
+    d.innerHTML=`<div class="pc-text">${it.text}</div>
+    <div class="pc-tag">${it.why}</div>`;
+    d.onclick=()=>d.classList.add('revealed');
+    c.appendChild(d);
+  });
+}
+
+// ══════════════════════════════════════
+// M2 PRACTICE
+// ══════════════════════════════════════
+function buildM2(){
+  const c=document.getElementById('m2-practice');
+  if(!c)return;
+  M2_PRACTICE.forEach((it,qi)=>{
+    const d=document.createElement('div');
+    d.style.cssText='margin-bottom:10px;';
+    let optsHtml=it.opts.map((o,oi)=>`
+      <div class="pick-opt" onclick="pickM2(${qi},${oi},${it.ans},this.parentNode,\`${it.fb}\`)" data-oi="${oi}">
+        <strong style="font-family:var(--mono);">${['A','B'][oi]}</strong> ${o}
+      </div>`).join('');
+    d.innerHTML=`<p style="font-size:.84rem;font-weight:600;margin-bottom:7px;">${it.q}</p>
+    <div class="pick-grid">${optsHtml}</div>
+    <div class="hw-reveal" id="m2fb-${qi}" style="display:none;background:var(--Tl);border:1px solid var(--Tb);color:var(--T);padding:9px 12px;border-radius:9px;font-size:.79rem;line-height:1.55;"></div>`;
+    c.appendChild(d);
+  });
+}
+
+function pickM2(qi,oi,ans,grid,fb){
+  const opts=grid.querySelectorAll('.pick-opt');
+  opts.forEach((o,i)=>{
+    o.classList.remove('sel','ok','ko');
+    if(i===ans) o.classList.add('ok');
+    else if(i===oi) o.classList.add('ko');
+  });
+  const fbEl=document.getElementById(`m2fb-${qi}`);
+  fbEl.textContent=fb; fbEl.style.display='block';
+}
+
+// ══════════════════════════════════════
+// M3 PROMISE ROWS
+// ══════════════════════════════════════
+function buildProm(){
+  const c=document.getElementById('prom-rows-cond');
+  if(!c)return;
+  PROM_ROWS.forEach(r=>{
+    const d=document.createElement('div');
+    d.className=`prom-row ${r.cls}`;
+    d.innerHTML=`
+      <div class="prom-cell" style="color:${r.p==='V'?'var(--G)':'var(--X)'}">${r.p}</div>
+      <div class="prom-cell" style="color:${r.q==='V'?'var(--G)':'var(--X)'}">${r.q}</div>
+      <div class="prom-cell" style="color:${r.result==='V'?'var(--G)':'var(--X)'};border-color:${r.result==='V'?'var(--Gb)':'var(--Xb)'};background:${r.result==='V'?'var(--Gl)':'var(--Xl)'};">${r.result}</div>
+      <div class="prom-explain">${r.explain}</div>`;
+    c.appendChild(d);
+  });
+}
+
+// ══════════════════════════════════════
+// M3 ARGUMENT FORMS
+// ══════════════════════════════════════
+function buildArgForms(){
+  const c=document.getElementById('arg-forms');
+  if(!c)return;
+  ARG_FORMS.forEach(a=>{
+    const d=document.createElement('div');
+    d.className='arg-card';
+    d.innerHTML=`
+      <div class="arg-top" style="color:var(--${a.color});">${a.symbol} ${a.name}</div>
+      <div style="font-family:var(--mono);font-size:.8rem;background:rgba(0,0,0,.04);border-radius:8px;padding:9px 11px;margin-bottom:7px;white-space:pre-line;line-height:1.7;">${a.form}</div>
+      <div class="arg-text">"${a.example}"</div>
+      <div class="reveal-btn">Ver análisis</div>
+      <div class="arg-reveal" style="background:var(--${a.color}l);border:1px solid var(--${a.color}b);color:var(--${a.color});">${a.explain}</div>`;
+    d.onclick=()=>d.classList.toggle('open');
+    c.appendChild(d);
+  });
+}
+
+// ══════════════════════════════════════
+// M4 COOPERATIVE ARGS
+// ══════════════════════════════════════
+function buildCoopArgs(){
+  const c=document.getElementById('coop-args');
+  if(!c)return;
+  COOP_ARGS.forEach((a,i)=>{
+    const d=document.createElement('div');
+    d.className='arg-card';
+    d.style.cssText='margin-bottom:10px;';
+    d.innerHTML=`
+      <div class="arg-top" style="color:var(--${a.color});">${a.label}</div>
+      <div class="arg-text">"${a.text}"</div>
+      <div class="reveal-btn">Ver veredicto (tocar DESPUÉS de la plenaria)</div>
+      <div class="arg-reveal" style="background:var(--${a.color}l);border:1px solid var(--${a.color}b);color:var(--${a.color});"><strong>${a.verdict}</strong><br>${a.explain}</div>`;
+    d.onclick=()=>d.classList.toggle('open');
+    c.appendChild(d);
+  });
+}
+
+// ══════════════════════════════════════
+// QUIZ
+// ══════════════════════════════════════
+function buildQuiz(){
+  const c=document.getElementById('quiz-container');
+  if(!c)return;
+  QUIZ.forEach((q,qi)=>{
+    const div=document.createElement('div');
+    div.className='quiz-q';
+    let optsHtml=q.opts.map((o,oi)=>`
+      <label class="quiz-opt ${qAnswers[qi]===oi?'sel':''}" id="qo-${qi}-${oi}" onclick="pickQuiz(${qi},${oi})">
+        <input type="radio" name="q${qi}" ${qAnswers[qi]===oi?'checked':''}>
+        <span>${['A','B','C','D'][oi]}) ${o}</span>
+      </label>`).join('');
+    div.innerHTML=`
+      <div class="quiz-num">Pregunta ${qi+1} de ${QUIZ.length}</div>
+      <div class="quiz-text">${q.q}</div>
+      <div class="quiz-opts">${optsHtml}</div>
+      <div class="q-fb" id="qfb-${qi}"></div>`;
+    c.appendChild(div);
+  });
+  if(qGraded) revealAll();
+}
+
+function pickQuiz(qi,oi){
+  if(qGraded)return;
+  qAnswers[qi]=oi;
+  saveStorage();
+  document.querySelectorAll(`[id^="qo-${qi}-"]`).forEach(el=>{
+    const thisOi=parseInt(el.id.split('-')[2]);
+    el.classList.toggle('sel',thisOi===oi);
+  });
+}
+
+function gradeQuiz(){
+  const total=QUIZ.length;
+  let answered=0;
+  for(let i=0;i<total;i++) if(qAnswers[i]!==undefined) answered++;
+  if(answered<total){toast(`Faltan ${total-answered} respuestas`);return;}
+  qGraded=true; saveStorage();
+  let correct=0;
+  QUIZ.forEach((q,qi)=>{const ok=qAnswers[qi]===q.ans;if(ok)correct++;});
+  revealAll();
+  const nota=(correct/total*5).toFixed(1);
+  const pct=correct/total*100;
+  document.getElementById('score-big').textContent=nota;
+  document.getElementById('score-fill').style.width=pct+'%';
+  const msgs=['Sigue practicando con los niveles de la sección Para casa.','Vas bien. Repasa los errores y practica el Nivel D.','Buen trabajo. Asegúrate de entender los errores de forma.','Muy bien. Estás listo para el trabajo en casa del Nivel E.','Excelente dominio. ¡Comparte tus estrategias con el grupo!'];
+  document.getElementById('score-msg').textContent=msgs[Math.min(4,Math.floor(pct/25))];
+  document.getElementById('score-box').style.display='block';
+  document.getElementById('quiz-btn').disabled=true;
+}
+
+function revealAll(){
+  QUIZ.forEach((q,qi)=>{
+    ['A','B','C','D'].forEach((_,oi)=>{
+      const el=document.getElementById(`qo-${qi}-${oi}`);
+      if(!el)return;
+      el.classList.remove('sel');
+      if(oi===q.ans) el.classList.add('ok');
+      else if(qAnswers[qi]===oi) el.classList.add('ko');
+    });
+    const fbEl=document.getElementById(`qfb-${qi}`);
+    if(fbEl){
+      fbEl.className='q-fb '+(qAnswers[qi]===q.ans?'ok':'ko');
+      fbEl.style.display='block';
+      fbEl.innerHTML=(qAnswers[qi]===q.ans?'✓ Correcto: ':'✗ Incorrecto: ')+q.fb;
+    }
+  });
+  document.getElementById('quiz-btn').disabled=true;
+}
+
+function resetQuiz(){
+  qAnswers={}; qGraded=false;
+  localStorage.removeItem(QUIZ_KEY);
+  document.getElementById('quiz-container').innerHTML='';
+  document.getElementById('score-box').style.display='none';
+  document.getElementById('quiz-btn').disabled=false;
+  buildQuiz();
+}
+
+// ══════════════════════════════════════
+// HOMEWORK BUILDERS
+// ══════════════════════════════════════
+function buildHwA(){
+  const c=document.getElementById('hw-a');if(!c)return;
+  HW_A.forEach(it=>{
+    const d=document.createElement('div');
+    d.className='hw-ex '+(it.isP?'is-prop':'not-prop');
+    d.innerHTML=`<div class="hw-q">${it.text}</div>
+    <div class="reveal-btn">Toca para ver →</div>
+    <div class="hw-reveal" style="background:${it.isP?'var(--Gl)':'rgba(0,0,0,.04)'};border:1px solid ${it.isP?'var(--Gb)':'var(--bdr)'};color:${it.isP?'var(--G)':'var(--muted)'};">${it.why}</div>`;
+    d.onclick=()=>d.classList.toggle('open');
+    c.appendChild(d);
+  });
+}
+
+function buildHwMC(containerid,data){
+  const c=document.getElementById(containerid);if(!c)return;
+  data.forEach((it,qi)=>{
+    const d=document.createElement('div');
+    d.className='hw-ex';
+    const id=`${containerid}-${qi}`;
+    let optsHtml=it.opts.map((o,oi)=>`
+      <div class="hw-opt" id="${id}-${oi}" onclick="pickHw('${id}',${oi},${it.ans},\`${it.fb.replace(/`/g,"'")}\`)">
+        <strong style="font-family:var(--mono);color:var(--muted);font-size:.72rem;">${['A','B','C','D'][oi]}</strong> <span>${o}</span>
+      </div>`).join('');
+    d.innerHTML=`<div class="hw-q">${it.q}</div>
+    <div class="hw-opts">${optsHtml}</div>
+    <div class="hw-reveal" id="${id}-fb"></div>`;
+    c.appendChild(d);
+  });
+}
+
+function pickHw(id,oi,ans,fb){
+  const opts=document.querySelectorAll(`[id^="${id}-"]:not([id$="-fb"])`);
+  opts.forEach(el=>{
+    const thisOi=parseInt(el.id.split('-').pop());
+    el.classList.remove('hsel','hok','hko');
+    if(thisOi===ans) el.classList.add('hok');
+    else if(thisOi===oi) el.classList.add('hko');
+  });
+  const fbEl=document.getElementById(`${id}-fb`);
+  if(fbEl){
+    fbEl.style.display='block';
+    fbEl.className='hw-reveal';
+    fbEl.style.cssText='display:block;background:'+(oi===ans?'var(--Gl)':'var(--Xl)')+';border:1px solid '+(oi===ans?'var(--Gb)':'var(--Xb)')+';color:'+(oi===ans?'var(--G)':'var(--X)')+';padding:8px 11px;border-radius:8px;font-size:.78rem;line-height:1.55;margin-top:6px;';
+    fbEl.innerHTML=(oi===ans?'✓ ':'✗ ')+fb;
+  }
+}
+
+// ══════════════════════════════════════
+// INIT
+// ══════════════════════════════════════
+window.addEventListener('DOMContentLoaded',()=>{
+  loadStorage();
+  buildGancho();
+  buildM1();
+  buildM2();
+  buildProm();
+  buildArgForms();
+  buildCoopArgs();
+  buildQuiz();
+  buildHwA();
+  buildHwMC('hw-b',HW_B);
+  buildHwMC('hw-c',HW_C);
+  buildHwMC('hw-d',HW_D);
+  buildHwMC('hw-e',HW_E);
+  if(Object.keys(qAnswers).length>0) document.getElementById('quiz-saved').classList.add('show');
+});
+</script>
+</body>
+</html>
