@@ -176,11 +176,6 @@ body{font-family:var(--sans);color:var(--text);background-color:var(--bg);
 #toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(80px);background:linear-gradient(135deg,var(--T),var(--Tm));color:#fff;padding:8px 22px;border-radius:99px;font-size:.83rem;font-weight:700;z-index:9999;pointer-events:none;transition:transform .3s cubic-bezier(.34,1.56,.64,1);white-space:nowrap;box-shadow:0 4px 16px rgba(13,150,136,.3);}
 #toast.show{transform:translateX(-50%) translateY(0);}
 @keyframes fadeIn{from{opacity:0;transform:translateY(5px);}to{opacity:1;transform:none;}}
-
-.venn-wrap{background:rgba(13,150,136,.04);border:1.5px solid var(--Tb);border-radius:13px;padding:14px;margin:12px 0;}
-.vbtab{padding:6px 12px;border-radius:8px;border:1.5px solid var(--border);background:rgba(255,255,255,.75);font-size:.75rem;font-weight:700;cursor:pointer;transition:all .15s;color:var(--muted);font-family:var(--sans);}
-.vbtab.active{background:var(--T);color:#fff;border-color:var(--T);}
-.vbtab:hover:not(.active){border-color:var(--Tm);color:var(--T);}
 </style>
 </head>
 <body>
@@ -322,108 +317,76 @@ body{font-family:var(--sans);color:var(--text);background-color:var(--bg);
   </div>
     <div class="card">
     <div class="ct">Leyes de De Morgan · Miller §3.2</div>
-    <p class="stitle">Cómo negar una proposición compuesta — y por qué</p>
+    <p class="stitle">Cómo negar una proposición compuesta</p>
 
-    <!-- DE MORGAN 1 -->
     <div class="dm-card" style="border-color:var(--Tb);background:var(--Tl);">
-      <div style="font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--T);margin-bottom:8px;">De Morgan 1</div>
-      <div style="font-family:var(--mono);font-size:1.05rem;font-weight:700;color:var(--T);margin-bottom:10px;">¬(<strong>p</strong> ∧ <strong>q</strong>) = ¬<strong>p</strong> ∨ ¬<strong>q</strong></div>
-      <div style="font-size:.83rem;line-height:1.85;border-top:1px solid var(--Tb);padding-top:10px;color:var(--text);">
-        Para que la nota de asistencia cuente, necesitas haber llegado Y entregado el taller. Si falla uno de los dos, no cuenta.<br><br>
-        <strong>p</strong> = "Llegué temprano a clase" → puede ser V (sí llegué) o F (no llegué)<br>
-        <strong>q</strong> = "Entregué el taller ese día" → puede ser V (sí entregué) o F (no entregué)<br><br>
-        "¿Cuándo es FALSO que llegué <em>y</em> entregué?"<br>
-        = ¬<strong>p</strong> ∨ ¬<strong>q</strong> = <strong>"No llegué O no entregué"</strong><br>
-        <em style="color:var(--muted);">El 'y' pasa a ser 'o'. Basta que falle UNO de los dos.</em>
+      <div style="font-size:.62rem;font-weight:800;text-transform:uppercase;color:var(--T);margin-bottom:6px;">De Morgan 1</div>
+      <div style="font-family:var(--mono);font-size:1rem;font-weight:700;color:var(--T);margin-bottom:10px;">¬(<strong>p</strong>∧<strong>q</strong>) = ¬<strong>p</strong>∨¬<strong>q</strong></div>
+      <div style="font-size:.83rem;line-height:1.9;border-top:1px solid var(--Tb);padding-top:10px;color:var(--text);">
+        Para que la asistencia cuente, debes llegar temprano Y entregar el taller. Si falla uno, no cuenta.<br><br>
+        <strong>p</strong> = “Llegüé temprano” (V si sí, F si no)<br>
+        <strong>q</strong> = “Entregué el taller” (V si sí, F si no)<br><br>
+        ¬(<strong>p</strong>∧<strong>q</strong>) = “No es cierto que llegüé <em>y</em> entregué”<br>
+        = ¬<strong>p</strong>∨¬<strong>q</strong> = <strong>“No llegüé O no entregué”</strong><br>
+        <em style="color:var(--muted);">El ‘y’ pasa a ‘o’. Basta que falle UNO.</em>
       </div>
-      <!-- VENN DM1 -->
-      <div class="venn-wrap" style="margin-top:14px;">
-        <p style="font-size:.68rem;font-weight:800;color:var(--T);text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px;">Visualización — toca los botones</p>
-        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;" id="v1tabs">
-          <button class="vbtab active" onclick="venn1(0)">Ver p ∧ q</button>
-          <button class="vbtab" onclick="venn1(1)">Ver ¬(p ∧ q)</button>
-          <button class="vbtab" onclick="venn1(2)">Ver ¬p ∨ ¬q</button>
+      <div style="margin-top:12px;background:rgba(13,150,136,.04);border:1.5px solid var(--Tb);border-radius:12px;padding:12px;">
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;">
+          <button id="v1b0" onclick="venn1(0)" style="padding:6px 12px;border-radius:7px;border:1.5px solid var(--T);background:var(--T);color:#fff;font-size:.74rem;font-weight:700;cursor:pointer;">Ver p∧q</button>
+          <button id="v1b1" onclick="venn1(1)" style="padding:6px 12px;border-radius:7px;border:1.5px solid var(--border);background:rgba(255,255,255,.8);color:var(--muted);font-size:.74rem;font-weight:700;cursor:pointer;">Ver ¬(p∧q)</button>
+          <button id="v1b2" onclick="venn1(2)" style="padding:6px 12px;border-radius:7px;border:1.5px solid var(--border);background:rgba(255,255,255,.8);color:var(--muted);font-size:.74rem;font-weight:700;cursor:pointer;">Ver ¬p∨¬q</button>
         </div>
-        <svg viewBox="0 0 310 195" style="width:100%;max-width:340px;display:block;margin:0 auto;">
-          <rect x="0" y="0" width="310" height="195" fill="white"/>
-          <rect x="4" y="4" width="302" height="187" fill="rgba(248,245,236,.9)" stroke="#d0ccc0" stroke-width="1.5" rx="7"/>
-          <text x="296" y="20" text-anchor="end" font-size="11" fill="#c0bbb0" font-family="Georgia,serif">U</text>
-          <!-- State 0: p∧q = intersection teal -->
-          <g id="v1s0">
-            <path d="M 155 52 A 64 64 0 0 1 155 158 A 64 64 0 0 0 155 52 Z" fill="rgba(13,150,136,.55)"/>
-          </g>
-          <!-- State 1 & 2: ¬(p∧q) = purple everywhere except intersection -->
-          <g id="v1s1" style="display:none">
-            <rect x="4" y="4" width="302" height="187" fill="rgba(109,40,217,.18)" rx="7"/>
-            <path d="M 155 52 A 64 64 0 0 1 155 158 A 64 64 0 0 0 155 52 Z" fill="white"/>
-          </g>
-          <!-- Circles always on top -->
-          <circle cx="120" cy="105" r="64" fill="rgba(13,150,136,.07)" stroke="#1b5250" stroke-width="2.5"/>
-          <circle cx="190" cy="105" r="64" fill="rgba(161,98,7,.07)" stroke="#a16207" stroke-width="2.5"/>
-          <text x="80" y="100" text-anchor="middle" font-size="17" font-weight="700" fill="#1b5250" font-family="Georgia,serif">p</text>
-          <text x="230" y="100" text-anchor="middle" font-size="17" font-weight="700" fill="#a16207" font-family="Georgia,serif">q</text>
-          <text x="155" y="108" text-anchor="middle" font-size="11" fill="rgba(0,0,0,.4)" font-family="Georgia,serif" id="v1clbl">p∧q</text>
+        <svg viewBox="0 0 310 185" style="width:100%;max-width:330px;display:block;margin:0 auto;">
+          <rect width="310" height="185" fill="white"/>
+          <rect x="4" y="4" width="302" height="177" fill="rgba(248,245,236,.9)" stroke="#ccc" stroke-width="1.5" rx="7"/>
+          <text x="293" y="19" text-anchor="end" font-size="10" fill="#ccc">U</text>
+          <g id="v1g0"><path d="M 155 50 A 62 62 0 0 1 155 152 A 62 62 0 0 0 155 50 Z" fill="rgba(13,150,136,.52)"/></g>
+          <g id="v1g1" style="display:none"><rect x="4" y="4" width="302" height="177" fill="rgba(109,40,217,.16)" rx="7"/><path d="M 155 50 A 62 62 0 0 1 155 152 A 62 62 0 0 0 155 50 Z" fill="white"/></g>
+          <circle cx="120" cy="101" r="62" fill="rgba(13,150,136,.06)" stroke="#1b5250" stroke-width="2.5"/>
+          <circle cx="190" cy="101" r="62" fill="rgba(161,98,7,.06)" stroke="#a16207" stroke-width="2.5"/>
+          <text x="79" y="97" text-anchor="middle" font-size="16" font-weight="700" fill="#1b5250" font-family="Georgia,serif">p</text>
+          <text x="231" y="97" text-anchor="middle" font-size="16" font-weight="700" fill="#a16207" font-family="Georgia,serif">q</text>
+          <text x="155" y="105" text-anchor="middle" font-size="11" fill="rgba(0,0,0,.35)" id="v1cl">p∧q</text>
         </svg>
-        <div style="font-size:.82rem;line-height:1.65;color:var(--text);margin-top:9px;padding:8px 12px;background:rgba(255,255,255,.8);border-radius:8px;border:1px solid var(--border2);" id="v1lbl">
-          <strong>Zona teal (p ∧ q):</strong> estudiantes que llegaron temprano <em>y</em> entregaron el taller. Las dos condiciones se cumplen.
-        </div>
-        <div style="font-size:.82rem;line-height:1.6;color:var(--G);margin-top:6px;padding:8px 12px;background:var(--Gl);border:1px solid var(--Gb);border-radius:8px;display:none;" id="v1eq">
-          ✓ <strong>¡Misma zona!</strong> ¬(p∧q) y ¬p∨¬q son exactamente el mismo conjunto. De Morgan lo garantiza.
-        </div>
+        <div id="v1lb" style="font-size:.82rem;color:var(--text);margin-top:8px;padding:8px 12px;background:rgba(255,255,255,.8);border-radius:8px;border:1px solid rgba(15,140,130,.1);">Zona teal = <strong>p∧q</strong>: llegaron temprano <em>y</em> entregaron el taller.</div>
+        <div id="v1eq" style="display:none;font-size:.82rem;color:var(--G);margin-top:6px;padding:8px 12px;background:var(--Gl);border:1px solid var(--Gb);border-radius:8px;">✓ <strong>¡Misma zona!</strong> ¬(p∧q) y ¬p∨¬q son el mismo conjunto. Eso es De Morgan 1.</div>
       </div>
     </div>
 
-    <!-- DE MORGAN 2 -->
     <div class="dm-card" style="border-color:var(--Amb);background:var(--Aml);margin-top:10px;">
-      <div style="font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--Am);margin-bottom:8px;">De Morgan 2</div>
-      <div style="font-family:var(--mono);font-size:1.05rem;font-weight:700;color:var(--Am);margin-bottom:10px;">¬(<strong>p</strong> ∨ <strong>q</strong>) = ¬<strong>p</strong> ∧ ¬<strong>q</strong></div>
-      <div style="font-size:.83rem;line-height:1.85;border-top:1px solid var(--Amb);padding-top:10px;color:var(--text);">
-        Para pasar la materia basta con aprobar el primer corte O el segundo. Para NO pasar, tienen que fallar los dos.<br><br>
-        <strong>p</strong> = "Aprobé el primer corte" → puede ser V (aprobé) o F (no aprobé)<br>
-        <strong>q</strong> = "Aprobé el segundo corte" → puede ser V (aprobé) o F (no aprobé)<br><br>
-        "¿Cuándo es FALSO que aprobé el primero <em>o</em> el segundo?"<br>
-        = ¬<strong>p</strong> ∧ ¬<strong>q</strong> = <strong>"No aprobé el primero Y no aprobé el segundo"</strong><br>
-        <em style="color:var(--muted);">El 'o' pasa a ser 'y'. Tienen que fallar LOS DOS a la vez.</em>
+      <div style="font-size:.62rem;font-weight:800;text-transform:uppercase;color:var(--Am);margin-bottom:6px;">De Morgan 2</div>
+      <div style="font-family:var(--mono);font-size:1rem;font-weight:700;color:var(--Am);margin-bottom:10px;">¬(<strong>p</strong>∨<strong>q</strong>) = ¬<strong>p</strong>∧¬<strong>q</strong></div>
+      <div style="font-size:.83rem;line-height:1.9;border-top:1px solid var(--Amb);padding-top:10px;color:var(--text);">
+        Para pasar basta aprobar el primer corte O el segundo. Para no pasar, fallan los dos.<br><br>
+        <strong>p</strong> = “Aprobé el primer corte” (V si sí, F si no)<br>
+        <strong>q</strong> = “Aprobé el segundo corte” (V si sí, F si no)<br><br>
+        ¬(<strong>p</strong>∨<strong>q</strong>) = “No es cierto que aprobé el primero <em>o</em> el segundo”<br>
+        = ¬<strong>p</strong>∧¬<strong>q</strong> = <strong>“No aprobé el primero Y no aprobé el segundo”</strong><br>
+        <em style="color:var(--muted);">El ‘o’ pasa a ‘y’. Tienen que fallar LOS DOS.</em>
       </div>
-      <!-- VENN DM2 -->
-      <div class="venn-wrap" style="margin-top:14px;">
-        <p style="font-size:.68rem;font-weight:800;color:var(--Am);text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px;">Visualización — toca los botones</p>
-        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;" id="v2tabs">
-          <button class="vbtab v2active" onclick="venn2(0)" style="background:var(--Am);border-color:var(--Am);color:#fff;">Ver p ∨ q</button>
-          <button class="vbtab" onclick="venn2(1)">Ver ¬(p ∨ q)</button>
-          <button class="vbtab" onclick="venn2(2)">Ver ¬p ∧ ¬q</button>
+      <div style="margin-top:12px;background:rgba(161,98,7,.04);border:1.5px solid var(--Amb);border-radius:12px;padding:12px;">
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;">
+          <button id="v2b0" onclick="venn2(0)" style="padding:6px 12px;border-radius:7px;border:1.5px solid var(--Am);background:var(--Am);color:#fff;font-size:.74rem;font-weight:700;cursor:pointer;">Ver p∨q</button>
+          <button id="v2b1" onclick="venn2(1)" style="padding:6px 12px;border-radius:7px;border:1.5px solid var(--border);background:rgba(255,255,255,.8);color:var(--muted);font-size:.74rem;font-weight:700;cursor:pointer;">Ver ¬(p∨q)</button>
+          <button id="v2b2" onclick="venn2(2)" style="padding:6px 12px;border-radius:7px;border:1.5px solid var(--border);background:rgba(255,255,255,.8);color:var(--muted);font-size:.74rem;font-weight:700;cursor:pointer;">Ver ¬p∧¬q</button>
         </div>
-        <svg viewBox="0 0 310 195" style="width:100%;max-width:340px;display:block;margin:0 auto;">
-          <rect x="0" y="0" width="310" height="195" fill="white"/>
-          <rect x="4" y="4" width="302" height="187" fill="rgba(248,245,236,.9)" stroke="#d0ccc0" stroke-width="1.5" rx="7"/>
-          <text x="296" y="20" text-anchor="end" font-size="11" fill="#c0bbb0" font-family="Georgia,serif">U</text>
-          <!-- State 0: p∨q = union teal -->
-          <g id="v2s0">
-            <circle cx="120" cy="105" r="64" fill="rgba(13,150,136,.3)"/>
-            <circle cx="190" cy="105" r="64" fill="rgba(13,150,136,.3)"/>
-          </g>
-          <!-- State 1 & 2: ¬(p∨q) = purple outside both circles -->
-          <g id="v2s1" style="display:none">
-            <rect x="4" y="4" width="302" height="187" fill="rgba(109,40,217,.18)" rx="7"/>
-            <circle cx="120" cy="105" r="64" fill="white"/>
-            <circle cx="190" cy="105" r="64" fill="white"/>
-          </g>
-          <!-- Circles always on top -->
-          <circle cx="120" cy="105" r="64" fill="rgba(13,150,136,.07)" stroke="#1b5250" stroke-width="2.5"/>
-          <circle cx="190" cy="105" r="64" fill="rgba(161,98,7,.07)" stroke="#a16207" stroke-width="2.5"/>
-          <text x="80" y="100" text-anchor="middle" font-size="17" font-weight="700" fill="#1b5250" font-family="Georgia,serif">p</text>
-          <text x="230" y="100" text-anchor="middle" font-size="17" font-weight="700" fill="#a16207" font-family="Georgia,serif">q</text>
+        <svg viewBox="0 0 310 185" style="width:100%;max-width:330px;display:block;margin:0 auto;">
+          <rect width="310" height="185" fill="white"/>
+          <rect x="4" y="4" width="302" height="177" fill="rgba(248,245,236,.9)" stroke="#ccc" stroke-width="1.5" rx="7"/>
+          <text x="293" y="19" text-anchor="end" font-size="10" fill="#ccc">U</text>
+          <g id="v2g0"><circle cx="120" cy="101" r="62" fill="rgba(13,150,136,.28)"/><circle cx="190" cy="101" r="62" fill="rgba(13,150,136,.28)"/></g>
+          <g id="v2g1" style="display:none"><rect x="4" y="4" width="302" height="177" fill="rgba(109,40,217,.16)" rx="7"/><circle cx="120" cy="101" r="62" fill="white"/><circle cx="190" cy="101" r="62" fill="white"/></g>
+          <circle cx="120" cy="101" r="62" fill="rgba(13,150,136,.06)" stroke="#1b5250" stroke-width="2.5"/>
+          <circle cx="190" cy="101" r="62" fill="rgba(161,98,7,.06)" stroke="#a16207" stroke-width="2.5"/>
+          <text x="79" y="97" text-anchor="middle" font-size="16" font-weight="700" fill="#1b5250" font-family="Georgia,serif">p</text>
+          <text x="231" y="97" text-anchor="middle" font-size="16" font-weight="700" fill="#a16207" font-family="Georgia,serif">q</text>
         </svg>
-        <div style="font-size:.82rem;line-height:1.65;color:var(--text);margin-top:9px;padding:8px 12px;background:rgba(255,255,255,.8);border-radius:8px;border:1px solid var(--border2);" id="v2lbl">
-          <strong>Zona teal (p ∨ q):</strong> estudiantes que aprobaron el primer corte <em>o</em> el segundo (o los dos). Al menos uno.
-        </div>
-        <div style="font-size:.82rem;line-height:1.6;color:var(--G);margin-top:6px;padding:8px 12px;background:var(--Gl);border:1px solid var(--Gb);border-radius:8px;display:none;" id="v2eq">
-          ✓ <strong>¡Misma zona!</strong> ¬(p∨q) y ¬p∧¬q son exactamente el mismo conjunto. De Morgan lo garantiza.
-        </div>
+        <div id="v2lb" style="font-size:.82rem;color:var(--text);margin-top:8px;padding:8px 12px;background:rgba(255,255,255,.8);border-radius:8px;border:1px solid rgba(15,140,130,.1);">Zona teal = <strong>p∨q</strong>: aprobaron el primer corte <em>o</em> el segundo (o los dos).</div>
+        <div id="v2eq" style="display:none;font-size:.82rem;color:var(--G);margin-top:6px;padding:8px 12px;background:var(--Gl);border:1px solid var(--Gb);border-radius:8px;">✓ <strong>¡Misma zona!</strong> ¬(p∨q) y ¬p∧¬q son el mismo conjunto. Eso es De Morgan 2.</div>
       </div>
     </div>
 
-    <div class="alert al-G" style="margin-top:10px;"><strong>Regla mnemotécnica:</strong> Al negar, el conector se INVIERTE (∧↔∨) y cada parte SE NIEGA. Siempre las dos cosas juntas.</div>
+    <div class="alert al-G" style="margin-top:10px;"><strong>Regla:</strong> Al negar, el conector se INVIERTE (∧↔∨) y cada parte SE NIEGA. Siempre las dos cosas juntas.</div>
     <p style="font-size:.8rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin:12px 0 8px;">Practica De Morgan:</p>
     <div id="demorgan-practice"></div>
   </div>
@@ -623,7 +586,7 @@ let pVal=true,qVal=true,quizAnswers={},quizGraded=false;
 function sw(n){document.querySelectorAll('.mod').forEach((m,i)=>m.classList.toggle('on',i===n));document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('on',i===n));window.scrollTo({top:0,behavior:'smooth'});}
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200);}
 function escQ(s){return s.replace(/'/g,"&#39;").replace(/\n/g,' ');}
-function answerExOpt(pfx,qi,oi,ans,fb){const el=document.getElementById(`${pfx}-${qi}`);if(el.classList.contains('ex-done'))return;el.classList.add('ex-done');el.querySelectorAll('.qopt').forEach((o,i)=>o.classList.add(i===ans?'ok':(i===oi&&oi!==ans?'ko':'')));const fbEl=document.getElementById(`${pfx}-fb-${qi}`);const _c=(oi===ans);fbEl.innerHTML=(_c?'<strong>✓ Correcto.</strong> ':'<strong>✗ Incorrecto.</strong> La opción correcta: '+String.fromCharCode(65+ans)+'. ')+fb;fbEl.className='ex-fb alert '+(_c?'al-G':'al-E');}
+function answerExOpt(pfx,qi,oi,ans,fb){const el=document.getElementById(`${pfx}-${qi}`);if(el.classList.contains('ex-done'))return;el.classList.add('ex-done');el.querySelectorAll('.qopt').forEach((o,i)=>o.classList.add(i===ans?'ok':(i===oi&&oi!==ans?'ko':'')));const fbEl=document.getElementById(`${pfx}-fb-${qi}`);fbEl.innerHTML=fb;fbEl.className=`ex-fb alert ${oi===ans?'al-G':'al-E'}`;}
 
 const GANCHO=[
   {text:'"El 34% de los universitarios colombianos reportó síntomas de ansiedad alta durante los parciales, según encuesta MinSalud 2025."',isP:true,fc:'al-G',fb:'✓ Proposición. Declarativa y verificable. Tiene valor de verdad — V o F según el dato real.'},
@@ -633,23 +596,8 @@ const GANCHO=[
   {text:'"La psicología social estudia cómo el contexto grupal influye en el comportamiento individual."',isP:true,fc:'al-G',fb:'✓ Proposición. Define el objeto de estudio de una rama. Verificable.'},
   {text:'"Esta oración es falsa."',isP:null,fc:'al-Am',fb:'⚠️ Paradoja autorreferencial. Si es V → es F. Si es F → es V. Sin valor de verdad consistente. La lógica la excluye.'},
 ];
-function buildGancho(){const c=document.getElementById('gancho-cards');GANCHO.forEach((g,i)=>{const d=document.createElement('div');d.className='prop-card';d.innerHTML=`<div class="pc-text">${g.text}</div><div class="pc-btns"><button class="pc-btn" style="color:var(--T);" onclick="answerG(${i},true)">✓ Es proposición</button><button class="pc-btn" style="color:var(--E);" onclick="answerG(${i},false)">✗ No es proposición</button></div><div class="pc-fb"></div>`;c.appendChild(d);});}
-function answerG(i,u){
-  const c=document.querySelectorAll('#gancho-cards .prop-card')[i];
-  if(!c||c.classList.contains('answered'))return;
-  c.classList.add('answered');
-  const item=GANCHO[i];
-  const ok=item.isP===null?true:(u===item.isP);
-  c.style.borderColor=ok?'var(--Gb)':'var(--Eb)';
-  c.style.background=ok?'var(--Gl)':'var(--El)';
-  const fb=c.querySelector('.pc-fb');
-  if(item.isP===null){fb.className='pc-fb alert al-Am';fb.innerHTML=item.fb;}
-  else{
-    fb.className='pc-fb alert '+(ok?'al-G':'al-E');
-    const clean=item.fb.replace(/^[✓✗⚠️\s]+/,'');
-    fb.innerHTML=(ok?'<strong>✓ Correcto.</strong> ':'<strong>✗ Incorrecto.</strong> La respuesta correcta: '+(item.isP?'Sí es proposición.':'No es proposición.')+' ')+clean;
-  }
-}
+function buildGancho(){const c=document.getElementById('gancho-cards');GANCHO.forEach((g,i)=>{const d=document.createElement('div');d.className='prop-card';d.innerHTML=`<div class="pc-text">${g.text}</div><div class="pc-btns"><button class="pc-btn" style="color:var(--T);" onclick="answerG(${i},true)">✓ Es proposición</button><button class="pc-btn" style="color:var(--E);" onclick="answerG(${i},false)">✗ No es proposición</button></div><div class="pc-fb alert ${g.fc}">${g.fb}</div>`;c.appendChild(d);});}
+function answerG(i,u){const c=document.querySelectorAll('.prop-card')[i];if(c.classList.contains('answered'))return;c.classList.add('answered');const ok=GANCHO[i].isP===null?true:(u===GANCHO[i].isP);c.style.borderColor=ok?'var(--Gb)':'var(--Eb)';c.style.background=ok?'var(--Gl)':'var(--El)';}
 
 const QUANT=[
   {q:'Negación correcta de: "Todos los psicólogos clínicos trabajan exclusivamente en consulta privada."',opts:['Ningún psicólogo trabaja en consulta privada.','Algunos psicólogos clínicos NO trabajan exclusivamente en consulta privada.','Todos los psicólogos trabajan en instituciones públicas.'],ans:1,fb:'Negación de "todos" = "algún X no". Solo se necesita un psicólogo en hospital, ONG o empresa para refutarlo.'},
@@ -692,46 +640,12 @@ function updateTT(){
   document.getElementById('tt-context-ex').innerHTML=`<div class="hint" style="font-size:.79rem;">${ctx.res}</div>`;}
 
 const DM=[
-  {q:'<strong>p</strong> = "Llegué temprano a clase" · <strong>q</strong> = "Entregué el taller ese día". Negación de <span class="mono"><strong>p</strong> ∧ <strong>q</strong></span>:',
-   opts:['¬<strong>p</strong> ∧ ¬<strong>q</strong> — No llegué temprano Y no entregué (los dos fallaron)','¬<strong>p</strong> ∨ ¬<strong>q</strong> — No llegué temprano O no entregué (falla al menos uno)'],
-   ans:1,fb:'¬(p∧q) = ¬p∨¬q (De Morgan 1). El "y" se convierte en "o". Para que "llegué Y entregué" sea falso, basta que UNO falle: no llegué, o no entregué, o ninguno.'},
-  {q:'<strong>p</strong> = "Aprobé el primer corte" · <strong>q</strong> = "Aprobé el segundo corte". Negación de <span class="mono"><strong>p</strong> ∨ <strong>q</strong></span>:',
-   opts:['¬<strong>p</strong> ∨ ¬<strong>q</strong> — No aprobé el primero O no aprobé el segundo','¬<strong>p</strong> ∧ ¬<strong>q</strong> — No aprobé el primero Y no aprobé el segundo'],
-   ans:1,fb:'¬(p∨q) = ¬p∧¬q (De Morgan 2). El "o" se convierte en "y". Para que "aprobé alguno" sea falso, tienen que fallar LOS DOS: no aprobé el primero Y no aprobé el segundo.'},
-  {q:'"No es cierto que (tengo señal de WiFi Y tengo datos en el cel)." Usando De Morgan:',
-   opts:['No tengo señal Y no tengo datos — los dos fallan a la vez.','No tengo señal O no tengo datos — al menos uno falla.'],
-   ans:1,fb:'¬(p∧q) = ¬p∨¬q. Negar "tengo WiFi Y datos" significa que basta que falle uno: o no hay señal, o no hay datos, o ninguno. Eso es De Morgan 1.'},
-  {q:'"No es cierto que (paso el semestre O me quedan materias por reinscribir)." Usando De Morgan:',
-   opts:['No paso el semestre O no me quedan materias.','No paso el semestre Y no me quedan materias.'],
-   ans:1,fb:'¬(p∨q) = ¬p∧¬q. Para que "ninguna de las dos" sea verdad, AMBAS deben ser falsas: ni paso el semestre ni tengo materias por reinscribir. Eso es De Morgan 2.'},
+  {q:'<strong>p</strong> = "el imputado conocía la ilicitud" · <strong>q</strong> = "quería el resultado dañoso". Negación de <span class="mono"><strong>p</strong> ∧ <strong>q</strong></span>:',opts:['¬<strong>p</strong> ∧ ¬<strong>q</strong> — No conocía Y no quería','¬<strong>p</strong> ∨ ¬<strong>q</strong> — No conocía O no quería'],ans:1,fb:'¬(<strong>p</strong>∧<strong>q</strong>) = ¬<strong>p</strong>∨¬<strong>q</strong> (De Morgan 1). El "y" pasa a "o". Basta que falle uno para invalidar la conjunción.'},
+  {q:'<strong>p</strong> = "los síntomas son de psicosis" · <strong>q</strong> = "son de episodio maníaco". Negación de <span class="mono"><strong>p</strong> ∨ <strong>q</strong></span>:',opts:['¬<strong>p</strong> ∨ ¬<strong>q</strong> — No es psicosis o no es maníaco','¬<strong>p</strong> ∧ ¬<strong>q</strong> — No es psicosis Y no es maníaco'],ans:1,fb:'¬(<strong>p</strong>∨<strong>q</strong>) = ¬<strong>p</strong>∧¬<strong>q</strong> (De Morgan 2). El "o" pasa a "y". Negar que sea alguna implica que no es ninguna.'},
+  {q:'"No es cierto que (estudio todos los días O duermo bien)." Usando De Morgan:',opts:['No estudio O no duermo bien.','No estudio Y no duermo bien.'],ans:1,fb:'¬(<strong>p</strong>∨<strong>q</strong>) = ¬<strong>p</strong>∧¬<strong>q</strong>. Donde <strong>p</strong>="estudio todos los días" y <strong>q</strong>="duermo bien". Negar la disyunción niega ambas con "y".'},
+  {q:'"No es cierto que (la intervención fue culturalmente apropiada Y efectiva)." De Morgan da:',opts:['No fue apropiada Y no fue efectiva.','No fue apropiada O no fue efectiva.'],ans:1,fb:'¬(<strong>p</strong>∧<strong>q</strong>) = ¬<strong>p</strong>∨¬<strong>q</strong>. Donde <strong>p</strong>="apropiada" y <strong>q</strong>="efectiva". Basta que falle una de las dos.'},
 ];
-function buildDM(){
-  const QD={};
-  window._dmData=QD;
-  const c=document.getElementById('demorgan-practice');
-  DM.forEach((item,qi)=>{
-    QD[qi]=item;
-    const el=document.createElement('div');
-    el.className='ex-item';el.id='dm-'+qi;
-    el.innerHTML='<div class="ex-q">'+item.q+'</div><div>'+
-      item.opts.map((o,oi)=>'<div class="qopt" onclick="answerDM('+qi+','+oi+')">'+o+'</div>').join('')+
-      '</div><div class="ex-fb alert" id="dm-fb-'+qi+'"></div>';
-    c.appendChild(el);
-  });
-}
-function answerDM(qi,oi){
-  const item=window._dmData[qi];if(!item)return;
-  const el=document.getElementById('dm-'+qi);
-  if(!el||el.classList.contains('ex-done'))return;
-  el.classList.add('ex-done');
-  const ok=oi===item.ans;
-  el.querySelectorAll('.qopt').forEach((o,i)=>o.classList.add(i===item.ans?'ok':(i===oi&&!ok?'ko':'')));
-  const fbEl=document.getElementById('dm-fb-'+qi);
-  if(fbEl){
-    fbEl.innerHTML=(ok?'<strong>✓ Correcto.</strong> ':'<strong>✗ Incorrecto.</strong> La opción correcta: '+String.fromCharCode(65+item.ans)+'. ')+item.fb;
-    fbEl.className='ex-fb alert '+(ok?'al-G':'al-E');
-  }
-}
+function buildDM(){const c=document.getElementById('demorgan-practice');DM.forEach((item,qi)=>{const el=document.createElement('div');el.className='ex-item';el.id=`dm-${qi}`;el.innerHTML=`<div class="ex-q">${item.q}</div><div>${item.opts.map((o,oi)=>`<div class="qopt" id="dm-opt-${qi}-${oi}" onclick="answerExOpt('dm',${qi},${oi},${item.ans},'${escQ(item.fb)}')">${o}</div>`).join('')}</div><div class="ex-fb alert" id="dm-fb-${qi}"></div>`;c.appendChild(el);});}
 
 const MINI_M2=[
   {q:'"No es cierto que (Diego tiene historial de consumo de sustancias Y antecedentes psiquiátricos familiares)." <strong>p</strong>=historial · <strong>q</strong>=antecedentes. De Morgan:',opts:['No tiene historial Y no tiene antecedentes (¬<strong>p</strong>∧¬<strong>q</strong>).','No tiene historial O no tiene antecedentes (¬<strong>p</strong>∨¬<strong>q</strong>).'],ans:1,fb:'¬(<strong>p</strong>∧<strong>q</strong>) = ¬<strong>p</strong>∨¬<strong>q</strong>. El "y" se convierte en "o". Basta que falle uno.'},
@@ -808,7 +722,7 @@ function gradeQuiz(){const un=QUIZ.filter((_,i)=>quizAnswers[i]===undefined).len
 function applyGrading(){QUIZ.forEach((q,qi)=>{const sel=quizAnswers[qi];q.opts.forEach((_,oi)=>{const opt=document.getElementById(`qopt-${qi}-${oi}`);if(!opt)return;opt.classList.remove('sel');if(oi===q.ans)opt.classList.add('ok');else if(oi===sel&&sel!==q.ans)opt.classList.add('ko');});const fbEl=document.getElementById(`qfb-${qi}`);if(fbEl){fbEl.textContent=q.fb;fbEl.className='q-fb '+(sel===q.ans?'ok':'ko');}});document.getElementById('quiz-btn').disabled=true;}
 
 function buildHW(data,cid,pfx){const c=document.getElementById(cid);data.forEach((item,qi)=>{const el=document.createElement('div');el.className='hw-ex';el.id=`${pfx}-${qi}`;el.innerHTML=`<div class="hw-ex-q">${item.q}</div><div class="hw-opts">${item.opts.map((o,oi)=>`<div class="hw-opt" id="${pfx}-opt-${qi}-${oi}" onclick="answerHW('${pfx}',${qi},${oi},${item.ans},'${escQ(item.fb)}')">${String.fromCharCode(65+oi)}. ${o}</div>`).join('')}</div><div class="hw-fb" id="${pfx}-fb-${qi}"></div>`;c.appendChild(el);});}
-function answerHW(pfx,qi,oi,ans,fb){const el=document.getElementById(`${pfx}-${qi}`);if(el.classList.contains('done'))return;el.classList.add('done');el.querySelectorAll('.hw-opt').forEach((o,i)=>o.classList.add(i===ans?'hw-ok':(i===oi&&oi!==ans?'hw-ko':'')));const fbEl=document.getElementById(`${pfx}-fb-${qi}`);const _h=(oi===ans);fbEl.innerHTML=(_h?'<strong>✓ Correcto.</strong> ':'<strong>✗ Incorrecto.</strong> ')+fb;fbEl.className='hw-fb alert '+(_h?'al-G':'al-E');}
+function answerHW(pfx,qi,oi,ans,fb){const el=document.getElementById(`${pfx}-${qi}`);if(el.classList.contains('done'))return;el.classList.add('done');el.querySelectorAll('.hw-opt').forEach((o,i)=>o.classList.add(i===ans?'hw-ok':(i===oi&&oi!==ans?'hw-ko':'')));const fbEl=document.getElementById(`${pfx}-fb-${qi}`);fbEl.innerHTML=fb;fbEl.className=`hw-fb alert ${oi===ans?'al-G':'al-E'}`;}
 
 const HWA=[
   {q:'¿Es proposición? "La psicología comunitaria trabaja con poblaciones en contexto de vulnerabilidad social."',opts:['Sí','No'],ans:0,fb:'Sí. Declarativa y verificable.'},
@@ -875,45 +789,318 @@ document.addEventListener('DOMContentLoaded',()=>{
   buildHW(HWA,'hw-a','hwa');buildHW(HWB,'hw-b','hwb');buildHW(HWC,'hw-c','hwc');buildHW(HWD,'hw-d','hwd');buildHW(HWE,'hw-e','hwe');
 });
 
-/* Venn diagrams */
-function venn1(s){
-  var S=[
-    {show:'v1s0',hide:'v1s1',cl:'p∧q',
-     lbl:'<strong>Zona teal (p ∧ q):</strong> estudiantes que llegaron temprano <em>y</em> entregaron el taller. Las dos condiciones se cumplen.',eq:false},
-    {show:'v1s1',hide:'v1s0',cl:'',
-     lbl:'<strong>Zona morada ¬(p ∧ q):</strong> estudiantes que NO cumplieron las dos condiciones a la vez. Puede que solo hicieran una, o ninguna.',eq:false},
-    {show:'v1s1',hide:'v1s0',cl:'',
-     lbl:'<strong>Zona morada ¬p ∨ ¬q:</strong> "No llegué O no entregué." ¡Exactamente la misma zona! De Morgan lo demuestra.',eq:true}
-  ];
-  var st=S[s];
-  document.getElementById(st.show).style.display='';
-  document.getElementById(st.hide).style.display='none';
-  var cl=document.getElementById('v1clbl');if(cl)cl.textContent=st.cl;
-  document.getElementById('v1lbl').innerHTML=st.lbl;
-  document.getElementById('v1eq').style.display=st.eq?'block':'none';
-  var tabs=document.getElementById('v1tabs');
-  if(tabs)tabs.querySelectorAll('.vbtab').forEach(function(b,i){b.classList.toggle('active',i===s);});
+/* ═══════ NUEVAS FUNCIONES ═══════ */
+// ─── NEW CLEAN JAVASCRIPT ───────────────────────────────────────────────────
+// Global question store: key = "pfx:qi", value = {ans, fb}
+const _Q = {};
+
+// ─── SINGLE CLICK HANDLER (event delegation) ──────────────────────────────
+// Avoids passing HTML strings through onclick attributes entirely
+document.addEventListener('click', function(e) {
+  const t = e.target;
+  if (t.classList.contains('qopt')) {
+    const pfx = t.dataset.pfx;
+    const qi  = parseInt(t.dataset.qi, 10);
+    const oi  = parseInt(t.dataset.oi, 10);
+    if (pfx && !isNaN(qi) && !isNaN(oi)) _answerOpt(pfx, qi, oi);
+  }
+  if (t.classList.contains('hw-opt')) {
+    const pfx = t.dataset.pfx;
+    const qi  = parseInt(t.dataset.qi, 10);
+    const oi  = parseInt(t.dataset.oi, 10);
+    if (pfx && !isNaN(qi) && !isNaN(oi)) _answerHW(pfx, qi, oi);
+  }
+  if (t.classList.contains('pc-btn')) {
+    const idx = parseInt(t.dataset.idx, 10);
+    const val = t.dataset.val === 'true';
+    if (!isNaN(idx)) _answerProp(t, idx, val);
+  }
+});
+
+// ─── GENERIC EXERCISE ANSWER ──────────────────────────────────────────────
+function _answerOpt(pfx, qi, oi) {
+  const key = pfx + ':' + qi;
+  const item = _Q[key];
+  if (!item) return;
+  const el = document.getElementById(pfx + '-' + qi);
+  if (!el || el.classList.contains('ex-done')) return;
+  el.classList.add('ex-done');
+  const ok = (oi === item.ans);
+  el.querySelectorAll('.qopt').forEach(function(o, i) {
+    if (i === item.ans) o.classList.add('ok');
+    else if (i === oi && !ok) o.classList.add('ko');
+  });
+  const fb = document.getElementById(pfx + '-fb-' + qi);
+  if (fb) {
+    fb.innerHTML = (ok
+      ? '<strong>&#10003; Correcto.</strong> '
+      : '<strong>&#10007; Incorrecto.</strong> La opci\u00f3n correcta es la '
+        + String.fromCharCode(65 + item.ans) + '. ') + item.fb;
+    fb.className = 'ex-fb alert ' + (ok ? 'al-G' : 'al-E');
+  }
 }
-function venn2(s){
-  var S=[
-    {show:'v2s0',hide:'v2s1',
-     lbl:'<strong>Zona teal (p ∨ q):</strong> estudiantes que aprobaron el primer corte <em>o</em> el segundo (o los dos). Al menos uno.',eq:false},
-    {show:'v2s1',hide:'v2s0',
-     lbl:'<strong>Zona morada ¬(p ∨ q):</strong> estudiantes que NO aprobaron ninguno de los dos cortes. Los dos fallaron.',eq:false},
-    {show:'v2s1',hide:'v2s0',
-     lbl:'<strong>Zona morada ¬p ∧ ¬q:</strong> "No aprobé el primero Y no aprobé el segundo." ¡Exactamente la misma zona! De Morgan lo demuestra.',eq:true}
+
+// ─── HOMEWORK ANSWER ─────────────────────────────────────────────────────
+function _answerHW(pfx, qi, oi) {
+  const key = 'hw:' + pfx + ':' + qi;
+  const item = _Q[key];
+  if (!item) return;
+  const el = document.getElementById(pfx + '-' + qi);
+  if (!el || el.classList.contains('done')) return;
+  el.classList.add('done');
+  const ok = (oi === item.ans);
+  el.querySelectorAll('.hw-opt').forEach(function(o, i) {
+    if (i === item.ans) o.classList.add('hw-ok');
+    else if (i === oi && !ok) o.classList.add('hw-ko');
+  });
+  const fb = document.getElementById(pfx + '-fb-' + qi);
+  if (fb) {
+    fb.innerHTML = (ok
+      ? '<strong>&#10003; Correcto.</strong> '
+      : '<strong>&#10007; Incorrecto.</strong> ') + item.fb;
+    fb.className = 'hw-fb alert ' + (ok ? 'al-G' : 'al-E');
+  }
+}
+
+// ─── PROPOSITION CARD ANSWER (gancho + mini-coop-m1) ─────────────────────
+function _answerProp(btn, idx, userAns) {
+  const card = btn.closest('.prop-card');
+  if (!card || card.classList.contains('answered')) return;
+  card.classList.add('answered');
+  const item = _Q['prop:' + idx];
+  if (!item) return;
+  const ok = item.isP === null ? true : (userAns === item.isP);
+  card.style.borderColor = ok ? 'var(--Gb)' : 'var(--Eb)';
+  card.style.background  = ok ? 'var(--Gl)' : 'var(--El)';
+  const fb = card.querySelector('.pc-fb');
+  if (!fb) return;
+  if (item.isP === null) {
+    fb.className = 'pc-fb alert al-Am';
+    fb.innerHTML = item.fb;
+  } else {
+    fb.className = 'pc-fb alert ' + (ok ? 'al-G' : 'al-E');
+    const clean = item.fb.replace(/^[^\w\u00C0-\u024F\u2700-\u27BF]+/, '');
+    fb.innerHTML = ok
+      ? '<strong>&#10003; Correcto.</strong> ' + clean
+      : '<strong>&#10007; Incorrecto.</strong> La respuesta correcta: '
+        + (item.isP ? 'S\u00ed es proposici\u00f3n.' : 'No es proposici\u00f3n.')
+        + ' ' + clean;
+  }
+}
+
+// ─── BUILD GANCHO (pestaña 0 - propositon cards) ──────────────────────────
+function buildGancho() {
+  const c = document.getElementById('gancho-cards');
+  if (!c) return;
+  GANCHO.forEach(function(g, i) {
+    _Q['prop:' + i] = g;
+    const d = document.createElement('div');
+    d.className = 'prop-card';
+    d.innerHTML =
+      '<div class="pc-text">' + g.text + '</div>' +
+      '<div class="pc-btns">' +
+        '<button class="pc-btn" data-idx="' + i + '" data-val="true">\u2713 Es proposici\u00f3n</button>' +
+        '<button class="pc-btn" data-idx="' + i + '" data-val="false">\u2717 No es proposici\u00f3n</button>' +
+      '</div>' +
+      '<div class="pc-fb"></div>';
+    c.appendChild(d);
+  });
+}
+
+// ─── BUILD MINI-COOP M1 (pestaña 1) ──────────────────────────────────────
+function buildMiniM1() {
+  const c = document.getElementById('mini-coop-m1');
+  if (!c) return;
+  MINI_M1.forEach(function(g, i) {
+    _Q['prop:mc1:' + i] = g;
+    const d = document.createElement('div');
+    d.className = 'prop-card';
+    d.innerHTML =
+      '<div class="pc-text">' + g.text + '</div>' +
+      '<div class="pc-btns">' +
+        '<button class="pc-btn" data-idx="mc1:' + i + '" data-val="true">\u2713 Proposici\u00f3n</button>' +
+        '<button class="pc-btn" data-idx="mc1:' + i + '" data-val="false">\u2717 No es proposici\u00f3n</button>' +
+      '</div>' +
+      '<div class="pc-fb"></div>';
+    c.appendChild(d);
+  });
+}
+
+// Override _answerProp to handle mc1: prefix
+const _origAnswerProp = _answerProp;
+document.addEventListener('click', function(e) {
+  const t = e.target;
+  if (!t.classList.contains('pc-btn')) return;
+  const rawIdx = t.dataset.idx;
+  if (!rawIdx) return;
+  // mc1: prefix
+  if (rawIdx.startsWith('mc1:')) {
+    const card = t.closest('.prop-card');
+    if (!card || card.classList.contains('answered')) return;
+    card.classList.add('answered');
+    const i = parseInt(rawIdx.replace('mc1:',''), 10);
+    const item = MINI_M1[i];
+    if (!item) return;
+    const userAns = t.dataset.val === 'true';
+    const ok = item.isP === null ? true : (userAns === item.isP);
+    card.style.borderColor = ok ? 'var(--Gb)' : 'var(--Eb)';
+    card.style.background  = ok ? 'var(--Gl)' : 'var(--El)';
+    const fb = card.querySelector('.pc-fb');
+    if (!fb) return;
+    if (item.isP === null) {
+      fb.className = 'pc-fb alert al-Am'; fb.innerHTML = item.fb;
+    } else {
+      fb.className = 'pc-fb alert ' + (ok ? 'al-G' : 'al-E');
+      const clean = item.fb.replace(/^[^\w\u00C0-\u024F]+/, '');
+      fb.innerHTML = ok
+        ? '<strong>&#10003; Correcto.</strong> ' + clean
+        : '<strong>&#10007; Incorrecto.</strong> La respuesta correcta: '
+          + (item.isP ? 'S\u00ed es proposici\u00f3n.' : 'No es proposici\u00f3n.') + ' ' + clean;
+    }
+  }
+}, true);
+
+// ─── BUILD QUANT (pestaña 1 - cuantificadores) ────────────────────────────
+function buildQuant() {
+  const c = document.getElementById('quant-practice');
+  if (!c) return;
+  QUANT.forEach(function(item, qi) {
+    _Q['qt:' + qi] = {ans: item.ans, fb: item.fb};
+    const el = document.createElement('div');
+    el.className = 'ex-item';
+    el.id = 'qt-' + qi;
+    let opts = '';
+    item.opts.forEach(function(o, oi) {
+      opts += '<div class="qopt" data-pfx="qt" data-qi="' + qi + '" data-oi="' + oi + '">'
+            + String.fromCharCode(65 + oi) + '. ' + o + '</div>';
+    });
+    el.innerHTML = '<div class="ex-q">' + item.q + '</div><div>' + opts + '</div>'
+                 + '<div class="ex-fb alert" id="qt-fb-' + qi + '"></div>';
+    c.appendChild(el);
+  });
+}
+
+// ─── BUILD DM (pestaña 2 - De Morgan) ────────────────────────────────────
+function buildDM() {
+  const c = document.getElementById('demorgan-practice');
+  if (!c) return;
+  DM.forEach(function(item, qi) {
+    _Q['dm:' + qi] = {ans: item.ans, fb: item.fb};
+    const el = document.createElement('div');
+    el.className = 'ex-item';
+    el.id = 'dm-' + qi;
+    let opts = '';
+    item.opts.forEach(function(o, oi) {
+      opts += '<div class="qopt" data-pfx="dm" data-qi="' + qi + '" data-oi="' + oi + '">'
+            + o + '</div>';
+    });
+    el.innerHTML = '<div class="ex-q">' + item.q + '</div><div>' + opts + '</div>'
+                 + '<div class="ex-fb alert" id="dm-fb-' + qi + '"></div>';
+    c.appendChild(el);
+  });
+}
+
+// ─── BUILD MINI-COOP M2 (pestaña 2 - De Morgan) ──────────────────────────
+function buildMiniM2() {
+  const c = document.getElementById('mini-coop-m2');
+  if (!c) return;
+  MINI_M2.forEach(function(item, qi) {
+    _Q['mc2:' + qi] = {ans: item.ans, fb: item.fb};
+    const el = document.createElement('div');
+    el.className = 'ex-item';
+    el.id = 'mc2-' + qi;
+    let opts = '';
+    item.opts.forEach(function(o, oi) {
+      opts += '<div class="qopt" data-pfx="mc2" data-qi="' + qi + '" data-oi="' + oi + '">'
+            + o + '</div>';
+    });
+    el.innerHTML = '<div class="ex-q">' + item.q + '</div><div>' + opts + '</div>'
+                 + '<div class="ex-fb alert" id="mc2-fb-' + qi + '"></div>';
+    c.appendChild(el);
+  });
+}
+
+// ─── BUILD COND PRACTICE (pestaña 3 - condicional) ───────────────────────
+function buildCondPractice() {
+  const c = document.getElementById('cond-practice');
+  if (!c) return;
+  COND_PRAC.forEach(function(item, qi) {
+    _Q['cp:' + qi] = {ans: item.ans, fb: item.fb};
+    const el = document.createElement('div');
+    el.className = 'ex-item';
+    el.id = 'cp-' + qi;
+    let opts = '';
+    item.opts.forEach(function(o, oi) {
+      opts += '<div class="qopt" data-pfx="cp" data-qi="' + qi + '" data-oi="' + oi + '">'
+            + o + '</div>';
+    });
+    el.innerHTML = '<div class="ex-q">' + item.q + '</div><div>' + opts + '</div>'
+                 + '<div class="ex-fb alert" id="cp-fb-' + qi + '"></div>';
+    c.appendChild(el);
+  });
+}
+
+// ─── BUILD HW (pestaña 7 - para casa) ────────────────────────────────────
+function buildHW(data, cid, pfx) {
+  const c = document.getElementById(cid);
+  if (!c) return;
+  data.forEach(function(item, qi) {
+    _Q['hw:' + pfx + ':' + qi] = {ans: item.ans, fb: item.fb};
+    const el = document.createElement('div');
+    el.className = 'hw-ex';
+    el.id = pfx + '-' + qi;
+    let opts = '';
+    item.opts.forEach(function(o, oi) {
+      opts += '<div class="hw-opt" data-pfx="' + pfx + '" data-qi="' + qi + '" data-oi="' + oi + '">'
+            + String.fromCharCode(65 + oi) + '. ' + o + '</div>';
+    });
+    el.innerHTML = '<div class="hw-ex-q">' + item.q + '</div>'
+                 + '<div class="hw-opts">' + opts + '</div>'
+                 + '<div class="hw-fb" id="' + pfx + '-fb-' + qi + '"></div>';
+    c.appendChild(el);
+  });
+}
+
+// ─── VENN DIAGRAMS (De Morgan interactivo) ────────────────────────────────
+function venn1(state) {
+  var show = state === 0 ? 'v1g0' : 'v1g1';
+  var hide = state === 0 ? 'v1g1' : 'v1g0';
+  var sg = document.getElementById(show); if (sg) sg.style.display = '';
+  var hg = document.getElementById(hide); if (hg) hg.style.display = 'none';
+  var cl = document.getElementById('v1cl');
+  if (cl) cl.textContent = state === 0 ? 'p\u2227q' : '';
+  var msgs = [
+    'Zona teal \u2192 <strong>p \u2227 q</strong>: los que llegaron temprano <em>y</em> entregaron el taller. Las dos condiciones se cumplen.',
+    'Zona morada \u2192 <strong>\u00ac(p \u2227 q)</strong>: los que NO cumplieron las dos condiciones a la vez. Puede que s\u00f3lo hayan cumplido una, o ninguna.',
+    'Zona morada \u2192 <strong>\u00acp \u2228 \u00acq</strong>: "No lleg\u00fc\u00e9 O no entregu\u00e9." \u00a1Exactamente la misma zona que \u00ac(p\u2227q)! Eso es De Morgan 1.'
   ];
-  var st=S[s];
-  document.getElementById(st.show).style.display='';
-  document.getElementById(st.hide).style.display='none';
-  document.getElementById('v2lbl').innerHTML=st.lbl;
-  document.getElementById('v2eq').style.display=st.eq?'block':'none';
-  var tabs=document.getElementById('v2tabs');
-  if(tabs)tabs.querySelectorAll('.vbtab').forEach(function(b,i){
-    b.classList.toggle('active',i===s);
-    b.style.background=i===s&&s===0?'var(--Am)':'';
-    b.style.borderColor=i===s&&s===0?'var(--Am)':'';
-    b.style.color=i===s&&s===0?'#fff':'';
+  var lb = document.getElementById('v1lb'); if (lb) lb.innerHTML = msgs[state];
+  var eq = document.getElementById('v1eq'); if (eq) eq.style.display = state === 2 ? 'block' : 'none';
+  ['v1b0','v1b1','v1b2'].forEach(function(id, i) {
+    var b = document.getElementById(id); if (!b) return;
+    b.style.background  = i === state ? 'var(--T)' : 'rgba(255,255,255,.8)';
+    b.style.borderColor = i === state ? 'var(--T)' : 'var(--border)';
+    b.style.color       = i === state ? '#fff' : 'var(--muted)';
+  });
+}
+
+function venn2(state) {
+  var show = state === 0 ? 'v2g0' : 'v2g1';
+  var hide = state === 0 ? 'v2g1' : 'v2g0';
+  var sg = document.getElementById(show); if (sg) sg.style.display = '';
+  var hg = document.getElementById(hide); if (hg) hg.style.display = 'none';
+  var msgs = [
+    'Zona teal \u2192 <strong>p \u2228 q</strong>: los que aprobaron el primer corte <em>o</em> el segundo (o los dos). Al menos uno.',
+    'Zona morada \u2192 <strong>\u00ac(p \u2228 q)</strong>: los que NO aprobaron ninguno de los dos cortes.',
+    'Zona morada \u2192 <strong>\u00acp \u2227 \u00acq</strong>: "No aprob\u00e9 el primero Y no aprob\u00e9 el segundo." \u00a1Misma zona que \u00ac(p\u2228q)! Eso es De Morgan 2.'
+  ];
+  var lb = document.getElementById('v2lb'); if (lb) lb.innerHTML = msgs[state];
+  var eq = document.getElementById('v2eq'); if (eq) eq.style.display = state === 2 ? 'block' : 'none';
+  ['v2b0','v2b1','v2b2'].forEach(function(id, i) {
+    var b = document.getElementById(id); if (!b) return;
+    b.style.background  = i === state ? 'var(--Am)' : 'rgba(255,255,255,.8)';
+    b.style.borderColor = i === state ? 'var(--Am)' : 'var(--border)';
+    b.style.color       = i === state ? '#fff' : 'var(--muted)';
   });
 }
 
