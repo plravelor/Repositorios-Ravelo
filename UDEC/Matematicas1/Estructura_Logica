@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Clase 8 — Lógica Proposicional · Estructura · UdeC</title>
+<style>
+:root{
+  --bg:#06090f; --card:rgba(255,255,255,.05); --border:rgba(255,255,255,.1); --border2:rgba(255,255,255,.06);
+  --text:#f1f0f8; --muted:#9090b0;
+  --L1:#6ee7b7; --L1bg:rgba(52,211,153,.13); --L1b:rgba(52,211,153,.3);
+  --L2:#93c5fd; --L2bg:rgba(59,130,246,.13); --L2b:rgba(59,130,246,.3);
+  --L3:#c4b5fd; --L3bg:rgba(139,92,246,.13); --L3b:rgba(139,92,246,.3);
+  --Lo:#fcd34d; --Lobg:rgba(245,158,11,.13); --Lob:rgba(245,158,11,.3);
+  --Co:#fb7185; --Cobg:rgba(244,63,94,.13); --Cob:rgba(244,63,94,.3);
+  --serif:Georgia,'Times New Roman',serif; --sans:-apple-system,'Segoe UI',sans-serif; --mono:'Courier New',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--sans);color:var(--text);min-height:100vh;background:#06090f;
+  background-image:radial-gradient(ellipse 100% 60% at 10% 0%,rgba(139,92,246,.18) 0%,transparent 55%),radial-gradient(ellipse 80% 60% at 90% 100%,rgba(245,158,11,.12) 0%,transparent 55%);
+  background-attachment:fixed;font-size:15px;line-height:1.65;padding-bottom:60px;}
+/* HEADER */
+.hdr{position:sticky;top:0;z-index:100;background:rgba(6,9,15,.92);border-bottom:1px solid var(--border);backdrop-filter:blur(16px);padding:14px 16px 10px;overflow:hidden;}
+.hdr::after{content:'p→q';position:absolute;right:10px;top:8px;font-size:50px;font-family:var(--mono);color:rgba(167,139,250,.08);font-weight:700;pointer-events:none;}
+.hdr-meta{font-size:.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:4px;}
+.hdr h1{font-family:var(--serif);font-size:1.2rem;font-style:italic;font-weight:700;color:#fff;margin-bottom:3px;}
+.hdr h1 em{color:var(--Lo);font-style:normal;}
+.hdr-pills{display:flex;gap:5px;flex-wrap:wrap;margin-top:7px;}
+.pill{display:inline-flex;align-items:center;gap:3px;padding:3px 9px;border-radius:99px;font-size:.62rem;font-weight:700;}
+.print-btn{padding:3px 9px;border-radius:99px;font-size:.62rem;font-weight:700;background:rgba(255,255,255,.1);border:1px solid var(--border);color:var(--muted);cursor:pointer;}
+/* NAV */
+.nav-strip{display:flex;overflow-x:auto;gap:0;scrollbar-width:none;background:rgba(6,9,15,.8);border-bottom:1px solid var(--border2);position:sticky;top:78px;z-index:99;backdrop-filter:blur(12px);}
+.nav-strip::-webkit-scrollbar{display:none;}
+.nav-item{flex-shrink:0;padding:8px 12px 7px;font-size:.58rem;font-weight:700;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;text-decoration:none;white-space:nowrap;transition:all .2s;text-transform:uppercase;letter-spacing:.3px;}
+.nav-item:hover{color:var(--text);}
+/* MAIN */
+.main{max-width:720px;margin:0 auto;padding:18px 14px 20px;position:relative;z-index:1;}
+/* INTRO CARD */
+.intro-card{border-radius:14px;padding:16px;margin-bottom:16px;background:linear-gradient(135deg,rgba(139,92,246,.15),rgba(245,158,11,.08));border:1px solid rgba(167,139,250,.3);box-shadow:0 8px 32px rgba(0,0,0,.3);}
+/* TIMELINE */
+.tl-tbl{width:100%;border-collapse:separate;border-spacing:0;margin-bottom:18px;border-radius:11px;overflow:hidden;border:1px solid var(--border);}
+.tl-tbl th{padding:8px 12px;font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;background:rgba(255,255,255,.07);color:var(--muted);text-align:left;}
+.tl-tbl td{padding:8px 12px;border-top:1px solid var(--border2);font-size:.81rem;}
+.tl-time{font-family:var(--mono);font-size:.72rem;font-weight:700;white-space:nowrap;}
+.tl-tag{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:99px;font-size:.62rem;font-weight:700;}
+/* BLOCKS */
+.block{border-radius:13px;margin-bottom:13px;overflow:hidden;background:var(--card);border:1px solid var(--border);box-shadow:0 4px 20px rgba(0,0,0,.25);}
+.block-hdr{display:flex;align-items:center;gap:12px;padding:13px 16px;cursor:pointer;user-select:none;background:rgba(255,255,255,.03);border-bottom:1px solid transparent;transition:background .2s;}
+.block-hdr:active{background:rgba(255,255,255,.06);}
+.block-hdr.open{border-bottom-color:var(--border2);}
+.block-icon{font-size:1.3rem;flex-shrink:0;}
+.block-meta{flex:1;}
+.block-title{font-family:var(--serif);font-size:.98rem;font-weight:700;font-style:italic;line-height:1.2;color:#fff;}
+.block-sub{font-size:.67rem;color:var(--muted);margin-top:2px;font-family:var(--mono);}
+.block-arrow{font-size:1rem;color:var(--muted);transition:transform .3s;flex-shrink:0;}
+.block-arrow.open{transform:rotate(90deg);}
+.block-body{padding:16px;display:none;}
+.block-body.open{display:block;}
+/* SCRIPT */
+.script{background:rgba(0,0,0,.25);border-radius:10px;padding:14px 16px;margin:12px 0;border-left:3px solid var(--muted);}
+.script.s-L1{border-left-color:var(--L1);}
+.script.s-L2{border-left-color:var(--L2);}
+.script.s-L3{border-left-color:var(--L3);}
+.script.s-Lo{border-left-color:var(--Lo);background:rgba(245,158,11,.05);}
+.script.s-Co{border-left-color:var(--Co);background:rgba(244,63,94,.04);}
+.script-label{font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:6px;}
+.script-body{font-size:.86rem;line-height:1.78;color:var(--text);}
+.script-body em{font-style:italic;color:rgba(255,255,255,.8);}
+.script-body strong{font-weight:700;}
+.script-body .pause{display:inline-flex;align-items:center;gap:4px;background:rgba(245,158,11,.2);border:1px solid rgba(245,158,11,.4);color:var(--Lo);padding:1px 8px;border-radius:5px;font-size:.7rem;font-weight:700;font-style:normal;}
+.script-body .inter{display:inline;background:rgba(52,211,153,.15);border:1px solid rgba(52,211,153,.3);color:var(--L1);padding:1px 6px;border-radius:4px;font-size:.7rem;font-weight:700;font-style:normal;}
+.script-body code{font-family:var(--mono);font-size:.82rem;background:rgba(255,255,255,.1);padding:1px 5px;border-radius:4px;}
+/* BOXES */
+.info-box{border-radius:10px;padding:11px 13px;margin:10px 0;border:1.5px solid;font-size:.81rem;line-height:1.6;}
+.coop-box{border-radius:12px;padding:13px;margin:12px 0;border:2px solid var(--Cob);background:rgba(244,63,94,.05);}
+.coop-box-title{font-family:var(--serif);font-style:italic;font-weight:700;color:var(--Co);font-size:.95rem;margin-bottom:6px;}
+.inter-badge{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:99px;font-size:.62rem;font-weight:700;border:1px solid;margin-bottom:8px;}
+.step-n{min-width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.66rem;font-weight:800;flex-shrink:0;margin-top:1px;}
+.step{display:flex;align-items:flex-start;gap:8px;font-size:.81rem;line-height:1.55;margin-bottom:7px;}
+.role-row{display:flex;align-items:flex-start;gap:8px;padding:8px 10px;border-radius:8px;background:rgba(255,255,255,.04);border:1px solid var(--border2);font-size:.79rem;line-height:1.5;margin-bottom:5px;}
+.role-tag{font-size:.57rem;font-weight:800;text-transform:uppercase;letter-spacing:.4px;padding:2px 7px;border-radius:99px;flex-shrink:0;margin-top:2px;}
+.note{background:rgba(255,255,255,.04);border-left:3px solid var(--border);border-radius:0 8px 8px 0;padding:8px 10px;font-size:.78rem;line-height:1.55;color:var(--muted);margin:8px 0;}
+.note strong{color:var(--text);}
+hr.div{border:none;border-top:1px solid var(--border2);margin:12px 0;}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:8px 0;}
+@media(max-width:480px){.two-col{grid-template-columns:1fr;}}
+/* FOOTER */
+.page-footer{margin-top:20px;background:rgba(0,0,0,.4);border-top:1px solid var(--border);padding:20px 16px 32px;text-align:center;position:relative;overflow:hidden;}
+.page-footer::before{content:'p→q  ¬p  p∧q  p∨q';font-family:var(--mono);font-size:2rem;font-weight:700;background:linear-gradient(90deg,var(--L1),var(--L2),var(--L3),var(--Lo));-webkit-background-clip:text;-webkit-text-fill-color:transparent;opacity:.07;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);white-space:nowrap;pointer-events:none;}
+.footer-inner{position:relative;z-index:1;}
+@media print{.nav-strip,.hdr-pills{display:none!important;}.block-body{display:block!important;}.block-arrow{display:none;}.block-hdr{cursor:default;}}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="hdr-meta">Plan de Sesión · Matemáticas I · Psicología · UdeC Facatativá · 2026</div>
+  <h1>Clase 8 — <em>Lógica Proposicional</em></h1>
+  <div class="hdr-pills">
+    <span class="pill" style="background:var(--Lobg);border:1px solid var(--Lob);color:var(--Lo);">⏱ 2 horas · 7 bloques</span>
+    <span class="pill" style="background:var(--L1bg);border:1px solid var(--L1b);color:var(--L1);">📱 Herramienta-primero</span>
+    <span class="pill" style="background:var(--Cobg);border:1px solid var(--Cob);color:var(--Co);">👥 Tríos AC — Jigsaw argumentativo</span>
+    <span class="pill" style="background:var(--L3bg);border:1px solid var(--L3b);color:var(--L3);">Miller §3.1–3.3</span>
+    <button class="print-btn" onclick="window.print()">🖨 Imprimir</button>
+  </div>
+</div>
+
+<div class="nav-strip">
+  <a class="nav-item" href="#b0">🎬 0:00 Gancho</a>
+  <a class="nav-item" href="#b1">📝 0:08 Proposiciones</a>
+  <a class="nav-item" href="#b2">🔗 0:35 Conectivos</a>
+  <a class="nav-item" href="#b3">➡️ 1:00 Condicional</a>
+  <a class="nav-item" href="#b4">👥 1:22 Cooperativo</a>
+  <a class="nav-item" href="#b5">📊 1:44 Quiz</a>
+  <a class="nav-item" href="#b6">📓 1:55 Cierre</a>
+</div>
+
+<div class="main">
+
+  <!-- NARRATIVA -->
+  <div class="intro-card" style="margin-top:16px;" id="b0">
+    <p style="font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--L3);margin-bottom:7px;">Línea narrativa de la sesión</p>
+    <p style="font-family:var(--serif);font-style:italic;font-size:.93rem;line-height:1.72;margin-bottom:10px;color:#fff;">"La lógica no es una regla más de matemáticas: es el lenguaje con el que distinguimos un argumento válido de uno que solo suena bien. Todo lo que un psicólogo concluye de sus datos — toda hipótesis, toda diagnosis, toda recomendación — tiene una forma lógica. Hoy aprendemos a leer esa forma."</p>
+    <p style="font-size:.8rem;line-height:1.6;color:var(--muted);">Esta clase conecta directamente con la clase anterior (conjuntos) y anticipa la siguiente (encuestas y lectura de gráficas). La conjunción ∧ = intersección ∩, la disyunción ∨ = unión ∪, la negación ¬ = complemento. El condicional → es el corazón de toda hipótesis de investigación. Las falacias que se trabajan en la actividad cooperativa son las mismas que ya aparecieron en el Parcial 1.</p>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;">
+      <span class="pill" style="background:var(--L1bg);border:1px solid var(--L1b);color:var(--L1);">Miller §3.1 Proposiciones</span>
+      <span class="pill" style="background:var(--L2bg);border:1px solid var(--L2b);color:var(--L2);">§3.2 Tablas de verdad</span>
+      <span class="pill" style="background:var(--L3bg);border:1px solid var(--L3b);color:var(--L3);">§3.3 Condicional</span>
+      <span class="pill" style="background:var(--Cobg);border:1px solid var(--Cob);color:var(--Co);">Johnson & Johnson: interdependencia positiva</span>
+    </div>
+  </div>
+
+  <!-- CRONOGRAMA -->
+  <table class="tl-tbl">
+    <thead><tr><th style="width:90px">Tiempo</th><th style="width:44px">Min</th><th>Bloque</th><th style="width:100px">Modo</th></tr></thead>
+    <tbody>
+      <tr><td class="tl-time" style="color:var(--Co);">0:00–0:08</td><td style="font-family:var(--mono);font-weight:700;text-align:center;color:var(--Co);">8</td><td>🎬 Herramienta M0: Gancho individual — identificación de proposiciones</td><td><span class="tl-tag" style="background:var(--Cobg);color:var(--Co);">Herramienta</span></td></tr>
+      <tr><td class="tl-time" style="color:var(--L1);">0:08–0:35</td><td style="font-family:var(--mono);font-weight:700;text-align:center;color:var(--L1);">27</td><td>🎙 Magistral 1 — Proposiciones + guion completo + M1 herramienta</td><td><span class="tl-tag" style="background:var(--L1bg);color:var(--L1);">Magistral</span></td></tr>
+      <tr><td class="tl-time" style="color:var(--L2);">0:35–1:00</td><td style="font-family:var(--mono);font-weight:700;text-align:center;color:var(--L2);">25</td><td>🎙 Magistral 2 — Conectivos ¬∧∨ + De Morgan + M2 herramienta</td><td><span class="tl-tag" style="background:var(--L2bg);color:var(--L2);">Magistral</span></td></tr>
+      <tr><td class="tl-time" style="color:var(--L3);">1:00–1:22</td><td style="font-family:var(--mono);font-weight:700;text-align:center;color:var(--L3);">22</td><td>🎙 Magistral 3 — Condicional p→q + falacias + M3 herramienta</td><td><span class="tl-tag" style="background:var(--L3bg);color:var(--L3);">Magistral</span></td></tr>
+      <tr><td class="tl-time" style="color:var(--Co);">1:22–1:44</td><td style="font-family:var(--mono);font-weight:700;text-align:center;color:var(--Co);">22</td><td>👥 AC — "El Fiscal de los Argumentos" (M4) · tríos con roles</td><td><span class="tl-tag" style="background:var(--Cobg);color:var(--Co);">Cooperativo</span></td></tr>
+      <tr><td class="tl-time" style="color:var(--Lo);">1:44–1:55</td><td style="font-family:var(--mono);font-weight:700;text-align:center;color:var(--Lo);">11</td><td>📊 Quiz individual (M5) · localStorage · silencio</td><td><span class="tl-tag" style="background:var(--Lobg);color:var(--Lo);">Quiz</span></td></tr>
+      <tr><td class="tl-time" style="color:var(--L1);">1:55–2:00</td><td style="font-family:var(--mono);font-weight:700;text-align:center;color:var(--L1);">5</td><td>📓 Cierre: folio metacognitivo + asignación M6 Para Casa</td><td><span class="tl-tag" style="background:var(--L1bg);color:var(--L1);">Cierre</span></td></tr>
+    </tbody>
+  </table>
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- BLOQUE 0 — GANCHO                           -->
+  <!-- ════════════════════════════════════════════ -->
+  <div class="block" id="b_gancho">
+    <div class="block-hdr open" onclick="tog('bb0')">
+      <span class="block-icon">🎬</span>
+      <div class="block-meta">
+        <div class="block-title">Apertura — Gancho con la herramienta M0</div>
+        <div class="block-sub">0:00 – 0:08 · 8 min · Individual, sin instrucción</div>
+      </div>
+      <span class="block-arrow open" id="arr-bb0">›</span>
+    </div>
+    <div class="block-body open" id="bb0">
+      <div class="note"><strong>Antes de decir una sola palabra:</strong> El profesor distribuye el link de la herramienta (ya enviado por WhatsApp/grupo). Los estudiantes abren M0 y tienen 5 minutos para clasificar individualmente las 6 frases. Sin ayuda, sin debate. El docente observa y anota qué ítems generan más vacilación.</div>
+      <div class="script s-Lo">
+        <div class="script-label" style="color:var(--Lo);">Cierre del gancho — proyectable (0:05)</div>
+        <div class="script-body">
+          <em>"¿Cuántos clasificaron correctamente los seis? ¿Cuál les generó más duda?"</em><br><br>
+          <em>"Noten que las dos frases que más confunden a la gente son las exclamaciones y los deseos. Eso es porque en la vida cotidiana les llamamos 'afirmaciones' a cosas que en lógica no lo son. La precisión del lenguaje matemático va a forzarnos a ser más cuidadosos que en el lenguaje cotidiano."</em><br><br>
+          <em>"Y antes de entrar, una pregunta que van a poder responder al final de la clase:"</em> [escribir en el tablero]<br><br>
+          <strong>"Si un estudiante cumple todos los criterios del DSM-5 para TAG (p), ¿necesariamente tiene ese diagnóstico (q)? ¿Cuándo fallaría esa conclusión?"</strong><br><br>
+          <em>"Eso es exactamente lo que vamos a aprender a analizar hoy. Y la respuesta no es tan obvia."</em>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- BLOQUE 1 — MAGISTRAL 1: PROPOSICIONES       -->
+  <!-- ════════════════════════════════════════════ -->
+  <div class="block" id="b1">
+    <div class="block-hdr" onclick="tog('bb1')">
+      <span class="block-icon">📝</span>
+      <div class="block-meta">
+        <div class="block-title">Magistral 1 — Proposiciones: el átomo de la lógica</div>
+        <div class="block-sub">0:08 – 0:35 · 27 min · Guion completo + M1 herramienta</div>
+      </div>
+      <span class="block-arrow" id="arr-bb1">›</span>
+    </div>
+    <div class="block-body" id="bb1">
+
+      <div class="info-box" style="border-color:var(--L1b);background:var(--L1bg);">
+        <strong style="color:var(--L1);">Objetivo de aprendizaje:</strong> Al final de esta magistral el estudiante puede distinguir con precisión qué es y qué no es una proposición lógica, y puede nombrar el valor de verdad de proposiciones simples en contextos de investigación psicológica.
+      </div>
+
+      <div class="script s-L1">
+        <div class="script-label" style="color:var(--L1);">Apertura y motivación — guion proyectable (0:08–0:14)</div>
+        <div class="script-body">
+          <em>"Un artículo publicado el año pasado en una revista de psicología colombiana concluía: 'El consumo de redes sociales genera depresión en adolescentes.' ¿Cuántos de ustedes han escuchado algo parecido?"</em><br><br>
+          [Pausa. Manos.]<br><br>
+          <em>"Ahora pregunta más precisa: ¿esa frase puede ser verdadera o falsa? ¿Se puede verificar o refutar con datos?"</em><br><br>
+          [Pausa. Respuestas.] <em>"Exactamente: sí puede. Eso la convierte en una <strong>proposición</strong>. Y la lógica matemática es precisamente la herramienta para analizar si las conclusiones que se sacan de datos como ese son válidas o no."</em><br><br>
+          <em>"¿Por qué le importa esto a un psicólogo? Porque cada hipótesis que formulan en una investigación es una proposición. Cada criterio diagnóstico del DSM-5 que evalúan es una proposición. Cada conclusión de encuesta es una proposición. Si no saben cuándo una proposición compuesta es verdadera o falsa, no pueden evaluar críticamente sus propios argumentos ni los de otros."</em>
+        </div>
+      </div>
+
+      <div class="script s-L1">
+        <div class="script-label" style="color:var(--L1);">Definición de proposición — guion (0:14–0:20)</div>
+        <div class="script-body">
+          <em>"Una <strong>proposición</strong> — que en lógica también llamamos enunciado — es exactamente esto: una oración declarativa que tiene un único valor de verdad. O es Verdadera, o es Falsa. Nunca los dos a la vez, nunca ninguno."</em><br><br>
+          <em>"Ahora, ¿qué NO es una proposición?"</em><br><br>
+          [Escribir en tablero o proyectar]<br>
+          <em>"Primero: las preguntas. '¿Cuántos criterios cumple el paciente?' — eso no puede ser verdadero ni falso. Es una pregunta."</em><br><br>
+          <em>"Segundo: las órdenes o peticiones. '¡Haz la tarea de lógica!' — no es V ni F."</em><br><br>
+          <em>"Tercero: los deseos. 'Ojalá que no llueva el día del parcial.' — tampoco."</em><br><br>
+          <em>"Cuarto: las exclamaciones. '¡Qué difícil es la lógica!' — expresión emocional, no afirmación lógica."</em><br><br>
+          <em>"Y hay un quinto tipo especial que verán si estudian lógica avanzada: las paradojas. 'Esta oración es falsa.' ¿Es verdadera o falsa esa oración? Si es verdadera, entonces es falsa. Si es falsa, entonces es verdadera. Esto se llama la paradoja del mentiroso, y la lógica clásica simplemente excluye estas oraciones del sistema. En este curso no las trabajamos, pero quiero que sepan que existen."</em>
+        </div>
+      </div>
+
+      <div class="script s-L1">
+        <div class="script-label" style="color:var(--L1);">Proposiciones en psicología — guion (0:20–0:27)</div>
+        <div class="script-body">
+          <em>"Vamos a ver los tres tipos de proposiciones que van a usar más en su carrera."</em><br><br>
+          <em>"El primer tipo: <strong>hipótesis de investigación</strong>. 'El nivel de estrés correlaciona negativamente con el rendimiento académico.' Esa es una proposición — puede verificarse o refutarse con datos. Un estudio de investigación es básicamente un sistema para determinar si esa proposición es V o F bajo ciertas condiciones."</em><br><br>
+          <em>"El segundo tipo: <strong>criterios diagnósticos</strong>. 'El paciente experimenta preocupación excesiva durante más de seis meses.' Eso es exactamente una proposición: el clínico la evalúa como V o F al explorar al paciente. Todo el DSM-5 está construido sobre proposiciones de este tipo."</em><br><br>
+          <em>"El tercer tipo: <strong>conclusiones de encuesta</strong>. 'La mayoría de encuestados reportó más de cuatro horas de uso de pantalla al día.' Proposición factual respaldada por los datos."</em><br><br>
+          <span class="pause">⏸ Pausa activa</span> <em>"Abran M1 de la herramienta. Tienen 4 minutos para identificar individualmente cuáles de las 6 frases de la práctica son proposiciones. Luego comparan en parejas."</em>
+        </div>
+      </div>
+
+      <div class="note"><strong>Al terminar M1 herramienta:</strong> Puesta en común rápida (2 min). El docente pregunta por el ítem 4 ("La correlación es igual a la causalidad"): ¿es proposición? Sí — y es FALSA. Punto clave: las proposiciones pueden ser falsas. Eso no las excluye del sistema lógico.</div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- BLOQUE 2 — MAGISTRAL 2: CONECTIVOS          -->
+  <!-- ════════════════════════════════════════════ -->
+  <div class="block" id="b2">
+    <div class="block-hdr" onclick="tog('bb2')">
+      <span class="block-icon">🔗</span>
+      <div class="block-meta">
+        <div class="block-title">Magistral 2 — Conectivos lógicos: ¬, ∧, ∨ y De Morgan</div>
+        <div class="block-sub">0:35 – 1:00 · 25 min · Guion completo + M2 herramienta</div>
+      </div>
+      <span class="block-arrow" id="arr-bb2">›</span>
+    </div>
+    <div class="block-body" id="bb2">
+
+      <div class="info-box" style="border-color:var(--L2b);background:var(--L2bg);">
+        <strong style="color:var(--L2);">Objetivo:</strong> El estudiante puede calcular el valor de verdad de proposiciones compuestas con ¬, ∧ y ∨, y reconoce la equivalencia directa con las operaciones de conjuntos (complemento, intersección, unión).
+      </div>
+
+      <div class="script s-L2">
+        <div class="script-label" style="color:var(--L2);">Apertura — conexión con conjuntos (0:35–0:39)</div>
+        <div class="script-body">
+          <em>"Las proposiciones por sí solas dicen poco. Lo interesante es cómo las combinamos. Y cuando las combinamos, usamos los mismos operadores que ya conocen de la clase anterior — solo con otro nombre."</em><br><br>
+          <em>"¿Se acuerdan de la intersección A ∩ B? La región donde dos conjuntos se solapan. ¿Y de la unión A ∪ B? ¿Y del complemento A'?"</em><br><br>
+          <em>"Pues en lógica proposicional esas tres operaciones tienen un nombre: se llaman conjunción (∧), disyunción (∨) y negación (¬). Y funcionan exactamente igual. La lógica proposicional y la teoría de conjuntos son el mismo lenguaje en dos notaciones distintas."</em>
+        </div>
+      </div>
+
+      <div class="script s-L2">
+        <div class="script-label" style="color:var(--L2);">Negación ¬p — guion (0:39–0:43)</div>
+        <div class="script-body">
+          <em>"La <strong>negación</strong> de una proposición p, que escribimos ¬p o 'no p', simplemente invierte su valor de verdad. Si p es Verdadera, ¬p es Falsa. Si p es Falsa, ¬p es Verdadera."</em><br><br>
+          <em>"Ejemplo de encuesta: p = 'El estudiante duerme ≥7 horas al día' es Verdadera para Camilo. ¿Cuánto vale ¬p para Camilo? Falsa. Camilo sí duerme 7h o más, así que decir 'Camilo no duerme 7h o más' es Falso."</em><br><br>
+          <em>"Conexión directa con conjuntos: si llamo P al conjunto de estudiantes que duermen ≥7h, entonces ¬p para un estudiante es lo mismo que decir que ese estudiante está en P' — el complemento."</em><br><br>
+          <em>"La tabla de verdad de ¬p tiene exactamente dos filas. [Proyectar o escribir.] p=V → ¬p=F. p=F → ¬p=V. Así de simple."</em>
+        </div>
+      </div>
+
+      <div class="script s-L2">
+        <div class="script-label" style="color:var(--L2);">Conjunción ∧ — guion (0:43–0:48)</div>
+        <div class="script-body">
+          <em>"La <strong>conjunción</strong> p ∧ q — que se lee 'p y q' — es Verdadera únicamente cuando AMBAS proposiciones son Verdaderas. Si alguna de las dos es Falsa, la conjunción completa es Falsa."</em><br><br>
+          <em>"Piénsenlo así: si van a una fiesta y les dicen 'el lugar tiene buena música Y buena comida', esa afirmación es Verdadera solo si AMBAS condiciones se cumplen. Si la música está mal o si la comida es mala, la afirmación completa falla."</em><br><br>
+          <em>"En investigación: p = 'El participante duerme ≥7h' (V), q = 'El participante tiene promedio ≥3.5' (F). ¿Cuánto vale p ∧ q? Falso. Porque aunque p es V, q no se cumple."</em><br><br>
+          <em>"La tabla de verdad tiene cuatro filas. [Proyectar.] Solo la primera fila — V,V — da Verdadero. Las demás tres dan Falso."</em><br><br>
+          <em>"Conexión con conjuntos: p ∧ q es exactamente A ∩ B. Los estudiantes que cumplen p y q son exactamente los que están en la intersección de los dos conjuntos. Así filtramos participantes en una encuesta con criterio AND."</em>
+        </div>
+      </div>
+
+      <div class="script s-L2">
+        <div class="script-label" style="color:var(--L2);">Disyunción ∨ — guion (0:48–0:52)</div>
+        <div class="script-body">
+          <em>"La <strong>disyunción</strong> p ∨ q — que se lee 'p o q' — es Falsa únicamente cuando AMBAS son Falsas. Si al menos una es Verdadera, la disyunción es Verdadera."</em><br><br>
+          <em>"Esto es lo que en lógica llamamos 'o inclusivo': si llueve Y hay trancones, 'llueve o hay trancones' sigue siendo verdadero. No excluye que las dos ocurran a la vez. Eso es diferente del 'o' de 'o comes o duermes' — ese 'o exclusivo' en lógica se escribe diferente y no lo vemos hoy."</em><br><br>
+          <em>"La única fila Falsa en la tabla de verdad de p∨q es cuando p=F y q=F."</em><br><br>
+          <em>"Conexión con conjuntos: p ∨ q es exactamente A ∪ B. Los estudiantes que cumplen p o q (o los dos) = la unión."</em><br><br>
+          <span class="pause">⏸ Pausa activa</span> <em>"Abran M2 de la herramienta. Revisen las tablas de verdad de los tres conectivos. Tienen 3 minutos para asegurarse de que las tablas tienen sentido. Luego sigo con De Morgan."</em>
+        </div>
+      </div>
+
+      <div class="script s-L2">
+        <div class="script-label" style="color:var(--L2);">De Morgan — guion (0:55–1:00)</div>
+        <div class="script-body">
+          <em>"Esto que viene ya lo conocen — solo vamos a reconocerlo con el nuevo lenguaje."</em><br><br>
+          <em>"Primera Ley de De Morgan: ¬(p ∧ q) ≡ ¬p ∨ ¬q. ¿Recuerdan que en conjuntos era (A ∩ B)' = A' ∪ B'? Exactamente la misma ley."</em><br><br>
+          <em>"¿Cuándo NO tiene el diagnóstico un paciente que requiere criterio P1 Y criterio P2? Por De Morgan: cuando no cumple P1 O cuando no cumple P2. Basta que falle en un criterio."</em><br><br>
+          <em>"Segunda Ley: ¬(p ∨ q) ≡ ¬p ∧ ¬q. (A ∪ B)' = A' ∩ B'. 'No usa Instagram ni TikTok más de 3h' = 'no usa Instagram más de 3h Y no usa TikTok más de 3h'."</em><br><br>
+          <em>"La M2 de la herramienta tiene ambas leyes con ejemplos. Las ven en casa junto con las tablas completas."</em>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- BLOQUE 3 — MAGISTRAL 3: CONDICIONAL         -->
+  <!-- ════════════════════════════════════════════ -->
+  <div class="block" id="b3">
+    <div class="block-hdr" onclick="tog('bb3')">
+      <span class="block-icon">➡️</span>
+      <div class="block-meta">
+        <div class="block-title">Magistral 3 — El condicional p→q y las falacias</div>
+        <div class="block-sub">1:00 – 1:22 · 22 min · Guion completo + M3 herramienta</div>
+      </div>
+      <span class="block-arrow" id="arr-bb3">›</span>
+    </div>
+    <div class="block-body" id="bb3">
+
+      <div class="info-box" style="border-color:var(--L3b);background:var(--L3bg);">
+        <strong style="color:var(--L3);">Objetivo:</strong> El estudiante identifica la tabla de verdad del condicional, distingue el contrapositivo del converso, y reconoce las dos falacias más comunes (afirmación del consecuente, negación del antecedente) en argumentos de investigación.
+      </div>
+
+      <div class="script s-L3">
+        <div class="script-label" style="color:var(--L3);">Introducción al condicional (1:00–1:06)</div>
+        <div class="script-body">
+          <em>"El conectivo más importante para la vida científica de ustedes como psicólogos es el <strong>condicional</strong>, que escribimos p → q y se lee 'si p, entonces q'."</em><br><br>
+          <em>"¿Por qué es tan importante? Porque toda hipótesis de investigación tiene esta forma. 'Si el nivel de cortisol aumenta, el rendimiento cognitivo disminuye.' 'Si se aplica terapia de exposición gradual, la respuesta ansiosa disminuye.' 'Si el niño tiene apego seguro, sus habilidades sociales se desarrollan más favorablemente.' Todas esas son proposiciones condicionales."</em><br><br>
+          <em>"Y toda vez que alguien presenta datos y dice 'esto demuestra que X causa Y', están implícitamente afirmando un condicional. Si no saben cuándo es válido razonar a partir de un condicional, no pueden evaluar si esa conclusión se sostiene."</em>
+        </div>
+      </div>
+
+      <div class="script s-L3">
+        <div class="script-label" style="color:var(--L3);">Tabla de verdad del condicional (1:06–1:12)</div>
+        <div class="script-body">
+          <em>"La tabla de verdad del condicional tiene cuatro filas, como la conjunción y la disyunción. Pero tiene una característica sorprendente."</em><br><br>
+          <em>"Primera fila: p=V, q=V. Si el antecedente es verdadero y el consecuente también, el condicional es Verdadero. Tiene sentido: la promesa se cumplió."</em><br><br>
+          <em>"Segunda fila: p=V, q=F. El antecedente es verdadero, pero el consecuente es falso. El condicional es <strong>Falso</strong>. Esta es la única fila donde el condicional falla. Piénsenlo como una promesa rota: se cumplió la condición (p=V) pero la consecuencia no ocurrió (q=F)."</em><br><br>
+          <em>"Tercera fila: p=F, q=V. El antecedente es falso. El condicional es Verdadero. ¿Por qué? Porque si la condición de la promesa no se cumple, la promesa no se puede incumplir. Si yo les digo 'si llueve, cancelo la clase', y no llueve, no importa si cancelo o no — no rompí mi promesa."</em><br><br>
+          <em>"Cuarta fila: p=F, q=F. Antecedente falso. Condicional Verdadero por la misma razón: la promesa no se activó."</em><br><br>
+          <em>"La clave: p → q es Falso <strong>solo</strong> cuando p=V y q=F."</em>
+        </div>
+      </div>
+
+      <div class="script s-L3">
+        <div class="script-label" style="color:var(--L3);">Contrapositivo, converso e inverso (1:12–1:17)</div>
+        <div class="script-body">
+          <em>"Del condicional original p→q se pueden derivar tres enunciados relacionados. Solo uno de ellos es lógicamente equivalente al original."</em><br><br>
+          <em>"El <strong>contrapositivo</strong>: ¬q → ¬p. 'Si no hay trastorno de ansiedad, entonces no se cumplen todos los criterios.' Este es equivalente al original: tienen la misma tabla de verdad."</em><br><br>
+          <em>"El <strong>converso</strong>: q → p. 'Si hay trastorno de ansiedad, entonces se cumplen todos los criterios.' Este NO es equivalente. Puede ser falso aunque el original sea verdadero."</em><br><br>
+          <em>"El <strong>inverso</strong>: ¬p → ¬q. 'Si no se cumplen todos los criterios, entonces no hay trastorno de ansiedad.' Tampoco equivalente."</em><br><br>
+          <em>"Resumen: solo el contrapositivo es equivalente al original. El converso y el inverso son entre sí equivalentes, pero no con el original. Confundirlos genera las falacias más comunes en investigación."</em>
+        </div>
+      </div>
+
+      <div class="script s-L3">
+        <div class="script-label" style="color:var(--L3);">Falacias — guion (1:17–1:22)</div>
+        <div class="script-body">
+          <em>"Las dos falacias más comunes que van a encontrar en artículos académicos, en debates clínicos y en sus propios trabajos son estas:"</em><br><br>
+          <em>"<strong>Falacia 1: Afirmación del consecuente.</strong> Forma: p→q, q, ∴ p. 'Si hay correlación (p), hay relación entre variables (q). Hay relación. Por tanto, hay correlación.' El error: q puede ser verdadera por múltiples razones. Afirmar q no garantiza p. Esta es la misma confusión de la clase pasada: correlación no implica causalidad — ese error tiene una forma lógica precisa."</em><br><br>
+          <em>"<strong>Falacia 2: Negación del antecedente.</strong> Forma: p→q, ¬p, ∴ ¬q. 'Si el estudiante estudia más de 3h (p), aprueba (q). Camila no estudia 3h. Por tanto, Camila no aprueba.' El error: que p sea Falsa no implica que q sea Falsa. Camila puede aprobar de otras maneras."</em><br><br>
+          <em>"Noten que estas dos falacias equivalen a confundir el condicional con su converso o con su inverso — que ya saben que NO son equivalentes."</em><br><br>
+          <span class="pause">⏸ Pausa activa</span> <em>"Abran M3 de la herramienta. Tomen 3 minutos para revisar los tres argumentos de falacias. Tóquenlos cuando el grupo haya decidido. Luego vamos a la actividad cooperativa donde van a aplicar todo esto."</em>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- BLOQUE 4 — COOPERATIVO                      -->
+  <!-- ════════════════════════════════════════════ -->
+  <div class="block" id="b4">
+    <div class="block-hdr" onclick="tog('bb4')">
+      <span class="block-icon">👥</span>
+      <div class="block-meta">
+        <div class="block-title">Actividad cooperativa — "El Fiscal de los Argumentos"</div>
+        <div class="block-sub">1:22 – 1:44 · 22 min · AC con roles · M4 herramienta</div>
+      </div>
+      <span class="block-arrow" id="arr-bb4">›</span>
+    </div>
+    <div class="block-body" id="bb4">
+
+      <div class="coop-box">
+        <div class="coop-box-title">Diseño pedagógico cooperativo — "El Fiscal de los Argumentos"</div>
+        <div class="inter-badge" style="background:var(--Cobg);border-color:var(--Cob);color:var(--Co);">📎 Interdependencia positiva: un dictamen por equipo, cada rol es esencial</div>
+        <p style="font-size:.81rem;line-height:1.65;margin-bottom:10px;">Los tríos analizan cuatro argumentos de investigación psicológica. Deben clasificar cada uno como válido (Modus Ponens / Tollens) o falacia, nombrar la forma lógica y preparar la presentación pública del Argumento 4.</p>
+        <p style="font-size:.78rem;color:var(--muted);margin-bottom:10px;"><strong style="color:var(--text);">Fundamento (Johnson & Johnson, 1994):</strong> La actividad tiene interdependencia positiva (un solo análisis grupal), responsabilidad individual (cualquier miembro puede ser llamado a defender), interacción cara a cara (votación simultánea), habilidades sociales explícitas (debate antes de revelar) y procesamiento grupal al final (¿qué tuvieron más dificultad?).</p>
+      </div>
+
+      <div class="role-row"><span class="role-tag" style="background:var(--Lobg);color:var(--Lo);">COORD.</span><div>Lee cada argumento en voz alta. Coordina votación simultánea (pulgar arriba=válido / pulgar abajo=falacia). Si hay desacuerdo, pregunta: "¿Cuál es la forma lógica exacta?" antes de tocar la pantalla. Controla el tiempo.</div></div>
+      <div class="role-row"><span class="role-tag" style="background:var(--L3bg);color:var(--L3);">SECRET.</span><div>Registra en el Cuaderno de Equipo: forma lógica (p→q, p, ∴q / etc.), clasificación del grupo, nombre de la falacia si aplica, ⚠️ si tardaron más de 2 min en consenso. Escribe la síntesis de procesamiento grupal al final.</div></div>
+      <div class="role-row"><span class="role-tag" style="background:var(--L2bg);color:var(--L2);">VOCERO</span><div>Presenta el Argumento 4 en plenaria: primero la forma lógica en notación formal, luego la clasificación, luego el razonamiento que los convenció. Habla sin leer el cuaderno — con sus propias palabras.</div></div>
+
+      <hr class="div">
+      <div style="font-size:.83rem;font-weight:600;color:var(--Co);margin-bottom:8px;">Estructura de los 22 minutos</div>
+      <div class="step"><div class="step-n" style="background:var(--Cobg);color:var(--Co);">1</div><div><strong>2 min:</strong> Lectura individual de los 4 argumentos. Sin hablar todavía.</div></div>
+      <div class="step"><div class="step-n" style="background:var(--Cobg);color:var(--Co);">2</div><div><strong>12 min:</strong> Para cada argumento (~3 min): el Coordinador lee en voz alta → todos identifican la forma lógica → votación simultánea → debate si hay desacuerdo → revelar respuesta.</div></div>
+      <div class="step"><div class="step-n" style="background:var(--Cobg);color:var(--Co);">3</div><div><strong>5 min:</strong> Preparación de la presentación del Argumento 4 + procesamiento grupal: ¿qué argumento fue más difícil y por qué?</div></div>
+      <div class="step"><div class="step-n" style="background:var(--Cobg);color:var(--Co);">4</div><div><strong>3 min:</strong> Plenaria — cada Vocero presenta el Arg. 4. Cierre del docente.</div></div>
+
+      <div class="note" style="margin-top:10px;"><strong>Cuaderno de Equipo — registro obligatorio:</strong> Para cada argumento: forma lógica · clasificación · nombre de falacia si aplica · ⚠️ en debates. Al final: "¿Qué tienen en común las falacias que encontramos?" (procesamiento grupal). <br><strong>Evaluación grupal (Pujolàs & Lago, CA/AC):</strong> "¿Trabajamos todos como un equipo? ¿Alguien habló más que los demás? ¿Qué haríamos diferente la próxima vez?"</div>
+
+      <div class="info-box" style="border-color:var(--L1b);background:var(--L1bg);margin-top:10px;">
+        <strong style="color:var(--L1);">Responsabilidad individual (Johnson & Johnson):</strong> Durante o después de la plenaria, el docente puede preguntar a cualquier integrante del equipo — no solo al Vocero — que explique por qué el Argumento 2 es o no una falacia. Esta posibilidad es la que garantiza que todos deben entender, no solo el Vocero.
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- BLOQUE 5 — QUIZ                             -->
+  <!-- ════════════════════════════════════════════ -->
+  <div class="block" id="b5">
+    <div class="block-hdr" onclick="tog('bb5')">
+      <span class="block-icon">📊</span>
+      <div class="block-meta">
+        <div class="block-title">Quiz individual con localStorage — M5</div>
+        <div class="block-sub">1:44 – 1:55 · 11 min · Individual, silencio</div>
+      </div>
+      <span class="block-arrow" id="arr-bb5">›</span>
+    </div>
+    <div class="block-body" id="bb5">
+      <div class="note"><strong>Instrucción para proyectar:</strong> "M5 de la herramienta — individual, en silencio. Sus respuestas se guardan automáticamente en el dispositivo: si actualizan la página, no las pierden. Responden todas las preguntas y luego presionan 'Ver mi nota'. El resultado es para ustedes — les dice exactamente qué repasar en los ejercicios de casa."</div>
+      <div class="info-box" style="border-color:var(--Lob);background:var(--Lobg);margin-top:8px;">
+        <strong style="color:var(--Lo);">10 preguntas (11 min):</strong> Proposiciones · Conectivos ∧∨¬ · Condicional · Contrapositivo · Falacias · De Morgan en encuestas. Retroalimentación por opción elegida — solo visible después de presionar "Ver mi nota". <br><strong>localStorage:</strong> Las respuestas persisten si actualizan la página o abren la herramienta desde el link de GitHub Pages.
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- BLOQUE 6 — CIERRE                           -->
+  <!-- ════════════════════════════════════════════ -->
+  <div class="block" id="b6">
+    <div class="block-hdr" onclick="tog('bb6')">
+      <span class="block-icon">📓</span>
+      <div class="block-meta">
+        <div class="block-title">Cierre — Folio metacognitivo + asignación M6</div>
+        <div class="block-sub">1:55 – 2:00 · 5 min</div>
+      </div>
+      <span class="block-arrow" id="arr-bb6">›</span>
+    </div>
+    <div class="block-body" id="bb6">
+      <div class="step"><div class="step-n" style="background:var(--L1bg);color:var(--L1);">1</div><div><strong>Individual (2 min):</strong> "En su cuaderno personal: ¿qué concepto de hoy les resultó más claro? ¿Cuál les genera todavía duda? ¿Qué necesitan repasar antes de la siguiente clase?"</div></div>
+      <div class="step"><div class="step-n" style="background:var(--L1bg);color:var(--L1);">2</div><div><strong>Trío (1 min):</strong> Comparten las dudas. Si todos tienen la misma, el Secretario la anota como duda colectiva ⚠️ para traer a la siguiente clase.</div></div>
+      <div class="step"><div class="step-n" style="background:var(--L1bg);color:var(--L1);">3</div><div><strong>Cierre del docente (2 min):</strong> Retorno a la pregunta del gancho + asignación M6.</div></div>
+
+      <div class="script s-Lo">
+        <div class="script-label" style="color:var(--Lo);">Cierre — proyectable</div>
+        <div class="script-body">
+          <em>"Volvemos a la pregunta del principio: ¿cuándo falla la conclusión 'si el paciente cumple todos los criterios del TAG, entonces tiene el diagnóstico'?"</em><br><br>
+          <em>"La respuesta formal: el condicional p→q falla cuando p=V y q=F. Es decir: cuando el paciente cumple los criterios (p=V) pero el diagnóstico es Falso (q=F). ¿Cuándo puede pasar eso? Cuando el contexto clínico, los síntomas transitorios o un trastorno comórbido explican mejor los síntomas. Los criterios son necesarios pero pueden no ser suficientes por sí solos."</em><br><br>
+          <em>"Eso es lógica proposicional en el trabajo real de un psicólogo."</em><br><br>
+          <em>"Para casa: Módulo 6 de la herramienta. Cinco niveles de ejercicios. Tengan el plan de estudio de tres días. El entregable — un argumento real analizado — lo traen a la siguiente clase."</em>
+        </div>
+      </div>
+
+      <div class="two-col" style="margin-top:10px;">
+        <div style="padding:10px;background:var(--Lobg);border:1px solid var(--Lob);border-radius:10px;font-size:.78rem;">
+          <div style="font-size:.6rem;font-weight:700;text-transform:uppercase;color:var(--Lo);margin-bottom:4px;">Para casa (M6)</div>
+          Nivel A: proposiciones (8) · Nivel B: conectivos (6) · Nivel C: condicional (8) · Nivel D: falacias en psicología (5) · Nivel E: lógica y encuestas (6) · Entregable: argumento real analizado
+        </div>
+        <div style="padding:10px;background:var(--L3bg);border:1px solid var(--L3b);border-radius:10px;font-size:.78rem;">
+          <div style="font-size:.6rem;font-weight:700;text-transform:uppercase;color:var(--L3);margin-bottom:4px;">Siguiente clase</div>
+          Aplicaciones de conjuntos en encuestas + Lectura de gráficas. Traer el entregable del análisis de argumento. Discusión sobre las dudas ⚠️ del cuaderno de equipo.
+        </div>
+      </div>
+
+      <div class="info-box" style="border-color:var(--L1b);background:var(--L1bg);margin-top:8px;">
+        <strong style="color:var(--L1);">Por qué la práctica en casa es clave (evidencia):</strong> Rosenshine (2012) muestra que la práctica distribuida con retroalimentación es el predictor más fuerte de retención. Sweller (1988) establece que la carga cognitiva en clase es alta durante instrucción directa — la consolidación requiere práctica posterior con carga reducida. El M6 de la herramienta está diseñado para práctica espaciada en 3 días: identificación → operación → aplicación.
+      </div>
+    </div>
+  </div>
+
+  <!-- NOTAS PEDAGÓGICAS -->
+  <div class="block">
+    <div class="block-hdr" onclick="tog('bbped')">
+      <span class="block-icon">📚</span>
+      <div class="block-meta">
+        <div class="block-title">Marco pedagógico activo — bibliografía y diseño</div>
+        <div class="block-sub">Referencia para el docente</div>
+      </div>
+      <span class="block-arrow" id="arr-bbped">›</span>
+    </div>
+    <div class="block-body" id="bbped">
+      <table style="width:100%;border-collapse:collapse;font-size:.79rem;">
+        <thead><tr>
+          <td style="padding:7px 10px;font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.4px;background:rgba(255,255,255,.06);color:var(--muted);">Marco</td>
+          <td style="padding:7px 10px;font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.4px;background:rgba(255,255,255,.06);color:var(--muted);">Cómo se activa en esta sesión</td>
+        </tr></thead>
+        <tbody>
+          <tr><td style="padding:8px 10px;border-top:1px solid var(--border2);vertical-align:top;color:var(--L1);font-weight:600;">Interdependencia positiva (Johnson & Johnson, 1994)</td><td style="padding:8px 10px;border-top:1px solid var(--border2);">Un único dictamen grupal en el Fiscal de Argumentos. Cada rol tiene información esencial que los otros no tienen en el momento del debate.</td></tr>
+          <tr><td style="padding:8px 10px;border-top:1px solid var(--border2);vertical-align:top;color:var(--L2);font-weight:600;">Responsabilidad individual (Johnson & Johnson, 2009)</td><td style="padding:8px 10px;border-top:1px solid var(--border2);">El docente puede preguntar a cualquier integrante durante la plenaria. El quiz individual posterior complementa la evaluación del aprendizaje personal.</td></tr>
+          <tr><td style="padding:8px 10px;border-top:1px solid var(--border2);vertical-align:top;color:var(--L3);font-weight:600;">Aprendizaje situado — contexto colombiano 2026</td><td style="padding:8px 10px;border-top:1px solid var(--border2);">Todos los ejemplos de proposiciones, conectivos y falacias usan contextos de la carrera, del municipio o de la vida cotidiana de los estudiantes. No se usa un ejemplo genérico de "llueve → mojado" sin anclaje.</td></tr>
+          <tr><td style="padding:8px 10px;border-top:1px solid var(--border2);vertical-align:top;color:var(--Co);font-weight:600;">Procesamiento grupal (Pujolàs & Lago, CA/AC)</td><td style="padding:8px 10px;border-top:1px solid var(--border2);">Los últimos 2 min de la actividad cooperativa son para que el grupo evalúe su proceso: ¿participaron todos? ¿Cómo mejorarían? Esta reflexión es un componente explícito del AC (no un extra).</td></tr>
+          <tr><td style="padding:8px 10px;border-top:1px solid var(--border2);vertical-align:top;color:var(--Lo);font-weight:600;">Práctica distribuida (Rosenshine, 2012; Sweller, 1988)</td><td style="padding:8px 10px;border-top:1px solid var(--border2);">El M6 tiene 33 ejercicios distribuidos en 3 días. La progresión reconocimiento → operación → aplicación replica el ciclo de aprendizaje profundo documentado en investigación cognitiva.</td></tr>
+          <tr><td style="padding:8px 10px;border-top:1px solid var(--border2);vertical-align:top;color:var(--L1);font-weight:600;">Recuperación activa (Karpicke & Roediger, 2008)</td><td style="padding:8px 10px;border-top:1px solid var(--border2);">El quiz en clase y la autoevaluación del M6 son ejercicios de recuperación activa — demostrado como más efectivo que releer o repasar pasivamente para retención a largo plazo.</td></tr>
+        </tbody>
+      </table>
+
+      <hr class="div">
+      <div style="font-size:.79rem;line-height:1.85;color:var(--muted);">
+        <strong style="color:var(--text);">Bibliografía activa en esta sesión:</strong> Miller, Heeren & Hornsby, §3.1–3.3 · Johnson, D. W. y Johnson, R. T. (1994, 2009) · Pujolàs & Lago (CA/AC) · Duran Gisbert (2018) · Sharan, Y. (2010) · Rosenshine, B. (2012). Principles of Instruction. <em>American Educator</em> · Sweller, J. (1988). Cognitive load during problem solving. <em>Cognitive Science</em>.
+      </div>
+    </div>
+  </div>
+
+</div><!-- /main -->
+
+<div class="page-footer">
+  <div class="footer-inner">
+    <p style="font-family:var(--serif);font-style:italic;font-size:.95rem;color:rgba(255,255,255,.4);margin-bottom:4px;">Matemáticas I · Lógica Proposicional · UdeC Facatativá · 2026</p>
+    <p style="font-size:.7rem;color:rgba(255,255,255,.25);line-height:1.7;">Miller §3 · Johnson & Johnson (1994, 2009) · Pujolàs & Lago (CA/AC) · Duran (2018) · Rosenshine (2012)</p>
+  </div>
+</div>
+
+<script>
+function tog(id){
+  const body=document.getElementById(id);
+  const arrow=document.getElementById('arr-'+id);
+  const hdr=body.previousElementSibling;
+  const open=body.classList.contains('open');
+  body.classList.toggle('open',!open);
+  if(arrow)arrow.classList.toggle('open',!open);
+  if(hdr)hdr.classList.toggle('open',!open);
+}
+document.addEventListener('DOMContentLoaded',()=>{
+  ['bb1','bb2','bb3','bb4','bb5','bb6','bbped'].forEach(id=>{
+    const b=document.getElementById(id); if(!b) return;
+    b.classList.remove('open');
+    const a=document.getElementById('arr-'+id); if(a) a.classList.remove('open');
+    const h=b.previousElementSibling; if(h) h.classList.remove('open');
+  });
+});
+</script>
+</body>
+</html>
