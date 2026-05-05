@@ -176,223 +176,9 @@ body{font-family:var(--sans);color:var(--text);background-color:var(--bg);
 #toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(80px);background:linear-gradient(135deg,var(--T),var(--Tm));color:#fff;padding:8px 22px;border-radius:99px;font-size:.83rem;font-weight:700;z-index:9999;pointer-events:none;transition:transform .3s cubic-bezier(.34,1.56,.64,1);white-space:nowrap;box-shadow:0 4px 16px rgba(13,150,136,.3);}
 #toast.show{transform:translateX(-50%) translateY(0);}
 @keyframes fadeIn{from{opacity:0;transform:translateY(5px);}to{opacity:1;transform:none;}}
-
-
-/* V4 PREMIUM INTERACTIVE DESIGN PASS
-   Interfaz clara de nivel editorial universitario: fondo dinámico ligado a
-   lógica proposicional, capas de profundidad, navegación de escritorio,
-   ergonomía móvil y feedback de evaluación más legible. */
-:root{
-  color-scheme:light;
-  --bg:#f7f3ea;
-  --card:#fffdf7;
-  --text:#172033;
-  --muted:#526173;
-  --muted2:#8a7d66;
-  --border:rgba(47,72,88,.16);
-  --border2:rgba(47,72,88,.10);
-  --T:#0f766e; --Tm:#14b8a6; --Tl:#e8f7f4; --Tb:#8dd9cf;
-  --Am:#a16207; --Amm:#d97706; --Aml:#fff5df; --Amb:#eec879;
-  --Co:#be123c; --Com:#f43f5e; --Col:#fff0f4; --Cob:#f3a6ba;
-  --G:#047857; --Gl:#e8f6ef; --Gb:#9bd9bd;
-  --E:#b42318; --El:#fff0ed; --Eb:#ffb4a8;
-  --V:#6d28d9; --Vl:#f2ecff; --Vb:#cab9ff;
-  --Az:#1d4ed8; --Azl:#eaf2ff; --Azb:#adc8ff;
-  --Opt:#b45309; --Optl:#fff2d6; --Optb:#edc46f;
-  --shadow:0 28px 80px rgba(27,43,65,.13),0 10px 26px rgba(27,43,65,.08),inset 0 1px 0 rgba(255,255,255,.92);
-}
-html{scroll-behavior:smooth;}
-body{
-  background-color:var(--bg);
-  background-image:
-    linear-gradient(180deg,rgba(255,255,255,.96),rgba(255,252,244,.84) 360px,rgba(247,243,234,.98) 920px),
-    repeating-linear-gradient(118deg,rgba(29,78,216,.045) 0 1px,transparent 1px 64px),
-    repeating-linear-gradient(28deg,rgba(15,118,110,.04) 0 1px,transparent 1px 78px),
-    radial-gradient(circle at 12% 8%,rgba(20,184,166,.16),transparent 24rem),
-    radial-gradient(circle at 88% 16%,rgba(217,119,6,.14),transparent 22rem),
-    radial-gradient(circle at 52% 100%,rgba(109,40,217,.10),transparent 26rem);
-  background-size:auto,680px 680px,760px 760px,auto,auto,auto;
-  animation:logicPageDrift 28s ease-in-out infinite alternate;
-}
-@keyframes logicPageDrift{
-  from{background-position:0 0,0 0,0 0,0 0,0 0,0 0;}
-  to{background-position:0 0,46px 32px,-38px 28px,0 0,0 0,0 0;}
-}
-#logic-bg{
-  position:fixed;
-  inset:0;
-  width:100%;
-  height:100%;
-  z-index:0;
-  pointer-events:none;
-  opacity:.42;
-}
-.hdr,.wrap,.page-footer,#toast{position:relative;z-index:1;}
-.hdr{
-  position:sticky;
-  top:0;
-  background:linear-gradient(90deg,rgba(255,253,247,.94),rgba(239,248,255,.90));
-  box-shadow:0 18px 50px rgba(27,43,65,.12);
-  border-bottom:1px solid rgba(47,72,88,.18);
-}
-.hdr::before{
-  content:'';
-  position:absolute;
-  left:0;right:0;bottom:0;height:4px;
-  background:linear-gradient(90deg,var(--Az),var(--T),var(--Am),var(--V));
-}
-.hdr-deco{
-  color:transparent;
-  background:linear-gradient(135deg,rgba(29,78,216,.18),rgba(15,118,110,.12));
-  -webkit-background-clip:text;
-  font-size:clamp(52px,11vw,112px);
-}
-.hdr-badge{border-radius:8px;background:var(--Azl);border-color:var(--Azb);color:var(--Az);}
-.hdr h1{font-size:clamp(1.45rem,3.8vw,2.7rem);color:#101827;}
-.hdr h1 em{color:#b45309;}
-.hdr-sub{color:#47566a;font-size:.78rem;}
-.tabs{gap:6px;padding:0 10px;border-top:1px solid rgba(47,72,88,.10);}
-.tab{
-  min-width:92px;
-  border:1px solid transparent;
-  border-bottom-width:3px;
-  border-radius:10px 10px 0 0;
-  color:#617084;
-}
-.tab:hover{background:#f4efe6;color:#172033;}
-.tab.on{
-  background:#fffdf7;
-  border-color:#ded6c8;
-  color:var(--T);
-  box-shadow:0 -9px 28px rgba(27,43,65,.07);
-}
-.wrap{max-width:1180px;padding:24px 18px 10px;}
-.mod.on{animation:modEnter .28s ease both;}
-@keyframes modEnter{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
-.mod.on::before{
-  content:'';
-  display:block;
-  height:8px;
-  border-radius:999px;
-  margin:0 0 14px;
-  background:linear-gradient(90deg,rgba(29,78,216,.48),rgba(15,118,110,.32),rgba(180,83,9,.42));
-}
-#m1.on::before{background:linear-gradient(90deg,var(--T),var(--Az));opacity:.42;}
-#m2.on::before{background:linear-gradient(90deg,var(--Az),var(--V));opacity:.42;}
-#m3.on::before{background:linear-gradient(90deg,var(--V),var(--Am));opacity:.42;}
-#m4.on::before{background:linear-gradient(90deg,var(--G),var(--E));opacity:.38;}
-#m5.on::before{background:linear-gradient(90deg,var(--Co),var(--Am));opacity:.38;}
-#m6.on::before{background:linear-gradient(90deg,var(--Am),var(--T));opacity:.42;}
-#m7.on::before{background:linear-gradient(90deg,var(--V),var(--Am));opacity:.38;}
-.card,.prop-card,.ex-item,.conn-row,.tt-toggle,.tt-result-cell,.dm-card,.cond-case,.arg-card,.coop-block,.coop-arg-card,.mini-coop,.quiz-q,.score-box,.hw-section,.study-plan-card,.study-day{
-  box-shadow:var(--shadow);
-  border-color:var(--border);
-}
-.card{
-  position:relative;
-  overflow:hidden;
-  background:linear-gradient(180deg,#ffffff,#fffdf7);
-  border-radius:18px;
-}
-.card::before,.coop-block::before,.mini-coop::before,.hw-section::before{
-  content:'';
-  position:absolute;
-  left:0;right:0;top:0;height:5px;
-  background:linear-gradient(90deg,var(--Az),var(--T),var(--Am));
-  opacity:.78;
-}
-.card > *,.coop-block > *,.mini-coop > *,.hw-section > *{position:relative;z-index:1;}
-.stitle{font-size:clamp(1.1rem,2.1vw,1.55rem);line-height:1.22;color:#101827;}
-.ct{color:#65748a;}
-.alert,.hint{box-shadow:inset 0 1px 0 rgba(255,255,255,.72);}
-.prop-card,.ex-item,.arg-card,.coop-arg-card,.quiz-q,.hw-ex{
-  background:rgba(255,253,247,.92);
-  backdrop-filter:blur(8px);
-}
-.prop-card{position:relative;overflow:hidden;}
-.prop-card::before,.ex-item::before,.arg-card::before,.quiz-q::before,.hw-ex::before{
-  content:'';
-  position:absolute;
-  inset:0 auto 0 0;
-  width:4px;
-  background:linear-gradient(180deg,var(--Az),var(--T),var(--Am));
-  opacity:.72;
-}
-.prop-card > *,.ex-item > *,.arg-card > *,.quiz-q > *,.hw-ex > *{position:relative;z-index:1;}
-.pc-btn,.qopt,.quiz-opt,.hw-opt{
-  background:#fffefa;
-  border-color:rgba(47,72,88,.16);
-}
-.pc-btn:hover,.qopt:hover,.quiz-opt:hover,.hw-opt:hover{
-  transform:translateY(-1px);
-  box-shadow:0 8px 20px rgba(27,43,65,.08);
-}
-.pc-btn.choice-ok,.qopt.ok,.quiz-opt.ok,.hw-opt.hw-ok{
-  background:var(--Gl)!important;
-  border-color:var(--Gb)!important;
-  color:var(--G)!important;
-}
-.pc-btn.choice-ko,.qopt.ko,.quiz-opt.ko,.hw-opt.hw-ko{
-  background:var(--El)!important;
-  border-color:var(--Eb)!important;
-  color:var(--E)!important;
-}
-.prop-card.answered.correct{background:linear-gradient(135deg,#ffffff,var(--Gl));border-color:var(--Gb);}
-.prop-card.answered.incorrect{background:linear-gradient(135deg,#ffffff,var(--El));border-color:var(--Eb);}
-.prop-card.answered.special{background:linear-gradient(135deg,#ffffff,var(--Aml));border-color:var(--Amb);}
-.pc-verdict{
-  display:inline-flex;
-  margin-bottom:7px;
-  padding:3px 9px;
-  border-radius:999px;
-  font-size:.66rem;
-  font-weight:800;
-  text-transform:uppercase;
-  letter-spacing:.35px;
-}
-.pc-verdict.ok{background:var(--Gl);color:var(--G);border:1px solid var(--Gb);}
-.pc-verdict.ko{background:var(--El);color:var(--E);border:1px solid var(--Eb);}
-.pc-verdict.special{background:var(--Aml);color:var(--Am);border:1px solid var(--Amb);}
-.tt-wrap,.arg-form,.arg-ex,.role-card,.study-day{
-  background:rgba(255,255,255,.72);
-}
-.quiz-submit,.btn-next,#toast{background:linear-gradient(135deg,var(--Az),var(--T));}
-.btn-back{background:#fffdf7;color:#48566a;}
-.page-footer{background:rgba(255,253,247,.78);backdrop-filter:blur(12px);}
-@media(min-width:840px){
-  .mod.on{
-    display:grid;
-    grid-template-columns:minmax(0,1fr) minmax(340px,.78fr);
-    gap:18px;
-    align-items:start;
-  }
-  #m2.mod.on,#m3.mod.on,#m7.mod.on{grid-template-columns:repeat(2,minmax(0,1fr));}
-  #m6.mod.on{display:block;max-width:880px;margin:0 auto;}
-  .srow,.btn-row,.mini-coop,#quiz-container,#score-box,#coop-args{grid-column:1/-1;}
-  #m7 .study-plan-card{grid-column:1/-1;}
-}
-@media(max-width:620px){
-  body{font-size:15px;}
-  .hdr{position:relative;}
-  .wrap{padding:16px 12px 8px;}
-  .tab{min-width:82px;font-size:.54rem;}
-  .card,.coop-block,.mini-coop,.hw-section{padding:14px;border-radius:14px;}
-  .prop-card .pc-btns,.tt-toggle-row,.btn-row{flex-direction:column;}
-  .cond-case{flex-direction:column;}
-  .cond-result{margin-left:0;}
-  .tt-results-row{grid-template-columns:1fr!important;}
-  .wason-grid,.two-col{grid-template-columns:1fr!important;}
-  #toast{max-width:calc(100vw - 24px);white-space:normal;text-align:center;}
-}
-@media(prefers-reduced-motion:reduce){
-  body{animation:none;}
-  .mod.on{animation:none;}
-}
-
 </style>
 </head>
 <body>
-<canvas id="logic-bg" aria-hidden="true"></canvas>
 <header class="hdr">
   <div class="hdr-deco">p→q</div>
   <div class="hdr-badge">Clase 8 · Miller §3 · Matemáticas I · 2026</div>
@@ -719,6 +505,32 @@ body{
   <p style="font-size:.68rem;color:var(--muted2);line-height:1.8;">Miller §3.1–3.4 · Johnson &amp; Johnson (1994) · Pujolàs &amp; Lago (CA/AC) · Dunlosky et al. (2013) · Rosenshine (2012)</p>
 </footer>
 <div id="toast"></div>
+(--V);">Nivel E — Argumentos e integración</div>
+    <div class="hw-section-sub">10 ejercicios con los 5 tipos. El nivel más exigente.</div>
+    <div id="hw-e"></div>
+  </div>
+  <div class="card" style="border-color:var(--Amb);">
+    <div class="ct" style="color:var(--Am);">📋 Formato del entregable</div>
+    <p style="font-size:.84rem;line-height:1.7;margin-bottom:10px;color:var(--text);">Busca en una <strong>noticia, post de redes o artículo</strong> un argumento con forma condicional:</p>
+    <div style="background:rgba(161,98,7,.06);border-radius:11px;padding:13px;font-size:.82rem;line-height:2.3;border:1px solid var(--Amb);color:var(--text);">
+      <strong>Fuente:</strong> ____________________________________________<br>
+      <strong>Argumento textual:</strong> ____________________________________<br>
+      <strong>p</strong> (antecedente) = _____________________________________<br>
+      <strong>q</strong> (consecuente) = ____________________________________<br>
+      <strong>Forma lógica:</strong> [MP / MT / SD / AFC / ANA]<br>
+      <strong>¿Es válido?</strong> _____ · <strong>¿Por qué?</strong> ____________________
+    </div>
+    <div class="hint">Busca en El Tiempo, Semana, o posts de salud y suplementos en Instagram. Cualquier "Si haces X, obtendrás Y" es candidato. Los anuncios de dietas son ricos en falacias de Afirmar el Consecuente.</div>
+  </div>
+</div>
+
+</main>
+<footer class="page-footer">
+  <span class="footer-deco">¬∧∨→↔</span>
+  <p style="font-family:var(--serif);font-style:italic;font-size:.9rem;color:var(--muted);margin-bottom:4px;">Matemáticas I · Lógica Proposicional · UdeC Facatativá · 2026</p>
+  <p style="font-size:.68rem;color:var(--muted2);line-height:1.8;">Miller §3.1–3.4 · Johnson &amp; Johnson (1994) · Pujolàs &amp; Lago (CA/AC) · Dunlosky et al. (2013) · Rosenshine (2012)</p>
+</footer>
+<div id="toast"></div>
 <script>
 const QUIZ_KEY='logica_quiz_v4_clase8';
 let pVal=true,qVal=true,quizAnswers={},quizGraded=false;
@@ -726,7 +538,7 @@ let pVal=true,qVal=true,quizAnswers={},quizGraded=false;
 function sw(n){document.querySelectorAll('.mod').forEach((m,i)=>m.classList.toggle('on',i===n));document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('on',i===n));window.scrollTo({top:0,behavior:'smooth'});}
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200);}
 function escQ(s){return s.replace(/'/g,"&#39;").replace(/\n/g,' ');}
-function answerExOpt(pfx,qi,oi,ans,fb){const el=document.getElementById(`${pfx}-${qi}`);if(!el||el.classList.contains('ex-done'))return;el.classList.add('ex-done');el.querySelectorAll('.qopt').forEach((o,i)=>o.classList.add(i===ans?'ok':(i===oi&&oi!==ans?'ko':'')));const fbEl=document.getElementById(`${pfx}-fb-${qi}`);if(fbEl){fbEl.innerHTML=fb;fbEl.className=`ex-fb alert ${oi===ans?'al-G':'al-E'}`;fbEl.style.display='block';}toast(oi===ans?'Correcto':'Retroalimentación lista');}
+function answerExOpt(pfx,qi,oi,ans,fb){const el=document.getElementById(`${pfx}-${qi}`);if(el.classList.contains('ex-done'))return;el.classList.add('ex-done');el.querySelectorAll('.qopt').forEach((o,i)=>o.classList.add(i===ans?'ok':(i===oi&&oi!==ans?'ko':'')));const fbEl=document.getElementById(`${pfx}-fb-${qi}`);fbEl.innerHTML=fb;fbEl.className=`ex-fb alert ${oi===ans?'al-G':'al-E'}`;}
 
 const GANCHO=[
   {text:'"El 34% de los universitarios colombianos reportó síntomas de ansiedad alta durante los parciales, según encuesta MinSalud 2025."',isP:true,fc:'al-G',fb:'✓ Proposición. Declarativa y verificable. Tiene valor de verdad — V o F según el dato real.'},
@@ -736,27 +548,8 @@ const GANCHO=[
   {text:'"La psicología social estudia cómo el contexto grupal influye en el comportamiento individual."',isP:true,fc:'al-G',fb:'✓ Proposición. Define el objeto de estudio de una rama. Verificable.'},
   {text:'"Esta oración es falsa."',isP:null,fc:'al-Am',fb:'⚠️ Paradoja autorreferencial. Si es V → es F. Si es F → es V. Sin valor de verdad consistente. La lógica la excluye.'},
 ];
-function buildGancho(){const c=document.getElementById('gancho-cards');GANCHO.forEach((g,i)=>{const d=document.createElement('div');d.className='prop-card';d.innerHTML=`<div class="pc-text">${g.text}</div><div class="pc-btns"><button class="pc-btn" data-choice="true" style="color:var(--T);" onclick="answerG(${i},true)">✓ Es proposición</button><button class="pc-btn" data-choice="false" style="color:var(--E);" onclick="answerG(${i},false)">✗ No es proposición</button></div><div class="pc-fb alert ${g.fc}">${g.fb}</div>`;c.appendChild(d);});}
-function expectedPropValue(item){return item.isP===null?false:item.isP;}
-function markPropCard(card,item,choice,scope){
-  if(card.classList.contains('answered'))return;
-  const expected=expectedPropValue(item);
-  const special=item.isP===null;
-  const ok=choice===expected;
-  card.classList.add('answered',ok?'correct':'incorrect');
-  if(special) card.classList.add('special');
-  card.querySelectorAll('.pc-btn').forEach(btn=>{
-    const val=btn.dataset.choice==='true';
-    btn.classList.add(val===expected?'choice-ok':(val===choice?'choice-ko':''));
-  });
-  const fb=card.querySelector('.pc-fb');
-  const verdict=special
-    ? (ok?'Bien: la paradoja no cuenta como proposición clásica.':'Cuidado: una paradoja no tiene valor V/F consistente.')
-    : (ok?'Correcto.':'No exactamente.');
-  fb.innerHTML='<span class="pc-verdict '+(special?'special':ok?'ok':'ko')+'">'+verdict+'</span><br>'+item.fb;
-  if(scope) toast(ok?'Correcto':'Revisa la definición');
-}
-function answerG(i,u){const c=document.querySelectorAll('#gancho-cards .prop-card')[i];markPropCard(c,GANCHO[i],u,true);}
+function buildGancho(){const c=document.getElementById('gancho-cards');GANCHO.forEach((g,i)=>{const d=document.createElement('div');d.className='prop-card';d.innerHTML=`<div class="pc-text">${g.text}</div><div class="pc-btns"><button class="pc-btn" style="color:var(--T);" onclick="answerG(${i},true)">✓ Es proposición</button><button class="pc-btn" style="color:var(--E);" onclick="answerG(${i},false)">✗ No es proposición</button></div><div class="pc-fb alert ${g.fc}">${g.fb}</div>`;c.appendChild(d);});}
+function answerG(i,u){const c=document.querySelectorAll('.prop-card')[i];if(c.classList.contains('answered'))return;c.classList.add('answered');const ok=GANCHO[i].isP===null?true:(u===GANCHO[i].isP);c.style.borderColor=ok?'var(--Gb)':'var(--Eb)';c.style.background=ok?'var(--Gl)':'var(--El)';}
 
 const QUANT=[
   {q:'Negación correcta de: "Todos los psicólogos clínicos trabajan exclusivamente en consulta privada."',opts:['Ningún psicólogo trabaja en consulta privada.','Algunos psicólogos clínicos NO trabajan exclusivamente en consulta privada.','Todos los psicólogos trabajan en instituciones públicas.'],ans:1,fb:'Negación de "todos" = "algún X no". Solo se necesita un psicólogo en hospital, ONG o empresa para refutarlo.'},
@@ -774,8 +567,8 @@ const MINI_M1=[
   {text:'"Esta afirmación no puede ser verdadera."',isP:null,fb:'⚠️ Paradoja. Sin valor de verdad consistente.'},
   {text:'"Por favor registra tu asistencia antes de salir."',isP:false,fb:'✗ Mandato. Los mandatos no se califican como V ni F.'},
 ];
-function buildMiniM1(){const c=document.getElementById('mini-coop-m1');MINI_M1.forEach((g,i)=>{const d=document.createElement('div');d.className='prop-card';d.innerHTML=`<div class="pc-text">${g.text}</div><div class="pc-btns"><button class="pc-btn" data-choice="true" style="color:var(--T);" onclick="answerMC(${i},true)">✓ Proposición</button><button class="pc-btn" data-choice="false" style="color:var(--E);" onclick="answerMC(${i},false)">✗ No es proposición</button></div><div class="pc-fb alert ${g.isP===null?'al-Am':g.isP?'al-G':'al-E'}">${g.fb}</div>`;c.appendChild(d);});}
-function answerMC(i,u){const c=document.querySelectorAll('#mini-coop-m1 .prop-card')[i];markPropCard(c,MINI_M1[i],u,true);}
+function buildMiniM1(){const c=document.getElementById('mini-coop-m1');MINI_M1.forEach((g,i)=>{const d=document.createElement('div');d.className='prop-card';d.innerHTML=`<div class="pc-text">${g.text}</div><div class="pc-btns"><button class="pc-btn" style="color:var(--T);" onclick="answerMC(${i})">✓ Proposición</button><button class="pc-btn" style="color:var(--E);" onclick="answerMC(${i})">✗ No es proposición</button></div><div class="pc-fb alert ${g.isP===null?'al-Am':g.isP?'al-G':'al-E'}">${g.fb}</div>`;c.appendChild(d);});}
+function answerMC(i){const c=document.querySelectorAll('#mini-coop-m1 .prop-card')[i];if(c.classList.contains('answered'))return;c.classList.add('answered');}
 
 function buildConnectors(){const c=document.getElementById('connectors-display');const cs=[
   {sym:'¬',col:'#7c3aed',nm:'Negación · "no"',sig:'¬<strong>p</strong>',ex:'<strong>p</strong> = "La sesión de hoy fue presencial" (V) → ¬<strong>p</strong> = "La sesión de hoy NO fue presencial" (F)',rule:'Invierte el valor. ¬V = F · ¬F = V'},
@@ -881,7 +674,7 @@ function gradeQuiz(){const un=QUIZ.filter((_,i)=>quizAnswers[i]===undefined).len
 function applyGrading(){QUIZ.forEach((q,qi)=>{const sel=quizAnswers[qi];q.opts.forEach((_,oi)=>{const opt=document.getElementById(`qopt-${qi}-${oi}`);if(!opt)return;opt.classList.remove('sel');if(oi===q.ans)opt.classList.add('ok');else if(oi===sel&&sel!==q.ans)opt.classList.add('ko');});const fbEl=document.getElementById(`qfb-${qi}`);if(fbEl){fbEl.textContent=q.fb;fbEl.className='q-fb '+(sel===q.ans?'ok':'ko');}});document.getElementById('quiz-btn').disabled=true;}
 
 function buildHW(data,cid,pfx){const c=document.getElementById(cid);data.forEach((item,qi)=>{const el=document.createElement('div');el.className='hw-ex';el.id=`${pfx}-${qi}`;el.innerHTML=`<div class="hw-ex-q">${item.q}</div><div class="hw-opts">${item.opts.map((o,oi)=>`<div class="hw-opt" id="${pfx}-opt-${qi}-${oi}" onclick="answerHW('${pfx}',${qi},${oi},${item.ans},'${escQ(item.fb)}')">${String.fromCharCode(65+oi)}. ${o}</div>`).join('')}</div><div class="hw-fb" id="${pfx}-fb-${qi}"></div>`;c.appendChild(el);});}
-function answerHW(pfx,qi,oi,ans,fb){const el=document.getElementById(`${pfx}-${qi}`);if(!el||el.classList.contains('done'))return;el.classList.add('done');el.querySelectorAll('.hw-opt').forEach((o,i)=>o.classList.add(i===ans?'hw-ok':(i===oi&&oi!==ans?'hw-ko':'')));const fbEl=document.getElementById(`${pfx}-fb-${qi}`);if(fbEl){fbEl.innerHTML=fb;fbEl.className=`hw-fb alert ${oi===ans?'al-G':'al-E'}`;fbEl.style.display='block';}toast(oi===ans?'Correcto':'Retroalimentación lista');}
+function answerHW(pfx,qi,oi,ans,fb){const el=document.getElementById(`${pfx}-${qi}`);if(el.classList.contains('done'))return;el.classList.add('done');el.querySelectorAll('.hw-opt').forEach((o,i)=>o.classList.add(i===ans?'hw-ok':(i===oi&&oi!==ans?'hw-ko':'')));const fbEl=document.getElementById(`${pfx}-fb-${qi}`);fbEl.innerHTML=fb;fbEl.className=`hw-fb alert ${oi===ans?'al-G':'al-E'}`;}
 
 const HWA=[
   {q:'¿Es proposición? "La psicología comunitaria trabaja con poblaciones en contexto de vulnerabilidad social."',opts:['Sí','No'],ans:0,fb:'Sí. Declarativa y verificable.'},
@@ -940,54 +733,7 @@ const HWE=[
   {q:'"Si el modelo cognitivo explica la fobia (<strong>p</strong>), la exposición gradual reduce síntomas (<strong>q</strong>). La exposición NO redujo síntomas (¬<strong>q</strong>=V). Por tanto, el modelo cognitivo NO explica esta fobia (¬<strong>p</strong>)." Forma y comentario:',opts:['Afirmar el Consecuente — inválido','Modus Tollens — válido · estructura del falsacionismo de Popper'],ans:1,fb:'Modus Tollens. Si la predicción no se cumple, la hipótesis no puede ser correcta. Estructura del diseño experimental.'},
 ];
 
-
-function initLogicBackground(){
-  const canvas=document.getElementById('logic-bg');
-  if(!canvas) return;
-  const ctx=canvas.getContext('2d');
-  const symbols=['p','q','¬','∧','∨','→','↔','∀','∃'];
-  let w=0,h=0,mouse={x:.5,y:.5},t=0,pts=[];
-  const reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  function resize(){
-    const d=Math.min(window.devicePixelRatio||1,2);
-    w=canvas.clientWidth=window.innerWidth;h=canvas.clientHeight=window.innerHeight;
-    canvas.width=Math.floor(w*d);canvas.height=Math.floor(h*d);ctx.setTransform(d,0,0,d,0,0);
-    const count=Math.max(32,Math.min(74,Math.floor(w*h/18000)));
-    pts=Array.from({length:count},(_,i)=>({x:Math.random()*w,y:Math.random()*h,r:1.8+Math.random()*2.8,s:symbols[i%symbols.length],vx:(Math.random()-.5)*.18,vy:(Math.random()-.5)*.18}));
-  }
-  function draw(){
-    t+=.006;
-    ctx.clearRect(0,0,w,h);
-    ctx.lineWidth=1;
-    for(let i=0;i<pts.length;i++){
-      const a=pts[i];
-      if(!reduce){a.x=(a.x+a.vx+w)%w;a.y=(a.y+a.vy+h)%h;}
-      const dx=(mouse.x*w-a.x),dy=(mouse.y*h-a.y);
-      a.x+=dx*.00045;a.y+=dy*.00045;
-      for(let j=i+1;j<pts.length;j++){
-        const b=pts[j],dist=Math.hypot(a.x-b.x,a.y-b.y);
-        if(dist<135){
-          ctx.strokeStyle='rgba(29,78,216,'+(0.08*(1-dist/135))+')';
-          ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();
-        }
-      }
-      ctx.fillStyle=i%3===0?'rgba(15,118,110,.18)':i%3===1?'rgba(29,78,216,.16)':'rgba(180,83,9,.14)';
-      ctx.beginPath();ctx.arc(a.x,a.y,a.r,0,Math.PI*2);ctx.fill();
-      if(i%7===0){
-        ctx.font='600 13px Courier New, monospace';
-        ctx.fillStyle='rgba(23,32,51,.13)';
-        ctx.fillText(a.s,a.x+6,a.y-6);
-      }
-    }
-    if(!reduce) requestAnimationFrame(draw);
-  }
-  window.addEventListener('resize',resize,{passive:true});
-  window.addEventListener('pointermove',e=>{mouse.x=e.clientX/window.innerWidth;mouse.y=e.clientY/window.innerHeight;},{passive:true});
-  resize();draw();
-}
-
 document.addEventListener('DOMContentLoaded',()=>{
-  initLogicBackground();
   buildGancho();buildQuant();buildMiniM1();
   buildConnectors();updateTT();buildDM();buildMiniM2();
   buildCondCases();buildCondPractice();
