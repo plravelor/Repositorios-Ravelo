@@ -389,15 +389,425 @@ body{
   .mod.on{animation:none;}
 }
 
+
+
+/* TRUE DYNAMIC MATHEMATICAL EXPERIENCE
+   Esta capa cambia la personalidad visual de cada pestaña y convierte el
+   fondo en una escena matemática viva: conectores, grafos, diagramas,
+   tarjetas de prueba y textura editorial. */
+:root{
+  --stage-a:#0f766e;
+  --stage-b:#1d4ed8;
+  --stage-c:#b45309;
+  --stage-d:#6d28d9;
+}
+body{
+  overflow-x:hidden;
+  background:
+    radial-gradient(circle at 14% 14%,rgba(20,184,166,.20),transparent 22rem),
+    radial-gradient(circle at 84% 10%,rgba(29,78,216,.18),transparent 24rem),
+    linear-gradient(180deg,#fffaf1 0,#f6f1e7 42%,#eef7f5 100%)!important;
+}
+.math-stage{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  overflow:hidden;
+}
+.math-stage::before{
+  content:'';
+  position:absolute;
+  inset:-20%;
+  background:
+    linear-gradient(115deg,transparent 0 15%,rgba(29,78,216,.13) 15% 15.35%,transparent 15.35% 100%),
+    linear-gradient(28deg,transparent 0 28%,rgba(15,118,110,.12) 28% 28.3%,transparent 28.3% 100%),
+    repeating-linear-gradient(0deg,rgba(23,32,51,.045) 0 1px,transparent 1px 96px),
+    repeating-linear-gradient(90deg,rgba(23,32,51,.035) 0 1px,transparent 1px 96px);
+  transform:rotate(-2deg);
+  animation:gridFloat 22s ease-in-out infinite alternate;
+}
+.math-stage::after{
+  content:'p → q   ¬p ∨ q   p ∧ q   ∀x   ∃y   A ∩ B   A ∪ B';
+  position:absolute;
+  left:50%;
+  top:52%;
+  transform:translate(-50%,-50%) rotate(-8deg);
+  width:160vw;
+  text-align:center;
+  font-family:var(--mono);
+  font-size:clamp(2.6rem,8vw,8rem);
+  font-weight:900;
+  letter-spacing:.08em;
+  line-height:1.5;
+  color:rgba(23,32,51,.045);
+  white-space:nowrap;
+  animation:symbolRiver 34s linear infinite;
+}
+@keyframes gridFloat{
+  from{transform:translate3d(-22px,-16px,0) rotate(-2deg);}
+  to{transform:translate3d(32px,22px,0) rotate(1deg);}
+}
+@keyframes symbolRiver{
+  from{translate:-8% 0;}
+  to{translate:8% 0;}
+}
+.math-orbit{
+  position:absolute;
+  width:34rem;
+  aspect-ratio:1;
+  border:1px solid color-mix(in srgb,var(--stage-a) 28%,transparent);
+  border-radius:50%;
+  filter:drop-shadow(0 18px 44px rgba(27,43,65,.10));
+  animation:orbitSpin 42s linear infinite;
+}
+.math-orbit.o1{left:-9rem;top:12rem;border-color:rgba(15,118,110,.22);}
+.math-orbit.o2{right:-11rem;top:5rem;border-color:rgba(29,78,216,.20);animation-duration:56s;animation-direction:reverse;}
+.math-orbit.o3{left:42%;bottom:-17rem;border-color:rgba(180,83,9,.18);animation-duration:64s;}
+.math-orbit::before,.math-orbit::after{
+  content:'';
+  position:absolute;
+  border-radius:50%;
+  background:var(--stage-a);
+  opacity:.18;
+}
+.math-orbit::before{width:18px;height:18px;left:12%;top:18%;}
+.math-orbit::after{width:10px;height:10px;right:17%;bottom:22%;background:var(--stage-b);}
+@keyframes orbitSpin{to{transform:rotate(360deg);}}
+.floating-proof{
+  position:absolute;
+  font-family:var(--mono);
+  font-weight:800;
+  color:rgba(23,32,51,.22);
+  background:rgba(255,253,247,.62);
+  border:1px solid rgba(47,72,88,.12);
+  border-radius:14px;
+  padding:10px 14px;
+  box-shadow:0 18px 44px rgba(27,43,65,.10);
+  backdrop-filter:blur(10px);
+  animation:proofDrift 12s ease-in-out infinite alternate;
+}
+.floating-proof.f1{left:4vw;top:36vh;}
+.floating-proof.f2{right:5vw;top:46vh;animation-duration:15s;}
+.floating-proof.f3{left:10vw;bottom:10vh;animation-duration:18s;}
+@keyframes proofDrift{
+  from{transform:translateY(-8px) rotate(-1deg);}
+  to{transform:translateY(12px) rotate(1deg);}
+}
+.hdr,.wrap,.page-footer,#toast{position:relative;z-index:2;}
+.hdr{
+  background:linear-gradient(100deg,rgba(255,253,247,.92),rgba(239,248,255,.88),rgba(255,246,225,.82))!important;
+}
+.hdr-deco{
+  color:rgba(23,32,51,.06)!important;
+  -webkit-text-fill-color:initial!important;
+  background:none!important;
+}
+.tabs{
+  padding:8px 10px 0!important;
+  gap:8px!important;
+}
+.tab{
+  position:relative;
+  min-width:104px!important;
+  padding:10px 12px 9px!important;
+  border-radius:14px 14px 0 0!important;
+  background:rgba(255,253,247,.55)!important;
+  border:1px solid rgba(47,72,88,.12)!important;
+  border-bottom:3px solid transparent!important;
+  box-shadow:0 10px 24px rgba(27,43,65,.06);
+  backdrop-filter:blur(10px);
+}
+.tab::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  opacity:0;
+  background:linear-gradient(135deg,var(--tab-a),var(--tab-b));
+  transition:opacity .2s ease;
+}
+.tab span,.tab{isolation:isolate;}
+.tab .ti,.tab{position:relative;}
+.tab:hover::before,.tab.on::before{opacity:.13;}
+.tab.on{
+  color:#111827!important;
+  border-bottom-color:var(--tab-a)!important;
+  transform:translateY(1px);
+}
+.tab:nth-child(1){--tab-a:#6d28d9;--tab-b:#1d4ed8;}
+.tab:nth-child(2){--tab-a:#0f766e;--tab-b:#14b8a6;}
+.tab:nth-child(3){--tab-a:#1d4ed8;--tab-b:#6d28d9;}
+.tab:nth-child(4){--tab-a:#b45309;--tab-b:#ef4444;}
+.tab:nth-child(5){--tab-a:#15803d;--tab-b:#b42318;}
+.tab:nth-child(6){--tab-a:#be123c;--tab-b:#d97706;}
+.tab:nth-child(7){--tab-a:#0369a1;--tab-b:#0f766e;}
+.tab:nth-child(8){--tab-a:#5b21b6;--tab-b:#b45309;}
+.mod.on{
+  display:block;
+}
+.mod.on::before{
+  height:12px!important;
+  margin-bottom:18px!important;
+  box-shadow:0 12px 30px color-mix(in srgb,var(--stage-a) 18%,transparent);
+}
+.card,.coop-block,.mini-coop,.study-plan-card,.hw-section,.quiz-q{
+  border-radius:22px!important;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.92),rgba(255,253,247,.86)),
+    radial-gradient(circle at 0 0,color-mix(in srgb,var(--stage-a) 9%,transparent),transparent 18rem)!important;
+  backdrop-filter:blur(14px);
+}
+.card::before,.coop-block::before,.mini-coop::before,.hw-section::before{
+  height:7px!important;
+  background:linear-gradient(90deg,var(--stage-a),var(--stage-b),var(--stage-c))!important;
+}
+.stitle{
+  color:#111827!important;
+  font-size:clamp(1.18rem,2.3vw,1.72rem)!important;
+}
+.ct{
+  color:color-mix(in srgb,var(--stage-a) 70%,#334155)!important;
+}
+body.theme-0{--stage-a:#6d28d9;--stage-b:#1d4ed8;--stage-c:#b45309;background:linear-gradient(180deg,#fff8ed,#f3f0ff 50%,#eef7ff)!important;}
+body.theme-1{--stage-a:#0f766e;--stage-b:#14b8a6;--stage-c:#1d4ed8;background:linear-gradient(180deg,#f3fff9,#eef9f6 52%,#eef6ff)!important;}
+body.theme-2{--stage-a:#1d4ed8;--stage-b:#6d28d9;--stage-c:#0f766e;background:linear-gradient(180deg,#f6fbff,#eef3ff 48%,#f6f0ff)!important;}
+body.theme-3{--stage-a:#b45309;--stage-b:#ef4444;--stage-c:#6d28d9;background:linear-gradient(180deg,#fff7e8,#fff0ed 52%,#f5f0ff)!important;}
+body.theme-4{--stage-a:#15803d;--stage-b:#b42318;--stage-c:#1d4ed8;background:linear-gradient(180deg,#f1fff7,#fff4f1 55%,#eef6ff)!important;}
+body.theme-5{--stage-a:#be123c;--stage-b:#d97706;--stage-c:#0f766e;background:linear-gradient(180deg,#fff5f7,#fff7e8 55%,#eef8f5)!important;}
+body.theme-6{--stage-a:#0369a1;--stage-b:#0f766e;--stage-c:#b45309;background:linear-gradient(180deg,#eff8ff,#effaf6 55%,#fff8e8)!important;}
+body.theme-7{--stage-a:#5b21b6;--stage-b:#b45309;--stage-c:#0f766e;background:linear-gradient(180deg,#f6f0ff,#fff8e8 55%,#eef8f5)!important;}
+body.theme-0 .card:first-of-type{
+  background:
+    linear-gradient(135deg,rgba(255,255,255,.94),rgba(245,240,255,.86)),
+    radial-gradient(circle at 100% 0,rgba(109,40,217,.16),transparent 18rem)!important;
+}
+body.theme-1 .card{box-shadow:0 28px 80px rgba(15,118,110,.14),0 10px 24px rgba(27,43,65,.07)!important;}
+body.theme-2 .tt-toggle,body.theme-2 .tt-result-cell{border-radius:18px!important;}
+body.theme-3 .cond-case{border-left:6px solid var(--stage-a)!important;}
+body.theme-4 .arg-card{transform-style:preserve-3d;}
+body.theme-5 .coop-block{background:linear-gradient(135deg,rgba(255,244,247,.94),rgba(255,248,232,.88))!important;}
+body.theme-6 .quiz-q{border-left:6px solid var(--stage-a)!important;}
+body.theme-7 .study-day{border-left:6px solid var(--stage-a)!important;}
+@media(min-width:840px){
+  .mod.on{
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) minmax(330px,.76fr);
+    gap:20px;
+    align-items:start;
+  }
+  #m2.mod.on,#m3.mod.on,#m7.mod.on{grid-template-columns:repeat(2,minmax(0,1fr));}
+  #m6.mod.on{display:block!important;max-width:900px;margin:0 auto;}
+  .srow,.btn-row,.mini-coop,#quiz-container,#score-box,#coop-args{grid-column:1/-1;}
+  #m7 .study-plan-card{grid-column:1/-1;}
+}
+@media(max-width:620px){
+  .math-orbit{width:22rem;opacity:.72;}
+  .floating-proof{font-size:.72rem;padding:8px 10px;opacity:.65;}
+  .floating-proof.f2{display:none;}
+  .tabs{gap:6px!important;}
+  .tab{min-width:86px!important;}
+}
+@media(prefers-reduced-motion:reduce){
+  .math-stage::before,.math-stage::after,.math-orbit,.floating-proof{animation:none!important;}
+}
+
+
+
+/* SINGLE-COLUMN EDITORIAL POLISH
+   La lección queda como una publicación interactiva vertical: sin columnas,
+   con títulos más fuertes, recuadros más cuidados y ritmo de lectura claro. */
+.wrap{
+  max-width:920px!important;
+  padding:28px 18px 12px!important;
+}
+.mod.on{
+  display:block!important;
+  max-width:900px!important;
+  margin:0 auto!important;
+}
+@media(min-width:840px){
+  .mod.on,#m2.mod.on,#m3.mod.on,#m7.mod.on,#m6.mod.on{
+    display:block!important;
+    max-width:900px!important;
+    margin:0 auto!important;
+  }
+  .srow,.btn-row,.mini-coop,#quiz-container,#score-box,#coop-args,#m7 .study-plan-card{
+    grid-column:auto!important;
+  }
+}
+.card,.coop-block,.mini-coop,.study-plan-card,.hw-section,.quiz-q,.score-box{
+  margin-bottom:18px!important;
+  padding:clamp(18px,3vw,28px)!important;
+}
+.card{
+  border-radius:24px!important;
+}
+.card::after{
+  content:'';
+  position:absolute;
+  right:-70px;
+  top:-70px;
+  width:180px;
+  height:180px;
+  border-radius:50%;
+  background:radial-gradient(circle,color-mix(in srgb,var(--stage-a) 14%,transparent),transparent 68%);
+  pointer-events:none;
+}
+.ct{
+  display:inline-flex!important;
+  align-items:center;
+  gap:8px;
+  padding:5px 10px;
+  border-radius:999px;
+  background:color-mix(in srgb,var(--stage-a) 9%,#ffffff);
+  border:1px solid color-mix(in srgb,var(--stage-a) 24%,transparent);
+  color:color-mix(in srgb,var(--stage-a) 78%,#111827)!important;
+  font-size:.66rem!important;
+  letter-spacing:.65px!important;
+  margin-bottom:12px!important;
+}
+.ct::before{
+  content:'';
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:var(--stage-a);
+  box-shadow:0 0 0 4px color-mix(in srgb,var(--stage-a) 14%,transparent);
+}
+.stitle{
+  font-family:var(--serif)!important;
+  font-style:normal!important;
+  font-size:clamp(1.45rem,4.5vw,2.35rem)!important;
+  line-height:1.08!important;
+  letter-spacing:0!important;
+  margin-bottom:12px!important;
+  color:#101827!important;
+}
+.card > p:not(.stitle),.coop-block > p,.study-plan-card > p{
+  font-size:clamp(.93rem,1.7vw,1.04rem)!important;
+  line-height:1.78!important;
+}
+.alert,.hint,.ex-item,.prop-card,.conn-row,.cond-case,.arg-card,.coop-arg-card,.role-card,.study-day,.hw-ex{
+  border-radius:16px!important;
+}
+.alert,.hint{
+  padding:13px 16px!important;
+}
+.hint{
+  border-left-width:5px!important;
+  background:linear-gradient(90deg,color-mix(in srgb,var(--stage-a) 9%,#ffffff),rgba(255,255,255,.72))!important;
+}
+.prop-card,.ex-item,.quiz-q,.hw-ex,.arg-card,.coop-arg-card{
+  padding:16px 18px!important;
+  margin-bottom:12px!important;
+}
+.prop-card .pc-text{
+  font-size:clamp(.94rem,1.6vw,1.04rem)!important;
+  line-height:1.68!important;
+}
+.pc-btn,.qopt,.quiz-opt,.hw-opt{
+  min-height:42px;
+  font-size:.88rem!important;
+  border-radius:12px!important;
+}
+.conn-row{
+  gap:16px!important;
+  padding:18px!important;
+}
+.conn-sym{
+  min-width:54px!important;
+  height:54px;
+  display:grid;
+  place-items:center;
+  border-radius:16px;
+  background:color-mix(in srgb,var(--stage-a) 10%,#ffffff);
+  border:1px solid color-mix(in srgb,var(--stage-a) 24%,transparent);
+}
+.conn-name{
+  font-size:.78rem!important;
+  letter-spacing:.45px!important;
+}
+.conn-ex,.conn-rule,.cond-body,.coop-arg-text,.arg-ex,.hw-ex-q,.quiz-q-text,.ex-q{
+  font-size:.94rem!important;
+  line-height:1.72!important;
+}
+.tt-toggle-row,.btn-row,.prop-card .pc-btns{
+  display:flex!important;
+  flex-direction:column!important;
+}
+.tt-results-row{
+  grid-template-columns:1fr!important;
+}
+[style*="grid-template-columns:1fr 1fr"],
+[style*="grid-template-columns:repeat(2"],
+[style*="grid-template-columns:repeat(3"]{
+  grid-template-columns:1fr!important;
+}
+.role-card,.step-coop,.cond-case{
+  align-items:flex-start!important;
+}
+.btn-row{
+  gap:10px!important;
+}
+.btn{
+  min-height:46px;
+  border-radius:14px!important;
+  font-size:.92rem!important;
+}
+.hdr{
+  padding:18px 18px 0!important;
+}
+.hdr h1{
+  font-style:normal!important;
+  letter-spacing:0!important;
+}
+.hdr-sub{
+  max-width:720px;
+  font-size:.9rem!important;
+  line-height:1.55;
+}
+.tabs{
+  margin-top:8px!important;
+}
+.tab{
+  min-width:118px!important;
+  font-size:.64rem!important;
+}
+.tab .ti{
+  font-size:1.05rem!important;
+}
+.page-footer{
+  margin-top:34px!important;
+}
+@media(max-width:620px){
+  .wrap{padding:18px 12px 8px!important;}
+  .card,.coop-block,.mini-coop,.study-plan-card,.hw-section,.quiz-q,.score-box{
+    padding:16px!important;
+    border-radius:18px!important;
+  }
+  .stitle{font-size:1.42rem!important;}
+  .ct{font-size:.6rem!important;}
+  .tab{min-width:92px!important;}
+  .floating-proof.f1,.floating-proof.f3{display:none;}
+}
+
 </style>
 </head>
-<body>
-<canvas id="logic-bg" aria-hidden="true"></canvas>
+<body class="theme-0">
+<div class="math-stage" aria-hidden="true">
+  <div class="math-orbit o1"></div>
+  <div class="math-orbit o2"></div>
+  <div class="math-orbit o3"></div>
+  <div class="floating-proof f1">¬(p ∧ q) = ¬p ∨ ¬q</div>
+  <div class="floating-proof f2">p → q ≡ ¬p ∨ q</div>
+  <div class="floating-proof f3">A ∩ B ↔ p ∧ q</div>
+</div>
 <header class="hdr">
   <div class="hdr-deco">p→q</div>
   <div class="hdr-badge">Clase 8 · Miller §3 · Matemáticas I · 2026</div>
   <h1>Lógica <em>Matemática</em></h1>
-  <p class="hdr-sub">Psicología · UdeC Facatativá — El lenguaje del pensamiento riguroso</p>
+  <p class="hdr-sub">Psicología · UdeC Facatativá — Una clase interactiva para pensar con precisión, evidencia y argumentos</p>
   <nav class="tabs">
     <div class="tab on" onclick="sw(0)"><span class="ti">🎭</span>Gancho</div>
     <div class="tab" onclick="sw(1)"><span class="ti">📋</span>Proposiciones</div>
@@ -415,8 +825,8 @@ body{
 <div class="mod on" id="m0">
   <div class="srow"><span class="sb sb-clase">🎭 Abrir al inicio de clase</span></div>
   <div class="card">
-    <div class="ct">La escena · Miller §3</div>
-    <p class="stitle">"Pinocho no mintió — y ese fue el problema"</p>
+    <div class="ct">Entrada narrativa · del lenguaje confuso al pensamiento verificable</div>
+    <p class="stitle">Pinocho, Shrek y el arte de no afirmar nada</p>
     <div style="background:var(--Vl);border:1.5px solid var(--Vb);border-radius:12px;padding:14px;margin:10px 0;">
       <div style="font-size:.58rem;font-weight:800;text-transform:uppercase;color:var(--V);margin-bottom:8px;">🎬 Shrek Tercero · 2007</div>
       <div style="font-family:var(--serif);font-style:italic;font-size:.86rem;line-height:1.85;color:var(--text);">
@@ -429,8 +839,8 @@ body{
     <div class="alert al-V"><strong>La lógica matemática estudia esto:</strong> ¿cuándo una afirmación puede ser verdadera o falsa? ¿Cuándo un argumento es sólido y cuándo tiene trampa?</div>
   </div>
   <div class="card">
-    <div class="ct">Clasificador individual — antes de la magistral</div>
-    <p class="stitle">¿Cuáles de estas frases pueden ser V o F?</p>
+    <div class="ct">Laboratorio rápido · decide antes de revelar</div>
+    <p class="stitle">¿Qué frases se pueden poner a prueba?</p>
     <p style="font-size:.83rem;color:var(--muted);margin-bottom:12px;">Toca cada frase y decide antes de ver el análisis.</p>
     <div id="gancho-cards"></div>
   </div>
@@ -442,19 +852,19 @@ body{
 <div class="mod" id="m1">
   <div class="srow"><span class="sb sb-clase">🏫 En clase</span></div>
   <div class="card">
-    <div class="ct">Definición central · Miller §3.1</div>
-    <p class="stitle">¿Qué es una proposición?</p>
+    <div class="ct">Concepto base · qué puede ser verdadero o falso</div>
+    <p class="stitle">Proposición: una afirmación con valor de verdad</p>
     <p style="font-size:.84rem;line-height:1.75;color:var(--text);">Una <strong>proposición</strong> es una oración declarativa que puede ser <em>verdadera o falsa</em>, pero no ambas. Las representamos con letras: <strong>p</strong>, <strong>q</strong>, <strong>r</strong>.</p>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0;">
+    <div style="display:grid;grid-template-columns:1fr;gap:10px;margin:12px 0;">
       <div class="alert al-G" style="margin:0;font-size:.79rem;"><strong>✓ Proposiciones:</strong><br>"El ICBF atendió 23.000 casos en 2025." <em>(V o F)</em><br>"La Luna orbita la Tierra." <em>(verdadera)</em><br>"2+2=5." <em>(falsa, pero proposición)</em></div>
       <div class="alert al-E" style="margin:0;font-size:.79rem;"><strong>✗ No proposiciones:</strong><br>"¿Cómo te fue en el parcial?" <em>(pregunta)</em><br>"Estudia más." <em>(mandato)</em><br>"¡Qué buena esa clase!" <em>(exclamación)</em></div>
     </div>
     <div class="hint">Un <strong>enunciado compuesto</strong> une dos o más proposiciones con un conector lógico: y, o, no, si…entonces. Ojo: "La UdeC tiene sede en Facatativá y en Girardot" usa "y" para enumerar, no para conectar proposiciones. Es simple, no compuesto. (Miller: mismo caso con Smith &amp; Wesson.)</div>
   </div>
   <div class="card">
-    <div class="ct">Cuantificadores · Miller §3.1</div>
-    <p class="stitle">¿Cuántos casos existen?</p>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;">
+    <div class="ct">Cuantificadores · cuando una sola palabra cambia todo</div>
+    <p class="stitle">Todos, algunos, ninguno: tres formas de comprometerse</p>
+    <div style="display:grid;grid-template-columns:1fr;gap:10px;margin-bottom:12px;">
       <div class="alert al-T" style="margin:0;font-size:.79rem;"><strong>Universales:</strong> todos, cada, ninguno<br><em>"Todos los trastornos de personalidad afectan el funcionamiento social."</em></div>
       <div class="alert al-Am" style="margin:0;font-size:.79rem;"><strong>Existenciales:</strong> algunos, existe, al menos uno<br><em>"Algunos universitarios presentan ansiedad severa en parciales."</em></div>
     </div>
@@ -491,25 +901,25 @@ body{
 <div class="mod" id="m2">
   <div class="srow"><span class="sb sb-clase">🏫 En clase</span></div>
   <div class="card">
-    <div class="ct">Los cinco conectivos · Miller §3.2</div>
-    <p class="stitle">Cómo combinar proposiciones</p>
+    <div class="ct">Caja de herramientas lógica · cinco operaciones para pensar</div>
+    <p class="stitle">Conectivos: cómo se construyen afirmaciones complejas</p>
     <div id="connectors-display"></div>
   </div>
   <div class="card">
-    <div class="ct">Explorador interactivo — toca <strong>p</strong> o <strong>q</strong></div>
-    <p class="stitle">Tablas de verdad en tiempo real</p>
+    <div class="ct">Simulador de verdad · cambia p o q y observa la estructura</div>
+    <p class="stitle">Tablas de verdad sin memorizar: ver, probar, entender</p>
     <div id="tt-context-def" style="margin-bottom:10px;"></div>
     <div class="tt-toggle-row">
       <div class="tt-toggle is-v" id="toggle-p" onclick="toggleVar('p')"><span class="var-name" style="color:var(--T);"><strong>p</strong></span><span class="var-val" id="p-val">V</span></div>
       <div class="tt-toggle is-v" id="toggle-q" onclick="toggleVar('q')"><span class="var-name" style="color:var(--Am);"><strong>q</strong></span><span class="var-val" id="q-val">V</span></div>
     </div>
-    <div class="tt-results-row" style="grid-template-columns:repeat(3,1fr);" id="tt-basic-results"></div>
+    <div class="tt-results-row" style="grid-template-columns:1fr;" id="tt-basic-results"></div>
     <div id="tt-bic-row" style="margin-top:6px;"></div>
     <div id="tt-context-ex" style="margin-top:10px;"></div>
   </div>
   <div class="card">
-    <div class="ct">Expresión con 3 variables — paso a paso</div>
-    <p class="stitle">¿Qué pasa cuando mezclamos conectivos?</p>
+    <div class="ct">Procedimiento guiado · resolver sin perderse</div>
+    <p class="stitle">Cuando una frase tiene varias capas lógicas</p>
     <div style="background:rgba(13,150,136,.05);border:1.5px solid var(--Tb);border-radius:12px;padding:14px;margin-bottom:10px;">
       <div style="font-size:.62rem;font-weight:800;text-transform:uppercase;color:var(--T);margin-bottom:8px;">Definición de las variables (V = esa proposición ES verdadera · F = ES falsa)</div>
       <div style="font-size:.83rem;line-height:1.95;color:var(--text);">
@@ -530,8 +940,8 @@ body{
     <div class="hint">Orden: primero paréntesis, luego negaciones, luego ∧ y ∨.</div>
   </div>
   <div class="card">
-    <div class="ct">Leyes de De Morgan · Miller §3.2</div>
-    <p class="stitle">La regla de oro para negar proposiciones compuestas</p>
+    <div class="ct">De Morgan · la gramática secreta de la negación</div>
+    <p class="stitle">Negar bien: cambia el conector y niega cada parte</p>
     <div class="dm-card" style="border-color:var(--Tb);background:var(--Tl);">
       <div style="font-size:.62rem;font-weight:800;text-transform:uppercase;color:var(--T);margin-bottom:8px;">De Morgan 1</div>
       <div style="font-family:var(--mono);font-size:1.05rem;font-weight:700;color:var(--T);margin-bottom:10px;">¬(<strong>p</strong> ∧ <strong>q</strong>) = ¬<strong>p</strong> ∨ ¬<strong>q</strong></div>
@@ -572,8 +982,8 @@ body{
 <div class="mod" id="m3">
   <div class="srow"><span class="sb sb-clase">🏫 En clase</span></div>
   <div class="card">
-    <div class="ct">El conector de las hipótesis · Miller §3.3</div>
-    <p class="stitle">El condicional: "Si <strong>p</strong>… entonces <strong>q</strong>"</p>
+    <div class="ct">Condicional · la forma lógica de una promesa o hipótesis</div>
+    <p class="stitle">Si p, entonces q: cuándo una promesa se rompe</p>
     <p style="font-size:.84rem;line-height:1.75;margin-bottom:12px;color:var(--text);">El condicional <span class="mono"><strong>p</strong> → <strong>q</strong></span> es la estructura formal de las hipótesis científicas. <strong>p</strong> es el <em>antecedente</em> (la condición); <strong>q</strong> es el <em>consecuente</em> (lo que se garantiza si la condición ocurre).</p>
     <div style="background:var(--Azl);border:1.5px solid var(--Azb);border-radius:12px;padding:14px;margin-bottom:14px;">
       <div style="font-size:.62rem;font-weight:800;text-transform:uppercase;color:var(--Az);margin-bottom:8px;">La analogía de la promesa</div>
@@ -614,8 +1024,8 @@ body{
 <div class="mod" id="m4">
   <div class="srow"><span class="sb sb-clase">🏫 En clase</span></div>
   <div class="card">
-    <div class="ct">Los 5 tipos · Miller §3.6</div>
-    <p class="stitle">Argumentos válidos y falacias</p>
+    <div class="ct">Mapa de argumentos · tres formas válidas y dos trampas</div>
+    <p class="stitle">Argumentar con rigor: distinguir prueba de apariencia</p>
     <p style="font-size:.83rem;line-height:1.65;margin-bottom:12px;color:var(--text);">Los primeros 3 son <span style="color:var(--G);font-weight:700;">válidos</span> — la conclusión se sigue necesariamente. Los últimos 2 son <span style="color:var(--E);font-weight:700;">falacias</span>. Toca cada uno para ver el análisis.</p>
     <div id="argument-forms"></div>
   </div>
@@ -664,8 +1074,8 @@ body{
 <div class="mod" id="m6">
   <div class="srow"><span class="sb sb-clase">📝 Individual · silencio · responde todo antes de ver la nota</span></div>
   <div class="card">
-    <div class="ct">Autoevaluación · guardado automático</div>
-    <p class="stitle">12 preguntas · Nota sobre 5.0</p>
+    <div class="ct">Autoevaluación · evidencia de aprendizaje</div>
+    <p class="stitle">Doce decisiones lógicas, una nota sobre 5.0</p>
     <div id="saved-badge" style="display:none;background:var(--Gl);border:1px solid var(--Gb);color:var(--G);align-items:center;gap:5px;padding:3px 10px;border-radius:99px;font-size:.62rem;font-weight:700;margin-bottom:9px;">💾 Respuestas guardadas</div>
     <p style="font-size:.83rem;color:var(--muted);line-height:1.6;">Responde todo y presiona <strong>"Ver mi nota"</strong>. Tus respuestas se guardan automáticamente y permanecen aunque recargues la página.</p>
   </div>
@@ -685,8 +1095,8 @@ body{
 <div class="mod" id="m7">
   <div class="srow"><span class="sb sb-casa">🏠 Todo este módulo es para casa</span></div>
   <div class="study-plan-card">
-    <div style="font-size:.6rem;font-weight:800;text-transform:uppercase;color:var(--T);margin-bottom:6px;">Plan de estudio — consolidación del conocimiento</div>
-    <p class="stitle" style="color:var(--T);margin-bottom:8px;">La práctica distribuida es lo que fija el aprendizaje</p>
+    <div style="font-size:.6rem;font-weight:800;text-transform:uppercase;color:var(--T);margin-bottom:6px;">Plan de estudio · recuperar, espaciar, dominar</div>
+    <p class="stitle" style="color:var(--T);margin-bottom:8px;">Aprender lógica es practicar decisiones, no copiar símbolos</p>
     <p style="font-size:.83rem;line-height:1.7;color:var(--text);margin-bottom:12px;">La investigación (Dunlosky et al., 2013; Rosenshine, 2012) muestra que la <strong>práctica distribuida</strong> (poco a poco, varios días) y la <strong>recuperación activa</strong> (intentar antes de ver la respuesta) son las estrategias más efectivas. Este módulo está diseñado así.</p>
     <div class="study-day" style="border-color:var(--Tb);"><div class="study-day-title" style="color:var(--T);">📅 Día 1 — Hoy, después de clase</div><div class="study-day-desc">Nivel A: Proposiciones y cuantificadores (10 ej). Nivel B: Conectivos y tablas (10 ej). Tiempo: ~30 min.</div></div>
     <div class="study-day" style="border-color:var(--Gb);"><div class="study-day-title" style="color:var(--G);">📅 Día 2 — Mañana</div><div class="study-day-desc">Nivel C: El condicional (10 ej). Nivel D: De Morgan avanzado (6 ej). Tiempo: ~35 min.</div></div>
@@ -699,7 +1109,7 @@ body{
   <div class="hw-section" style="border-color:var(--Amb);background:rgba(161,98,7,.03);"><div class="hw-section-title" style="color:var(--Am);">Nivel D — Leyes de De Morgan</div><div class="hw-section-sub">6 ejercicios de negación de proposiciones compuestas.</div><div id="hw-d"></div></div>
   <div class="hw-section" style="border-color:var(--Vb);background:rgba(109,40,217,.03);"><div class="hw-section-title" style="color:var(--V);">Nivel E — Argumentos e integración</div><div class="hw-section-sub">10 ejercicios con los 5 tipos de argumentos. El nivel más exigente.</div><div id="hw-e"></div></div>
   <div class="card" style="border-color:var(--Amb);">
-    <div class="ct" style="color:var(--Am);">📋 Formato del entregable</div>
+    <div class="ct" style="color:var(--Am);">📋 Entregable · llevar la lógica al mundo real</div>
     <div style="background:rgba(161,98,7,.06);border-radius:11px;padding:13px;font-size:.82rem;line-height:2.3;border:1px solid var(--Amb);color:var(--text);">
       <strong>Fuente:</strong> ____________________________________________<br>
       <strong>Argumento textual:</strong> ____________________________________<br>
@@ -723,7 +1133,7 @@ body{
 const QUIZ_KEY='logica_quiz_v4_clase8';
 let pVal=true,qVal=true,quizAnswers={},quizGraded=false;
 (function(){try{const r=localStorage.getItem(QUIZ_KEY);if(r){const d=JSON.parse(r);quizAnswers=d.answers||{};quizGraded=d.graded||false;}}catch(e){}})();
-function sw(n){document.querySelectorAll('.mod').forEach((m,i)=>m.classList.toggle('on',i===n));document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('on',i===n));window.scrollTo({top:0,behavior:'smooth'});}
+function sw(n){document.querySelectorAll('.mod').forEach((m,i)=>m.classList.toggle('on',i===n));document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('on',i===n));document.body.className=document.body.className.replace(/\btheme-\d\b/g,'').trim();document.body.classList.add('theme-'+n);window.scrollTo({top:0,behavior:'smooth'});}
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200);}
 function escQ(s){return s.replace(/'/g,"&#39;").replace(/\n/g,' ');}
 function answerExOpt(pfx,qi,oi,ans,fb){const el=document.getElementById(`${pfx}-${qi}`);if(!el||el.classList.contains('ex-done'))return;el.classList.add('ex-done');el.querySelectorAll('.qopt').forEach((o,i)=>o.classList.add(i===ans?'ok':(i===oi&&oi!==ans?'ko':'')));const fbEl=document.getElementById(`${pfx}-fb-${qi}`);if(fbEl){fbEl.innerHTML=fb;fbEl.className=`ex-fb alert ${oi===ans?'al-G':'al-E'}`;fbEl.style.display='block';}toast(oi===ans?'Correcto':'Retroalimentación lista');}
@@ -987,7 +1397,6 @@ function initLogicBackground(){
 }
 
 document.addEventListener('DOMContentLoaded',()=>{
-  initLogicBackground();
   buildGancho();buildQuant();buildMiniM1();
   buildConnectors();updateTT();buildDM();buildMiniM2();
   buildCondCases();buildCondPractice();
