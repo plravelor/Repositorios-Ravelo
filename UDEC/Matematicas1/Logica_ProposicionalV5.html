@@ -177,16 +177,13 @@ body{font-family:var(--sans);color:var(--text);background-color:var(--bg);
 #toast.show{transform:translateX(-50%) translateY(0);}
 @keyframes fadeIn{from{opacity:0;transform:translateY(5px);}to{opacity:1;transform:none;}}
 
-.vb{padding:6px 12px;border-radius:8px;border:1.5px solid var(--border);background:rgba(255,255,255,.75);font-size:.75rem;font-weight:700;cursor:pointer;transition:all .15s;color:var(--muted);font-family:var(--sans);}
-.vb.active{background:var(--T);color:#fff;border-color:var(--T);}
-.vb:hover:not(.active){border-color:var(--Tm);color:var(--T);}
-.vb-row{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 8px;}
 .venn-wrap{background:rgba(13,150,136,.04);border:1.5px solid var(--Tb);border-radius:13px;padding:14px;margin:12px 0;}
-.venn-svg{width:100%;max-width:340px;display:block;margin:0 auto;}
-.venn-desc{font-size:.82rem;line-height:1.65;color:var(--text);margin-top:9px;padding:8px 12px;background:rgba(255,255,255,.8);border-radius:8px;border:1px solid var(--border2);}
-.venn-equiv-msg{font-size:.82rem;line-height:1.6;color:var(--G);margin-top:6px;padding:8px 12px;background:var(--Gl);border:1px solid var(--Gb);border-radius:8px;display:none;}
+.vbtab{padding:6px 12px;border-radius:8px;border:1.5px solid var(--border);background:rgba(255,255,255,.75);font-size:.75rem;font-weight:700;cursor:pointer;transition:all .15s;color:var(--muted);font-family:var(--sans);}
+.vbtab.active{background:var(--T);color:#fff;border-color:var(--T);}
+.vbtab:hover:not(.active){border-color:var(--Tm);color:var(--T);}
 </style>
 </head>
+<body>
 <header class="hdr">
   <div class="hdr-deco">p→q</div>
   <div class="hdr-badge">Clase 8 · Miller §3 · Matemáticas I · 2026</div>
@@ -209,27 +206,27 @@ body{font-family:var(--sans);color:var(--text);background-color:var(--bg);
 <div class="mod on" id="m0">
   <div class="srow"><span class="sb sb-clase">🎭 Abrir al inicio de clase</span></div>
   <div class="card">
-    <div class="ct">La escena que lo arranca todo · Miller §3</div>
+    <div class="ct">La escena · Miller §3</div>
     <p class="stitle">"Pinocho no mintió — y ese fue el problema"</p>
     <div style="background:var(--Vl);border:1.5px solid var(--Vb);border-radius:12px;padding:14px;margin:10px 0;">
-      <div style="font-size:.58rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--V);margin-bottom:8px;">🎬 Shrek Tercero · 2007</div>
+      <div style="font-size:.58rem;font-weight:800;text-transform:uppercase;color:var(--V);margin-bottom:8px;">🎬 Shrek Tercero · 2007</div>
       <div style="font-family:var(--serif);font-style:italic;font-size:.86rem;line-height:1.85;color:var(--text);">
         <strong>Príncipe Encantador:</strong> "Dime, marioneta, ¿dónde está Shrek?"<br><br>
-        <strong>Pinocho:</strong> "No está inexacto suponer que no podría partir de que no estuviera donde yo no sabía que estaba..."<br><br>
+        <strong>Pinocho:</strong> "No está inexacto suponer que no podría partir de que no estuviera donde yo no sabía que estaba, si es que realmente estuviera donde yo podría saber..."<br><br>
         <em>[Silencio. La nariz de Pinocho no crece]</em>
       </div>
     </div>
-    <p style="font-size:.84rem;line-height:1.75;margin-top:10px;color:var(--text);">Pinocho no mintió. No dijo nada que pudiera ser verdadero ni falso. Usó el lenguaje como cortina de humo — palabras que suenan a afirmación pero que no se comprometen con ninguna realidad verificable. La misma estrategia aparece en publicidad de "superalimentos", discursos políticos y noticias diseñadas para sonar sin decir nada concreto.</p>
-    <div class="alert al-V"><strong>La lógica matemática estudia exactamente esto:</strong> ¿cuándo una afirmación puede ser verdadera o falsa? ¿Cuándo un argumento es sólido o tiene trampa? Hoy aprenden el lenguaje que hace esa distinción posible.</div>
+    <p style="font-size:.84rem;line-height:1.75;margin-top:10px;color:var(--text);">Pinocho no mintió. No dijo nada que pudiera ser verdadero ni falso. Usó el lenguaje como cortina de humo. La misma estrategia aparece en publicidad de "superalimentos", discursos políticos y titulares diseñados para sonar sin comprometerse con ninguna afirmación verificable.</p>
+    <div class="alert al-V"><strong>La lógica matemática estudia esto:</strong> ¿cuándo una afirmación puede ser verdadera o falsa? ¿Cuándo un argumento es sólido y cuándo tiene trampa?</div>
   </div>
   <div class="card">
-    <div class="ct">Antes de la magistral — clasificador individual</div>
-    <p class="stitle">¿Cuáles de estas frases pueden ser verdaderas o falsas?</p>
-    <p style="font-size:.83rem;color:var(--muted);margin-bottom:12px;">Toca cada frase y decide <em>antes</em> de ver el análisis. Es tu intuición vs. la definición formal.</p>
+    <div class="ct">Clasificador individual — antes de la magistral</div>
+    <p class="stitle">¿Cuáles de estas frases pueden ser V o F?</p>
+    <p style="font-size:.83rem;color:var(--muted);margin-bottom:12px;">Toca cada frase y decide antes de ver el análisis.</p>
     <div id="gancho-cards"></div>
   </div>
-  <div class="alert al-Am"><strong>Conexión con lo que ya vivieron:</strong> Al inicio del semestre fallaron con las tarjetas abstractas de Wason, pero cuando el enunciado fue "si tomas trago, debes ser mayor de 18" acertaron. Hoy le ponen nombre formal a lo que hicieron bien de manera intuitiva.</div>
-  <div class="btn-row"><button class="btn btn-next" onclick="sw(1)">Proposiciones y cuantificadores →</button></div>
+  <div class="alert al-Am"><strong>Conexión Wason:</strong> Al inicio del semestre fallaron con las tarjetas abstractas pero acertaron cuando el enunciado fue "si tomas trago, debes ser mayor de 18". La misma operación lógica — diferente contexto. Hoy le ponen nombre formal a eso.</div>
+  <div class="btn-row"><button class="btn btn-next" onclick="sw(1)">Proposiciones →</button></div>
 </div>
 
 <!-- M1 -->
@@ -238,22 +235,22 @@ body{font-family:var(--sans);color:var(--text);background-color:var(--bg);
   <div class="card">
     <div class="ct">Definición central · Miller §3.1</div>
     <p class="stitle">¿Qué es una proposición?</p>
-    <p style="font-size:.84rem;line-height:1.75;color:var(--text);">Una <strong>proposición</strong> es una oración declarativa que puede ser <em>verdadera o falsa</em>, pero no ambas a la vez. Las representamos con letras: <strong>p</strong>, <strong>q</strong>, <strong>r</strong>. No pregunta, no pide, no exclama — <em>declara algo sobre la realidad</em> y esa declaración tiene un valor de verdad (V o F).</p>
+    <p style="font-size:.84rem;line-height:1.75;color:var(--text);">Una <strong>proposición</strong> es una oración declarativa que puede ser <em>verdadera o falsa</em>, pero no ambas. Las representamos con letras: <strong>p</strong>, <strong>q</strong>, <strong>r</strong>.</p>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0;">
-      <div class="alert al-G" style="margin:0;font-size:.79rem;"><strong>✓ Proposiciones:</strong><br>"El ICBF atendió 23.000 casos en 2025." <em>(verificable)</em><br>"2 + 2 = 5." <em>(falsa, pero proposición)</em></div>
-      <div class="alert al-E" style="margin:0;font-size:.79rem;"><strong>✗ No son proposiciones:</strong><br>"¿Cómo te fue?" <em>(pregunta)</em><br>"Estudia más." <em>(mandato)</em><br>"¡Qué buena clase!" <em>(exclamación)</em></div>
+      <div class="alert al-G" style="margin:0;font-size:.79rem;"><strong>✓ Proposiciones:</strong><br>"El ICBF atendió 23.000 casos en 2025." <em>(V o F)</em><br>"La Luna orbita la Tierra." <em>(verdadera)</em><br>"2+2=5." <em>(falsa, pero proposición)</em></div>
+      <div class="alert al-E" style="margin:0;font-size:.79rem;"><strong>✗ No proposiciones:</strong><br>"¿Cómo te fue en el parcial?" <em>(pregunta)</em><br>"Estudia más." <em>(mandato)</em><br>"¡Qué buena esa clase!" <em>(exclamación)</em></div>
     </div>
-    <div class="hint">Un <strong>enunciado compuesto</strong> une dos o más proposiciones con un conector lógico: y, o, no, si…entonces. Ojo: "La UdeC tiene sede en Facatativá y en Girardot" usa "y" para enumerar —no es conector lógico. (Miller tiene el mismo ejemplo con Smith &amp; Wesson.)</div>
+    <div class="hint">Un <strong>enunciado compuesto</strong> une dos o más proposiciones con un conector lógico: y, o, no, si…entonces. Ojo: "La UdeC tiene sede en Facatativá y en Girardot" usa "y" para enumerar, no para conectar proposiciones. Es simple, no compuesto. (Miller: mismo caso con Smith &amp; Wesson.)</div>
   </div>
   <div class="card">
     <div class="ct">Cuantificadores · Miller §3.1</div>
     <p class="stitle">¿Cuántos casos existen?</p>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;">
-      <div class="alert al-T" style="margin:0;font-size:.79rem;"><strong>Universales:</strong><br>todos, toda, cada, ninguno<br><br><em>"Todos los trastornos de personalidad afectan el funcionamiento social."</em></div>
-      <div class="alert al-Am" style="margin:0;font-size:.79rem;"><strong>Existenciales:</strong><br>algunos, existe, al menos uno<br><br><em>"Algunos universitarios presentan ansiedad severa en parciales."</em></div>
+      <div class="alert al-T" style="margin:0;font-size:.79rem;"><strong>Universales:</strong> todos, cada, ninguno<br><em>"Todos los trastornos de personalidad afectan el funcionamiento social."</em></div>
+      <div class="alert al-Am" style="margin:0;font-size:.79rem;"><strong>Existenciales:</strong> algunos, existe, al menos uno<br><em>"Algunos universitarios presentan ansiedad severa en parciales."</em></div>
     </div>
     <div style="background:rgba(220,38,38,.05);border:1.5px solid var(--Eb);border-radius:12px;padding:14px;margin-bottom:12px;">
-      <div style="font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--E);margin-bottom:10px;">⚠️ Cómo negar correctamente — Miller Tabla 4</div>
+      <div style="font-size:.62rem;font-weight:800;text-transform:uppercase;color:var(--E);margin-bottom:10px;">⚠️ Cómo negar correctamente — Miller Tabla 4</div>
       <table style="width:100%;border-collapse:collapse;font-size:.82rem;">
         <thead><tr style="background:var(--El);"><th style="padding:7px 10px;text-align:left;color:var(--E);font-size:.61rem;text-transform:uppercase;">Enunciado</th><th style="padding:7px 10px;text-align:left;color:var(--E);font-size:.61rem;text-transform:uppercase;">Negación correcta</th></tr></thead>
         <tbody>
@@ -262,7 +259,7 @@ body{font-family:var(--sans);color:var(--text);background-color:var(--bg);
           <tr><td style="padding:8px 10px;border-top:1px solid var(--border2);color:var(--text);">Ningún X hace Y</td><td style="padding:8px 10px;border-top:1px solid var(--border2);font-weight:700;color:var(--T);">Algún X hace Y</td></tr>
         </tbody>
       </table>
-      <p style="font-size:.79rem;line-height:1.65;margin-top:10px;color:var(--E);"><strong>¿Por qué?</strong> Para refutar "todos los X hacen Y" solo necesito un contraejemplo. Por eso la negación es "algún X no hace Y" —no "ningún X hace Y", que sería una afirmación mucho más fuerte.</p>
+      <p style="font-size:.79rem;line-height:1.65;margin-top:10px;color:var(--E);"><strong>¿Por qué?</strong> Para refutar "todos los X hacen Y" solo necesito un contraejemplo. Por eso la negación es "algún X no hace Y" — no "ningún X hace Y", que sería una afirmación mucho más fuerte.</p>
     </div>
     <p style="font-size:.8rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px;">Practica:</p>
     <div id="quant-practice"></div>
@@ -271,9 +268,9 @@ body{font-family:var(--sans);color:var(--text);background-color:var(--bg);
   <div class="mini-coop">
     <div class="mini-coop-badge">⚙️ Actividad opcional · Parejas o tríos · 6 min</div>
     <p class="mini-coop-title">Mini-coop: ¿Proposición o no?</p>
-    <p style="font-size:.82rem;line-height:1.65;color:var(--text);margin-bottom:10px;">Sin ver las respuestas, clasifiquen juntos estas 5 frases. Si no están de acuerdo, argumenten antes de tocar.</p>
+    <p style="font-size:.82rem;line-height:1.65;color:var(--text);margin-bottom:10px;">Sin ver las respuestas, clasifiquen estas 5 frases. Luego toquen para verificar. Si no están de acuerdo, argumenten primero.</p>
     <div id="mini-coop-m1"></div>
-    <div style="background:rgba(180,83,9,.08);border:1px solid var(--Optb);border-radius:9px;padding:10px 13px;margin-top:10px;font-size:.8rem;line-height:1.6;color:var(--text);">📓 <strong>Registren:</strong> ¿En cuál no estuvieron de acuerdo? ¿Qué los hizo cambiar?</div>
+    <div style="background:rgba(180,83,9,.08);border:1px solid var(--Optb);border-radius:9px;padding:10px 13px;margin-top:10px;font-size:.8rem;color:var(--text);">📓 <strong>Registren:</strong> ¿En cuál(es) no estuvieron de acuerdo? ¿Qué los hizo cambiar?</div>
   </div>
   <div class="btn-row">
     <button class="btn btn-back" onclick="sw(0)">← Gancho</button>
@@ -290,7 +287,7 @@ body{font-family:var(--sans);color:var(--text);background-color:var(--bg);
     <div id="connectors-display"></div>
   </div>
   <div class="card">
-    <div class="ct">Explorador interactivo — toca <strong>p</strong> o <strong>q</strong> para cambiar</div>
+    <div class="ct">Explorador interactivo — toca <strong>p</strong> o <strong>q</strong></div>
     <p class="stitle">Tablas de verdad en tiempo real</p>
     <div id="tt-context-def" style="margin-bottom:10px;"></div>
     <div class="tt-toggle-row">
@@ -303,147 +300,179 @@ body{font-family:var(--sans);color:var(--text);background-color:var(--bg);
   </div>
   <div class="card">
     <div class="ct">Expresión con 3 variables — paso a paso</div>
-    <p class="stitle">Mezclando conectivos</p>
+    <p class="stitle">¿Qué pasa cuando mezclamos conectivos?</p>
     <div style="background:rgba(13,150,136,.05);border:1.5px solid var(--Tb);border-radius:12px;padding:14px;margin-bottom:10px;">
-      <div style="font-size:.62rem;font-weight:800;text-transform:uppercase;color:var(--T);margin-bottom:8px;">Variables (V = esa proposición ES verdadera, F = ES falsa)</div>
+      <div style="font-size:.62rem;font-weight:800;text-transform:uppercase;color:var(--T);margin-bottom:8px;">Definición de las variables (V = esa proposición ES verdadera · F = ES falsa)</div>
       <div style="font-size:.83rem;line-height:1.95;color:var(--text);">
         <strong>p</strong> = "El estudiante está inscrito en prácticas" → V (sí lo está)<br>
         <strong>q</strong> = "El supervisor firmó el aval" → F (no lo firmó aún)<br>
-        r = "El horario está confirmado" → V (sí está confirmado)
+        <strong>r</strong> = "El horario está confirmado" → V (sí está confirmado)
       </div>
     </div>
     <div style="background:rgba(13,150,136,.04);border-radius:11px;padding:13px;border:1px solid var(--Tb);">
-      <div style="font-size:.62rem;font-weight:800;text-transform:uppercase;color:var(--T);margin-bottom:10px;">Evalúa: <span class="mono">¬<strong>p</strong> ∧ (<strong>q</strong> ∨ ¬r)</span></div>
+      <div style="font-size:.62rem;font-weight:800;text-transform:uppercase;color:var(--T);margin-bottom:10px;">Evalúa: <span class="mono">¬<strong>p</strong> ∧ (<strong>q</strong> ∨ ¬<strong>r</strong>)</span></div>
       <div style="font-size:.83rem;line-height:2.1;color:var(--text);">
-        <strong>Paso 1:</strong> ¬<strong>p</strong> = ¬(V) = <span class="tf">F</span> — "NO está inscrito" es FALSO<br>
-        <strong>Paso 2:</strong> ¬r = ¬(V) = <span class="tf">F</span> — "El horario NO está confirmado" es FALSO<br>
-        <strong>Paso 3:</strong> <strong>q</strong> ∨ ¬r = F ∨ F = <span class="tf">F</span> — ni aval ni horario<br>
-        <strong>Paso 4:</strong> ¬<strong>p</strong> ∧ (<strong>q</strong> ∨ ¬r) = F ∧ F = <span class="tf" style="font-size:1.1rem;">F</span>
+        <strong>Paso 1:</strong> ¬<strong>p</strong> = ¬(V) = <span class="tf">F</span> — "El estudiante NO está inscrito" es FALSO<br>
+        <strong>Paso 2:</strong> ¬<strong>r</strong> = ¬(V) = <span class="tf">F</span> — "El horario NO está confirmado" es FALSO<br>
+        <strong>Paso 3:</strong> <strong>q</strong> ∨ ¬<strong>r</strong> = F ∨ F = <span class="tf">F</span> — ni el aval ni el horario<br>
+        <strong>Paso 4:</strong> ¬<strong>p</strong> ∧ (<strong>q</strong> ∨ ¬<strong>r</strong>) = F ∧ F = <span class="tf" style="font-size:1.1rem;">F</span>
       </div>
     </div>
     <div class="hint">Orden: primero paréntesis, luego negaciones, luego ∧ y ∨.</div>
   </div>
-  <div class="card">
+    <div class="card">
     <div class="ct">Leyes de De Morgan · Miller §3.2</div>
     <p class="stitle">Cómo negar una proposición compuesta — y por qué</p>
+
+    <!-- DE MORGAN 1 -->
     <div class="dm-card" style="border-color:var(--Tb);background:var(--Tl);">
       <div style="font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--T);margin-bottom:8px;">De Morgan 1</div>
       <div style="font-family:var(--mono);font-size:1.05rem;font-weight:700;color:var(--T);margin-bottom:10px;">¬(<strong>p</strong> ∧ <strong>q</strong>) = ¬<strong>p</strong> ∨ ¬<strong>q</strong></div>
-      <div style="font-size:.83rem;line-height:1.9;border-top:1px solid var(--Tb);padding-top:10px;color:var(--text);">
-        Para que un trabajo cuente necesitas entregarlo Y entregarlo a tiempo. Si falla uno, no cuenta.<br><br>
-        <strong>p</strong> = "Entregué el trabajo" (puede ser V o F)<br>
-        <strong>q</strong> = "Lo entregué antes del plazo" (puede ser V o F)<br><br>
-        ¬(<strong>p</strong> ∧ <strong>q</strong>) = <em>"No es cierto que lo entregué y fue a tiempo"</em><br>
-        = ¬<strong>p</strong> ∨ ¬<strong>q</strong> = <strong>"No lo entregué O no fue a tiempo"</strong><br><br>
-        <span style="color:var(--muted);">El 'y' se convierte en 'o'. Basta que falle UNO para que la conjunción sea falsa.</span>
+      <div style="font-size:.83rem;line-height:1.85;border-top:1px solid var(--Tb);padding-top:10px;color:var(--text);">
+        Para que la nota de asistencia cuente, necesitas haber llegado Y entregado el taller. Si falla uno de los dos, no cuenta.<br><br>
+        <strong>p</strong> = "Llegué temprano a clase" → puede ser V (sí llegué) o F (no llegué)<br>
+        <strong>q</strong> = "Entregué el taller ese día" → puede ser V (sí entregué) o F (no entregué)<br><br>
+        "¿Cuándo es FALSO que llegué <em>y</em> entregué?"<br>
+        = ¬<strong>p</strong> ∨ ¬<strong>q</strong> = <strong>"No llegué O no entregué"</strong><br>
+        <em style="color:var(--muted);">El 'y' pasa a ser 'o'. Basta que falle UNO de los dos.</em>
       </div>
-      <div class="venn-wrap">
-        <p style="font-size:.68rem;font-weight:800;color:var(--T);text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px;">Diagrama de Venn interactivo — toca para cambiar de estado</p>
-        <div class="vb-row" id="venn1-tabs">
-          <button class="vb active" onclick="venn1(0)">Ver p ∧ q</button>
-          <button class="vb" onclick="venn1(1)">Ver ¬(p ∧ q)</button>
-          <button class="vb" onclick="venn1(2)">Ver ¬p ∨ ¬q</button>
+      <!-- VENN DM1 -->
+      <div class="venn-wrap" style="margin-top:14px;">
+        <p style="font-size:.68rem;font-weight:800;color:var(--T);text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px;">Visualización — toca los botones</p>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;" id="v1tabs">
+          <button class="vbtab active" onclick="venn1(0)">Ver p ∧ q</button>
+          <button class="vbtab" onclick="venn1(1)">Ver ¬(p ∧ q)</button>
+          <button class="vbtab" onclick="venn1(2)">Ver ¬p ∨ ¬q</button>
         </div>
-        <svg class="venn-svg" viewBox="0 0 310 200">
-          <rect x="0" y="0" width="310" height="200" fill="white"/>
-          <rect x="5" y="5" width="300" height="190" fill="rgba(248,245,236,.85)" stroke="#ccc" stroke-width="1" rx="6"/>
-          <text x="294" y="21" text-anchor="end" font-size="11" fill="#bbb">U</text>
-          <g id="vd1-s0"><path d="M 155 50 A 65 65 0 0 1 155 160 A 65 65 0 0 0 155 50 Z" fill="rgba(13,150,136,.52)"/></g>
-          <g id="vd1-s1" style="display:none"><rect x="5" y="5" width="300" height="190" fill="rgba(109,40,217,.2)" rx="6"/><path d="M 155 50 A 65 65 0 0 1 155 160 A 65 65 0 0 0 155 50 Z" fill="white"/></g>
-          <circle cx="120" cy="105" r="65" fill="rgba(13,150,136,.06)" stroke="#1b5250" stroke-width="2.5"/>
-          <circle cx="190" cy="105" r="65" fill="rgba(161,98,7,.06)" stroke="#a16207" stroke-width="2.5"/>
-          <text x="80" y="101" text-anchor="middle" font-size="17" font-weight="700" fill="#1b5250" font-family="Georgia,serif">p</text>
-          <text x="230" y="101" text-anchor="middle" font-size="17" font-weight="700" fill="#a16207" font-family="Georgia,serif">q</text>
-          <text x="155" y="109" text-anchor="middle" font-size="12" fill="rgba(0,0,0,.4)" id="vd1-clbl">p∧q</text>
+        <svg viewBox="0 0 310 195" style="width:100%;max-width:340px;display:block;margin:0 auto;">
+          <rect x="0" y="0" width="310" height="195" fill="white"/>
+          <rect x="4" y="4" width="302" height="187" fill="rgba(248,245,236,.9)" stroke="#d0ccc0" stroke-width="1.5" rx="7"/>
+          <text x="296" y="20" text-anchor="end" font-size="11" fill="#c0bbb0" font-family="Georgia,serif">U</text>
+          <!-- State 0: p∧q = intersection teal -->
+          <g id="v1s0">
+            <path d="M 155 52 A 64 64 0 0 1 155 158 A 64 64 0 0 0 155 52 Z" fill="rgba(13,150,136,.55)"/>
+          </g>
+          <!-- State 1 & 2: ¬(p∧q) = purple everywhere except intersection -->
+          <g id="v1s1" style="display:none">
+            <rect x="4" y="4" width="302" height="187" fill="rgba(109,40,217,.18)" rx="7"/>
+            <path d="M 155 52 A 64 64 0 0 1 155 158 A 64 64 0 0 0 155 52 Z" fill="white"/>
+          </g>
+          <!-- Circles always on top -->
+          <circle cx="120" cy="105" r="64" fill="rgba(13,150,136,.07)" stroke="#1b5250" stroke-width="2.5"/>
+          <circle cx="190" cy="105" r="64" fill="rgba(161,98,7,.07)" stroke="#a16207" stroke-width="2.5"/>
+          <text x="80" y="100" text-anchor="middle" font-size="17" font-weight="700" fill="#1b5250" font-family="Georgia,serif">p</text>
+          <text x="230" y="100" text-anchor="middle" font-size="17" font-weight="700" fill="#a16207" font-family="Georgia,serif">q</text>
+          <text x="155" y="108" text-anchor="middle" font-size="11" fill="rgba(0,0,0,.4)" font-family="Georgia,serif" id="v1clbl">p∧q</text>
         </svg>
-        <div class="venn-desc" id="vd1-label">Zona marcada: <strong>p ∧ q</strong> — los que entregaron el trabajo <em>y</em> lo entregaron a tiempo. Cumplen las dos condiciones.</div>
-        <div class="venn-equiv-msg" id="vd1-equiv">✓ <strong>¡Misma zona!</strong> ¬(p∧q) y ¬p∨¬q describen exactamente el mismo conjunto. Eso es lo que dice De Morgan.</div>
+        <div style="font-size:.82rem;line-height:1.65;color:var(--text);margin-top:9px;padding:8px 12px;background:rgba(255,255,255,.8);border-radius:8px;border:1px solid var(--border2);" id="v1lbl">
+          <strong>Zona teal (p ∧ q):</strong> estudiantes que llegaron temprano <em>y</em> entregaron el taller. Las dos condiciones se cumplen.
+        </div>
+        <div style="font-size:.82rem;line-height:1.6;color:var(--G);margin-top:6px;padding:8px 12px;background:var(--Gl);border:1px solid var(--Gb);border-radius:8px;display:none;" id="v1eq">
+          ✓ <strong>¡Misma zona!</strong> ¬(p∧q) y ¬p∨¬q son exactamente el mismo conjunto. De Morgan lo garantiza.
+        </div>
       </div>
     </div>
+
+    <!-- DE MORGAN 2 -->
     <div class="dm-card" style="border-color:var(--Amb);background:var(--Aml);margin-top:10px;">
       <div style="font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--Am);margin-bottom:8px;">De Morgan 2</div>
       <div style="font-family:var(--mono);font-size:1.05rem;font-weight:700;color:var(--Am);margin-bottom:10px;">¬(<strong>p</strong> ∨ <strong>q</strong>) = ¬<strong>p</strong> ∧ ¬<strong>q</strong></div>
-      <div style="font-size:.83rem;line-height:1.9;border-top:1px solid var(--Amb);padding-top:10px;color:var(--text);">
-        Para pasar el semestre basta aprobar el parcial O la entrega final. Para NO pasar, deben fallar los dos.<br><br>
-        <strong>p</strong> = "Apruebo el parcial" (puede ser V o F)<br>
-        <strong>q</strong> = "Apruebo la entrega final" (puede ser V o F)<br><br>
-        ¬(<strong>p</strong> ∨ <strong>q</strong>) = <em>"No es cierto que apruebo el parcial o la entrega"</em><br>
-        = ¬<strong>p</strong> ∧ ¬<strong>q</strong> = <strong>"No apruebo el parcial Y no apruebo la entrega"</strong><br><br>
-        <span style="color:var(--muted);">El 'o' se convierte en 'y'. Para que la disyunción falle, AMBAS deben fallar.</span>
+      <div style="font-size:.83rem;line-height:1.85;border-top:1px solid var(--Amb);padding-top:10px;color:var(--text);">
+        Para pasar la materia basta con aprobar el primer corte O el segundo. Para NO pasar, tienen que fallar los dos.<br><br>
+        <strong>p</strong> = "Aprobé el primer corte" → puede ser V (aprobé) o F (no aprobé)<br>
+        <strong>q</strong> = "Aprobé el segundo corte" → puede ser V (aprobé) o F (no aprobé)<br><br>
+        "¿Cuándo es FALSO que aprobé el primero <em>o</em> el segundo?"<br>
+        = ¬<strong>p</strong> ∧ ¬<strong>q</strong> = <strong>"No aprobé el primero Y no aprobé el segundo"</strong><br>
+        <em style="color:var(--muted);">El 'o' pasa a ser 'y'. Tienen que fallar LOS DOS a la vez.</em>
       </div>
-      <div class="venn-wrap">
-        <p style="font-size:.68rem;font-weight:800;color:var(--Am);text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px;">Diagrama de Venn interactivo</p>
-        <div class="vb-row" id="venn2-tabs">
-          <button class="vb active" style="background:var(--Am);border-color:var(--Am);" onclick="venn2(0)">Ver p ∨ q</button>
-          <button class="vb" onclick="venn2(1)">Ver ¬(p ∨ q)</button>
-          <button class="vb" onclick="venn2(2)">Ver ¬p ∧ ¬q</button>
+      <!-- VENN DM2 -->
+      <div class="venn-wrap" style="margin-top:14px;">
+        <p style="font-size:.68rem;font-weight:800;color:var(--Am);text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px;">Visualización — toca los botones</p>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;" id="v2tabs">
+          <button class="vbtab v2active" onclick="venn2(0)" style="background:var(--Am);border-color:var(--Am);color:#fff;">Ver p ∨ q</button>
+          <button class="vbtab" onclick="venn2(1)">Ver ¬(p ∨ q)</button>
+          <button class="vbtab" onclick="venn2(2)">Ver ¬p ∧ ¬q</button>
         </div>
-        <svg class="venn-svg" viewBox="0 0 310 200">
-          <rect x="0" y="0" width="310" height="200" fill="white"/>
-          <rect x="5" y="5" width="300" height="190" fill="rgba(248,245,236,.85)" stroke="#ccc" stroke-width="1" rx="6"/>
-          <text x="294" y="21" text-anchor="end" font-size="11" fill="#bbb">U</text>
-          <g id="vd2-s0"><circle cx="120" cy="105" r="65" fill="rgba(13,150,136,.33)"/><circle cx="190" cy="105" r="65" fill="rgba(13,150,136,.33)"/></g>
-          <g id="vd2-s1" style="display:none"><rect x="5" y="5" width="300" height="190" fill="rgba(109,40,217,.2)" rx="6"/><circle cx="120" cy="105" r="65" fill="white"/><circle cx="190" cy="105" r="65" fill="white"/></g>
-          <circle cx="120" cy="105" r="65" fill="rgba(13,150,136,.06)" stroke="#1b5250" stroke-width="2.5"/>
-          <circle cx="190" cy="105" r="65" fill="rgba(161,98,7,.06)" stroke="#a16207" stroke-width="2.5"/>
-          <text x="80" y="101" text-anchor="middle" font-size="17" font-weight="700" fill="#1b5250" font-family="Georgia,serif">p</text>
-          <text x="230" y="101" text-anchor="middle" font-size="17" font-weight="700" fill="#a16207" font-family="Georgia,serif">q</text>
+        <svg viewBox="0 0 310 195" style="width:100%;max-width:340px;display:block;margin:0 auto;">
+          <rect x="0" y="0" width="310" height="195" fill="white"/>
+          <rect x="4" y="4" width="302" height="187" fill="rgba(248,245,236,.9)" stroke="#d0ccc0" stroke-width="1.5" rx="7"/>
+          <text x="296" y="20" text-anchor="end" font-size="11" fill="#c0bbb0" font-family="Georgia,serif">U</text>
+          <!-- State 0: p∨q = union teal -->
+          <g id="v2s0">
+            <circle cx="120" cy="105" r="64" fill="rgba(13,150,136,.3)"/>
+            <circle cx="190" cy="105" r="64" fill="rgba(13,150,136,.3)"/>
+          </g>
+          <!-- State 1 & 2: ¬(p∨q) = purple outside both circles -->
+          <g id="v2s1" style="display:none">
+            <rect x="4" y="4" width="302" height="187" fill="rgba(109,40,217,.18)" rx="7"/>
+            <circle cx="120" cy="105" r="64" fill="white"/>
+            <circle cx="190" cy="105" r="64" fill="white"/>
+          </g>
+          <!-- Circles always on top -->
+          <circle cx="120" cy="105" r="64" fill="rgba(13,150,136,.07)" stroke="#1b5250" stroke-width="2.5"/>
+          <circle cx="190" cy="105" r="64" fill="rgba(161,98,7,.07)" stroke="#a16207" stroke-width="2.5"/>
+          <text x="80" y="100" text-anchor="middle" font-size="17" font-weight="700" fill="#1b5250" font-family="Georgia,serif">p</text>
+          <text x="230" y="100" text-anchor="middle" font-size="17" font-weight="700" fill="#a16207" font-family="Georgia,serif">q</text>
         </svg>
-        <div class="venn-desc" id="vd2-label">Zona marcada: <strong>p ∨ q</strong> — los que aprobaron el parcial <em>o</em> la entrega final (o los dos). Al menos una de las dos.</div>
-        <div class="venn-equiv-msg" id="vd2-equiv">✓ <strong>¡Misma zona!</strong> ¬(p∨q) y ¬p∧¬q describen exactamente el mismo conjunto. Eso es lo que dice De Morgan.</div>
+        <div style="font-size:.82rem;line-height:1.65;color:var(--text);margin-top:9px;padding:8px 12px;background:rgba(255,255,255,.8);border-radius:8px;border:1px solid var(--border2);" id="v2lbl">
+          <strong>Zona teal (p ∨ q):</strong> estudiantes que aprobaron el primer corte <em>o</em> el segundo (o los dos). Al menos uno.
+        </div>
+        <div style="font-size:.82rem;line-height:1.6;color:var(--G);margin-top:6px;padding:8px 12px;background:var(--Gl);border:1px solid var(--Gb);border-radius:8px;display:none;" id="v2eq">
+          ✓ <strong>¡Misma zona!</strong> ¬(p∨q) y ¬p∧¬q son exactamente el mismo conjunto. De Morgan lo garantiza.
+        </div>
       </div>
     </div>
-    <div class="alert al-G"><strong>Regla:</strong> Al negar, el conector se INVIERTE (∧↔∨) y cada parte SE NIEGA. Siempre las dos cosas juntas.</div>
+
+    <div class="alert al-G" style="margin-top:10px;"><strong>Regla mnemotécnica:</strong> Al negar, el conector se INVIERTE (∧↔∨) y cada parte SE NIEGA. Siempre las dos cosas juntas.</div>
     <p style="font-size:.8rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin:12px 0 8px;">Practica De Morgan:</p>
     <div id="demorgan-practice"></div>
   </div>
-  <div class="mini-coop">
+<div class="mini-coop">
     <div class="mini-coop-badge">⚙️ Actividad opcional · Parejas · 7 min</div>
     <p class="mini-coop-title">Mini-coop: De Morgan en contexto real</p>
-    <p style="font-size:.82rem;line-height:1.65;color:var(--text);margin-bottom:10px;">Identifiquen primero qué es <strong>p</strong> y qué es <strong>q</strong> en cada caso, apliquen De Morgan <em>antes</em> de tocar. El que más se equivoque le explica al otro.</p>
+    <p style="font-size:.82rem;line-height:1.65;color:var(--text);margin-bottom:10px;">Identifiquen primero qué es <strong>p</strong> y qué es <strong>q</strong>, apliquen De Morgan antes de tocar para ver. El que más se equivoque explica al otro.</p>
     <div id="mini-coop-m2"></div>
-    <div style="background:rgba(180,83,9,.08);border:1px solid var(--Optb);border-radius:9px;padding:10px 13px;margin-top:10px;font-size:.8rem;line-height:1.6;color:var(--text);">📓 <strong>Registren:</strong> ¿El error fue no cambiar el conector o no negar las partes?</div>
+    <div style="background:rgba(180,83,9,.08);border:1px solid var(--Optb);border-radius:9px;padding:10px 13px;margin-top:10px;font-size:.8rem;color:var(--text);">📓 <strong>Registren:</strong> ¿El error más común fue no cambiar el conector o no negar las partes?</div>
   </div>
   <div class="btn-row">
     <button class="btn btn-back" onclick="sw(1)">← Proposiciones</button>
     <button class="btn btn-next" onclick="sw(3)">Condicional →</button>
   </div>
 </div>
-
 <!-- M3 -->
 <div class="mod" id="m3">
   <div class="srow"><span class="sb sb-clase">🏫 En clase</span></div>
   <div class="card">
     <div class="ct">El conector de las hipótesis · Miller §3.3</div>
     <p class="stitle">El condicional: "Si <strong>p</strong>… entonces <strong>q</strong>"</p>
-    <p style="font-size:.84rem;line-height:1.75;margin-bottom:12px;color:var(--text);">El condicional <span class="mono"><strong>p</strong> → <strong>q</strong></span> es la estructura formal de las hipótesis científicas y los criterios diagnósticos. <strong>p</strong> es el <em>antecedente</em> (la condición); <strong>q</strong> es el <em>consecuente</em> (lo que se garantiza si la condición se cumple).</p>
+    <p style="font-size:.84rem;line-height:1.75;margin-bottom:12px;color:var(--text);">El condicional <span class="mono"><strong>p</strong> → <strong>q</strong></span> es la estructura formal de las hipótesis científicas. <strong>p</strong> es el <em>antecedente</em> (la condición); <strong>q</strong> es el <em>consecuente</em> (lo que se garantiza si la condición ocurre).</p>
     <div style="background:var(--Azl);border:1.5px solid var(--Azb);border-radius:12px;padding:14px;margin-bottom:14px;">
       <div style="font-size:.62rem;font-weight:800;text-transform:uppercase;color:var(--Az);margin-bottom:8px;">La analogía de la promesa</div>
-      <p style="font-family:var(--serif);font-style:italic;font-size:.9rem;line-height:1.75;color:var(--text);">Tus papás te prometen: <strong>"Si apruebas todas las materias del semestre, te pagamos el viaje a San Andrés."</strong></p>
-      <div style="margin-top:10px;font-size:.82rem;line-height:1.9;color:var(--text);">
-        <strong>p</strong> = "apruebas todas las materias" → puede ser V (sí aprobaste) o F (no aprobaste)<br>
-        <strong>q</strong> = "tus papás te pagan el viaje" → puede ser V (sí pagan) o F (no pagan)
+      <p style="font-family:var(--serif);font-style:italic;font-size:.9rem;line-height:1.75;color:var(--text);">Tus papás te prometen: <strong>"Si apruebas todas las materias este semestre, te pagamos el viaje a San Andrés."</strong></p>
+      <div style="margin-top:10px;font-size:.82rem;line-height:1.85;color:var(--text);">
+        <strong>p</strong> = "apruebas todas las materias" — puede ser V (sí aprobaste) o F (no aprobaste)<br>
+        <strong>q</strong> = "tus papás te pagan el viaje a San Andrés" — puede ser V (sí pagan) o F (no pagan)
       </div>
     </div>
     <p style="font-size:.83rem;font-weight:700;color:var(--muted);margin-bottom:9px;">¿Cuándo habrían mentido tus papás? Toca cada caso:</p>
     <div id="cond-cases"></div>
-    <div class="alert al-T" style="margin-top:12px;"><strong>La regla:</strong> <span class="mono"><strong>p</strong> → <strong>q</strong></span> es <strong>FALSO únicamente cuando <strong>p</strong> = V y <strong>q</strong> = F</strong>. Solo cuando la condición se cumplió y la promesa no se honró.</div>
+    <div class="alert al-T" style="margin-top:12px;"><strong>La regla:</strong> <span class="mono"><strong>p</strong> → <strong>q</strong></span> es <strong>FALSO únicamente cuando <strong>p</strong>=V y <strong>q</strong>=F</strong>. Solo cuando la condición se cumplió y la promesa no se honró.</div>
     <div class="tt-wrap">
       <table class="tt">
-        <thead><tr><th><strong>p</strong></th><th><strong>q</strong></th><th><strong>p</strong>→<strong>q</strong></th><th style="text-align:left;font-family:var(--sans);font-size:.6rem;padding:8px 10px;">¿Mintieron?</th></tr></thead>
+        <thead><tr><th><strong>p</strong></th><th><strong>q</strong></th><th><strong>p</strong>→<strong>q</strong></th><th style="text-align:left;font-family:var(--sans);font-size:.6rem;padding:8px 10px;">Significado</th></tr></thead>
         <tbody>
           <tr><td class="tv">V</td><td class="tv">V</td><td class="result tv">V</td><td style="text-align:left;font-size:.73rem;font-family:var(--sans);padding:8px 10px;">Aprobaste y te pagaron. Promesa cumplida. ✓</td></tr>
           <tr class="highlight-row"><td class="tv">V</td><td class="tf">F</td><td class="result tf">F</td><td style="text-align:left;font-size:.73rem;font-family:var(--sans);padding:8px 10px;">Aprobaste y NO te pagaron. ¡Promesa rota! ✗</td></tr>
-          <tr><td class="tf">F</td><td class="tv">V</td><td class="result tv">V</td><td style="text-align:left;font-size:.73rem;font-family:var(--sans);padding:8px 10px;">No aprobaste pero te pagaron igual. No mintieron. ✓</td></tr>
-          <tr><td class="tf">F</td><td class="tf">F</td><td class="result tv">V</td><td style="text-align:left;font-size:.73rem;font-family:var(--sans);padding:8px 10px;">No aprobaste y no pagaron. La condición no se activó. ✓</td></tr>
+          <tr><td class="tf">F</td><td class="tv">V</td><td class="result tv">V</td><td style="text-align:left;font-size:.73rem;font-family:var(--sans);padding:8px 10px;">No aprobaste pero te pagaron igual. Generosos, no mintieron. ✓</td></tr>
+          <tr><td class="tf">F</td><td class="tf">F</td><td class="result tv">V</td><td style="text-align:left;font-size:.73rem;font-family:var(--sans);padding:8px 10px;">No aprobaste y no te pagaron. La condición no se activó. ✓</td></tr>
         </tbody>
       </table>
     </div>
-    <div class="hint">Equivalencia útil: <span class="mono"><strong>p</strong>→<strong>q</strong></span> equivale a <span class="mono">¬<strong>p</strong>∨<strong>q</strong></span>. "Si no apruebas (¬<strong>p</strong>) O sí te pagan (<strong>q</strong>), la promesa se mantiene."</div>
+    <div class="hint">Equivalencia: <span class="mono"><strong>p</strong>→<strong>q</strong></span> es lo mismo que <span class="mono">¬<strong>p</strong>∨<strong>q</strong></span>.</div>
   </div>
   <div class="card">
-    <div class="ct">Practica — evalúa condicionales</div>
-    <p class="stitle">¿Cuándo es falso?</p>
+    <div class="ct">Practica</div>
+    <p class="stitle">¿Cuándo es falso el condicional?</p>
     <div id="cond-practice"></div>
   </div>
   <div class="btn-row">
@@ -458,7 +487,7 @@ body{font-family:var(--sans);color:var(--text);background-color:var(--bg);
   <div class="card">
     <div class="ct">Los 5 tipos · Miller §3.6</div>
     <p class="stitle">Argumentos válidos y falacias</p>
-    <p style="font-size:.83rem;line-height:1.65;margin-bottom:12px;color:var(--text);">Los primeros 3 son <span style="color:var(--G);font-weight:700;">válidos</span>. Los últimos 2 son <span style="color:var(--E);font-weight:700;">falacias</span>. Toca cada uno para ver el análisis.</p>
+    <p style="font-size:.83rem;line-height:1.65;margin-bottom:12px;color:var(--text);">Los primeros 3 son <span style="color:var(--G);font-weight:700;">válidos</span> — la conclusión se sigue necesariamente. Los últimos 2 son <span style="color:var(--E);font-weight:700;">falacias</span>. Toca cada uno para ver el análisis.</p>
     <div id="argument-forms"></div>
   </div>
   <div class="btn-row">
@@ -473,29 +502,29 @@ body{font-family:var(--sans);color:var(--text);background-color:var(--bg);
   <div class="coop-block">
     <div class="coop-title">⚖️ "El Fiscal de la Lógica"</div>
     <span class="coop-timer">⏱ 19 minutos · Tríos con roles rotativos</span>
-    <p style="font-size:.84rem;line-height:1.7;color:var(--text);margin:10px 0;">Su equipo actúa como equipo fiscal que dictamina sobre 5 argumentos de investigación psicológica. Para cada uno deben identificar la estructura lógica, emitir un veredicto (válido / falacia) y justificarlo con palabras propias.</p>
+    <p style="font-size:.84rem;line-height:1.7;color:var(--text);margin:10px 0;">Su equipo actúa como equipo fiscal que dictamina sobre 5 argumentos de investigación psicológica. Para cada uno: identificar la estructura lógica, emitir un veredicto (válido / falacia) y justificarlo con palabras propias.</p>
     <div style="margin:12px 0;">
-      <div class="role-card"><span class="role-tag" style="background:var(--Tl);border:1px solid var(--Tb);color:var(--T);">COORD</span><div style="color:var(--text);">Lee cada argumento en voz alta. Si hay desacuerdo: "¿Cuál es exactamente la estructura lógica aquí?"</div></div>
-      <div class="role-card"><span class="role-tag" style="background:var(--Aml);border:1px solid var(--Amb);color:var(--Am);">SECRET</span><div style="color:var(--text);">Registra: estructura lógica, veredicto, justificación, ⚠️ si hubo debate.</div></div>
-      <div class="role-card"><span class="role-tag" style="background:var(--Azl);border:1px solid var(--Azb);color:var(--Az);">VOCERO</span><div style="color:var(--text);">Presenta en plenaria: estructura → veredicto → justificación. Sin leer el cuaderno.</div></div>
+      <div class="role-card"><span class="role-tag" style="background:var(--Tl);border:1px solid var(--Tb);color:var(--T);">COORD</span><div>Lee cada argumento en voz alta. Asegura que todos piensen antes de hablar. Si hay desacuerdo: "¿Cuál es la estructura lógica exacta?"</div></div>
+      <div class="role-card"><span class="role-tag" style="background:var(--Aml);border:1px solid var(--Amb);color:var(--Am);">SECRET</span><div>Registra: estructura, veredicto, justificación, ⚠️ si hubo debate.</div></div>
+      <div class="role-card"><span class="role-tag" style="background:var(--Azl);border:1px solid var(--Azb);color:var(--Az);">VOCERO</span><div>Presenta en plenaria: estructura → veredicto → justificación. Sin leer el cuaderno.</div></div>
     </div>
     <div style="background:rgba(255,255,255,.7);border-radius:11px;padding:12px;border:1px solid rgba(185,28,28,.15);">
       <div style="font-size:.67rem;font-weight:800;text-transform:uppercase;color:var(--Co);margin-bottom:8px;">Protocolo</div>
-      <div class="step-coop"><div class="sc-n">1</div><div style="color:var(--text);"><strong>2 min:</strong> Leer individualmente los 5 argumentos. En silencio.</div></div>
-      <div class="step-coop"><div class="sc-n">2</div><div style="color:var(--text);"><strong>12 min:</strong> Analizar (~2.5 min c/u). Votar simultáneamente <em>antes</em> de debatir.</div></div>
-      <div class="step-coop"><div class="sc-n">3</div><div style="color:var(--text);"><strong>3 min:</strong> Vocero prepara presentación del argumento asignado.</div></div>
-      <div class="step-coop"><div class="sc-n">4</div><div style="color:var(--text);"><strong>2 min plenaria:</strong> Vocero presenta. El profesor cierra.</div></div>
+      <div class="step-coop"><div class="sc-n">1</div><div>2 min: Leer los 5 argumentos individualmente. En silencio.</div></div>
+      <div class="step-coop"><div class="sc-n">2</div><div>12 min: Analizar cada argumento (~2.5 min). Votar simultáneamente antes de debatir.</div></div>
+      <div class="step-coop"><div class="sc-n">3</div><div>3 min: Vocero prepara presentación del argumento asignado.</div></div>
+      <div class="step-coop"><div class="sc-n">4</div><div>2 min plenaria: Vocero presenta. El profesor cierra.</div></div>
     </div>
   </div>
   <div id="coop-args"></div>
   <div class="card" style="border-color:rgba(185,28,28,.2);background:#fff9f8;">
     <div class="ct" style="color:var(--Co);">📓 Cuaderno de Equipo</div>
     <div style="background:rgba(255,255,255,.8);border-radius:10px;padding:11px 13px;font-size:.82rem;line-height:1.9;color:var(--text);">
-      Para cada argumento: <strong>estructura lógica</strong> · <strong>veredicto</strong> · <strong>justificación</strong> · ⚠️ desacuerdo<br><br>
+      Para cada argumento: <strong>estructura</strong> · <strong>veredicto</strong> · <strong>justificación</strong> · ⚠️ si hubo desacuerdo<br><br>
       <em>Pregunta final: "¿Por qué las dos falacias suenan tan convincentes? ¿Qué tiene el cerebro que nos hace caer en ellas sistemáticamente?"</em>
     </div>
   </div>
-  <div class="alert al-T"><strong>Responsabilidad individual (Johnson &amp; Johnson, 1994):</strong> En la plenaria, cualquier integrante puede ser preguntado sobre cualquier argumento — no solo el Vocero.</div>
+  <div class="alert al-T"><strong>Responsabilidad individual (Johnson &amp; Johnson, 1994):</strong> En la plenaria, cualquier integrante puede ser preguntado — no solo el Vocero.</div>
   <div class="btn-row">
     <button class="btn btn-back" onclick="sw(4)">← Argumentos</button>
     <button class="btn btn-next" onclick="sw(6)">Quiz →</button>
@@ -506,15 +535,15 @@ body{font-family:var(--sans);color:var(--text);background-color:var(--bg);
 <div class="mod" id="m6">
   <div class="srow"><span class="sb sb-clase">📝 Individual · silencio · responde todo antes de ver la nota</span></div>
   <div class="card">
-    <div class="ct">Autoevaluación · guardado automático en este dispositivo</div>
+    <div class="ct">Autoevaluación · guardado automático</div>
     <p class="stitle">12 preguntas · Nota sobre 5.0</p>
-    <div id="saved-badge" style="display:none;background:var(--Gl);border:1px solid var(--Gb);color:var(--G);align-items:center;gap:5px;padding:3px 10px;border-radius:99px;font-size:.62rem;font-weight:700;margin-bottom:9px;">💾 Respuestas guardadas en este dispositivo</div>
-    <p style="font-size:.83rem;color:var(--muted);line-height:1.6;">Tus respuestas quedan guardadas aunque recargues. Responde todo y presiona <strong>"Ver mi nota"</strong>.</p>
+    <div id="saved-badge" style="display:none;background:var(--Gl);border:1px solid var(--Gb);color:var(--G);align-items:center;gap:5px;padding:3px 10px;border-radius:99px;font-size:.62rem;font-weight:700;margin-bottom:9px;">💾 Respuestas guardadas</div>
+    <p style="font-size:.83rem;color:var(--muted);line-height:1.6;">Responde todo y presiona <strong>"Ver mi nota"</strong>. Tus respuestas se guardan automáticamente y permanecen aunque recargues la página.</p>
   </div>
   <div id="quiz-container"></div>
   <button class="quiz-submit" id="quiz-btn" onclick="gradeQuiz()">Ver mi nota →</button>
   <div class="score-box" id="score-box">
-    <div style="font-size:.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;">Tu nota</div>
+    <div style="font-size:.62rem;color:var(--muted);text-transform:uppercase;margin-bottom:6px;">Tu nota</div>
     <span class="score-num" id="score-num">0.0</span>
     <div style="font-size:.75rem;color:var(--muted);margin-top:4px;">sobre 5.0</div>
     <div class="score-bar"><div class="score-fill" id="score-fill" style="width:0%"></div></div>
@@ -523,23 +552,23 @@ body{font-family:var(--sans);color:var(--text);background-color:var(--bg);
   </div>
 </div>
 
-<!-- M7 PARA CASA -->
+<!-- M7 -->
 <div class="mod" id="m7">
   <div class="srow"><span class="sb sb-casa">🏠 Todo este módulo es para casa</span></div>
   <div class="study-plan-card">
-    <div style="font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:var(--T);margin-bottom:6px;">Plan de estudio — consolidación del conocimiento</div>
+    <div style="font-size:.6rem;font-weight:800;text-transform:uppercase;color:var(--T);margin-bottom:6px;">Plan de estudio — consolidación del conocimiento</div>
     <p class="stitle" style="color:var(--T);margin-bottom:8px;">La práctica distribuida es lo que fija el aprendizaje</p>
     <p style="font-size:.83rem;line-height:1.7;color:var(--text);margin-bottom:12px;">La investigación (Dunlosky et al., 2013; Rosenshine, 2012) muestra que la <strong>práctica distribuida</strong> (poco a poco, varios días) y la <strong>recuperación activa</strong> (intentar antes de ver la respuesta) son las estrategias más efectivas. Este módulo está diseñado así.</p>
-    <div class="study-day" style="border-color:var(--Tb);"><div class="study-day-title" style="color:var(--T);">📅 Día 1 — Hoy, después de clase</div><div class="study-day-desc">Nivel A: Proposiciones y cuantificadores (10 ejercicios). Nivel B: Conectivos y tablas (10 ejercicios). Tiempo: ~30 min.</div></div>
-    <div class="study-day" style="border-color:var(--Gb);"><div class="study-day-title" style="color:var(--G);">📅 Día 2 — Mañana</div><div class="study-day-desc">Nivel C: El condicional (10 ejercicios). Nivel D: De Morgan avanzado (6 ejercicios). Tiempo: ~35 min.</div></div>
-    <div class="study-day" style="border-color:var(--Vb);"><div class="study-day-title" style="color:var(--V);">📅 Día 3 — Antes de la siguiente clase</div><div class="study-day-desc">Nivel E: Argumentos y falacias aplicadas (10 ejercicios). Tiempo: ~35 min.</div></div>
-    <div class="study-day" style="border-color:var(--Amb);"><div class="study-day-title" style="color:var(--Am);">📋 Entregable — traer a la próxima clase</div><div class="study-day-desc">Busca en una noticia, post de redes o artículo un argumento con forma condicional. Analízalo con el formato al final de esta pestaña.</div></div>
+    <div class="study-day" style="border-color:var(--Tb);"><div class="study-day-title" style="color:var(--T);">📅 Día 1 — Hoy, después de clase</div><div class="study-day-desc">Nivel A: Proposiciones y cuantificadores (10 ej). Nivel B: Conectivos y tablas (10 ej). Tiempo: ~30 min.</div></div>
+    <div class="study-day" style="border-color:var(--Gb);"><div class="study-day-title" style="color:var(--G);">📅 Día 2 — Mañana</div><div class="study-day-desc">Nivel C: El condicional (10 ej). Nivel D: De Morgan avanzado (6 ej). Tiempo: ~35 min.</div></div>
+    <div class="study-day" style="border-color:var(--Vb);"><div class="study-day-title" style="color:var(--V);">📅 Día 3 — Antes de la siguiente clase</div><div class="study-day-desc">Nivel E: Argumentos y falacias (10 ej). Tiempo: ~35 min.</div></div>
+    <div class="study-day" style="border-color:var(--Amb);"><div class="study-day-title" style="color:var(--Am);">📋 Entregable — traer a la próxima clase</div><div class="study-day-desc">Busca en una noticia, post de redes o artículo un argumento condicional. Analízalo con el formato al final de esta pestaña.</div></div>
   </div>
   <div class="hw-section" style="border-color:var(--Tb);background:rgba(13,150,136,.03);"><div class="hw-section-title" style="color:var(--T);">Nivel A — Proposiciones y cuantificadores</div><div class="hw-section-sub">10 ejercicios. Identifica, clasifica y niega. Intenta antes de ver.</div><div id="hw-a"></div></div>
-  <div class="hw-section" style="border-color:var(--Gb);background:rgba(21,128,61,.03);"><div class="hw-section-title" style="color:var(--G);">Nivel B — Conectivos y tablas de verdad</div><div class="hw-section-sub">10 ejercicios con <strong>p</strong>, <strong>q</strong> y r.</div><div id="hw-b"></div></div>
+  <div class="hw-section" style="border-color:var(--Gb);background:rgba(21,128,61,.03);"><div class="hw-section-title" style="color:var(--G);">Nivel B — Conectivos y tablas de verdad</div><div class="hw-section-sub">10 ejercicios. Evalúa expresiones con <strong>p</strong>, <strong>q</strong> y r.</div><div id="hw-b"></div></div>
   <div class="hw-section" style="border-color:var(--Azb);background:rgba(3,105,161,.03);"><div class="hw-section-title" style="color:var(--Az);">Nivel C — El condicional</div><div class="hw-section-sub">10 ejercicios sobre tablas, negación y aplicaciones.</div><div id="hw-c"></div></div>
   <div class="hw-section" style="border-color:var(--Amb);background:rgba(161,98,7,.03);"><div class="hw-section-title" style="color:var(--Am);">Nivel D — Leyes de De Morgan</div><div class="hw-section-sub">6 ejercicios de negación de proposiciones compuestas.</div><div id="hw-d"></div></div>
-  <div class="hw-section" style="border-color:var(--Vb);background:rgba(109,40,217,.03);"><div class="hw-section-title" style="color:var(--V);">Nivel E — Argumentos e integración</div><div class="hw-section-sub">10 ejercicios con los 5 tipos. El más exigente.</div><div id="hw-e"></div></div>
+  <div class="hw-section" style="border-color:var(--Vb);background:rgba(109,40,217,.03);"><div class="hw-section-title" style="color:var(--V);">Nivel E — Argumentos e integración</div><div class="hw-section-sub">10 ejercicios con los 5 tipos de argumentos. El nivel más exigente.</div><div id="hw-e"></div></div>
   <div class="card" style="border-color:var(--Amb);">
     <div class="ct" style="color:var(--Am);">📋 Formato del entregable</div>
     <div style="background:rgba(161,98,7,.06);border-radius:11px;padding:13px;font-size:.82rem;line-height:2.3;border:1px solid var(--Amb);color:var(--text);">
@@ -550,7 +579,7 @@ body{font-family:var(--sans);color:var(--text);background-color:var(--bg);
       <strong>Forma lógica:</strong> [MP / MT / SD / AFC / ANA]<br>
       <strong>¿Es válido?</strong> _____ · <strong>¿Por qué?</strong> ____________________
     </div>
-    <div class="hint">Busca en El Tiempo, Semana o posts de salud en Instagram. Anuncios de dietas y suplementos son ricos en falacias de Afirmar el Consecuente.</div>
+    <div class="hint">Busca en El Tiempo, Semana o posts de salud en Instagram. Los anuncios de dietas y suplementos son ricos en falacias de Afirmar el Consecuente.</div>
   </div>
 </div>
 
@@ -558,196 +587,336 @@ body{font-family:var(--sans);color:var(--text);background-color:var(--bg);
 <footer class="page-footer">
   <span class="footer-deco">¬∧∨→↔</span>
   <p style="font-family:var(--serif);font-style:italic;font-size:.9rem;color:var(--muted);margin-bottom:4px;">Matemáticas I · Lógica Proposicional · UdeC Facatativá · 2026</p>
-  <p style="font-size:.68rem;color:var(--muted2);line-height:1.8;">Miller §3.1–3.3 · Johnson &amp; Johnson (1994) · Pujolàs &amp; Lago (CA/AC) · Dunlosky et al. (2013)</p>
+  <p style="font-size:.68rem;color:var(--muted2);line-height:1.8;">Miller §3.1–3.4 · Johnson &amp; Johnson (1994) · Pujolàs &amp; Lago (CA/AC) · Dunlosky et al. (2013) · Rosenshine (2012)</p>
+</footer>
+<div id="toast"></div>
+(--V);">Nivel E — Argumentos e integración</div>
+    <div class="hw-section-sub">10 ejercicios con los 5 tipos. El nivel más exigente.</div>
+    <div id="hw-e"></div>
+  </div>
+  <div class="card" style="border-color:var(--Amb);">
+    <div class="ct" style="color:var(--Am);">📋 Formato del entregable</div>
+    <p style="font-size:.84rem;line-height:1.7;margin-bottom:10px;color:var(--text);">Busca en una <strong>noticia, post de redes o artículo</strong> un argumento con forma condicional:</p>
+    <div style="background:rgba(161,98,7,.06);border-radius:11px;padding:13px;font-size:.82rem;line-height:2.3;border:1px solid var(--Amb);color:var(--text);">
+      <strong>Fuente:</strong> ____________________________________________<br>
+      <strong>Argumento textual:</strong> ____________________________________<br>
+      <strong>p</strong> (antecedente) = _____________________________________<br>
+      <strong>q</strong> (consecuente) = ____________________________________<br>
+      <strong>Forma lógica:</strong> [MP / MT / SD / AFC / ANA]<br>
+      <strong>¿Es válido?</strong> _____ · <strong>¿Por qué?</strong> ____________________
+    </div>
+    <div class="hint">Busca en El Tiempo, Semana, o posts de salud y suplementos en Instagram. Cualquier "Si haces X, obtendrás Y" es candidato. Los anuncios de dietas son ricos en falacias de Afirmar el Consecuente.</div>
+  </div>
+</div>
+
+</main>
+<footer class="page-footer">
+  <span class="footer-deco">¬∧∨→↔</span>
+  <p style="font-family:var(--serif);font-style:italic;font-size:.9rem;color:var(--muted);margin-bottom:4px;">Matemáticas I · Lógica Proposicional · UdeC Facatativá · 2026</p>
+  <p style="font-size:.68rem;color:var(--muted2);line-height:1.8;">Miller §3.1–3.4 · Johnson &amp; Johnson (1994) · Pujolàs &amp; Lago (CA/AC) · Dunlosky et al. (2013) · Rosenshine (2012)</p>
 </footer>
 <div id="toast"></div>
 <script>
 const QUIZ_KEY='logica_quiz_v4_clase8';
 let pVal=true,qVal=true,quizAnswers={},quizGraded=false;
 (function(){try{const r=localStorage.getItem(QUIZ_KEY);if(r){const d=JSON.parse(r);quizAnswers=d.answers||{};quizGraded=d.graded||false;}}catch(e){}})();
-
 function sw(n){document.querySelectorAll('.mod').forEach((m,i)=>m.classList.toggle('on',i===n));document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('on',i===n));window.scrollTo({top:0,behavior:'smooth'});}
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200);}
-function esc(s){return String(s).replace(/'/g,"&#39;").replace(/\n/g,' ');}
+function escQ(s){return s.replace(/'/g,"&#39;").replace(/\n/g,' ');}
+function answerExOpt(pfx,qi,oi,ans,fb){const el=document.getElementById(`${pfx}-${qi}`);if(el.classList.contains('ex-done'))return;el.classList.add('ex-done');el.querySelectorAll('.qopt').forEach((o,i)=>o.classList.add(i===ans?'ok':(i===oi&&oi!==ans?'ko':'')));const fbEl=document.getElementById(`${pfx}-fb-${qi}`);const _c=(oi===ans);fbEl.innerHTML=(_c?'<strong>✓ Correcto.</strong> ':'<strong>✗ Incorrecto.</strong> La opción correcta: '+String.fromCharCode(65+ans)+'. ')+fb;fbEl.className='ex-fb alert '+(_c?'al-G':'al-E');}
 
-function answerExOpt(pfx,qi,oi,ans,fb){
-  const el=document.getElementById(pfx+'-'+qi);
-  if(el.classList.contains('ex-done'))return;
-  el.classList.add('ex-done');
-  el.querySelectorAll('.qopt').forEach((o,i)=>o.classList.add(i===ans?'ok':(i===oi&&oi!==ans?'ko':'')));
-  const fbEl=document.getElementById(pfx+'-fb-'+qi);
-  const pfx_correct=(oi===ans);const pfx_lbl=pfx_correct?'<strong>\u2713 Correcto.</strong> ':'<strong>\u2717 Incorrecto.</strong> La opci\u00f3n correcta es la '+String.fromCharCode(65+ans)+'. ';fbEl.innerHTML=pfx_lbl+fb;fbEl.className='ex-fb alert '+(pfx_correct?'al-G':'al-E');
-}
-
-/* GANCHO */
 const GANCHO=[
-  {text:'"El 34% de los universitarios colombianos reportó síntomas de ansiedad alta durante los parciales, según encuesta del MinSalud 2025."',isP:true,fc:'al-G',fb:'✓ Proposición. Oración declarativa con dato verificable. Tiene valor de verdad — puede ser V o F.'},
+  {text:'"El 34% de los universitarios colombianos reportó síntomas de ansiedad alta durante los parciales, según encuesta MinSalud 2025."',isP:true,fc:'al-G',fb:'✓ Proposición. Declarativa y verificable. Tiene valor de verdad — V o F según el dato real.'},
   {text:'"¿Cuántas horas dormiste anoche?"',isP:false,fc:'al-E',fb:'✗ No es proposición. Es una pregunta. Las preguntas no se califican como V ni F.'},
-  {text:'"Todo joven que experimenta trauma infantil severo desarrollará un trastorno psicológico en la adultez."',isP:true,fc:'al-G',fb:'✓ Proposición universal. Cuantificador "todo". Es falseable — la resiliencia existe. Pero tiene valor de verdad.'},
+  {text:'"Todo joven que experimenta trauma infantil severo desarrollará un trastorno psicológico en la adultez."',isP:true,fc:'al-G',fb:'✓ Proposición universal. Falseable — la resiliencia existe. Pero tiene valor de verdad.'},
   {text:'"¡Estudia más o perderás la materia!"',isP:false,fc:'al-E',fb:'✗ No es proposición. Es una advertencia/mandato. No tiene valor de verdad.'},
-  {text:'"La psicología social estudia cómo el contexto grupal influye en el comportamiento individual."',isP:true,fc:'al-G',fb:'✓ Proposición. Afirmación declarativa verificable. Define el objeto de estudio de una rama.'},
-  {text:'"Esta oración es falsa."',isP:null,fc:'al-Am',fb:'⚠️ Paradoja autorreferencial. Si es verdadera → es falsa. Si es falsa → es verdadera. Sin valor de verdad consistente. La lógica formal la excluye.'},
+  {text:'"La psicología social estudia cómo el contexto grupal influye en el comportamiento individual."',isP:true,fc:'al-G',fb:'✓ Proposición. Define el objeto de estudio de una rama. Verificable.'},
+  {text:'"Esta oración es falsa."',isP:null,fc:'al-Am',fb:'⚠️ Paradoja autorreferencial. Si es V → es F. Si es F → es V. Sin valor de verdad consistente. La lógica la excluye.'},
 ];
-function buildGancho(){const c=document.getElementById('gancho-cards');GANCHO.forEach((g,i)=>{const d=document.createElement('div');d.className='prop-card';d.innerHTML='<div class="pc-text">'+g.text+'</div><div class="pc-btns"><button class="pc-btn" style="color:var(--T);" onclick="answerG('+i+',true)">✓ Es proposición</button><button class="pc-btn" style="color:var(--E);" onclick="answerG('+i+',false)">✗ No es proposición</button></div><div class="pc-fb '>'+g.fb+'</div>';c.appendChild(d);});}
+function buildGancho(){const c=document.getElementById('gancho-cards');GANCHO.forEach((g,i)=>{const d=document.createElement('div');d.className='prop-card';d.innerHTML=`<div class="pc-text">${g.text}</div><div class="pc-btns"><button class="pc-btn" style="color:var(--T);" onclick="answerG(${i},true)">✓ Es proposición</button><button class="pc-btn" style="color:var(--E);" onclick="answerG(${i},false)">✗ No es proposición</button></div><div class="pc-fb"></div>`;c.appendChild(d);});}
 function answerG(i,u){
-  const cards=document.querySelectorAll('#gancho-cards .prop-card');
-  const c=cards[i];
+  const c=document.querySelectorAll('#gancho-cards .prop-card')[i];
   if(!c||c.classList.contains('answered'))return;
   c.classList.add('answered');
   const item=GANCHO[i];
-  const correct=item.isP===null?true:(u===item.isP);
-  c.style.borderColor=correct?'var(--Gb)':'var(--Eb)';
-  c.style.background=correct?'var(--Gl)':'var(--El)';
+  const ok=item.isP===null?true:(u===item.isP);
+  c.style.borderColor=ok?'var(--Gb)':'var(--Eb)';
+  c.style.background=ok?'var(--Gl)':'var(--El)';
   const fb=c.querySelector('.pc-fb');
-  if(item.isP===null){
-    fb.className='pc-fb alert al-Am';
-    fb.innerHTML=item.fb;
-  } else {
-    fb.className='pc-fb alert '+(correct?'al-G':'al-E');
-    const base=item.fb.replace(/^[\u2713\u2717\u26a0\ufe0f]+\s*/,'');
-    fb.innerHTML=(correct?'<strong>\u2713 Correcto.</strong> ':'<strong>\u2717 Incorrecto.</strong> La respuesta correcta: '+(item.isP?'S\u00ed es proposici\u00f3n.':'No es proposici\u00f3n.')+' ')+base;
+  if(item.isP===null){fb.className='pc-fb alert al-Am';fb.innerHTML=item.fb;}
+  else{
+    fb.className='pc-fb alert '+(ok?'al-G':'al-E');
+    const clean=item.fb.replace(/^[✓✗⚠️\s]+/,'');
+    fb.innerHTML=(ok?'<strong>✓ Correcto.</strong> ':'<strong>✗ Incorrecto.</strong> La respuesta correcta: '+(item.isP?'Sí es proposición.':'No es proposición.')+' ')+clean;
   }
 }
 
-/* CUANTIFICADORES */
 const QUANT=[
-  {q:'Negación correcta de: "Todos los psicólogos clínicos trabajan exclusivamente en consulta privada."',opts:['Ningún psicólogo trabaja en consulta privada.','Algunos psicólogos clínicos NO trabajan exclusivamente en consulta privada.','Todos trabajan en instituciones públicas.'],ans:1,fb:'Negación de "todos" = "algún X no". Solo se necesita un psicólogo en hospital u ONG para refutarlo.'},
+  {q:'Negación correcta de: "Todos los psicólogos clínicos trabajan exclusivamente en consulta privada."',opts:['Ningún psicólogo trabaja en consulta privada.','Algunos psicólogos clínicos NO trabajan exclusivamente en consulta privada.','Todos los psicólogos trabajan en instituciones públicas.'],ans:1,fb:'Negación de "todos" = "algún X no". Solo se necesita un psicólogo en hospital, ONG o empresa para refutarlo.'},
   {q:'Negación correcta de: "Algún instrumento psicométrico está completamente libre de sesgo cultural."',opts:['Todos los instrumentos están libres de sesgo.','Ningún instrumento psicométrico está completamente libre de sesgo cultural.','Algunos tienen sesgo y otros no.'],ans:1,fb:'Negación de "algún" = "ningún". Para que sea falso que al menos uno está libre, debe ser que ninguno lo está.'},
-  {q:'Negación correcta de: "Ningún universitario de primer semestre en Colombia ha publicado un artículo científico."',opts:['Todos han publicado.','Algunos universitarios de primer semestre SÍ han publicado un artículo científico.','La mayoría no ha publicado.'],ans:1,fb:'Negación de "ningún" = "algún X sí". La negación afirma que existe al menos uno que lo ha hecho.'},
+  {q:'Negación correcta de: "Ningún universitario de primer semestre en Colombia ha publicado un artículo científico."',opts:['Todos los universitarios de primer semestre han publicado.','Algunos universitarios de primer semestre SÍ han publicado un artículo científico.','La mayoría no ha publicado.'],ans:1,fb:'Negación de "ningún" = "algún X sí". La negación afirma que existe al menos uno que lo ha hecho.'},
   {q:'Negación correcta de: "Toda hipótesis científica debe ser falseable."',opts:['Ninguna hipótesis puede ser falseable.','Alguna hipótesis científica NO necesita ser falseable.','Las hipótesis siempre son verdaderas.'],ans:1,fb:'"Toda" se niega con "alguna X no". Si existe una sola hipótesis que no lo requiera, la universal es falsa.'},
-  {q:'Un artículo reporta: "Algunos participantes con TDAH no mostraron déficit en memoria de trabajo." Negación correcta:',opts:['Todos los participantes con TDAH sí mostraron déficit.','La mayoría no mostró déficit.','No es posible negarlo.'],ans:0,fb:'Negación de "algún X no hace Y" = "todo X sí hace Y". Si es falso que alguno no los presentó, todos los presentaron.'},
+  {q:'Un artículo reporta: "Algunos participantes con TDAH no mostraron déficit en memoria de trabajo." La negación correcta es:',opts:['Todos los participantes con TDAH sí mostraron déficit.','La mayoría no mostró déficit.','No es posible negarlo.'],ans:0,fb:'Negación de "algún X no hace Y" = "todo X sí hace Y". El artículo dice que algunos NO mostraron déficit; la negación dice que todos SÍ lo mostraron.'},
 ];
-function buildQuant(){const c=document.getElementById('quant-practice');QUANT.forEach((item,qi)=>{const el=document.createElement('div');el.className='ex-item';el.id='qt-'+qi;el.innerHTML='<div class="ex-q">'+item.q+'</div><div>'+item.opts.map((o,oi)=>'<div class="qopt" id="qt-opt-'+qi+'-'+oi+'" onclick="answerExOpt(\'qt\','+qi+','+oi+','+item.ans+',\''+esc(item.fb)+'\')">'+String.fromCharCode(65+oi)+'. '+o+'</div>').join('')+'</div><div class="ex-fb alert" id="qt-fb-'+qi+'"></div>';c.appendChild(el);});}
+function buildQuant(){const c=document.getElementById('quant-practice');QUANT.forEach((item,qi)=>{const el=document.createElement('div');el.className='ex-item';el.id=`qt-${qi}`;el.innerHTML=`<div class="ex-q">${item.q}</div><div>${item.opts.map((o,oi)=>`<div class="qopt" id="qt-opt-${qi}-${oi}" onclick="answerExOpt('qt',${qi},${oi},${item.ans},'${escQ(item.fb)}')">${String.fromCharCode(65+oi)}. ${o}</div>`).join('')}</div><div class="ex-fb alert" id="qt-fb-${qi}"></div>`;c.appendChild(el);});}
 
-/* MINI COOP M1 */
-const MC1=[
-  {text:'"El trabajo infantil afecta el desarrollo cognitivo en comunidades rurales de América Latina."',isP:true,fb:'✓ Proposición. Declarativa, verificable, investigable.'},
+const MINI_M1=[
+  {text:'"El trabajo infantil afecta el desarrollo cognitivo en comunidades rurales de América Latina."',isP:true,fb:'✓ Proposición. Declarativa y verificable — es investigable.'},
   {text:'"¿Cuándo presenta el próximo corte?"',isP:false,fb:'✗ Pregunta. Sin valor de verdad.'},
   {text:'"Ningún ser humano es completamente racional en todas sus decisiones."',isP:true,fb:'✓ Proposición con cuantificador "ningún". Hay consenso científico en que es verdadera (Kahneman, 2011).'},
   {text:'"Esta afirmación no puede ser verdadera."',isP:null,fb:'⚠️ Paradoja. Sin valor de verdad consistente.'},
   {text:'"Por favor registra tu asistencia antes de salir."',isP:false,fb:'✗ Mandato. Los mandatos no se califican como V ni F.'},
 ];
-function buildMiniCoopM1(){const c=document.getElementById('mini-coop-m1');MC1.forEach((g,i)=>{const d=document.createElement('div');d.className='prop-card';d.innerHTML='<div class="pc-text">'+g.text+'</div><div class="pc-btns"><button class="pc-btn" style="color:var(--T);" onclick="answerMC1('+i+',true)">✓ Proposición</button><button class="pc-btn" style="color:var(--E);" onclick="answerMC1('+i+',false)">✗ No es proposición</button></div><div class="pc-fb pc-fb'+'">'+g.fb+'</div>';c.appendChild(d);});}
-function answerMC1(i,u){
-  const cards=document.querySelectorAll('#mini-coop-m1 .prop-card');
-  const c=cards[i];
-  if(!c||c.classList.contains('answered'))return;
-  c.classList.add('answered');
-  const item=MC1[i];
-  const correct=item.isP===null?true:(u===item.isP);
-  c.style.borderColor=correct?'var(--Gb)':'var(--Eb)';
-  c.style.background=correct?'var(--Gl)':'var(--El)';
-  const fb=c.querySelector('.pc-fb');
-  if(item.isP===null){
-    fb.className='pc-fb alert al-Am';
-    fb.innerHTML=item.fb;
-  } else {
-    fb.className='pc-fb alert '+(correct?'al-G':'al-E');
-    const base=item.fb.replace(/^[\u2713\u2717\u26a0\ufe0f]+\s*/,'');
-    fb.innerHTML=(correct?'<strong>\u2713 Correcto.</strong> ':'<strong>\u2717 Incorrecto.</strong> ')+base;
-  }
-}
+function buildMiniM1(){const c=document.getElementById('mini-coop-m1');MINI_M1.forEach((g,i)=>{const d=document.createElement('div');d.className='prop-card';d.innerHTML=`<div class="pc-text">${g.text}</div><div class="pc-btns"><button class="pc-btn" style="color:var(--T);" onclick="answerMC(${i})">✓ Proposición</button><button class="pc-btn" style="color:var(--E);" onclick="answerMC(${i})">✗ No es proposición</button></div><div class="pc-fb alert ${g.isP===null?'al-Am':g.isP?'al-G':'al-E'}">${g.fb}</div>`;c.appendChild(d);});}
+function answerMC(i){const c=document.querySelectorAll('#mini-coop-m1 .prop-card')[i];if(c.classList.contains('answered'))return;c.classList.add('answered');}
 
-/* CONECTIVOS */
 function buildConnectors(){const c=document.getElementById('connectors-display');const cs=[
-  {sym:'¬',col:'#7c3aed',nm:'Negación · "no"',sig:'¬<strong>p</strong>',ex:'<strong>p</strong> = "La sesión de hoy fue presencial" (V) → ¬<strong>p</strong> = "La sesión NO fue presencial" (F)',rule:'Invierte el valor. ¬V = F · ¬F = V'},
-  {sym:'∧',col:'var(--T)',nm:'Conjunción · "y"',sig:'<strong>p</strong> ∧ <strong>q</strong>',ex:'<strong>p</strong> = "Aprobé estadística" ∧ <strong>q</strong> = "aprobé investigación" → V solo si AMBAS son verdaderas',rule:'Verdadera únicamente cuando AMBAS partes son V. Exigente.'},
-  {sym:'∨',col:'var(--Am)',nm:'Disyunción · "o"',sig:'<strong>p</strong> ∨ <strong>q</strong>',ex:'<strong>p</strong> = "Voy en TM" ∨ <strong>q</strong> = "Voy en buseta" → V si al menos una se cumple',rule:'Falsa únicamente cuando AMBAS son F. Generosa.'},
-  {sym:'→',col:'var(--Az)',nm:'Condicional · "si…entonces"',sig:'<strong>p</strong> → <strong>q</strong>',ex:'<strong>p</strong> = "el paciente cumple criterio A" → <strong>q</strong> = "se aplica protocolo B" · F solo si <strong>p</strong>=V y <strong>q</strong>=F',rule:'Falsa únicamente cuando <strong>p</strong>=V y <strong>q</strong>=F. La estructura de las hipótesis.'},
-  {sym:'↔',col:'var(--Co)',nm:'Bicondicional · "si y solo si"',sig:'<strong>p</strong> ↔ <strong>q</strong>',ex:'<strong>p</strong> = "cumple ≥5 criterios DSM" ↔ <strong>q</strong> = "se establece el diagnóstico" · V solo cuando ambas tienen igual valor',rule:'V cuando <strong>p</strong> y <strong>q</strong> tienen el MISMO valor de verdad (ambas V o ambas F).'},
-];cs.forEach(cn=>{c.innerHTML+='<div class="conn-row"><div class="conn-sym" style="color:'+cn.col+';">'+cn.sym+'</div><div class="conn-body"><div class="conn-name" style="color:'+cn.col+';">'+cn.nm+' · <span style="font-family:var(--mono);">'+cn.sig+'</span></div><div class="conn-ex">'+cn.ex+'</div><div class="conn-rule">'+cn.rule+'</div></div></div>';});}
+  {sym:'¬',col:'#7c3aed',nm:'Negación · "no"',sig:'¬<strong>p</strong>',ex:'<strong>p</strong> = "La sesión de hoy fue presencial" (V) → ¬<strong>p</strong> = "La sesión de hoy NO fue presencial" (F)',rule:'Invierte el valor. ¬V = F · ¬F = V'},
+  {sym:'∧',col:'var(--T)',nm:'Conjunción · "y"',sig:'<strong>p</strong> ∧ <strong>q</strong>',ex:'<strong>p</strong> = "Aprobé estadística" (V) ∧ <strong>q</strong> = "Aprobé investigación" (V) → V solo si AMBAS son V',rule:'Verdadera únicamente cuando AMBAS son V. Exigente.'},
+  {sym:'∨',col:'var(--Am)',nm:'Disyunción inclusiva · "o"',sig:'<strong>p</strong> ∨ <strong>q</strong>',ex:'<strong>p</strong> = "Voy en TM" (F) ∨ <strong>q</strong> = "Voy en buseta" (V) → V porque al menos una se cumple',rule:'Falsa únicamente cuando AMBAS son F. Generosa.'},
+  {sym:'→',col:'var(--Az)',nm:'Condicional · "si…entonces"',sig:'<strong>p</strong> → <strong>q</strong>',ex:'<strong>p</strong> = "El paciente cumple 6 criterios DSM" → <strong>q</strong> = "Se establece el diagnóstico" · F solo si p=V y q=F',rule:'Falsa únicamente cuando p=V y q=F. La estructura de las hipótesis.'},
+  {sym:'↔',col:'var(--Co)',nm:'Bicondicional · "si y solo si"',sig:'<strong>p</strong> ↔ <strong>q</strong>',ex:'<strong>p</strong> = "cumple ≥5 criterios" (V) ↔ <strong>q</strong> = "se diagnostica el trastorno" (V) → V (mismos valores)',rule:'V cuando p y q tienen el MISMO valor de verdad (ambas V o ambas F).'},
+];cs.forEach(cn=>{c.innerHTML+=`<div class="conn-row"><div class="conn-sym" style="color:${cn.col};">${cn.sym}</div><div class="conn-body"><div class="conn-name" style="color:${cn.col};">${cn.nm} · <span style="font-family:var(--mono);">${cn.sig}</span></div><div class="conn-ex">${cn.ex}</div><div class="conn-rule">${cn.rule}</div></div></div>`;});}
 
-const TTC={
-  VV:{def:'<strong>p</strong> = "Estudié para el parcial" (V — sí estudié) · <strong>q</strong> = "Dormí bien la noche anterior" (V — sí dormí)',res:'Ambas V: conjunción V, disyunción V, bicondicional V (mismos valores).'},
-  VF:{def:'<strong>p</strong> = "Estudié para el parcial" (V) · <strong>q</strong> = "Dormí bien" (F — no dormí)',res:'Una V y otra F: conjunción F, disyunción V, bicondicional F (valores distintos).'},
-  FV:{def:'<strong>p</strong> = "Estudié para el parcial" (F) · <strong>q</strong> = "Dormí bien" (V)',res:'Una F y otra V: conjunción F, disyunción V, bicondicional F.'},
-  FF:{def:'<strong>p</strong> = "Estudié para el parcial" (F) · <strong>q</strong> = "Dormí bien" (F)',res:'Ambas F: conjunción F, disyunción F (¡el único caso!), bicondicional V (mismos valores).'},
-};
+const TTC={VV:{def:'<strong>p</strong> = "Estudié para el parcial" (V) · <strong>q</strong> = "Dormí bien" (V)',res:'Ambas V: conjunción V, disyunción V, bicondicional V (mismos valores).'},VF:{def:'<strong>p</strong> = "Estudié para el parcial" (V) · <strong>q</strong> = "Dormí bien" (F)',res:'Una V y otra F: conjunción F, disyunción V, bicondicional F (valores distintos).'},FV:{def:'<strong>p</strong> = "Estudié para el parcial" (F) · <strong>q</strong> = "Dormí bien" (V)',res:'Una F y otra V: conjunción F, disyunción V, bicondicional F.'},FF:{def:'<strong>p</strong> = "Estudié para el parcial" (F) · <strong>q</strong> = "Dormí bien" (F)',res:'Ambas F: conjunción F, disyunción F (¡único caso F!), bicondicional V (mismos valores).'}};
 function toggleVar(v){if(v==='p')pVal=!pVal;else qVal=!qVal;updateTT();}
 function updateTT(){
   const setTog=(id,v)=>{const el=document.getElementById(id);el.classList.toggle('is-v',v);el.classList.toggle('is-f',!v);el.querySelector('.var-val').textContent=v?'V':'F';};
   setTog('toggle-p',pVal);setTog('toggle-q',qVal);
-  const k=(pVal?'V':'F')+(qVal?'V':'F'),ctx=TTC[k];
-  document.getElementById('tt-context-def').innerHTML='<div class="hint" style="font-size:.79rem;">'+ctx.def+'</div>';
-  const rs=[{n:'¬<strong>p</strong>',v:!pVal},{n:'<strong>p</strong>∧<strong>q</strong>',v:pVal&&qVal},{n:'<strong>p</strong>∨<strong>q</strong>',v:pVal||qVal}];
+  const key=(pVal?'V':'F')+(qVal?'V':'F');const ctx=TTC[key];
+  document.getElementById('tt-context-def').innerHTML=`<div class="hint" style="font-size:.79rem;">${ctx.def}</div>`;
+  const results=[{n:'¬<strong>p</strong>',v:!pVal},{n:'<strong>p</strong>∧<strong>q</strong>',v:pVal&&qVal},{n:'<strong>p</strong>∨<strong>q</strong>',v:pVal||qVal}];
   const rc=document.getElementById('tt-basic-results');rc.innerHTML='';
-  rs.forEach(r=>{rc.innerHTML+='<div class="tt-result-cell '+(r.v?'val-v':'val-f')+'"><div class="rc-name">'+r.n+'</div><div class="rc-val '+(r.v?'tv':'tf')+'">'+(r.v?'V':'F')+'</div></div>';});
-  const bic=pVal===qVal;document.getElementById('tt-bic-row').innerHTML='<div class="tt-result-cell '+(bic?'val-v':'val-f')+'" style="border-radius:10px;padding:10px;text-align:center;"><div class="rc-name"><strong>p</strong>↔<strong>q</strong></div><div class="rc-val '+(bic?'tv':'tf')+'">'+(bic?'V':'F')+'</div></div>';
-  document.getElementById('tt-context-ex').innerHTML='<div class="hint" style="font-size:.79rem;">'+ctx.res+'</div>';
-}
+  results.forEach(r=>{rc.innerHTML+=`<div class="tt-result-cell ${r.v?'val-v':'val-f'}"><div class="rc-name">${r.n}</div><div class="rc-val ${r.v?'tv':'tf'}">${r.v?'V':'F'}</div></div>`;});
+  const bic=pVal===qVal;document.getElementById('tt-bic-row').innerHTML=`<div class="tt-result-cell ${bic?'val-v':'val-f'}"><div class="rc-name"><strong>p</strong>↔<strong>q</strong></div><div class="rc-val ${bic?'tv':'tf'}">${bic?'V':'F'}</div></div>`;
+  document.getElementById('tt-context-ex').innerHTML=`<div class="hint" style="font-size:.79rem;">${ctx.res}</div>`;}
 
-/* DE MORGAN */
 const DM=[
-  {q:'<strong>p</strong> = "Entregué el trabajo" · <strong>q</strong> = "Lo entregué antes del plazo". Aplica De Morgan 1: ¬(<strong>p</strong> ∧ <strong>q</strong>) =',
-   opts:['¬p ∧ ¬q — No entregué Y no fue a tiempo (fallan los dos)','¬p ∨ ¬q — No entregué O no fue a tiempo (falla al menos uno)','p ∨ q — Entregué o fue a tiempo (sin negar)'],
-   ans:1,fb:'De Morgan 1: ¬(p∧q)=¬p∨¬q. El "y" se convierte en "o". Basta que falle uno de los dos: no entregué, o no fue a tiempo, o ninguno de los dos.'},
-  {q:'<strong>p</strong> = "Apruebo el parcial" · <strong>q</strong> = "Apruebo la entrega final". Aplica De Morgan 2: ¬(<strong>p</strong> ∨ <strong>q</strong>) =',
-   opts:['¬p ∨ ¬q — No apruebo el parcial O no apruebo la entrega','¬p ∧ ¬q — No apruebo el parcial Y no apruebo la entrega'],
-   ans:1,fb:'De Morgan 2: ¬(p∨q)=¬p∧¬q. El "o" se convierte en "y". Para que la disyunción falle, AMBAS deben fallar al mismo tiempo.'},
-  {q:'"No es cierto que (tengo señal de cel Y tengo datos disponibles)." Usando De Morgan, esto equivale a:',
-   opts:['No tengo señal O no tengo datos — falla al menos uno de los dos.','No tengo señal Y no tengo datos — fallan los dos al mismo tiempo.'],
-   ans:0,fb:'¬(p∧q)=¬p∨¬q (De Morgan 1). Para que "tengo señal Y datos" sea falso, basta que uno falle. Puede que tenga señal pero sin datos, o datos sin señal, o ninguno.'},
-  {q:'"No es cierto que (voy a pasar el semestre O voy a reinscribir la materia)." Usando De Morgan:',
-   opts:['No paso el semestre O no reinscribiré la materia.','No paso el semestre Y no reinscribiré la materia.'],
-   ans:1,fb:'¬(p∨q)=¬p∧¬q (De Morgan 2). Negar "paso O reinscribiré" significa que ambas son falsas a la vez: no paso Y no reinscribiré. Las dos fallan.'},
+  {q:'<strong>p</strong> = "Llegué temprano a clase" · <strong>q</strong> = "Entregué el taller ese día". Negación de <span class="mono"><strong>p</strong> ∧ <strong>q</strong></span>:',
+   opts:['¬<strong>p</strong> ∧ ¬<strong>q</strong> — No llegué temprano Y no entregué (los dos fallaron)','¬<strong>p</strong> ∨ ¬<strong>q</strong> — No llegué temprano O no entregué (falla al menos uno)'],
+   ans:1,fb:'¬(p∧q) = ¬p∨¬q (De Morgan 1). El "y" se convierte en "o". Para que "llegué Y entregué" sea falso, basta que UNO falle: no llegué, o no entregué, o ninguno.'},
+  {q:'<strong>p</strong> = "Aprobé el primer corte" · <strong>q</strong> = "Aprobé el segundo corte". Negación de <span class="mono"><strong>p</strong> ∨ <strong>q</strong></span>:',
+   opts:['¬<strong>p</strong> ∨ ¬<strong>q</strong> — No aprobé el primero O no aprobé el segundo','¬<strong>p</strong> ∧ ¬<strong>q</strong> — No aprobé el primero Y no aprobé el segundo'],
+   ans:1,fb:'¬(p∨q) = ¬p∧¬q (De Morgan 2). El "o" se convierte en "y". Para que "aprobé alguno" sea falso, tienen que fallar LOS DOS: no aprobé el primero Y no aprobé el segundo.'},
+  {q:'"No es cierto que (tengo señal de WiFi Y tengo datos en el cel)." Usando De Morgan:',
+   opts:['No tengo señal Y no tengo datos — los dos fallan a la vez.','No tengo señal O no tengo datos — al menos uno falla.'],
+   ans:1,fb:'¬(p∧q) = ¬p∨¬q. Negar "tengo WiFi Y datos" significa que basta que falle uno: o no hay señal, o no hay datos, o ninguno. Eso es De Morgan 1.'},
+  {q:'"No es cierto que (paso el semestre O me quedan materias por reinscribir)." Usando De Morgan:',
+   opts:['No paso el semestre O no me quedan materias.','No paso el semestre Y no me quedan materias.'],
+   ans:1,fb:'¬(p∨q) = ¬p∧¬q. Para que "ninguna de las dos" sea verdad, AMBAS deben ser falsas: ni paso el semestre ni tengo materias por reinscribir. Eso es De Morgan 2.'},
 ];
-const QDATA_DM={};
 function buildDM(){
+  const QD={};
+  window._dmData=QD;
   const c=document.getElementById('demorgan-practice');
   DM.forEach((item,qi)=>{
-    QDATA_DM[qi]=item;
+    QD[qi]=item;
     const el=document.createElement('div');
     el.className='ex-item';el.id='dm-'+qi;
-    el.innerHTML='<div class="ex-q">'+item.q+'</div><div>'+item.opts.map((o,oi)=>'<div class="qopt" onclick="answerDM('+qi+','+oi+')">'+o+'</div>').join('')+'</div><div class="ex-fb alert" id="dm-fb-'+qi+'"></div>';
+    el.innerHTML='<div class="ex-q">'+item.q+'</div><div>'+
+      item.opts.map((o,oi)=>'<div class="qopt" onclick="answerDM('+qi+','+oi+')">'+o+'</div>').join('')+
+      '</div><div class="ex-fb alert" id="dm-fb-'+qi+'"></div>';
     c.appendChild(el);
   });
 }
 function answerDM(qi,oi){
-  const item=QDATA_DM[qi];if(!item)return;
+  const item=window._dmData[qi];if(!item)return;
   const el=document.getElementById('dm-'+qi);
   if(!el||el.classList.contains('ex-done'))return;
   el.classList.add('ex-done');
-  const correct=oi===item.ans;
-  el.querySelectorAll('.qopt').forEach((o,i)=>o.classList.add(i===item.ans?'ok':(i===oi&&!correct?'ko':'')));
+  const ok=oi===item.ans;
+  el.querySelectorAll('.qopt').forEach((o,i)=>o.classList.add(i===item.ans?'ok':(i===oi&&!ok?'ko':'')));
   const fbEl=document.getElementById('dm-fb-'+qi);
   if(fbEl){
-    fbEl.innerHTML=(correct?'<strong>✓ Correcto.</strong> ':'<strong>✗ Incorrecto.</strong> La opción correcta es la '+String.fromCharCode(65+item.ans)+'. ')+item.fb;
-    fbEl.className='ex-fb alert '+(correct?'al-G':'al-E');
+    fbEl.innerHTML=(ok?'<strong>✓ Correcto.</strong> ':'<strong>✗ Incorrecto.</strong> La opción correcta: '+String.fromCharCode(65+item.ans)+'. ')+item.fb;
+    fbEl.className='ex-fb alert '+(ok?'al-G':'al-E');
   }
+}
+
+const MINI_M2=[
+  {q:'"No es cierto que (Diego tiene historial de consumo de sustancias Y antecedentes psiquiátricos familiares)." <strong>p</strong>=historial · <strong>q</strong>=antecedentes. De Morgan:',opts:['No tiene historial Y no tiene antecedentes (¬<strong>p</strong>∧¬<strong>q</strong>).','No tiene historial O no tiene antecedentes (¬<strong>p</strong>∨¬<strong>q</strong>).'],ans:1,fb:'¬(<strong>p</strong>∧<strong>q</strong>) = ¬<strong>p</strong>∨¬<strong>q</strong>. El "y" se convierte en "o". Basta que falle uno.'},
+  {q:'"No es cierto que (la causa es biológica O psicosocial)." <strong>p</strong>=biológica · <strong>q</strong>=psicosocial. De Morgan:',opts:['No es biológica Y no es psicosocial (¬<strong>p</strong>∧¬<strong>q</strong>).','No es biológica O no es psicosocial (¬<strong>p</strong>∨¬<strong>q</strong>).'],ans:0,fb:'¬(<strong>p</strong>∨<strong>q</strong>) = ¬<strong>p</strong>∧¬<strong>q</strong>. El "o" se convierte en "y". Negar que sea alguna implica que no es ninguna.'},
+  {q:'"No es cierto que (el estudiante entregó el trabajo Y lo entregó a tiempo)." ¿Cuándo es verdad esta negación?',opts:['Cuando no entregó O cuando entregó tarde (¬<strong>p</strong>∨¬<strong>q</strong>).','Cuando no entregó Y cuando entregó tarde (¬<strong>p</strong>∧¬<strong>q</strong>).'],ans:0,fb:'¬(<strong>p</strong>∧<strong>q</strong>) = ¬<strong>p</strong>∨¬<strong>q</strong>. Basta que falle uno para invalidar la conjunción.'},
+];
+function buildMiniM2(){const c=document.getElementById('mini-coop-m2');MINI_M2.forEach((item,qi)=>{const el=document.createElement('div');el.className='ex-item';el.id=`mc2-${qi}`;el.innerHTML=`<div class="ex-q">${item.q}</div><div>${item.opts.map((o,oi)=>`<div class="qopt" id="mc2-opt-${qi}-${oi}" onclick="answerExOpt('mc2',${qi},${oi},${item.ans},'${escQ(item.fb)}')">${o}</div>`).join('')}</div><div class="ex-fb alert" id="mc2-fb-${qi}"></div>`;c.appendChild(el);});}
+
+function buildCondCases(){const c=document.getElementById('cond-cases');[
+  {pS:'V',qS:'V',label:'Caso 1',desc:'Aprobaste (<strong>p</strong>=V) y te pagaron (<strong>q</strong>=V). ¿Mintieron? <strong>No.</strong> Promesa cumplida.',res:'V',isF:false},
+  {pS:'V',qS:'F',label:'⚠️ Caso 2 — el único falso',desc:'Aprobaste (<strong>p</strong>=V) y NO te pagaron (<strong>q</strong>=F). ¿Mintieron? <strong>¡Sí! Promesa rota.</strong>',res:'F',isF:true},
+  {pS:'F',qS:'V',label:'Caso 3',desc:'No aprobaste (<strong>p</strong>=F) pero te pagaron igual (<strong>q</strong>=V). ¿Mintieron? <strong>No</strong> — la promesa era condicional, no exclusiva.',res:'V',isF:false},
+  {pS:'F',qS:'F',label:'Caso 4',desc:'No aprobaste (<strong>p</strong>=F) y no te pagaron (<strong>q</strong>=F). ¿Mintieron? <strong>No</strong> — la condición nunca se activó.',res:'V',isF:false},
+].forEach(cs=>{const wrap=document.createElement('div');wrap.innerHTML=`<div class="cond-case" style="${cs.isF?'border-color:var(--Eb);background:rgba(220,38,38,.06);':''}"><div class="cond-vals"><span class="cond-v" style="background:${cs.pS==='V'?'var(--Gl)':'var(--El)'};color:var(--${cs.pS==='V'?'G':'E'});"><strong>p</strong>=${cs.pS}</span><span class="cond-v" style="background:${cs.qS==='V'?'var(--Gl)':'var(--El)'};color:var(--${cs.qS==='V'?'G':'E'});"><strong>q</strong>=${cs.qS}</span></div><div class="cond-body"><strong>${cs.label}:</strong> ${cs.desc}</div><span class="cond-result" style="background:${cs.res==='V'?'var(--Gl)':'var(--El)'};color:var(--${cs.res==='V'?'G':'E'});">${cs.res}</span></div>`;c.appendChild(wrap);});}
+
+const COND_PRAC=[
+  {q:'<strong>p</strong>="Me inscribo al taller" (V) · <strong>q</strong>="Hay cupos disponibles" (F). Valor de <span class="mono"><strong>p</strong>→<strong>q</strong></span>:',opts:['V — la promesa se mantiene','F — la condición ocurrió pero la consecuencia no'],ans:1,fb:'V→F = F. Me inscribí (<strong>p</strong>=V) pero no había cupos (<strong>q</strong>=F). El único caso en que el condicional es F.'},
+  {q:'<strong>p</strong>="Llueve" (F) · <strong>q</strong>="Me mojo" (F). Valor de <span class="mono"><strong>p</strong>→<strong>q</strong></span>:',opts:['V — si la condición no se cumplió, la promesa no se rompió','F — ambas son F, el condicional también'],ans:0,fb:'F→F = V. No llovió (<strong>p</strong>=F) y no me mojé (<strong>q</strong>=F). La condición no se activó, la promesa no se puede romper.'},
+  {q:'¿Cuándo es el condicional <span class="mono"><strong>p</strong>→<strong>q</strong></span> verdadero sin importar el valor de <strong>q</strong>?',opts:['Cuando <strong>p</strong>=F — si la condición no se cumplió, la promesa no se activó','Cuando <strong>q</strong>=V — si la consecuencia ocurrió'],ans:0,fb:'Cuando <strong>p</strong>=F, el condicional es V independientemente de <strong>q</strong>. F→V=V y F→F=V. Sin condición cumplida, no puede haber promesa rota.'},
+];
+function buildCondPractice(){const c=document.getElementById('cond-practice');COND_PRAC.forEach((item,qi)=>{const el=document.createElement('div');el.className='ex-item';el.id=`cp-${qi}`;el.innerHTML=`<div class="ex-q">${item.q}</div><div>${item.opts.map((o,oi)=>`<div class="qopt" id="cp-opt-${qi}-${oi}" onclick="answerExOpt('cp',${qi},${oi},${item.ans},'${escQ(item.fb)}')">${o}</div>`).join('')}</div><div class="ex-fb alert" id="cp-fb-${qi}"></div>`;c.appendChild(el);});}
+
+const ARGS=[
+  {label:'✓ Modus Ponens (MP)',lc:'var(--G)',valid:true,
+   form:'p → q\np\n∴ q',
+   ex:'p = "El paciente cumple los 6 criterios DSM-5 para TDM"\nq = "Se puede establecer el diagnóstico de TDM"\n\nSi cumple los 6 criterios (p), se establece el diagnóstico (q).\nEl paciente sí cumple los 6 criterios (p = V).\n∴ Se establece el diagnóstico (q).',
+   fb:'VÁLIDO. La condición se cumple, la consecuencia se sigue. Argumento más básico y sólido.'},
+  {label:'✓ Modus Tollens (MT)',lc:'var(--G)',valid:true,
+   form:'p → q\n¬q\n∴ ¬p',
+   ex:'p = "El método es experimental"\nq = "Los participantes fueron asignados al azar"\n\nSi es experimental (p), hay asignación aleatoria (q).\nEste estudio NO tuvo asignación aleatoria (¬q = V).\n∴ El método NO es experimental (¬p).',
+   fb:'VÁLIDO. Si la consecuencia no ocurrió, la condición tampoco pudo haberse dado. Base del falsacionismo de Popper.'},
+  {label:'✓ Silogismo Disyuntivo (SD)',lc:'var(--G)',valid:true,
+   form:'p ∨ q\n¬p\n∴ q',
+   ex:'p = "La causa de la conducta es psicológica"\nq = "La causa es neurológica"\n\nLa causa es psicológica o neurológica (p ∨ q).\nSe descartó la causa psicológica (¬p = V).\n∴ La causa es neurológica (q).',
+   fb:'VÁLIDO. Diagnóstico diferencial por eliminación. Si una opción de la disyunción es falsa, la otra debe ser verdadera.'},
+  {label:'✗ Afirmar el Consecuente (AC)',lc:'var(--E)',valid:false,
+   form:'p → q\nq\n∴ p   ← ERROR',
+   ex:'p = "El paciente tiene trastorno bipolar"\nq = "Presenta episodios de ánimo variable"\n\nSi tiene bipolar (p), presenta ánimo variable (q).\nMiguel presenta ánimo variable (q = V).\n∴ Miguel tiene trastorno bipolar (p) ← FALSO.',
+   fb:'FALACIA. El ánimo variable puede tener muchas causas distintas al bipolar. El condicional no va en sentido inverso.'},
+  {label:'✗ Negar el Antecedente (NA)',lc:'var(--E)',valid:false,
+   form:'p → q\n¬p\n∴ ¬q   ← ERROR',
+   ex:'p = "El joven experimenta bullying severo"\nq = "Tiene mayor riesgo de depresión"\n\nSi hay bullying (p), mayor riesgo (q).\nValeria NO experimenta bullying (¬p = V).\n∴ Valeria NO tiene riesgo (¬q) ← FALSO.',
+   fb:'FALACIA. Hay muchas otras fuentes de riesgo depresivo. El condicional no dice que el bullying sea la única causa.'},
+];
+function buildArgForms(){const c=document.getElementById('argument-forms');ARGS.forEach(af=>{const el=document.createElement('div');el.className='arg-card';el.innerHTML=`<div class="arg-label" style="color:${af.lc};">${af.label}</div><div class="arg-form">${af.form}</div><div class="arg-ex">${af.ex}</div><div class="reveal-hint">Toca para ver el análisis</div><div class="arg-ans ${af.valid?'al-G':'al-E'}">${af.fb}</div>`;el.onclick=()=>el.classList.toggle('open');c.appendChild(el);});}
+
+const COOP=[
+  {n:1,text:'Una investigación concluye: "Si una intervención psicológica ha pasado por más de 10 ensayos clínicos controlados, su eficacia tiene respaldo empírico. La TCC para fobia social ha pasado por más de 40 ensayos controlados. Por tanto, su eficacia tiene respaldo empírico."',ans:'Válido — Modus Ponens',ac:'al-G',ex:'La premisa condicional se cumple y la condición también se da. La conclusión se sigue necesariamente.'},
+  {n:2,text:'Un estudiante argumenta: "Quienes tienen un trastorno de ansiedad generalizada presentan dificultades para dormir. Carolina presenta dificultades para dormir. Por tanto, Carolina tiene TAG."',ans:'Falacia — Afirmar el Consecuente',ac:'al-E',ex:'Las dificultades para dormir tienen muchas causas: estrés, malos hábitos, depresión, apnea. El consecuente no garantiza el antecedente.'},
+  {n:3,text:'Un titular afirma: "Los adolescentes que no hacen ejercicio tienen peor salud mental. Sebastián no hace ejercicio. Por tanto, Sebastián tiene mala salud mental."',ans:'Falacia — Negar el Antecedente',ac:'al-E',ex:'No hacer ejercicio no es la única causa de mala salud mental. El condicional no dice que sea la única causa.'},
+  {n:4,text:'En diagnóstico diferencial: "El cuadro clínico corresponde a un episodio depresivo mayor o a un trastorno adaptativo. Descartado el episodio depresivo mayor tras la evaluación. Por tanto, corresponde a un trastorno adaptativo."',ans:'Válido — Silogismo Disyuntivo',ac:'al-G',ex:'Si una de las dos opciones de la disyunción es falsa, la otra debe ser verdadera. Es la lógica del diagnóstico diferencial bien conducido.'},
+  {n:5,text:'Un artículo reporta: "Si el programa de intervención no mejora el funcionamiento social de los participantes, no cuenta como tratamiento efectivo. Este programa no mejoró el funcionamiento social de ningún participante. Por tanto, no cuenta como tratamiento efectivo."',ans:'Válido — Modus Tollens',ac:'al-G',ex:'La consecuencia de la promesa no se cumplió, por lo que se niega el antecedente de manera válida.'},
+];
+function buildCoop(){const c=document.getElementById('coop-args');COOP.forEach(arg=>{const el=document.createElement('div');el.className='coop-arg-card';el.innerHTML=`<div class="coop-arg-label">Argumento ${arg.n} — Identifica la estructura · ¿Válido o falacia?</div><div class="coop-arg-text">${arg.text}</div><div class="reveal-hint" style="color:var(--muted2);font-size:.63rem;margin-top:4px;">Primero discutan en equipo · luego toca para ver el análisis</div><div class="coop-arg-ans ${arg.ac}"><strong>${arg.ans}.</strong> ${arg.ex}</div>`;el.onclick=()=>el.classList.toggle('open');c.appendChild(el);});}
+
+const QUIZ=[
+  {q:'¿Cuál de estas oraciones ES una proposición?',opts:['¿En qué año se fundó la psicología social?','El 45% de estudiantes universitarios colombianos reportan estrés alto en parciales.','¡Qué interesante es la psicología forense!','Por favor asiste a las prácticas.'],ans:1,fb:'Solo la B es declarativa y verificable. A es pregunta, C es exclamación, D es mandato.'},
+  {q:'Negación correcta de: "Todos los psicólogos organizacionales trabajan en empresas privadas."',opts:['Ningún psicólogo trabaja en empresas.','Algunos psicólogos organizacionales NO trabajan en empresas privadas.','Todos trabajan en el sector público.'],ans:1,fb:'Negación de "todos" = "algún X no". Solo se necesita un psicólogo en ONG, hospital o gobierno para refutarlo.'},
+  {q:'Con <strong>p</strong>="Estudio psicología" (V) y <strong>q</strong>="Hago voluntariado" (F), ¿cuál es el valor de <span class="mono"><strong>p</strong> ∧ <strong>q</strong></span>?',opts:['V — porque p es verdadera','F — la conjunción requiere AMBAS verdaderas'],ans:1,fb:'V∧F = F. La conjunción necesita que AMBAS partes sean V.'},
+  {q:'El bicondicional <span class="mono"><strong>p</strong> ↔ <strong>q</strong></span> es VERDADERO cuando:',opts:['Solo cuando p=V y q=V','Cuando p y q tienen el MISMO valor de verdad','Solo cuando p=F y q=F'],ans:1,fb:'El bicondicional es V cuando ambos son V o ambos son F (mismos valores).'},
+  {q:'<span class="mono"><strong>p</strong> → <strong>q</strong></span> es FALSO únicamente cuando:',opts:['p=F y q=F','p=V y q=V','p=V y q=F'],ans:2,fb:'Solo cuando la condición se cumple (p=V) y la consecuencia no ocurre (q=F). Como romper una promesa.'},
+  {q:'Negación de <span class="mono">(<strong>p</strong> ∨ <strong>q</strong>)</span> según De Morgan, donde <strong>p</strong>="hay evidencia" y <strong>q</strong>="hay consenso científico":',opts:['¬<strong>p</strong>∨¬<strong>q</strong> — No hay evidencia O no hay consenso','¬<strong>p</strong>∧¬<strong>q</strong> — No hay evidencia Y no hay consenso'],ans:1,fb:'¬(p∨q)=¬p∧¬q. Negar que sea alguna de las dos implica que no es ninguna.'},
+  {q:'"Si hay trauma temprano (<strong>p</strong>), habrá dificultades de apego (<strong>q</strong>). Hay trauma temprano (<strong>p</strong>=V). Por tanto, habrá dificultades de apego (<strong>q</strong>)." Forma:',opts:['Modus Tollens','Modus Ponens','Silogismo Disyuntivo'],ans:1,fb:'p→q, p, ∴q. Modus Ponens. La condición se cumple, la consecuencia se sigue.'},
+  {q:'"El trastorno es tipo A o tipo B (<strong>p</strong>∨<strong>q</strong>). No es tipo A (¬<strong>p</strong>=V). Por tanto, es tipo B (<strong>q</strong>)." Forma:',opts:['Modus Tollens','Silogismo Disyuntivo','Negar el Antecedente'],ans:1,fb:'p∨q, ¬p, ∴q. Silogismo Disyuntivo — diagnóstico diferencial por eliminación.'},
+  {q:'"Si el tratamiento es efectivo (<strong>p</strong>), los síntomas reducen ≥50% (<strong>q</strong>). Los síntomas NO redujeron (¬<strong>q</strong>=V). Por tanto, el tratamiento NO fue efectivo (¬<strong>p</strong>)." Forma:',opts:['Modus Ponens','Modus Tollens','Negar el Antecedente'],ans:1,fb:'p→q, ¬q, ∴¬p. Modus Tollens. Se niega la consecuencia para negar el antecedente.'},
+  {q:'"Si alguien tiene TDAH (<strong>p</strong>), tiene dificultades de atención sostenida (<strong>q</strong>). Sofía tiene dificultades de atención (<strong>q</strong>=V). Por tanto, Sofía tiene TDAH (<strong>p</strong>)." Esta conclusión es:',opts:['Válida — Modus Ponens','Inválida — Afirmar el Consecuente','Válida — Modus Tollens'],ans:1,fb:'Falacia AC. Las dificultades de atención pueden tener muchas causas: ansiedad, falta de sueño, etc.'},
+  {q:'Negación de: "Algún participante con esquizofrenia no presentó síntomas positivos."',opts:['Todos los participantes presentaron síntomas positivos.','La mayoría presentó síntomas.','No es posible negarlo.'],ans:0,fb:'Negación de "algún X no hace Y" = "todo X sí hace Y". Todos presentaron síntomas positivos.'},
+  {q:'<strong>p</strong>="el paciente acepta el tratamiento" (F) · <strong>q</strong>="mejora su funcionamiento" (F). Valor de <span class="mono"><strong>p</strong>→<strong>q</strong></span>:',opts:['F — ambas son F, el condicional también','V — si la condición no se cumplió, la promesa no se activó'],ans:1,fb:'F→F = V. La condición no se cumplió, la promesa no se activó. El condicional no puede haberse roto.'},
+];
+function buildQuiz(){const c=document.getElementById('quiz-container');if(!c)return;c.innerHTML='';QUIZ.forEach((q,qi)=>{const el=document.createElement('div');el.className='quiz-q';el.innerHTML=`<div class="quiz-q-num">Pregunta ${qi+1} de ${QUIZ.length}</div><div class="quiz-q-text">${q.q}</div><div class="quiz-opts" id="qopts-${qi}">${q.opts.map((o,oi)=>`<div class="quiz-opt" id="qopt-${qi}-${oi}" onclick="selQ(${qi},${oi})">${o}</div>`).join('')}</div><div class="q-fb" id="qfb-${qi}"></div>`;c.appendChild(el);if(quizAnswers[qi]!==undefined)document.getElementById(`qopt-${qi}-${quizAnswers[qi]}`).classList.add('sel');});if(quizGraded)applyGrading();}
+function selQ(qi,oi){if(quizGraded)return;quizAnswers[qi]=oi;saveQ();document.querySelectorAll(`#qopts-${qi} .quiz-opt`).forEach((el,i)=>el.classList.toggle('sel',i===oi));document.getElementById('saved-badge').style.display='inline-flex';toast('💾 Guardado');}
+function saveQ(){try{localStorage.setItem(QUIZ_KEY,JSON.stringify({answers:quizAnswers,graded:quizGraded}));}catch(e){}}
+function gradeQuiz(){const un=QUIZ.filter((_,i)=>quizAnswers[i]===undefined).length;if(un>0){toast(`Faltan ${un} preguntas`);return;}quizGraded=true;saveQ();applyGrading();const correct=QUIZ.filter((q,i)=>quizAnswers[i]===q.ans).length;const nota=(correct/QUIZ.length*5).toFixed(1);const pct=correct/QUIZ.length*100;const msgs=['Sigue practicando — el trabajo en casa es la clave.','Hay conceptos que repasar. Revisa los que fallaste.','Buen desempeño. Un repaso del Para Casa y excelente.','¡Muy bien! Casi perfecto.','¡Perfecto! Dominas la lógica proposicional.'];const mi=correct<=3?0:correct<=6?1:correct<=9?2:correct<=11?3:4;document.getElementById('score-num').textContent=nota;document.getElementById('score-fill').style.width=pct+'%';document.getElementById('score-msg').textContent=msgs[mi];const box=document.getElementById('score-box');box.style.display='block';setTimeout(()=>box.scrollIntoView({behavior:'smooth',block:'center'}),100);}
+function applyGrading(){QUIZ.forEach((q,qi)=>{const sel=quizAnswers[qi];q.opts.forEach((_,oi)=>{const opt=document.getElementById(`qopt-${qi}-${oi}`);if(!opt)return;opt.classList.remove('sel');if(oi===q.ans)opt.classList.add('ok');else if(oi===sel&&sel!==q.ans)opt.classList.add('ko');});const fbEl=document.getElementById(`qfb-${qi}`);if(fbEl){fbEl.textContent=q.fb;fbEl.className='q-fb '+(sel===q.ans?'ok':'ko');}});document.getElementById('quiz-btn').disabled=true;}
+
+function buildHW(data,cid,pfx){const c=document.getElementById(cid);data.forEach((item,qi)=>{const el=document.createElement('div');el.className='hw-ex';el.id=`${pfx}-${qi}`;el.innerHTML=`<div class="hw-ex-q">${item.q}</div><div class="hw-opts">${item.opts.map((o,oi)=>`<div class="hw-opt" id="${pfx}-opt-${qi}-${oi}" onclick="answerHW('${pfx}',${qi},${oi},${item.ans},'${escQ(item.fb)}')">${String.fromCharCode(65+oi)}. ${o}</div>`).join('')}</div><div class="hw-fb" id="${pfx}-fb-${qi}"></div>`;c.appendChild(el);});}
+function answerHW(pfx,qi,oi,ans,fb){const el=document.getElementById(`${pfx}-${qi}`);if(el.classList.contains('done'))return;el.classList.add('done');el.querySelectorAll('.hw-opt').forEach((o,i)=>o.classList.add(i===ans?'hw-ok':(i===oi&&oi!==ans?'hw-ko':'')));const fbEl=document.getElementById(`${pfx}-fb-${qi}`);const _h=(oi===ans);fbEl.innerHTML=(_h?'<strong>✓ Correcto.</strong> ':'<strong>✗ Incorrecto.</strong> ')+fb;fbEl.className='hw-fb alert '+(_h?'al-G':'al-E');}
+
+const HWA=[
+  {q:'¿Es proposición? "La psicología comunitaria trabaja con poblaciones en contexto de vulnerabilidad social."',opts:['Sí','No'],ans:0,fb:'Sí. Declarativa y verificable.'},
+  {q:'¿Es proposición? "¿Cuál es tu enfoque teórico favorito?"',opts:['Sí','No — es una pregunta'],ans:1,fb:'No. Las preguntas no tienen valor de verdad.'},
+  {q:'Negación de: "Todos los trastornos de ansiedad responden positivamente a la TCC."',opts:['Ningún trastorno responde.','Algunos trastornos de ansiedad NO responden positivamente a la TCC.','Todos los trastornos son resistentes.'],ans:1,fb:'Negación de "todos" = "algún X no". Solo se necesita un trastorno que no responda.'},
+  {q:'Negación de: "Algún estudiante de Facatativá trabaja como voluntario en salud mental."',opts:['Todos son voluntarios.','La mayoría no lo hace.','Ningún estudiante de Facatativá trabaja como voluntario en salud mental.'],ans:2,fb:'Negación de "algún" = "ningún". Para ser falso que al menos uno lo hace, debe ser que nadie lo hace.'},
+  {q:'Negación de: "Ningún psicólogo forense puede ordenar medidas de reclusión."',opts:['Todos pueden ordenarlo.','Algunos psicólogos forenses SÍ pueden ordenar medidas de reclusión.','Ningún profesional de salud puede hacerlo.'],ans:1,fb:'Negación de "ningún" = "algún X sí". Al menos uno puede hacerlo.'},
+  {q:'"Todos los seres humanos tienen capacidad de empatía." En términos de conjuntos:',opts:['El conjunto de seres humanos ⊂ conjunto de seres con empatía','Los conjuntos son iguales','Hay intersección entre ambos conjuntos'],ans:0,fb:'"Todos los A son B" equivale a A ⊂ B. El conjunto de seres humanos está contenido en el de seres con empatía.'},
+  {q:'¿Es proposición? "Esta oración tiene exactamente siete palabras."',opts:['Sí — verificable contando las palabras','No — es paradoja','No — es mandato'],ans:0,fb:'Sí. Es verdadera — cuenta las palabras. No es paradoja porque no se autorrefiere a su propio valor de verdad.'},
+  {q:'Negación de: "Algún instrumento psicométrico está completamente libre de sesgo cultural."',opts:['Todos los instrumentos están libres.','Ningún instrumento psicométrico está completamente libre de sesgo cultural.','Algunos tienen sesgo y otros no.'],ans:1,fb:'Negación de "algún" = "ningún". Si es falso que al menos uno está libre, todos tienen sesgo.'},
+  {q:'¿Es compuesto? "La psicología social y la psicología comunitaria comparten métodos."',opts:['Sí — conector "y"','No — el "y" une sustantivos, no dos proposiciones'],ans:1,fb:'No es compuesto. El "y" enumera disciplinas. Mismo caso que "Smith y Wesson" en Miller.'},
+  {q:'¿Cuál hipótesis es más precisa científicamente?',opts:['"Todo adolescente con redes de apoyo tiene mejor salud mental."','"Algunos adolescentes con redes de apoyo reportan mejor bienestar en contextos de adversidad."'],ans:1,fb:'La B usa "algunos", especifica el contexto y es más investigable. "Todo" es un universal que un contraejemplo refuta.'},
+];
+const HWB=[
+  {q:'<strong>p</strong>="Estudio psicología" (V) · <strong>q</strong>="Hago pasantía" (F). Valor de <span class="mono"><strong>p</strong>∧<strong>q</strong></span>:',opts:['V','F'],ans:1,fb:'V∧F = F. La conjunción requiere AMBAS verdaderas.'},
+  {q:'<strong>p</strong>="Vivo en Bogotá" (F) · <strong>q</strong>="Vivo en Faca" (F). Valor de <span class="mono"><strong>p</strong>∨<strong>q</strong></span>:',opts:['V','F'],ans:1,fb:'F∨F = F. El único caso en que la disyunción es F.'},
+  {q:'<strong>p</strong>="Aprobé estadística" (V) · <strong>q</strong>="Aprobé métodos" (F). Valor de <span class="mono"><strong>p</strong>↔<strong>q</strong></span>:',opts:['V','F'],ans:1,fb:'V↔F = F. El bicondicional es F cuando los valores son distintos.'},
+  {q:'<strong>p</strong>="No entregué el trabajo" (F) · <strong>q</strong>="Saqué mala nota" (F). Valor de <span class="mono"><strong>p</strong>↔<strong>q</strong></span>:',opts:['V','F'],ans:0,fb:'F↔F = V. El bicondicional es V cuando ambos tienen el MISMO valor.'},
+  {q:'<strong>p</strong>=V, <strong>q</strong>=V, r=F. Valor de <span class="mono"><strong>p</strong>∧(<strong>q</strong>∨r)</span>:',opts:['V','F'],ans:0,fb:'<strong>q</strong>∨r = V∨F = V. <strong>p</strong>∧V = V. Paréntesis primero.'},
+  {q:'<strong>p</strong>=F, <strong>q</strong>=V, r=V. Valor de <span class="mono">¬<strong>p</strong>∧(<strong>q</strong>∧r)</span>:',opts:['V','F'],ans:0,fb:'¬<strong>p</strong>=V. <strong>q</strong>∧r=V. V∧V=V.'},
+  {q:'<strong>p</strong>=V, <strong>q</strong>=V. Valor de <span class="mono">¬(<strong>p</strong>∧<strong>q</strong>)</span>:',opts:['V','F'],ans:1,fb:'<strong>p</strong>∧<strong>q</strong>=V. ¬V=F.'},
+  {q:'<strong>p</strong>=V, <strong>q</strong>=F. Valor de <span class="mono">¬(<strong>p</strong>∨<strong>q</strong>)</span>:',opts:['V','F'],ans:1,fb:'<strong>p</strong>∨<strong>q</strong>=V. ¬V=F.'},
+  {q:'<strong>p</strong>=F, <strong>q</strong>=F. Valor de <span class="mono">¬<strong>p</strong>∧¬<strong>q</strong></span>:',opts:['V','F'],ans:0,fb:'¬F=V. V∧V=V. (¡Equivale a ¬(<strong>p</strong>∨<strong>q</strong>) por De Morgan!)'},
+  {q:'<strong>p</strong>=V, <strong>q</strong>=F, r=F. Valor de <span class="mono">(<strong>p</strong>∨<strong>q</strong>)∧(¬<strong>q</strong>∨r)</span>:',opts:['V','F'],ans:0,fb:'<strong>p</strong>∨<strong>q</strong>=V. ¬<strong>q</strong>∨r=V∨F=V. V∧V=V.'},
+];
+const HWC=[
+  {q:'<strong>p</strong>="Me inscribo al taller" (V) · <strong>q</strong>="Hay cupos" (F). Valor de <span class="mono"><strong>p</strong>→<strong>q</strong></span>:',opts:['V','F'],ans:1,fb:'V→F = F. La condición se cumplió (<strong>p</strong>=V) pero la consecuencia no (<strong>q</strong>=F). Único caso F.'},
+  {q:'<strong>p</strong>="Llueve" (F) · <strong>q</strong>="Me mojo" (F). Valor de <span class="mono"><strong>p</strong>→<strong>q</strong></span>:',opts:['V','F'],ans:0,fb:'F→F = V. La condición no se cumplió, la promesa no se activó.'},
+  {q:'<strong>p</strong>="Estudio" (F) · <strong>q</strong>="Apruebo" (V). Valor de <span class="mono"><strong>p</strong>→<strong>q</strong></span>:',opts:['V','F'],ans:0,fb:'F→V = V. No estudié (<strong>p</strong>=F) pero aprobé igual (<strong>q</strong>=V). La promesa no se rompió.'},
+  {q:'La negación de <span class="mono"><strong>p</strong>→<strong>q</strong></span> es:',opts:['¬<strong>p</strong>→¬<strong>q</strong>','<strong>p</strong>∧¬<strong>q</strong>'],ans:1,fb:'¬(<strong>p</strong>→<strong>q</strong>) = <strong>p</strong>∧¬<strong>q</strong>. El único caso en que el condicional es F: la condición ocurrió Y la consecuencia no.'},
+  {q:'"Pearson=1.0 (<strong>q</strong>) garantiza correlación perfecta (<strong>p</strong>→<strong>q</strong>). El estudio reporta Pearson=0.45 (¬<strong>q</strong>=V). Concluimos:"',opts:['No hay correlación perfecta (¬<strong>p</strong>) — Modus Tollens','Sí hay correlación perfecta — Modus Ponens'],ans:0,fb:'<strong>p</strong>→<strong>q</strong>, ¬<strong>q</strong>, ∴¬<strong>p</strong>. Modus Tollens. Si la consecuencia no se dio, la condición tampoco.'},
+  {q:'"Si un patrón tiene criterios operacionales (<strong>q</strong>), el DSM-5 lo clasifica (<strong>p</strong>→<strong>q</strong>). Este patrón NO tiene criterios (¬<strong>q</strong>=V). Por tanto:"',opts:['El DSM-5 no lo clasifica (¬<strong>p</strong>) — Modus Tollens','El DSM-5 sí lo clasifica — Modus Ponens'],ans:0,fb:'Modus Tollens: <strong>p</strong>→<strong>q</strong>, ¬<strong>q</strong>, ∴¬<strong>p</strong>.'},
+  {q:'¿Cuándo es el condicional V sin importar el valor de <strong>q</strong>?',opts:['Cuando <strong>p</strong>=F','Cuando <strong>q</strong>=V'],ans:0,fb:'Cuando <strong>p</strong>=F, el condicional es V sin importar <strong>q</strong>. F→V=V y F→F=V.'},
+  {q:'"Si consumo mucho azúcar (<strong>p</strong>), mi concentración baja (<strong>q</strong>). Mi concentración bajó (<strong>q</strong>=V). Concluyo que consumí mucho azúcar (<strong>p</strong>)." Falla porque:',opts:['Nada — es Modus Ponens','Es Afirmar el Consecuente — hay muchas causas posibles'],ans:1,fb:'Falacia AC. Muchas otras causas bajan la concentración: falta de sueño, ansiedad, ruido.'},
+  {q:'<strong>p</strong>="la intervención no es culturalmente apropiada" · <strong>q</strong>="efectividad reducida". ¬<strong>q</strong>=V. Modus Tollens concluye:',opts:['La intervención SÍ fue apropiada (¬¬<strong>p</strong>=<strong>p</strong>)','La intervención tampoco fue apropiada'],ans:0,fb:'<strong>p</strong>→<strong>q</strong>, ¬<strong>q</strong>, ∴¬<strong>p</strong>. ¬<strong>p</strong> aquí es "sí fue apropiada". Modus Tollens válido.'},
+  {q:'"Apruebo el corte o repito la materia (<strong>p</strong>∨<strong>q</strong>). No apruebo (¬<strong>p</strong>=V). Por tanto, repito (<strong>q</strong>)." Forma:',opts:['Modus Ponens','Silogismo Disyuntivo','Negar el Antecedente'],ans:1,fb:'Silogismo Disyuntivo: <strong>p</strong>∨<strong>q</strong>, ¬<strong>p</strong>, ∴<strong>q</strong>. Una opción descartada obliga a la otra.'},
+];
+const HWD=[
+  {q:'<strong>p</strong>="tiene protocolo ético" · <strong>q</strong>="tiene consentimiento". Negación de <span class="mono"><strong>p</strong>∧<strong>q</strong></span>:',opts:['¬<strong>p</strong>∧¬<strong>q</strong>','¬<strong>p</strong>∨¬<strong>q</strong>'],ans:1,fb:'¬(<strong>p</strong>∧<strong>q</strong>)=¬<strong>p</strong>∨¬<strong>q</strong>. Basta que falte uno.'},
+  {q:'<strong>p</strong>="intervención individual" · <strong>q</strong>="intervención grupal". Negación de <span class="mono"><strong>p</strong>∨<strong>q</strong></span>:',opts:['¬<strong>p</strong>∨¬<strong>q</strong>','¬<strong>p</strong>∧¬<strong>q</strong>'],ans:1,fb:'¬(<strong>p</strong>∨<strong>q</strong>)=¬<strong>p</strong>∧¬<strong>q</strong>. Negar que sea alguna implica que no es ninguna.'},
+  {q:'"No es cierto que (el diagnóstico es correcto Y el tratamiento adecuado)." De Morgan:',opts:['No es correcto Y no es adecuado.','No es correcto O no es adecuado.'],ans:1,fb:'¬(<strong>p</strong>∧<strong>q</strong>)=¬<strong>p</strong>∨¬<strong>q</strong>. Basta que falle uno de los dos.'},
+  {q:'¬(¬<strong>p</strong>∧¬<strong>q</strong>) simplificado es:',opts:['<strong>p</strong>∨<strong>q</strong>','<strong>p</strong>∧<strong>q</strong>'],ans:0,fb:'Aplicar De Morgan: ¬(¬<strong>p</strong>∧¬<strong>q</strong>)=¬(¬<strong>p</strong>)∨¬(¬<strong>q</strong>)=<strong>p</strong>∨<strong>q</strong>.'},
+  {q:'"Ni el consentimiento fue obtenido, ni el comité aprobó." En símbolos:',opts:['¬<strong>p</strong>∨¬<strong>q</strong>','¬<strong>p</strong>∧¬<strong>q</strong>=¬(<strong>p</strong>∨<strong>q</strong>)'],ans:1,fb:'"Ni...ni..." = ¬<strong>p</strong>∧¬<strong>q</strong> = ¬(<strong>p</strong>∨<strong>q</strong>). Ambas formas son equivalentes por De Morgan.'},
+  {q:'¬(<strong>p</strong>∨(<strong>q</strong>∧r)) usando De Morgan dos veces:',opts:['¬<strong>p</strong>∧(¬<strong>q</strong>∨¬r)','¬<strong>p</strong>∨(¬<strong>q</strong>∧¬r)'],ans:0,fb:'¬(<strong>p</strong>∨(<strong>q</strong>∧r))=¬<strong>p</strong>∧¬(<strong>q</strong>∧r)=¬<strong>p</strong>∧(¬<strong>q</strong>∨¬r). De Morgan dos veces.'},
+];
+const HWE=[
+  {q:'"Si un estudio tiene validez interna (<strong>p</strong>), controla variables extrañas (<strong>q</strong>). Este estudio controla variables (<strong>q</strong>=V). Por tanto, tiene validez interna (<strong>p</strong>)." Forma:',opts:['Modus Ponens — válido','Afirmar el Consecuente — falacia'],ans:1,fb:'Falacia AC. Controlar variables no garantiza validez interna — puede haber otros problemas metodológicos.'},
+  {q:'"Si el apego temprano es inseguro (<strong>p</strong>), habrá mayor dificultad para regular emociones (<strong>q</strong>). Valentina NO tiene dificultad (¬<strong>q</strong>=V). Concluimos:"',opts:['Valentina NO tuvo apego inseguro (¬<strong>p</strong>) — Modus Tollens','Valentina sí tuvo apego inseguro — Modus Ponens'],ans:0,fb:'Modus Tollens: <strong>p</strong>→<strong>q</strong>, ¬<strong>q</strong>, ∴¬<strong>p</strong>.'},
+  {q:'"La conducta tiene origen psicológico (<strong>p</strong>) o neurológico (<strong>q</strong>). Se descarta el psicológico (¬<strong>p</strong>=V). Por tanto, el origen es neurológico (<strong>q</strong>)." Forma:',opts:['Modus Tollens','Silogismo Disyuntivo'],ans:1,fb:'Silogismo Disyuntivo: <strong>p</strong>∨<strong>q</strong>, ¬<strong>p</strong>, ∴<strong>q</strong>.'},
+  {q:'"Los antidepresivos tratan la depresión (<strong>p</strong>→<strong>q</strong>). Juan toma antidepresivos (<strong>q</strong>=V). Por tanto, Juan tiene depresión (<strong>p</strong>)." ¿Qué falla?',opts:['Nada — argumento sólido','Afirmar el Consecuente — los antidepresivos se usan para otras condiciones'],ans:1,fb:'Falacia AC. Los antidepresivos se usan también para ansiedad, dolor crónico, etc.'},
+  {q:'¿Cuál de estas es Modus Tollens correctamente aplicado sobre "tiene TAG (<strong>p</strong>)" → "experimenta preocupación excesiva (<strong>q</strong>)"?',opts:['Experimenta preocupación (q=V) ∴ tiene TAG (p).','No experimenta preocupación (¬q=V) ∴ no tiene TAG (¬p).'],ans:1,fb:'Modus Tollens: ¬<strong>q</strong>, ∴¬<strong>p</strong>. La opción A es Afirmar el Consecuente.'},
+  {q:'"El editor rechaza el artículo (<strong>q</strong>) si no cumple estándares APA (<strong>p</strong>→<strong>q</strong>). El editor NO rechazó (¬<strong>q</strong>=V). Concluimos:"',opts:['El artículo SÍ cumple estándares APA (¬¬<strong>p</strong>=<strong>p</strong>) — Modus Tollens','El editor sí rechazará después — Modus Ponens'],ans:0,fb:'Modus Tollens: <strong>p</strong>→<strong>q</strong>, ¬<strong>q</strong>, ∴¬<strong>p</strong>. Aquí ¬<strong>p</strong> = "sí cumple estándares".'},
+  {q:'"Si hay evidencia de trauma temprano (<strong>p</strong>), el tratamiento requiere énfasis en regulación (<strong>q</strong>). Hay evidencia de trauma (<strong>p</strong>=V). Por tanto:"',opts:['El tratamiento requiere énfasis en regulación (<strong>q</strong>) — Modus Ponens','No hay trauma — Modus Tollens'],ans:0,fb:'Modus Ponens: <strong>p</strong>→<strong>q</strong>, <strong>p</strong>, ∴<strong>q</strong>.'},
+  {q:'Conexión conjuntos-lógica: "Los elegibles para beca cumplen criterio A Y criterio B." En lógica:',opts:['<strong>p</strong>∨<strong>q</strong> — disyunción','<strong>p</strong>∧<strong>q</strong> — conjunción'],ans:1,fb:'A∩B ≡ <strong>p</strong>∧<strong>q</strong>. La intersección de conjuntos es la conjunción lógica.'},
+  {q:'¿Por qué las dos falacias (AC y NA) son tan frecuentes en el razonamiento cotidiano?',opts:['Porque la tabla del condicional es complicada.','Porque el cerebro asume que el condicional va en ambas direcciones, cuando solo va en una.'],ans:1,fb:'El condicional <strong>p</strong>→<strong>q</strong> no implica <strong>q</strong>→<strong>p</strong>. Pero el Sistema 1 (Kahneman) completa el patrón, produciendo errores sistemáticos.'},
+  {q:'"Si el modelo cognitivo explica la fobia (<strong>p</strong>), la exposición gradual reduce síntomas (<strong>q</strong>). La exposición NO redujo síntomas (¬<strong>q</strong>=V). Por tanto, el modelo cognitivo NO explica esta fobia (¬<strong>p</strong>)." Forma y comentario:',opts:['Afirmar el Consecuente — inválido','Modus Tollens — válido · estructura del falsacionismo de Popper'],ans:1,fb:'Modus Tollens. Si la predicción no se cumple, la hipótesis no puede ser correcta. Estructura del diseño experimental.'},
+];
+
+document.addEventListener('DOMContentLoaded',()=>{
+  buildGancho();buildQuant();buildMiniM1();
+  buildConnectors();updateTT();buildDM();buildMiniM2();
+  buildCondCases();buildCondPractice();
+  buildArgForms();buildCoop();buildQuiz();
+  buildHW(HWA,'hw-a','hwa');buildHW(HWB,'hw-b','hwb');buildHW(HWC,'hw-c','hwc');buildHW(HWD,'hw-d','hwd');buildHW(HWE,'hw-e','hwe');
 });
 
-function venn1(state){
-  const S=[
-    {show:'vd1-s0',hide:'vd1-s1',clbl:'p∧q',
-     label:'Zona marcada: <strong>p ∧ q</strong> — los que entregaron el trabajo <em>y</em> lo entregaron a tiempo. Cumplen las dos condiciones.',equiv:false},
-    {show:'vd1-s1',hide:'vd1-s0',clbl:'',
-     label:'Zona marcada: <strong>¬(p ∧ q)</strong> — los que <em>no</em> cumplieron las dos condiciones a la vez. Puede que solo cumplieran una, o ninguna.',equiv:false},
-    {show:'vd1-s1',hide:'vd1-s0',clbl:'',
-     label:'Zona marcada: <strong>¬p ∨ ¬q</strong> — "No entregué O no fue a tiempo." Exactamente la misma zona que ¬(p∧q). De Morgan lo demuestra.',equiv:true},
+/* Venn diagrams */
+function venn1(s){
+  var S=[
+    {show:'v1s0',hide:'v1s1',cl:'p∧q',
+     lbl:'<strong>Zona teal (p ∧ q):</strong> estudiantes que llegaron temprano <em>y</em> entregaron el taller. Las dos condiciones se cumplen.',eq:false},
+    {show:'v1s1',hide:'v1s0',cl:'',
+     lbl:'<strong>Zona morada ¬(p ∧ q):</strong> estudiantes que NO cumplieron las dos condiciones a la vez. Puede que solo hicieran una, o ninguna.',eq:false},
+    {show:'v1s1',hide:'v1s0',cl:'',
+     lbl:'<strong>Zona morada ¬p ∨ ¬q:</strong> "No llegué O no entregué." ¡Exactamente la misma zona! De Morgan lo demuestra.',eq:true}
   ];
-  const s=S[state];
-  document.getElementById(s.show).style.display='';
-  document.getElementById(s.hide).style.display='none';
-  const cl=document.getElementById('vd1-clbl');if(cl)cl.textContent=s.clbl;
-  document.getElementById('vd1-label').innerHTML=s.label;
-  document.getElementById('vd1-equiv').style.display=s.equiv?'block':'none';
-  document.querySelectorAll('#venn1-tabs .vb').forEach((b,i)=>{b.classList.toggle('active',i===state);if(i!==state)b.style.cssText='';else if(state===0)b.style.cssText='';});
+  var st=S[s];
+  document.getElementById(st.show).style.display='';
+  document.getElementById(st.hide).style.display='none';
+  var cl=document.getElementById('v1clbl');if(cl)cl.textContent=st.cl;
+  document.getElementById('v1lbl').innerHTML=st.lbl;
+  document.getElementById('v1eq').style.display=st.eq?'block':'none';
+  var tabs=document.getElementById('v1tabs');
+  if(tabs)tabs.querySelectorAll('.vbtab').forEach(function(b,i){b.classList.toggle('active',i===s);});
 }
-function venn2(state){
-  const S=[
-    {show:'vd2-s0',hide:'vd2-s1',
-     label:'Zona marcada: <strong>p ∨ q</strong> — los que aprobaron el parcial <em>o</em> la entrega final (o los dos). Al menos una.',equiv:false},
-    {show:'vd2-s1',hide:'vd2-s0',
-     label:'Zona marcada: <strong>¬(p ∨ q)</strong> — los que <em>no</em> aprobaron ninguna de las dos. Ni el parcial ni la entrega.',equiv:false},
-    {show:'vd2-s1',hide:'vd2-s0',
-     label:'Zona marcada: <strong>¬p ∧ ¬q</strong> — "No aprobé el parcial Y no aprobé la entrega." Exactamente la misma zona que ¬(p∨q). De Morgan lo demuestra.',equiv:true},
+function venn2(s){
+  var S=[
+    {show:'v2s0',hide:'v2s1',
+     lbl:'<strong>Zona teal (p ∨ q):</strong> estudiantes que aprobaron el primer corte <em>o</em> el segundo (o los dos). Al menos uno.',eq:false},
+    {show:'v2s1',hide:'v2s0',
+     lbl:'<strong>Zona morada ¬(p ∨ q):</strong> estudiantes que NO aprobaron ninguno de los dos cortes. Los dos fallaron.',eq:false},
+    {show:'v2s1',hide:'v2s0',
+     lbl:'<strong>Zona morada ¬p ∧ ¬q:</strong> "No aprobé el primero Y no aprobé el segundo." ¡Exactamente la misma zona! De Morgan lo demuestra.',eq:true}
   ];
-  const s=S[state];
-  document.getElementById(s.show).style.display='';
-  document.getElementById(s.hide).style.display='none';
-  document.getElementById('vd2-label').innerHTML=s.label;
-  document.getElementById('vd2-equiv').style.display=s.equiv?'block':'none';
-  document.querySelectorAll('#venn2-tabs .vb').forEach((b,i)=>b.classList.toggle('active',i===state));
+  var st=S[s];
+  document.getElementById(st.show).style.display='';
+  document.getElementById(st.hide).style.display='none';
+  document.getElementById('v2lbl').innerHTML=st.lbl;
+  document.getElementById('v2eq').style.display=st.eq?'block':'none';
+  var tabs=document.getElementById('v2tabs');
+  if(tabs)tabs.querySelectorAll('.vbtab').forEach(function(b,i){
+    b.classList.toggle('active',i===s);
+    b.style.background=i===s&&s===0?'var(--Am)':'';
+    b.style.borderColor=i===s&&s===0?'var(--Am)':'';
+    b.style.color=i===s&&s===0?'#fff':'';
+  });
 }
+
 </script>
+</body>
 </html>
