@@ -792,6 +792,150 @@ body.theme-7 .study-day{border-left:6px solid var(--stage-a)!important;}
   .floating-proof.f1,.floating-proof.f3{display:none;}
 }
 
+
+
+/* DE MORGAN VENN TAB */
+body.theme-8{--stage-a:#0f766e;--stage-b:#6d28d9;--stage-c:#1d4ed8;background:linear-gradient(180deg,#effaf6,#f4f0ff 55%,#eef6ff)!important;}
+body.theme-8 .venn-law{border-left:6px solid var(--stage-a);}
+.venn-hero{
+  position:relative;
+  overflow:hidden;
+  border-radius:26px!important;
+  background:
+    radial-gradient(circle at 16% 22%,rgba(15,118,110,.16),transparent 16rem),
+    radial-gradient(circle at 82% 26%,rgba(109,40,217,.14),transparent 18rem),
+    linear-gradient(135deg,rgba(255,255,255,.94),rgba(244,250,255,.88))!important;
+}
+.venn-hero .formula-line{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:14px;
+}
+.formula-chip{
+  font-family:var(--mono);
+  font-weight:800;
+  font-size:clamp(.95rem,2.5vw,1.25rem);
+  padding:9px 12px;
+  border-radius:14px;
+  background:#fffefa;
+  border:1px solid rgba(47,72,88,.16);
+  box-shadow:0 12px 28px rgba(27,43,65,.08);
+}
+.venn-law{
+  background:rgba(255,253,247,.94)!important;
+}
+.venn-law h3{
+  font-family:var(--serif);
+  font-size:clamp(1.18rem,3vw,1.7rem);
+  line-height:1.15;
+  margin:6px 0 10px;
+  color:#101827;
+}
+.venn-board{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:16px;
+  margin:16px 0;
+}
+.venn-panel{
+  border:1.5px solid rgba(47,72,88,.16);
+  border-radius:20px;
+  padding:16px;
+  background:linear-gradient(180deg,#ffffff,#fffdf7);
+  box-shadow:0 18px 46px rgba(27,43,65,.10);
+}
+.venn-panel-title{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-family:var(--mono);
+  font-weight:800;
+  color:#111827;
+  margin-bottom:10px;
+}
+.venn-panel-title span{
+  display:grid;
+  place-items:center;
+  width:28px;
+  height:28px;
+  border-radius:50%;
+  background:color-mix(in srgb,var(--stage-a) 12%,#ffffff);
+  border:1px solid color-mix(in srgb,var(--stage-a) 28%,transparent);
+}
+.venn-svg{
+  width:100%;
+  max-width:620px;
+  display:block;
+  margin:0 auto;
+}
+.venn-note{
+  font-size:.92rem;
+  line-height:1.72;
+  color:#344256;
+  margin-top:10px;
+}
+.venn-steps{
+  display:grid;
+  gap:10px;
+  margin-top:12px;
+}
+.venn-step{
+  display:flex;
+  gap:10px;
+  padding:12px 14px;
+  border-radius:16px;
+  background:color-mix(in srgb,var(--stage-a) 7%,#ffffff);
+  border:1px solid color-mix(in srgb,var(--stage-a) 20%,transparent);
+}
+.venn-step strong{
+  flex:0 0 auto;
+  display:grid;
+  place-items:center;
+  width:28px;
+  height:28px;
+  border-radius:50%;
+  background:var(--stage-a);
+  color:white;
+  font-family:var(--mono);
+}
+.venn-step div{
+  font-size:.92rem;
+  line-height:1.6;
+}
+.venn-compare{
+  border-radius:20px;
+  padding:16px;
+  background:linear-gradient(135deg,rgba(15,118,110,.09),rgba(109,40,217,.08));
+  border:1.5px solid rgba(47,72,88,.16);
+}
+.venn-compare table{
+  width:100%;
+  border-collapse:collapse;
+  overflow:hidden;
+  border-radius:14px;
+  font-size:.9rem;
+}
+.venn-compare th,.venn-compare td{
+  padding:10px 12px;
+  border-bottom:1px solid rgba(47,72,88,.12);
+  text-align:left;
+}
+.venn-compare th{
+  font-size:.72rem;
+  text-transform:uppercase;
+  letter-spacing:.5px;
+  color:#526173;
+}
+.venn-compare tr:last-child td{border-bottom:none;}
+@media(min-width:860px){
+  .venn-board{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:620px){
+  .formula-chip{width:100%;}
+  .venn-panel{padding:12px;}
+}
+
 </style>
 </head>
 <body class="theme-0">
@@ -817,6 +961,7 @@ body.theme-7 .study-day{border-left:6px solid var(--stage-a)!important;}
     <div class="tab" onclick="sw(5)"><span class="ti">👥</span>Cooperativo</div>
     <div class="tab" onclick="sw(6)"><span class="ti">📊</span>Quiz</div>
     <div class="tab" onclick="sw(7)"><span class="ti">🏠</span>Para Casa</div>
+    <div class="tab" onclick="sw(8)"><span class="ti">◯</span>Venn</div>
   </nav>
 </header>
 <main class="wrap">
@@ -1119,6 +1264,143 @@ body.theme-7 .study-day{border-left:6px solid var(--stage-a)!important;}
       <strong>¿Es válido?</strong> _____ · <strong>¿Por qué?</strong> ____________________
     </div>
     <div class="hint">Busca en El Tiempo, Semana o posts de salud en Instagram. Los anuncios de dietas y suplementos son ricos en falacias de Afirmar el Consecuente.</div>
+  </div>
+</div>
+
+
+<!-- M8 -->
+<div class="mod" id="m8">
+  <div class="srow"><span class="sb sb-clase">◯ Diagramas de Venn · De Morgan</span><span class="sb sb-opt">Conjuntos ↔ lógica</span></div>
+
+  <div class="card venn-hero">
+    <div class="ct">Puente visual · del símbolo al área sombreada</div>
+    <p class="stitle">Leyes de De Morgan con diagramas de Venn</p>
+    <p>Las leyes de De Morgan dicen algo muy intuitivo: cuando niegas una frase compuesta, cambia el conector y se niega cada parte. En conjuntos, eso se ve como sombrear regiones distintas del diagrama.</p>
+    <div class="formula-line">
+      <div class="formula-chip">¬(p ∧ q) = ¬p ∨ ¬q</div>
+      <div class="formula-chip">¬(p ∨ q) = ¬p ∧ ¬q</div>
+    </div>
+    <div class="hint"><strong>Traducción:</strong> p y q son proposiciones, pero también pueden leerse como conjuntos: P = casos donde p es verdadera, Q = casos donde q es verdadera.</div>
+  </div>
+
+  <div class="card venn-law">
+    <div class="ct">Ley 1 · negar una conjunción</div>
+    <h3>¬(p ∧ q) = ¬p ∨ ¬q</h3>
+    <p>La frase <strong>p ∧ q</strong> solo vive en la intersección: donde p y q ocurren al mismo tiempo. Negarla significa sombrear todo lo que queda por fuera de esa intersección.</p>
+    <div class="venn-board">
+      <div class="venn-panel">
+        <div class="venn-panel-title"><span>1</span> p ∧ q: solo la intersección</div>
+        <svg class="venn-svg" viewBox="0 0 420 250" role="img" aria-label="Diagrama de Venn de p y q con la intersección sombreada">
+          <rect x="20" y="20" width="380" height="210" rx="18" fill="#fffdf7" stroke="#cbd5e1" stroke-width="2"/>
+          <circle cx="175" cy="125" r="78" fill="rgba(29,78,216,.18)" stroke="#1d4ed8" stroke-width="3"/>
+          <circle cx="245" cy="125" r="78" fill="rgba(15,118,110,.18)" stroke="#0f766e" stroke-width="3"/>
+          <clipPath id="venn-intersection-clip"><circle cx="175" cy="125" r="78"/></clipPath>
+          <circle clip-path="url(#venn-intersection-clip)" cx="245" cy="125" r="78" fill="rgba(180,83,9,.70)"/>
+          <text x="124" y="58" font-family="Courier New" font-size="22" font-weight="700" fill="#1d4ed8">P</text>
+          <text x="282" y="58" font-family="Courier New" font-size="22" font-weight="700" fill="#0f766e">Q</text>
+          <text x="198" y="132" font-family="Courier New" font-size="20" font-weight="800" fill="#7c2d12">p∧q</text>
+        </svg>
+        <p class="venn-note">Aquí está lo que sí cumple ambas condiciones: p verdadera y q verdadera.</p>
+      </div>
+      <div class="venn-panel">
+        <div class="venn-panel-title"><span>2</span> ¬(p ∧ q): todo excepto la intersección</div>
+        <svg class="venn-svg" viewBox="0 0 420 250" role="img" aria-label="Diagrama de Venn con todo excepto la intersección sombreado">
+          <defs>
+            <mask id="mask-not-intersection">
+              <rect x="20" y="20" width="380" height="210" rx="18" fill="white"/>
+              <circle cx="175" cy="125" r="78" fill="black"/>
+              <circle cx="245" cy="125" r="78" fill="black"/>
+              <circle cx="175" cy="125" r="78" fill="white"/>
+              <circle cx="245" cy="125" r="78" fill="white"/>
+              <g>
+                <clipPath id="intersect-hole"><circle cx="175" cy="125" r="78"/></clipPath>
+              </g>
+            </mask>
+            <clipPath id="clip-p-law1"><circle cx="175" cy="125" r="78"/></clipPath>
+          </defs>
+          <rect x="20" y="20" width="380" height="210" rx="18" fill="#fffdf7" stroke="#cbd5e1" stroke-width="2"/>
+          <rect x="20" y="20" width="380" height="210" rx="18" fill="rgba(109,40,217,.18)"/>
+          <circle cx="175" cy="125" r="78" fill="rgba(29,78,216,.16)" stroke="#1d4ed8" stroke-width="3"/>
+          <circle cx="245" cy="125" r="78" fill="rgba(15,118,110,.16)" stroke="#0f766e" stroke-width="3"/>
+          <circle clip-path="url(#clip-p-law1)" cx="245" cy="125" r="78" fill="#fffdf7"/>
+          <path d="M210 57 A78 78 0 0 1 210 193 A78 78 0 0 0 210 57" fill="#fffdf7"/>
+          <text x="78" y="216" font-family="Courier New" font-size="18" font-weight="800" fill="#5b21b6">¬p ∨ ¬q</text>
+          <text x="124" y="58" font-family="Courier New" font-size="22" font-weight="700" fill="#1d4ed8">P</text>
+          <text x="282" y="58" font-family="Courier New" font-size="22" font-weight="700" fill="#0f766e">Q</text>
+        </svg>
+        <p class="venn-note">Todo lo que no está en la intersección equivale a: no p, o no q, o ambas.</p>
+      </div>
+    </div>
+    <div class="venn-steps">
+      <div class="venn-step"><strong>1</strong><div><strong>p ∧ q</strong> exige dos condiciones al tiempo: estar en P y estar en Q.</div></div>
+      <div class="venn-step"><strong>2</strong><div><strong>¬(p ∧ q)</strong> niega esa zona exacta: basta fallar una condición para quedar fuera.</div></div>
+      <div class="venn-step"><strong>3</strong><div>Por eso se vuelve <strong>¬p ∨ ¬q</strong>: no p, o no q.</div></div>
+    </div>
+  </div>
+
+  <div class="card venn-law">
+    <div class="ct">Ley 2 · negar una disyunción</div>
+    <h3>¬(p ∨ q) = ¬p ∧ ¬q</h3>
+    <p>La frase <strong>p ∨ q</strong> cubre toda la unión: todo lo que esté en P, en Q o en ambos. Negarla deja solamente lo que está fuera de los dos conjuntos.</p>
+    <div class="venn-board">
+      <div class="venn-panel">
+        <div class="venn-panel-title"><span>1</span> p ∨ q: toda la unión</div>
+        <svg class="venn-svg" viewBox="0 0 420 250" role="img" aria-label="Diagrama de Venn con la unión sombreada">
+          <rect x="20" y="20" width="380" height="210" rx="18" fill="#fffdf7" stroke="#cbd5e1" stroke-width="2"/>
+          <circle cx="175" cy="125" r="78" fill="rgba(29,78,216,.42)" stroke="#1d4ed8" stroke-width="3"/>
+          <circle cx="245" cy="125" r="78" fill="rgba(15,118,110,.42)" stroke="#0f766e" stroke-width="3"/>
+          <text x="124" y="58" font-family="Courier New" font-size="22" font-weight="700" fill="#1d4ed8">P</text>
+          <text x="282" y="58" font-family="Courier New" font-size="22" font-weight="700" fill="#0f766e">Q</text>
+          <text x="180" y="132" font-family="Courier New" font-size="20" font-weight="800" fill="#064e3b">p∨q</text>
+        </svg>
+        <p class="venn-note">La unión acepta tres casos: solo p, solo q, o p y q al tiempo.</p>
+      </div>
+      <div class="venn-panel">
+        <div class="venn-panel-title"><span>2</span> ¬(p ∨ q): fuera de P y fuera de Q</div>
+        <svg class="venn-svg" viewBox="0 0 420 250" role="img" aria-label="Diagrama de Venn con el exterior de ambos conjuntos sombreado">
+          <defs>
+            <mask id="mask-outside-union">
+              <rect x="20" y="20" width="380" height="210" rx="18" fill="white"/>
+              <circle cx="175" cy="125" r="78" fill="black"/>
+              <circle cx="245" cy="125" r="78" fill="black"/>
+            </mask>
+          </defs>
+          <rect x="20" y="20" width="380" height="210" rx="18" fill="#fffdf7" stroke="#cbd5e1" stroke-width="2"/>
+          <rect x="20" y="20" width="380" height="210" rx="18" fill="rgba(109,40,217,.25)" mask="url(#mask-outside-union)"/>
+          <circle cx="175" cy="125" r="78" fill="rgba(29,78,216,.12)" stroke="#1d4ed8" stroke-width="3"/>
+          <circle cx="245" cy="125" r="78" fill="rgba(15,118,110,.12)" stroke="#0f766e" stroke-width="3"/>
+          <text x="124" y="58" font-family="Courier New" font-size="22" font-weight="700" fill="#1d4ed8">P</text>
+          <text x="282" y="58" font-family="Courier New" font-size="22" font-weight="700" fill="#0f766e">Q</text>
+          <text x="66" y="216" font-family="Courier New" font-size="18" font-weight="800" fill="#5b21b6">¬p ∧ ¬q</text>
+        </svg>
+        <p class="venn-note">Para no estar en la unión, debe cumplirse una condición doble: no estar en P y no estar en Q.</p>
+      </div>
+    </div>
+    <div class="venn-steps">
+      <div class="venn-step"><strong>1</strong><div><strong>p ∨ q</strong> es generosa: basta estar en P o en Q.</div></div>
+      <div class="venn-step"><strong>2</strong><div><strong>¬(p ∨ q)</strong> exige quedar fuera de toda la zona cubierta por P y Q.</div></div>
+      <div class="venn-step"><strong>3</strong><div>Por eso se vuelve <strong>¬p ∧ ¬q</strong>: no p y no q.</div></div>
+    </div>
+  </div>
+
+  <div class="card venn-compare">
+    <div class="ct">Resumen comparativo</div>
+    <p class="stitle">La negación cambia el conector</p>
+    <table>
+      <thead><tr><th>Expresión</th><th>Lectura</th><th>Resultado visual</th></tr></thead>
+      <tbody>
+        <tr><td><span class="mono">¬(p ∧ q)</span></td><td>No es cierto que ocurran las dos.</td><td>Todo excepto la intersección.</td></tr>
+        <tr><td><span class="mono">¬p ∨ ¬q</span></td><td>No ocurre p, o no ocurre q.</td><td>La misma región anterior.</td></tr>
+        <tr><td><span class="mono">¬(p ∨ q)</span></td><td>No es cierto que ocurra alguna.</td><td>Fuera de ambos conjuntos.</td></tr>
+        <tr><td><span class="mono">¬p ∧ ¬q</span></td><td>No ocurre p y no ocurre q.</td><td>La misma región anterior.</td></tr>
+      </tbody>
+    </table>
+    <div class="hint"><strong>Regla para recordar:</strong> cuando la negación entra al paréntesis, cambia <span class="mono">∧</span> por <span class="mono">∨</span>, cambia <span class="mono">∨</span> por <span class="mono">∧</span>, y niega cada proposición.</div>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn btn-back" onclick="sw(7)">← Para Casa</button>
+    <button class="btn btn-next" onclick="sw(0)">Volver al inicio</button>
   </div>
 </div>
 
