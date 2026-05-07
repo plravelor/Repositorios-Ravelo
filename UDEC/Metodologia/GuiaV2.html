@@ -759,8 +759,9 @@ function runVal(n){
 let _lastPrompt='';
 function showPrompt(divId,texto){
   _lastPrompt=texto;
-  const d=document.getElementById(divId);d.style.display='block';
-  const esc=texto.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+  var d=document.getElementById(divId);d.style.display='block';
+  // Use split/join instead of regex to avoid /< and /> inside script tags
+  var esc=texto.split('&').join('&amp;').split('<').join('&lt;').split('>').join('&gt;').split('\n').join('<br>');
   d.innerHTML='<div class="pb-box">'
     +'<div class="pb-h"><span>&#128203; Copia este prompt y pégalo en Claude, ChatGPT u otra IA</span>'
     +'<button id="cp-'+divId+'" style="background:rgba(255,255,255,.2);color:white;border:none;cursor:pointer;padding:4px 10px;border-radius:4px;font-size:12px">Copiar</button>'
@@ -902,8 +903,7 @@ function buildSyn(){
   const out=document.getElementById('synout');
   out.innerHTML=secs.map(s=>{
     const empty=!s.c||s.c.trim()===''||s.c.trim()==='/'||s.c.trim()===' — ';
-    return`<div class="ss"><div class="sl">${s.l}</div><div class="sc ${empty?'se':''}">${empty?'No registrado':s.c.replace(/
-/g,'<br>')}</div></div>`;
+    return`<div class="ss"><div class="sl">${s.l}</div><div class="sc ${empty?'se':''}">${empty?'No registrado':s.c.split('\n').join('<br>')}</div></div>`;
   }).join('');
   buildCoh();
 }
@@ -937,11 +937,7 @@ Generado con: Guía de Investigación — Psicología
 Fecha: ${new Date().toLocaleDateString('es-CO')}
 ${sep}
 
-${gv('m1-tema')?'TEMA: '+gv('m1-tema')+'
-':''}${gv('m1-pop')?'POBLACIÓN: '+gv('m1-pop')+'
-':''}${gv('m1-ctx')?'CONTEXTO: '+gv('m1-ctx')+'
-':''}${gv('m1-fen')?'FENÓMENO: '+gv('m1-fen')+'
-':''}
+${gv('m1-tema')?'TEMA: '+gv('m1-tema')+'\n':''}${gv('m1-pop')?'POBLACIÓN: '+gv('m1-pop')+'\n':''}${gv('m1-ctx')?'CONTEXTO: '+gv('m1-ctx')+'\n':''}${gv('m1-fen')?'FENÓMENO: '+gv('m1-fen')+'\n':''}
 
 ${sep}
 1. PREGUNTA DE INVESTIGACIÓN
