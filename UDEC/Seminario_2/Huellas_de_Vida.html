@@ -57,26 +57,25 @@ html{
 /* ══ TTS CONTROL BAR (siempre visible) ══ */
 #tts-bar{
 background:var(–tts-bg);color:var(–tts-fg);
-display:flex;align-items:center;flex-wrap:wrap;gap:10px;
-padding:12px 18px;position:sticky;top:0;z-index:200;
-border-bottom:3px solid var(–vm);
-border-top:3px solid var(–vm);
-font-family:system-ui,sans-serif;font-size:13px;
-box-shadow:0 2px 8px rgba(0,0,0,.08);
+display:flex;align-items:center;flex-wrap:wrap;gap:8px;
+padding:8px 14px;
+/* NO sticky — el nav se queda sticky y es suficiente */
+border-bottom:2px solid var(–vm);
+font-family:system-ui,sans-serif;font-size:12px;
 }
-#tts-bar .tts-label{font-weight:700;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:#1a5c3a;flex-shrink:0}
+#tts-bar .tts-label{font-weight:700;font-size:11px;letter-spacing:.03em;text-transform:uppercase;color:#1a5c3a;flex-shrink:0}
 .tts-btn{
 display:inline-flex;align-items:center;gap:6px;
-padding:8px 14px;border-radius:6px;border:2px solid var(–vm);
+padding:5px 10px;border-radius:5px;border:1.5px solid var(–vm);
 background:#fff;color:var(–v);font-family:system-ui,sans-serif;
-font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;white-space:nowrap;
+font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;white-space:nowrap;
 }
 .tts-btn:hover{background:var(–vm);color:#fff}
 .tts-btn:focus-visible{outline:3px solid var(–v);outline-offset:2px;box-shadow:none}
 .tts-btn.active{background:var(–vm);color:#fff;border-color:#1a5c3a}
 #tts-reading{
-flex:1;min-width:120px;font-size:12px;color:#2d6b4a;font-style:italic;
-border-left:1.5px solid #90b8a0;padding-left:12px;
+flex:1;min-width:80px;font-size:11px;color:#2d6b4a;font-style:italic;
+border-left:1px solid #90b8a0;padding-left:8px;
 overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
 }
 .speed-ctrl{display:flex;align-items:center;gap:6px;font-size:12px}
@@ -87,29 +86,34 @@ overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
 body{font-family:Georgia,‘Times New Roman’,serif;font-size:16px;line-height:1.8;color:#1c1a17;background:#faf8f4;min-height:100vh}
 
 /* ══ HEADER ══ */
-header{background:var(–v);color:#fff;padding:16px 20px}
-header h1{font-family:system-ui,sans-serif;font-size:18px;font-weight:700;line-height:1.3}
-header p{font-size:12px;opacity:.85;margin-top:4px;font-family:system-ui,sans-serif}
-.version-badge{display:inline-block;background:#b8f0d0;color:#1a3a1a;font-size:11px;font-weight:700;padding:2px 10px;border-radius:10px;margin-top:6px}
+header{background:var(–v);color:#fff;padding:10px 14px}
+header h1{font-family:system-ui,sans-serif;font-size:16px;font-weight:700;line-height:1.3}
+header p{font-size:11px;opacity:.85;margin-top:2px;font-family:system-ui,sans-serif}
+.version-badge{display:none}
 
 /* ══ NAV TABS (WCAG 2.1 Role=tablist) ══ */
 nav[role=“tablist”]{
-background:#faf8f4!important;border-bottom:3px solid var(–vc);
-overflow-x:auto;display:flex;
-position:sticky;top:62px;z-index:100;
-box-shadow:0 2px 6px rgba(0,0,0,.1)
+background:var(–fondo);
+border-bottom:2px solid var(–vm);
+border-top:1px solid var(–bd);
+overflow-x:auto;display:flex;gap:4px;
+padding:6px 8px 0;
+position:sticky;top:0;z-index:100;
+box-shadow:0 2px 8px rgba(0,0,0,.1);
 }
 nav[role=“tablist”] button{
-flex-shrink:0;padding:12px 14px;font-size:12px;
+flex-shrink:0;padding:7px 10px;font-size:11px;
 font-family:system-ui,sans-serif;font-weight:600;
-border:none;background:none;cursor:pointer;
-color:#4a4540;border-bottom:3px solid transparent;
-margin-bottom:-3px;transition:all .2s;
-white-space:nowrap;line-height:1.35;min-height:56px;
+border:1.5px solid var(–bd);border-bottom:none;
+background:#fff;cursor:pointer;
+color:#4a4540;
+border-radius:6px 6px 0 0;
+margin-bottom:-2px;transition:all .2s;
+white-space:nowrap;line-height:1.3;min-height:44px;
 }
-nav[role=“tablist”] button:focus-visible{outline:4px solid var(–focus);outline-offset:-4px;background:#e8efff}
-nav[role=“tablist”] button[aria-selected=“true”]{color:var(–v);border-bottom-color:var(–v);background:var(–vc)}
-nav[role=“tablist”] button:hover:not([aria-selected=“true”]){background:#edeae3;color:var(–g)}
+nav[role=“tablist”] button:focus-visible{outline:3px solid var(–focus);outline-offset:-3px;background:#e8efff}
+nav[role=“tablist”] button[aria-selected=“true”]{color:var(–v);border-color:var(–vm);border-bottom-color:var(–fondo);background:var(–fondo);font-weight:700;}
+nav[role=“tablist”] button:hover:not([aria-selected=“true”]){background:var(–vc);color:var(–v);border-color:var(–vm)}
 /* WCAG 2.5.5 — minimum target size 44×44px */
 nav[role=“tablist”] button{min-width:44px}
 
@@ -121,12 +125,12 @@ section[role=“tabpanel”]:focus{outline:none}
 
 /* ══ READ-SECTION BUTTONS ══ */
 .leer-btn{
-display:inline-flex;align-items:center;gap:8px;
-padding:10px 18px;border-radius:24px;
+display:inline-flex;align-items:center;gap:7px;
+padding:7px 14px;border-radius:20px;
 background:var(–vc);color:var(–v);
 border:2px solid var(–vm);font-family:system-ui,sans-serif;
-font-size:13px;font-weight:700;cursor:pointer;
-transition:all .2s;margin-bottom:16px;
+font-size:12px;font-weight:700;cursor:pointer;
+transition:all .2s;margin-bottom:10px;
 }
 .leer-btn:hover{background:var(–vm);color:#fff}
 .leer-btn:focus-visible{outline:4px solid var(–focus);outline-offset:3px}
@@ -138,15 +142,14 @@ font-family:system-ui,sans-serif;font-weight:700;margin-left:8px;
 vertical-align:middle;
 }
 .leer-inline:focus-visible{outline:3px solid var(–focus);outline-offset:2px}
-/* Read-section button — first element inside each card */
+/* Read-section button */
 .leer-sec{
-display:flex;align-items:center;gap:7px;
-padding:8px 14px;border-radius:6px;
+display:inline-flex;align-items:center;gap:6px;
+padding:5px 12px;border-radius:5px;
 background:var(–vc);color:var(–v);
-border:2px solid var(–vm);
-font-family:system-ui,sans-serif;font-size:12px;font-weight:700;
-cursor:pointer;transition:all .2s;margin-bottom:12px;min-height:40px;
-width:auto;
+border:1.5px solid var(–vm);
+font-family:system-ui,sans-serif;font-size:11px;font-weight:700;
+cursor:pointer;transition:all .2s;margin-bottom:8px;min-height:36px;
 }
 .leer-sec:hover{background:var(–vm);color:#fff}
 .leer-sec:focus-visible{outline:4px solid var(–focus);outline-offset:3px}
@@ -161,10 +164,10 @@ padding:12px 16px;margin-bottom:18px;font-family:system-ui,sans-serif;
 .sec-nav li{font-size:13px;color:var(–g);margin-bottom:3px}
 
 /* ══ TYPOGRAPHY ══ */
-h2{font-family:system-ui,sans-serif;font-size:21px;font-weight:700;color:var(–v);margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid var(–vc)}
-h3{font-family:system-ui,sans-serif;font-size:17px;font-weight:700;color:var(–v);margin:22px 0 10px}
+h2{font-family:system-ui,sans-serif;font-size:19px;font-weight:700;color:var(–v);margin-bottom:10px;margin-top:6px;padding-bottom:8px;border-bottom:2px solid var(–vc)}
+h3{font-family:system-ui,sans-serif;font-size:16px;font-weight:700;color:var(–v);margin:16px 0 8px}
 h4{font-family:system-ui,sans-serif;font-size:15px;font-weight:700;color:var(–g);margin:16px 0 8px}
-p{margin-bottom:10px;font-size:15.5px}
+p{margin-bottom:8px;font-size:15px}
 ul,ol{padding-left:24px;margin-bottom:10px}
 li{margin-bottom:6px;font-size:15.5px}
 strong{font-weight:700}
@@ -174,14 +177,14 @@ hr{border:none;border-top:2px solid var(–bd);margin:24px 0}
 /* ══ CARDS ══ */
 .card{background:#ffffff;border-radius:10px;padding:20px 22px;margin-bottom:18px;border:1px solid #c0bcb4;color:#1c1a17}
 .card-v{border-left:6px solid var(–v)}.card-o{border-left:6px solid var(–o)}.card-p{border-left:6px solid var(–p)}
-.banner{background:var(–vc);color:var(–v);border:2px solid var(–vm);border-radius:10px;padding:18px 22px;margin-bottom:22px;font-size:15.5px;line-height:1.8}
+.banner{background:var(–vc);color:var(–v);border:1.5px solid var(–vm);border-radius:8px;padding:12px 16px;margin-bottom:14px;font-size:14px;line-height:1.7}
 .banner strong{color:#1a5c3a}
 .nota{background:#fef6e0;border-left:5px solid #5c4200;border-radius:0 8px 8px 0;padding:14px 18px;margin:12px 0;font-size:14.5px;color:#1c1a17}
 .nota .nl{font-family:system-ui,sans-serif;font-size:12px;font-weight:700;color:var(–o);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
 
 /* ══ AC BOX ══ */
 .ac-box{background:#ffffff;border:2px solid #3a1a5c;border-radius:10px;overflow:hidden;margin-bottom:18px;color:#1c1a17}
-.ac-hdr{background:var(–pc);color:var(–p);padding:12px 18px;font-family:system-ui,sans-serif;font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;display:flex;align-items:center;gap:8px;border-bottom:2px solid var(–p)}
+.ac-hdr{background:var(–pc);color:var(–p);padding:8px 14px;font-family:system-ui,sans-serif;font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;display:flex;align-items:center;gap:8px;border-bottom:2px solid var(–p)}
 .ac-body{padding:18px 20px;background:#ffffff;color:#1c1a17}
 .ac-body p{font-size:14.5px;margin-bottom:10px}
 .paso{display:flex;gap:14px;margin-bottom:14px;align-items:flex-start}
@@ -239,7 +242,7 @@ transition:all .2s;min-height:44px;
 .tag-v{background:var(–vc);color:var(–v)}.tag-r{background:var(–rc);color:var(–r)}
 
 /* ══ FORM ══ */
-.form-g{margin-bottom:18px}
+.form-g{margin-bottom:12px}
 .form-g label{display:block;font-family:system-ui,sans-serif;font-size:14px;font-weight:700;color:var(–g);margin-bottom:7px}
 .form-g textarea,.form-g input,.form-g select{
 width:100%;padding:12px 14px;border:2px solid var(–bd);border-radius:8px;
@@ -260,10 +263,10 @@ transition:background .2s;width:100%;margin-top:10px;min-height:48px;
 
 /* ══ QUIZ ══ */
 .quiz-qcard{background:#ffffff;border-radius:10px;border:1px solid #c0bcb4;overflow:hidden;margin-bottom:16px;color:#1c1a17}
-.quiz-qhdr{padding:16px 20px;background:#f3f0e8;display:flex;align-items:flex-start;gap:14px}
+.quiz-qhdr{padding:10px 14px;background:#f3f0e8;display:flex;align-items:flex-start;gap:14px}
 .quiz-qnum{background:var(–vc);color:var(–v);border:2px solid var(–v);font-family:system-ui,sans-serif;font-size:13px;font-weight:700;min-width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:3px}
 .quiz-qtxt{font-size:15px;flex:1;line-height:1.7}
-.quiz-opts{padding:14px 20px 18px}
+.quiz-opts{padding:8px 14px 12px}
 .quiz-opt{
 display:flex;align-items:flex-start;gap:12px;
 padding:12px 16px;margin-bottom:10px;border:2px solid #c0bcb4;
@@ -294,7 +297,7 @@ margin-top:3px;flex-shrink:0;width:20px;height:20px;accent-color:var(–v);curso
 .lect-body h5:first-child{margin-top:0}
 
 /* ══ EN CLASE / CASA BADGES ══ */
-.en-clase,.en-casa{display:inline-flex;align-items:center;gap:5px;font-family:system-ui,sans-serif;font-size:12px;font-weight:700;padding:4px 12px;border-radius:10px;margin-bottom:14px;border:2px solid}
+.en-clase,.en-casa{display:inline-flex;align-items:center;gap:4px;font-family:system-ui,sans-serif;font-size:11px;font-weight:700;padding:2px 9px;border-radius:8px;margin-bottom:8px;border:1.5px solid}
 .en-clase{background:var(–vc);color:var(–v);border-color:var(–vm)}
 .en-casa{background:var(–pc);color:var(–p);border-color:var(–p)}
 .prog-txt{font-family:system-ui,sans-serif;font-size:13px;color:#5a5650;text-align:right;margin-bottom:10px}
@@ -408,7 +411,7 @@ aria-label="Leer el módulo completo actual">
   <!-- Dilema 1 -->
 
   <article class="dilema" id="dilema1" aria-label="Situación 1: excombatientes en Cundinamarca">
-  <div style="padding:8px 18px 0;background:var(--gs)"><button class="leer-sec" onclick="hablar('Situación 1. '+document.getElementById('dilema1').innerText.replace(/Leer situación \d/g,''),true)" aria-label="Leer situación 1: excombatientes en Cundinamarca">Leer situación 1</button></div>
+  <div style="padding:5px 14px 0;background:var(--gs)"><button class="leer-sec" onclick="hablar('Situación 1. '+document.getElementById('dilema1').innerText.replace(/Leer situación \d/g,''),true)" aria-label="Leer situación 1: excombatientes en Cundinamarca">Leer situación 1</button></div>
     <div class="dil-head">
       <div class="dil-num" aria-hidden="true">1</div>
       <div class="dil-txt" id="dil1-txt">
@@ -433,7 +436,7 @@ aria-label="Leer el módulo completo actual">
   <!-- Dilema 2 -->
 
   <article class="dilema" id="dilema2" aria-label="Situación 2: historia de vida en una sola entrevista">
-  <div style="padding:8px 18px 0;background:var(--gs)"><button class="leer-sec" onclick="hablar('Situación 2. '+document.getElementById('dilema2').innerText.replace(/Leer situación \d/g,'').replace(/Ocultar reflexión|Cuál es el problema metodológico/g,''),true)" aria-label="Leer situación 2: historia de vida en una sola entrevista">Leer situación 2</button></div>
+  <div style="padding:5px 14px 0;background:var(--gs)"><button class="leer-sec" onclick="hablar('Situación 2. '+document.getElementById('dilema2').innerText.replace(/Leer situación \d/g,'').replace(/Ocultar reflexión|Cuál es el problema metodológico/g,''),true)" aria-label="Leer situación 2: historia de vida en una sola entrevista">Leer situación 2</button></div>
     <div class="dil-head">
       <div class="dil-num" aria-hidden="true">2</div>
       <div class="dil-txt" id="dil2-txt">
@@ -458,7 +461,7 @@ aria-label="Leer el módulo completo actual">
   <!-- Dilema 3 -->
 
   <article class="dilema" id="dilema3" aria-label="Situación 3: turning points sin analizar">
-  <div style="padding:8px 18px 0;background:var(--gs)"><button class="leer-sec" onclick="hablar('Situación 3. '+document.getElementById('dilema3').innerText.replace(/Leer situación \d/g,'').replace(/Ocultar reflexión|Qué oportunidad analítica/g,''),true)" aria-label="Leer situación 3: turning points sin analizar">Leer situación 3</button></div>
+  <div style="padding:5px 14px 0;background:var(--gs)"><button class="leer-sec" onclick="hablar('Situación 3. '+document.getElementById('dilema3').innerText.replace(/Leer situación \d/g,'').replace(/Ocultar reflexión|Qué oportunidad analítica/g,''),true)" aria-label="Leer situación 3: turning points sin analizar">Leer situación 3</button></div>
     <div class="dil-head">
       <div class="dil-num" aria-hidden="true">3</div>
       <div class="dil-txt" id="dil3-txt">
@@ -483,7 +486,7 @@ aria-label="Leer el módulo completo actual">
   <!-- Dilema 4 -->
 
   <article class="dilema" id="dilema4" aria-label="Situación 4: relato demasiado coherente">
-  <div style="padding:8px 18px 0;background:var(--gs)"><button class="leer-sec" onclick="hablar('Situación 4. '+document.getElementById('dilema4').innerText.replace(/Leer situación \d/g,'').replace(/Ocultar reflexión|Por qué la coherencia/g,''),true)" aria-label="Leer situación 4: relato demasiado coherente">Leer situación 4</button></div>
+  <div style="padding:5px 14px 0;background:var(--gs)"><button class="leer-sec" onclick="hablar('Situación 4. '+document.getElementById('dilema4').innerText.replace(/Leer situación \d/g,'').replace(/Ocultar reflexión|Por qué la coherencia/g,''),true)" aria-label="Leer situación 4: relato demasiado coherente">Leer situación 4</button></div>
     <div class="dil-head">
       <div class="dil-num" aria-hidden="true">4</div>
       <div class="dil-txt" id="dil4-txt">
