@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guía de Investigación · Psicología</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F8F6F1;--srf:#FFFFFF;--srf2:#F2F0EB;
+  --brd:#E2DDD6;--brd2:#CEC9C0;
+  --p:#2E6F75;--pl:#E8F4F5;--pd:#1F5057;
+  --ac:#C67C00;--acl:#FFF3D9;
+  --ok:#2D7A4F;--okl:#E8F5ED;
+  --er:#B83B3B;--erl:#FDF0EF;
+  --wn:#7A5000;--wnl:#FFF8E1;
+  --tx:#1C1C2E;--tx2:#4B4B6B;--tx3:#7A7A9A;--mu:#9090A8;
+  --sh:0 1px 4px rgba(0,0,0,.07),0 4px 16px rgba(0,0,0,.05);
+  --sh2:0 1px 3px rgba(0,0,0,.08);
+  --r:10px;--rs:6px;
+  --f:"DM Sans",system-ui,sans-serif;
+  --fs:"DM Serif Display",Georgia,serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--f);background:var(--bg);color:var(--tx);font-size:15px;line-height:1.65;min-height:100vh}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--srf2)}::-webkit-scrollbar-thumb{background:var(--brd2);border-radius:3px}
+#ah{background:var(--srf);border-bottom:1px solid var(--brd);position:sticky;top:0;z-index:100;box-shadow:var(--sh2)}
+.hi{max-width:960px;margin:0 auto;padding:12px 20px 0}
+.ht{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px}
+.at{font-family:var(--fs);font-size:19px;color:var(--pd)}
+.at span{font-family:var(--f);font-size:12px;font-weight:500;color:var(--tx3);display:block;margin-top:-2px}
+.ha{display:flex;gap:8px;align-items:center}
+.pbl{font-size:11.5px;color:var(--tx3);font-weight:500;letter-spacing:.04em;text-transform:uppercase;display:flex;justify-content:space-between;margin-bottom:5px}
+.pbar{height:4px;background:var(--brd);border-radius:2px;overflow:hidden}
+.pf{height:100%;background:linear-gradient(90deg,var(--p) 0%,#4AA8AF 100%);border-radius:2px;transition:width .4s ease}
+.tn{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;padding-bottom:1px}
+.tn::-webkit-scrollbar{display:none}
+.tb{flex-shrink:0;padding:7px 14px;border:none;background:transparent;font-family:var(--f);font-size:12.5px;font-weight:500;color:var(--tx3);cursor:pointer;border-bottom:2px solid transparent;transition:all .18s;white-space:nowrap;border-radius:4px 4px 0 0}
+.tb:hover{color:var(--p);background:var(--pl)}.tb.active{color:var(--p);border-bottom-color:var(--p);font-weight:600}
+.tb.done::after{content:"\2713";font-size:10px;color:var(--ok);margin-left:3px}
+.mw{max-width:960px;margin:0 auto;padding:28px 20px 80px}
+.tp{display:none}.tp.active{display:block}
+.ml{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--p);margin-bottom:5px}
+.mt{font-family:var(--fs);font-size:26px;color:var(--tx);line-height:1.2;margin-bottom:8px}
+.mi{font-size:14.5px;color:var(--tx2);max-width:680px;line-height:1.7;margin-bottom:20px}
+.card{background:var(--srf);border:1px solid var(--brd);border-radius:var(--r);box-shadow:var(--sh);padding:20px 22px;margin-bottom:16px}
+.ct{font-weight:600;font-size:14.5px;color:var(--tx);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.tg{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:2px 7px;border-radius:20px}
+.to{background:var(--srf2);color:var(--tx3)}.tr{background:var(--pl);color:var(--p)}
+.fg{margin-bottom:16px}
+.fl{display:block;font-size:13px;font-weight:600;color:var(--tx2);margin-bottom:6px}
+.fh{font-size:12px;color:var(--tx3);margin-bottom:6px;font-style:italic}
+textarea,input[type=text],select{width:100%;border:1.5px solid var(--brd);border-radius:var(--rs);padding:10px 13px;font-family:var(--f);font-size:14px;color:var(--tx);background:var(--srf);transition:border-color .18s,box-shadow .18s;resize:vertical}
+textarea:focus,input[type=text]:focus,select:focus{outline:none;border-color:var(--p);box-shadow:0 0 0 3px rgba(46,111,117,.1)}
+textarea{min-height:80px}select{cursor:pointer}
+.cc{font-size:11.5px;color:var(--mu);text-align:right;margin-top:4px}
+.og{display:flex;flex-direction:column;gap:8px}
+.oi{display:flex;align-items:flex-start;gap:11px;padding:10px 13px;border:1.5px solid var(--brd);border-radius:var(--rs);cursor:pointer;transition:all .15s;background:var(--srf)}
+.oi:hover,.oi.sel{border-color:var(--p);background:var(--pl)}
+.oi input{width:auto;margin-top:2px;flex-shrink:0;accent-color:var(--p)}
+.ot{flex:1}.otn{font-weight:600;font-size:14px;color:var(--tx)}.otd{font-size:12.5px;color:var(--tx3);margin-top:2px}
+.ah{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;cursor:pointer;background:var(--srf);font-weight:600;font-size:13.5px;color:var(--tx);user-select:none;transition:background .15s;border:none;width:100%;text-align:left;border:1px solid var(--brd);border-radius:var(--rs);margin-bottom:8px}
+.ah:hover{background:var(--srf2)}.ai{transition:transform .25s;font-style:normal}.ah.open .ai{transform:rotate(180deg)}
+.ab{display:none;padding:14px 16px;background:var(--srf2);border:1px solid var(--brd);border-top:none;border-radius:0 0 var(--rs) var(--rs);font-size:13.5px;color:var(--tx2);line-height:1.7;margin-top:-8px;margin-bottom:8px}.ab.open{display:block}
+.al{border-radius:var(--rs);padding:12px 15px;font-size:13.5px;display:flex;gap:10px;align-items:flex-start;margin-bottom:14px;line-height:1.6}
+.ali{font-size:17px;flex-shrink:0;margin-top:1px}.alc{flex:1}.alc strong{font-weight:700;display:block;margin-bottom:3px}
+.al.wn{background:var(--wnl);border:1.5px solid #DDB84A}.al.wn .alc strong{color:var(--wn)}
+.al.er{background:var(--erl);border:1.5px solid #E88585}.al.er .alc strong{color:var(--er)}
+.al.ok{background:var(--okl);border:1.5px solid #6BBF8A}.al.ok .alc strong{color:var(--ok)}
+.al.info{background:var(--pl);border:1.5px solid #85C2C8}.al.info .alc strong{color:var(--p)}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;border-radius:var(--rs);font-family:var(--f);font-size:13.5px;font-weight:600;cursor:pointer;border:none;transition:all .18s}
+.bp{background:var(--p);color:white}.bp:hover{background:var(--pd)}
+.bs{background:var(--srf);color:var(--tx);border:1.5px solid var(--brd2)}.bs:hover{border-color:var(--p);color:var(--p)}
+.bg{background:transparent;color:var(--p)}.bg:hover{background:var(--pl)}
+.bsm{padding:6px 13px;font-size:12.5px}.blg{padding:12px 24px;font-size:15px}
+.br{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px;align-items:center}.brr{justify-content:flex-end}
+.pb-box{background:#F5F3FF;border:1.5px solid #C0B8E8;border-radius:var(--rs);margin-top:14px;overflow:hidden}
+.pb-h{background:#6B5CDB;color:white;padding:10px 15px;font-size:12.5px;font-weight:700;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.pb-b{padding:13px 15px;font-family:"Courier New",monospace;font-size:12.5px;color:#2D2460;line-height:1.65;white-space:pre-wrap;word-break:break-word;max-height:300px;overflow-y:auto}
+.ss{background:var(--srf);border:1px solid var(--brd);border-radius:var(--r);padding:18px 20px;margin-bottom:14px}
+.sl{font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--p);margin-bottom:6px}
+.sc{font-size:14.5px;color:var(--tx);line-height:1.7}.se{font-style:italic;color:var(--mu)}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+@media(max-width:640px){.g2,.g3{grid-template-columns:1fr}}
+.eg{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px}
+@media(max-width:560px){.eg{grid-template-columns:1fr}}
+.ec{border:2px solid var(--brd);border-radius:var(--r);padding:16px 14px;text-align:center;cursor:pointer;transition:all .18s;background:var(--srf)}
+.ec:hover,.ec.sel{border-color:var(--p);background:var(--pl)}
+.ec .ico{font-size:28px;margin-bottom:8px}.ec h4{font-size:15px;font-weight:700;color:var(--tx);margin-bottom:5px}
+.ec p{font-size:12px;color:var(--tx3);line-height:1.5}
+.pc{border:2px solid var(--brd);border-radius:var(--r);padding:16px;cursor:pointer;transition:all .18s;background:var(--srf)}
+.pc:hover,.pc.sel{border-color:var(--p)}.pc.sel{background:var(--pl)}
+.pc h4{font-family:var(--fs);font-size:16px;color:var(--tx);margin-bottom:6px}
+.pc p{font-size:12.5px;color:var(--tx3);line-height:1.6}
+.pc .pt{display:flex;gap:5px;flex-wrap:wrap;margin-top:10px}
+.ptg{font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:20px;background:var(--srf2);color:var(--tx3)}
+.mc{border:2px solid var(--brd);border-radius:var(--r);padding:15px;cursor:pointer;transition:all .18s;background:var(--srf)}
+.mc:hover,.mc.sel{border-color:#7B5CDB;background:#F5F3FF}
+.mc h5{font-weight:700;font-size:14px;margin-bottom:5px}
+.mc p{font-size:12.5px;color:var(--tx3);line-height:1.5}
+.mc .mu{font-size:11.5px;margin-top:8px;color:#5040B0;font-weight:600}
+.ht-box{background:var(--acl);border:1.5px solid #DDB84A;border-radius:var(--rs);padding:13px 16px;font-size:14px;color:var(--wn);font-style:italic;margin-bottom:12px;line-height:1.7}
+.flow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:14px 0}
+.fb{background:var(--pl);border:1.5px solid var(--p);border-radius:var(--rs);padding:8px 13px;font-size:13px;font-weight:600;color:var(--p)}
+.fa{color:var(--brd2);font-size:18px}
+.mo{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;display:none;align-items:center;justify-content:center;padding:20px}
+.mo.open{display:flex}
+.mb{background:var(--srf);border-radius:var(--r);box-shadow:0 8px 40px rgba(0,0,0,.25);width:100%;max-width:640px;max-height:88vh;overflow-y:auto;padding:26px}
+.mh{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.mtl{font-family:var(--fs);font-size:20px;color:var(--tx)}
+.cb{background:var(--srf2);border:none;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:16px;color:var(--tx3);display:flex;align-items:center;justify-content:center}
+.cb:hover{background:var(--brd)}
+.et{background:var(--srf2);border:1px solid var(--brd);border-radius:var(--rs);padding:16px;font-size:13px;line-height:1.75;white-space:pre-wrap;word-break:break-word;color:var(--tx2);max-height:400px;overflow-y:auto;font-family:"Courier New",monospace}
+.badge{display:inline-block;padding:2px 9px;border-radius:20px;font-size:11px;font-weight:700}
+.bq{background:#E3F2FD;color:#1565C0}.bql{background:#EDE7F6;color:#4527A0}.bm{background:#E8F5E9;color:#2E7D32}
+.dq{background:var(--srf);border:1.5px solid var(--brd);border-radius:var(--rs);padding:14px 16px;margin-bottom:12px}
+.dqt{font-size:14px;font-weight:600;color:var(--tx);margin-bottom:10px}
+.mo2{display:flex;gap:8px;flex-wrap:wrap}
+.mopt{padding:6px 14px;border-radius:20px;border:1.5px solid var(--brd);background:var(--srf);font-size:13px;font-weight:500;cursor:pointer;transition:all .15s;color:var(--tx2)}
+.mopt:hover,.mopt.sel{border-color:var(--p);color:var(--p);background:var(--pl);font-weight:600}
+ul.sty{padding-left:18px}ul.sty li{margin-bottom:5px;font-size:13.5px;color:var(--tx2)}
+.sm{font-size:12.5px;color:var(--tx3)}hr{border:none;border-top:1px solid var(--brd);margin:16px 0}
+@media print{#ah,.br,.btn,.pb-box{display:none!important}.tp{display:block!important}.card{box-shadow:none;border:1px solid #ddd}body{background:white;font-size:12pt}}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div id="ah">
+<div class="hi">
+  <div class="ht">
+    <div><div class="at">Guía de Investigación<span>Psicología · Metodología de la Investigación · Sampieri &amp; Bautista</span></div></div>
+    <div class="ha">
+      <button class="btn bs bsm" onclick="openExp()">&#8595; Exportar</button>
+      <button class="btn bg bsm" onclick="resetAll()" title="Reiniciar todo">&#8635;</button>
+    </div>
+  </div>
+  <div style="margin-bottom:8px">
+    <div class="pbl"><span id="pl">Progreso del proyecto</span><span id="pp">0%</span></div>
+    <div class="pbar"><div class="pf" id="pf" style="width:0%"></div></div>
+  </div>
+  <nav class="tn" id="tn"></nav>
+</div>
+</div>
+
+<div class="mw">
+
+<!-- M0 -->
+<div class="tp active" id="panel-0">
+<div class="ml">Módulo 0</div><h1 class="mt">&#10004; ¿Desde dónde empiezas?</h1>
+<p class="mi">Esta herramienta te acompaña desde una idea inicial hasta un proyecto de investigación formalizado, coherente y exportable. Identifica tu punto de partida para que el recorrido sea eficiente.</p>
+<div id="sr" class="al info" style="display:none"><div class="ali">&#128190;</div><div class="alc"><strong>Sesión anterior encontrada</strong><div style="margin-top:8px;display:flex;gap:8px"><button class="btn bp bsm" onclick="restoreSession()">Continuar donde lo dejé</button><button class="btn bs bsm" onclick="resetAll()">Empezar de nuevo</button></div></div></div>
+<div class="card"><div class="ct">¿En qué punto estás?</div>
+<div class="og" id="dp">
+<label class="oi"><input type="radio" name="pto" value="tema"><div class="ot"><div class="otn">Solo tengo un tema o área de interés</div><div class="otd">Tengo una idea general pero no sé cómo convertirla en investigación.</div></div></label>
+<label class="oi"><input type="radio" name="pto" value="pregunta"><div class="ot"><div class="otn">Tengo una pregunta pero no sé cómo desarrollarla</div><div class="otd">Puedo enunciar lo que quiero saber, pero no sé qué enfoque ni metodología usar.</div></div></label>
+<label class="oi"><input type="radio" name="pto" value="enfoque"><div class="ot"><div class="otn">Sé mi enfoque pero no la metodología específica</div><div class="otd">Sé que es cuantitativo, cualitativo o mixto, pero no qué diseño o análisis aplicar.</div></div></label>
+<label class="oi"><input type="radio" name="pto" value="metodologia"><div class="ot"><div class="otn">Tengo tema, pregunta y enfoque — necesito hipótesis, variables o categorías</div><div class="otd">El planteamiento está definido pero falta la operacionalización.</div></div></label>
+<label class="oi"><input type="radio" name="pto" value="diseno"><div class="ot"><div class="otn">Tengo todo lo anterior — necesito diseñar la recolección y el análisis</div><div class="otd">El proyecto está planteado; falta la parte operativa.</div></div></label>
+</div></div>
+<div id="dv" style="display:none"><div class="card"><div class="ct">Verificación rápida</div><div id="dqs"></div></div></div>
+<div id="da"></div>
+<div class="br"><button class="btn bp blg" onclick="processDiag()">Verificar y continuar &#8594;</button></div>
+</div>
+
+<!-- M1 -->
+<div class="tp" id="panel-1">
+<div class="ml">Módulo 1</div><h1 class="mt">Del tema a la pregunta de investigación</h1>
+<p class="mi">El punto de partida de toda investigación es una pregunta bien formulada. Aquí la construirás paso a paso asegurando que sea clara, viable, pertinente e investigable.</p>
+<button class="ah" onclick="toggleAcc(this)">&#9660; ¿Cuál es la diferencia entre tema, problema y pregunta? <i class="ai">&#9660;</i></button>
+<div class="ab"><p><strong>Tema:</strong> área amplia. Ej: "ansiedad en adolescentes".</p><p style="margin-top:8px"><strong>Problema:</strong> situación específica que merece estudio. Ej: "adolescentes de Facatativá que trabajan y estudian reportan ansiedad alta pero no acceden a atención psicológica".</p><p style="margin-top:8px"><strong>Pregunta de investigación:</strong> versión interrogativa y delimitada del problema. Ej: "¿Cuál es la relación entre la carga laboral y los síntomas de ansiedad en adolescentes estudiantes-trabajadores de Facatativá en 2026?"</p></div>
+<div class="card" style="margin-top:14px">
+<div class="ct">1. Describe tu tema <span class="tg tr">Obligatorio</span></div>
+<div class="fg"><label class="fl">¿De qué trata tu investigación?</label><textarea id="m1-tema" rows="2" placeholder="Ej: ansiedad en estudiantes universitarios, violencia de pareja, estrategias de afrontamiento..." oninput="sf('m1-tema');uc(this,'cc1')"></textarea><div class="cc" id="cc1">0 caracteres</div></div>
+</div>
+<div class="card"><div class="ct">2. Delimita el tema</div>
+<div class="g2">
+<div class="fg"><label class="fl">Población</label><div class="fh">¿A quiénes estudiarás? Sé específico/a.</div><input type="text" id="m1-pop" placeholder="Ej: estudiantes universitarios 18-25 años, UDEC Facatativá" oninput="sf('m1-pop')"></div>
+<div class="fg"><label class="fl">Contexto</label><div class="fh">¿Dónde y cuándo?</div><input type="text" id="m1-ctx" placeholder="Ej: UDEC Facatativá, semestre 2026-I" oninput="sf('m1-ctx')"></div>
+</div>
+<div class="fg"><label class="fl">Fenómeno específico</label><div class="fh">¿Qué aspecto del tema estudiarás?</div><input type="text" id="m1-fen" placeholder="Ej: relación entre carga académica y síntomas de ansiedad" oninput="sf('m1-fen')"></div>
+</div>
+<div class="card"><div class="ct">3. Formula tu pregunta de investigación</div>
+<div class="fg"><label class="fl">Pregunta de investigación</label><div class="fh">Inicia con ¿Cuál...?, ¿Cómo...?, ¿Qué...?, ¿En qué medida...? Debe ser específica y delimitable.</div><textarea id="m1-preg" rows="3" placeholder="¿Cuál es la relación entre...? / ¿Cómo viven los/las...? / ¿Qué factores..." oninput="sf('m1-preg');uc(this,'cc2')"></textarea><div class="cc" id="cc2">0 caracteres</div></div>
+<button class="btn bg bsm" onclick="evalPreg()">&#128269; Evaluar esta pregunta</button>
+<div id="m1er" style="margin-top:12px"></div>
+</div>
+<div class="card"><div class="ct">4. Objetivos del estudio</div>
+<div class="fg"><label class="fl">Objetivo general</label><div class="fh">Verbo cognitivo + qué + en quién + dónde. Verbos: analizar, describir, comprender, determinar, explorar, comparar.</div><textarea id="m1-og" rows="2" placeholder="Ej: Analizar la relación entre la carga académica y los síntomas de ansiedad en estudiantes universitarios de la UDEC Facatativá durante el semestre 2026-I." oninput="sf('m1-og')"></textarea></div>
+<div class="fg"><label class="fl">Objetivos específicos (uno por línea)</label><textarea id="m1-oe" rows="4" placeholder="- Identificar el nivel de síntomas de ansiedad en la población...&#10;- Describir las características de la carga académica...&#10;- Establecer la relación entre ambas variables..." oninput="sf('m1-oe')"></textarea></div>
+</div>
+<div class="card"><div class="ct">&#129302; Solicitar evaluación de IA</div><p class="sm" style="margin-bottom:12px">Genera un prompt para revisar tu pregunta y objetivos con Claude o ChatGPT:</p><button class="btn bg bsm" onclick="genPM1()">Generar prompt de evaluación</button><div id="pm1" style="display:none;margin-top:12px"></div></div>
+<div id="m1al"></div>
+<div class="br brr"><button class="btn bs" onclick="goT(0)">&#8592; Anterior</button><button class="btn bp blg" onclick="vanext(1)">Siguiente &#8594; Enfoque y paradigma</button></div>
+</div>
+
+<!-- M2 -->
+<div class="tp" id="panel-2">
+<div class="ml">Módulo 2</div><h1 class="mt">Enfoque y paradigma de investigación</h1>
+<p class="mi">El enfoque determina cómo producirás conocimiento. Esta decisión debe ser coherente con la naturaleza del fenómeno y con tu pregunta de investigación.</p>
+<div class="card"><div class="ct">¿Qué enfoque tiene tu investigación?</div>
+<div class="eg" id="esel">
+<div class="ec" onclick="selEnf('cuanti',this)"><div class="ico">&#128202;</div><h4>Cuantitativo</h4><p>Mide variables, busca relaciones numéricas, generaliza resultados con estadística.</p></div>
+<div class="ec" onclick="selEnf('cuali',this)"><div class="ico">&#128172;</div><h4>Cualitativo</h4><p>Comprende experiencias, significados y procesos desde la perspectiva de los participantes.</p></div>
+<div class="ec" onclick="selEnf('mixto',this)"><div class="ico">&#128256;</div><h4>Mixto</h4><p>Combina ambos enfoques en un mismo estudio. Puede ser complementario o secuencial.</p></div>
+</div>
+<div id="eguia" style="display:none"></div>
+</div>
+<button class="ah" onclick="toggleAcc(this)">&#9660; ¿Cómo decido qué enfoque corresponde? <i class="ai">&#9660;</i></button>
+<div class="ab"><div class="g2"><div><strong style="color:#1565C0">Indicios cuantitativos:</strong><ul class="sty" style="margin-top:8px"><li>Tu pregunta usa "cuánto", "qué relación", "en qué medida"</li><li>Quieres medir con instrumento estandarizado</li><li>Buscas generalizar a una población</li></ul></div><div><strong style="color:#4527A0">Indicios cualitativos:</strong><ul class="sty" style="margin-top:8px"><li>Tu pregunta usa "cómo viven", "qué significado tiene"</li><li>Te interesa la experiencia subjetiva</li><li>Necesitas profundidad más que amplitud</li></ul></div></div></div>
+<div class="card" style="margin-top:14px"><div class="ct">Paradigma de investigación</div>
+<p class="sm" style="margin-bottom:14px">El paradigma es el conjunto de supuestos sobre la realidad y sobre cómo conocerla. Elige el que mejor corresponde a tu enfoque y fenómeno:</p>
+<div class="g2" id="psel">
+<div class="pc" onclick="selPar('pospositivista',this)"><h4>Positivista / Postpositivista</h4><p>La realidad existe independientemente del observador. El conocimiento se produce midiendo y verificando hipótesis.</p><div class="pt"><span class="ptg">Medición</span><span class="ptg">Hipótesis</span><span class="ptg">Generalización</span></div></div>
+<div class="pc" onclick="selPar('interpretativo',this)"><h4>Interpretativo / Constructivista</h4><p>La realidad social es construida por los actores. El conocimiento emerge de la comprensión de significados en contexto.</p><div class="pt"><span class="ptg">Significados</span><span class="ptg">Contexto</span><span class="ptg">Comprensión</span></div></div>
+<div class="pc" onclick="selPar('critico',this)"><h4>Crítico / Emancipador</h4><p>El conocimiento tiene una dimensión política y transformadora. El investigador toma posición ante las relaciones de poder.</p><div class="pt"><span class="ptg">Transformación</span><span class="ptg">Participación</span><span class="ptg">Reflexividad</span></div></div>
+<div class="pc" onclick="selPar('pragmatico',this)"><h4>Pragmático</h4><p>La verdad se evalúa por sus consecuencias prácticas. El método se elige por lo que funciona mejor para responder la pregunta.</p><div class="pt"><span class="ptg">Utilidad</span><span class="ptg">Pluralismo</span><span class="ptg">Mixto</span></div></div>
+</div></div>
+<div class="card"><div class="ct">Justifica tu elección</div><div class="fg"><label class="fl">¿Por qué este enfoque y paradigma son coherentes con tu pregunta?</label><textarea id="m2-jus" rows="3" placeholder="Ej: El fenómeno de la experiencia de duelo no puede reducirse a números sin perder su riqueza. El enfoque cualitativo permite capturar los significados que los participantes construyen..." oninput="sf('m2-jus')"></textarea></div></div>
+<div id="m2al"></div>
+<div class="br brr"><button class="btn bs" onclick="goT(1)">&#8592; Anterior</button><button class="btn bp blg" onclick="vanext(2)">Siguiente &#8594;</button></div>
+</div>
+
+<!-- M3 ALCANCE -->
+<div class="tp" id="panel-3">
+<div class="ml">Módulo 3 · <span class="badge bq">Cuantitativo</span> <span class="badge bm">Mixto</span></div>
+<h1 class="mt">Alcance de la investigación</h1>
+<p class="mi">El alcance define qué tipo de conocimiento producirá tu investigación y determina el tipo de hipótesis, diseño y análisis que necesitas.</p>
+<button class="ah" onclick="toggleAcc(this)">&#9660; ¿Por qué importa el alcance? <i class="ai">&#9660;</i></button>
+<div class="ab"><p>El alcance responde: <em>¿qué tan profundo y qué tipo de conocimiento quiero generar?</em> Depende del estado del conocimiento sobre el tema y de lo que la pregunta pretende responder.</p><div class="flow" style="margin-top:12px"><div class="fb">Exploratorio</div><div class="fa">→</div><div class="fb">Descriptivo</div><div class="fa">→</div><div class="fb">Correlacional</div><div class="fa">→</div><div class="fb">Explicativo</div></div><p class="sm" style="margin-top:8px">Este es un continuo, no una jerarquía. El alcance adecuado depende de cuánto se sabe ya sobre el fenómeno.</p></div>
+<div class="card" style="margin-top:14px"><div class="ct">Elige el alcance de tu estudio</div>
+<div class="og">
+<label class="oi"><input type="radio" name="alc" value="exploratorio" onclick="selAlc('exploratorio')"><div class="ot"><div class="otn">Exploratorio</div><div class="otd">Para temas poco estudiados. No requiere hipótesis formales. Genera preguntas más que respuestas definitivas.</div></div></label>
+<label class="oi"><input type="radio" name="alc" value="descriptivo" onclick="selAlc('descriptivo')"><div class="ot"><div class="otn">Descriptivo</div><div class="otd">Describe características de un fenómeno conocido. No establece relaciones causales. Puede tener hipótesis descriptivas.</div></div></label>
+<label class="oi"><input type="radio" name="alc" value="correlacional" onclick="selAlc('correlacional')"><div class="ot"><div class="otn">Correlacional</div><div class="otd">Determina si existe relación entre variables. No establece causalidad. Requiere hipótesis correlacionales.</div></div></label>
+<label class="oi"><input type="radio" name="alc" value="explicativo" onclick="selAlc('explicativo')"><div class="ot"><div class="otn">Explicativo</div><div class="otd">Busca determinar por qué ocurre un fenómeno. Establece relaciones de causalidad. Requiere diseños más rigurosos.</div></div></label>
+</div><div id="alci" style="display:none;margin-top:14px"></div></div>
+<div class="card"><div class="ct">Justifica el alcance</div><div class="fg"><label class="fl">¿Por qué este alcance corresponde a tu pregunta y al estado del conocimiento?</label><textarea id="m3-jus" rows="3" placeholder="Ej: El tema de X en población Y en Colombia ha sido poco estudiado. Los estudios existentes se limitan a describir... Por eso, un alcance correlacional es apropiado porque ya existe base teórica." oninput="sf('m3-jus')"></textarea></div></div>
+<div id="m3al"></div>
+<div class="br brr"><button class="btn bs" onclick="goT(2)">&#8592; Anterior</button><button class="btn bp blg" onclick="vanext(3)">Siguiente &#8594;</button></div>
+</div>
+
+<!-- M4 METODOLOGÍA CUALITATIVA -->
+<div class="tp" id="panel-4">
+<div class="ml">Módulo 4 · <span class="badge bql">Cualitativo</span></div>
+<h1 class="mt">Metodología cualitativa específica</h1>
+<p class="mi">El enfoque cualitativo tiene diversas tradiciones. La elección debe ser coherente con tu fenómeno, objetivo y relación con el campo.</p>
+<div class="card"><div class="ct">Elige la metodología que mejor responde a tu fenómeno</div>
+<div class="g2" id="mcg">
+<div class="mc" onclick="selMC('fenomenologia',this)"><h5>&#127917; Fenomenología</h5><p>Estudia la experiencia vivida tal como la perciben los participantes. Busca la esencia del fenómeno.</p><p class="mu">Úsala cuando te interesa comprender cómo vive alguien un fenómeno.</p></div>
+<div class="mc" onclick="selMC('teoria-fundamentada',this)"><h5>&#127807; Teoría Fundamentada</h5><p>Construye teoría a partir de los datos. Proceso inductivo y sistemático con saturación teórica.</p><p class="mu">Úsala cuando quieres generar una explicación teórica de un proceso.</p></div>
+<div class="mc" onclick="selMC('etnografia',this)"><h5>&#127757; Etnografía</h5><p>Describe e interpreta prácticas y creencias de un grupo cultural en su contexto natural.</p><p class="mu">Úsala cuando quieres comprender la cultura o prácticas de un grupo.</p></div>
+<div class="mc" onclick="selMC('iap',this)"><h5>&#9994; IAP</h5><p>Combina investigación y transformación social. Los participantes co-producen el conocimiento.</p><p class="mu">Úsala cuando el objetivo incluye transformar o empoderar a los participantes.</p></div>
+<div class="mc" onclick="selMC('narrativa',this)"><h5>&#128214; Investigación Narrativa</h5><p>Analiza historias de vida y relatos para comprender cómo las personas construyen sentido.</p><p class="mu">Úsala cuando las trayectorias vitales o relatos son el objeto de estudio.</p></div>
+<div class="mc" onclick="selMC('estudio-caso',this)"><h5>&#128270; Estudio de Caso</h5><p>Análisis profundo de un caso en su contexto real con múltiples fuentes de evidencia.</p><p class="mu">Úsala cuando quieres entender un caso específico en profundidad.</p></div>
+</div><div id="mcd" style="display:none;margin-top:14px"></div></div>
+<div class="card"><div class="ct">Justifica tu elección metodológica</div><div class="fg"><label class="fl">¿Por qué esta metodología responde mejor a tu fenómeno?</label><textarea id="m4-jus" rows="3" placeholder="Ej: La fenomenología es adecuada porque mi pregunta indaga sobre la experiencia subjetiva. No busco generar teoría sino comprender la esencia de esa experiencia." oninput="sf('m4-jus')"></textarea></div></div>
+<div id="m4al"></div>
+<div class="br brr"><button class="btn bs" onclick="goT(2)">&#8592; Anterior</button><button class="btn bp blg" onclick="vanext(4)">Siguiente &#8594; Marco teórico</button></div>
+</div>
+
+<!-- M5 MARCO -->
+<div class="tp" id="panel-5">
+<div class="ml">Módulo 5</div><h1 class="mt">Marco teórico y revisión de literatura</h1>
+<p class="mi">El marco teórico no es un glosario de conceptos. Es el argumento que justifica conceptualmente tu investigación y sitúa tu estudio en el conocimiento existente.</p>
+<div id="m5qg" style="display:none"></div><div id="m5cg" style="display:none"></div>
+<div class="card"><div class="ct">Conceptos clave</div><div class="fg"><label class="fl">¿Cuáles son los 3-5 conceptos centrales de tu marco?</label><textarea id="m5-con" rows="3" placeholder="Ej: ansiedad (Beck, 1985), afrontamiento (Lazarus y Folkman, 1986), carga académica, regulación emocional..." oninput="sf('m5-con')"></textarea></div></div>
+<div class="card"><div class="ct">Autores y perspectivas teóricas</div><div class="fg"><label class="fl">¿Desde qué autores o tradiciones abordarás cada concepto?</label><textarea id="m5-aut" rows="4" placeholder="Concepto 1: Ansiedad — Beck (1985), teoría cognitiva. También se revisará DSM-5 y Spielberger.&#10;Concepto 2: Afrontamiento — Lazarus y Folkman (1986), modelo transaccional." oninput="sf('m5-aut')"></textarea></div></div>
+<div class="card"><div class="ct">Relación entre conceptos</div><div class="fg"><label class="fl">¿Cómo se relacionan teóricamente tus conceptos? ¿Qué dice la literatura sobre esa relación?</label><div class="fh">Este es el núcleo del marco: no solo definir, sino articular por qué tendría sentido que X y Y se relacionen.</div><textarea id="m5-rel" rows="4" placeholder="La literatura sugiere que A influye en B a través del mecanismo C (Autor, año). Sin embargo, D puede moderar esa relación cuando... Por eso, el estudio se centra en..." oninput="sf('m5-rel')"></textarea></div></div>
+<div class="card"><div class="ct">Estado del arte y vacío de conocimiento</div><div class="fg"><label class="fl">¿Qué se sabe ya sobre el tema? ¿Qué vacío llena tu investigación?</label><textarea id="m5-est" rows="3" placeholder="Los estudios existentes han abordado X en contextos norteamericanos y europeos, pero no en Colombia... Mi investigación busca llenar ese vacío al..." oninput="sf('m5-est')"></textarea></div></div>
+<div class="card"><div class="ct">&#129302; Revisar coherencia del marco con IA</div><button class="btn bg bsm" onclick="genPM5()">Generar prompt de revisión</button><div id="pm5" style="display:none;margin-top:12px"></div></div>
+<div id="m5al"></div>
+<div class="br brr"><button class="btn bs" onclick="goTPrev(5)">&#8592; Anterior</button><button class="btn bp blg" onclick="vanext(5)">Siguiente &#8594;</button></div>
+</div>
+
+<!-- M6 HIP/VARS/CATS -->
+<div class="tp" id="panel-6">
+<div class="ml">Módulo 6</div><h1 class="mt" id="m6t">Hipótesis y variables</h1>
+<p class="mi" id="m6i">Define cómo vas a operacionalizar tu pregunta en términos medibles o interpretables.</p>
+<div id="m6c" style="display:none">
+<button class="ah" onclick="toggleAcc(this)">&#9660; ¿Cuándo se formulan hipótesis y de qué tipo? <i class="ai">&#9660;</i></button>
+<div class="ab"><p><strong>H₁ (investigación):</strong> proposición que predice la relación entre variables. Puede ser descriptiva, correlacional o de diferencia.</p><p style="margin-top:8px"><strong>H₀ (nula):</strong> proposición que niega la relación esperada. Es lo que el análisis estadístico intenta refutar.</p><p style="margin-top:8px"><strong>¿Siempre se necesitan?</strong> No. Exploratorios y descriptivos generalmente no. Correlacionales y explicativos sí.</p></div>
+<div class="card" style="margin-top:14px"><div class="ct">Hipótesis de investigación</div>
+<div class="fg"><label class="fl">H₁ — Hipótesis general</label><div class="ht-box">"Existe una relación [positiva/negativa/significativa] entre [Variable A] y [Variable B] en [población] durante [período]."</div><textarea id="m6-hip" rows="3" placeholder="Ej: Existe una relación negativa y estadísticamente significativa entre el nivel de estrés académico y el rendimiento académico en estudiantes universitarios de primer semestre de la UDEC." oninput="sf('m6-hip');evalHip()"></textarea></div>
+<div id="m6he" style="margin-top:8px"></div>
+<div class="fg" style="margin-top:12px"><label class="fl">H₀ — Hipótesis nula</label><textarea id="m6-h0" rows="2" placeholder="Ej: No existe relación estadísticamente significativa entre el nivel de estrés académico y el rendimiento académico en la población estudiada." oninput="sf('m6-h0')"></textarea></div></div>
+<div class="card"><div class="ct">Variables</div>
+<div class="fg"><label class="fl">Variable independiente (VI)</label><div class="g2"><div><label class="fl" style="font-size:12px;font-weight:500">Nombre conceptual</label><input type="text" id="m6-vic" placeholder="Ej: Estrés académico" oninput="sf('m6-vic')"></div><div><label class="fl" style="font-size:12px;font-weight:500">Operacionalización</label><input type="text" id="m6-vio" placeholder="Ej: Puntaje total en el SISCO-SV-21" oninput="sf('m6-vio')"></div></div></div>
+<div class="fg"><label class="fl">Variable dependiente (VD)</label><div class="g2"><div><label class="fl" style="font-size:12px;font-weight:500">Nombre conceptual</label><input type="text" id="m6-vdc" placeholder="Ej: Rendimiento académico" oninput="sf('m6-vdc')"></div><div><label class="fl" style="font-size:12px;font-weight:500">Operacionalización</label><input type="text" id="m6-vdo" placeholder="Ej: Promedio acumulado del semestre" oninput="sf('m6-vdo')"></div></div></div>
+<div class="fg"><label class="fl">Variables de control</label><textarea id="m6-vct" rows="2" placeholder="Ej: Sexo, semestre, estrato socioeconómico, jornada laboral" oninput="sf('m6-vct')"></textarea></div>
+</div></div>
+<div id="m6q" style="display:none">
+<div class="al info"><div class="ali">&#128172;</div><div class="alc"><strong>En el enfoque cualitativo no se formulan hipótesis cerradas</strong>Las hipótesis presuponen relaciones que debes verificar estadísticamente. En cualitativo se trabaja con preguntas orientadoras y categorías apriorísticas.</div></div>
+<div class="card"><div class="ct">Preguntas orientadoras</div><div class="fg"><label class="fl">Formula 3-5 preguntas que guíen la recolección e interpretación</label><div class="fh">No son las preguntas de la entrevista. Son preguntas teórico-metodológicas que orientan el análisis.</div><textarea id="m6-po" rows="4" placeholder="1. ¿Cómo describen los participantes su experiencia de...?&#10;2. ¿Qué significados atribuyen a...?&#10;3. ¿Qué estrategias han desarrollado para...?" oninput="sf('m6-po')"></textarea></div></div>
+<div class="card"><div class="ct">Categorías apriorísticas</div><div class="fg"><label class="fl">¿Qué dimensiones conceptuales te llevas al campo?</label><textarea id="m6-cat" rows="3" placeholder="Ej: a) Significados del duelo, b) Estrategias de afrontamiento, c) Redes de apoyo, d) Trayectoria emocional..." oninput="sf('m6-cat')"></textarea></div><div class="al wn"><div class="ali">&#9888;&#65039;</div><div class="alc"><strong>Advertencia</strong>Las categorías apriorísticas orientan pero no deben cerrar la escucha. En el campo emergen categorías que no habías anticipado. Déjalas aparecer.</div></div></div>
+</div>
+<div class="card"><div class="ct">&#129302; Evaluar con IA</div><button class="btn bg bsm" onclick="genPM6()">Generar prompt de evaluación</button><div id="pm6" style="display:none;margin-top:12px"></div></div>
+<div id="m6al"></div>
+<div class="br brr"><button class="btn bs" onclick="goTPrev(6)">&#8592; Anterior</button><button class="btn bp blg" onclick="vanext(6)">Siguiente &#8594; Diseño</button></div>
+</div>
+
+<!-- M7 DISEÑO -->
+<div class="tp" id="panel-7">
+<div class="ml">Módulo 7</div><h1 class="mt">Diseño de investigación</h1>
+<p class="mi">El diseño establece cómo obtendrás los datos. Debe ser coherente con tu enfoque, alcance y los recursos disponibles.</p>
+<div id="m7c" style="display:none">
+<div class="card"><div class="ct">Tipo de diseño cuantitativo</div>
+<div class="g2"><div class="fg"><label class="fl">¿Experimental o no experimental?</label><select id="m7-exp" onchange="sf('m7-exp');updM7()"><option value="">— Selecciona —</option><option value="experimental">Experimental (asignación aleatoria, manipulación de VI)</option><option value="cuasiexperimental">Cuasiexperimental (grupos preformados)</option><option value="no-experimental">No experimental (sin manipulación)</option></select></div>
+<div class="fg"><label class="fl">Temporalidad</label><select id="m7-tem" onchange="sf('m7-tem')"><option value="">— Selecciona —</option><option value="transversal">Transversal (un solo momento)</option><option value="longitudinal">Longitudinal (varios momentos)</option><option value="longitudinal-panel">Longitudinal de panel (mismas personas)</option></select></div></div>
+<div id="m7cd" style="margin-top:10px"></div></div>
+</div>
+<div id="m7q" style="display:none">
+<div class="card"><div class="ct">Diseño cualitativo</div>
+<div class="g2"><div class="fg"><label class="fl">Tipo de diseño</label><select id="m7-ct" onchange="sf('m7-ct');updM7Q()"><option value="">— Selecciona —</option><option value="emergente">Emergente (evoluciona en campo)</option><option value="instrumentado">Instrumentado (guiado por metodología específica)</option><option value="sistematico">Sistemático (más estructurado desde el inicio)</option></select></div>
+<div class="fg"><label class="fl">Estrategia de muestreo</label><select id="m7-mu" onchange="sf('m7-mu')"><option value="">— Selecciona —</option><option value="intencional">Intencional / Propositivo</option><option value="teorico">Muestreo teórico (teoría fundamentada)</option><option value="saturacion">Por saturación</option><option value="bola-nieve">Bola de nieve</option><option value="maxima-variacion">Máxima variación</option></select></div></div>
+<div id="m7qd" style="margin-top:10px"></div></div>
+</div>
+<div class="card"><div class="ct">Justifica tu diseño</div><div class="fg"><label class="fl">¿Por qué este diseño es el más apropiado para responder tu pregunta?</label><textarea id="m7-jus" rows="3" placeholder="Ej: Se optó por un diseño no experimental transversal porque es imposible manipular la VI éticamente, y el fenómeno se estudia en un momento específico sin seguimiento..." oninput="sf('m7-jus')"></textarea></div></div>
+<div class="card"><div class="ct">Consideraciones éticas</div><div class="fg"><label class="fl">¿Qué consideraciones éticas tiene tu diseño?</label><textarea id="m7-eti" rows="3" placeholder="Ej: Se obtendrá consentimiento informado escrito. Los datos serán anonimizados. La participación es voluntaria. No hay riesgos físicos ni emocionales significativos." oninput="sf('m7-eti')"></textarea></div></div>
+<div id="m7al"></div>
+<div class="br brr"><button class="btn bs" onclick="goTPrev(7)">&#8592; Anterior</button><button class="btn bp blg" onclick="vanext(7)">Siguiente &#8594; Recolección</button></div>
+</div>
+
+<!-- M8 RECOLECCIÓN -->
+<div class="tp" id="panel-8">
+<div class="ml">Módulo 8</div><h1 class="mt">Recolección de datos</h1>
+<p class="mi">Define quiénes serán tus participantes, con qué técnicas recolectarás información y cómo garantizarás la calidad de los datos.</p>
+<div class="card"><div class="ct">Participantes</div>
+<div class="fg"><label class="fl">Descripción de los participantes</label><textarea id="m8-par" rows="2" placeholder="Ej: Estudiantes universitarios de psicología, 18-30 años, matriculados en el semestre 2026-I en la UDEC Facatativá." oninput="sf('m8-par')"></textarea></div>
+<div class="g2"><div class="fg"><label class="fl">Criterios de inclusión</label><textarea id="m8-inc" rows="3" placeholder="- Mayor de 18 años&#10;- Matriculado en la UDEC&#10;- Haber cursado al menos un semestre" oninput="sf('m8-inc')"></textarea></div>
+<div class="fg"><label class="fl">Criterios de exclusión</label><textarea id="m8-exc" rows="3" placeholder="- Estudiantes en licencia académica&#10;- Diagnóstico previo de trastorno de ansiedad clínica" oninput="sf('m8-exc')"></textarea></div></div>
+<div id="m8mc" style="display:none">
+<div class="g2"><div class="fg"><label class="fl">Tipo de muestreo</label><select id="m8-tm" onchange="sf('m8-tm')"><option value="">— Selecciona —</option><option value="prob-aleatorio">Probabilístico aleatorio simple</option><option value="prob-estratificado">Probabilístico estratificado</option><option value="noprob-intencional">No probabilístico intencional</option><option value="noprob-conveniencia">No probabilístico por conveniencia</option></select></div>
+<div class="fg"><label class="fl">Tamaño de muestra estimado</label><input type="text" id="m8-tam" placeholder="Ej: n=120 (G*Power α=.05 β=.80)" oninput="sf('m8-tam')"></div></div>
+</div></div>
+<div class="card"><div class="ct">Técnicas e instrumentos</div>
+<div id="m8tc" style="display:none"><div class="fg"><label class="fl">Técnicas cuantitativas</label><div class="og">
+<label class="oi"><input type="checkbox" id="m8-ens" onchange="sc('m8-ens')"><div class="ot"><div class="otn">Encuesta / cuestionario autoaplicado</div></div></label>
+<label class="oi"><input type="checkbox" id="m8-esc" onchange="sc('m8-esc')"><div class="ot"><div class="otn">Escala psicométrica estandarizada</div></div></label>
+<label class="oi"><input type="checkbox" id="m8-exp" onchange="sc('m8-exp')"><div class="ot"><div class="otn">Tarea experimental / prueba</div></div></label>
+<label class="oi"><input type="checkbox" id="m8-obs" onchange="sc('m8-obs')"><div class="ot"><div class="otn">Observación sistemática</div></div></label>
+</div></div></div>
+<div id="m8tq" style="display:none"><div class="fg"><label class="fl">Técnicas cualitativas</label><div class="og">
+<label class="oi"><input type="checkbox" id="m8-ent" onchange="sc('m8-ent')"><div class="ot"><div class="otn">Entrevista en profundidad semiestructurada</div></div></label>
+<label class="oi"><input type="checkbox" id="m8-foc" onchange="sc('m8-foc')"><div class="ot"><div class="otn">Grupo de discusión / focal</div></div></label>
+<label class="oi"><input type="checkbox" id="m8-obp" onchange="sc('m8-obp')"><div class="ot"><div class="otn">Observación participante</div></div></label>
+<label class="oi"><input type="checkbox" id="m8-hiv" onchange="sc('m8-hiv')"><div class="ot"><div class="otn">Historia de vida / relato biográfico</div></div></label>
+<label class="oi"><input type="checkbox" id="m8-dia" onchange="sc('m8-dia')"><div class="ot"><div class="otn">Análisis documental / diario de campo</div></div></label>
+</div></div></div>
+<div class="fg" style="margin-top:12px"><label class="fl">Describe los instrumentos específicos</label><textarea id="m8-ins" rows="3" placeholder="Ej: SISCO-SV-21 (21 ítems, escala Likert 1-5, α=.90). Guía de entrevista semiestructurada con 8 preguntas sobre..." oninput="sf('m8-ins')"></textarea></div></div>
+<div class="card"><div class="ct">Calidad de los datos</div>
+<div id="m8rc" style="display:none">
+<div class="g2"><div class="fg"><label class="fl">Validez del instrumento</label><textarea id="m8-val" rows="2" placeholder="Ej: Validez de contenido (jueces expertos), validez de constructo (AFC), validez convergente..." oninput="sf('m8-val')"></textarea></div>
+<div class="fg"><label class="fl">Confiabilidad</label><textarea id="m8-con" rows="2" placeholder="Ej: Alfa de Cronbach = .88 (reportado en estudios previos). Se verificará en muestra piloto." oninput="sf('m8-con')"></textarea></div></div>
+</div>
+<div id="m8rq" style="display:none">
+<div class="g2"><div class="fg"><label class="fl">Credibilidad</label><textarea id="m8-cre" rows="2" placeholder="Ej: Triangulación de fuentes, revisión por participantes (member checking), reflexividad del investigador..." oninput="sf('m8-cre')"></textarea></div>
+<div class="fg"><label class="fl">Transferibilidad y confirmabilidad</label><textarea id="m8-tra" rows="2" placeholder="Ej: Descripción densa del contexto, auditoría del proceso, diario reflexivo..." oninput="sf('m8-tra')"></textarea></div></div>
+</div></div>
+<div class="card"><div class="ct">&#129302; Evaluar plan de recolección con IA</div><button class="btn bg bsm" onclick="genPM8()">Generar prompt de evaluación</button><div id="pm8" style="display:none;margin-top:12px"></div></div>
+<div id="m8al"></div>
+<div class="br brr"><button class="btn bs" onclick="goT(7)">&#8592; Anterior</button><button class="btn bp blg" onclick="vanext(8)">Siguiente &#8594; Análisis</button></div>
+</div>
+
+<!-- M9 ANÁLISIS -->
+<div class="tp" id="panel-9">
+<div class="ml">Módulo 9</div><h1 class="mt">Plan de análisis de datos</h1>
+<p class="mi">El análisis debe estar articulado con la pregunta, las hipótesis o preguntas orientadoras, y los datos que vas a recolectar. No se elige al final — se planea desde el diseño.</p>
+<div id="m9c" style="display:none">
+<div class="card"><div class="ct">Análisis descriptivo</div><div class="fg"><label class="fl">¿Qué estadísticos descriptivos usarás?</label><div class="og">
+<label class="oi"><input type="checkbox" id="m9-mc" onchange="sc('m9-mc')"><div class="ot"><div class="otn">Medidas de tendencia central (media, mediana, moda)</div></div></label>
+<label class="oi"><input type="checkbox" id="m9-md" onchange="sc('m9-md')"><div class="ot"><div class="otn">Medidas de dispersión (desviación estándar, rango)</div></div></label>
+<label class="oi"><input type="checkbox" id="m9-fr" onchange="sc('m9-fr')"><div class="ot"><div class="otn">Distribuciones de frecuencia y porcentajes</div></div></label>
+<label class="oi"><input type="checkbox" id="m9-gr" onchange="sc('m9-gr')"><div class="ot"><div class="otn">Gráficos (histogramas, boxplots, diagramas de dispersión)</div></div></label>
+</div></div></div>
+<div class="card"><div class="ct">Análisis inferencial</div>
+<div class="fg"><label class="fl">Prueba estadística principal</label>
+<select id="m9-pr" onchange="sf('m9-pr');updM9()"><option value="">— Selecciona según tu hipótesis —</option>
+<option value="pearson">Correlación de Pearson (relación entre variables continuas)</option>
+<option value="spearman">Correlación de Spearman (ordinal o no normal)</option>
+<option value="t-student">t de Student (comparación de medias 2 grupos)</option>
+<option value="anova">ANOVA (comparación de medias 3+ grupos)</option>
+<option value="chi2">Chi cuadrado (asociación entre variables categóricas)</option>
+<option value="regresion">Regresión lineal / logística (predicción)</option>
+<option value="man-whitney">U de Mann-Whitney (no paramétrica)</option>
+</select><div id="m9pd" style="margin-top:10px"></div></div>
+<div class="fg"><label class="fl">Software estadístico</label><select id="m9-sw" onchange="sf('m9-sw')"><option value="">— Selecciona —</option><option value="spss">SPSS</option><option value="r">R / RStudio</option><option value="jasp">JASP (gratuito)</option><option value="excel">Excel</option><option value="python">Python (pandas, scipy)</option></select></div>
+</div></div>
+<div id="m9q" style="display:none">
+<div class="card"><div class="ct">Plan de análisis cualitativo</div>
+<div class="fg"><label class="fl">Estrategia de análisis</label>
+<select id="m9-es" onchange="sf('m9-es');updM9Q()"><option value="">— Selecciona —</option>
+<option value="tematico">Análisis temático (identificar temas y patrones)</option>
+<option value="contenido">Análisis de contenido cualitativo</option>
+<option value="discurso">Análisis del discurso</option>
+<option value="narrativo">Análisis narrativo</option>
+<option value="codificacion">Codificación abierta-axial-selectiva (TF)</option>
+</select><div id="m9qd" style="margin-top:10px"></div></div>
+<div class="fg"><label class="fl">Proceso de codificación</label><textarea id="m9-cod" rows="3" placeholder="Ej: Primera lectura flotante → codificación abierta línea por línea → agrupación en categorías → identificación de temas → verificación con participantes..." oninput="sf('m9-cod')"></textarea></div>
+<div class="al wn"><div class="ali">&#9888;&#65039;</div><div class="alc"><strong>Recuerda: saturación teórica</strong>El análisis continúa hasta que nuevos datos no aportan categorías o propiedades nuevas. Eso define cuándo se cierra la recolección.</div></div>
+</div></div>
+<div class="card"><div class="ct">Describe tu plan de análisis</div><div class="fg"><label class="fl">Describe en tus propias palabras cómo analizarás los datos para responder tu pregunta</label><textarea id="m9-des" rows="4" placeholder="Ej: Primero se verificarán los supuestos de normalidad con la prueba de Shapiro-Wilk. Si se cumplen, se aplicará la correlación de Pearson entre la VI (estrés) y la VD (rendimiento). El nivel de significancia será α=.05." oninput="sf('m9-des')"></textarea></div></div>
+<div id="m9al"></div>
+<div class="br brr"><button class="btn bs" onclick="goT(8)">&#8592; Anterior</button><button class="btn bp blg" onclick="vanext(9)">Siguiente &#8594; Síntesis final</button></div>
+</div>
+
+<!-- M10 SÍNTESIS -->
+<div class="tp" id="panel-10">
+<div class="ml">Módulo 10 · Final</div><h1 class="mt">Síntesis del proyecto</h1>
+<p class="mi">Aquí se integra todo lo que has construido. Revisa, ajusta y exporta la ficha completa de tu proyecto de investigación.</p>
+<div class="al ok"><div class="ali">&#127881;</div><div class="alc"><strong>Has completado el recorrido metodológico</strong>A continuación encontrarás la síntesis automática de tu proyecto. Revisa la coherencia entre módulos y exporta cuando esté listo.</div></div>
+<div id="synout"></div>
+<div id="cohrep" style="margin-top:16px"></div>
+<div class="card" style="margin-top:4px"><div class="ct">&#129302; Evaluación global con IA</div><p class="sm" style="margin-bottom:12px">Genera un prompt que incluye todo el proyecto para una evaluación de coherencia global:</p><button class="btn bg bsm" onclick="genPFinal()">Generar prompt de evaluación global</button><div id="pmfin" style="display:none;margin-top:12px"></div></div>
+<div class="br"><button class="btn bs" onclick="goT(9)">&#8592; Revisar análisis</button><button class="btn bp blg" onclick="openExp()">&#8595; Exportar proyecto completo</button><button class="btn bg" onclick="window.print()">&#128424; Imprimir</button></div>
+</div>
+
+</div><!-- /mw -->
+
+<!-- EXPORT MODAL -->
+<div class="mo" id="expmod">
+<div class="mb">
+  <div class="mh"><div class="mtl">Exportar proyecto</div><button class="cb" onclick="closeExp()">&#10005;</button></div>
+  <p class="sm" style="margin-bottom:14px">Copia o descarga el texto completo de tu proyecto:</p>
+  <div class="et" id="etxt">Generando...</div>
+  <div class="br" style="margin-top:14px">
+    <button class="btn bp" onclick="copyExp()">&#128203; Copiar</button>
+    <button class="btn bs" onclick="dlExp()">&#8595; Descargar .txt</button>
+    <button class="btn bg bsm" onclick="closeExp()">Cerrar</button>
+  </div>
+</div>
+</div>
+
+<script>
+/* === STATE === */
+const NS='inv_';
+let ST={ct:0,done:[],enf:'',par:'',alc:'',mc:'',pto:''};
+
+function lg(k){try{return localStorage.getItem(NS+k)}catch(e){return null}}
+function ls(k,v){try{localStorage.setItem(NS+k,v)}catch(e){}}
+
+function loadST(){const s=lg('_st');if(s)try{ST=JSON.parse(s)}catch(e){}}
+function saveST(){ls('_st',JSON.stringify(ST))}
+
+function sf(id){const el=document.getElementById(id);if(!el)return;ls('f_'+id,el.value||'');saveST()}
+function lf(id){const el=document.getElementById(id);if(!el)return;const v=lg('f_'+id);if(v!==null)el.value=v}
+function sc(id){const el=document.getElementById(id);if(!el)return;ls('c_'+id,el.checked?'1':'0')}
+function lc(id){const el=document.getElementById(id);if(!el)return;const v=lg('c_'+id);if(v!==null)el.checked=v==='1'}
+function gv(id){const el=document.getElementById(id);return el?el.value.trim():''}
+
+/* === TABS === */
+const TABS=[
+  {id:0,label:'M0 Diagnóstico',ico:'🧭'},
+  {id:1,label:'M1 Tema',ico:'💡'},
+  {id:2,label:'M2 Enfoque',ico:'🔭'},
+  {id:3,label:'M3 Alcance',ico:'📏'},
+  {id:4,label:'M4 Metodología',ico:'🔬'},
+  {id:5,label:'M5 Marco',ico:'📚'},
+  {id:6,label:'M6 Hipótesis',ico:'❓'},
+  {id:7,label:'M7 Diseño',ico:'🗺'},
+  {id:8,label:'M8 Recolección',ico:'📋'},
+  {id:9,label:'M9 Análisis',ico:'📈'},
+  {id:10,label:'M10 Síntesis',ico:'✅'},
+];
+
+function buildTabs(){
+  const nav=document.getElementById('tn');nav.innerHTML='';
+  TABS.forEach(t=>{
+    const b=document.createElement('button');
+    b.className='tb'+(t.id===ST.ct?' active':'')+(ST.done.includes(t.id)?' done':'');
+    b.textContent=t.ico+' '+t.label;
+    b.onclick=()=>goT(t.id);
+    nav.appendChild(b);
+  });
+}
+
+function goT(n){
+  document.querySelectorAll('.tp').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panel-'+n).classList.add('active');
+  ST.ct=n;saveST();buildTabs();updProg();
+  if(n===10)buildSyn();
+  applyCV();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function vanext(n){
+  const errs=runVal(n);
+  if(!ST.done.includes(n))ST.done.push(n);
+  const nxt=nextTab(n);
+  const ald=document.getElementById('m'+n+'al');
+  if(ald)ald.innerHTML=errs.length?errs.map(e=>mkAl('wn','⚠️','Verifica antes de continuar',e)).join(''):'';
+  goT(nxt);
+}
+
+function nextTab(n){
+  if(n===2){if(ST.enf==='cuanti')return 3;if(ST.enf==='cuali')return 4;if(ST.enf==='mixto')return 3;}
+  if(n===3||n===4)return 5;
+  return Math.min(n+1,10);
+}
+
+function goTPrev(n){
+  if(n===5){if(ST.enf==='cuanti'||ST.enf==='mixto')return goT(3);if(ST.enf==='cuali')return goT(4);return goT(2);}
+  if(n===6){if(ST.enf==='cuanti'||ST.enf==='mixto')return goT(3);if(ST.enf==='cuali')return goT(4);}
+  goT(n-1);
+}
+
+function updProg(){
+  const done=ST.done.length;const total=10;
+  const pct=Math.round((done/total)*100);
+  document.getElementById('pf').style.width=pct+'%';
+  document.getElementById('pp').textContent=pct+'%';
+  document.getElementById('pl').textContent=done===total?'¡Proyecto completado! 🎉':'Módulo '+(ST.ct+1)+' de 11';
+}
+
+/* === CONDITIONAL VISIBILITY === */
+function applyCV(){
+  const e=ST.enf;if(!e)return;
+  const cq=e==='cuanti'||e==='mixto',qq=e==='cuali'||e==='mixto';
+  const show=(id,v)=>{const el=document.getElementById(id);if(el)el.style.display=v?'block':'none'};
+  show('m5qg',cq);show('m5cg',qq);
+  const m6t=document.getElementById('m6t');const m6i=document.getElementById('m6i');
+  if(m6t)m6t.textContent=e==='cuali'?'Preguntas orientadoras y categorías':'Hipótesis y variables';
+  if(m6i)m6i.textContent=e==='cuali'?'En el enfoque cualitativo no se parten de hipótesis cerradas. Se trabaja con preguntas orientadoras y categorías apriorísticas.':'Define operacionalmente tus variables y formula las hipótesis que orientarán el análisis estadístico.';
+  show('m6c',cq);show('m6q',e==='cuali');
+  show('m7c',cq);show('m7q',qq);
+  show('m8mc',cq);show('m8tc',cq);show('m8tq',qq);show('m8rc',cq);show('m8rq',qq);
+  show('m9c',cq);show('m9q',qq);
+}
+
+/* === ACCORDION === */
+function toggleAcc(head){
+  head.classList.toggle('open');
+  const body=head.nextElementSibling;
+  if(body)body.classList.toggle('open');
+}
+
+/* === ALERTS === */
+function mkAl(type,ico,title,text){
+  return`<div class="al ${type}"><div class="ali">${ico}</div><div class="alc"><strong>${title}</strong>${text}</div></div>`;
+}
+
+/* === OPT ITEMS === */
+function setupOpts(){
+  document.querySelectorAll('.oi').forEach(item=>{
+    const inp=item.querySelector('input');
+    if(!inp)return;
+    inp.addEventListener('change',()=>{
+      if(inp.type==='radio'){
+        document.querySelectorAll(`input[name="${inp.name}"]`).forEach(i=>i.closest('.oi').classList.remove('sel'));
+      }
+      if(inp.checked)item.classList.add('sel');else item.classList.remove('sel');
+    });
+    if(inp.checked)item.classList.add('sel');
+  });
+}
+
+function uc(el,ccId){
+  const d=document.getElementById(ccId);
+  if(d)d.textContent=(el.value||'').length+' caracteres';
+}
+
+/* === M0 DIAGNÓSTICO === */
+const DQS={
+  tema:[
+    {q:'¿Puedes nombrar el fenómeno específico que quieres estudiar (no solo el área)?',opts:['Sí, ya lo identifiqué','Solo tengo el área general']},
+    {q:'¿Tienes en mente una población específica?',opts:['Sí','No todavía']},
+  ],
+  pregunta:[
+    {q:'¿Tu pregunta usa verbos como "cómo", "cuál", "en qué medida"?',opts:['Sí','No está bien formulada']},
+    {q:'¿Puedes mencionar al menos una variable o fenómeno central?',opts:['Sí','No claramente']},
+  ],
+  enfoque:[
+    {q:'¿Sabes si tu estudio producirá datos numéricos o narrativos?',opts:['Numéricos (cuantitativo)','Narrativos (cualitativo)','Ambos (mixto)']},
+    {q:'¿Ya tienes una pregunta de investigación formulada?',opts:['Sí, bien formulada','En borrador','No aún']},
+  ],
+  metodologia:[
+    {q:'¿Ya definiste las variables o categorías de tu estudio?',opts:['Sí, con definición conceptual','Parcialmente','No']},
+    {q:'¿Tienes claro el paradigma desde el que trabajas?',opts:['Sí','Más o menos','No']},
+  ],
+  diseno:[
+    {q:'¿Ya tienes definidos tus instrumentos o técnicas de recolección?',opts:['Sí','En general','No']},
+    {q:'¿Sabes qué análisis estadístico o metodológico aplicarás?',opts:['Sí','Aproximadamente','No']},
+  ],
+};
+
+document.querySelectorAll('input[name="pto"]').forEach(r=>{
+  r.addEventListener('change',()=>showDV(r.value));
+});
+
+function showDV(pto){
+  ST.pto=pto;
+  const wrap=document.getElementById('dv');const qsDiv=document.getElementById('dqs');
+  wrap.style.display='block';
+  const qs=DQS[pto]||[];
+  qsDiv.innerHTML=qs.map((q,i)=>`<div class="dq"><div class="dqt">${q.q}</div><div class="mo2">${q.opts.map((o,j)=>`<button class="mopt" onclick="selDQ(${i},${j},this)">${o}</button>`).join('')}</div></div>`).join('');
+}
+
+function selDQ(qi,oi,btn){
+  btn.closest('.dq').querySelectorAll('.mopt').forEach(b=>b.classList.remove('sel'));
+  btn.classList.add('sel');
+  ls('dq_'+qi,oi);
+}
+
+function processDiag(){
+  const pto=ST.pto;
+  if(!pto){document.getElementById('da').innerHTML=mkAl('er','❌','Selecciona un punto de partida','Debes indicar desde dónde inicias.');return;}
+  const dest={tema:1,pregunta:1,enfoque:2,metodologia:6,diseno:8};
+  if(!ST.done.includes(0))ST.done.push(0);
+  goT(dest[pto]||1);
+}
+
+/* === M1 EVALUAR PREGUNTA === */
+function evalPreg(){
+  const preg=gv('m1-preg');const res=document.getElementById('m1er');
+  if(!preg){res.innerHTML=mkAl('wn','⚠️','Escribe tu pregunta primero','El campo está vacío.');return;}
+  const issues=[],ok=[];
+  if(preg.length<20)issues.push('La pregunta parece muy corta. Las preguntas de investigación suelen tener entre 20-80 palabras.');
+  else ok.push('Longitud adecuada.');
+  if(!preg.includes('?'))issues.push('La pregunta debe terminar con signo de interrogación (?).');
+  else ok.push('Tiene forma interrogativa.');
+  const vi=['¿cuál','¿cómo','¿qué','¿en qué','¿de qué','¿cuáles','¿cuánto','¿cuánta'];
+  if(!vi.some(v=>preg.toLowerCase().startsWith(v)))issues.push('Las preguntas de investigación suelen comenzar con "¿Cuál es...", "¿Cómo...", "¿Qué relación...", "¿En qué medida..."');
+  else ok.push('Inicia con verbo interrogativo adecuado.');
+  if(['determinar si','comprobar si','demostrar que'].some(v=>preg.toLowerCase().includes(v)))issues.push('"Determinar si" o "comprobar si" son objetivos, no preguntas. Reformula como pregunta directa.');
+  let html='';
+  if(ok.length)html+=mkAl('ok','✅','Aspectos positivos',ok.map(o=>'• '+o).join('<br>'));
+  if(issues.length)html+=mkAl('wn','⚠️','Aspectos a mejorar',issues.map(i=>'• '+i).join('<br>'));
+  if(!html)html=mkAl('info','ℹ️','Evaluación preliminar','La pregunta parece estructuralmente adecuada. Continúa al siguiente módulo.');
+  res.innerHTML=html;
+}
+
+/* === M2 ENFOQUE + PARADIGMA === */
+function selEnf(tipo,card){
+  ST.enf=tipo;ls('enf',tipo);
+  document.querySelectorAll('.ec').forEach(c=>c.classList.remove('sel'));
+  card.classList.add('sel');
+  const msgs={
+    cuanti:`<div class="al info"><div class="ali">📊</div><div class="alc"><strong>Enfoque cuantitativo</strong>Implica: formular hipótesis verificables, definir variables operacionalmente, usar instrumentos estandarizados y analizar datos con estadística descriptiva e inferencial.</div></div>`,
+    cuali:`<div class="al info"><div class="ali">💬</div><div class="alc"><strong>Enfoque cualitativo</strong>Implica: trabajar con preguntas orientadoras en lugar de hipótesis cerradas, buscar comprensión profunda más que generalización, y privilegiar la riqueza contextual.</div></div>`,
+    mixto:`<div class="al info"><div class="ali">🔀</div><div class="alc"><strong>Enfoque mixto</strong>Combina ambos enfoques. Implica mayor complejidad en el diseño. Debes tener claridad sobre cómo se integrarán ambos componentes y cuál tiene prioridad.</div></div>`,
+  };
+  const g=document.getElementById('eguia');g.innerHTML=msgs[tipo]||'';g.style.display='block';
+  applyCV();checkIncons();
+}
+
+function selPar(tipo,card){
+  ST.par=tipo;ls('par',tipo);
+  document.querySelectorAll('.pc').forEach(c=>c.classList.remove('sel'));
+  card.classList.add('sel');
+  checkIncons();
+}
+
+function checkIncons(){
+  const e=ST.enf,p=ST.par;
+  const al=document.getElementById('m2al');if(!al)return;
+  const issues=[];
+  if(e==='cuanti'&&p==='interpretativo')issues.push('El paradigma interpretativo/constructivista privilegia la comprensión subjetiva, más consistente con lo cualitativo. En un estudio cuantitativo, ¿cómo justificas esta combinación?');
+  if(e==='cuali'&&p==='pospositivista')issues.push('El paradigma positivista es la base del enfoque cuantitativo. Si tu estudio es cualitativo, considera el paradigma interpretativo o crítico.');
+  if(e==='cuanti'&&p==='critico')issues.push('El paradigma crítico es compatible con enfoques cualitativos y mixtos. ¿Tiene tu estudio un componente transformador o emancipador?');
+  al.innerHTML=issues.length?issues.map(i=>mkAl('wn','⚠️','Tensión paradigmática detectada',i)).join(''):
+    (e&&p?mkAl('ok','✅','Combinación coherente','La combinación de enfoque y paradigma seleccionada es metodológicamente coherente.'):'');
+}
+
+/* === M3 ALCANCE === */
+function selAlc(tipo){
+  ST.alc=tipo;ls('alc',tipo);
+  const impls={
+    exploratorio:`<div class="al info"><div class="ali">🔭</div><div class="alc"><strong>Implicaciones del alcance exploratorio</strong>No requiere hipótesis formales. Diseño más flexible. Análisis descriptivo. Muestra puede ser pequeña e intencional. Aporta preguntas para estudios posteriores.</div></div>`,
+    descriptivo:`<div class="al info"><div class="ali">📋</div><div class="alc"><strong>Implicaciones del alcance descriptivo</strong>Puede tener hipótesis descriptivas. Análisis principalmente descriptivo. Requiere muestra representativa para generalizar. Mide una o más variables sin establecer relaciones causales.</div></div>`,
+    correlacional:`<div class="al info"><div class="ali">🔗</div><div class="alc"><strong>Implicaciones del alcance correlacional</strong>Requiere hipótesis correlacionales (H₁ y H₀). Mide dos o más variables y analiza su relación. No establece causalidad. Usa correlaciones de Pearson, Spearman, regresión, etc.</div></div>`,
+    explicativo:`<div class="al info"><div class="ali">⚙️</div><div class="alc"><strong>Implicaciones del alcance explicativo</strong>Requiere hipótesis causales. Diseños más complejos (experimental, longitudinal). Análisis de regresión, ANOVA, modelos estructurales. Alta exigencia en el control de variables extrañas.</div></div>`,
+  };
+  const d=document.getElementById('alci');d.style.display='block';d.innerHTML=impls[tipo]||'';
+  if(tipo==='explicativo'&&ST.enf==='cuali'){
+    const al=document.getElementById('m3al');if(al)al.innerHTML=mkAl('wn','⚠️','Tensión metodológica','Los estudios cualitativos raramente usan el alcance "explicativo" en el sentido de Sampieri. ¿Buscas comprensión profunda (cualitativo) o prueba de causalidad (cuantitativo)?');
+  }
+}
+
+/* === M4 METODOLOGÍA CUALITATIVA === */
+const MCD={
+  fenomenologia:{d:`<strong>Objetivo:</strong> Describir la esencia de la experiencia vivida.<br><strong>Pregunta típica:</strong> "¿Cómo es la experiencia de X para quienes la viven?"<br><strong>Datos:</strong> Entrevistas en profundidad.<br><strong>Análisis:</strong> Epoché, reducción eidética, descripción de la estructura.<br><strong>Referentes:</strong> Husserl, Merleau-Ponty, Van Manen.`},
+  'teoria-fundamentada':{d:`<strong>Objetivo:</strong> Generar teoría a partir de los datos.<br><strong>Pregunta típica:</strong> "¿Cómo ocurre el proceso de X?"<br><strong>Datos:</strong> Entrevistas, observación, documentos.<br><strong>Análisis:</strong> Codificación abierta → axial → selectiva. Saturación teórica.<br><strong>Referentes:</strong> Glaser y Strauss, Charmaz, Corbin y Strauss.`},
+  etnografia:{d:`<strong>Objetivo:</strong> Describir e interpretar la cultura de un grupo.<br><strong>Pregunta típica:</strong> "¿Cómo construyen y practican X los miembros de este grupo?"<br><strong>Datos:</strong> Observación participante, entrevistas etnográficas, documentos.<br><strong>Análisis:</strong> Descripción densa (Geertz).<br><strong>Referentes:</strong> Malinowski, Geertz, Spradley.`},
+  iap:{d:`<strong>Objetivo:</strong> Transformar una situación social con los participantes.<br><strong>Pregunta típica:</strong> "¿Cómo podemos comprender y transformar X junto a la comunidad?"<br><strong>Datos:</strong> Talleres, grupos focales, observación.<br><strong>Análisis:</strong> Construcción colectiva, reflexión-acción.<br><strong>Referentes:</strong> Kurt Lewin, Orlando Fals Borda, Paulo Freire.`},
+  narrativa:{d:`<strong>Objetivo:</strong> Comprender cómo las personas construyen sentido a través de sus relatos.<br><strong>Pregunta típica:</strong> "¿Cómo narran su experiencia de X las personas que la vivieron?"<br><strong>Datos:</strong> Historias de vida, relatos biográficos, entrevistas narrativas.<br><strong>Análisis:</strong> Análisis estructural del relato.<br><strong>Referentes:</strong> Ricoeur, Connelly y Clandinin, Bolívar.`},
+  'estudio-caso':{d:`<strong>Objetivo:</strong> Análisis profundo de un caso en su contexto real.<br><strong>Pregunta típica:</strong> "¿Cómo funciona/ocurre X en este caso específico?"<br><strong>Datos:</strong> Múltiples fuentes: entrevistas, documentos, observación.<br><strong>Análisis:</strong> Triangulación, descripción densa, proposiciones.<br><strong>Referentes:</strong> Yin, Stake.`},
+};
+
+function selMC(tipo,card){
+  ST.mc=tipo;ls('mc',tipo);
+  document.querySelectorAll('.mc').forEach(c=>c.classList.remove('sel'));
+  card.classList.add('sel');
+  const d=MCD[tipo];const dd=document.getElementById('mcd');
+  if(d){dd.style.display='block';dd.innerHTML=`<div class="card" style="background:var(--pl);border-color:var(--p)"><div class="ct">Guía metodológica</div><p style="font-size:13.5px;line-height:1.7">${d.d}</p></div>`;}
+}
+
+/* === M6 HIPÓTESIS === */
+function evalHip(){
+  const hip=document.getElementById('m6-hip');if(!hip)return;
+  const v=hip.value.trim();const d=document.getElementById('m6he');
+  if(!v){d.innerHTML='';return;}
+  const issues=[],ok=[];
+  if(v.endsWith('?'))issues.push('Una hipótesis es una afirmación, no una pregunta.');
+  else ok.push('Tiene forma declarativa (afirmación).');
+  const rw=['relación','diferencia','mayor','menor','efecto','influye','predice','asocia','correlación','significativa'];
+  if(!rw.some(w=>v.toLowerCase().includes(w)))issues.push('Debería indicar algún tipo de relación o diferencia entre variables.');
+  else ok.push('Menciona una relación entre variables.');
+  if(v.length>200)issues.push('La hipótesis es muy extensa. Idealmente no supera las 60-80 palabras.');
+  d.innerHTML=(issues.length?mkAl('wn','⚠️','Aspectos a revisar',issues.map(i=>'• '+i).join('<br>')):'')+(ok.length?mkAl('ok','✅','Aspectos positivos',ok.map(o=>'• '+o).join('<br>')):'');
+}
+
+/* === M7 DISEÑO === */
+function updM7(){
+  const v=document.getElementById('m7-exp').value;
+  const d=document.getElementById('m7cd');
+  const msgs={experimental:`<div class="al ok"><div class="ali">🔬</div><div class="alc"><strong>Diseño experimental</strong>Requiere asignación aleatoria y grupo control. Alta validez interna. Permite establecer causalidad. Más común en psicología clínica y experimental.</div></div>`,cuasiexperimental:`<div class="al info"><div class="ali">⚗️</div><div class="alc"><strong>Diseño cuasiexperimental</strong>Grupos preexistentes. No hay asignación aleatoria. Menor validez interna que el experimental, pero más viable en contextos reales.</div></div>`,'no-experimental':`<div class="al info"><div class="ali">👁</div><div class="alc"><strong>Diseño no experimental</strong>No se manipulan variables. El investigador observa el fenómeno tal como ocurre. El más común en psicología social y clínica. No permite inferir causalidad directamente.</div></div>`};
+  d.innerHTML=msgs[v]||'';
+}
+function updM7Q(){
+  const v=document.getElementById('m7-ct').value;
+  const d=document.getElementById('m7qd');
+  const msgs={emergente:`<div class="al info"><div class="ali">🌿</div><div class="alc"><strong>Diseño emergente</strong>El plan evoluciona a medida que avanza la investigación. El más coherente con fenomenología e IAP. Requiere alta tolerancia a la ambigüedad.</div></div>`,instrumentado:`<div class="al info"><div class="ali">🛠</div><div class="alc"><strong>Diseño instrumentado</strong>Guiado desde el inicio por una metodología específica (teoría fundamentada, etnografía). Sistemático pero permite emergencia dentro del marco metodológico.</div></div>`,sistematico:`<div class="al info"><div class="ali">📐</div><div class="alc"><strong>Diseño sistemático</strong>Más estructurado. Adecuado cuando se tiene claridad previa sobre las preguntas y el campo.</div></div>`};
+  d.innerHTML=msgs[v]||'';
+}
+
+/* === M9 ANÁLISIS === */
+function updM9(){
+  const v=document.getElementById('m9-pr').value;
+  const d=document.getElementById('m9pd');
+  const msgs={pearson:`<strong>Correlación de Pearson:</strong> mide la relación lineal entre dos variables continuas con distribución normal. Resultado: r (−1 a 1). Supuestos: normalidad, linealidad, homocedasticidad.`,spearman:`<strong>Correlación de Spearman:</strong> alternativa no paramétrica a Pearson. Usa rangos. Adecuada para variables ordinales o cuando no se cumple la normalidad.`,'t-student':`<strong>t de Student:</strong> compara las medias de dos grupos. Puede ser para muestras independientes o relacionadas. Supuestos: normalidad, homocedasticidad.`,anova:`<strong>ANOVA:</strong> extensión de la t para comparar tres o más grupos. Si es significativa, requiere pruebas post-hoc (Tukey, Bonferroni).`,chi2:`<strong>Chi cuadrado:</strong> analiza si dos variables categóricas están asociadas. Requiere frecuencias esperadas ≥ 5.`,regresion:`<strong>Regresión:</strong> lineal si la VD es continua, logística si es dicotómica. Permite predecir Y a partir de X₁, X₂...`,'man-whitney':`<strong>U de Mann-Whitney:</strong> alternativa no paramétrica a la t de Student. Compara distribuciones de dos grupos independientes.`};
+  const msg=msgs[v]||'';
+  d.innerHTML=msg?`<div class="al info"><div class="ali">ℹ️</div><div class="alc">${msg}</div></div>`:'';
+}
+function updM9Q(){
+  const v=document.getElementById('m9-es').value;
+  const d=document.getElementById('m9qd');
+  const msgs={tematico:`<strong>Análisis temático:</strong> identificar, analizar y reportar patrones (temas) en los datos. Flexible. Fases: familiarización, codificación, búsqueda de temas, revisión, definición y reporte.`,contenido:`<strong>Análisis de contenido cualitativo:</strong> sistemático e interpretativo. Puede ser inductivo (desde los datos) o deductivo (desde teoría previa).`,discurso:`<strong>Análisis del discurso:</strong> estudia el lenguaje en uso. No solo qué se dice, sino cómo, desde dónde y con qué efectos.`,narrativo:`<strong>Análisis narrativo:</strong> examina la estructura, contenido y función de los relatos. ¿Cómo se cuenta? ¿Qué posición toma el narrador?`,codificacion:`<strong>Codificación en TF:</strong> abierta (etiquetar línea por línea), axial (relacionar categorías), selectiva (integrar y refinar). Proceso iterativo hasta saturación.`};
+  const msg=msgs[v]||'';
+  d.innerHTML=msg?`<div class="al info"><div class="ali">ℹ️</div><div class="alc">${msg}</div></div>`:'';
+}
+
+/* === VALIDACIÓN === */
+function runVal(n){
+  const errs=[];
+  if(n===1){
+    if(!gv('m1-tema'))errs.push('Debes describir tu tema antes de continuar.');
+    if(!gv('m1-preg'))errs.push('La pregunta de investigación es obligatoria.');
+    else if(gv('m1-preg').length<20)errs.push('La pregunta parece demasiado corta. Amplía y delimita mejor.');
+    if(!gv('m1-og'))errs.push('El objetivo general es obligatorio.');
+  }
+  if(n===2){if(!ST.enf)errs.push('Selecciona un enfoque.');if(!ST.par)errs.push('Selecciona el paradigma.');}
+  if(n===3&&!ST.alc)errs.push('Selecciona el alcance de tu investigación.');
+  if(n===4&&!ST.mc)errs.push('Selecciona la metodología cualitativa específica.');
+  if(n===5&&!gv('m5-con'))errs.push('Registra al menos los conceptos clave de tu marco teórico.');
+  if(n===8&&!gv('m8-par'))errs.push('Describe quiénes serán los participantes de tu estudio.');
+  return errs;
+}
+
+/* === PROMPTS IA === */
+function showPrompt(divId,texto){
+  const d=document.getElementById(divId);d.style.display='block';
+  const esc=texto.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  d.innerHTML=`<div class="pb-box"><div class="pb-h"><span>📋 Copia este prompt y pégalo en Claude, ChatGPT u otra IA</span><button style="background:rgba(255,255,255,.2);color:white;border:none;cursor:pointer;padding:4px 10px;border-radius:4px;font-size:12px" onclick="cpTxt(this,\`${texto.replace(/`/g,'\`').replace(/
+/g,'\n')}\`)">Copiar</button></div><div class="pb-b">${esc}</div></div>`;
+}
+function cpTxt(btn,t){navigator.clipboard.writeText(t).then(()=>{const o=btn.textContent;btn.textContent='✅ Copiado';setTimeout(()=>{btn.textContent=o},2000)}).catch(()=>{});}
+
+function genPM1(){showPrompt('pm1',`Eres un experto en metodología de investigación en psicología. Evalúa la siguiente pregunta de investigación y los objetivos de un estudiante universitario de psicología, usando como criterios los de Hernández Sampieri (2014).
+
+TEMA: ${gv('m1-tema')}
+POBLACIÓN: ${gv('m1-pop')}
+CONTEXTO: ${gv('m1-ctx')}
+FENÓMENO: ${gv('m1-fen')}
+PREGUNTA DE INVESTIGACIÓN: ${gv('m1-preg')}
+OBJETIVO GENERAL: ${gv('m1-og')}
+OBJETIVOS ESPECÍFICOS:
+${gv('m1-oe')}
+
+Por favor evalúa:
+1. ¿La pregunta es clara, específica y viable? ¿Qué mejorarías?
+2. ¿El objetivo general usa verbos de investigación apropiados?
+3. ¿Hay coherencia entre pregunta, tema y objetivos?
+4. ¿La pregunta sugiere un enfoque cuantitativo, cualitativo o mixto?
+5. Señala DOS fortalezas y DOS aspectos a mejorar.`);}
+
+function genPM5(){showPrompt('pm5',`Actúa como metodólogo/a especialista en psicología. Evalúa el siguiente marco teórico en construcción de un estudiante universitario.
+
+ENFOQUE: ${ST.enf}
+TEMA: ${gv('m1-tema')}
+PREGUNTA: ${gv('m1-preg')}
+CONCEPTOS CLAVE: ${gv('m5-con')}
+AUTORES Y PERSPECTIVAS: ${gv('m5-aut')}
+RELACIÓN ENTRE CONCEPTOS: ${gv('m5-rel')}
+ESTADO DEL ARTE: ${gv('m5-est')}
+
+Evalúa:
+1. ¿Los conceptos son relevantes y coherentes con la pregunta?
+2. ¿Las perspectivas teóricas son apropiadas para el fenómeno estudiado?
+3. ¿Se identifica claramente el vacío de conocimiento que el estudio llena?
+4. ¿Hay tensiones o incoherencias teóricas a resolver?
+5. ¿Qué autores o líneas adicionales recomendarías explorar?`);}
+
+function genPM6(){
+  const isQ=ST.enf==='cuali';
+  showPrompt('pm6',isQ?`Actúa como investigador/a cualitativo/a experto/a. Evalúa las preguntas orientadoras y categorías apriorísticas de este estudio.
+
+METODOLOGÍA: ${ST.mc}
+PREGUNTA DE INVESTIGACIÓN: ${gv('m1-preg')}
+PREGUNTAS ORIENTADORAS: ${gv('m6-po')}
+CATEGORÍAS APRIORÍSTICAS: ${gv('m6-cat')}
+
+Evalúa:
+1. ¿Las preguntas orientadoras son suficientemente abiertas?
+2. ¿Las categorías apriorísticas están justificadas en el marco teórico?
+3. ¿Hay coherencia entre metodología y las preguntas propuestas?
+4. ¿Qué ajustes recomendarías?`
+:`Actúa como metodólogo/a especialista. Evalúa la siguiente hipótesis y variables de un estudio cuantitativo.
+
+PREGUNTA: ${gv('m1-preg')}
+ALCANCE: ${ST.alc}
+H₁: ${gv('m6-hip')}
+H₀: ${gv('m6-h0')}
+VI CONCEPTUAL: ${gv('m6-vic')} | OPERACIONAL: ${gv('m6-vio')}
+VD CONCEPTUAL: ${gv('m6-vdc')} | OPERACIONAL: ${gv('m6-vdo')}
+
+Evalúa:
+1. ¿La hipótesis es falseable y coherente con el alcance ${ST.alc}?
+2. ¿Las definiciones operacionales permiten medir lo que conceptualmente se propone?
+3. ¿La H₀ corresponde correctamente a la H₁?
+4. ¿Qué problemas de validez de constructo podrían presentarse?`);}
+
+function genPM8(){showPrompt('pm8',`Eres un experto en metodología de investigación. Evalúa el siguiente plan de recolección de datos.
+
+ENFOQUE: ${ST.enf}
+PARTICIPANTES: ${gv('m8-par')}
+CRITERIOS DE INCLUSIÓN: ${gv('m8-inc')}
+CRITERIOS DE EXCLUSIÓN: ${gv('m8-exc')}
+INSTRUMENTOS: ${gv('m8-ins')}
+${ST.enf!=='cuali'?`TIPO MUESTREO: ${gv('m8-tm')}
+TAMAÑO MUESTRAL: ${gv('m8-tam')}
+VALIDEZ: ${gv('m8-val')}
+CONFIABILIDAD: ${gv('m8-con')}`:`CREDIBILIDAD: ${gv('m8-cre')}
+TRANSFERIBILIDAD: ${gv('m8-tra')}`}
+
+Evalúa:
+1. ¿Los criterios de inclusión/exclusión son claros y pertinentes?
+2. ¿El muestreo es apropiado para el enfoque y alcance?
+3. ¿Los instrumentos son coherentes con las variables o categorías?
+4. ¿Hay consideraciones éticas que no se estén atendiendo?
+5. ¿Qué ajustes recomendarías?`);}
+
+function genPFinal(){const t=buildExp(true);showPrompt('pmfin',`Eres un metodólogo/a experto/a en investigación en ciencias sociales y psicología. Evalúa la coherencia global del siguiente anteproyecto:
+
+${t}
+
+Evalúa:
+1. COHERENCIA INTERNA: ¿todos los componentes son coherentes entre sí?
+2. TENSIONES METODOLÓGICAS: ¿detectas alguna inconsistencia?
+3. VIABILIDAD: ¿el proyecto es realizable para un estudiante universitario?
+4. APORTE: ¿el vacío de conocimiento identificado es real y relevante?
+5. RECOMENDACIONES: señala los 3 ajustes más importantes.`);}
+
+/* === SÍNTESIS M10 === */
+function buildSyn(){
+  const e=ST.enf;
+  const secs=[
+    {l:'Tema de investigación',c:gv('m1-tema')},
+    {l:'Población',c:gv('m1-pop')},
+    {l:'Contexto',c:gv('m1-ctx')},
+    {l:'Fenómeno de interés',c:gv('m1-fen')},
+    {l:'Pregunta de investigación',c:gv('m1-preg')},
+    {l:'Objetivo general',c:gv('m1-og')},
+    {l:'Objetivos específicos',c:gv('m1-oe')},
+    {l:'Enfoque metodológico',c:{cuanti:'Cuantitativo',cuali:'Cualitativo',mixto:'Mixto'}[e]||''},
+    {l:'Paradigma',c:{pospositivista:'Positivista / Postpositivista',interpretativo:'Interpretativo / Constructivista',critico:'Crítico / Emancipador',pragmatico:'Pragmático'}[ST.par]||''},
+    (e==='cuali'||e==='mixto')?{l:'Metodología cualitativa',c:ST.mc||''}:null,
+    (e==='cuanti'||e==='mixto')?{l:'Alcance',c:ST.alc||''}:null,
+    {l:'Conceptos teóricos centrales',c:gv('m5-con')},
+    {l:'Perspectivas teóricas',c:gv('m5-aut')},
+    {l:'Vacío de conocimiento',c:gv('m5-est')},
+    (e==='cuanti'||e==='mixto')?{l:'Hipótesis H₁',c:gv('m6-hip')}:null,
+    (e==='cuanti'||e==='mixto')?{l:'Hipótesis H₀',c:gv('m6-h0')}:null,
+    (e==='cuanti'||e==='mixto')?{l:'VI',c:gv('m6-vic')+' — '+gv('m6-vio')}:null,
+    (e==='cuanti'||e==='mixto')?{l:'VD',c:gv('m6-vdc')+' — '+gv('m6-vdo')}:null,
+    (e==='cuali'||e==='mixto')?{l:'Preguntas orientadoras',c:gv('m6-po')}:null,
+    (e==='cuali'||e==='mixto')?{l:'Categorías apriorísticas',c:gv('m6-cat')}:null,
+    {l:'Diseño',c:[gv('m7-exp'),gv('m7-tem'),gv('m7-ct'),gv('m7-mu')].filter(Boolean).join(' / ')},
+    {l:'Justificación del diseño',c:gv('m7-jus')},
+    {l:'Participantes',c:gv('m8-par')},
+    {l:'Instrumentos',c:gv('m8-ins')},
+    {l:'Plan de análisis',c:gv('m9-des')},
+    {l:'Consideraciones éticas',c:gv('m7-eti')},
+  ].filter(Boolean);
+  const out=document.getElementById('synout');
+  out.innerHTML=secs.map(s=>{
+    const empty=!s.c||s.c.trim()===''||s.c.trim()==='/'||s.c.trim()===' — ';
+    return`<div class="ss"><div class="sl">${s.l}</div><div class="sc ${empty?'se':''}">${empty?'No registrado':s.c.replace(/
+/g,'<br>')}</div></div>`;
+  }).join('');
+  buildCoh();
+}
+
+function buildCoh(){
+  const e=ST.enf,p=ST.par;const issues=[],oks=[];
+  if(e&&p){
+    if(e==='cuanti'&&p==='interpretativo')issues.push('Tensión entre enfoque cuantitativo y paradigma interpretativo.');
+    if(e==='cuali'&&p==='pospositivista')issues.push('Tensión entre enfoque cualitativo y paradigma positivista.');
+    else oks.push('La combinación de enfoque y paradigma es coherente.');
+  }
+  if(e==='cuali'&&gv('m6-hip'))issues.push('Formulaste una hipótesis en un estudio cualitativo. El enfoque cualitativo no parte de hipótesis cerradas.');
+  if((e==='cuanti'||e==='mixto')&&!gv('m6-hip')&&(ST.alc==='correlacional'||ST.alc==='explicativo'))issues.push(`El alcance ${ST.alc} requiere hipótesis formales que no están registradas.`);
+  if(gv('m1-preg')&&gv('m1-og'))oks.push('Pregunta de investigación y objetivo general registrados.');
+  if(!gv('m8-par'))issues.push('No has descrito los participantes del estudio.');
+  if(gv('m5-con'))oks.push('El marco teórico tiene conceptos registrados.');
+  const d=document.getElementById('cohrep');
+  let html='<div class="card"><div class="ct">🔍 Reporte de coherencia</div>';
+  if(oks.length)html+=mkAl('ok','✅','Aspectos coherentes',oks.map(o=>'• '+o).join('<br>'));
+  if(issues.length)html+=mkAl('wn','⚠️','Tensiones detectadas',issues.map(i=>'• '+i).join('<br>'));
+  if(!issues.length&&!oks.length)html+=mkAl('info','ℹ️','Sin datos suficientes','Completa más módulos para obtener un reporte de coherencia completo.');
+  html+='</div>';d.innerHTML=html;
+}
+
+/* === EXPORTAR === */
+function buildExp(forPrompt=false){
+  const e=ST.enf;const sep='─'.repeat(48);
+  let t=`ANTEPROYECTO DE INVESTIGACIÓN
+${sep}
+Generado con: Guía de Investigación — Psicología
+Fecha: ${new Date().toLocaleDateString('es-CO')}
+${sep}
+
+${gv('m1-tema')?'TEMA: '+gv('m1-tema')+'
+':''}${gv('m1-pop')?'POBLACIÓN: '+gv('m1-pop')+'
+':''}${gv('m1-ctx')?'CONTEXTO: '+gv('m1-ctx')+'
+':''}${gv('m1-fen')?'FENÓMENO: '+gv('m1-fen')+'
+':''}
+
+${sep}
+1. PREGUNTA DE INVESTIGACIÓN
+${sep}
+${gv('m1-preg')}
+
+${sep}
+2. OBJETIVOS
+${sep}
+General:
+${gv('m1-og')}
+
+Específicos:
+${gv('m1-oe')}
+
+${sep}
+3. ENFOQUE Y PARADIGMA
+${sep}
+Enfoque: ${({cuanti:'Cuantitativo',cuali:'Cualitativo',mixto:'Mixto'}[e]||'No definido')}
+Paradigma: ${ST.par||'No definido'}
+Justificación: ${gv('m2-jus')}
+${(e==='cuali'||e==='mixto')?`
+Metodología cualitativa: ${ST.mc}
+${gv('m4-jus')}`:''}
+${(e==='cuanti'||e==='mixto')?`
+Alcance: ${ST.alc}
+${gv('m3-jus')}`:''}
+
+${sep}
+4. MARCO TEÓRICO
+${sep}
+Conceptos clave: ${gv('m5-con')}
+Autores y perspectivas: ${gv('m5-aut')}
+Relación entre conceptos: ${gv('m5-rel')}
+Estado del arte: ${gv('m5-est')}
+
+${sep}
+5. ${e==='cuali'?'PREGUNTAS ORIENTADORAS Y CATEGORÍAS':'HIPÓTESIS Y VARIABLES'}
+${sep}
+${e==='cuali'?`Preguntas orientadoras:
+${gv('m6-po')}
+
+Categorías apriorísticas:
+${gv('m6-cat')}`:`H₁: ${gv('m6-hip')}
+H₀: ${gv('m6-h0')}
+VI: ${gv('m6-vic')} — ${gv('m6-vio')}
+VD: ${gv('m6-vdc')} — ${gv('m6-vdo')}`}
+
+${sep}
+6. DISEÑO DE INVESTIGACIÓN
+${sep}
+${[gv('m7-exp'),gv('m7-tem'),gv('m7-ct'),gv('m7-mu')].filter(Boolean).join(' | ')}
+${gv('m7-jus')}
+
+${sep}
+7. RECOLECCIÓN DE DATOS
+${sep}
+Participantes: ${gv('m8-par')}
+Instrumentos: ${gv('m8-ins')}
+
+${sep}
+8. ANÁLISIS DE DATOS
+${sep}
+${gv('m9-des')}
+
+${sep}
+9. CONSIDERACIONES ÉTICAS
+${sep}
+${gv('m7-eti')}
+`;return t;}
+
+function openExp(){
+  buildSyn();
+  document.getElementById('etxt').textContent=buildExp();
+  document.getElementById('expmod').classList.add('open');
+}
+function closeExp(){document.getElementById('expmod').classList.remove('open');}
+function copyExp(){
+  const t=document.getElementById('etxt').textContent;
+  navigator.clipboard.writeText(t).then(()=>{
+    const btn=event.target;const o=btn.textContent;btn.textContent='✅ Copiado';setTimeout(()=>{btn.textContent=o},2000);
+  });
+}
+function dlExp(){
+  const t=buildExp();const blob=new Blob([t],{type:'text/plain;charset=utf-8'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='anteproyecto_investigacion.txt';a.click();
+}
+
+/* === SESSION === */
+function checkSR(){const s=lg('_st');if(s){const d=document.getElementById('sr');if(d)d.style.display='flex';}}
+
+const FIELDS=['m1-tema','m1-pop','m1-ctx','m1-fen','m1-preg','m1-og','m1-oe','m2-jus','m3-jus','m4-jus','m5-con','m5-aut','m5-rel','m5-est','m6-hip','m6-h0','m6-vic','m6-vio','m6-vdc','m6-vdo','m6-vct','m6-po','m6-cat','m7-exp','m7-tem','m7-ct','m7-mu','m7-jus','m7-eti','m8-par','m8-inc','m8-exc','m8-tm','m8-tam','m8-ins','m8-val','m8-con','m8-cre','m8-tra','m9-pr','m9-sw','m9-es','m9-cod','m9-des'];
+const CHECKS=['m8-ens','m8-esc','m8-exp','m8-obs','m8-ent','m8-foc','m8-obp','m8-hiv','m8-dia','m9-mc','m9-md','m9-fr','m9-gr'];
+
+function restoreSession(){
+  loadST();
+  FIELDS.forEach(lf);CHECKS.forEach(lc);
+  if(ST.enf){const c=document.querySelector('.ec:nth-child('+({cuanti:1,cuali:2,mixto:3}[ST.enf]||1)+')');if(c)c.classList.add('sel');}
+  if(ST.par){const idx={pospositivista:0,interpretativo:1,critico:2,pragmatico:3}[ST.par];const c=document.querySelectorAll('.pc')[idx];if(c)c.classList.add('sel');}
+  if(ST.alc){const r=document.querySelector(`input[name="alc"][value="${ST.alc}"]`);if(r){r.checked=true;r.closest('.oi').classList.add('sel');}}
+  if(ST.mc){const cards=document.querySelectorAll('.mc');const types=['fenomenologia','teoria-fundamentada','etnografia','iap','narrativa','estudio-caso'];const idx=types.indexOf(ST.mc);if(cards[idx])cards[idx].classList.add('sel');}
+  applyCV();
+  document.querySelectorAll('input[name="pto"]').forEach(r=>{if(r.value===ST.pto){r.checked=true;r.closest('.oi').classList.add('sel');}});
+  goT(ST.ct||0);
+  document.getElementById('sr').style.display='none';
+}
+
+function resetAll(){
+  if(!confirm('¿Estás seguro/a? Se perderá todo el progreso guardado.'))return;
+  Object.keys(localStorage).filter(k=>k.startsWith(NS)).forEach(k=>localStorage.removeItem(k));
+  ST={ct:0,done:[],enf:'',par:'',alc:'',mc:'',pto:''};
+  location.reload();
+}
+
+/* === INIT === */
+function init(){
+  buildTabs();checkSR();
+  document.querySelectorAll('.oi').forEach(item=>{
+    const inp=item.querySelector('input');if(!inp)return;
+    inp.addEventListener('change',()=>{
+      if(inp.type==='radio')document.querySelectorAll(`input[name="${inp.name}"]`).forEach(i=>i.closest('.oi').classList.remove('sel'));
+      if(inp.checked)item.classList.add('sel');else item.classList.remove('sel');
+    });
+    if(inp.checked)item.classList.add('sel');
+  });
+  updProg();
+}
+window.addEventListener('DOMContentLoaded',init);
+</script>
+</body>
+</html>
