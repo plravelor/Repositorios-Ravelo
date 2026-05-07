@@ -29,8 +29,8 @@ html{color-scheme:light!important}
   --o:#5c4200;--oc:#fef6e0;
   --p:#3a1a5c;--pc:#ebe3f5;
   --r:#7a1a1a;--rc:#fce8e8;
-  --g:#1c1a17;--gs:#f3f0e8;--bd:#c0bcb4;
-  --fondo:#faf8f4;
+  --g:#1c1a17;--gs:#e8e4db;--bd:#c0bcb4;
+  --fondo:#f2efe8;
   --focus:#0055cc;
   --focus-ring:0 0 0 4px #faf8f4,0 0 0 7px var(--focus);
   --tts-bg:#e2ede7;--tts-fg:#1a3a28;
@@ -144,7 +144,8 @@ vertical-align:middle;
 .leer-inline:focus-visible{outline:3px solid var(–focus);outline-offset:2px}
 /* Read-section button */
 .leer-sec{
-display:inline-flex;align-items:center;gap:6px;
+display:flex;align-items:center;gap:6px;
+width:fit-content;
 padding:5px 12px;border-radius:5px;
 background:var(–vc);color:var(–v);
 border:1.5px solid var(–vm);
@@ -177,7 +178,7 @@ hr{border:none;border-top:2px solid var(–bd);margin:24px 0}
 /* ══ CARDS ══ */
 .card{background:#ffffff;border-radius:10px;padding:20px 22px;margin-bottom:18px;border:1px solid #c0bcb4;color:#1c1a17}
 .card-v{border-left:6px solid var(–v)}.card-o{border-left:6px solid var(–o)}.card-p{border-left:6px solid var(–p)}
-.banner{background:var(–vc);color:var(–v);border:1.5px solid var(–vm);border-radius:8px;padding:12px 16px;margin-bottom:14px;font-size:14px;line-height:1.7}
+.banner{background:var(–vc);color:var(–v);border:2px solid var(–vm);border-radius:8px;padding:12px 16px;margin-bottom:14px;font-size:14px;line-height:1.7;box-shadow:0 2px 6px rgba(26,92,58,.08)}
 .banner strong{color:#1a5c3a}
 .nota{background:#fef6e0;border-left:5px solid #5c4200;border-radius:0 8px 8px 0;padding:14px 18px;margin:12px 0;font-size:14.5px;color:#1c1a17}
 .nota .nl{font-family:system-ui,sans-serif;font-size:12px;font-weight:700;color:var(–o);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
@@ -404,14 +405,14 @@ aria-label="Leer el módulo completo actual">
   </button>
 
   <div class="banner" id="banner-m0">
-  <button class="leer-sec" onclick="hablar(document.getElementById('banner-m0').innerText,true)" aria-label="Leer introducción del módulo Descubrir"><svg aria-hidden='true' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5'><polygon points='5 3 19 12 5 21 5 3'/></svg>Leer introducción</button>
-    Antes de cualquier definición: cuatro situaciones donde una vida completa —o un tramo de ella— es el objeto mismo de la investigación. Reflexiona y luego revela lo que está detrás de cada caso.
-  </div>
+  <button class="leer-sec" style="display:block;margin-bottom:10px" onclick="hablar(document.getElementById('banner-m0').innerText,true)" aria-label="Leer introducción del módulo Descubrir"><svg aria-hidden='true' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5'><polygon points='5 3 19 12 5 21 5 3'/></svg>Leer introducción</button>
+  <p style="margin:0">Antes de cualquier definición: cuatro situaciones donde una vida completa —o un tramo de ella— es el objeto mismo de la investigación. Reflexiona y luego revela lo que está detrás de cada caso.</p>
+</div>
 
   <!-- Dilema 1 -->
 
   <article class="dilema" id="dilema1" aria-label="Situación 1: excombatientes en Cundinamarca">
-  <div style="padding:5px 14px 0;background:var(--gs)"><button class="leer-sec" onclick="hablar('Situación 1. '+document.getElementById('dilema1').innerText.replace(/Leer situación \d/g,''),true)" aria-label="Leer situación 1: excombatientes en Cundinamarca">Leer situación 1</button></div>
+  <div style="padding:5px 14px 4px;background:var(--gs)"><button class="leer-sec" style="display:flex" onclick="hablar('Situación 1. '+document.getElementById('dilema1').innerText.replace(/Leer situación \d/g,''),true)" aria-label="Leer situación 1: excombatientes en Cundinamarca">Leer situación 1</button></div>
     <div class="dil-head">
       <div class="dil-num" aria-hidden="true">1</div>
       <div class="dil-txt" id="dil1-txt">
@@ -436,7 +437,7 @@ aria-label="Leer el módulo completo actual">
   <!-- Dilema 2 -->
 
   <article class="dilema" id="dilema2" aria-label="Situación 2: historia de vida en una sola entrevista">
-  <div style="padding:5px 14px 0;background:var(--gs)"><button class="leer-sec" onclick="hablar('Situación 2. '+document.getElementById('dilema2').innerText.replace(/Leer situación \d/g,'').replace(/Ocultar reflexión|Cuál es el problema metodológico/g,''),true)" aria-label="Leer situación 2: historia de vida en una sola entrevista">Leer situación 2</button></div>
+  <div style="padding:5px 14px 4px;background:var(--gs)"><button class="leer-sec" style="display:flex" onclick="hablar('Situación 2. '+document.getElementById('dilema2').innerText.replace(/Leer situación \d/g,'').replace(/Ocultar reflexión|Cuál es el problema metodológico/g,''),true)" aria-label="Leer situación 2: historia de vida en una sola entrevista">Leer situación 2</button></div>
     <div class="dil-head">
       <div class="dil-num" aria-hidden="true">2</div>
       <div class="dil-txt" id="dil2-txt">
@@ -461,7 +462,7 @@ aria-label="Leer el módulo completo actual">
   <!-- Dilema 3 -->
 
   <article class="dilema" id="dilema3" aria-label="Situación 3: turning points sin analizar">
-  <div style="padding:5px 14px 0;background:var(--gs)"><button class="leer-sec" onclick="hablar('Situación 3. '+document.getElementById('dilema3').innerText.replace(/Leer situación \d/g,'').replace(/Ocultar reflexión|Qué oportunidad analítica/g,''),true)" aria-label="Leer situación 3: turning points sin analizar">Leer situación 3</button></div>
+  <div style="padding:5px 14px 4px;background:var(--gs)"><button class="leer-sec" style="display:flex" onclick="hablar('Situación 3. '+document.getElementById('dilema3').innerText.replace(/Leer situación \d/g,'').replace(/Ocultar reflexión|Qué oportunidad analítica/g,''),true)" aria-label="Leer situación 3: turning points sin analizar">Leer situación 3</button></div>
     <div class="dil-head">
       <div class="dil-num" aria-hidden="true">3</div>
       <div class="dil-txt" id="dil3-txt">
@@ -486,7 +487,7 @@ aria-label="Leer el módulo completo actual">
   <!-- Dilema 4 -->
 
   <article class="dilema" id="dilema4" aria-label="Situación 4: relato demasiado coherente">
-  <div style="padding:5px 14px 0;background:var(--gs)"><button class="leer-sec" onclick="hablar('Situación 4. '+document.getElementById('dilema4').innerText.replace(/Leer situación \d/g,'').replace(/Ocultar reflexión|Por qué la coherencia/g,''),true)" aria-label="Leer situación 4: relato demasiado coherente">Leer situación 4</button></div>
+  <div style="padding:5px 14px 4px;background:var(--gs)"><button class="leer-sec" style="display:flex" onclick="hablar('Situación 4. '+document.getElementById('dilema4').innerText.replace(/Leer situación \d/g,'').replace(/Ocultar reflexión|Por qué la coherencia/g,''),true)" aria-label="Leer situación 4: relato demasiado coherente">Leer situación 4</button></div>
     <div class="dil-head">
       <div class="dil-num" aria-hidden="true">4</div>
       <div class="dil-txt" id="dil4-txt">
@@ -576,9 +577,9 @@ aria-label="Leer el módulo completo actual">
   </button>
 
   <div class="banner" id="banner-m2">
-  <button class="leer-sec" onclick="hablar(document.getElementById('banner-m2').innerText,true)" aria-label="Leer introducción sobre el método biográfico">Leer introducción</button>
-  El método biográfico no es "hacer una entrevista muy larga". Es una decisión epistemológica: elegir narrar para comprender. La pregunta no es qué piensa alguien hoy, sino <strong>cómo llegó a pensar eso y qué trayectoria construyó ese presente</strong>.
-  </div>
+  <button class="leer-sec" onclick="hablar(document.getElementById('banner-m2').innerText,true)" aria-label="Leer introducción sobre el método biográfico" style="display:flex;margin-bottom:10px">Leer introducción</button>
+  <p style="margin:0">El método biográfico no es "hacer una entrevista muy larga". Es una decisión epistemológica: elegir narrar para comprender. La pregunta no es qué piensa alguien hoy, sino <strong>cómo llegó a pensar eso y qué trayectoria construyó ese presente</strong>.</p>
+</div>
 
   <h3>Historia de vida vs. relato de vida</h3>
 
@@ -826,9 +827,9 @@ aria-label="Leer el módulo completo actual">
   </button>
 
   <div class="banner" id="banner-m6">
-  <button class="leer-sec" onclick="hablar(document.getElementById('banner-m6').innerText,true)" aria-label="Leer presentación de las lecturas para la sesión 11">Leer presentación</button>
-  Sesión 11: <strong>Grupo de discusión.</strong> Esta vez ambos leen el mismo texto. El interaprendizaje será diferente: deberán haber llegado a reflexiones distintas sobre el mismo material.
-  </div>
+  <button class="leer-sec" onclick="hablar(document.getElementById('banner-m6').innerText,true)" aria-label="Leer presentación de las lecturas para la sesión 11" style="display:flex;margin-bottom:10px">Leer presentación</button>
+  <p style="margin:0">Sesión 11: <strong>Grupo de discusión.</strong> Esta vez ambos leen el mismo texto. El interaprendizaje será diferente: deberán haber llegado a reflexiones distintas sobre el mismo material.</p>
+</div>
 
   <div class="lect-card">
     <div class="lect-hdr">Canales Cerón (2006) — Lectura para ambos integrantes</div>
