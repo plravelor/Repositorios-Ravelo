@@ -1,805 +1,1117 @@
 <!DOCTYPE html>
+
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Huellas de Vida — Método biográfico · Sesión 10</title>
+<meta name="color-scheme" content="light">
+<title>Huellas de Vida — Método biográfico · Sesión 10 · Versión accesible</title>
+<meta name="description" content="Herramienta pedagógica accesible para Seminario de Investigación II. Incluye lectura en voz alta de todo el contenido, navegación por teclado completa y modo audio integrado.">
 <style>
-:root{
-  --v:#1a5c3a;--vc:#e8f5ee;--vm:#2d7a52;
-  --a:#1a3a5c;--ac:#e4edf8;
-  --o:#7a5c00;--oc:#fef5e0;
-  --p:#3a1a5c;--pc:#f0e8f8;
-  --r:#6b1a1a;--rc:#fdeaea;
-  --g:#2c2c2a;--gs:#f6f5f1;--bd:#ccc9c2;
-  --fondo:#edeae4;
+/* ══ FORZAR MODO CLARO — anula modo oscuro del sistema operativo ══ */
+html{color-scheme:light!important}
+*{-webkit-color-scheme:light!important;color-scheme:light!important}
+@media(prefers-color-scheme:dark){
+  html,body,*{
+    background-color:initial!important;
+    color:initial!important;
+  }
+  html{color-scheme:light!important;background:#faf8f4!important}
+  body{background:#faf8f4!important;color:#1c1a17!important}
 }
+</style>
+<style>
+/* ══ VARIABLES ══ */
+:root{
+  color-scheme:light;
+  --v:#1a5c3a;--vc:#deeee5;--vm:#2d7a52;
+  --a:#1a3a5c;--ac:#dce9f5;
+  --o:#5c4200;--oc:#fef6e0;
+  --p:#3a1a5c;--pc:#ebe3f5;
+  --r:#7a1a1a;--rc:#fce8e8;
+  --g:#1c1a17;--gs:#f3f0e8;--bd:#c0bcb4;
+  --fondo:#faf8f4;
+  --focus:#0055cc;
+  --focus-ring:0 0 0 4px #faf8f4,0 0 0 7px var(--focus);
+  --tts-bg:#e2ede7;--tts-fg:#1a3a28;
+}
+html{
+  background:#faf8f4;
+  color:#1c1a17;
+}
+
+/* ══ RESET ══ */
 *{box-sizing:border-box;margin:0;padding:0}
-.skip{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;background:#fff;color:var(--v);font-weight:700;padding:12px 20px;font-size:14px;z-index:9999;border:2px solid var(--v)}
-.skip:focus{left:8px;top:8px;width:auto;height:auto;overflow:visible}
-#live{position:absolute;left:-10000px}
-body{font-family:Georgia,'Times New Roman',serif;font-size:15px;line-height:1.75;color:var(--g);background:var(--fondo);min-height:100vh}
-header{background:var(--v);color:#fff;padding:14px 20px}
-header h1{font-family:system-ui,sans-serif;font-size:17px;font-weight:700}
-header p{font-size:11px;opacity:.82;margin-top:2px;font-family:system-ui,sans-serif}
-nav[role="tablist"]{background:#fff;border-bottom:3px solid var(--vc);overflow-x:auto;display:flex;position:sticky;top:0;z-index:100;box-shadow:0 2px 6px rgba(0,0,0,.08)}
-nav[role="tablist"] button{flex-shrink:0;padding:11px 14px;font-size:12px;font-family:system-ui,sans-serif;font-weight:600;border:none;background:none;cursor:pointer;color:#777;border-bottom:3px solid transparent;margin-bottom:-3px;transition:all .2s;white-space:nowrap;line-height:1.3}
-nav[role="tablist"] button:focus{outline:3px solid #0055cc;outline-offset:-3px;background:#e8efff}
-nav[role="tablist"] button[aria-selected="true"]{color:var(--v);border-bottom-color:var(--v);background:var(--vc)}
-nav[role="tablist"] button:hover:not([aria-selected="true"]){background:#f5f4f0;color:var(--g)}
-main{max-width:780px;margin:0 auto;padding:22px 18px 80px}
-section[role="tabpanel"]{display:none}
-section[role="tabpanel"].vis{display:block}
-section[role="tabpanel"]:focus{outline:none}
-.en-clase,.en-casa{display:inline-flex;align-items:center;gap:5px;font-family:system-ui,sans-serif;font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px;letter-spacing:.03em;margin-bottom:12px;border:1.5px solid}
-.en-clase{background:var(--vc);color:var(--v);border-color:var(--vm)}
-.en-casa{background:var(--pc);color:var(--p);border-color:var(--p)}
-.prog-txt{font-family:system-ui,sans-serif;font-size:12px;color:#999;text-align:right;margin-bottom:8px}
-h2{font-family:system-ui,sans-serif;font-size:20px;font-weight:700;color:var(--v);margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid var(--vc)}
-h3{font-family:system-ui,sans-serif;font-size:16px;font-weight:700;color:var(--v);margin:20px 0 8px}
-h4{font-family:system-ui,sans-serif;font-size:14px;font-weight:700;color:var(--g);margin:14px 0 6px}
-p{margin-bottom:9px;font-size:15px}
-ul,ol{padding-left:22px;margin-bottom:9px}
-li{margin-bottom:5px;font-size:15px}
+*:focus{outline:4px solid var(–focus);outline-offset:3px}
+*:focus:not(:focus-visible){outline:none}
+*:focus-visible{outline:4px solid var(–focus);outline-offset:3px;box-shadow:var(–focus-ring)}
+
+/* ══ SKIP LINKS (WCAG 2.4.1) ══ */
+.skip-group{position:absolute;top:0;left:0;z-index:10000}
+.skip{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;background:var(–focus);color:#fff;font-weight:700;padding:14px 22px;font-size:15px;border:3px solid #fff;text-decoration:none;border-radius:0 0 8px 0}
+.skip:focus{position:static;left:auto;width:auto;height:auto;overflow:visible;display:block}
+
+/* ══ LIVE REGIONS (WCAG 4.1.3) ══ */
+#live-polite,#live-assertive{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}
+
+/* ══ TTS CONTROL BAR (siempre visible) ══ */
+#tts-bar{
+background:var(–tts-bg);color:var(–tts-fg);
+display:flex;align-items:center;flex-wrap:wrap;gap:10px;
+padding:12px 18px;position:sticky;top:0;z-index:200;
+border-bottom:3px solid var(–vm);
+border-top:3px solid var(–vm);
+font-family:system-ui,sans-serif;font-size:13px;
+box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+#tts-bar .tts-label{font-weight:700;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:#1a5c3a;flex-shrink:0}
+.tts-btn{
+display:inline-flex;align-items:center;gap:6px;
+padding:8px 14px;border-radius:6px;border:2px solid var(–vm);
+background:#fff;color:var(–v);font-family:system-ui,sans-serif;
+font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;white-space:nowrap;
+}
+.tts-btn:hover{background:var(–vm);color:#fff}
+.tts-btn:focus-visible{outline:3px solid var(–v);outline-offset:2px;box-shadow:none}
+.tts-btn.active{background:var(–vm);color:#fff;border-color:#1a5c3a}
+#tts-reading{
+flex:1;min-width:120px;font-size:12px;color:#2d6b4a;font-style:italic;
+border-left:1.5px solid #90b8a0;padding-left:12px;
+overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+.speed-ctrl{display:flex;align-items:center;gap:6px;font-size:12px}
+.speed-ctrl input[type=“range”]{width:70px;accent-color:var(–vm);cursor:pointer}
+#tts-bar .atajos{font-size:11px;color:#2d6b4a}
+
+/* ══ BODY ══ */
+body{font-family:Georgia,‘Times New Roman’,serif;font-size:16px;line-height:1.8;color:#1c1a17;background:#faf8f4;min-height:100vh}
+
+/* ══ HEADER ══ */
+header{background:var(–v);color:#fff;padding:16px 20px}
+header h1{font-family:system-ui,sans-serif;font-size:18px;font-weight:700;line-height:1.3}
+header p{font-size:12px;opacity:.85;margin-top:4px;font-family:system-ui,sans-serif}
+.version-badge{display:inline-block;background:#b8f0d0;color:#1a3a1a;font-size:11px;font-weight:700;padding:2px 10px;border-radius:10px;margin-top:6px}
+
+/* ══ NAV TABS (WCAG 2.1 Role=tablist) ══ */
+nav[role=“tablist”]{
+background:#faf8f4!important;border-bottom:3px solid var(–vc);
+overflow-x:auto;display:flex;
+position:sticky;top:62px;z-index:100;
+box-shadow:0 2px 6px rgba(0,0,0,.1)
+}
+nav[role=“tablist”] button{
+flex-shrink:0;padding:12px 14px;font-size:12px;
+font-family:system-ui,sans-serif;font-weight:600;
+border:none;background:none;cursor:pointer;
+color:#4a4540;border-bottom:3px solid transparent;
+margin-bottom:-3px;transition:all .2s;
+white-space:nowrap;line-height:1.35;min-height:56px;
+}
+nav[role=“tablist”] button:focus-visible{outline:4px solid var(–focus);outline-offset:-4px;background:#e8efff}
+nav[role=“tablist”] button[aria-selected=“true”]{color:var(–v);border-bottom-color:var(–v);background:var(–vc)}
+nav[role=“tablist”] button:hover:not([aria-selected=“true”]){background:#edeae3;color:var(–g)}
+/* WCAG 2.5.5 — minimum target size 44×44px */
+nav[role=“tablist”] button{min-width:44px}
+
+/* ══ MAIN ══ */
+main{max-width:780px;margin:0 auto;padding:24px 18px 80px;background:#faf8f4}
+section[role=“tabpanel”]{display:none}
+section[role=“tabpanel”].vis{display:block}
+section[role=“tabpanel”]:focus{outline:none}
+
+/* ══ READ-SECTION BUTTONS ══ */
+.leer-btn{
+display:inline-flex;align-items:center;gap:8px;
+padding:10px 18px;border-radius:24px;
+background:var(–vc);color:var(–v);
+border:2px solid var(–vm);font-family:system-ui,sans-serif;
+font-size:13px;font-weight:700;cursor:pointer;
+transition:all .2s;margin-bottom:16px;
+}
+.leer-btn:hover{background:var(–vm);color:#fff}
+.leer-btn:focus-visible{outline:4px solid var(–focus);outline-offset:3px}
+.leer-btn svg{flex-shrink:0;width:18px;height:18px}
+.leer-inline{
+background:#edf7f2;border:1.5px solid var(–vm);color:var(–v);
+font-size:11px;padding:3px 8px;border-radius:12px;cursor:pointer;
+font-family:system-ui,sans-serif;font-weight:700;margin-left:8px;
+vertical-align:middle;
+}
+.leer-inline:focus-visible{outline:3px solid var(–focus);outline-offset:2px}
+
+/* ══ TYPOGRAPHY ══ */
+h2{font-family:system-ui,sans-serif;font-size:21px;font-weight:700;color:var(–v);margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid var(–vc)}
+h3{font-family:system-ui,sans-serif;font-size:17px;font-weight:700;color:var(–v);margin:22px 0 10px}
+h4{font-family:system-ui,sans-serif;font-size:15px;font-weight:700;color:var(–g);margin:16px 0 8px}
+p{margin-bottom:10px;font-size:15.5px}
+ul,ol{padding-left:24px;margin-bottom:10px}
+li{margin-bottom:6px;font-size:15.5px}
 strong{font-weight:700}
 em{font-style:italic}
-hr{border:none;border-top:1px solid var(--bd);margin:22px 0}
-.card{background:#fff;border-radius:10px;padding:18px 20px;margin-bottom:16px;border:1px solid var(--bd)}
-.card-v{border-left:5px solid var(--v)}.card-a{border-left:5px solid var(--a)}.card-o{border-left:5px solid var(--o)}.card-p{border-left:5px solid var(--p)}.card-r{border-left:5px solid var(--r)}
-.banner{background:var(--v);color:#fff;border-radius:10px;padding:16px 20px;margin-bottom:20px;font-size:15px;line-height:1.7}
-.banner strong{color:#b8f0d0}
-.nota{background:var(--oc);border-left:4px solid var(--o);border-radius:0 8px 8px 0;padding:12px 16px;margin:10px 0;font-size:14px}
-.nota .nl{font-family:system-ui,sans-serif;font-size:11px;font-weight:700;color:var(--o);text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px}
+hr{border:none;border-top:2px solid var(–bd);margin:24px 0}
 
-/* AC box */
-.ac-box{background:#fff;border:2px dashed var(--p);border-radius:10px;overflow:hidden;margin-bottom:16px}
-.ac-hdr{background:var(--p);color:#fff;padding:10px 16px;font-family:system-ui,sans-serif;font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;display:flex;align-items:center;gap:8px}
-.ac-body{padding:16px 18px}
-.ac-body p{font-size:14px;margin-bottom:8px}
-.paso{display:flex;gap:12px;margin-bottom:12px;align-items:flex-start}
-.paso-n{background:var(--p);color:#fff;font-family:system-ui,sans-serif;font-size:11px;font-weight:700;min-width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
-.ronda{background:var(--pc);border-radius:8px;padding:12px 16px;margin-bottom:10px}
-.ronda strong{font-family:system-ui,sans-serif;font-size:12px;color:var(--p);display:block;margin-bottom:4px}
+/* ══ CARDS ══ */
+.card{background:#ffffff;border-radius:10px;padding:20px 22px;margin-bottom:18px;border:1px solid #c0bcb4;color:#1c1a17}
+.card-v{border-left:6px solid var(–v)}.card-o{border-left:6px solid var(–o)}.card-p{border-left:6px solid var(–p)}
+.banner{background:var(–vc);color:var(–v);border:2px solid var(–vm);border-radius:10px;padding:18px 22px;margin-bottom:22px;font-size:15.5px;line-height:1.8}
+.banner strong{color:#1a5c3a}
+.nota{background:#fef6e0;border-left:5px solid #5c4200;border-radius:0 8px 8px 0;padding:14px 18px;margin:12px 0;font-size:14.5px;color:#1c1a17}
+.nota .nl{font-family:system-ui,sans-serif;font-size:12px;font-weight:700;color:var(–o);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
 
-/* Concepto cards */
-.concepto{background:#fff;border-radius:10px;border:1px solid var(--bd);overflow:hidden;margin-bottom:12px}
-.concepto-hdr{padding:12px 18px;background:var(--gs);display:flex;align-items:center;gap:12px;cursor:pointer}
-.concepto-hdr:focus{outline:3px solid #0055cc;outline-offset:-3px}
-.concepto-ico{font-size:22px;flex-shrink:0}
-.concepto-tit{flex:1;font-family:system-ui,sans-serif;font-size:14px;font-weight:700}
-.concepto-sub{font-size:12px;font-weight:400;color:#888;display:block;margin-top:2px}
-.concepto-chev{flex-shrink:0;font-size:13px;color:var(--vm);transition:transform .25s}
-.concepto-hdr[aria-expanded="true"] .concepto-chev{transform:rotate(180deg)}
-.concepto-hdr[aria-expanded="true"]{background:var(--vc);color:var(--v)}
-.concepto-body{display:none;padding:14px 18px 18px;border-top:1px solid var(--vc);font-size:14px}
+/* ══ AC BOX ══ */
+.ac-box{background:#ffffff;border:2px solid #3a1a5c;border-radius:10px;overflow:hidden;margin-bottom:18px;color:#1c1a17}
+.ac-hdr{background:var(–pc);color:var(–p);padding:12px 18px;font-family:system-ui,sans-serif;font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;display:flex;align-items:center;gap:8px;border-bottom:2px solid var(–p)}
+.ac-body{padding:18px 20px;background:#ffffff;color:#1c1a17}
+.ac-body p{font-size:14.5px;margin-bottom:10px}
+.paso{display:flex;gap:14px;margin-bottom:14px;align-items:flex-start}
+.paso-n{background:var(–pc);color:var(–p);border:2px solid var(–p);font-family:system-ui,sans-serif;font-size:12px;font-weight:700;min-width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:4px}
+.ronda{background:#ebe3f5;border-radius:8px;padding:14px 18px;margin-bottom:12px;color:#1c1a17}
+.ronda strong{font-family:system-ui,sans-serif;font-size:13px;color:var(–p);display:block;margin-bottom:5px}
+
+/* ══ CONCEPTO ACCORDION ══ */
+.concepto{background:#ffffff;border-radius:10px;border:1px solid #c0bcb4;overflow:hidden;margin-bottom:14px}
+.concepto-hdr{
+padding:14px 18px;background:#f3f0e8;display:flex;align-items:center;gap:12px;
+cursor:pointer;width:100%;border:none;text-align:left;color:#1c1a17;
+}
+.concepto-hdr:focus-visible{outline:4px solid var(–focus);outline-offset:-4px}
+.concepto-ico{font-size:24px;flex-shrink:0;line-height:1}
+.concepto-tit{flex:1;font-family:system-ui,sans-serif;font-size:15px;font-weight:700}
+.concepto-sub{font-size:13px;font-weight:400;color:#5a5650;display:block;margin-top:2px}
+.concepto-chev{flex-shrink:0;font-size:14px;color:var(–vm);transition:transform .25s}
+.concepto-hdr[aria-expanded=“true”] .concepto-chev{transform:rotate(180deg)}
+.concepto-hdr[aria-expanded=“true”]{background:var(–vc)}
+.concepto-body{display:none;padding:16px 20px 20px;border-top:1px solid #deeee5;font-size:15px;background:#ffffff;color:#1c1a17}
 .concepto-body.open{display:block}
 
-/* Comparison table */
-.comp-table{width:100%;border-collapse:collapse;font-size:13px;font-family:system-ui,sans-serif;margin:12px 0 16px}
-.comp-table th{background:var(--a);color:#fff;padding:9px 14px;text-align:left}
-.comp-table td{padding:8px 14px;border-bottom:1px solid var(--bd);vertical-align:top}
-.comp-table tr:nth-child(even) td{background:var(--gs)}
+/* ══ TABLA COMPARATIVA ══ */
+.comp-table{width:100%;border-collapse:collapse;font-size:14px;font-family:system-ui,sans-serif;margin:14px 0 18px}
+.comp-table th{background:var(–vc);color:var(–v);padding:10px 16px;text-align:left;font-weight:700;border-bottom:2px solid var(–vm)}
+.comp-table td{padding:9px 16px;border-bottom:1px solid var(–bd);vertical-align:top;background:#fff;color:#1c1a17}
+.comp-table tr:nth-child(even) td{background:#f3f0e8;color:#1c1a17}
 
-/* Dilema */
-.dilema{background:#fff;border-radius:10px;border:1.5px solid var(--bd);overflow:hidden;margin-bottom:14px}
-.dil-head{padding:14px 18px;background:var(--gs);display:flex;align-items:flex-start;gap:12px}
-.dil-num{background:var(--v);color:#fff;font-family:system-ui,sans-serif;font-size:12px;font-weight:700;min-width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
-.dil-txt{flex:1;font-size:14px}
-.btn-rev{background:var(--vc);color:var(--v);border:2px solid var(--v);padding:6px 14px;border-radius:20px;font-family:system-ui,sans-serif;font-size:12px;font-weight:700;cursor:pointer;flex-shrink:0;margin-top:2px;transition:all .2s}
-.btn-rev:hover{background:var(--v);color:#fff}
-.btn-rev:focus{outline:3px solid #0055cc;outline-offset:2px}
-.dil-tension{padding:14px 18px;background:var(--rc);border-top:1px solid #e8c0c0;display:none}
+/* ══ DILEMA ══ */
+.dilema{background:#ffffff;border-radius:10px;border:2px solid #c0bcb4;overflow:hidden;margin-bottom:16px;color:#1c1a17}
+.dil-head{padding:16px 20px;background:#f3f0e8;display:flex;align-items:flex-start;gap:14px;color:#1c1a17}
+.dil-num{background:var(–vc);color:var(–v);border:2px solid var(–v);font-family:system-ui,sans-serif;font-size:13px;font-weight:700;min-width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:3px}
+.dil-txt{flex:1;font-size:15px;line-height:1.75}
+.btn-rev{
+background:var(–vc);color:var(–v);border:2px solid var(–v);
+padding:8px 16px;border-radius:20px;font-family:system-ui,sans-serif;
+font-size:13px;font-weight:700;cursor:pointer;flex-shrink:0;margin-top:3px;
+transition:all .2s;min-height:44px;
+}
+.btn-rev:hover{background:var(–v);color:#fff}
+.btn-rev:focus-visible{outline:4px solid var(–focus);outline-offset:3px}
+.dil-tension{display:none;padding:16px 20px;background:var(–rc);border-top:1px solid #e8c0c0}
 .dil-tension.vis{display:block}
-.dil-lbl{font-family:system-ui,sans-serif;font-size:11px;font-weight:700;color:var(--r);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+.dil-lbl{font-family:system-ui,sans-serif;font-size:12px;font-weight:700;color:var(–r);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px}
 
-/* Línea de vida visual */
-.linea-vida{position:relative;padding:10px 0;margin:16px 0}
-.lv-line{position:absolute;left:40px;top:20px;bottom:20px;width:3px;background:linear-gradient(to bottom,var(--v),var(--vm));border-radius:3px}
-.lv-item{display:flex;align-items:flex-start;gap:16px;margin-bottom:18px;position:relative}
-.lv-dot{width:20px;height:20px;border-radius:50%;background:var(--v);border:3px solid #fff;box-shadow:0 0 0 2px var(--v);flex-shrink:0;z-index:1;margin-top:3px}
-.lv-dot.turning{background:var(--r);box-shadow:0 0 0 2px var(--r);width:24px;height:24px}
-.lv-content{flex:1;padding:12px 16px;background:#fff;border-radius:8px;border:1px solid var(--bd)}
-.lv-content .tag{font-family:system-ui,sans-serif;font-size:11px;font-weight:700;padding:2px 8px;border-radius:8px;margin-bottom:6px;display:inline-block}
-.tag-v{background:var(--vc);color:var(--v)}.tag-r{background:var(--rc);color:var(--r)}
+/* ══ LINEA DE VIDA ══ */
+.linea-vida{position:relative;padding:10px 0;margin:18px 0}
+.lv-line{position:absolute;left:42px;top:20px;bottom:20px;width:4px;background:linear-gradient(to bottom,var(–v),var(–vm));border-radius:4px}
+.lv-item{display:flex;align-items:flex-start;gap:18px;margin-bottom:20px;position:relative}
+.lv-dot{width:22px;height:22px;border-radius:50%;background:var(–vc);border:3px solid var(–v);box-shadow:0 0 0 2px var(–v);flex-shrink:0;z-index:1;margin-top:4px}
+.lv-dot.turning{background:var(–rc);border-color:var(–r);box-shadow:0 0 0 2px var(–r);width:26px;height:26px}
+.lv-content{flex:1;padding:14px 18px;background:#fff;border-radius:8px;border:1px solid var(–bd)}
+.lv-content .tag{font-family:system-ui,sans-serif;font-size:12px;font-weight:700;padding:3px 10px;border-radius:8px;margin-bottom:8px;display:inline-block}
+.tag-v{background:var(–vc);color:var(–v)}.tag-r{background:var(–rc);color:var(–r)}
 
-/* Form */
-.form-g{margin-bottom:14px}
-.form-g label{display:block;font-family:system-ui,sans-serif;font-size:13px;font-weight:700;color:var(--g);margin-bottom:5px}
-.form-g textarea,.form-g input,.form-g select{width:100%;padding:10px 12px;border:2px solid var(--bd);border-radius:8px;font-size:14px;font-family:Georgia,serif;line-height:1.5;resize:vertical;color:var(--g);background:#fff;transition:border-color .2s}
-.form-g textarea:focus,.form-g input:focus,.form-g select:focus{outline:none;border-color:#0055cc;box-shadow:0 0 0 3px rgba(0,85,204,.18)}
-.form-g .hint{font-family:system-ui,sans-serif;font-size:12px;color:#888;margin-top:3px;font-style:italic}
-.btn-p{background:var(--v);color:#fff;border:none;padding:12px 22px;border-radius:8px;font-family:system-ui,sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:background .2s;width:100%;margin-top:8px}
-.btn-p:hover{background:var(--vm)}
-.btn-p:focus{outline:3px solid #0055cc;outline-offset:2px}
+/* ══ FORM ══ */
+.form-g{margin-bottom:18px}
+.form-g label{display:block;font-family:system-ui,sans-serif;font-size:14px;font-weight:700;color:var(–g);margin-bottom:7px}
+.form-g textarea,.form-g input,.form-g select{
+width:100%;padding:12px 14px;border:2px solid var(–bd);border-radius:8px;
+font-size:15px;font-family:Georgia,serif;line-height:1.6;resize:vertical;
+color:#1c1a17;background:#ffffff;transition:border-color .2s;min-height:44px;
+}
+.form-g textarea:focus,.form-g input:focus,.form-g select:focus{
+outline:none;border-color:var(–focus);box-shadow:0 0 0 4px rgba(0,85,204,.2)
+}
+.form-g .hint{font-family:system-ui,sans-serif;font-size:13px;color:#5a5650;margin-top:5px;font-style:italic}
+.btn-p{
+background:var(–v);color:#fff;border:none;padding:14px 24px;border-radius:8px;
+font-family:system-ui,sans-serif;font-size:15px;font-weight:700;cursor:pointer;
+transition:background .2s;width:100%;margin-top:10px;min-height:48px;
+}
+.btn-p:hover{background:var(–vm)}
+.btn-p:focus-visible{outline:4px solid var(–focus);outline-offset:3px}
 
-/* Quiz */
-.quiz-qcard{background:#fff;border-radius:10px;border:1px solid var(--bd);overflow:hidden;margin-bottom:14px}
-.quiz-qhdr{padding:14px 18px;background:var(--gs);display:flex;align-items:flex-start;gap:12px}
-.quiz-qnum{background:var(--v);color:#fff;font-family:system-ui,sans-serif;font-size:12px;font-weight:700;min-width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
-.quiz-qtxt{font-size:14px;flex:1;line-height:1.65}
-.quiz-opts{padding:12px 18px 16px}
-.quiz-opt{display:block;padding:9px 14px;margin-bottom:8px;border:2px solid var(--bd);border-radius:8px;cursor:pointer;font-size:14px;font-family:Georgia,serif;transition:all .2s;background:#fff}
-.quiz-opt:hover{border-color:var(--vm);background:var(--vc)}
-.quiz-opt input[type="radio"]{margin-right:10px;accent-color:var(--v)}
-.quiz-opt.correct{background:#e8f5ee;border-color:var(--v);color:var(--v)}
-.quiz-opt.wrong{background:var(--rc);border-color:var(--r);color:var(--r)}
-.quiz-feedback{display:none;padding:10px 18px 14px;font-size:13px;font-family:system-ui,sans-serif}
+/* ══ QUIZ ══ */
+.quiz-qcard{background:#ffffff;border-radius:10px;border:1px solid #c0bcb4;overflow:hidden;margin-bottom:16px;color:#1c1a17}
+.quiz-qhdr{padding:16px 20px;background:#f3f0e8;display:flex;align-items:flex-start;gap:14px}
+.quiz-qnum{background:var(–vc);color:var(–v);border:2px solid var(–v);font-family:system-ui,sans-serif;font-size:13px;font-weight:700;min-width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:3px}
+.quiz-qtxt{font-size:15px;flex:1;line-height:1.7}
+.quiz-opts{padding:14px 20px 18px}
+.quiz-opt{
+display:flex;align-items:flex-start;gap:12px;
+padding:12px 16px;margin-bottom:10px;border:2px solid #c0bcb4;
+border-radius:8px;cursor:pointer;font-size:15px;font-family:Georgia,serif;
+transition:all .2s;background:#ffffff;color:#1c1a17;min-height:48px;
+}
+.quiz-opt:hover{border-color:var(–vm);background:var(–vc)}
+.quiz-opt:focus-within{border-color:var(–focus);box-shadow:0 0 0 3px rgba(0,85,204,.2)}
+.quiz-opt input[type=“radio”]{
+margin-top:3px;flex-shrink:0;width:20px;height:20px;accent-color:var(–v);cursor:pointer;
+}
+.quiz-opt.correct{background:#e8f5ee;border-color:var(–v);color:var(–v)}
+.quiz-opt.wrong{background:var(–rc);border-color:var(–r);color:var(–r)}
+.quiz-feedback{display:none;padding:12px 20px 16px;font-size:14px;font-family:system-ui,sans-serif}
 .quiz-feedback.vis{display:block}
-.feedback-ok{color:var(--v);font-weight:700}
-.feedback-exp{color:var(--g);margin-top:4px;font-size:13px}
-.quiz-score-banner{background:var(--v);color:#fff;border-radius:12px;padding:22px;text-align:center;margin-bottom:20px}
-.quiz-score-big{font-size:52px;font-weight:700;font-family:system-ui,sans-serif;line-height:1}
-.quiz-score-lbl{font-size:14px;opacity:.85;margin-top:4px;font-family:system-ui,sans-serif}
-.quiz-score-nota{font-size:24px;font-weight:700;font-family:system-ui,sans-serif;margin-top:8px;opacity:.9}
+.feedback-ok{color:var(–v);font-weight:700;font-size:15px;padding:4px 0}
+.feedback-exp{color:var(–g);margin-top:6px;font-size:14px;line-height:1.7}
+.quiz-score-banner{background:var(–vc);color:var(–v);border:2px solid var(–vm);border-radius:12px;padding:24px;text-align:center;margin-bottom:22px}
+.quiz-score-big{font-size:56px;font-weight:700;font-family:system-ui,sans-serif;line-height:1}
+.quiz-score-lbl{font-size:15px;color:var(–vm);margin-top:6px;font-family:system-ui,sans-serif}
+.quiz-score-nota{font-size:26px;font-weight:700;font-family:system-ui,sans-serif;margin-top:10px;color:var(–v)}
 
-/* Reading cards S11 */
-.lect-card{border:1.5px solid var(--bd);border-radius:10px;overflow:hidden;margin-bottom:14px}
-.lect-hdr{padding:11px 16px;font-family:system-ui,sans-serif;font-size:13px;font-weight:700}
-.lect-hdr.u{background:var(--ac);color:var(--a)}
-.lect-body{padding:14px 16px}
-.lect-body h5{font-family:system-ui,sans-serif;font-size:13px;font-weight:700;color:var(--g);margin:10px 0 5px}
+/* ══ LECTURAS S11 ══ */
+.lect-card{border:2px solid #c0bcb4;border-radius:10px;overflow:hidden;margin-bottom:16px;background:#ffffff;color:#1c1a17}
+.lect-hdr{padding:13px 18px;font-family:system-ui,sans-serif;font-size:14px;font-weight:700;background:var(–ac);color:var(–a)}
+.lect-body{padding:16px 18px}
+.lect-body h5{font-family:system-ui,sans-serif;font-size:14px;font-weight:700;color:var(–g);margin:12px 0 6px}
 .lect-body h5:first-child{margin-top:0}
+
+/* ══ EN CLASE / CASA BADGES ══ */
+.en-clase,.en-casa{display:inline-flex;align-items:center;gap:5px;font-family:system-ui,sans-serif;font-size:12px;font-weight:700;padding:4px 12px;border-radius:10px;margin-bottom:14px;border:2px solid}
+.en-clase{background:var(–vc);color:var(–v);border-color:var(–vm)}
+.en-casa{background:var(–pc);color:var(–p);border-color:var(–p)}
+.prog-txt{font-family:system-ui,sans-serif;font-size:13px;color:#5a5650;text-align:right;margin-bottom:10px}
+
+/* ══ HELP MODAL ══ */
+#help-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:9999;align-items:center;justify-content:center;padding:20px}
+#help-overlay.vis{display:flex}
+#help-modal{background:#faf8f4;border:1px solid #c0bcb4;color:#1c1a17;border-radius:12px;max-width:520px;width:100%;padding:28px;max-height:90vh;overflow-y:auto}
+#help-modal h2{color:var(–v);font-size:20px;margin-bottom:18px}
+#help-modal table{width:100%;border-collapse:collapse;font-size:14px}
+#help-modal td{padding:8px 12px;border-bottom:1px solid var(–bd);color:var(–g)}
+#help-modal td:first-child{font-weight:700;color:var(–a);width:130px}
+.modal-close{float:right;background:none;border:none;font-size:22px;cursor:pointer;color:#5a5650;padding:4px;margin:-4px}
+.modal-close:focus-visible{outline:4px solid var(–focus);outline-offset:2px}
 </style>
+
 </head>
 <body>
 
-<a class="skip" href="#main-content">Saltar al contenido principal</a>
-<div id="live" aria-live="polite" aria-atomic="true"></div>
+<!-- ══ SKIP LINKS (WCAG 2.4.1) ══ -->
 
-<header>
+<nav class="skip-group" aria-label="Navegación de acceso rápido">
+  <a class="skip" href="#main-content">Saltar al contenido principal</a>
+  <a class="skip" href="#tts-bar">Ir al control de audio</a>
+  <a class="skip" href="#modulos-nav">Ir a los módulos</a>
+</nav>
+
+<!-- ══ LIVE REGIONS (WCAG 4.1.3) ══ -->
+
+<div id="live-polite" role="status" aria-live="polite" aria-atomic="true"></div>
+<div id="live-assertive" role="alert" aria-live="assertive" aria-atomic="true"></div>
+
+<!-- ══ TTS CONTROL BAR ══ -->
+
+<div id="tts-bar" role="toolbar" aria-label="Control de lectura en voz alta">
+  <span class="tts-label" id="tts-label-texto">🔊 Audio</span>
+
+<button class="tts-btn" id="btn-modo" onclick="toggleModo()"
+aria-pressed="false" aria-describedby="tts-modo-desc">
+Modo audio: OFF
+</button>
+<span id="tts-modo-desc" style="position:absolute;left:-10000px">
+Activa la lectura automática cuando navegas por el contenido
+</span>
+
+  <button class="tts-btn" id="btn-stop" onclick="parar()" aria-label="Detener lectura">
+    ⏹ Parar
+  </button>
+
+<button class="tts-btn" id="btn-leer-todo" onclick="leerSeccionActual()"
+aria-label="Leer el módulo completo actual">
+▶ Leer módulo
+</button>
+
+  <div class="speed-ctrl" role="group" aria-labelledby="vel-lbl">
+    <span id="vel-lbl" style="font-size:12px;color:#2d6b4a">Velocidad:</span>
+    <input type="range" id="vel-range" min="0.5" max="2" step="0.1" value="0.9"
+      aria-label="Velocidad de lectura" oninput="cambiarVelocidad(this.value)">
+    <span id="vel-valor" aria-live="polite" aria-label="Velocidad actual">0.9x</span>
+  </div>
+
+  <button class="tts-btn" onclick="abrirAyuda()" aria-label="Ayuda sobre los controles de teclado">
+    ? Ayuda
+  </button>
+
+  <div id="tts-reading" aria-live="polite" role="status" aria-label="Texto siendo leído actualmente">
+    Presiona "Leer módulo" o activa el Modo audio
+  </div>
+</div>
+
+<!-- ══ HEADER ══ -->
+
+<header role="banner">
   <h1>Huellas de Vida — Método biográfico</h1>
   <p>Seminario de Investigación II · Psicología · UdeC Facatativá · Sesión 10</p>
+  <span class="version-badge" style="background:#b8f0d0;color:#0d3320">♿ Versión con audio integrado · WCAG 2.1 AAA</span>
 </header>
 
-<nav aria-label="Módulos de la herramienta" role="tablist">
+<!-- ══ NAVIGATION ══ -->
+
+<nav id="modulos-nav" aria-label="Módulos de la herramienta" role="tablist">
   <button role="tab" aria-selected="true"  aria-controls="t0" id="b0" onclick="ir(0)">0. Descubrir<br><span style="font-size:10px;font-weight:400">📍 Clase</span></button>
-  <button role="tab" aria-selected="false" aria-controls="t1" id="b1" onclick="ir(1)">1. Apertura cooperativa<br><span style="font-size:10px;font-weight:400">📍 Clase</span></button>
-  <button role="tab" aria-selected="false" aria-controls="t2" id="b2" onclick="ir(2)">2. Conceptos clave<br><span style="font-size:10px;font-weight:400">📍 Clase</span></button>
-  <button role="tab" aria-selected="false" aria-controls="t3" id="b3" onclick="ir(3)">3. La línea de vida<br><span style="font-size:10px;font-weight:400">📍 Clase</span></button>
-  <button role="tab" aria-selected="false" aria-controls="t4" id="b4" onclick="ir(4)">4. Mi diseño biográfico<br><span style="font-size:10px;font-weight:400">🏠 Casa</span></button>
+  <button role="tab" aria-selected="false" aria-controls="t1" id="b1" onclick="ir(1)">1. Apertura coop.<br><span style="font-size:10px;font-weight:400">📍 Clase</span></button>
+  <button role="tab" aria-selected="false" aria-controls="t2" id="b2" onclick="ir(2)">2. Conceptos<br><span style="font-size:10px;font-weight:400">📍 Clase</span></button>
+  <button role="tab" aria-selected="false" aria-controls="t3" id="b3" onclick="ir(3)">3. Línea de vida<br><span style="font-size:10px;font-weight:400">📍 Clase</span></button>
+  <button role="tab" aria-selected="false" aria-controls="t4" id="b4" onclick="ir(4)">4. Mi diseño<br><span style="font-size:10px;font-weight:400">🏠 Casa</span></button>
   <button role="tab" aria-selected="false" aria-controls="t5" id="b5" onclick="ir(5)">5. Quiz<br><span style="font-size:10px;font-weight:400">🏠 Casa</span></button>
   <button role="tab" aria-selected="false" aria-controls="t6" id="b6" onclick="ir(6)">6. Lecturas S11<br><span style="font-size:10px;font-weight:400">🏠 Casa</span></button>
 </nav>
 
-<main id="main-content">
+<!-- ══ MAIN ══ -->
 
-<!-- ════════ MÓDULO 0: DESCUBRIR ════════ -->
+<main id="main-content" role="main">
+
+<!-- ════════ M0 DESCUBRIR ════════ -->
+
 <section role="tabpanel" id="t0" aria-labelledby="b0" class="vis" tabindex="-1">
   <h2 id="h0">Módulo 0 — Descubrir</h2>
-  <div class="prog-txt" aria-hidden="true"><span class="en-clase">📍 Primera actividad de la clase</span></div>
+  <div class="prog-txt"><span class="en-clase">📍 Primera actividad de la clase</span></div>
+  <button class="leer-btn" onclick="leerId('t0')" aria-label="Leer todo el módulo Descubrir en voz alta">
+    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+    Leer este módulo
+  </button>
 
-  <div class="banner">
-    Antes de cualquier definición: cuatro situaciones donde una vida completa —o un tramo de ella— es el objeto mismo de la investigación. Reflexiona solo y luego revela lo que está detrás de cada caso.
+  <div class="banner" id="banner-m0">
+    Antes de cualquier definición: cuatro situaciones donde una vida completa —o un tramo de ella— es el objeto mismo de la investigación. Reflexiona y luego revela lo que está detrás de cada caso.
   </div>
 
-  <div class="dilema">
+  <!-- Dilema 1 -->
+
+  <article class="dilema" id="dilema1" aria-label="Situación 1: excombatientes en Cundinamarca">
     <div class="dil-head">
       <div class="dil-num" aria-hidden="true">1</div>
-      <div class="dil-txt">Una psicóloga investiga procesos de reintegración de excombatientes de las FARC en Cundinamarca. Le interesa entender cómo estas personas reconstruyen su identidad después de años en el grupo armado. Diseña una entrevista semiestructurada de 90 minutos con preguntas sobre su situación actual: qué hacen, dónde viven, cómo se sienten hoy.</div>
+      <div class="dil-txt" id="dil1-txt">
+        Una psicóloga investiga procesos de reintegración de excombatientes de las FARC en Cundinamarca. Le interesa entender cómo estas personas reconstruyen su identidad después de años en el grupo armado. Diseña una entrevista semiestructurada de 90 minutos con preguntas sobre su situación actual: qué hacen, dónde viven, cómo se sienten hoy.
+        <button class="leer-inline" onclick="hablar(document.getElementById('dil1-txt').innerText)" aria-label="Leer situación 1">🔊 Leer</button>
+      </div>
     </div>
-    <div style="padding:0 18px 12px;background:var(--gs)">
-      <button class="btn-rev" onclick="rev('d1')" aria-expanded="false" aria-controls="ten-d1">¿Qué le falta a este diseño?</button>
+    <div style="padding:0 20px 14px;background:var(--gs)">
+      <button class="btn-rev" id="rev1-btn" onclick="rev('d1','rev1-btn')" aria-expanded="false" aria-controls="ten-d1">
+        ¿Qué le falta a este diseño?
+      </button>
     </div>
-    <div class="dil-tension" id="ten-d1" role="region" aria-label="Tensión caso 1">
+    <div class="dil-tension" id="ten-d1" role="region" aria-label="Reflexión sobre la situación 1" tabindex="-1">
       <div class="dil-lbl">La tensión</div>
       <p>Preguntar por el presente de alguien que vivió una ruptura biográfica profunda —años en un grupo armado, salida, reintegración— sin preguntar por la trayectoria es perder exactamente lo que más importa. La identidad no es un estado: es el resultado de una historia. El diseño adecuado aquí es el método biográfico o al menos el relato de vida focalizado en la trayectoria. La entrevista semiestructurada sobre el presente captura efectos sin entender causas ni procesos.</p>
     </div>
-  </div>
+  </article>
 
-  <div class="dilema">
+  <!-- Dilema 2 -->
+
+  <article class="dilema" id="dilema2" aria-label="Situación 2: historia de vida en una sola entrevista">
     <div class="dil-head">
       <div class="dil-num" aria-hidden="true">2</div>
-      <div class="dil-txt">Un estudiante decide hacer la "historia de vida" de doña Esperanza, una mujer de 72 años que migró de un municipio rural de Boyacá a Facatativá hace 40 años. Le hace una sola entrevista de dos horas y concluye que "tiene la historia de vida completa".</div>
+      <div class="dil-txt" id="dil2-txt">
+        Un estudiante decide hacer la "historia de vida" de doña Esperanza, una mujer de 72 años que migró de un municipio rural de Boyacá a Facatativá hace 40 años. Le hace una sola entrevista de dos horas y concluye que "tiene la historia de vida completa".
+        <button class="leer-inline" onclick="hablar(document.getElementById('dil2-txt').innerText)" aria-label="Leer situación 2">🔊 Leer</button>
+      </div>
     </div>
-    <div style="padding:0 18px 12px;background:var(--gs)">
-      <button class="btn-rev" onclick="rev('d2')" aria-expanded="false" aria-controls="ten-d2">¿Cuál es el problema metodológico?</button>
+    <div style="padding:0 20px 14px;background:var(--gs)">
+      <button class="btn-rev" id="rev2-btn" onclick="rev('d2','rev2-btn')" aria-expanded="false" aria-controls="ten-d2">
+        ¿Cuál es el problema metodológico?
+      </button>
     </div>
-    <div class="dil-tension" id="ten-d2" role="region" aria-label="Tensión caso 2">
+    <div class="dil-tension" id="ten-d2" role="region" aria-label="Reflexión sobre la situación 2" tabindex="-1">
       <div class="dil-lbl">La tensión</div>
-      <p>Una historia de vida real exige múltiples sesiones para que el relato se "desgrane" con profundidad (Mallimaci y Giménez Béliveau, 2006). En dos horas, doña Esperanza apenas está comenzando a confiar. Los aspectos más significativos —los momentos de quiebre, las contradicciones entre el relato oficial y los recuerdos más dolorosos— aparecen cuando hay tiempo, rapport y confianza acumulada. Una sola sesión puede producir un relato de vida focalizado, pero no una historia de vida en el sentido metodológico.</p>
+      <p>Una historia de vida real exige múltiples sesiones para que el relato se desgrane con profundidad (Mallimaci y Giménez Béliveau, 2006). En dos horas, doña Esperanza apenas está comenzando a confiar. Los aspectos más significativos —los momentos de quiebre, las contradicciones— aparecen cuando hay tiempo, rapport y confianza acumulada. Una sola sesión puede producir un relato de vida focalizado, pero no una historia de vida en el sentido metodológico.</p>
     </div>
-  </div>
+  </article>
 
-  <div class="dilema">
+  <!-- Dilema 3 -->
+
+  <article class="dilema" id="dilema3" aria-label="Situación 3: turning points sin analizar">
     <div class="dil-head">
       <div class="dil-num" aria-hidden="true">3</div>
-      <div class="dil-txt">Una investigadora estudia la experiencia de madres con hijos diagnosticados con TEA en Bogotá. Al presentar los resultados, escribe: "Todas las participantes describieron su vida como 'un antes del diagnóstico y un después'." La investigadora lo reporta sin más análisis.</div>
+      <div class="dil-txt" id="dil3-txt">
+        Una investigadora estudia la experiencia de madres con hijos diagnosticados con TEA en Bogotá. Todas las participantes describieron su vida como "un antes del diagnóstico y un después". La investigadora lo reporta sin más análisis.
+        <button class="leer-inline" onclick="hablar(document.getElementById('dil3-txt').innerText)" aria-label="Leer situación 3">🔊 Leer</button>
+      </div>
     </div>
-    <div style="padding:0 18px 12px;background:var(--gs)">
-      <button class="btn-rev" onclick="rev('d3')" aria-expanded="false" aria-controls="ten-d3">¿Qué oportunidad analítica se perdió?</button>
+    <div style="padding:0 20px 14px;background:var(--gs)">
+      <button class="btn-rev" id="rev3-btn" onclick="rev('d3','rev3-btn')" aria-expanded="false" aria-controls="ten-d3">
+        ¿Qué oportunidad analítica se perdió?
+      </button>
     </div>
-    <div class="dil-tension" id="ten-d3" role="region" aria-label="Tensión caso 3">
+    <div class="dil-tension" id="ten-d3" role="region" aria-label="Reflexión sobre la situación 3" tabindex="-1">
       <div class="dil-lbl">La tensión</div>
-      <p>El "antes y después" que las participantes describen es exactamente lo que Denzin llama una <em>epifanía</em> o <em>turning point</em>: un momento bisagra que divide la narrativa de vida. Reportarlo sin analizarlo es desperdiciar el hallazgo más valioso del dato biográfico. El análisis debería explorar: ¿qué reconstruyeron estas mujeres sobre su vida anterior? ¿Qué rupturas de identidad, redes sociales o proyectos implicó ese punto de quiebre? ¿Cómo cada una narró su proceso de reorganización? El método biográfico tiene herramientas precisas para esto.</p>
+      <p>El "antes y después" es exactamente lo que Denzin llama una epifanía o turning point. Reportarlo sin analizarlo es desperdiciar el hallazgo más valioso. El análisis debería explorar qué reconstruyeron estas mujeres sobre su vida anterior, qué rupturas de identidad implicó ese punto de quiebre, y cómo cada una narró su proceso de reorganización.</p>
     </div>
-  </div>
+  </article>
 
-  <div class="dilema">
+  <!-- Dilema 4 -->
+
+  <article class="dilema" id="dilema4" aria-label="Situación 4: relato demasiado coherente">
     <div class="dil-head">
       <div class="dil-num" aria-hidden="true">4</div>
-      <div class="dil-txt">Un investigador hace la historia de vida de un ex-líder comunitario de Zipaquirá. El sujeto narra su trayectoria de manera muy ordenada y coherente: "Primero fue esto, luego aquello, y así fui llegando a donde estoy." El investigador concluye que la historia de vida fue exitosa porque el relato es claro y sin contradicciones.</div>
+      <div class="dil-txt" id="dil4-txt">
+        Un investigador hace la historia de vida de un ex-líder comunitario de Zipaquirá. El sujeto narra de manera muy ordenada y coherente: "Primero fue esto, luego aquello, y así fui llegando." El investigador concluye que la historia fue exitosa porque el relato es claro y sin contradicciones.
+        <button class="leer-inline" onclick="hablar(document.getElementById('dil4-txt').innerText)" aria-label="Leer situación 4">🔊 Leer</button>
+      </div>
     </div>
-    <div style="padding:0 18px 12px;background:var(--gs)">
-      <button class="btn-rev" onclick="rev('d4')" aria-expanded="false" aria-controls="ten-d4">¿Por qué la coherencia puede ser una señal de alerta?</button>
+    <div style="padding:0 20px 14px;background:var(--gs)">
+      <button class="btn-rev" id="rev4-btn" onclick="rev('d4','rev4-btn')" aria-expanded="false" aria-controls="ten-d4">
+        ¿Por qué la coherencia puede ser una señal de alerta?
+      </button>
     </div>
-    <div class="dil-tension" id="ten-d4" role="region" aria-label="Tensión caso 4">
+    <div class="dil-tension" id="ten-d4" role="region" aria-label="Reflexión sobre la situación 4" tabindex="-1">
       <div class="dil-lbl">La tensión</div>
-      <p>Bourdieu advierte sobre la <em>ilusión biográfica</em>: la tendencia del narrador a presentar su vida como si tuviera un hilo conductor coherente que lo explica todo, borrando las contradicciones, los azar, los virajes imprevistos. Un relato demasiado ordenado puede ser señal de que el entrevistado está produciendo una versión pública de sí mismo, no una reconstrucción crítica. El investigador debería preguntar: ¿qué momentos de incertidumbre o cambio de rumbo no están en el relato? ¿Qué pudo haber sido diferente?</p>
+      <p>Bourdieu advierte sobre la ilusión biográfica: la tendencia del narrador a presentar su vida como si tuviera un hilo conductor coherente que lo explica todo, borrando contradicciones y virajes imprevistos. Un relato demasiado ordenado puede ser señal de que el entrevistado está produciendo una versión pública de sí mismo, no una reconstrucción crítica.</p>
     </div>
-  </div>
+  </article>
 </section>
 
+<!-- ════════ M1 APERTURA COOPERATIVA ════════ -->
 
-<!-- ════════ MÓDULO 1: INTERAPRENDIZAJE ════════ -->
 <section role="tabpanel" id="t1" aria-labelledby="b1" tabindex="-1">
   <h2 id="h1">Módulo 1 — Apertura cooperativa</h2>
-  <div class="prog-txt" aria-hidden="true"><span class="en-clase">📍 Clase · Primera actividad · 20 minutos</span></div>
+  <div class="prog-txt"><span class="en-clase">📍 Clase · Primera actividad · 20 minutos</span></div>
+  <button class="leer-btn" onclick="leerId('t1')" aria-label="Leer todo el módulo Apertura cooperativa">
+    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+    Leer este módulo
+  </button>
 
-  <div class="ac-box">
+  <div class="ac-box" id="ac-m1">
     <div class="ac-hdr">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-      ACTIVIDAD COOPERATIVA — Interrogatorio entre lectores (Duran, 2014)
+      <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      ACTIVIDAD COOPERATIVA — Diálogo sobre el texto
     </div>
     <div class="ac-body">
-      <p>Los dos leyeron el mismo texto —Mallimaci y Giménez Béliveau (cap. 5 de Vasilachis, 2006)— pero nadie lo leyó exactamente igual. Cada uno subrayó cosas distintas, llegó a preguntas distintas, conectó con su propia investigación de forma diferente. La actividad existe precisamente para hacer visibles esas diferencias de lectura y aprender de ellas.</p>
-      <p><strong>Responsabilidad individual:</strong> El profesor puede preguntar a cualquiera sobre cualquier parte del texto. Ambos deben poder defender la síntesis conjunta.</p>
+      <p>Los dos leyeron el mismo capítulo de Mallimaci y Giménez Béliveau. Ahora discutan juntos las siguientes preguntas. No hay que responderlas todas: elijan las que más les generen conversación y las que más conecten con su investigación.</p>
+      <p style="font-size:14px;font-style:italic;color:#4a4540">Cada uno habla, cada uno escucha. La idea no es llegar a una sola respuesta sino entender qué piensa el otro y por qué.</p>
 
-      <div class="ronda">
-        <strong>⏱ Ronda A — 8 minutos</strong>
-        <p>Un integrante usa sus tres preguntas preparadas para provocar reflexión en el otro. <strong>No es un cuestionario</strong> — es una invitación a pensar en voz alta. Quien responde no puede decir "ya lo sé": debe conectar la respuesta con su propia investigación.</p>
-        <p style="font-size:13px;font-style:italic;color:#666">Ejemplo de pregunta bien formulada: "Ferrarotti dice que 'un individuo es un universo singular'. ¿Qué implicaría eso para elegir a quién entrevistar en nuestra investigación?"</p>
-      </div>
+```
+  <div class="ronda" style="background:var(--vc)">
+    <strong style="color:var(--v)">🔵 Sobre el texto — preguntas de comprensión</strong>
+    <ol style="margin-top:10px;font-size:14px;line-height:2.2;padding-left:20px">
+      <li>Mallimaci y Giménez Béliveau distinguen entre <em>historia de vida</em> y <em>relato de vida</em>. ¿Cuál de las dos les parece más realista para hacer en una monografía de pregrado? ¿Por qué?</li>
+      <li>Bourdieu habla de la "ilusión biográfica". ¿Qué significa que un relato sea coherente y ordenado según él? ¿Es algo positivo o problemático?</li>
+      <li>Ferrarotti dice que "un individuo es un universo singular". ¿Cómo se relaciona esa idea con la decisión de estudiar una sola persona en vez de muchas?</li>
+    </ol>
+  </div>
 
-      <div class="ronda">
-        <strong>⏱ Ronda B — 8 minutos</strong>
-        <p>Cambian. El otro integrante usa sus tres preguntas. Misma dinámica.</p>
-      </div>
+  <div class="ronda" style="background:var(--pc)">
+    <strong style="color:var(--p)">🟣 Sobre su investigación — preguntas de conexión</strong>
+    <ol style="margin-top:10px;font-size:14px;line-height:2.2;padding-left:20px">
+      <li>El texto dice que la historia de vida sirve cuando el fenómeno se entiende mejor en trayectoria que en el presente. ¿El fenómeno que estudian tiene esa característica? ¿Por qué sí o por qué no?</li>
+      <li>Si eligieran usar el método biográfico, ¿qué tipo de persona entrevistarían: una "gran persona", un "marginal" o una "persona común"? ¿Qué los llevaría a esa elección?</li>
+      <li>El texto menciona que el investigador también forma parte de lo que se produce en una entrevista biográfica. ¿Qué implicaría eso para su propia posición como investigadores?</li>
+    </ol>
+  </div>
 
-      <div style="background:var(--oc);border-radius:8px;padding:12px 16px;margin-top:6px">
-        <strong style="font-family:system-ui,sans-serif;font-size:12px;color:var(--o)">✍ Síntesis — 4 minutos</strong>
-        <p style="margin-top:6px">Respondan juntos en el cuaderno: <em>¿En qué parte del texto los dos lo leyeron de manera diferente o enfatizaron aspectos distintos? ¿Por qué esa diferencia de lectura puede ser útil para su investigación?</em> Una respuesta, dos firmas.</p>
-      </div>
-    </div>
+  <div style="background:var(--oc);border-radius:8px;padding:14px 18px;margin-top:10px">
+    <strong style="font-family:system-ui,sans-serif;font-size:13px;color:var(--o)">✍ Cierre del diálogo — 3 minutos</strong>
+    <p style="margin-top:8px;font-size:14px">Anoten en el cuaderno: <em>¿Cuál de las preguntas les generó más desacuerdo o más diferencia de opinión? ¿A qué conclusión llegaron sobre si el método biográfico aplica o no a su investigación?</em></p>
+  </div>
+</div>
+```
+
   </div>
 
   <div class="nota">
-    <div class="nl">¿Por qué dos personas leyendo lo mismo no es redundante?</div>
-    <p>Cada uno llega al texto con su propia investigación como lente. Lo que le importa a alguien que estudia identidad de género es diferente de lo que le importa a alguien que estudia trabajo informal. Esa diferencia de lectura —sobre el mismo texto— es producción de conocimiento, no repetición. Eso es aprenseñar (Duran, 2014) en su versión para lectores con contextos investigativos distintos.</p>
+    <div class="nl">¿Por qué dialogar sobre preguntas del texto y no simplemente resumirlo?</div>
+    <p>Resumir reproduce lo que cada uno ya sabe. Discutir una pregunta obliga a tomar posición, a escuchar la posición del otro y a construir algo que ninguno de los dos tenía antes. El texto de Mallimaci y Giménez Béliveau es el punto de partida, no el destino.</p>
   </div>
 </section>
 
+<!-- ════════ M2 CONCEPTOS CLAVE ════════ -->
 
-<!-- ════════ MÓDULO 2: CONCEPTOS CLAVE ════════ -->
 <section role="tabpanel" id="t2" aria-labelledby="b2" tabindex="-1">
   <h2 id="h2">Módulo 2 — Conceptos clave</h2>
-  <div class="prog-txt" aria-hidden="true"><span class="en-clase">📍 Clase — referencia proyectable</span></div>
+  <div class="prog-txt"><span class="en-clase">📍 Clase — referencia proyectable</span></div>
+  <button class="leer-btn" onclick="leerId('t2')" aria-label="Leer todo el módulo Conceptos clave">
+    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+    Leer este módulo
+  </button>
 
   <div class="banner">
-    El método biográfico no es "hacer una entrevista muy larga". Es una decisión epistemológica: elegir narrar para comprender. La pregunta no es <strong>qué piensa alguien hoy</strong>, sino <strong>cómo llegó a pensar eso y qué trayectoria construyó ese presente</strong>.
+    El método biográfico no es "hacer una entrevista muy larga". Es una decisión epistemológica: elegir narrar para comprender. La pregunta no es qué piensa alguien hoy, sino <strong>cómo llegó a pensar eso y qué trayectoria construyó ese presente</strong>.
   </div>
 
-  <h3>Historia de vida vs. relato de vida — la distinción más importante</h3>
+  <h3>Historia de vida vs. relato de vida</h3>
 
-  <table class="comp-table" role="table" aria-label="Comparación historia de vida y relato de vida">
+  <table class="comp-table" role="table" aria-label="Comparación entre historia de vida y relato de vida según Mallimaci y Giménez Béliveau">
+    <caption style="font-family:system-ui,sans-serif;font-size:13px;color:#5a5650;text-align:left;padding-bottom:8px">Tabla 1. Diferencia entre historia de vida y relato de vida (Mallimaci y Giménez Béliveau, 2006)</caption>
     <thead>
-      <tr><th>Historia de vida (<em>life history</em>)</th><th>Relato de vida (<em>life story</em>)</th></tr>
+      <tr><th scope="col">Historia de vida (life history)</th><th scope="col">Relato de vida (life story)</th></tr>
     </thead>
     <tbody>
-      <tr><td>El investigador <strong>interpreta</strong> la vida del sujeto</td><td>Se <strong>minimiza</strong> la intervención del investigador</td></tr>
+      <tr><td>El investigador interpreta la vida del sujeto</td><td>Se minimiza la intervención del investigador</td></tr>
       <tr><td>Se contrasta con fuentes documentales</td><td>Se privilegia la voz del entrevistado</td></tr>
-      <tr><td>El investigador escribe <em>sobre</em> la vida del otro</td><td>Se acerca al testimonio; el texto es del entrevistado</td></tr>
-      <tr><td>Múltiples sesiones, documentos, observación</td><td>Puede hacerse con menos sesiones y sin documentos</td></tr>
+      <tr><td>Múltiples sesiones, documentos, observación</td><td>Puede hacerse con menos sesiones</td></tr>
       <tr><td>Más tiempo y acceso requeridos</td><td>Más viable en una monografía de pregrado</td></tr>
     </tbody>
   </table>
 
   <h3>Conceptos fundamentales</h3>
+  <p>Haz clic en cada concepto para expandirlo y escuchar su descripción. O presiona "Leer este módulo" para escuchar todo.</p>
 
-  <div class="concepto">
-    <div class="concepto-hdr" onclick="conc(this,'c1')" role="button" tabindex="0" aria-expanded="false" aria-controls="cc1" onkeydown="if(event.key==='Enter'||event.key===' ')conc(this,'c1')">
+  <!-- Concepto 1 -->
+
+  <div class="concepto" id="conc1">
+    <button class="concepto-hdr" onclick="conc(this,'cc1')" aria-expanded="false" aria-controls="cc1" id="conc1-hdr">
       <span class="concepto-ico" aria-hidden="true">🧭</span>
       <span class="concepto-tit">Eje temático<span class="concepto-sub">El filtro que organiza la narración</span></span>
       <span class="concepto-chev" aria-hidden="true">▼</span>
-    </div>
-    <div class="concepto-body" id="cc1">
-      <p>No se puede pedir a alguien que cuente "toda su vida" sin un filtro. El eje temático es el hilo desde el cual el investigador invita a narrar: la trayectoria laboral, la relación con la enfermedad, la construcción identitaria desde la adolescencia. Este eje surge de la pregunta de investigación, no de la curiosidad del investigador.</p>
-      <p><strong>Ejemplo colombiano:</strong> Si estudias la experiencia de jóvenes que dejaron la educación media en municipios rurales de Cundinamarca para trabajar en el campo, el eje temático no es "su vida entera" sino "el proceso de decisión que los llevó a ese punto y cómo viven esa trayectoria hoy".</p>
+    </button>
+    <div class="concepto-body" id="cc1" role="region" aria-labelledby="conc1-hdr">
+      <p>No se puede pedir a alguien que cuente "toda su vida" sin un filtro. El eje temático es el hilo desde el cual el investigador invita a narrar: la trayectoria laboral, la relación con la enfermedad, la construcción identitaria desde la adolescencia. Este eje surge de la pregunta de investigación.</p>
+      <p><strong>Ejemplo colombiano:</strong> Si estudias jóvenes que dejaron la educación media en municipios rurales de Cundinamarca, el eje no es "su vida entera" sino "el proceso de decisión que los llevó a ese punto y cómo viven esa trayectoria hoy".</p>
     </div>
   </div>
 
-  <div class="concepto">
-    <div class="concepto-hdr" onclick="conc(this,'c2')" role="button" tabindex="0" aria-expanded="false" aria-controls="cc2" onkeydown="if(event.key==='Enter'||event.key===' ')conc(this,'c2')">
+  <!-- Concepto 2 -->
+
+  <div class="concepto" id="conc2">
+    <button class="concepto-hdr" onclick="conc(this,'cc2')" aria-expanded="false" aria-controls="cc2" id="conc2-hdr">
       <span class="concepto-ico" aria-hidden="true">⚡</span>
-      <span class="concepto-tit">Turning points / Epifanías<span class="concepto-sub">Los momentos bisagra de la vida</span></span>
+      <span class="concepto-tit">Turning points o Epifanías<span class="concepto-sub">Los momentos bisagra de la vida</span></span>
       <span class="concepto-chev" aria-hidden="true">▼</span>
-    </div>
-    <div class="concepto-body" id="cc2">
-      <p>Son momentos que el propio sujeto identifica como un "antes y después": el diagnóstico, la migración, el despido, el primer hijo, la pérdida de un ser querido, el desplazamiento forzado. Denzin los llama <em>epifanías</em>; en la tradición latinoamericana se habla de <em>momentos cruciales</em>.</p>
-      <p>Estos son los nodos del análisis biográfico. No todos los hechos importan igual: los turning points organizan el tiempo biográfico del sujeto y revelan cómo entiende su propia historia.</p>
-      <p><strong>Clave metodológica:</strong> El investigador no decide cuáles son los turning points — el entrevistado los revela al narrar. El investigador los profundiza con preguntas descriptivas y de contraste.</p>
+    </button>
+    <div class="concepto-body" id="cc2" role="region" aria-labelledby="conc2-hdr">
+      <p>Son momentos que el propio sujeto identifica como un antes y un después: el diagnóstico, la migración, el despido, el desplazamiento forzado. Denzin los llama epifanías; en la tradición latinoamericana, momentos cruciales.</p>
+      <p><strong>Clave:</strong> El investigador no decide cuáles son los turning points, el entrevistado los revela al narrar. El investigador los profundiza con preguntas descriptivas y de contraste.</p>
     </div>
   </div>
 
-  <div class="concepto">
-    <div class="concepto-hdr" onclick="conc(this,'c3')" role="button" tabindex="0" aria-expanded="false" aria-controls="cc3" onkeydown="if(event.key==='Enter'||event.key===' ')conc(this,'c3')">
+  <!-- Concepto 3 -->
+
+  <div class="concepto" id="conc3">
+    <button class="concepto-hdr" onclick="conc(this,'cc3')" aria-expanded="false" aria-controls="cc3" id="conc3-hdr">
       <span class="concepto-ico" aria-hidden="true">🎭</span>
       <span class="concepto-tit">Ilusión biográfica (Bourdieu)<span class="concepto-sub">El relato como construcción, no como verdad</span></span>
       <span class="concepto-chev" aria-hidden="true">▼</span>
-    </div>
-    <div class="concepto-body" id="cc3">
-      <p>Pierre Bourdieu advierte que cuando alguien cuenta su vida, tiende a presentarla como si hubiera un hilo coherente que la explica todo: "siempre supe que llegaría aquí", "todo lo que viví tenía sentido". Esta es la ilusión biográfica: el narrador borra el azar, las contradicciones, los cambios de rumbo para producir un relato que suene coherente.</p>
-      <p>El investigador no puede asumir que ese hilo existe como dato objetivo. El relato es una interpretación del pasado desde el presente. Lo que se dice, cómo se ordena, qué se omite — todo eso es dato.</p>
-      <p><strong>Implicación para el análisis:</strong> Los silencios, las contradicciones y los saltos temporales en el relato son tan informativos como lo que sí se dice.</p>
+    </button>
+    <div class="concepto-body" id="cc3" role="region" aria-labelledby="conc3-hdr">
+      <p>Pierre Bourdieu advierte que cuando alguien cuenta su vida, tiende a presentarla como si hubiera un hilo coherente que la explica todo. Esta es la ilusión biográfica: el narrador borra el azar y las contradicciones para producir un relato coherente.</p>
+      <p>El investigador no puede asumir que ese hilo existe como dato objetivo. Los silencios, contradicciones y saltos temporales en el relato son tan informativos como lo que sí se dice.</p>
     </div>
   </div>
 
-  <div class="concepto">
-    <div class="concepto-hdr" onclick="conc(this,'c4')" role="button" tabindex="0" aria-expanded="false" aria-controls="cc4" onkeydown="if(event.key==='Enter'||event.key===' ')conc(this,'c4')">
+  <!-- Concepto 4 -->
+
+  <div class="concepto" id="conc4">
+    <button class="concepto-hdr" onclick="conc(this,'cc4')" aria-expanded="false" aria-controls="cc4" id="conc4-hdr">
       <span class="concepto-ico" aria-hidden="true">👥</span>
-      <span class="concepto-tit">Muestreo teórico — ¿a quién entrevistar?<span class="concepto-sub">Gran persona, marginal, persona común</span></span>
+      <span class="concepto-tit">Muestreo teórico<span class="concepto-sub">Gran persona, marginal, persona común (Plummer)</span></span>
       <span class="concepto-chev" aria-hidden="true">▼</span>
-    </div>
-    <div class="concepto-body" id="cc4">
-      <p>El muestreo en el método biográfico no busca representatividad estadística — busca relevancia conceptual para la pregunta de investigación. Plummer propone tres tipos de sujeto:</p>
+    </button>
+    <div class="concepto-body" id="cc4" role="region" aria-labelledby="conc4-hdr">
+      <p>El muestreo no busca representatividad estadística sino relevancia conceptual. Plummer propone tres tipos:</p>
       <ul>
-        <li><strong>Gran persona:</strong> alguien cuya trayectoria fue decisiva en el campo que estudias. Líder comunitario, fundador de una organización, referente histórico.</li>
-        <li><strong>Marginal:</strong> quien vive en los límites entre mundos sociales diferentes. Su relato ilumina las fronteras y contradicciones que el sentido común no hace visibles.</li>
-        <li><strong>Persona común:</strong> quien representa una experiencia colectiva que las estadísticas homogenizan. Su historia particular revela lo que los promedios ocultan.</li>
+        <li><strong>Gran persona:</strong> cuya trayectoria fue decisiva en el campo que estudias.</li>
+        <li><strong>Marginal:</strong> quien vive en los límites entre mundos sociales distintos.</li>
+        <li><strong>Persona común:</strong> quien representa una experiencia colectiva que las estadísticas homogenizan.</li>
       </ul>
-      <p>La elección del tipo depende de tu pregunta. No hay un tipo superior — hay el más coherente con lo que quieres comprender.</p>
     </div>
   </div>
 
-  <div class="concepto">
-    <div class="concepto-hdr" onclick="conc(this,'c5')" role="button" tabindex="0" aria-expanded="false" aria-controls="cc5" onkeydown="if(event.key==='Enter'||event.key===' ')conc(this,'c5')">
+  <!-- Concepto 5 -->
+
+  <div class="concepto" id="conc5">
+    <button class="concepto-hdr" onclick="conc(this,'cc5')" aria-expanded="false" aria-controls="cc5" id="conc5-hdr">
       <span class="concepto-ico" aria-hidden="true">🔄</span>
-      <span class="concepto-tit">Co-construcción del relato<span class="concepto-sub">"Nadie cuenta su vida a un grabador"</span></span>
+      <span class="concepto-tit">Co-construcción del relato<span class="concepto-sub">"Nadie cuenta su vida a un grabador" (Ferrarotti)</span></span>
       <span class="concepto-chev" aria-hidden="true">▼</span>
-    </div>
-    <div class="concepto-body" id="cc5">
-      <p>Ferrarotti lo dice con claridad: "nadie cuenta su vida a un grabador. A un maniquí tampoco." El relato de vida no es una extracción de datos — es una co-construcción entre quien narra y quien escucha. Lo que el investigador pregunta, cómo reacciona, qué silencia: todo eso moldea lo que el entrevistado termina diciendo.</p>
-      <p>Esto conecta directamente con los criterios de Lincoln y Guba: la confirmabilidad exige que el investigador documente su propia influencia en el dato producido. No para eliminarla — para que el lector pueda evaluarla.</p>
+    </button>
+    <div class="concepto-body" id="cc5" role="region" aria-labelledby="conc5-hdr">
+      <p>Ferrarotti lo dice claramente: "nadie cuenta su vida a un grabador. A un maniquí tampoco." El relato de vida no es extracción de datos: es una co-construcción entre quien narra y quien escucha. Lo que el investigador pregunta y cómo reacciona moldea lo que el entrevistado termina diciendo.</p>
+      <p>Esto conecta con la confirmabilidad de Lincoln y Guba: se debe documentar la influencia del investigador en el dato producido.</p>
     </div>
   </div>
 </section>
 
+<!-- ════════ M3 LÍNEA DE VIDA ════════ -->
 
-<!-- ════════ MÓDULO 3: LA LÍNEA DE VIDA ════════ -->
 <section role="tabpanel" id="t3" aria-labelledby="b3" tabindex="-1">
   <h2 id="h3">Módulo 3 — La línea de vida</h2>
-  <div class="prog-txt" aria-hidden="true"><span class="en-clase">📍 Clase · Actividad cooperativa · 25 minutos</span></div>
+  <div class="prog-txt"><span class="en-clase">📍 Clase · Actividad cooperativa · 25 minutos</span></div>
+  <button class="leer-btn" onclick="leerId('t3')" aria-label="Leer todo el módulo La línea de vida">
+    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+    Leer este módulo
+  </button>
 
   <div class="ac-box">
     <div class="ac-hdr">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
       ACTIVIDAD COOPERATIVA — Línea de vida aplicada a tu investigación
     </div>
     <div class="ac-body">
-      <p><strong>Propósito:</strong> Conectar los conceptos del método biográfico con la investigación real de tu pareja. No es un ejercicio abstracto — es un diagnóstico metodológico.</p>
-      <p><strong>Responsabilidad individual:</strong> El profesor puede preguntar a cualquiera de los dos sobre el razonamiento de la pareja. Ambos deben poder defender la decisión final.</p>
-      <p><strong>Tiempo:</strong> 20 min trabajo en pareja + 5 min plenaria rápida (el profesor pide a 2 parejas que compartan su decisión del punto 4).</p>
+      <p>Trabajen en pareja. Tiempo: 20 minutos de trabajo conjunto más 5 minutos de plenaria donde dos parejas comparten su decisión del punto 4.</p>
     </div>
   </div>
 
   <h3>¿Qué hacen en esta actividad?</h3>
 
   <div class="paso"><div class="paso-n">1</div><div>
-    <strong>Eje temático de su investigación</strong><br>
-    Si usaran el método biográfico, ¿cuál sería el hilo conductor de la vida que les interesa rastrear? No es "toda la vida" — es el tramo o dimensión relevante para su pregunta. Escríbanlo en una sola frase.
-    <p style="color:#777;font-size:13px;margin-top:6px;font-style:italic">Ejemplo: "La trayectoria de construcción de identidad profesional desde el ingreso a la universidad hasta el momento actual."</p>
+    <strong>Eje temático.</strong> Si usaran el método biográfico, ¿cuál sería el hilo conductor? No es "toda la vida" — es el tramo o dimensión relevante para su pregunta. Escríbanlo en una frase.
   </div></div>
 
   <div class="paso"><div class="paso-n">2</div><div>
-    <strong>Turning points probables</strong><br>
-    Identifiquen 2 o 3 eventos que <em>probablemente</em> marcarían un antes y después en la vida de sus participantes, relacionados con su tema. No los pueden saber con certeza antes de entrevistar — pero pueden hipotetizarlos.
+    <strong>Turning points probables.</strong> Identifiquen 2 o 3 eventos que probablemente marcarían un antes y después en la vida de sus participantes, relacionados con su tema.
   </div></div>
 
   <div class="paso"><div class="paso-n">3</div><div>
-    <strong>Tipo de sujeto (Plummer)</strong><br>
-    ¿Eligirían una "gran persona", un "marginal" o una "persona común"? ¿Cuál tiene más sentido con su pregunta de investigación y por qué?
+    <strong>Tipo de sujeto (Plummer).</strong> ¿Gran persona, marginal o persona común? ¿Cuál tiene más sentido con su pregunta y por qué?
   </div></div>
 
   <div class="paso"><div class="paso-n">4</div><div>
-    <strong>La decisión clave</strong><br>
-    ¿Su investigación necesita realmente el método biográfico, o una entrevista en profundidad convencional responde mejor la pregunta? Argumenten con dos razones, no con una opinión.
-    <div style="background:var(--vc);border-radius:6px;padding:10px 14px;margin-top:8px;font-size:13px">
-      <strong style="color:var(--v)">Pista para decidir:</strong> El método biográfico es necesario cuando la trayectoria temporal es <em>constitutiva</em> del fenómeno (no solo contexto). Si tu pregunta puede responderse sin saber cómo llegó alguien a estar donde está, el método biográfico no añade nada.
+    <strong>Decisión clave.</strong> ¿Su investigación necesita el método biográfico, o una entrevista en profundidad convencional responde mejor? Argumenten con dos razones.
+    <div style="background:var(--vc);border-radius:6px;padding:12px 16px;margin-top:10px">
+      <strong style="color:var(--v)">Pista para decidir:</strong> El método biográfico es necesario cuando la trayectoria temporal es constitutiva del fenómeno, no solo contexto. Si puedes responder tu pregunta sin saber cómo llegó alguien a estar donde está, el método biográfico no añade nada.
     </div>
   </div></div>
 
-  <h3>Ejemplo de línea de vida (para orientarse)</h3>
-  <div class="linea-vida" aria-label="Ejemplo de línea de vida biográfica">
+  <h3>Ejemplo de línea de vida</h3>
+  <div class="linea-vida" role="img" aria-label="Diagrama de línea de vida biográfica con cuatro momentos: punto 1 - inicio del eje temático: primera experiencia de discriminación laboral narrada por el entrevistado; punto 2 - desarrollo: estrategias de adaptación y resistencia; punto 3 - turning point o epifanía señalado como bisagra, el evento que el sujeto identifica como antes y después; punto 4 - presente: cómo resignifica el pasado desde hoy y qué proyecta al futuro">
     <div class="lv-line" aria-hidden="true"></div>
-    <div class="lv-item">
-      <div class="lv-dot" aria-hidden="true"></div>
-      <div class="lv-content">
-        <span class="tag tag-v">Inicio del eje temático</span>
-        <p style="font-size:13px;margin-bottom:0">Primera experiencia de discriminación laboral narrada por el entrevistado.</p>
-      </div>
-    </div>
-    <div class="lv-item">
-      <div class="lv-dot" aria-hidden="true"></div>
-      <div class="lv-content">
-        <span class="tag tag-v">Desarrollo</span>
-        <p style="font-size:13px;margin-bottom:0">Estrategias de adaptación / resistencia / ocultamiento. Período de mayor tensión.</p>
-      </div>
-    </div>
-    <div class="lv-item">
-      <div class="lv-dot turning" aria-hidden="true"></div>
-      <div class="lv-content">
-        <span class="tag tag-r">⚡ Turning point</span>
-        <p style="font-size:13px;margin-bottom:0"><strong>El "antes y después":</strong> evento que el propio entrevistado identifica como bisagra. Puede ser una pérdida, una decisión, un encuentro inesperado.</p>
-      </div>
-    </div>
-    <div class="lv-item">
-      <div class="lv-dot" aria-hidden="true"></div>
-      <div class="lv-content">
-        <span class="tag tag-v">Presente</span>
-        <p style="font-size:13px;margin-bottom:0">¿Cómo resignifica el pasado desde el presente? ¿Qué proyecta hacia el futuro?</p>
-      </div>
-    </div>
+    <div class="lv-item"><div class="lv-dot" aria-hidden="true"></div><div class="lv-content"><span class="tag tag-v">Inicio del eje temático</span><p style="font-size:14px;margin:0">Primera experiencia de discriminación laboral narrada por el entrevistado.</p></div></div>
+    <div class="lv-item"><div class="lv-dot" aria-hidden="true"></div><div class="lv-content"><span class="tag tag-v">Desarrollo</span><p style="font-size:14px;margin:0">Estrategias de adaptación, resistencia y ajuste.</p></div></div>
+    <div class="lv-item"><div class="lv-dot turning" aria-hidden="true"></div><div class="lv-content"><span class="tag tag-r">⚡ Turning point</span><p style="font-size:14px;margin:0"><strong>El antes y después:</strong> evento que el sujeto identifica como bisagra. Puede ser una pérdida, decisión o encuentro inesperado.</p></div></div>
+    <div class="lv-item"><div class="lv-dot" aria-hidden="true"></div><div class="lv-content"><span class="tag tag-v">Presente</span><p style="font-size:14px;margin:0">¿Cómo resignifica el pasado desde hoy? ¿Qué proyecta hacia el futuro?</p></div></div>
   </div>
 </section>
 
+<!-- ════════ M4 MI DISEÑO ════════ -->
 
-<!-- ════════ MÓDULO 4: MI DISEÑO BIOGRÁFICO ════════ -->
 <section role="tabpanel" id="t4" aria-labelledby="b4" tabindex="-1">
   <h2 id="h4">Módulo 4 — Mi diseño biográfico</h2>
-  <div class="prog-txt" aria-hidden="true"><span class="en-casa">🏠 Trabajo para casa</span></div>
+  <div class="prog-txt"><span class="en-casa">🏠 Trabajo para casa</span></div>
+  <button class="leer-btn" onclick="leerId('t4')" aria-label="Leer todo el módulo Mi diseño biográfico">
+    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+    Leer instrucciones del módulo
+  </button>
 
   <div class="card card-o">
-    <p>Este módulo es para completar en casa. Trabájalo individualmente o con tu compañero/a según decidan. Trae las respuestas a la sesión siguiente para la clínica entre pares.</p>
+    <p>Completa este módulo en casa. Trae las respuestas a la sesión siguiente para la clínica entre pares.</p>
   </div>
 
-  <h3>Diagnóstico: ¿aplica el método biográfico a tu investigación?</h3>
+  <h3>Diagnóstico de tu investigación</h3>
 
   <div class="form-g">
-    <label for="pregunta-inv">Tu pregunta de investigación actual (tal como la tienes formulada)</label>
-    <textarea id="pregunta-inv" rows="3" placeholder="Escríbela tal como aparece en tu anteproyecto o como la tienes pensada..."></textarea>
+    <label for="pregunta-inv">Tu pregunta de investigación actual</label>
+    <textarea id="pregunta-inv" rows="3" placeholder="Escríbela tal como aparece en tu anteproyecto..." aria-describedby="hint-pregunta"></textarea>
+    <div class="hint" id="hint-pregunta">Escríbela tal como la tienes formulada. Puede ser provisional.</div>
   </div>
 
   <div class="form-g">
     <label for="fenomeno-temporal">¿El fenómeno que estudias se despliega en el tiempo o es un estado del presente?</label>
-    <select id="fenomeno-temporal">
-      <option value="">Selecciona...</option>
-      <option>Se despliega en el tiempo — hay un proceso que importa entender</option>
-      <option>Es principalmente un estado del presente — el pasado es solo contexto</option>
-      <option>Hay ambos elementos pero no sé cuál pesa más</option>
+    <select id="fenomeno-temporal" aria-describedby="hint-fenomeno">
+      <option value="">Selecciona una opción...</option>
+      <option value="proceso">Se despliega en el tiempo — hay un proceso que importa entender</option>
+      <option value="estado">Es principalmente un estado del presente — el pasado es solo contexto</option>
+      <option value="ambos">Hay ambos elementos pero no sé cuál pesa más</option>
     </select>
-    <div class="hint">Esta respuesta es el criterio más importante para decidir si el método biográfico aplica.</div>
+    <div class="hint" id="hint-fenomeno">Esta respuesta es el criterio más importante para decidir si el método biográfico aplica a tu investigación.</div>
   </div>
 
   <div class="form-g">
     <label for="eje-tematico">Si usaras el método biográfico, ¿cuál sería tu eje temático?</label>
-    <textarea id="eje-tematico" rows="2" placeholder="Una frase: el tramo o dimensión de la vida que te interesa rastrear..."></textarea>
+    <textarea id="eje-tematico" rows="2" placeholder="Una frase: el tramo o dimensión de la vida que te interesa rastrear..." aria-describedby="hint-eje"></textarea>
+    <div class="hint" id="hint-eje">El eje es la perspectiva desde la que invitas al participante a narrar, no un listado de preguntas.</div>
   </div>
 
   <div class="form-g">
-    <label for="tipo-sujeto">¿Qué tipo de sujeto eligirías según Plummer (gran persona / marginal / persona común)?</label>
+    <label for="tipo-sujeto">Tipo de sujeto según Plummer</label>
     <select id="tipo-sujeto">
-      <option value="">Selecciona...</option>
-      <option>Gran persona — alguien con trayectoria decisiva en el campo que estudio</option>
-      <option>Marginal — alguien que vive entre mundos sociales distintos</option>
-      <option>Persona común — alguien que representa una experiencia colectiva no visible</option>
+      <option value="">Selecciona una opción...</option>
+      <option value="gran">Gran persona — alguien con trayectoria decisiva en el campo que estudio</option>
+      <option value="marginal">Marginal — alguien que vive entre mundos sociales distintos</option>
+      <option value="comun">Persona común — alguien que representa una experiencia colectiva no visible</option>
     </select>
   </div>
 
   <div class="form-g">
-    <label for="turning-points">Turning points que probablemente encontrarías en la vida de tus participantes (relacionados con tu tema)</label>
-    <textarea id="turning-points" rows="4" placeholder="Escribe 2 o 3 momentos bisagra que hipotéticamente marcarían un antes y un después para tus participantes..."></textarea>
+    <label for="turning-points">Turning points que probablemente encontrarías</label>
+    <textarea id="turning-points" rows="4" placeholder="Escribe 2 o 3 momentos bisagra que hipotéticamente marcarían un antes y después para tus participantes..." aria-describedby="hint-tp"></textarea>
+    <div class="hint" id="hint-tp">Son hipótesis antes de entrevistar — pueden cambiar en campo.</div>
   </div>
 
   <div class="form-g">
-    <label for="decision-final">Decisión final: ¿usarás el método biográfico o la entrevista en profundidad convencional? ¿Por qué?</label>
-    <textarea id="decision-final" rows="4" placeholder="Argumenta con dos razones concretas, no con una opinión. Conecta con tu pregunta de investigación..."></textarea>
+    <label for="decision-final">Decisión final y argumento</label>
+    <textarea id="decision-final" rows="4" placeholder="¿Usarás el método biográfico o la entrevista en profundidad convencional? ¿Por qué? Argumenta con dos razones concretas..." aria-describedby="hint-dec"></textarea>
+    <div class="hint" id="hint-dec">Conecta explícitamente con tu pregunta de investigación.</div>
   </div>
 
-  <button class="btn-p" onclick="generarDiagnostico()">Ver diagnóstico sobre mi decisión</button>
-
-  <div id="diag-result" style="display:none;margin-top:16px"></div>
+  <button class="btn-p" onclick="generarDiagnostico()" aria-label="Generar diagnóstico basado en mis respuestas">
+    Ver diagnóstico sobre mi decisión
+  </button>
+  <div id="diag-result" role="region" aria-live="polite" aria-label="Resultado del diagnóstico" style="margin-top:18px"></div>
 </section>
 
+<!-- ════════ M5 QUIZ ════════ -->
 
-<!-- ════════ MÓDULO 5: QUIZ ════════ -->
 <section role="tabpanel" id="t5" aria-labelledby="b5" tabindex="-1">
   <h2 id="h5">Módulo 5 — Quiz de autoevaluación</h2>
-  <div class="prog-txt" aria-hidden="true"><span class="en-casa">🏠 Para casa</span></div>
+  <div class="prog-txt"><span class="en-casa">🏠 Para casa</span></div>
 
   <div class="card card-o">
-    <p>Responde las ocho preguntas. La retroalimentación aparece cuando hayas respondido todas. Las preguntas cubren ambas lecturas — si no hiciste el interaprendizaje, algunas te resultarán difíciles.</p>
+    <p>Responde las ocho preguntas. La retroalimentación aparece cuando hayas respondido todas. Con el modo audio activado, las preguntas y opciones se leen automáticamente al hacer foco en cada una.</p>
   </div>
 
-  <div id="quiz-area"></div>
+  <div id="quiz-area" role="region" aria-label="Preguntas del quiz"></div>
 </section>
 
+<!-- ════════ M6 LECTURAS S11 ════════ -->
 
-<!-- ════════ MÓDULO 6: LECTURAS S11 ════════ -->
 <section role="tabpanel" id="t6" aria-labelledby="b6" tabindex="-1">
   <h2 id="h6">Módulo 6 — Lecturas para la sesión 11</h2>
-  <div class="prog-txt" aria-hidden="true"><span class="en-casa">🏠 Para casa · Lectura única para los dos integrantes</span></div>
+  <div class="prog-txt"><span class="en-casa">🏠 Para casa · Lectura única para ambos</span></div>
+  <button class="leer-btn" onclick="leerId('t6')" aria-label="Leer todo el módulo de lecturas para la sesión 11">
+    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+    Leer instrucciones
+  </button>
 
   <div class="banner">
-    Sesión 11: <strong>Grupo de discusión.</strong> A diferencia de otras sesiones, esta vez ambos leen el mismo texto. El interaprendizaje de la próxima clase será diferente: en lugar de explicarse textos distintos, deberán haber llegado a reflexiones distintas sobre el mismo material.
+    Sesión 11: <strong>Grupo de discusión.</strong> Esta vez ambos leen el mismo texto. El interaprendizaje será diferente: deberán haber llegado a reflexiones distintas sobre el mismo material.
   </div>
 
   <div class="lect-card">
-    <div class="lect-hdr u">Lectura para ambos integrantes — Canales Cerón (2006)</div>
+    <div class="lect-hdr">Canales Cerón (2006) — Lectura para ambos integrantes</div>
     <div class="lect-body">
-      <p><strong>Referencia completa:</strong> Canales Cerón, M. (2006). <em>Metodologías de investigación social: Introducción a los oficios</em>. Santiago de Chile: LOM Ediciones. Capítulo: "El grupo de discusión".</p>
-      <p style="margin-top:8px"><strong>Qué vas a encontrar:</strong> Una reflexión conceptual y metodológica sobre el grupo de discusión como técnica cualitativa de investigación social. Canales trabaja desde la tradición española (Ibáñez) y latinoamericana, y propone que el grupo de discusión no es simplemente "juntar personas y preguntarles cosas" — es un dispositivo que produce discurso colectivo bajo condiciones específicas.</p>
+      <p><strong>Referencia:</strong> Canales Cerón, M. (2006). <em>Metodologías de investigación social: Introducción a los oficios</em>. Santiago de Chile: LOM Ediciones. Capítulo: "El grupo de discusión".</p>
 
-      <h5>Preguntas para reflexionar ANTES de leer</h5>
-      <ol style="font-size:14px;line-height:2.1;padding-left:18px">
-        <li>¿Las personas dicen lo mismo cuando hablan solas que cuando hablan frente a otros?</li>
-        <li>¿Qué cosas nos hacen cambiar, matizar o censurar lo que decimos en grupo?</li>
-        <li>¿Una opinión "ya existe" antes de ser dicha, o se construye mientras conversamos?</li>
-        <li>¿Hasta qué punto nuestras opiniones son realmente individuales?</li>
-      </ol>
+```
+  <h5>Preguntas para reflexionar ANTES de leer</h5>
+  <ol style="font-size:15px;line-height:2.1;padding-left:22px">
+    <li>¿Las personas dicen lo mismo cuando hablan solas que cuando hablan frente a otros?</li>
+    <li>¿Qué cosas nos hacen cambiar, matizar o censurar lo que decimos en grupo?</li>
+    <li>¿Una opinión ya existe antes de ser dicha, o se construye mientras conversamos?</li>
+    <li>¿Hasta qué punto nuestras opiniones son realmente individuales?</li>
+  </ol>
 
-      <h5>Preguntas para reflexionar DESPUÉS de leer</h5>
-      <ol style="font-size:14px;line-height:2.1;padding-left:18px">
-        <li>¿En qué se diferencia el grupo de discusión de un grupo focal? ¿Son técnicas intercambiables o tienen supuestos epistemológicos distintos?</li>
-        <li>¿Qué tipo de conocimiento produce el grupo de discusión que no puede producir una entrevista individual?</li>
-        <li>¿Cómo se aplica el criterio de credibilidad de Lincoln y Guba en un grupo de discusión si lo que se analiza es discurso colectivo, no experiencias individuales?</li>
-        <li><strong>Pregunta incómoda:</strong> Si el grupo de discusión produce discurso colectivo, ¿a quién pertenece ese dato — a los participantes individuales o al grupo? ¿Qué implica eso para el consentimiento informado?</li>
-      </ol>
+  <h5>Preguntas para reflexionar DESPUÉS de leer</h5>
+  <ol style="font-size:15px;line-height:2.1;padding-left:22px">
+    <li>¿En qué se diferencia el grupo de discusión de un grupo focal?</li>
+    <li>¿Qué tipo de conocimiento produce el grupo de discusión que no puede producir una entrevista individual?</li>
+    <li>¿Cómo se aplica el criterio de credibilidad de Lincoln y Guba en un grupo de discusión?</li>
+    <li><strong>Pregunta incómoda:</strong> Si el grupo de discusión produce discurso colectivo, ¿a quién pertenece ese dato? ¿Qué implica para el consentimiento informado?</li>
+  </ol>
 
-      <h5>Lo que traen a la sesión 11</h5>
-      <p style="font-size:14px"><strong>Una reflexión escrita de máximo 5 líneas</strong> sobre alguna experiencia propia en la que la presencia de otras personas cambió lo que dijeron o pensaron sobre algo. Puede ser una reunión, una clase, una conversación con amigos. No para compartir la anécdota —para conectarla con lo que Canales plantea teóricamente.</p>
+  <h5>Lo que traes a la sesión 11</h5>
+  <p style="font-size:15px">Una reflexión escrita de máximo 5 líneas sobre alguna experiencia propia en la que la presencia de otras personas cambió lo que dijiste o pensaste sobre algo. Para conectarla con lo que Canales plantea teóricamente.</p>
+</div>
+```
 
-      <div class="nota" style="margin-top:12px">
-        <div class="nl">¿Por qué los dos leen lo mismo?</div>
-        <p>En el grupo de discusión, lo que importa es la producción colectiva de sentido — no la suma de perspectivas individuales. Para entender eso desde adentro, necesitan haber llegado al mismo texto por caminos distintos y con preguntas propias. La sesión 11 usará exactamente esa diferencia de perspectivas como material de trabajo.</p>
-      </div>
-    </div>
   </div>
 </section>
 
 </main>
 
-<script>
-// ════════════════════════════════════════════
-// NAVIGATION
-// ════════════════════════════════════════════
-const NOMBRES=['Descubrir','Interaprendizaje','Conceptos clave','La línea de vida','Mi diseño biográfico','Quiz','Lecturas Sesión 11'];
+<!-- ══ HELP MODAL ══ -->
 
-function ir(n){
-  document.querySelectorAll('section[role="tabpanel"]').forEach((s,i)=>{s.classList.toggle('vis',i===n)});
-  document.querySelectorAll('nav[role="tablist"] button').forEach((b,i)=>{b.setAttribute('aria-selected',i===n?'true':'false')});
-  const h=document.getElementById('h'+n);
-  if(h){h.setAttribute('tabindex','-1');h.focus()}
-  document.getElementById('live').textContent='Módulo '+(n+1)+' de 7: '+NOMBRES[n];
-  window.scrollTo(0,0);
-  if(n===5) initQuiz();
+<div id="help-overlay" role="dialog" aria-modal="true" aria-labelledby="help-titulo">
+  <div id="help-modal">
+    <button class="modal-close" onclick="cerrarAyuda()" aria-label="Cerrar ayuda">×</button>
+    <h2 id="help-titulo">Controles de teclado y audio</h2>
+    <table aria-label="Lista de atajos de teclado">
+      <tbody>
+        <tr><td>L</td><td>Leer el módulo actual completo</td></tr>
+        <tr><td>S o Escape</td><td>Detener la lectura</td></tr>
+        <tr><td>A</td><td>Activar / desactivar Modo audio automático</td></tr>
+        <tr><td>+ / –</td><td>Aumentar o reducir velocidad de lectura</td></tr>
+        <tr><td>Tab</td><td>Navegar entre elementos interactivos</td></tr>
+        <tr><td>Flechas ← →</td><td>Navegar entre módulos (tabs)</td></tr>
+        <tr><td>Enter / Espacio</td><td>Activar botón o selección enfocada</td></tr>
+        <tr><td>H</td><td>Abrir / cerrar esta ventana de ayuda</td></tr>
+      </tbody>
+    </table>
+    <p style="margin-top:16px;font-size:14px">El Modo audio automático lee el contenido cuando navegas con el teclado. Se puede activar con el botón "Modo audio" o con la tecla A.</p>
+    <button class="btn-p" onclick="cerrarAyuda()" style="margin-top:16px;background:var(--v);color:#fff">Cerrar ayuda</button>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════════════════════
+// TTS ENGINE
+// ══════════════════════════════════════════════════════════
+const synth = window.speechSynthesis;
+let modoAudio = false;
+let velocidad = 0.9;
+let vozES = null;
+
+// Seleccionar voz española al cargar
+function iniciarVoces(){
+  const voces = synth.getVoices();
+  // Prioridad: es-CO > es-ES > es (cualquier variante)
+  vozES = voces.find(v=>v.lang==='es-CO')
+       || voces.find(v=>v.lang==='es-ES')
+       || voces.find(v=>v.lang.startsWith('es'))
+       || null;
+}
+if(synth.onvoiceschanged !== undefined) synth.onvoiceschanged = iniciarVoces;
+iniciarVoces();
+
+function hablar(texto, prioridad=false, callback=null){
+  if(!texto || !texto.trim()) return;
+  if(prioridad) synth.cancel();
+  const utt = new SpeechSynthesisUtterance(texto.replace(/[🔊📍🏠⚡🧭🎭👥🔄✍⏱]/g,''));
+  utt.lang = 'es';
+  utt.rate = velocidad;
+  if(vozES) utt.voice = vozES;
+  utt.onstart = () => {
+    const corto = texto.trim().slice(0, 60) + (texto.length > 60 ? '...' : '');
+    document.getElementById('tts-reading').textContent = '▶ ' + corto;
+  };
+  utt.onend = () => {
+    document.getElementById('tts-reading').textContent = '—';
+    if(callback) callback();
+  };
+  synth.speak(utt);
 }
 
+function parar(){
+  synth.cancel();
+  document.getElementById('tts-reading').textContent = 'Lectura detenida';
+  anunciar('Lectura detenida');
+}
+
+function cambiarVelocidad(v){
+  velocidad = parseFloat(v);
+  document.getElementById('vel-valor').textContent = velocidad.toFixed(1) + 'x';
+  hablar('Velocidad: ' + velocidad.toFixed(1), true);
+}
+
+function toggleModo(){
+  modoAudio = !modoAudio;
+  const btn = document.getElementById('btn-modo');
+  btn.textContent = 'Modo audio: ' + (modoAudio ? 'ON' : 'OFF');
+  btn.setAttribute('aria-pressed', modoAudio ? 'true' : 'false');
+  btn.classList.toggle('active', modoAudio);
+  hablar(modoAudio
+    ? 'Modo audio activado. Navega con Tab para escuchar cada elemento.'
+    : 'Modo audio desactivado. Los botones de leer siguen funcionando.', true);
+}
+
+// Leer sección completa por ID
+function leerId(id){
+  const el = document.getElementById(id);
+  if(!el) return;
+  const txt = el.innerText.replace(/Leer este módulo\n?/g,'').replace(/Leer instrucciones\n?/g,'').trim();
+  hablar(txt, true);
+}
+
+// ══════════════════════════════════════════════════════════
+// LIVE REGIONS
+// ══════════════════════════════════════════════════════════
+function anunciar(msg, urgente=false){
+  const id = urgente ? 'live-assertive' : 'live-polite';
+  const el = document.getElementById(id);
+  el.textContent = '';
+  setTimeout(()=>{ el.textContent = msg; }, 50);
+}
+
+// ══════════════════════════════════════════════════════════
+// TAB NAVIGATION (WCAG 2.1 — tablist pattern)
+// ══════════════════════════════════════════════════════════
+const NOMBRES=['Módulo 0: Descubrir. Trabajo en clase. Cuatro dilemas situados en contexto colombiano para reflexionar antes de las definiciones.',
+'Módulo 1: Apertura cooperativa. Trabajo en clase. Actividad de 20 minutos en pareja basada en el texto de Mallimaci y Giménez Béliveau.',
+'Módulo 2: Conceptos clave. Trabajo en clase. Historia de vida versus relato de vida, eje temático, turning points, ilusión biográfica, muestreo teórico y co-construcción del relato.',
+'Módulo 3: La línea de vida. Trabajo en clase. Actividad cooperativa de 25 minutos aplicando el método biográfico a la investigación propia.',
+'Módulo 4: Mi diseño biográfico. Trabajo para casa. Diagnóstico de si el método biográfico aplica a tu investigación.',
+'Módulo 5: Quiz de autoevaluación. Trabajo para casa. Ocho preguntas basadas en el texto de Mallimaci y Giménez Béliveau. En modo audio, las preguntas y opciones se leen automáticamente.',
+'Módulo 6: Lecturas para la sesión 11 sobre grupo de discusión. Trabajo para casa.'];
+
+function ir(n){
+  document.querySelectorAll('section[role="tabpanel"]').forEach((s,i)=>{ s.classList.toggle('vis', i===n); });
+  document.querySelectorAll('nav[role="tablist"] button').forEach((b,i)=>{ b.setAttribute('aria-selected', i===n?'true':'false'); });
+  const h = document.getElementById('h'+n);
+  if(h){ h.setAttribute('tabindex','-1'); h.focus(); }
+  anunciar(NOMBRES[n]);
+  if(modoAudio) hablar(NOMBRES[n], true);
+  if(n===5) initQuiz();
+  window.scrollTo(0,0);
+}
+
+// Arrow key navigation on tablist (WCAG 2.1 — keyboard pattern)
 document.querySelectorAll('nav[role="tablist"] button').forEach((b,i,arr)=>{
   b.addEventListener('keydown',e=>{
-    if(e.key==='ArrowRight'){e.preventDefault();arr[Math.min(i+1,arr.length-1)].focus()}
-    if(e.key==='ArrowLeft'){e.preventDefault();arr[Math.max(i-1,0)].focus()}
-    if(e.key==='Home'){e.preventDefault();arr[0].focus()}
-    if(e.key==='End'){e.preventDefault();arr[arr.length-1].focus()}
+    if(e.key==='ArrowRight'){e.preventDefault();const next=arr[Math.min(i+1,arr.length-1)];next.focus();ir(Math.min(i+1,arr.length-1));}
+    if(e.key==='ArrowLeft'){e.preventDefault();const prev=arr[Math.max(i-1,0)];prev.focus();ir(Math.max(i-1,0));}
+    if(e.key==='Home'){e.preventDefault();arr[0].focus();ir(0);}
+    if(e.key==='End'){e.preventDefault();arr[arr.length-1].focus();ir(arr.length-1);}
+  });
+  // Read tab label on focus in audio mode
+  b.addEventListener('focus',()=>{
+    if(modoAudio) hablar(NOMBRES[i], false);
   });
 });
 
-// ════════════════════════════════════════════
+// ══════════════════════════════════════════════════════════
 // DILEMAS
-// ════════════════════════════════════════════
-function rev(id){
-  const el=document.getElementById('ten-'+id);
-  const btn=el.previousElementSibling.querySelector('.btn-rev');
-  const visible=el.classList.contains('vis');
-  el.classList.toggle('vis',!visible);
-  btn.setAttribute('aria-expanded',!visible?'true':'false');
-  btn.textContent=visible?btn.dataset.orig:'Ocultar';
-  document.getElementById('live').textContent=visible?'Reflexión ocultada':'Reflexión revelada';
-  if(!visible){el.setAttribute('tabindex','-1');el.focus()}
-}
-document.querySelectorAll('.btn-rev').forEach(b=>{b.dataset.orig=b.textContent});
-
-// ════════════════════════════════════════════
-// CONCEPTO ACCORDION
-// ════════════════════════════════════════════
-function conc(btn,id){
-  const body=document.getElementById(id);
-  const open=btn.getAttribute('aria-expanded')==='true';
-  btn.setAttribute('aria-expanded',open?'false':'true');
-  body.classList.toggle('open',!open);
-  document.getElementById('live').textContent=open?'Concepto cerrado':'Concepto abierto: '+btn.querySelector('.concepto-tit').firstChild.textContent.trim();
-}
-
-// ════════════════════════════════════════════
-// DIAGNÓSTICO MÓDULO 4
-// ════════════════════════════════════════════
-function generarDiagnostico(){
-  const fenomeno=document.getElementById('fenomeno-temporal').value;
-  const eje=document.getElementById('eje-tematico').value.trim();
-  const decision=document.getElementById('decision-final').value.trim();
-
-  let titulo='', texto='', color=window.getComputedStyle(document.documentElement).getPropertyValue('--vc');
-
-  if(!fenomeno){alert('Selecciona al menos el carácter temporal del fenómeno antes de generar el diagnóstico.');return}
-
-  if(fenomeno.includes('despliega en el tiempo')){
-    titulo='✔ El método biográfico puede ser pertinente';
-    texto='Tu fenómeno tiene carácter procesual — se despliega en el tiempo. Eso es el criterio principal para considerar el método biográfico o el relato de vida focalizado. El paso siguiente es verificar que tu pregunta de investigación efectivamente necesite conocer la trayectoria, no solo el estado actual.';
-  } else if(fenomeno.includes('principalmente un estado del presente')){
-    titulo='⚠ Revisa si realmente necesitas el método biográfico';
-    texto='Si el fenómeno es principalmente un estado del presente, la entrevista en profundidad convencional probablemente responde mejor tu pregunta con menor inversión de tiempo. El método biográfico añade valor cuando la trayectoria temporal es constitutiva del fenómeno, no solo contexto.';
+// ══════════════════════════════════════════════════════════
+function rev(id, btnId){
+  const el = document.getElementById('ten-'+id);
+  const btn = document.getElementById(btnId);
+  const visible = el.classList.contains('vis');
+  el.classList.toggle('vis', !visible);
+  btn.setAttribute('aria-expanded', !visible ? 'true' : 'false');
+  btn.textContent = visible ? btn.dataset.orig : 'Cerrar reflexión';
+  if(!visible){
+    el.setAttribute('tabindex','-1');
+    el.focus();
+    const tensionTxt = el.innerText;
+    if(modoAudio) hablar(tensionTxt, true);
+    else hablar('Reflexión revelada. ' + tensionTxt, true);
   } else {
-    titulo='🔄 Necesitas clarificar el carácter de tu fenómeno';
-    texto='La indecisión sobre si el fenómeno es procesual o estático es en sí misma una señal metodológica importante. Vuelve a tu pregunta de investigación: ¿qué tipo de conocimiento necesitas producir? ¿Comprender cómo algo llegó a ser, o cómo algo es?';
+    anunciar('Reflexión ocultada');
   }
+}
+document.querySelectorAll('.btn-rev').forEach(b=>{ b.dataset.orig=b.textContent; });
 
-  if(!eje) texto+=' Falta el eje temático — sin él no puedes diseñar la guía de entrevista biográfica.';
-  if(!decision) texto+=' También falta la decisión argumentada. Sin argumentar la decisión, no puedes defenderla metodológicamente en tu monografía.';
+// ══════════════════════════════════════════════════════════
+// CONCEPTOS (accordion)
+// ══════════════════════════════════════════════════════════
+function conc(btn, id){
+  const body = document.getElementById(id);
+  const open = btn.getAttribute('aria-expanded')==='true';
+  btn.setAttribute('aria-expanded', open?'false':'true');
+  body.classList.toggle('open', !open);
+  const tit = btn.querySelector('.concepto-tit').firstChild.textContent.trim();
+  if(!open){
+    const contenido = body.innerText.trim();
+    anunciar(tit + '. Expandido.');
+    if(modoAudio) hablar(tit + '. ' + contenido, true);
+    else hablar(tit, false);
+  } else {
+    anunciar(tit + '. Cerrado.');
+  }
+}
 
-  const div=document.getElementById('diag-result');
-  div.style.display='block';
-  div.innerHTML=`<div class="card card-v" style="border-left-color:var(--v)">
-    <h4 style="color:var(--v);font-family:system-ui,sans-serif;margin-bottom:10px">${titulo}</h4>
-    <p style="font-size:14px">${texto}</p>
-    ${eje?`<p style="font-size:13px;margin-top:10px;font-style:italic;color:#555"><strong>Tu eje temático:</strong> ${eje}</p>`:''}
-    ${decision?`<p style="font-size:13px;margin-top:8px;font-style:italic;color:#555"><strong>Tu decisión:</strong> ${decision.slice(0,200)}${decision.length>200?'...':''}</p>`:''}
-  </div>`;
+// ══════════════════════════════════════════════════════════
+// DIAGNÓSTICO M4
+// ══════════════════════════════════════════════════════════
+function generarDiagnostico(){
+  const fenomeno = document.getElementById('fenomeno-temporal').value;
+  const eje = document.getElementById('eje-tematico').value.trim();
+  const decision = document.getElementById('decision-final').value.trim();
+  if(!fenomeno){ hablar('Por favor selecciona primero el carácter temporal del fenómeno.', true); return; }
+  let titulo='', texto='';
+  if(fenomeno==='proceso'){
+    titulo='El método biográfico puede ser pertinente';
+    texto='Tu fenómeno tiene carácter procesual. Eso es el criterio principal. El paso siguiente es verificar que tu pregunta necesite conocer la trayectoria y no solo el estado actual.';
+  } else if(fenomeno==='estado'){
+    titulo='Revisa si realmente necesitas el método biográfico';
+    texto='Si el fenómeno es principalmente un estado del presente, la entrevista en profundidad convencional probablemente responde mejor tu pregunta con menor inversión de tiempo.';
+  } else {
+    titulo='Necesitas clarificar el carácter de tu fenómeno';
+    texto='La indecisión es en sí misma una señal metodológica. Vuelve a tu pregunta: ¿qué tipo de conocimiento necesitas producir? ¿Comprender cómo algo llegó a ser, o cómo algo es?';
+  }
+  if(!eje) texto+=' Falta el eje temático.';
+  if(!decision) texto+=' Falta la decisión argumentada.';
+  const div = document.getElementById('diag-result');
+  div.innerHTML=`<div class="card card-v" role="alert"><h4 style="color:var(--v);font-family:system-ui,sans-serif;margin-bottom:10px">${titulo}</h4><p>${texto}</p>${eje?`<p style="font-size:14px;margin-top:10px;font-style:italic;color:var(--g)"><strong>Tu eje temático:</strong> ${eje}</p>`:''}</div>`;
+  hablar(titulo + '. ' + texto, true);
   div.scrollIntoView({behavior:'smooth'});
 }
 
-// ════════════════════════════════════════════
+// ══════════════════════════════════════════════════════════
 // QUIZ DATA
-// ════════════════════════════════════════════
+// ══════════════════════════════════════════════════════════
 const QUIZ=[
-  {
-    q:"Mallimaci y Giménez Béliveau distinguen entre 'historia de vida' (<em>life history</em>) y 'relato de vida' (<em>life story</em>). La diferencia más precisa es:",
-    opts:[
-      "La historia de vida es más larga y usa más sesiones de entrevista; el relato de vida puede hacerse en una sola sesión.",
-      "En la historia de vida el investigador interpreta la vida del sujeto y la contrasta con fuentes documentales; en el relato de vida se minimiza la intervención del investigador privilegiando la voz del entrevistado.",
-      "La historia de vida es un método cuantitativo que incluye datos estadísticos sobre la trayectoria del sujeto; el relato de vida es estrictamente cualitativo.",
-      "La historia de vida estudia a personas históricamente importantes; el relato de vida estudia a personas comunes."
-    ],
-    correct:1,
-    fb:[
-      "La duración es una consecuencia del método, no la diferencia definitoria. La distinción central es epistemológica: cuánto interviene el investigador en la construcción del texto final.",
-      "Correcto. La distinción es epistemológica: en la historia de vida el investigador produce una interpretación documentada; en el relato de vida el texto es fundamentalmente la voz del entrevistado con mínima intervención del investigador.",
-      "Ninguna de las dos variantes es cuantitativa. Esta confusión mezcla categorías metodológicas de paradigmas diferentes.",
-      "La distinción entre 'gran persona', 'marginal' y 'persona común' corresponde al muestreo teórico (Plummer), no a la diferencia entre historia de vida y relato de vida."
-    ]
-  },
-  {
-    q:"Bourdieu introduce el concepto de 'ilusión biográfica'. Para el método biográfico, esto implica que el investigador debe:",
-    opts:[
-      "Advertir al entrevistado que su relato es una ilusión y pedirle que sea más objetivo al narrar su vida.",
-      "Tratar el relato como datos objetivos porque las personas tienen acceso privilegiado a su propia experiencia.",
-      "No asumir que el hilo conductor coherente que el entrevistado presenta refleja cómo su vida realmente ocurrió — el relato es una interpretación del pasado desde el presente.",
-      "Verificar cada episodio narrado con documentos históricos antes de usarlo como dato de investigación."
-    ],
-    correct:2,
-    fb:[
-      "La ilusión biográfica no es un error del entrevistado que hay que corregir — es una propiedad constitutiva de cómo los humanos narran su vida. Señalárselo sería éticamente inapropiado y metodológicamente contraproducente.",
-      "Lo opuesto: Bourdieu advierte precisamente que no se puede tratar el relato como un reflejo objetivo de los hechos. El relato es una construcción desde el presente.",
-      "Correcto. La ilusión biográfica significa que el narrador tiende a producir coherencia retrospectiva. El investigador debe analizar el relato como interpretación, no como descripción factual.",
-      "Verificar con documentos es útil, pero la implicación de la ilusión biográfica es más profunda: afecta la naturaleza misma del dato biográfico como construcción, no solo su exactitud factual."
-    ]
-  },
-  {
-    q:"Una pareja de séptimo semestre decide usar el método biográfico para estudiar 'estrategias de afrontamiento actuales en personas con diagnóstico reciente de diabetes tipo 2 en Facatativá'. La evaluación metodológica más precisa es:",
-    opts:[
-      "El diseño es adecuado: la diabetes es un fenómeno que genera cambios de vida significativos y el método biográfico puede capturarlos.",
-      "El método biográfico no aplica porque la diabetes es un fenómeno biológico, no social.",
-      "Hay un problema de coherencia: 'estrategias de afrontamiento actuales' sugiere un foco en el presente, no en la trayectoria temporal que el método biográfico exige. Una entrevista en profundidad convencional respondería mejor esa pregunta.",
-      "El método biográfico es el más adecuado porque cualquier fenómeno relacionado con salud exige comprender la historia del paciente."
-    ],
-    correct:2,
-    fb:[
-      "Parcialmente válido — la diabetes puede generar turning points biográficos. Pero el foco explícito en 'estrategias actuales' no requiere rastrear la trayectoria completa. Hay un desajuste entre la técnica y la pregunta.",
-      "La diabetes genera rupturas biográficas que son muy pertinentes para el método biográfico. El problema no es el tema sino el foco formulado en la pregunta.",
-      "Correcto. El criterio clave es si la pregunta requiere entender la trayectoria temporal o el estado presente. 'Estrategias de afrontamiento actuales' es un foco en el presente; si la pregunta fuera 'cómo se resignificó la identidad desde el diagnóstico hasta hoy', el método biográfico sería más coherente.",
-      "No todo fenómeno de salud requiere el método biográfico. El criterio no es el tema sino si la pregunta de investigación necesita comprender un proceso en el tiempo."
-    ]
-  },
-  {
-    q:"Ferrarotti —citado por Mallimaci y Giménez Béliveau— afirma que 'nadie cuenta su vida a un grabador. A un maniquí tampoco.' La implicación más directa para los criterios de calidad de Lincoln y Guba es:",
-    opts:[
-      "La credibilidad se fortalece automáticamente porque la co-construcción relacional produce datos más ricos que la entrevista estructurada.",
-      "La confirmabilidad exige que el investigador documente explícitamente cómo su presencia e intervención influyeron en lo que el entrevistado terminó narrando, ya que el dato biográfico no existe independientemente de esa relación.",
-      "La dependabilidad se ve comprometida porque el relato co-construido no puede auditarse metodológicamente al depender de factores relacionales imprevisibles.",
-      "La transferibilidad aumenta porque el relato co-construido es más representativo de la experiencia colectiva que el producido en condiciones de distancia investigativa."
-    ],
-    correct:1,
-    fb:[
-      "La co-construcción relacional no garantiza por sí sola mayor credibilidad — el investigador puede direccionar el relato inadvertidamente. La credibilidad se trabaja con otras estrategias como el member checking.",
-      "Correcto. Si el dato biográfico es co-construido en la relación entre investigador y entrevistado, la confirmabilidad exige que esa influencia sea documentada y trazable. Ocultarla no la elimina — solo la vuelve inauditable.",
-      "La dependabilidad refiere a la trazabilidad de las decisiones metodológicas, no a la predictibilidad del proceso. El carácter relacional del método biográfico puede documentarse en notas metodológicas y reflexivas.",
-      "La transferibilidad depende de la descripción densa del contexto del estudio, no del carácter relacional o individual del método de recolección."
-    ]
-  },
-  {
-    q:"Según Mallimaci y Giménez Béliveau, los 'turning points' o epifanías en el método biográfico son:",
-    opts:[
-      "Eventos que el investigador identifica como los más importantes en la vida del entrevistado a partir de su análisis teórico.",
-      "Momentos que el propio entrevistado identifica como un antes y un después en su trayectoria, y que el investigador profundiza en el análisis.",
-      "Los momentos de mayor coherencia narrativa en el relato, donde el entrevistado puede articular claramente lo que vivió.",
-      "Las contradicciones entre lo que el entrevistado dice y lo que los documentos históricos registran."
-    ],
-    correct:1,
-    fb:[
-      "El investigador no puede imponer los turning points desde su marco teórico — eso sería la 'ilusión biográfica' producida por el investigador. Los turning points emergen del relato del entrevistado.",
-      "Correcto. Los turning points son identificados por el entrevistado en su propia narración — el investigador los detecta y los profundiza, pero no los define externamente.",
-      "Los turning points no son necesariamente los momentos más coherentes — pueden ser los más caóticos, los más difíciles de articular. A veces el silencio o la dificultad narrativa marca precisamente el turning point.",
-      "Las contradicciones entre relato y documentos son útiles metodológicamente, pero no es la definición de turning point."
-    ]
-  },
-  {
-    q:"Una investigadora hace 15 entrevistas biográficas con adultos mayores de Facatativá que migraron del campo. Cuando analiza los relatos, nota que todos presentan el mismo patrón de tres momentos: una vida difícil en el campo idealizada retrospectivamente, una crisis que motivó la migración, y un proceso de adaptación a la ciudad. ¿Cuál es la lectura metodológicamente más cuidadosa?",
-    opts:[
-      "El patrón de tres momentos confirma la validez del estudio porque la saturación teórica se alcanzó: todos los relatos convergen.",
-      "El patrón puede reflejar tanto una experiencia colectiva real como un molde narrativo culturalmente disponible para narrar la migración. El análisis debe explorar qué produce esa uniformidad.",
-      "El patrón de tres momentos invalida la investigación porque los relatos no son independientes y sugieren que los entrevistados se coordinaron.",
-      "La uniformidad de los relatos indica que la investigadora hizo preguntas dirigidas que sesgaron las respuestas."
-    ],
-    correct:1,
-    fb:[
-      "La saturación teórica indica que no emergen categorías nuevas, pero la uniformidad del patrón merece análisis propio. El patrón puede ser dato — pero de qué es dato exactamente es la pregunta.",
-      "Correcto. Mallimaci y Giménez Béliveau señalan que los relatos se construyen a partir de moldes narrativos disponibles culturalmente. La uniformidad puede reflejar una experiencia colectiva real (la migración campo-ciudad en Cundinamarca tiene condiciones históricas específicas) o la disponibilidad de una narrativa socialmente validada sobre cómo se cuenta esa experiencia. Ambas son datos valiosos.",
-      "En el método biográfico, los relatos no necesitan ser independientes para ser válidos. La convergencia puede ser exactamente el hallazgo más significativo.",
-      "Posible, pero es la hipótesis más pesimista y menos parsimoniosa. Antes de concluir sesgo del investigador, explorar si la uniformidad tiene explicación en la experiencia colectiva o en moldes narrativos disponibles."
-    ]
-  },
-  {
-    q:"Según el muestreo teórico en el método biográfico, ¿por qué la 'persona común' puede ser la más adecuada para muchas investigaciones en psicología?",
-    opts:[
-      "Porque las personas comunes son más fáciles de acceder y más dispuestas a hablar con investigadores universitarios.",
-      "Porque las personas comunes son estadísticamente representativas de la población general, lo que garantiza la generalización de los resultados.",
-      "Porque su historia particular puede iluminar experiencias colectivas que las estadísticas homogenizan — la singularidad del caso revela lo que los promedios ocultan.",
-      "Porque las personas comunes tienen menos sesgos al narrar su vida que las personas públicas o marginalizadas."
-    ],
-    correct:2,
-    fb:[
-      "La accesibilidad es una consideración práctica, pero no es el fundamento epistemológico del muestreo teórico. El criterio es la relevancia conceptual para la pregunta.",
-      "El método biográfico no busca representatividad estadística. Este es exactamente el tipo de lógica cuantitativa que no aplica aquí.",
-      "Correcto. En línea con Ferrarotti: cada vida individual es 'un universo singular' que expresa, a su manera, relaciones y estructuras sociales. La persona común es valiosa precisamente porque su trayectoria específica puede hacer visible lo que los grandes números invisibilizan.",
-      "No hay fundamento para afirmar que las personas comunes tienen menos sesgos narrativos. La ilusión biográfica opera en todos los tipos de narrador."
-    ]
-  },
-  {
-    q:"En el contexto de una monografía de séptimo semestre, ¿cuál es la decisión más honesta metodológicamente cuando no hay tiempo para hacer múltiples sesiones de entrevista biográfica?",
-    opts:[
-      "Declarar que se hizo una 'historia de vida' aunque sea una sola entrevista de 90 minutos, porque los estándares académicos de pregrado son menos exigentes.",
-      "Abandonar cualquier aproximación biográfica y cambiar a entrevistas estructuradas con escalas validadas.",
-      "Optar por un 'relato de vida focalizado' — una entrevista en profundidad con énfasis en la trayectoria relevante para la pregunta — y nombrar con precisión lo que el diseño puede y no puede producir.",
-      "Hacer una historia de vida en una sola sesión extendida de cuatro horas para compensar el número de sesiones."
-    ],
-    correct:2,
-    fb:[
-      "Declarar una historia de vida sin las condiciones mínimas para producirla es una deshonestidad metodológica. Los estándares de rigor no cambian según el nivel académico — cambia el alcance posible.",
-      "El abandono total de la perspectiva biográfica no es necesario. Hay formas de incorporar la dimensión temporal en una entrevista en profundidad bien diseñada.",
-      "Correcto. La honestidad metodológica implica nombrar con precisión lo que el diseño produce. Un relato de vida focalizado en una sola sesión puede ser muy valioso si está bien diseñado — pero no puede llamarse historia de vida. Mallimaci y Giménez Béliveau son explícitos sobre esto.",
-      "La extensión temporal de una sola sesión no reemplaza la profundidad que se construye en múltiples encuentros con rapport acumulado. Ferrarotti es claro: la historia de vida requiere tiempo de convivialidad, no solo horas de grabación."
-    ]
-  }
+  {q:"Mallimaci y Giménez Béliveau distinguen entre historia de vida, llamada life history, y relato de vida, llamada life story. La diferencia más precisa es:",
+   opts:["La historia de vida es más larga y usa más sesiones; el relato de vida puede hacerse en una sola sesión.",
+         "En la historia de vida el investigador interpreta la vida del sujeto y la contrasta con fuentes documentales; en el relato de vida se minimiza la intervención del investigador privilegiando la voz del entrevistado.",
+         "La historia de vida es un método cuantitativo que incluye datos estadísticos; el relato de vida es estrictamente cualitativo.",
+         "La historia de vida estudia a personas históricamente importantes; el relato de vida estudia a personas comunes."],
+   correct:1,
+   fb:["La duración es una consecuencia del método, no la diferencia definitoria. La distinción es epistemológica: cuánto interviene el investigador en el texto final.",
+       "Correcto. La distinción es epistemológica: en la historia de vida el investigador produce una interpretación documentada; en el relato de vida el texto es fundamentalmente la voz del entrevistado.",
+       "Ninguna de las dos variantes es cuantitativa. Esta confusión mezcla categorías metodológicas de paradigmas diferentes.",
+       "La distinción entre gran persona, marginal y persona común corresponde al muestreo teórico de Plummer, no a la diferencia entre historia de vida y relato de vida."]},
+  {q:"Bourdieu introduce el concepto de ilusión biográfica. Para el método biográfico, esto implica que el investigador debe:",
+   opts:["Advertir al entrevistado que su relato es una ilusión y pedirle que sea más objetivo.",
+         "Tratar el relato como datos objetivos porque las personas tienen acceso privilegiado a su propia experiencia.",
+         "No asumir que el hilo conductor coherente que el entrevistado presenta refleja cómo su vida realmente ocurrió, porque el relato es una interpretación del pasado desde el presente.",
+         "Verificar cada episodio narrado con documentos históricos antes de usarlo como dato."],
+   correct:2,
+   fb:["La ilusión biográfica no es un error del entrevistado que hay que corregir; es una propiedad constitutiva de cómo los humanos narran su vida.",
+       "Lo opuesto: Bourdieu advierte que no se puede tratar el relato como reflejo objetivo. El relato es una construcción desde el presente.",
+       "Correcto. La ilusión biográfica significa que el narrador tiende a producir coherencia retrospectiva. El investigador debe analizar el relato como interpretación, no como descripción factual.",
+       "Verificar con documentos es útil, pero la implicación de la ilusión biográfica es más profunda: afecta la naturaleza misma del dato biográfico."]},
+  {q:"Una pareja de séptimo semestre decide usar el método biográfico para estudiar estrategias de afrontamiento actuales en personas con diagnóstico reciente de diabetes tipo 2 en Facatativá. La evaluación más precisa es:",
+   opts:["El diseño es adecuado: la diabetes genera cambios de vida significativos que el método biográfico puede capturar.",
+         "El método biográfico no aplica porque la diabetes es un fenómeno biológico, no social.",
+         "Hay un problema: estrategias de afrontamiento actuales sugiere un foco en el presente, no en la trayectoria temporal que el método biográfico exige. Una entrevista en profundidad convencional respondería mejor esa pregunta.",
+         "El método biográfico es el más adecuado porque cualquier fenómeno de salud exige comprender la historia del paciente."],
+   correct:2,
+   fb:["Parcialmente válido, pero el foco explícito en estrategias actuales no requiere rastrear la trayectoria completa. Hay un desajuste entre la técnica y la pregunta.",
+       "La diabetes puede generar rupturas biográficas muy pertinentes para el método biográfico. El problema no es el tema sino el foco formulado en la pregunta.",
+       "Correcto. El criterio clave es si la pregunta requiere entender la trayectoria temporal o el estado presente. Estrategias actuales es un foco en el presente.",
+       "No todo fenómeno de salud requiere el método biográfico. El criterio no es el tema sino si la pregunta necesita comprender un proceso en el tiempo."]},
+  {q:"Ferrarotti, citado por Mallimaci y Giménez Béliveau, afirma que nadie cuenta su vida a un grabador, ni a un maniquí. La implicación más directa para los criterios de calidad de Lincoln y Guba es:",
+   opts:["La credibilidad se fortalece automáticamente porque la co-construcción produce datos más ricos.",
+         "La confirmabilidad exige que el investigador documente explícitamente cómo su presencia e intervención influyeron en lo que el entrevistado terminó narrando, ya que el dato biográfico no existe independientemente de esa relación.",
+         "La dependabilidad se ve comprometida porque el relato co-construido no puede auditarse metodológicamente.",
+         "La transferibilidad aumenta porque el relato co-construido es más representativo de la experiencia colectiva."],
+   correct:1,
+   fb:["La co-construcción no garantiza por sí sola mayor credibilidad. La credibilidad se trabaja con member checking y triangulación.",
+       "Correcto. Si el dato biográfico es co-construido, la confirmabilidad exige que esa influencia sea documentada y trazable. Ocultarla no la elimina, solo la vuelve inauditable.",
+       "La dependabilidad refiere a la trazabilidad de las decisiones metodológicas, no a la predictibilidad del proceso.",
+       "La transferibilidad depende de la descripción densa del contexto, no del carácter relacional del método."]},
+  {q:"Según Mallimaci y Giménez Béliveau, los turning points o epifanías en el método biográfico son:",
+   opts:["Eventos que el investigador identifica como los más importantes a partir de su análisis teórico.",
+         "Momentos que el propio entrevistado identifica como un antes y un después en su trayectoria, que el investigador profundiza en el análisis.",
+         "Los momentos de mayor coherencia narrativa en el relato.",
+         "Las contradicciones entre lo que el entrevistado dice y lo que los documentos históricos registran."],
+   correct:1,
+   fb:["El investigador no puede imponer los turning points desde su marco teórico. Eso sería la ilusión biográfica producida por el investigador.",
+       "Correcto. Los turning points son identificados por el entrevistado en su propia narración. El investigador los detecta y los profundiza.",
+       "Los turning points no son necesariamente los momentos más coherentes. A veces el silencio o la dificultad narrativa marca precisamente el turning point.",
+       "Las contradicciones entre relato y documentos son útiles metodológicamente, pero no es la definición de turning point."]},
+  {q:"Una investigadora hace quince entrevistas biográficas con adultos mayores de Facatativá que migraron del campo. Todos presentan el mismo patrón de tres momentos: vida difícil en el campo, crisis que motivó la migración, proceso de adaptación. ¿Cuál es la lectura metodológicamente más cuidadosa?",
+   opts:["El patrón confirma la validez del estudio porque la saturación teórica se alcanzó.",
+         "El patrón puede reflejar tanto una experiencia colectiva real como un molde narrativo culturalmente disponible para narrar la migración. El análisis debe explorar qué produce esa uniformidad.",
+         "El patrón invalida la investigación porque los relatos sugieren que los entrevistados se coordinaron.",
+         "La uniformidad indica que la investigadora hizo preguntas dirigidas que sesgaron las respuestas."],
+   correct:1,
+   fb:["La saturación indica que no emergen categorías nuevas, pero la uniformidad del patrón merece análisis propio.",
+       "Correcto. Mallimaci y Giménez Béliveau señalan que los relatos se construyen a partir de moldes narrativos disponibles culturalmente. La uniformidad puede reflejar experiencia colectiva real o disponibilidad de una narrativa socialmente validada.",
+       "En el método biográfico, los relatos no necesitan ser independientes para ser válidos.",
+       "Posible, pero es la hipótesis más pesimista. Primero hay que explorar si la uniformidad tiene explicación en la experiencia colectiva o en moldes narrativos."]},
+  {q:"¿Por qué la persona común puede ser la más adecuada para muchas investigaciones en psicología según Mallimaci y Giménez Béliveau, siguiendo a Plummer y Ferrarotti?",
+   opts:["Porque las personas comunes son más fáciles de acceder y más dispuestas a hablar con investigadores.",
+         "Porque son estadísticamente representativas de la población general, lo que garantiza la generalización.",
+         "Porque su historia particular puede iluminar experiencias colectivas que las estadísticas homogenizan. La singularidad del caso revela lo que los promedios ocultan.",
+         "Porque tienen menos sesgos al narrar su vida que las personas públicas o marginalizadas."],
+   correct:2,
+   fb:["La accesibilidad es una consideración práctica, no el fundamento epistemológico del muestreo teórico.",
+       "El método biográfico no busca representatividad estadística. Este es exactamente el tipo de lógica cuantitativa que no aplica aquí.",
+       "Correcto. Siguiendo a Ferrarotti: cada vida individual es un universo singular que expresa a su manera relaciones y estructuras sociales.",
+       "No hay fundamento para afirmar que las personas comunes tienen menos sesgos. La ilusión biográfica opera en todos los tipos de narrador."]},
+  {q:"En el contexto de una monografía de séptimo semestre con tiempo limitado, ¿cuál es la decisión más honesta metodológicamente?",
+   opts:["Declarar que se hizo una historia de vida aunque sea una sola entrevista de 90 minutos, porque los estándares de pregrado son menos exigentes.",
+         "Abandonar cualquier aproximación biográfica y cambiar a entrevistas estructuradas con escalas validadas.",
+         "Optar por un relato de vida focalizado, una entrevista en profundidad con énfasis en la trayectoria relevante para la pregunta, y nombrar con precisión lo que el diseño puede y no puede producir.",
+         "Hacer una historia de vida en una sola sesión extendida de cuatro horas para compensar el número de sesiones."],
+   correct:2,
+   fb:["Declarar una historia de vida sin las condiciones mínimas es una deshonestidad metodológica. Los estándares de rigor no cambian según el nivel académico.",
+       "El abandono total no es necesario. Hay formas de incorporar la dimensión temporal en una entrevista bien diseñada.",
+       "Correcto. La honestidad metodológica implica nombrar con precisión lo que el diseño produce. Un relato de vida focalizado puede ser muy valioso si está bien diseñado.",
+       "La extensión de una sola sesión no reemplaza la profundidad que se construye en múltiples encuentros con rapport acumulado."]}
 ];
 
-// ════════════════════════════════════════════
-// QUIZ LOGIC — silent localStorage, no reset
-// ════════════════════════════════════════════
-const STORE_KEY='quiz_s10_udec_v1';
+// ══════════════════════════════════════════════════════════
+// QUIZ LOGIC (silent localStorage, no reset button)
+// ══════════════════════════════════════════════════════════
+const STORE_KEY='quiz_s10_acc_v1';
 let quizStarted=false;
 
 function initQuiz(){
   if(quizStarted) return;
   quizStarted=true;
-
   let saved=null;
   try{ saved=localStorage.getItem(STORE_KEY); }catch(e){}
-
   if(saved){
-    try{
-      const d=JSON.parse(saved);
-      showResult(d.score, d.answers, true);
-    }catch(e){ renderForm(); }
-  } else {
-    renderForm();
+    try{ const d=JSON.parse(saved); showResult(d.score,d.answers,true); return; }catch(e){}
   }
+  renderForm();
 }
 
 function renderForm(){
@@ -808,29 +1120,43 @@ function renderForm(){
     html+=`<div class="quiz-qcard" id="qc${i}">
       <div class="quiz-qhdr">
         <div class="quiz-qnum" aria-hidden="true">${i+1}</div>
-        <div class="quiz-qtxt">${q.q}</div>
+        <div class="quiz-qtxt" id="qtxt${i}">${q.q}
+          <button type="button" class="leer-inline" onclick="hablar('Pregunta ${i+1}. ${q.q}')" aria-label="Leer pregunta ${i+1}">🔊</button>
+        </div>
       </div>
-      <div class="quiz-opts" role="group" aria-labelledby="ql${i}">
-        <span id="ql${i}" style="position:absolute;left:-10000px">Pregunta ${i+1}</span>`;
+      <fieldset class="quiz-opts" style="border:none;margin:0;padding:0">
+        <legend class="sr-only" style="position:absolute;left:-10000px">Opciones para la pregunta ${i+1}: ${q.q}</legend>`;
     q.opts.forEach((o,j)=>{
-      html+=`<label class="quiz-opt" for="q${i}o${j}">
-        <input type="radio" name="q${i}" id="q${i}o${j}" value="${j}">
-        ${String.fromCharCode(97+j)}) ${o}
+      const letra=String.fromCharCode(65+j);
+      html+=`<label class="quiz-opt" for="q${i}o${j}" id="lbl_q${i}o${j}">
+        <input type="radio" name="q${i}" id="q${i}o${j}" value="${j}"
+          aria-describedby="lbl_q${i}o${j}">
+        <span>${letra}) ${o}</span>
+        <button type="button" class="leer-inline" onclick="hablar('Opción ${letra}. ${o}')" aria-label="Leer opción ${letra}">🔊</button>
       </label>`;
     });
-    html+=`</div><div class="quiz-feedback" id="fb${i}" aria-live="polite"></div></div>`;
+    html+=`</fieldset><div class="quiz-feedback" id="fb${i}" aria-live="polite"></div></div>`;
   });
-  html+=`<button type="submit" class="btn-p" style="margin-top:8px">Ver retroalimentación</button></form>`;
+  html+=`<button type="submit" class="btn-p" style="margin-top:10px">Ver retroalimentación</button></form>`;
   document.getElementById('quiz-area').innerHTML=html;
 
+  // Audio mode: read question + options on focus
   QUIZ.forEach((_,i)=>{
-    document.querySelectorAll(`input[name="q${i}"]`).forEach(r=>{
+    const qTxt=document.getElementById('qtxt'+i);
+    if(qTxt) qTxt.addEventListener('focus',()=>{
+      if(modoAudio) hablar('Pregunta '+(i+1)+'. '+QUIZ[i].q, false);
+    });
+    document.querySelectorAll(`input[name="q${i}"]`).forEach((r,j)=>{
+      r.addEventListener('focus',()=>{
+        if(modoAudio) hablar('Opción '+String.fromCharCode(65+j)+'. '+QUIZ[i].opts[j], false);
+      });
       r.addEventListener('change',()=>{
         document.querySelectorAll(`input[name="q${i}"]`).forEach(x=>{
           x.parentElement.style.borderColor='';x.parentElement.style.background='';
         });
         r.parentElement.style.borderColor='var(--v)';
         r.parentElement.style.background='var(--vc)';
+        hablar('Seleccionada opción '+String.fromCharCode(65+j)+'. '+QUIZ[i].opts[j], false);
       });
     });
   });
@@ -842,71 +1168,136 @@ function submitQuiz(e){
   let allAnswered=true;
   QUIZ.forEach((q,i)=>{
     const sel=document.querySelector(`input[name="q${i}"]:checked`);
-    if(!sel){allAnswered=false;document.getElementById('qc'+i).scrollIntoView({behavior:'smooth'});return}
+    if(!sel){allAnswered=false;return;}
     const chosen=parseInt(sel.value);
     answers.push(chosen);
     if(chosen===q.correct) score++;
     document.querySelectorAll(`input[name="q${i}"]`).forEach((r,j)=>{
-      const lbl=r.parentElement;
-      lbl.classList.remove('correct','wrong');
-      if(j===q.correct) lbl.classList.add('correct');
-      else if(j===chosen&&chosen!==q.correct) lbl.classList.add('wrong');
+      r.parentElement.classList.remove('correct','wrong');
+      if(j===q.correct) r.parentElement.classList.add('correct');
+      else if(j===chosen&&chosen!==q.correct) r.parentElement.classList.add('wrong');
       r.disabled=true;
     });
     const fb=document.getElementById('fb'+i);
-    fb.innerHTML=`<div class="feedback-ok">${chosen===q.correct?'✔ Correcta':'✘ Incorrecta — la opción correcta es la '+ String.fromCharCode(97+q.correct)+')'}</div><div class="feedback-exp">${q.fb[chosen]}</div>`;
+    const esCorrecta=chosen===q.correct;
+    fb.innerHTML=`<div class="feedback-ok">${esCorrecta?'✔ Correcta':'✘ Incorrecta. La respuesta correcta es la opción '+String.fromCharCode(65+q.correct)+'.'}</div><div class="feedback-exp">${q.fb[chosen]}</div>`;
     fb.classList.add('vis');
   });
-  if(!allAnswered){alert('Responde todas las preguntas antes de ver la retroalimentación.');return}
-
-  // Save silently
-  try{ localStorage.setItem(STORE_KEY, JSON.stringify({score, answers, ts:Date.now()})); }catch(e){}
-
-  showResult(score, answers, false);
+  if(!allAnswered){
+    const msg='Responde todas las preguntas antes de ver la retroalimentación.';
+    hablar(msg,true); anunciar(msg,true); return;
+  }
+  try{ localStorage.setItem(STORE_KEY,JSON.stringify({score,answers,ts:Date.now()})); }catch(e){}
+  showResult(score,answers,false);
 }
 
-function showResult(score, answers, fromSaved){
+function showResult(score,answers,fromSaved){
   const nota=(score/QUIZ.length*5).toFixed(2);
   const pct=(score/QUIZ.length*100).toFixed(0);
-  const banner=document.createElement('div');
-  banner.className='quiz-score-banner';
-  banner.setAttribute('role','status');
-  banner.setAttribute('aria-live','polite');
-  banner.innerHTML=`<div class="quiz-score-big">${score}/${QUIZ.length}</div>
-    <div class="quiz-score-lbl">${pct}% de preguntas correctas</div>
-    <div class="quiz-score-nota">Nota: ${nota} / 5.0</div>`;
+  const resumen=`Obtuviste ${score} de ${QUIZ.length} respuestas correctas. ${pct} por ciento. Nota: ${nota} sobre 5.`;
 
   if(fromSaved){
-    // Render read-only view with saved answers
-    let html='';
-    html+=banner.outerHTML;
+    let html=`<div class="quiz-score-banner" role="status"><div class="quiz-score-big">${score}/${QUIZ.length}</div><div class="quiz-score-lbl">${pct}% de respuestas correctas</div><div class="quiz-score-nota">Nota: ${nota} / 5.0</div></div>`;
     QUIZ.forEach((q,i)=>{
       const chosen=answers[i];
       html+=`<div class="quiz-qcard">
-        <div class="quiz-qhdr"><div class="quiz-qnum" aria-hidden="true">${i+1}</div><div class="quiz-qtxt">${q.q}</div></div>
-        <div class="quiz-opts">`;
+        <div class="quiz-qhdr"><div class="quiz-qnum" aria-hidden="true">${i+1}</div>
+        <div class="quiz-qtxt">${q.q}<button type="button" class="leer-inline" onclick="hablar('Pregunta ${i+1}. ${q.q}')" aria-label="Leer pregunta ${i+1}">🔊</button></div></div>
+        <div class="quiz-opts" style="padding:14px 20px 18px">`;
       q.opts.forEach((o,j)=>{
-        let cls='quiz-opt';
-        if(j===q.correct) cls+=' correct';
-        else if(j===chosen&&chosen!==q.correct) cls+=' wrong';
-        html+=`<div class="${cls}">${String.fromCharCode(97+j)}) ${o}</div>`;
+        let cls='quiz-opt'; if(j===q.correct) cls+=' correct'; else if(j===chosen&&chosen!==q.correct) cls+=' wrong';
+        html+=`<div class="${cls}" aria-label="Opción ${String.fromCharCode(65+j)}${j===q.correct?' (correcta)':''}${j===chosen&&chosen!==q.correct?' (tu respuesta, incorrecta)':''}">${String.fromCharCode(65+j)}) ${o}<button type="button" class="leer-inline" onclick="hablar('Opción ${String.fromCharCode(65+j)}. ${o}')" aria-label="Leer opción ${String.fromCharCode(65+j)}">🔊</button></div>`;
       });
-      html+=`</div>
-        <div class="quiz-feedback vis">
-          <div class="feedback-ok">${chosen===q.correct?'✔ Correcta':'✘ Incorrecta — la opción correcta era la '+String.fromCharCode(97+q.correct)+')'}</div>
-          <div class="feedback-exp">${q.fb[chosen!==undefined?chosen:q.correct]}</div>
-        </div></div>`;
+      html+=`</div><div class="quiz-feedback vis"><div class="feedback-ok">${chosen===q.correct?'✔ Correcta':'✘ Incorrecta. Correcta: opción '+String.fromCharCode(65+q.correct)+'.'}</div><div class="feedback-exp">${q.fb[chosen!==undefined?chosen:q.correct]}</div></div></div>`;
     });
     document.getElementById('quiz-area').innerHTML=html;
   } else {
-    // Just prepend banner and remove submit button
     const form=document.getElementById('quiz-form');
+    const banner=document.createElement('div');
+    banner.className='quiz-score-banner';
+    banner.setAttribute('role','status');
+    banner.innerHTML=`<div class="quiz-score-big" style="color:var(--v)">${score}/${QUIZ.length}</div><div class="quiz-score-lbl">${pct}% de respuestas correctas</div><div class="quiz-score-nota">Nota: ${nota} / 5.0</div>`;
     const btn=form.querySelector('button[type="submit"]');
     form.insertBefore(banner,btn);
     btn.remove();
     banner.scrollIntoView({behavior:'smooth'});
   }
+  hablar(resumen, true);
+  anunciar(resumen, true);
 }
+
+// ══════════════════════════════════════════════════════════
+// KEYBOARD SHORTCUTS
+// ══════════════════════════════════════════════════════════
+document.addEventListener('keydown',e=>{
+  const tag=document.activeElement.tagName.toLowerCase();
+  if(['input','textarea','select'].includes(tag)) return;
+  switch(e.key.toLowerCase()){
+    case 'l': leerSeccionActual(); break;
+    case 's': case 'escape': parar(); break;
+    case 'a': toggleModo(); break;
+    case 'h': abrirAyuda(); break;
+    case '+': case '=':
+      const nv=Math.min(velocidad+0.1,2);
+      document.getElementById('vel-range').value=nv;
+      cambiarVelocidad(nv);
+      break;
+    case '-':
+      const nv2=Math.max(velocidad-0.1,0.5);
+      document.getElementById('vel-range').value=nv2;
+      cambiarVelocidad(nv2);
+      break;
+  }
+});
+
+function leerSeccionActual(){
+  const vis=document.querySelector('section[role="tabpanel"].vis');
+  if(vis) leerId(vis.id);
+}
+
+// ══════════════════════════════════════════════════════════
+// HELP MODAL
+// ══════════════════════════════════════════════════════════
+let prevFocus=null;
+function abrirAyuda(){
+  prevFocus=document.activeElement;
+  const ov=document.getElementById('help-overlay');
+  ov.classList.add('vis');
+  ov.setAttribute('aria-hidden','false');
+  const closeBtn=ov.querySelector('.modal-close');
+  if(closeBtn) closeBtn.focus();
+  hablar('Ventana de ayuda abierta. Lista de atajos de teclado disponibles. Presiona Escape o el botón Cerrar para salir.', true);
+}
+function cerrarAyuda(){
+  document.getElementById('help-overlay').classList.remove('vis');
+  document.getElementById('help-overlay').setAttribute('aria-hidden','true');
+  if(prevFocus) prevFocus.focus();
+  hablar('Ventana de ayuda cerrada.', false);
+}
+document.getElementById('help-overlay').addEventListener('keydown',e=>{
+  if(e.key==='Escape') cerrarAyuda();
+});
+// Focus trap in modal (WCAG 2.1 - 2.1.1)
+document.getElementById('help-modal').addEventListener('keydown',e=>{
+  if(e.key==='Tab'){
+    const focusable=[...document.getElementById('help-modal').querySelectorAll('button,[href],input,select,textarea,[tabindex]:not([tabindex="-1"])')];
+    const first=focusable[0], last=focusable[focusable.length-1];
+    if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}
+    else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
+  }
+});
+
+// ══════════════════════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════════════════════
+document.addEventListener('DOMContentLoaded',()=>{
+  iniciarVoces();
+  // Welcome message
+  setTimeout(()=>{
+    hablar('Bienvenida a Huellas de Vida, herramienta de la sesión 10 sobre método biográfico. Presiona H para ver los atajos de teclado. Presiona A para activar el modo audio automático. Presiona L para leer el módulo actual.', false);
+  }, 800);
+});
 </script>
+
 </body>
 </html>
