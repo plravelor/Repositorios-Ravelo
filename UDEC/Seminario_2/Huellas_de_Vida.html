@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -42,13 +41,13 @@ html{
 
 /* ══ RESET ══ */
 *{box-sizing:border-box;margin:0;padding:0}
-*:focus{outline:4px solid var(–focus);outline-offset:3px}
+*:focus{outline:4px solid var(--focus);outline-offset:3px}
 *:focus:not(:focus-visible){outline:none}
-*:focus-visible{outline:4px solid var(–focus);outline-offset:3px;box-shadow:var(–focus-ring)}
+*:focus-visible{outline:4px solid var(--focus);outline-offset:3px;box-shadow:var(--focus-ring)}
 
 /* ══ SKIP LINKS (WCAG 2.4.1) ══ */
 .skip-group{position:absolute;top:0;left:0;z-index:10000}
-.skip{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;background:var(–focus);color:#fff;font-weight:700;padding:14px 22px;font-size:15px;border:3px solid #fff;text-decoration:none;border-radius:0 0 8px 0}
+.skip{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;background:var(--focus);color:#fff;font-weight:700;padding:14px 22px;font-size:15px;border:3px solid #fff;text-decoration:none;border-radius:0 0 8px 0}
 .skip:focus{position:static;left:auto;width:auto;height:auto;overflow:visible;display:block}
 
 /* ══ LIVE REGIONS (WCAG 4.1.3) ══ */
@@ -56,270 +55,268 @@ html{
 
 /* ══ TTS CONTROL BAR (siempre visible) ══ */
 #tts-bar{
-background:var(–tts-bg);color:var(–tts-fg);
-display:flex;align-items:center;flex-wrap:wrap;gap:8px;
-padding:8px 14px;
-/* NO sticky — el nav se queda sticky y es suficiente */
-border-bottom:2px solid var(–vm);
-font-family:system-ui,sans-serif;font-size:12px;
+  background:var(--tts-bg);color:var(--tts-fg);
+  display:flex;align-items:center;flex-wrap:wrap;gap:8px;
+  padding:8px 14px;
+  /* NO sticky — el nav se queda sticky y es suficiente */
+  border-bottom:2px solid var(--vm);
+  font-family:system-ui,sans-serif;font-size:12px;
 }
 #tts-bar .tts-label{font-weight:700;font-size:11px;letter-spacing:.03em;text-transform:uppercase;color:#1a5c3a;flex-shrink:0}
 .tts-btn{
-display:inline-flex;align-items:center;gap:6px;
-padding:5px 10px;border-radius:5px;border:1.5px solid var(–vm);
-background:#fff;color:var(–v);font-family:system-ui,sans-serif;
-font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;white-space:nowrap;
+  display:inline-flex;align-items:center;gap:6px;
+  padding:5px 10px;border-radius:5px;border:1.5px solid var(--vm);
+  background:#fff;color:var(--v);font-family:system-ui,sans-serif;
+  font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;white-space:nowrap;
 }
-.tts-btn:hover{background:var(–vm);color:#fff}
-.tts-btn:focus-visible{outline:3px solid var(–v);outline-offset:2px;box-shadow:none}
-.tts-btn.active{background:var(–vm);color:#fff;border-color:#1a5c3a}
+.tts-btn:hover{background:var(--vm);color:#fff}
+.tts-btn:focus-visible{outline:3px solid var(--v);outline-offset:2px;box-shadow:none}
+.tts-btn.active{background:var(--vm);color:#fff;border-color:#1a5c3a}
 #tts-reading{
-flex:1;min-width:80px;font-size:11px;color:#2d6b4a;font-style:italic;
-border-left:1px solid #90b8a0;padding-left:8px;
-overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  flex:1;min-width:80px;font-size:11px;color:#2d6b4a;font-style:italic;
+  border-left:1px solid #90b8a0;padding-left:8px;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
 }
 .speed-ctrl{display:flex;align-items:center;gap:6px;font-size:12px}
-.speed-ctrl input[type=“range”]{width:70px;accent-color:var(–vm);cursor:pointer}
+.speed-ctrl input[type="range"]{width:70px;accent-color:var(--vm);cursor:pointer}
 #tts-bar .atajos{font-size:11px;color:#2d6b4a}
 
 /* ══ BODY ══ */
-body{font-family:Georgia,‘Times New Roman’,serif;font-size:16px;line-height:1.8;color:#1c1a17;background:#faf8f4;min-height:100vh}
+body{font-family:Georgia,'Times New Roman',serif;font-size:16px;line-height:1.8;color:#1c1a17;background:#faf8f4;min-height:100vh}
 
 /* ══ HEADER ══ */
-header{background:var(–v);color:#fff;padding:10px 14px}
+header{background:var(--v);color:#fff;padding:10px 14px}
 header h1{font-family:system-ui,sans-serif;font-size:16px;font-weight:700;line-height:1.3}
 header p{font-size:11px;opacity:.85;margin-top:2px;font-family:system-ui,sans-serif}
 .version-badge{display:none}
 
 /* ══ NAV TABS (WCAG 2.1 Role=tablist) ══ */
-nav[role=“tablist”]{
-background:var(–fondo);
-border-bottom:2px solid var(–vm);
-border-top:1px solid var(–bd);
-overflow-x:auto;display:flex;gap:4px;
-padding:6px 8px 0;
-position:sticky;top:0;z-index:100;
-box-shadow:0 2px 8px rgba(0,0,0,.1);
+nav[role="tablist"]{
+  background:var(--fondo);
+  border-bottom:2px solid var(--vm);
+  border-top:1px solid var(--bd);
+  overflow-x:auto;display:flex;gap:4px;
+  padding:6px 8px 0;
+  position:sticky;top:0;z-index:100;
+  box-shadow:0 2px 8px rgba(0,0,0,.1);
 }
-nav[role=“tablist”] button{
-flex-shrink:0;padding:7px 10px;font-size:11px;
-font-family:system-ui,sans-serif;font-weight:600;
-border:1.5px solid var(–bd);border-bottom:none;
-background:#fff;cursor:pointer;
-color:#4a4540;
-border-radius:6px 6px 0 0;
-margin-bottom:-2px;transition:all .2s;
-white-space:nowrap;line-height:1.3;min-height:44px;
+nav[role="tablist"] button{
+  flex-shrink:0;padding:7px 10px;font-size:11px;
+  font-family:system-ui,sans-serif;font-weight:600;
+  border:1.5px solid var(--bd);border-bottom:none;
+  background:#fff;cursor:pointer;
+  color:#4a4540;
+  border-radius:6px 6px 0 0;
+  margin-bottom:-2px;transition:all .2s;
+  white-space:nowrap;line-height:1.3;min-height:44px;
 }
-nav[role=“tablist”] button:focus-visible{outline:3px solid var(–focus);outline-offset:-3px;background:#e8efff}
-nav[role=“tablist”] button[aria-selected=“true”]{color:var(–v);border-color:var(–vm);border-bottom-color:var(–fondo);background:var(–fondo);font-weight:700;}
-nav[role=“tablist”] button:hover:not([aria-selected=“true”]){background:var(–vc);color:var(–v);border-color:var(–vm)}
+nav[role="tablist"] button:focus-visible{outline:3px solid var(--focus);outline-offset:-3px;background:#e8efff}
+nav[role="tablist"] button[aria-selected="true"]{color:var(--v);border-color:var(--vm);border-bottom-color:var(--fondo);background:var(--fondo);font-weight:700;}
+nav[role="tablist"] button:hover:not([aria-selected="true"]){background:var(--vc);color:var(--v);border-color:var(--vm)}
 /* WCAG 2.5.5 — minimum target size 44×44px */
-nav[role=“tablist”] button{min-width:44px}
+nav[role="tablist"] button{min-width:44px}
 
 /* ══ MAIN ══ */
 main{max-width:780px;margin:0 auto;padding:24px 18px 80px;background:#faf8f4}
-section[role=“tabpanel”]{display:none}
-section[role=“tabpanel”].vis{display:block}
-section[role=“tabpanel”]:focus{outline:none}
+section[role="tabpanel"]{display:none}
+section[role="tabpanel"].vis{display:block}
+section[role="tabpanel"]:focus{outline:none}
 
 /* ══ READ-SECTION BUTTONS ══ */
 .leer-btn{
-display:inline-flex;align-items:center;gap:7px;
-padding:7px 14px;border-radius:20px;
-background:var(–vc);color:var(–v);
-border:2px solid var(–vm);font-family:system-ui,sans-serif;
-font-size:12px;font-weight:700;cursor:pointer;
-transition:all .2s;margin-bottom:10px;
+  display:inline-flex;align-items:center;gap:7px;
+  padding:7px 14px;border-radius:20px;
+  background:var(--vc);color:var(--v);
+  border:2px solid var(--vm);font-family:system-ui,sans-serif;
+  font-size:12px;font-weight:700;cursor:pointer;
+  transition:all .2s;margin-bottom:10px;
 }
-.leer-btn:hover{background:var(–vm);color:#fff}
-.leer-btn:focus-visible{outline:4px solid var(–focus);outline-offset:3px}
+.leer-btn:hover{background:var(--vm);color:#fff}
+.leer-btn:focus-visible{outline:4px solid var(--focus);outline-offset:3px}
 .leer-btn svg{flex-shrink:0;width:18px;height:18px}
 .leer-inline{
-background:#edf7f2;border:1.5px solid var(–vm);color:var(–v);
-font-size:11px;padding:3px 8px;border-radius:12px;cursor:pointer;
-font-family:system-ui,sans-serif;font-weight:700;margin-left:8px;
-vertical-align:middle;
+  background:#edf7f2;border:1.5px solid var(--vm);color:var(--v);
+  font-size:11px;padding:3px 8px;border-radius:12px;cursor:pointer;
+  font-family:system-ui,sans-serif;font-weight:700;margin-left:8px;
+  vertical-align:middle;
 }
-.leer-inline:focus-visible{outline:3px solid var(–focus);outline-offset:2px}
+.leer-inline:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
 /* Read-section button */
 .leer-sec{
-display:flex;align-items:center;gap:6px;
-width:fit-content;
-padding:5px 12px;border-radius:5px;
-background:var(–vc);color:var(–v);
-border:1.5px solid var(–vm);
-font-family:system-ui,sans-serif;font-size:11px;font-weight:700;
-cursor:pointer;transition:all .2s;margin-bottom:8px;min-height:36px;
+  display:flex;align-items:center;gap:6px;
+  width:fit-content;
+  padding:5px 12px;border-radius:5px;
+  background:var(--vc);color:var(--v);
+  border:1.5px solid var(--vm);
+  font-family:system-ui,sans-serif;font-size:11px;font-weight:700;
+  cursor:pointer;transition:all .2s;margin-bottom:8px;min-height:36px;
 }
-.leer-sec:hover{background:var(–vm);color:#fff}
-.leer-sec:focus-visible{outline:4px solid var(–focus);outline-offset:3px}
+.leer-sec:hover{background:var(--vm);color:#fff}
+.leer-sec:focus-visible{outline:4px solid var(--focus);outline-offset:3px}
 .leer-sec svg{flex-shrink:0;width:15px;height:15px}
 /* Section nav list at top of each tab */
 .sec-nav{
-background:var(–gs);border:1.5px solid var(–bd);border-radius:8px;
-padding:12px 16px;margin-bottom:18px;font-family:system-ui,sans-serif;
+  background:var(--gs);border:1.5px solid var(--bd);border-radius:8px;
+  padding:12px 16px;margin-bottom:18px;font-family:system-ui,sans-serif;
 }
-.sec-nav p{font-size:12px;color:var(–vm);font-weight:700;margin-bottom:6px;text-transform:uppercase;letter-spacing:.04em}
+.sec-nav p{font-size:12px;color:var(--vm);font-weight:700;margin-bottom:6px;text-transform:uppercase;letter-spacing:.04em}
 .sec-nav ol{padding-left:18px;margin:0}
-.sec-nav li{font-size:13px;color:var(–g);margin-bottom:3px}
+.sec-nav li{font-size:13px;color:var(--g);margin-bottom:3px}
 
 /* ══ TYPOGRAPHY ══ */
-h2{font-family:system-ui,sans-serif;font-size:19px;font-weight:700;color:var(–v);margin-bottom:10px;margin-top:6px;padding-bottom:8px;border-bottom:2px solid var(–vc)}
-h3{font-family:system-ui,sans-serif;font-size:16px;font-weight:700;color:var(–v);margin:16px 0 8px}
-h4{font-family:system-ui,sans-serif;font-size:15px;font-weight:700;color:var(–g);margin:16px 0 8px}
+h2{font-family:system-ui,sans-serif;font-size:19px;font-weight:700;color:var(--v);margin-bottom:10px;margin-top:6px;padding-bottom:8px;border-bottom:2px solid var(--vc)}
+h3{font-family:system-ui,sans-serif;font-size:16px;font-weight:700;color:var(--v);margin:16px 0 8px}
+h4{font-family:system-ui,sans-serif;font-size:15px;font-weight:700;color:var(--g);margin:16px 0 8px}
 p{margin-bottom:8px;font-size:15px}
 ul,ol{padding-left:24px;margin-bottom:10px}
 li{margin-bottom:6px;font-size:15.5px}
 strong{font-weight:700}
 em{font-style:italic}
-hr{border:none;border-top:2px solid var(–bd);margin:24px 0}
+hr{border:none;border-top:2px solid var(--bd);margin:24px 0}
 
 /* ══ CARDS ══ */
 .card{background:#ffffff;border-radius:10px;padding:20px 22px;margin-bottom:18px;border:1px solid #c0bcb4;color:#1c1a17}
-.card-v{border-left:6px solid var(–v)}.card-o{border-left:6px solid var(–o)}.card-p{border-left:6px solid var(–p)}
-.banner{background:var(–vc);color:var(–v);border:2px solid var(–vm);border-radius:8px;padding:12px 16px;margin-bottom:14px;font-size:14px;line-height:1.7;box-shadow:0 2px 6px rgba(26,92,58,.08)}
+.card-v{border-left:6px solid var(--v)}.card-o{border-left:6px solid var(--o)}.card-p{border-left:6px solid var(--p)}
+.banner{background:var(--vc);color:var(--v);border:2px solid var(--vm);border-radius:8px;padding:12px 16px;margin-bottom:14px;font-size:14px;line-height:1.7;box-shadow:0 2px 6px rgba(26,92,58,.08)}
 .banner strong{color:#1a5c3a}
 .nota{background:#fef6e0;border-left:5px solid #5c4200;border-radius:0 8px 8px 0;padding:14px 18px;margin:12px 0;font-size:14.5px;color:#1c1a17}
-.nota .nl{font-family:system-ui,sans-serif;font-size:12px;font-weight:700;color:var(–o);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+.nota .nl{font-family:system-ui,sans-serif;font-size:12px;font-weight:700;color:var(--o);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
 
 /* ══ AC BOX ══ */
 .ac-box{background:#ffffff;border:2px solid #3a1a5c;border-radius:10px;overflow:hidden;margin-bottom:18px;color:#1c1a17}
-.ac-hdr{background:var(–pc);color:var(–p);padding:8px 14px;font-family:system-ui,sans-serif;font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;display:flex;align-items:center;gap:8px;border-bottom:2px solid var(–p)}
+.ac-hdr{background:var(--pc);color:var(--p);padding:8px 14px;font-family:system-ui,sans-serif;font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;display:flex;align-items:center;gap:8px;border-bottom:2px solid var(--p)}
 .ac-body{padding:18px 20px;background:#ffffff;color:#1c1a17}
 .ac-body p{font-size:14.5px;margin-bottom:10px}
 .paso{display:flex;gap:14px;margin-bottom:14px;align-items:flex-start}
-.paso-n{background:var(–pc);color:var(–p);border:2px solid var(–p);font-family:system-ui,sans-serif;font-size:12px;font-weight:700;min-width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:4px}
+.paso-n{background:var(--pc);color:var(--p);border:2px solid var(--p);font-family:system-ui,sans-serif;font-size:12px;font-weight:700;min-width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:4px}
 .ronda{background:#ebe3f5;border-radius:8px;padding:14px 18px;margin-bottom:12px;color:#1c1a17}
-.ronda strong{font-family:system-ui,sans-serif;font-size:13px;color:var(–p);display:block;margin-bottom:5px}
+.ronda strong{font-family:system-ui,sans-serif;font-size:13px;color:var(--p);display:block;margin-bottom:5px}
 
 /* ══ CONCEPTO ACCORDION ══ */
 .concepto{background:#ffffff;border-radius:10px;border:1px solid #c0bcb4;overflow:hidden;margin-bottom:14px}
 .concepto-hdr{
-padding:14px 18px;background:#f3f0e8;display:flex;align-items:center;gap:12px;
-cursor:pointer;width:100%;border:none;text-align:left;color:#1c1a17;
+  padding:14px 18px;background:#f3f0e8;display:flex;align-items:center;gap:12px;
+  cursor:pointer;width:100%;border:none;text-align:left;color:#1c1a17;
 }
-.concepto-hdr:focus-visible{outline:4px solid var(–focus);outline-offset:-4px}
+.concepto-hdr:focus-visible{outline:4px solid var(--focus);outline-offset:-4px}
 .concepto-ico{font-size:24px;flex-shrink:0;line-height:1}
 .concepto-tit{flex:1;font-family:system-ui,sans-serif;font-size:15px;font-weight:700}
 .concepto-sub{font-size:13px;font-weight:400;color:#5a5650;display:block;margin-top:2px}
-.concepto-chev{flex-shrink:0;font-size:14px;color:var(–vm);transition:transform .25s}
-.concepto-hdr[aria-expanded=“true”] .concepto-chev{transform:rotate(180deg)}
-.concepto-hdr[aria-expanded=“true”]{background:var(–vc)}
+.concepto-chev{flex-shrink:0;font-size:14px;color:var(--vm);transition:transform .25s}
+.concepto-hdr[aria-expanded="true"] .concepto-chev{transform:rotate(180deg)}
+.concepto-hdr[aria-expanded="true"]{background:var(--vc)}
 .concepto-body{display:none;padding:16px 20px 20px;border-top:1px solid #deeee5;font-size:15px;background:#ffffff;color:#1c1a17}
 .concepto-body.open{display:block}
 
 /* ══ TABLA COMPARATIVA ══ */
 .comp-table{width:100%;border-collapse:collapse;font-size:14px;font-family:system-ui,sans-serif;margin:14px 0 18px}
-.comp-table th{background:var(–vc);color:var(–v);padding:10px 16px;text-align:left;font-weight:700;border-bottom:2px solid var(–vm)}
-.comp-table td{padding:9px 16px;border-bottom:1px solid var(–bd);vertical-align:top;background:#fff;color:#1c1a17}
+.comp-table th{background:var(--vc);color:var(--v);padding:10px 16px;text-align:left;font-weight:700;border-bottom:2px solid var(--vm)}
+.comp-table td{padding:9px 16px;border-bottom:1px solid var(--bd);vertical-align:top;background:#fff;color:#1c1a17}
 .comp-table tr:nth-child(even) td{background:#f3f0e8;color:#1c1a17}
 
 /* ══ DILEMA ══ */
 .dilema{background:#ffffff;border-radius:10px;border:2px solid #c0bcb4;overflow:hidden;margin-bottom:16px;color:#1c1a17}
 .dil-head{padding:16px 20px;background:#f3f0e8;display:flex;align-items:flex-start;gap:14px;color:#1c1a17}
-.dil-num{background:var(–vc);color:var(–v);border:2px solid var(–v);font-family:system-ui,sans-serif;font-size:13px;font-weight:700;min-width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:3px}
+.dil-num{background:var(--vc);color:var(--v);border:2px solid var(--v);font-family:system-ui,sans-serif;font-size:13px;font-weight:700;min-width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:3px}
 .dil-txt{flex:1;font-size:15px;line-height:1.75}
 .btn-rev{
-background:var(–vc);color:var(–v);border:2px solid var(–v);
-padding:8px 16px;border-radius:20px;font-family:system-ui,sans-serif;
-font-size:13px;font-weight:700;cursor:pointer;flex-shrink:0;margin-top:3px;
-transition:all .2s;min-height:44px;
+  background:var(--vc);color:var(--v);border:2px solid var(--v);
+  padding:8px 16px;border-radius:20px;font-family:system-ui,sans-serif;
+  font-size:13px;font-weight:700;cursor:pointer;flex-shrink:0;margin-top:3px;
+  transition:all .2s;min-height:44px;
 }
-.btn-rev:hover{background:var(–v);color:#fff}
-.btn-rev:focus-visible{outline:4px solid var(–focus);outline-offset:3px}
-.dil-tension{display:none;padding:16px 20px;background:var(–rc);border-top:1px solid #e8c0c0}
+.btn-rev:hover{background:var(--v);color:#fff}
+.btn-rev:focus-visible{outline:4px solid var(--focus);outline-offset:3px}
+.dil-tension{display:none;padding:16px 20px;background:var(--rc);border-top:1px solid #e8c0c0}
 .dil-tension.vis{display:block}
-.dil-lbl{font-family:system-ui,sans-serif;font-size:12px;font-weight:700;color:var(–r);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px}
+.dil-lbl{font-family:system-ui,sans-serif;font-size:12px;font-weight:700;color:var(--r);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px}
 
 /* ══ LINEA DE VIDA ══ */
 .linea-vida{position:relative;padding:10px 0;margin:18px 0}
-.lv-line{position:absolute;left:42px;top:20px;bottom:20px;width:4px;background:linear-gradient(to bottom,var(–v),var(–vm));border-radius:4px}
+.lv-line{position:absolute;left:42px;top:20px;bottom:20px;width:4px;background:linear-gradient(to bottom,var(--v),var(--vm));border-radius:4px}
 .lv-item{display:flex;align-items:flex-start;gap:18px;margin-bottom:20px;position:relative}
-.lv-dot{width:22px;height:22px;border-radius:50%;background:var(–vc);border:3px solid var(–v);box-shadow:0 0 0 2px var(–v);flex-shrink:0;z-index:1;margin-top:4px}
-.lv-dot.turning{background:var(–rc);border-color:var(–r);box-shadow:0 0 0 2px var(–r);width:26px;height:26px}
-.lv-content{flex:1;padding:14px 18px;background:#fff;border-radius:8px;border:1px solid var(–bd)}
+.lv-dot{width:22px;height:22px;border-radius:50%;background:var(--vc);border:3px solid var(--v);box-shadow:0 0 0 2px var(--v);flex-shrink:0;z-index:1;margin-top:4px}
+.lv-dot.turning{background:var(--rc);border-color:var(--r);box-shadow:0 0 0 2px var(--r);width:26px;height:26px}
+.lv-content{flex:1;padding:14px 18px;background:#fff;border-radius:8px;border:1px solid var(--bd)}
 .lv-content .tag{font-family:system-ui,sans-serif;font-size:12px;font-weight:700;padding:3px 10px;border-radius:8px;margin-bottom:8px;display:inline-block}
-.tag-v{background:var(–vc);color:var(–v)}.tag-r{background:var(–rc);color:var(–r)}
+.tag-v{background:var(--vc);color:var(--v)}.tag-r{background:var(--rc);color:var(--r)}
 
 /* ══ FORM ══ */
 .form-g{margin-bottom:12px}
-.form-g label{display:block;font-family:system-ui,sans-serif;font-size:14px;font-weight:700;color:var(–g);margin-bottom:7px}
+.form-g label{display:block;font-family:system-ui,sans-serif;font-size:14px;font-weight:700;color:var(--g);margin-bottom:7px}
 .form-g textarea,.form-g input,.form-g select{
-width:100%;padding:12px 14px;border:2px solid var(–bd);border-radius:8px;
-font-size:15px;font-family:Georgia,serif;line-height:1.6;resize:vertical;
-color:#1c1a17;background:#ffffff;transition:border-color .2s;min-height:44px;
+  width:100%;padding:12px 14px;border:2px solid var(--bd);border-radius:8px;
+  font-size:15px;font-family:Georgia,serif;line-height:1.6;resize:vertical;
+  color:#1c1a17;background:#ffffff;transition:border-color .2s;min-height:44px;
 }
 .form-g textarea:focus,.form-g input:focus,.form-g select:focus{
-outline:none;border-color:var(–focus);box-shadow:0 0 0 4px rgba(0,85,204,.2)
+  outline:none;border-color:var(--focus);box-shadow:0 0 0 4px rgba(0,85,204,.2)
 }
 .form-g .hint{font-family:system-ui,sans-serif;font-size:13px;color:#5a5650;margin-top:5px;font-style:italic}
 .btn-p{
-background:var(–v);color:#fff;border:none;padding:14px 24px;border-radius:8px;
-font-family:system-ui,sans-serif;font-size:15px;font-weight:700;cursor:pointer;
-transition:background .2s;width:100%;margin-top:10px;min-height:48px;
+  background:var(--v);color:#fff;border:none;padding:14px 24px;border-radius:8px;
+  font-family:system-ui,sans-serif;font-size:15px;font-weight:700;cursor:pointer;
+  transition:background .2s;width:100%;margin-top:10px;min-height:48px;
 }
-.btn-p:hover{background:var(–vm)}
-.btn-p:focus-visible{outline:4px solid var(–focus);outline-offset:3px}
+.btn-p:hover{background:var(--vm)}
+.btn-p:focus-visible{outline:4px solid var(--focus);outline-offset:3px}
 
 /* ══ QUIZ ══ */
 .quiz-qcard{background:#ffffff;border-radius:10px;border:1px solid #c0bcb4;overflow:hidden;margin-bottom:16px;color:#1c1a17}
 .quiz-qhdr{padding:10px 14px;background:#f3f0e8;display:flex;align-items:flex-start;gap:14px}
-.quiz-qnum{background:var(–vc);color:var(–v);border:2px solid var(–v);font-family:system-ui,sans-serif;font-size:13px;font-weight:700;min-width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:3px}
+.quiz-qnum{background:var(--vc);color:var(--v);border:2px solid var(--v);font-family:system-ui,sans-serif;font-size:13px;font-weight:700;min-width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:3px}
 .quiz-qtxt{font-size:15px;flex:1;line-height:1.7}
 .quiz-opts{padding:8px 14px 12px}
 .quiz-opt{
-display:flex;align-items:flex-start;gap:12px;
-padding:12px 16px;margin-bottom:10px;border:2px solid #c0bcb4;
-border-radius:8px;cursor:pointer;font-size:15px;font-family:Georgia,serif;
-transition:all .2s;background:#ffffff;color:#1c1a17;min-height:48px;
+  display:flex;align-items:flex-start;gap:12px;
+  padding:12px 16px;margin-bottom:10px;border:2px solid #c0bcb4;
+  border-radius:8px;cursor:pointer;font-size:15px;font-family:Georgia,serif;
+  transition:all .2s;background:#ffffff;color:#1c1a17;min-height:48px;
 }
-.quiz-opt:hover{border-color:var(–vm);background:var(–vc)}
-.quiz-opt:focus-within{border-color:var(–focus);box-shadow:0 0 0 3px rgba(0,85,204,.2)}
-.quiz-opt input[type=“radio”]{
-margin-top:3px;flex-shrink:0;width:20px;height:20px;accent-color:var(–v);cursor:pointer;
+.quiz-opt:hover{border-color:var(--vm);background:var(--vc)}
+.quiz-opt:focus-within{border-color:var(--focus);box-shadow:0 0 0 3px rgba(0,85,204,.2)}
+.quiz-opt input[type="radio"]{
+  margin-top:3px;flex-shrink:0;width:20px;height:20px;accent-color:var(--v);cursor:pointer;
 }
-.quiz-opt.correct{background:#e8f5ee;border-color:var(–v);color:var(–v)}
-.quiz-opt.wrong{background:var(–rc);border-color:var(–r);color:var(–r)}
+.quiz-opt.correct{background:#e8f5ee;border-color:var(--v);color:var(--v)}
+.quiz-opt.wrong{background:var(--rc);border-color:var(--r);color:var(--r)}
 .quiz-feedback{display:none;padding:12px 20px 16px;font-size:14px;font-family:system-ui,sans-serif}
 .quiz-feedback.vis{display:block}
-.feedback-ok{color:var(–v);font-weight:700;font-size:15px;padding:4px 0}
-.feedback-exp{color:var(–g);margin-top:6px;font-size:14px;line-height:1.7}
-.quiz-score-banner{background:var(–vc);color:var(–v);border:2px solid var(–vm);border-radius:12px;padding:24px;text-align:center;margin-bottom:22px}
+.feedback-ok{color:var(--v);font-weight:700;font-size:15px;padding:4px 0}
+.feedback-exp{color:var(--g);margin-top:6px;font-size:14px;line-height:1.7}
+.quiz-score-banner{background:var(--vc);color:var(--v);border:2px solid var(--vm);border-radius:12px;padding:24px;text-align:center;margin-bottom:22px}
 .quiz-score-big{font-size:56px;font-weight:700;font-family:system-ui,sans-serif;line-height:1}
-.quiz-score-lbl{font-size:15px;color:var(–vm);margin-top:6px;font-family:system-ui,sans-serif}
-.quiz-score-nota{font-size:26px;font-weight:700;font-family:system-ui,sans-serif;margin-top:10px;color:var(–v)}
+.quiz-score-lbl{font-size:15px;color:var(--vm);margin-top:6px;font-family:system-ui,sans-serif}
+.quiz-score-nota{font-size:26px;font-weight:700;font-family:system-ui,sans-serif;margin-top:10px;color:var(--v)}
 
 /* ══ LECTURAS S11 ══ */
 .lect-card{border:2px solid #c0bcb4;border-radius:10px;overflow:hidden;margin-bottom:16px;background:#ffffff;color:#1c1a17}
-.lect-hdr{padding:13px 18px;font-family:system-ui,sans-serif;font-size:14px;font-weight:700;background:var(–ac);color:var(–a)}
+.lect-hdr{padding:13px 18px;font-family:system-ui,sans-serif;font-size:14px;font-weight:700;background:var(--ac);color:var(--a)}
 .lect-body{padding:16px 18px}
-.lect-body h5{font-family:system-ui,sans-serif;font-size:14px;font-weight:700;color:var(–g);margin:12px 0 6px}
+.lect-body h5{font-family:system-ui,sans-serif;font-size:14px;font-weight:700;color:var(--g);margin:12px 0 6px}
 .lect-body h5:first-child{margin-top:0}
 
 /* ══ EN CLASE / CASA BADGES ══ */
 .en-clase,.en-casa{display:inline-flex;align-items:center;gap:4px;font-family:system-ui,sans-serif;font-size:11px;font-weight:700;padding:2px 9px;border-radius:8px;margin-bottom:8px;border:1.5px solid}
-.en-clase{background:var(–vc);color:var(–v);border-color:var(–vm)}
-.en-casa{background:var(–pc);color:var(–p);border-color:var(–p)}
+.en-clase{background:var(--vc);color:var(--v);border-color:var(--vm)}
+.en-casa{background:var(--pc);color:var(--p);border-color:var(--p)}
 .prog-txt{font-family:system-ui,sans-serif;font-size:13px;color:#5a5650;text-align:right;margin-bottom:10px}
 
 /* ══ HELP MODAL ══ */
 #help-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:9999;align-items:center;justify-content:center;padding:20px}
 #help-overlay.vis{display:flex}
 #help-modal{background:#faf8f4;border:1px solid #c0bcb4;color:#1c1a17;border-radius:12px;max-width:520px;width:100%;padding:28px;max-height:90vh;overflow-y:auto}
-#help-modal h2{color:var(–v);font-size:20px;margin-bottom:18px}
+#help-modal h2{color:var(--v);font-size:20px;margin-bottom:18px}
 #help-modal table{width:100%;border-collapse:collapse;font-size:14px}
-#help-modal td{padding:8px 12px;border-bottom:1px solid var(–bd);color:var(–g)}
-#help-modal td:first-child{font-weight:700;color:var(–a);width:130px}
+#help-modal td{padding:8px 12px;border-bottom:1px solid var(--bd);color:var(--g)}
+#help-modal td:first-child{font-weight:700;color:var(--a);width:130px}
 .modal-close{float:right;background:none;border:none;font-size:22px;cursor:pointer;color:#5a5650;padding:4px;margin:-4px}
-.modal-close:focus-visible{outline:4px solid var(–focus);outline-offset:2px}
+.modal-close:focus-visible{outline:4px solid var(--focus);outline-offset:2px}
 </style>
-
 </head>
 <body>
 
 <!-- ══ SKIP LINKS (WCAG 2.4.1) ══ -->
-
 <nav class="skip-group" aria-label="Navegación de acceso rápido">
   <a class="skip" href="#main-content">Saltar al contenido principal</a>
   <a class="skip" href="#tts-bar">Ir al control de audio</a>
@@ -327,31 +324,29 @@ margin-top:3px;flex-shrink:0;width:20px;height:20px;accent-color:var(–v);curso
 </nav>
 
 <!-- ══ LIVE REGIONS (WCAG 4.1.3) ══ -->
-
 <div id="live-polite" role="status" aria-live="polite" aria-atomic="true"></div>
 <div id="live-assertive" role="alert" aria-live="assertive" aria-atomic="true"></div>
 
 <!-- ══ TTS CONTROL BAR ══ -->
-
 <div id="tts-bar" role="toolbar" aria-label="Control de lectura en voz alta">
   <span class="tts-label" id="tts-label-texto">🔊 Audio</span>
 
-<button class="tts-btn" id="btn-modo" onclick="toggleModo()"
-aria-pressed="false" aria-describedby="tts-modo-desc">
-Modo audio: OFF
-</button>
-<span id="tts-modo-desc" style="position:absolute;left:-10000px">
-Activa la lectura automática cuando navegas por el contenido
-</span>
+  <button class="tts-btn" id="btn-modo" onclick="toggleModo()"
+    aria-pressed="false" aria-describedby="tts-modo-desc">
+    Modo audio: OFF
+  </button>
+  <span id="tts-modo-desc" style="position:absolute;left:-10000px">
+    Activa la lectura automática cuando navegas por el contenido
+  </span>
 
   <button class="tts-btn" id="btn-stop" onclick="parar()" aria-label="Detener lectura">
     ⏹ Parar
   </button>
 
-<button class="tts-btn" id="btn-leer-todo" onclick="leerSeccionActual()"
-aria-label="Leer el módulo completo actual">
-▶ Leer módulo
-</button>
+  <button class="tts-btn" id="btn-leer-todo" onclick="leerSeccionActual()"
+    aria-label="Leer el módulo completo actual">
+    ▶ Leer módulo
+  </button>
 
   <div class="speed-ctrl" role="group" aria-labelledby="vel-lbl">
     <span id="vel-lbl" style="font-size:12px;color:#2d6b4a">Velocidad:</span>
@@ -370,7 +365,6 @@ aria-label="Leer el módulo completo actual">
 </div>
 
 <!-- ══ HEADER ══ -->
-
 <header role="banner">
   <h1>Huellas de Vida — Método biográfico</h1>
   <p>Seminario de Investigación II · Psicología · UdeC Facatativá · Sesión 10</p>
@@ -378,7 +372,6 @@ aria-label="Leer el módulo completo actual">
 </header>
 
 <!-- ══ NAVIGATION ══ -->
-
 <nav id="modulos-nav" aria-label="Módulos de la herramienta" role="tablist">
   <button role="tab" aria-selected="true"  aria-controls="t0" id="b0" onclick="ir(0)">0. Descubrir<br><span style="font-size:10px;font-weight:400">📍 Clase</span></button>
   <button role="tab" aria-selected="false" aria-controls="t1" id="b1" onclick="ir(1)">1. Apertura coop.<br><span style="font-size:10px;font-weight:400">📍 Clase</span></button>
@@ -390,11 +383,9 @@ aria-label="Leer el módulo completo actual">
 </nav>
 
 <!-- ══ MAIN ══ -->
-
 <main id="main-content" role="main">
 
 <!-- ════════ M0 DESCUBRIR ════════ -->
-
 <section role="tabpanel" id="t0"
   data-hint="Módulo Descubrir. Contiene una introducción y cuatro situaciones para reflexionar. Cada situación tiene su botón Leer al inicio." aria-labelledby="b0" class="vis" tabindex="-1">
   <h2 id="h0">Módulo 0 — Descubrir</h2>
@@ -410,108 +401,92 @@ aria-label="Leer el módulo completo actual">
 </div>
 
   <!-- Dilema 1 -->
-
   <article class="dilema" id="dilema1" aria-label="Situación 1: excombatientes en Cundinamarca">
   <div style="padding:5px 14px 4px;background:var(--gs)"><button class="leer-sec" style="display:flex" onclick="hablar('Situación 1. '+document.getElementById('dilema1').innerText.replace(/Leer situación \d/g,''),true)" aria-label="Leer situación 1: excombatientes en Cundinamarca">Leer situación 1</button></div>
     <div class="dil-head">
       <div class="dil-num" aria-hidden="true">1</div>
       <div class="dil-txt" id="dil1-txt">
         Una psicóloga investiga procesos de reintegración de excombatientes de las FARC en Cundinamarca. Le interesa entender cómo estas personas reconstruyen su identidad después de años en el grupo armado. Diseña una entrevista semiestructurada de 90 minutos con preguntas sobre su situación actual: qué hacen, dónde viven, cómo se sienten hoy.
-
-```
-  </div>
-</div>
-<div style="padding:0 20px 14px;background:var(--gs)">
-  <button class="btn-rev" id="rev1-btn" onclick="rev('d1','rev1-btn')" aria-expanded="false" aria-controls="ten-d1">
-    ¿Qué le falta a este diseño?
-  </button>
-</div>
-<div class="dil-tension" id="ten-d1" role="region" aria-label="Reflexión sobre la situación 1" tabindex="-1">
-  <div class="dil-lbl">La tensión</div>
-  <p>Preguntar por el presente de alguien que vivió una ruptura biográfica profunda —años en un grupo armado, salida, reintegración— sin preguntar por la trayectoria es perder exactamente lo que más importa. La identidad no es un estado: es el resultado de una historia. El diseño adecuado aquí es el método biográfico o al menos el relato de vida focalizado en la trayectoria. La entrevista semiestructurada sobre el presente captura efectos sin entender causas ni procesos.</p>
-</div>
-```
-
+        
+      </div>
+    </div>
+    <div style="padding:0 20px 14px;background:var(--gs)">
+      <button class="btn-rev" id="rev1-btn" onclick="rev('d1','rev1-btn')" aria-expanded="false" aria-controls="ten-d1">
+        ¿Qué le falta a este diseño?
+      </button>
+    </div>
+    <div class="dil-tension" id="ten-d1" role="region" aria-label="Reflexión sobre la situación 1" tabindex="-1">
+      <div class="dil-lbl">La tensión</div>
+      <p>Preguntar por el presente de alguien que vivió una ruptura biográfica profunda —años en un grupo armado, salida, reintegración— sin preguntar por la trayectoria es perder exactamente lo que más importa. La identidad no es un estado: es el resultado de una historia. El diseño adecuado aquí es el método biográfico o al menos el relato de vida focalizado en la trayectoria. La entrevista semiestructurada sobre el presente captura efectos sin entender causas ni procesos.</p>
+    </div>
   </article>
 
   <!-- Dilema 2 -->
-
   <article class="dilema" id="dilema2" aria-label="Situación 2: historia de vida en una sola entrevista">
   <div style="padding:5px 14px 4px;background:var(--gs)"><button class="leer-sec" style="display:flex" onclick="hablar('Situación 2. '+document.getElementById('dilema2').innerText.replace(/Leer situación \d/g,'').replace(/Ocultar reflexión|Cuál es el problema metodológico/g,''),true)" aria-label="Leer situación 2: historia de vida en una sola entrevista">Leer situación 2</button></div>
     <div class="dil-head">
       <div class="dil-num" aria-hidden="true">2</div>
       <div class="dil-txt" id="dil2-txt">
         Un estudiante decide hacer la "historia de vida" de doña Esperanza, una mujer de 72 años que migró de un municipio rural de Boyacá a Facatativá hace 40 años. Le hace una sola entrevista de dos horas y concluye que "tiene la historia de vida completa".
-
-```
-  </div>
-</div>
-<div style="padding:0 20px 14px;background:var(--gs)">
-  <button class="btn-rev" id="rev2-btn" onclick="rev('d2','rev2-btn')" aria-expanded="false" aria-controls="ten-d2">
-    ¿Cuál es el problema metodológico?
-  </button>
-</div>
-<div class="dil-tension" id="ten-d2" role="region" aria-label="Reflexión sobre la situación 2" tabindex="-1">
-  <div class="dil-lbl">La tensión</div>
-  <p>Una historia de vida real exige múltiples sesiones para que el relato se desgrane con profundidad (Mallimaci y Giménez Béliveau, 2006). En dos horas, doña Esperanza apenas está comenzando a confiar. Los aspectos más significativos —los momentos de quiebre, las contradicciones— aparecen cuando hay tiempo, rapport y confianza acumulada. Una sola sesión puede producir un relato de vida focalizado, pero no una historia de vida en el sentido metodológico.</p>
-</div>
-```
-
+        
+      </div>
+    </div>
+    <div style="padding:0 20px 14px;background:var(--gs)">
+      <button class="btn-rev" id="rev2-btn" onclick="rev('d2','rev2-btn')" aria-expanded="false" aria-controls="ten-d2">
+        ¿Cuál es el problema metodológico?
+      </button>
+    </div>
+    <div class="dil-tension" id="ten-d2" role="region" aria-label="Reflexión sobre la situación 2" tabindex="-1">
+      <div class="dil-lbl">La tensión</div>
+      <p>Una historia de vida real exige múltiples sesiones para que el relato se desgrane con profundidad (Mallimaci y Giménez Béliveau, 2006). En dos horas, doña Esperanza apenas está comenzando a confiar. Los aspectos más significativos —los momentos de quiebre, las contradicciones— aparecen cuando hay tiempo, rapport y confianza acumulada. Una sola sesión puede producir un relato de vida focalizado, pero no una historia de vida en el sentido metodológico.</p>
+    </div>
   </article>
 
   <!-- Dilema 3 -->
-
   <article class="dilema" id="dilema3" aria-label="Situación 3: turning points sin analizar">
   <div style="padding:5px 14px 4px;background:var(--gs)"><button class="leer-sec" style="display:flex" onclick="hablar('Situación 3. '+document.getElementById('dilema3').innerText.replace(/Leer situación \d/g,'').replace(/Ocultar reflexión|Qué oportunidad analítica/g,''),true)" aria-label="Leer situación 3: turning points sin analizar">Leer situación 3</button></div>
     <div class="dil-head">
       <div class="dil-num" aria-hidden="true">3</div>
       <div class="dil-txt" id="dil3-txt">
         Una investigadora estudia la experiencia de madres con hijos diagnosticados con TEA en Bogotá. Todas las participantes describieron su vida como "un antes del diagnóstico y un después". La investigadora lo reporta sin más análisis.
-
-```
-  </div>
-</div>
-<div style="padding:0 20px 14px;background:var(--gs)">
-  <button class="btn-rev" id="rev3-btn" onclick="rev('d3','rev3-btn')" aria-expanded="false" aria-controls="ten-d3">
-    ¿Qué oportunidad analítica se perdió?
-  </button>
-</div>
-<div class="dil-tension" id="ten-d3" role="region" aria-label="Reflexión sobre la situación 3" tabindex="-1">
-  <div class="dil-lbl">La tensión</div>
-  <p>El "antes y después" es exactamente lo que Denzin llama una epifanía o turning point. Reportarlo sin analizarlo es desperdiciar el hallazgo más valioso. El análisis debería explorar qué reconstruyeron estas mujeres sobre su vida anterior, qué rupturas de identidad implicó ese punto de quiebre, y cómo cada una narró su proceso de reorganización.</p>
-</div>
-```
-
+        
+      </div>
+    </div>
+    <div style="padding:0 20px 14px;background:var(--gs)">
+      <button class="btn-rev" id="rev3-btn" onclick="rev('d3','rev3-btn')" aria-expanded="false" aria-controls="ten-d3">
+        ¿Qué oportunidad analítica se perdió?
+      </button>
+    </div>
+    <div class="dil-tension" id="ten-d3" role="region" aria-label="Reflexión sobre la situación 3" tabindex="-1">
+      <div class="dil-lbl">La tensión</div>
+      <p>El "antes y después" es exactamente lo que Denzin llama una epifanía o turning point. Reportarlo sin analizarlo es desperdiciar el hallazgo más valioso. El análisis debería explorar qué reconstruyeron estas mujeres sobre su vida anterior, qué rupturas de identidad implicó ese punto de quiebre, y cómo cada una narró su proceso de reorganización.</p>
+    </div>
   </article>
 
   <!-- Dilema 4 -->
-
   <article class="dilema" id="dilema4" aria-label="Situación 4: relato demasiado coherente">
   <div style="padding:5px 14px 4px;background:var(--gs)"><button class="leer-sec" style="display:flex" onclick="hablar('Situación 4. '+document.getElementById('dilema4').innerText.replace(/Leer situación \d/g,'').replace(/Ocultar reflexión|Por qué la coherencia/g,''),true)" aria-label="Leer situación 4: relato demasiado coherente">Leer situación 4</button></div>
     <div class="dil-head">
       <div class="dil-num" aria-hidden="true">4</div>
       <div class="dil-txt" id="dil4-txt">
         Un investigador hace la historia de vida de un ex-líder comunitario de Zipaquirá. El sujeto narra de manera muy ordenada y coherente: "Primero fue esto, luego aquello, y así fui llegando." El investigador concluye que la historia fue exitosa porque el relato es claro y sin contradicciones.
-
-```
-  </div>
-</div>
-<div style="padding:0 20px 14px;background:var(--gs)">
-  <button class="btn-rev" id="rev4-btn" onclick="rev('d4','rev4-btn')" aria-expanded="false" aria-controls="ten-d4">
-    ¿Por qué la coherencia puede ser una señal de alerta?
-  </button>
-</div>
-<div class="dil-tension" id="ten-d4" role="region" aria-label="Reflexión sobre la situación 4" tabindex="-1">
-  <div class="dil-lbl">La tensión</div>
-  <p>Bourdieu advierte sobre la ilusión biográfica: la tendencia del narrador a presentar su vida como si tuviera un hilo conductor coherente que lo explica todo, borrando contradicciones y virajes imprevistos. Un relato demasiado ordenado puede ser señal de que el entrevistado está produciendo una versión pública de sí mismo, no una reconstrucción crítica.</p>
-</div>
-```
-
+        
+      </div>
+    </div>
+    <div style="padding:0 20px 14px;background:var(--gs)">
+      <button class="btn-rev" id="rev4-btn" onclick="rev('d4','rev4-btn')" aria-expanded="false" aria-controls="ten-d4">
+        ¿Por qué la coherencia puede ser una señal de alerta?
+      </button>
+    </div>
+    <div class="dil-tension" id="ten-d4" role="region" aria-label="Reflexión sobre la situación 4" tabindex="-1">
+      <div class="dil-lbl">La tensión</div>
+      <p>Bourdieu advierte sobre la ilusión biográfica: la tendencia del narrador a presentar su vida como si tuviera un hilo conductor coherente que lo explica todo, borrando contradicciones y virajes imprevistos. Un relato demasiado ordenado puede ser señal de que el entrevistado está produciendo una versión pública de sí mismo, no una reconstrucción crítica.</p>
+    </div>
   </article>
 </section>
 
-<!-- ════════ M1 APERTURA COOPERATIVA ════════ -->
 
+<!-- ════════ M1 APERTURA COOPERATIVA ════════ -->
 <section role="tabpanel" id="t1"
   data-hint="Módulo Apertura cooperativa. Contiene la actividad de diálogo sobre el texto y una nota pedagógica. Cada sección tiene su botón Leer." aria-labelledby="b1" tabindex="-1">
   <h2 id="h1">Módulo 1 — Apertura cooperativa</h2>
@@ -531,32 +506,29 @@ aria-label="Leer el módulo completo actual">
       <p>Los dos leyeron el mismo capítulo de Mallimaci y Giménez Béliveau. Ahora discutan juntos las siguientes preguntas. No hay que responderlas todas: elijan las que más les generen conversación y las que más conecten con su investigación.</p>
       <p style="font-size:14px;font-style:italic;color:#4a4540">Cada uno habla, cada uno escucha. La idea no es llegar a una sola respuesta sino entender qué piensa el otro y por qué.</p>
 
-```
-  <div class="ronda" style="background:var(--vc)">
-    <strong style="color:var(--v)">🔵 Sobre el texto — preguntas de comprensión</strong>
-    <ol style="margin-top:10px;font-size:14px;line-height:2.2;padding-left:20px">
-      <li>Mallimaci y Giménez Béliveau distinguen entre <em>historia de vida</em> y <em>relato de vida</em>. ¿Cuál de las dos les parece más realista para hacer en una monografía de pregrado? ¿Por qué?</li>
-      <li>Bourdieu habla de la "ilusión biográfica". ¿Qué significa que un relato sea coherente y ordenado según él? ¿Es algo positivo o problemático?</li>
-      <li>Ferrarotti dice que "un individuo es un universo singular". ¿Cómo se relaciona esa idea con la decisión de estudiar una sola persona en vez de muchas?</li>
-    </ol>
-  </div>
+      <div class="ronda" style="background:var(--vc)">
+        <strong style="color:var(--v)">🔵 Sobre el texto — preguntas de comprensión</strong>
+        <ol style="margin-top:10px;font-size:14px;line-height:2.2;padding-left:20px">
+          <li>Mallimaci y Giménez Béliveau distinguen entre <em>historia de vida</em> y <em>relato de vida</em>. ¿Cuál de las dos les parece más realista para hacer en una monografía de pregrado? ¿Por qué?</li>
+          <li>Bourdieu habla de la "ilusión biográfica". ¿Qué significa que un relato sea coherente y ordenado según él? ¿Es algo positivo o problemático?</li>
+          <li>Ferrarotti dice que "un individuo es un universo singular". ¿Cómo se relaciona esa idea con la decisión de estudiar una sola persona en vez de muchas?</li>
+        </ol>
+      </div>
 
-  <div class="ronda" style="background:var(--pc)">
-    <strong style="color:var(--p)">🟣 Sobre su investigación — preguntas de conexión</strong>
-    <ol style="margin-top:10px;font-size:14px;line-height:2.2;padding-left:20px">
-      <li>El texto dice que la historia de vida sirve cuando el fenómeno se entiende mejor en trayectoria que en el presente. ¿El fenómeno que estudian tiene esa característica? ¿Por qué sí o por qué no?</li>
-      <li>Si eligieran usar el método biográfico, ¿qué tipo de persona entrevistarían: una "gran persona", un "marginal" o una "persona común"? ¿Qué los llevaría a esa elección?</li>
-      <li>El texto menciona que el investigador también forma parte de lo que se produce en una entrevista biográfica. ¿Qué implicaría eso para su propia posición como investigadores?</li>
-    </ol>
-  </div>
+      <div class="ronda" style="background:var(--pc)">
+        <strong style="color:var(--p)">🟣 Sobre su investigación — preguntas de conexión</strong>
+        <ol style="margin-top:10px;font-size:14px;line-height:2.2;padding-left:20px">
+          <li>El texto dice que la historia de vida sirve cuando el fenómeno se entiende mejor en trayectoria que en el presente. ¿El fenómeno que estudian tiene esa característica? ¿Por qué sí o por qué no?</li>
+          <li>Si eligieran usar el método biográfico, ¿qué tipo de persona entrevistarían: una "gran persona", un "marginal" o una "persona común"? ¿Qué los llevaría a esa elección?</li>
+          <li>El texto menciona que el investigador también forma parte de lo que se produce en una entrevista biográfica. ¿Qué implicaría eso para su propia posición como investigadores?</li>
+        </ol>
+      </div>
 
-  <div style="background:var(--oc);border-radius:8px;padding:14px 18px;margin-top:10px">
-    <strong style="font-family:system-ui,sans-serif;font-size:13px;color:var(--o)">✍ Cierre del diálogo — 3 minutos</strong>
-    <p style="margin-top:8px;font-size:14px">Anoten en el cuaderno: <em>¿Cuál de las preguntas les generó más desacuerdo o más diferencia de opinión? ¿A qué conclusión llegaron sobre si el método biográfico aplica o no a su investigación?</em></p>
-  </div>
-</div>
-```
-
+      <div style="background:var(--oc);border-radius:8px;padding:14px 18px;margin-top:10px">
+        <strong style="font-family:system-ui,sans-serif;font-size:13px;color:var(--o)">✍ Cierre del diálogo — 3 minutos</strong>
+        <p style="margin-top:8px;font-size:14px">Anoten en el cuaderno: <em>¿Cuál de las preguntas les generó más desacuerdo o más diferencia de opinión? ¿A qué conclusión llegaron sobre si el método biográfico aplica o no a su investigación?</em></p>
+      </div>
+    </div>
   </div>
 
   <div class="nota">
@@ -565,8 +537,8 @@ aria-label="Leer el módulo completo actual">
   </div>
 </section>
 
-<!-- ════════ M2 CONCEPTOS CLAVE ════════ -->
 
+<!-- ════════ M2 CONCEPTOS CLAVE ════════ -->
 <section role="tabpanel" id="t2"
   data-hint="Módulo Conceptos clave. Contiene una introducción, una tabla comparativa y cinco conceptos expandibles. Cada sección tiene su botón Leer." aria-labelledby="b2" tabindex="-1">
   <h2 id="h2">Módulo 2 — Conceptos clave</h2>
@@ -583,8 +555,7 @@ aria-label="Leer el módulo completo actual">
 
   <h3>Historia de vida vs. relato de vida</h3>
 
-<button class="leer-sec" id="btn-tabla" onclick="hablar('Tabla comparativa. Historia de vida versus relato de vida. '+document.querySelector('.comp-table').innerText,true)" aria-label="Leer tabla comparativa: historia de vida versus relato de vida">Leer tabla comparativa</button>
-
+  <button class="leer-sec" id="btn-tabla" onclick="hablar('Tabla comparativa. Historia de vida versus relato de vida. '+document.querySelector('.comp-table').innerText,true)" aria-label="Leer tabla comparativa: historia de vida versus relato de vida">Leer tabla comparativa</button>
   <table class="comp-table" role="table" aria-label="Comparación entre historia de vida y relato de vida según Mallimaci y Giménez Béliveau">
     <caption style="font-family:system-ui,sans-serif;font-size:13px;color:#5a5650;text-align:left;padding-bottom:8px">Tabla 1. Diferencia entre historia de vida y relato de vida (Mallimaci y Giménez Béliveau, 2006)</caption>
     <thead>
@@ -602,7 +573,6 @@ aria-label="Leer el módulo completo actual">
   <p>Haz clic en cada concepto para expandirlo y escuchar su descripción. O presiona "Leer este módulo" para escuchar todo.</p>
 
   <!-- Concepto 1 -->
-
   <div class="concepto" id="conc1">
     <button class="concepto-hdr" onclick="conc(this,'cc1')" aria-expanded="false" aria-controls="cc1" id="conc1-hdr">
       <span class="concepto-ico" aria-hidden="true">🧭</span>
@@ -616,7 +586,6 @@ aria-label="Leer el módulo completo actual">
   </div>
 
   <!-- Concepto 2 -->
-
   <div class="concepto" id="conc2">
     <button class="concepto-hdr" onclick="conc(this,'cc2')" aria-expanded="false" aria-controls="cc2" id="conc2-hdr">
       <span class="concepto-ico" aria-hidden="true">⚡</span>
@@ -630,7 +599,6 @@ aria-label="Leer el módulo completo actual">
   </div>
 
   <!-- Concepto 3 -->
-
   <div class="concepto" id="conc3">
     <button class="concepto-hdr" onclick="conc(this,'cc3')" aria-expanded="false" aria-controls="cc3" id="conc3-hdr">
       <span class="concepto-ico" aria-hidden="true">🎭</span>
@@ -644,7 +612,6 @@ aria-label="Leer el módulo completo actual">
   </div>
 
   <!-- Concepto 4 -->
-
   <div class="concepto" id="conc4">
     <button class="concepto-hdr" onclick="conc(this,'cc4')" aria-expanded="false" aria-controls="cc4" id="conc4-hdr">
       <span class="concepto-ico" aria-hidden="true">👥</span>
@@ -662,7 +629,6 @@ aria-label="Leer el módulo completo actual">
   </div>
 
   <!-- Concepto 5 -->
-
   <div class="concepto" id="conc5">
     <button class="concepto-hdr" onclick="conc(this,'cc5')" aria-expanded="false" aria-controls="cc5" id="conc5-hdr">
       <span class="concepto-ico" aria-hidden="true">🔄</span>
@@ -676,8 +642,8 @@ aria-label="Leer el módulo completo actual">
   </div>
 </section>
 
-<!-- ════════ M3 LÍNEA DE VIDA ════════ -->
 
+<!-- ════════ M3 LÍNEA DE VIDA ════════ -->
 <section role="tabpanel" id="t3"
   data-hint="Módulo La línea de vida. Contiene la actividad cooperativa, cuatro pasos y un ejemplo. Cada sección tiene su botón Leer." aria-labelledby="b3" tabindex="-1">
   <h2 id="h3">Módulo 3 — La línea de vida</h2>
@@ -731,8 +697,8 @@ aria-label="Leer el módulo completo actual">
   </div>
 </section>
 
-<!-- ════════ M4 MI DISEÑO ════════ -->
 
+<!-- ════════ M4 MI DISEÑO ════════ -->
 <section role="tabpanel" id="t4"
   data-hint="Módulo Mi diseño biográfico. Contiene instrucciones y un formulario de diagnóstico para completar en casa." aria-labelledby="b4" tabindex="-1">
   <h2 id="h4">Módulo 4 — Mi diseño biográfico</h2>
@@ -800,8 +766,8 @@ aria-label="Leer el módulo completo actual">
   <div id="diag-result" role="region" aria-live="polite" aria-label="Resultado del diagnóstico" style="margin-top:18px"></div>
 </section>
 
-<!-- ════════ M5 QUIZ ════════ -->
 
+<!-- ════════ M5 QUIZ ════════ -->
 <section role="tabpanel" id="t5"
   data-hint="Módulo Quiz de autoevaluación. Ocho preguntas de opción múltiple. Cada pregunta tiene botón para leerla." aria-labelledby="b5" tabindex="-1">
   <h2 id="h5">Módulo 5 — Quiz de autoevaluación</h2>
@@ -815,8 +781,8 @@ aria-label="Leer el módulo completo actual">
   <div id="quiz-area" role="region" aria-label="Preguntas del quiz"></div>
 </section>
 
-<!-- ════════ M6 LECTURAS S11 ════════ -->
 
+<!-- ════════ M6 LECTURAS S11 ════════ -->
 <section role="tabpanel" id="t6"
   data-hint="Módulo Lecturas para la sesión 11. Contiene la presentación y la guía completa de lecturas sobre grupo de discusión." aria-labelledby="b6" tabindex="-1">
   <h2 id="h6">Módulo 6 — Lecturas para la sesión 11</h2>
@@ -836,35 +802,31 @@ aria-label="Leer el módulo completo actual">
     <div class="lect-body">
       <p><strong>Referencia:</strong> Canales Cerón, M. (2006). <em>Metodologías de investigación social: Introducción a los oficios</em>. Santiago de Chile: LOM Ediciones. Capítulo: "El grupo de discusión".</p>
 
-```
-  <h5>Preguntas para reflexionar ANTES de leer</h5>
-  <ol style="font-size:15px;line-height:2.1;padding-left:22px">
-    <li>¿Las personas dicen lo mismo cuando hablan solas que cuando hablan frente a otros?</li>
-    <li>¿Qué cosas nos hacen cambiar, matizar o censurar lo que decimos en grupo?</li>
-    <li>¿Una opinión ya existe antes de ser dicha, o se construye mientras conversamos?</li>
-    <li>¿Hasta qué punto nuestras opiniones son realmente individuales?</li>
-  </ol>
+      <h5>Preguntas para reflexionar ANTES de leer</h5>
+      <ol style="font-size:15px;line-height:2.1;padding-left:22px">
+        <li>¿Las personas dicen lo mismo cuando hablan solas que cuando hablan frente a otros?</li>
+        <li>¿Qué cosas nos hacen cambiar, matizar o censurar lo que decimos en grupo?</li>
+        <li>¿Una opinión ya existe antes de ser dicha, o se construye mientras conversamos?</li>
+        <li>¿Hasta qué punto nuestras opiniones son realmente individuales?</li>
+      </ol>
 
-  <h5>Preguntas para reflexionar DESPUÉS de leer</h5>
-  <ol style="font-size:15px;line-height:2.1;padding-left:22px">
-    <li>¿En qué se diferencia el grupo de discusión de un grupo focal?</li>
-    <li>¿Qué tipo de conocimiento produce el grupo de discusión que no puede producir una entrevista individual?</li>
-    <li>¿Cómo se aplica el criterio de credibilidad de Lincoln y Guba en un grupo de discusión?</li>
-    <li><strong>Pregunta incómoda:</strong> Si el grupo de discusión produce discurso colectivo, ¿a quién pertenece ese dato? ¿Qué implica para el consentimiento informado?</li>
-  </ol>
+      <h5>Preguntas para reflexionar DESPUÉS de leer</h5>
+      <ol style="font-size:15px;line-height:2.1;padding-left:22px">
+        <li>¿En qué se diferencia el grupo de discusión de un grupo focal?</li>
+        <li>¿Qué tipo de conocimiento produce el grupo de discusión que no puede producir una entrevista individual?</li>
+        <li>¿Cómo se aplica el criterio de credibilidad de Lincoln y Guba en un grupo de discusión?</li>
+        <li><strong>Pregunta incómoda:</strong> Si el grupo de discusión produce discurso colectivo, ¿a quién pertenece ese dato? ¿Qué implica para el consentimiento informado?</li>
+      </ol>
 
-  <h5>Lo que traes a la sesión 11</h5>
-  <p style="font-size:15px">Una reflexión escrita de máximo 5 líneas sobre alguna experiencia propia en la que la presencia de otras personas cambió lo que dijiste o pensaste sobre algo. Para conectarla con lo que Canales plantea teóricamente.</p>
-</div>
-```
-
+      <h5>Lo que traes a la sesión 11</h5>
+      <p style="font-size:15px">Una reflexión escrita de máximo 5 líneas sobre alguna experiencia propia en la que la presencia de otras personas cambió lo que dijiste o pensaste sobre algo. Para conectarla con lo que Canales plantea teóricamente.</p>
+    </div>
   </div>
 </section>
 
 </main>
 
 <!-- ══ HELP MODAL ══ -->
-
 <div id="help-overlay" role="dialog" aria-modal="true" aria-labelledby="help-titulo">
   <div id="help-modal">
     <button class="modal-close" onclick="cerrarAyuda()" aria-label="Cerrar ayuda">×</button>
@@ -1362,6 +1324,5 @@ document.addEventListener('DOMContentLoaded',()=>{
   }, 800);
 });
 </script>
-
 </body>
 </html>
