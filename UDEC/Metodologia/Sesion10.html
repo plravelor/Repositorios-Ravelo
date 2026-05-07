@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sesión 10 — Diseños Experimentales + PI Actividad 2 | Diseños de Investigación I</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --az:#1E3A5F;--az2:#2A5298;--az-l:#EBF1FB;--az-ll:#F4F7FD;
+  --ve:#1B5E3B;--ve2:#2E7D52;--ve-l:#E6F4EC;--ve-ll:#F2FAF5;
+  --am:#C67C00;--am2:#F9A825;--am-l:#FFF8E1;
+  --ro:#8B1A1A;--ro2:#C0392B;--ro-l:#FFEBEE;
+  --mo:#4A235A;--mo2:#7B4FA6;--mo-l:#F3E5F5;
+  --ci:#0277BD;--ci-l:#E1F5FE;
+  --gr:#F0F2F6;--gr2:#E2E6EE;
+  --txt:#1A1A2E;--txt2:#4A5568;--txt3:#718096;
+  --wht:#FFFFFF;
+  --shadow:0 2px 8px rgba(30,58,95,.09);
+  --rad:12px;--rad-s:8px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;font-size:15px;color:var(--txt);background:#F5F7FB;line-height:1.65;min-height:100vh}
+
+/* TOP BAR */
+.topbar{background:linear-gradient(135deg,var(--az) 0%,var(--az2) 100%);color:white;padding:0}
+.topbar-inner{max-width:940px;margin:0 auto;padding:20px 20px 0;display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.topbar h1{font-family:'DM Serif Display',serif;font-size:22px;line-height:1.2}
+.topbar-sub{font-size:12.5px;opacity:.78;margin-top:3px}
+.topbar-badge{font-size:11px;font-weight:600;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:3px 10px;white-space:nowrap}
+
+/* TABS */
+.tab-nav{background:var(--az);overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tab-nav-inner{max-width:940px;margin:0 auto;display:flex;gap:2px;padding:0 16px}
+.tab-btn{font-family:'DM Sans',sans-serif;font-size:12.5px;font-weight:600;color:rgba(255,255,255,.6);background:transparent;border:none;cursor:pointer;padding:11px 14px;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s;letter-spacing:.02em}
+.tab-btn:hover{color:rgba(255,255,255,.9)}
+.tab-btn.active{color:white;border-bottom-color:var(--am2)}
+
+/* LAYOUT */
+.content{max-width:940px;margin:0 auto;padding:24px 16px 60px}
+.tab-panel{display:none}.tab-panel.active{display:block}
+
+/* TAGS */
+.tag{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:700;letter-spacing:.08em;padding:3px 9px;border-radius:20px;text-transform:uppercase}
+.tag-clase{background:var(--az);color:white}
+.tag-casa{background:var(--ve-l);color:var(--ve);border:1.5px solid var(--ve2)}
+.tag-coop{background:var(--ve);color:white}
+.tag-pi{background:var(--am-l);color:var(--am);border:1.5px solid var(--am2)}
+
+/* CARDS */
+.card{background:var(--wht);border-radius:var(--rad);box-shadow:var(--shadow);margin-bottom:18px;overflow:hidden}
+.card-header{padding:14px 18px;font-weight:600;font-size:14.5px;border-bottom:1px solid var(--gr2);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.card-body{padding:18px}
+
+/* SECTION */
+.sec-title{font-family:'DM Serif Display',serif;font-size:19px;color:var(--az);margin-bottom:16px;padding-bottom:6px;border-bottom:2px solid var(--az-l)}
+.sec-intro{font-size:14px;color:var(--txt2);margin-bottom:18px;line-height:1.7}
+
+/* ALERTS */
+.alert{border-radius:var(--rad-s);padding:14px 16px;margin-bottom:16px;font-size:13.5px;display:flex;gap:12px;align-items:flex-start}
+.alert-ico{font-size:20px;flex-shrink:0;margin-top:1px}
+.alert.info{background:var(--az-l);border-left:4px solid var(--az2)}
+.alert.ve{background:var(--ve-l);border-left:4px solid var(--ve2)}
+.alert.am{background:var(--am-l);border-left:4px solid var(--am2)}
+.alert.ro{background:var(--ro-l);border-left:4px solid var(--ro2)}
+.alert p{margin-bottom:4px;font-size:13.5px}
+.alert strong{font-weight:700}
+
+/* DEFINITION BOXES */
+.def-box{background:var(--az-ll);border-left:4px solid var(--az2);border-radius:0 var(--rad-s) var(--rad-s) 0;padding:14px 16px;margin-bottom:12px}
+.def-box .def-label{font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--az);margin-bottom:4px}
+.def-box .def-text{font-size:13.5px;color:var(--txt)}
+.def-box .def-source{font-size:11px;color:var(--txt3);margin-top:5px;font-style:italic}
+
+/* TIPO CARDS */
+.tipo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}
+@media(max-width:620px){.tipo-grid{grid-template-columns:1fr}}
+.tipo-card{border-radius:var(--rad-s);padding:14px 16px;border:2px solid}
+.tipo-exp{background:#EDF5ED;border-color:var(--ve2)}.tipo-exp .tl{color:var(--ve2)}
+.tipo-cuasi{background:var(--am-l);border-color:var(--am2)}.tipo-cuasi .tl{color:var(--am)}
+.tipo-noexp{background:var(--az-l);border-color:var(--az2)}.tipo-noexp .tl{color:var(--az2)}
+.tl{font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:5px}
+.tipo-card h4{font-weight:700;font-size:14px;margin-bottom:6px}
+.tipo-card p{font-size:13px;color:var(--txt2);line-height:1.55}
+.tipo-card .req{font-size:11.5px;margin-top:8px;font-weight:600}
+
+/* VALIDEZ CARDS */
+.val-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
+@media(max-width:560px){.val-grid{grid-template-columns:1fr}}
+.val-card{border-radius:var(--rad-s);padding:14px 16px}
+.val-int{background:var(--ve-ll);border:1.5px solid var(--ve2)}
+.val-ext{background:var(--az-l);border:1.5px solid var(--az2)}
+.val-card h4{font-weight:700;font-size:14px;margin-bottom:6px}
+.val-card p{font-size:13px;color:var(--txt2);line-height:1.55}
+
+/* ACCORDION */
+.acc{border:1.5px solid var(--gr2);border-radius:var(--rad-s);overflow:hidden;margin-bottom:8px}
+.acc-head{display:flex;align-items:center;justify-content:space-between;padding:12px 15px;cursor:pointer;background:white;font-weight:600;font-size:13.5px;transition:background .15s;user-select:none}
+.acc-head:hover{background:var(--az-ll)}
+.acc-arrow{transition:transform .25s;color:var(--txt3);font-size:16px}
+.acc-body{display:none;padding:14px 16px;font-size:13.5px;border-top:1px solid var(--gr2);background:white}
+.acc-body.open{display:block}
+
+/* CLASIFICADOR */
+.estudio-box{background:var(--gr);border-radius:var(--rad-s);padding:14px 16px;margin-bottom:12px}
+.estudio-box .est-num{font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--az);margin-bottom:6px}
+.estudio-box .est-desc{font-size:14px;font-style:italic;color:var(--txt);margin-bottom:10px;line-height:1.6}
+.radio-group{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.radio-chip{display:inline-flex;align-items:center;gap:6px;padding:8px 13px;border-radius:20px;border:1.8px solid var(--gr2);background:white;cursor:pointer;font-size:13.5px;font-weight:600;transition:all .15s}
+.radio-chip:hover{border-color:var(--az2);background:var(--az-l)}
+.radio-chip.selected-exp{border-color:var(--ve2);background:var(--ve-l);color:var(--ve)}
+.radio-chip.selected-cuasi{border-color:var(--am2);background:var(--am-l);color:var(--am)}
+.radio-chip.selected-noexp{border-color:var(--az2);background:var(--az-l);color:var(--az2)}
+.estudio-feedback{font-size:13px;border-radius:6px;padding:8px 12px;margin-top:6px;display:none}
+.estudio-feedback.show{display:block}
+.estudio-feedback.correct{background:var(--ve-l);color:var(--ve);border-left:3px solid var(--ve2)}
+.estudio-feedback.wrong{background:var(--ro-l);color:var(--ro2);border-left:3px solid var(--ro2)}
+.estudio-feedback.info{background:var(--am-l);color:var(--am);border-left:3px solid var(--am2)}
+
+/* PI HEADER */
+.pi-header{background:linear-gradient(135deg,var(--am) 0%,#E65100 100%);color:white;border-radius:var(--rad) var(--rad) 0 0;padding:20px 22px}
+.pi-header h2{font-family:'DM Serif Display',serif;font-size:20px;margin-bottom:4px}
+.pi-header p{font-size:13px;opacity:.88}
+
+/* DATASET TABLE */
+.dataset-table{width:100%;border-collapse:collapse;font-size:12.5px;margin:10px 0}
+.dataset-table th{background:var(--az);color:white;padding:7px 9px;text-align:left;font-weight:600;font-size:12px}
+.dataset-table td{padding:6px 9px;border-bottom:1px solid var(--gr2)}
+.dataset-table tr:hover td{background:var(--az-ll)}
+.ao{color:var(--az2);font-weight:600}
+.oc{color:var(--ve2);font-weight:600}
+.cond-badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600}
+.cs{background:#FFF3CD;color:#856404}
+.ce{background:var(--ve-l);color:#065F46}
+.ca{background:var(--mo-l);color:#6A1B9A}
+
+/* ANALYSIS TABLE */
+.analysis-table{width:100%;border-collapse:collapse;margin:14px 0}
+.analysis-table th{padding:10px 12px;text-align:center;font-size:13px;font-weight:700;border:1px solid var(--gr2)}
+.analysis-table td{padding:9px 12px;text-align:center;border:1px solid var(--gr2);font-size:13.5px}
+.th-cultura{background:var(--az);color:white}
+.th-cond{background:var(--gr)}
+.td-ao{background:var(--az-ll)}
+.td-oc{background:var(--ve-ll)}
+.td-input{background:var(--am-l);border:1.5px solid var(--am2)!important}
+input.cell-input{width:70px;border:none;background:transparent;text-align:center;font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--am);font-weight:700;padding:4px;outline:none}
+input.cell-input::placeholder{color:#CCC;font-size:12px}
+input.cell-input.filled{color:var(--ve);font-weight:700}
+
+/* INTERPRETATION QUESTIONS */
+.interp-q{background:var(--am-l);border:1.5px solid var(--am2);border-radius:var(--rad-s);padding:14px 16px;margin-bottom:12px}
+.interp-q .iq-num{font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--am);margin-bottom:5px}
+.interp-q .iq-text{font-weight:600;font-size:14px;margin-bottom:10px;color:var(--txt)}
+.interp-q textarea{width:100%;border:1.5px solid var(--gr2);border-radius:var(--rad-s);padding:10px 13px;font-family:'DM Sans',sans-serif;font-size:14px;resize:none;min-height:70px;transition:border-color .2s;background:white}
+.interp-q textarea:focus{outline:none;border-color:var(--am2);box-shadow:0 0 0 3px rgba(249,168,37,.1)}
+
+/* COMPARE HYPO */
+.hyp-compare{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
+@media(max-width:560px){.hyp-compare{grid-template-columns:1fr}}
+.hc-card{border-radius:var(--rad-s);padding:13px 15px;border:1.5px solid}
+.hc-s9{background:var(--az-l);border-color:var(--az2)}.hc-s9 .hc-label{color:var(--az2)}
+.hc-data{background:var(--ve-l);border-color:var(--ve2)}.hc-data .hc-label{color:var(--ve2)}
+.hc-label{font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+.hc-card p{font-size:13px;color:var(--txt2);font-style:italic}
+
+/* QUIZ */
+.quiz-q{background:white;border-radius:var(--rad-s);padding:16px;border:1.5px solid var(--gr2);margin-bottom:14px}
+.quiz-q .q-num{font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--az);margin-bottom:6px}
+.quiz-q .q-text{font-weight:600;font-size:14px;margin-bottom:12px;line-height:1.55}
+.quiz-option{display:flex;align-items:flex-start;gap:10px;padding:9px 12px;border-radius:6px;cursor:pointer;transition:background .15s;margin-bottom:5px;border:1.5px solid transparent}
+.quiz-option:hover{background:var(--az-ll)}
+.quiz-option input[type=radio]{margin-top:3px;flex-shrink:0;accent-color:var(--az2)}
+.quiz-option label{font-size:13.5px;cursor:pointer;line-height:1.5}
+.quiz-option.correct{background:#E8F5E9;border-color:var(--ve2)}
+.quiz-option.wrong{background:var(--ro-l);border-color:var(--ro2)}
+.quiz-feedback{font-size:12.5px;border-radius:5px;padding:8px 12px;margin-top:8px;display:none}
+.quiz-feedback.show{display:block}
+.quiz-feedback.correct{background:#E8F5E9;color:var(--ve);border-left:3px solid var(--ve2)}
+.quiz-feedback.wrong{background:var(--ro-l);color:var(--ro2);border-left:3px solid var(--ro2)}
+.quiz-result{background:var(--az-l);border:2px solid var(--az2);border-radius:var(--rad);padding:22px;text-align:center;display:none;margin-top:14px}
+.quiz-result.show{display:block}
+.quiz-result .score{font-family:'DM Serif Display',serif;font-size:48px;color:var(--az);line-height:1}
+.quiz-result .score-msg{font-size:13.5px;margin-top:12px;color:var(--txt)}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:var(--rad-s);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .18s}
+.btn-primary{background:var(--az);color:white}.btn-primary:hover{background:var(--az2)}
+.btn-secondary{background:var(--gr);color:var(--txt)}.btn-secondary:hover{background:var(--gr2)}
+.btn-ve{background:var(--ve);color:white}.btn-ve:hover{background:var(--ve2)}
+.btn-am{background:var(--am);color:white}
+
+/* READINGS */
+.next-reading{background:white;border-radius:var(--rad-s);padding:16px 18px;border-left:4px solid var(--az2);margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.next-reading .nr-label{font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--az);margin-bottom:4px}
+.next-reading .nr-title{font-weight:600;font-size:14px;margin-bottom:3px}
+.next-reading .nr-meta{font-size:12px;color:var(--txt2);margin-bottom:8px}
+.next-reading .nr-doi{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ci);word-break:break-all}
+.next-reading .nr-consigna{margin-top:10px;background:var(--az-l);border-radius:5px;padding:9px 12px;font-size:12.5px;color:var(--az)}
+
+/* STORED NOTICE */
+#quiz-stored-notice{background:var(--ve-l);border:1.5px solid var(--ve2);border-radius:var(--rad-s);padding:14px 16px;font-size:13.5px;display:none;margin-bottom:18px}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <div>
+      <div style="font-size:11.5px;opacity:.65;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px">Diseños de Investigación I · Sesión 10</div>
+      <h1>Diseños experimentales<br>+ PI Actividad 2: Análisis descriptivo</h1>
+      <div class="topbar-sub">Sampieri Cap. 7 · Experimental · Cuasiexperimental · No experimental · Validez</div>
+    </div>
+    <span class="topbar-badge">Sampieri Cap. 7</span>
+  </div>
+  <div class="tab-nav">
+    <div class="tab-nav-inner">
+      <button class="tab-btn active" onclick="showTab('t0')">🔗 Puente S9→S10</button>
+      <button class="tab-btn" onclick="showTab('t1')">📐 ¿Qué es un diseño?</button>
+      <button class="tab-btn" onclick="showTab('t2')">🔬 Exp. vs. No exp.</button>
+      <button class="tab-btn" onclick="showTab('t3')">🧫 Tipos + Validez</button>
+      <button class="tab-btn" onclick="showTab('t4')">🔍 AC1 · Clasificar diseños</button>
+      <button class="tab-btn" onclick="showTab('t5')">📊 PI · Actividad 2</button>
+      <button class="tab-btn" onclick="showTab('t6')">💡 PI · Interpretación</button>
+      <button class="tab-btn" onclick="showTab('t7')">🎯 Quiz</button>
+      <button class="tab-btn" onclick="showTab('t8')">📖 Próxima sesión</button>
+    </div>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- ═══ T0 PUENTE ═══ -->
+<div class="tab-panel active" id="t0">
+  <div class="sec-title">🔗 Puente S9 → S10</div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px">
+    <span class="tag tag-clase">🏫 En clase</span>
+  </div>
+  <div class="alert info">
+    <div class="alert-ico">🧭</div>
+    <div>
+      <strong>¿De dónde venimos?</strong>
+      <p>En la sesión anterior formularon hipótesis — predicciones fundamentadas sobre relaciones entre variables. Hoy viene la pregunta natural: ¿cómo se pone a prueba una hipótesis? La respuesta es el <strong>diseño de investigación</strong>.</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header">🔁 La cadena se extiende un paso más</div>
+    <div class="card-body">
+      <div style="display:flex;align-items:center;flex-wrap:wrap;gap:0;margin:12px 0">
+        <div style="background:var(--gr2);padding:9px 14px;font-size:13px;font-weight:600;border-radius:4px;flex:1;min-width:80px;text-align:center">Pregunta de investigación</div>
+        <div style="color:var(--txt3);padding:0 6px;font-size:18px">→</div>
+        <div style="background:var(--gr2);padding:9px 14px;font-size:13px;font-weight:600;border-radius:4px;flex:1;min-width:80px;text-align:center">Marco teórico</div>
+        <div style="color:var(--txt3);padding:0 6px;font-size:18px">→</div>
+        <div style="background:var(--az);color:white;padding:9px 14px;font-size:13px;font-weight:600;border-radius:4px;flex:1;min-width:80px;text-align:center">Hipótesis ✓</div>
+        <div style="color:var(--txt3);padding:0 6px;font-size:18px">→</div>
+        <div style="background:var(--am);color:white;padding:9px 14px;font-size:13px;font-weight:600;border-radius:4px;flex:1;min-width:80px;text-align:center">Diseño ← Hoy</div>
+        <div style="color:var(--txt3);padding:0 6px;font-size:18px">→</div>
+        <div style="background:var(--gr2);padding:9px 14px;font-size:13px;font-weight:600;border-radius:4px;flex:1;min-width:80px;text-align:center">Datos + análisis</div>
+      </div>
+      <p style="font-size:13.5px;color:var(--txt2);margin-top:10px">El diseño es el puente entre la hipótesis (intención) y los datos (evidencia). Sin diseño, los datos no pueden responder la pregunta porque no se sabe qué comparar con qué, ni cómo controlar las variables extrañas.</p>
+    </div>
+  </div>
+  <div class="alert ve">
+    <div class="alert-ico">🧪</div>
+    <div><strong>Conexión con el PI:</strong> la hipótesis tentativa que formularon para el Proyecto Integrador necesita un diseño. Hoy van a analizar exactamente qué tipo de diseño tiene el experimento del PI — y esa clasificación determina qué tipo de conclusiones pueden sacar.</div>
+  </div>
+</div>
+
+<!-- ═══ T1 QUÉ ES UN DISEÑO ═══ -->
+<div class="tab-panel" id="t1">
+  <div class="sec-title">📐 ¿Qué es un diseño de investigación?</div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px">
+    <span class="tag tag-clase">🏫 En clase — magistral</span>
+  </div>
+
+  <div class="def-box">
+    <div class="def-label">Definición — Sampieri et al. (2014, Cap. 7)</div>
+    <div class="def-text">El diseño de investigación se refiere al <strong>plan o estrategia que se desarrolla para obtener la información que se requiere</strong> en una investigación y responder al planteamiento del problema.</div>
+    <div class="def-source">Hernández-Sampieri, R., Fernández, C. y Baptista, P. (2014). Metodología de la investigación (6ª ed.). McGraw-Hill.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">📋 ¿Para qué sirve el diseño?</div>
+    <div class="card-body">
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="background:var(--az-l);border-radius:var(--rad-s);padding:10px 13px;font-size:13.5px"><strong style="color:var(--az)">1. Responder la pregunta de investigación</strong> — define qué datos se necesitan para poder decir algo válido sobre la hipótesis.</div>
+        <div style="background:var(--az-l);border-radius:var(--rad-s);padding:10px 13px;font-size:13.5px"><strong style="color:var(--az)">2. Controlar variables extrañas</strong> — establece procedimientos para que las diferencias observadas en la VD se puedan atribuir a la VI y no a otras causas.</div>
+        <div style="background:var(--az-l);border-radius:var(--rad-s);padding:10px 13px;font-size:13.5px"><strong style="color:var(--az)">3. Conectar la teoría con los datos</strong> — es el punto donde las decisiones conceptuales (hipótesis, variables) se vuelven operativas (qué medir, a quiénes, cuándo).</div>
+        <div style="background:var(--az-l);border-radius:var(--rad-s);padding:10px 13px;font-size:13.5px"><strong style="color:var(--az)">4. Determinar las conclusiones posibles</strong> — el tipo de diseño establece qué puede y qué no puede afirmar el investigador. No todos los diseños permiten las mismas inferencias.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="alert am">
+    <div class="alert-ico">💬</div>
+    <div><strong>La pregunta clave que el diseño responde:</strong> ¿Qué tengo que hacer, con quiénes, de qué manera y en qué secuencia, para que los datos que obtenga me permitan decir algo válido sobre mi hipótesis?</div>
+  </div>
+</div>
+
+<!-- ═══ T2 EXPERIMENTAL VS NO EXPERIMENTAL ═══ -->
+<div class="tab-panel" id="t2">
+  <div class="sec-title">🔬 Experimental vs. No experimental</div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px">
+    <span class="tag tag-clase">🏫 En clase — magistral</span>
+    <span class="tag tag-casa">🏠 Profundizar en casa</span>
+  </div>
+
+  <div class="card">
+    <div class="card-header">🔑 La distinción fundamental</div>
+    <div class="card-body">
+      <p style="font-size:13.5px;color:var(--txt2);margin-bottom:14px">La decisión más importante del diseño cuantitativo es una sola pregunta:</p>
+      <div style="background:var(--az);color:white;border-radius:var(--rad-s);padding:16px 20px;text-align:center;font-size:15px;font-weight:700;margin-bottom:16px">¿El investigador manipula deliberadamente la variable independiente?</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+        <div style="background:var(--ve-l);border:2px solid var(--ve2);border-radius:var(--rad-s);padding:14px">
+          <div style="font-weight:800;font-size:13.5px;color:var(--ve2);margin-bottom:6px">SÍ → Experimental</div>
+          <p style="font-size:13px;color:var(--txt2)">El investigador crea condiciones. Decide quién recibe qué tratamiento y cuándo. Controla la VI deliberadamente.</p>
+          <p style="font-size:12.5px;color:var(--ve);margin-top:8px;font-weight:600">Permite inferencias causales más sólidas.</p>
+        </div>
+        <div style="background:var(--az-l);border:2px solid var(--az2);border-radius:var(--rad-s);padding:14px">
+          <div style="font-weight:800;font-size:13.5px;color:var(--az2);margin-bottom:6px">NO → No experimental</div>
+          <p style="font-size:13px;color:var(--txt2)">El investigador observa lo que ya ocurre. La VI no se manipula — varía naturalmente entre los participantes.</p>
+          <p style="font-size:12.5px;color:var(--az2);margin-top:8px;font-weight:600">Solo permite afirmar asociaciones, no causas.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:4px">
+    <div class="card-header">🌎 Ejemplos situados en Colombia</div>
+    <div class="card-body" style="display:flex;flex-direction:column;gap:10px">
+      <div class="acc">
+        <div class="acc-head" onclick="toggleAcc(this)">
+          <span>¿Experimental o no experimental? — Estudio sobre mindfulness en docentes de Cundinamarca</span>
+          <span class="acc-arrow">▾</span>
+        </div>
+        <div class="acc-body">
+          <p style="margin-bottom:8px">Un grupo de investigadores selecciona 80 docentes de municipios de la Sabana Occidente. Los asignan al azar: 40 reciben un programa de mindfulness de 8 semanas, 40 continúan sin intervención. Al final comparan el nivel de estrés (medido con el DASS-21).</p>
+          <p style="color:var(--ve);font-weight:700">✅ Experimental — el investigador manipula la VI (programa de mindfulness sí/no) y asigna aleatoriamente los grupos.</p>
+        </div>
+      </div>
+      <div class="acc">
+        <div class="acc-head" onclick="toggleAcc(this)">
+          <span>¿Experimental o no experimental? — Estudio sobre trabajadores nocturnos en Facatativá</span>
+          <span class="acc-arrow">▾</span>
+        </div>
+        <div class="acc-body">
+          <p style="margin-bottom:8px">Una psicóloga quiere saber si las personas que trabajan de noche como domiciliarios tienen más síntomas de ansiedad que quienes trabajan de día. Aplica el GAD-7 a ambos grupos y compara.</p>
+          <p style="color:var(--az2);font-weight:700">✅ No experimental — no se puede asignar a las personas al turno nocturno o diurno. La "VI" (turno) ya existe y el investigador solo la observa.</p>
+          <p style="font-size:12.5px;color:var(--txt2);margin-top:6px">Máximo que puede decir: existe una asociación entre trabajar de noche y la ansiedad. No que el turno nocturno <em>causa</em> la ansiedad.</p>
+        </div>
+      </div>
+      <div class="acc">
+        <div class="acc-head" onclick="toggleAcc(this)">
+          <span>¿Experimental o no experimental? — El Proyecto Integrador</span>
+          <span class="acc-arrow">▾</span>
+        </div>
+        <div class="acc-body">
+          <p style="margin-bottom:8px">El experimento del PI tiene DOS variables independientes:<br>
+          · <strong>Cultura</strong> (AO vs. Occidental): los participantes llegaron con su cultura. No se asignaron aleatoriamente a ningún grupo cultural.<br>
+          · <strong>Condición</strong> (Misma / Expansión / Aleatoria): el investigador decidió qué tipo de tarea mostrar y en qué orden.</p>
+          <p style="color:var(--am);font-weight:700">⚖️ MIXTO — cuasiexperimental para la variable cultura, experimental para la variable condición.</p>
+          <p style="font-size:12.5px;color:var(--txt2);margin-top:6px">Esto tiene consecuencias para las conclusiones: podemos decir que la condición <em>causó</em> diferencias en el desempeño. Para la cultura, solo podemos decir que hay una asociación.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ T3 TIPOS + VALIDEZ ═══ -->
+<div class="tab-panel" id="t3">
+  <div class="sec-title">🧫 Tipos de experimentos y validez</div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px">
+    <span class="tag tag-clase">🏫 En clase — magistral</span>
+    <span class="tag tag-casa">🏠 Completar en casa</span>
+  </div>
+
+  <div class="tipo-grid">
+    <div class="tipo-card tipo-exp">
+      <div class="tl">Tipo 1</div>
+      <h4>Experimento puro (verdadero)</h4>
+      <p>Máximo control. El investigador manipula la VI <em>y</em> asigna aleatoriamente los participantes a los grupos.</p>
+      <p class="req" style="color:var(--ve2)">Requisitos: manipulación + asignación aleatoria + grupo de comparación.</p>
+    </div>
+    <div class="tipo-card tipo-cuasi">
+      <div class="tl">Tipo 2</div>
+      <h4>Cuasiexperimento</h4>
+      <p>El investigador manipula la VI, pero los grupos ya existen o no se pueden asignar al azar.</p>
+      <p class="req" style="color:var(--am)">Requisito mínimo: manipulación de la VI. Sin asignación aleatoria.</p>
+    </div>
+    <div class="tipo-card tipo-noexp">
+      <div class="tl">Tipo 3</div>
+      <h4>Preexperimento</h4>
+      <p>Mínimo control. Un grupo sin comparación o con comparación muy débil. No permite inferencia causal.</p>
+      <p class="req" style="color:var(--az2)">Uso: exploración inicial, estudios piloto.</p>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:6px">
+    <div class="card-header">⚖️ Validez interna vs. validez externa</div>
+    <div class="card-body">
+      <div class="val-grid">
+        <div class="val-card val-int">
+          <h4>Validez interna</h4>
+          <p><strong>Pregunta:</strong> ¿Los cambios en la VD se deben realmente a la VI, o hay otras explicaciones?</p>
+          <p style="margin-top:8px"><strong>Amenazas comunes:</strong> historia (algo externo ocurrió durante el estudio), maduración (los participantes cambiaron solos), efecto del instrumento.</p>
+          <p style="margin-top:8px"><strong>Cómo se protege:</strong> asignación aleatoria, grupos de control, condiciones estandarizadas.</p>
+        </div>
+        <div class="val-card val-ext">
+          <h4>Validez externa</h4>
+          <p><strong>Pregunta:</strong> ¿Los resultados se pueden generalizar a otras personas, contextos y momentos?</p>
+          <p style="margin-top:8px"><strong>Amenazas comunes:</strong> muestra muy específica (solo estudiantes universitarios), contexto artificial de laboratorio, sesgo WEIRD.</p>
+          <p style="margin-top:8px"><strong>El dilema:</strong> maximizar validez interna suele reducir la externa, y viceversa.</p>
+        </div>
+      </div>
+      <div class="alert am" style="margin-top:8px;margin-bottom:0">
+        <div class="alert-ico">🤔</div>
+        <div><strong>Para el PI:</strong> el experimento fue en laboratorio con estudiantes universitarios → alta validez interna, pero ¿qué amenaza para la validez externa identifican? Guarden esa respuesta para la sección de interpretación.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:6px">
+    <div class="card-header" style="background:linear-gradient(135deg,#1a1a35,#2a2a55);color:white">🧪 Diseño del PI — clasificación formal</div>
+    <div class="card-body">
+      <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px">
+        <div style="background:var(--am-l);border-left:4px solid var(--am2);border-radius:0 var(--rad-s) var(--rad-s) 0;padding:10px 14px;font-size:13.5px">
+          <strong>Factor 1 — Cultura (AO vs. Occidental):</strong> No se manipuló · No hay asignación aleatoria · Son grupos naturales preexistentes.<br>
+          → <span style="font-weight:700;color:var(--am)">Cuasiexperimental · Factor entre sujetos (between-subjects)</span>
+        </div>
+        <div style="background:var(--ve-l);border-left:4px solid var(--ve2);border-radius:0 var(--rad-s) var(--rad-s) 0;padding:10px 14px;font-size:13.5px">
+          <strong>Factor 2 — Condición (Misma / Expansión / Aleatoria):</strong> Sí se manipuló · El orden se aleatorizó · Cada participante pasa por las 3 condiciones.<br>
+          → <span style="font-weight:700;color:var(--ve2)">Experimental · Factor dentro de sujetos (within-subjects)</span>
+        </div>
+        <div style="background:var(--az-l);border-left:4px solid var(--az2);border-radius:0 var(--rad-s) var(--rad-s) 0;padding:10px 14px;font-size:13.5px">
+          <strong>Resultado:</strong> <span style="font-weight:700;color:var(--az2)">Diseño factorial mixto 2 × 3</span> (cuasiexperimental para cultura, experimental para condición)
+        </div>
+      </div>
+      <div class="alert ro">
+        <div class="alert-ico">⚠️</div>
+        <div><strong>Conclusión crítica:</strong> Porque la cultura no se manipuló, el PI <em>no puede demostrar</em> que la cultura <em>causó</em> las diferencias en atención. Solo puede demostrar que hay una asociación consistente entre cultura y patrones atencionales. Esta distinción debe aparecer en la sección de discusión de su informe.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ T4 AC1 CLASIFICAR ═══ -->
+<div class="tab-panel" id="t4">
+  <div class="sec-title">🔍 AC1 — Clasificar diseños en el trío</div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px">
+    <span class="tag tag-clase">🏫 En clase — 15 min</span>
+    <span class="tag tag-coop">Actividad cooperativa</span>
+  </div>
+
+  <div class="alert ve">
+    <div class="alert-ico">🤝</div>
+    <div><strong>Instrucción:</strong> Cada integrante da primero su clasificación individual antes de que el grupo debata. Luego llegan a consenso. El Secretario registra si hubo desacuerdo en alguno.</div>
+  </div>
+
+  <!-- ESTUDIO A -->
+  <div class="estudio-box">
+    <div class="est-num">Estudio A</div>
+    <div class="est-desc">Investigadores seleccionan aleatoriamente 60 estudiantes de psicología de la UDEC y los asignan al azar a dos grupos: uno recibe un taller de técnicas de estudio de 6 semanas, el otro continúa sin intervención. Al final del semestre, comparan los promedios académicos.</div>
+    <div class="radio-group">
+      <button class="radio-chip" onclick="selectTipo(this,'a','exp')">🔬 Experimental puro</button>
+      <button class="radio-chip" onclick="selectTipo(this,'a','cuasi')">⚗️ Cuasiexperimental</button>
+      <button class="radio-chip" onclick="selectTipo(this,'a','noexp')">👁️ No experimental</button>
+    </div>
+    <div class="estudio-feedback" id="fb-a"></div>
+  </div>
+
+  <!-- ESTUDIO B -->
+  <div class="estudio-box">
+    <div class="est-num">Estudio B</div>
+    <div class="est-desc">Una psicóloga en Facatativá quiere saber si las personas que trabajan de noche (domiciliarios, vigilantes, enfermeras) tienen más síntomas de ansiedad que quienes trabajan de día. Aplica el GAD-7 a 40 trabajadores nocturnos y 40 diurnos y compara los resultados.</div>
+    <div class="radio-group">
+      <button class="radio-chip" onclick="selectTipo(this,'b','exp')">🔬 Experimental puro</button>
+      <button class="radio-chip" onclick="selectTipo(this,'b','cuasi')">⚗️ Cuasiexperimental</button>
+      <button class="radio-chip" onclick="selectTipo(this,'b','noexp')">👁️ No experimental</button>
+    </div>
+    <div class="estudio-feedback" id="fb-b"></div>
+  </div>
+
+  <!-- ESTUDIO C -->
+  <div class="estudio-box">
+    <div class="est-num">Estudio C — el más difícil</div>
+    <div class="est-desc">Un grupo quiere estudiar si escuchar música clásica mejora la concentración en tareas académicas. Para cada participante miden la concentración en dos sesiones: una con música de fondo y otra en silencio. El orden (música primero o silencio primero) se asigna al azar entre participantes.</div>
+    <div class="radio-group">
+      <button class="radio-chip" onclick="selectTipo(this,'c','exp')">🔬 Experimental puro</button>
+      <button class="radio-chip" onclick="selectTipo(this,'c','cuasi')">⚗️ Cuasiexperimental</button>
+      <button class="radio-chip" onclick="selectTipo(this,'c','noexp')">👁️ No experimental</button>
+    </div>
+    <div class="estudio-feedback" id="fb-c"></div>
+  </div>
+
+  <!-- EL PI -->
+  <div class="estudio-box" style="background:var(--am-l);border:1.5px solid var(--am2)">
+    <div class="est-num" style="color:var(--am)">El experimento del Proyecto Integrador</div>
+    <div class="est-desc">El PI comparó dos grupos culturales (AO vs. Occidental) en una tarea de detección de cambios bajo tres condiciones (Misma, Expansión, Aleatoria). Cada participante pasó por las tres condiciones. No se asignó aleatoriamente a ningún participante a su grupo cultural.</div>
+    <div class="radio-group">
+      <button class="radio-chip" onclick="selectTipo(this,'pi','exp')">🔬 Experimental puro</button>
+      <button class="radio-chip" onclick="selectTipo(this,'pi','cuasi')">⚗️ Cuasiexperimental</button>
+      <button class="radio-chip" onclick="selectTipo(this,'pi','noexp')">👁️ No experimental</button>
+      <button class="radio-chip" onclick="selectTipo(this,'pi','mixto')">🔀 Mixto (combinado)</button>
+    </div>
+    <div class="estudio-feedback" id="fb-pi"></div>
+  </div>
+</div>
+
+<!-- ═══ T5 ACTIVIDAD 2 DESCRIPTIVOS ═══ -->
+<div class="tab-panel" id="t5">
+  <div style="background:linear-gradient(135deg,var(--am) 0%,#E65100 100%);color:white;border-radius:var(--rad) var(--rad) 0 0;padding:20px 22px;margin-bottom:18px">
+    <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;opacity:.75;margin-bottom:6px">Proyecto Integrador · Actividad 2</div>
+    <h2 style="font-family:'DM Serif Display',serif;font-size:20px;margin-bottom:4px">📊 Análisis descriptivo — La primera tabla del informe</h2>
+    <p style="font-size:13px;opacity:.9">Calculen las medias para construir la tabla 2×3. Esto es parte real de su informe.</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
+      <span style="background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.4);padding:4px 11px;border-radius:20px;font-size:11.5px;font-weight:600">🏫 En clase — AC2 (20 min)</span>
+      <span style="background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.4);padding:4px 11px;border-radius:20px;font-size:11.5px;font-weight:600">🏠 Completar en casa si no alcanza</span>
+    </div>
+  </div>
+
+  <div class="alert ve">
+    <div class="alert-ico">🤝</div>
+    <div><strong>División de trabajo en el trío:</strong><br>
+    · <strong>Coordinador/a:</strong> calcula la fila de Asiático Oriental (d' y TR_focal para las 3 condiciones)<br>
+    · <strong>Secretario/a:</strong> calcula la fila de Occidental (d' y TR_focal para las 3 condiciones)<br>
+    · <strong>Vocero/a:</strong> prepara la tabla vacía y coordina la integración<br>
+    · <strong>Verificador/a:</strong> revisa que los cálculos coincidan con los de la herramienta</div>
+  </div>
+
+  <!-- DATASET -->
+  <div class="card">
+    <div class="card-header">📋 Dataset — Datos del experimento (todos los participantes)</div>
+    <div class="card-body">
+      <p style="font-size:12.5px;color:var(--txt2);margin-bottom:10px"><strong>d':</strong> exactitud de detección (mayor = mejor). <strong>TR_focal:</strong> tiempo de reacción en tarea central en ms (mayor = más lento en detección central).</p>
+      <div style="overflow-x:auto">
+        <table class="dataset-table">
+          <thead><tr><th>ID</th><th>Cultura</th><th>Condición</th><th>d'</th><th>TR_focal (ms)</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td class="ao">AO</td><td><span class="cond-badge ce">Expansión</span></td><td>3.2</td><td>1500</td></tr>
+            <tr><td>2</td><td class="ao">AO</td><td><span class="cond-badge ce">Expansión</span></td><td>3.0</td><td>1520</td></tr>
+            <tr><td>3</td><td class="ao">AO</td><td><span class="cond-badge ce">Expansión</span></td><td>3.1</td><td>1480</td></tr>
+            <tr><td>4</td><td class="ao">AO</td><td><span class="cond-badge ce">Expansión</span></td><td>3.3</td><td>1450</td></tr>
+            <tr><td>5</td><td class="ao">AO</td><td><span class="cond-badge ce">Expansión</span></td><td>3.2</td><td>1490</td></tr>
+            <tr><td>6</td><td class="ao">AO</td><td><span class="cond-badge ce">Expansión</span></td><td>3.0</td><td>1550</td></tr>
+            <tr><td>7</td><td class="ao">AO</td><td><span class="cond-badge ce">Expansión</span></td><td>3.1</td><td>1510</td></tr>
+            <tr><td>8</td><td class="ao">AO</td><td><span class="cond-badge ce">Expansión</span></td><td>3.2</td><td>1470</td></tr>
+            <tr><td>9</td><td class="ao">AO</td><td><span class="cond-badge ce">Expansión</span></td><td>3.3</td><td>1440</td></tr>
+            <tr><td>10</td><td class="ao">AO</td><td><span class="cond-badge cs">Misma</span></td><td>2.6</td><td>1550</td></tr>
+            <tr><td>11</td><td class="ao">AO</td><td><span class="cond-badge cs">Misma</span></td><td>2.5</td><td>1580</td></tr>
+            <tr><td>12</td><td class="ao">AO</td><td><span class="cond-badge cs">Misma</span></td><td>2.7</td><td>1500</td></tr>
+            <tr><td>13</td><td class="ao">AO</td><td><span class="cond-badge cs">Misma</span></td><td>2.6</td><td>1520</td></tr>
+            <tr><td>14</td><td class="ao">AO</td><td><span class="cond-badge cs">Misma</span></td><td>2.4</td><td>1600</td></tr>
+            <tr><td>15</td><td class="ao">AO</td><td><span class="cond-badge cs">Misma</span></td><td>2.6</td><td>1530</td></tr>
+            <tr><td>16</td><td class="ao">AO</td><td><span class="cond-badge cs">Misma</span></td><td>2.5</td><td>1570</td></tr>
+            <tr><td>17</td><td class="ao">AO</td><td><span class="cond-badge cs">Misma</span></td><td>2.7</td><td>1490</td></tr>
+            <tr><td>18</td><td class="ao">AO</td><td><span class="cond-badge ca">Aleatoria</span></td><td>2.3</td><td>1600</td></tr>
+            <tr><td>19</td><td class="ao">AO</td><td><span class="cond-badge ca">Aleatoria</span></td><td>2.4</td><td>1650</td></tr>
+            <tr><td>20</td><td class="ao">AO</td><td><span class="cond-badge ca">Aleatoria</span></td><td>2.2</td><td>1700</td></tr>
+            <tr><td>21</td><td class="ao">AO</td><td><span class="cond-badge ca">Aleatoria</span></td><td>2.3</td><td>1580</td></tr>
+            <tr><td>22</td><td class="ao">AO</td><td><span class="cond-badge ca">Aleatoria</span></td><td>2.4</td><td>1620</td></tr>
+            <tr><td>23</td><td class="ao">AO</td><td><span class="cond-badge ca">Aleatoria</span></td><td>2.3</td><td>1590</td></tr>
+            <tr><td>24</td><td class="ao">AO</td><td><span class="cond-badge ca">Aleatoria</span></td><td>2.2</td><td>1680</td></tr>
+            <tr><td>25</td><td class="ao">AO</td><td><span class="cond-badge ca">Aleatoria</span></td><td>2.4</td><td>1630</td></tr>
+            <tr><td>26</td><td class="ao">AO</td><td><span class="cond-badge ca">Aleatoria</span></td><td>2.3</td><td>1610</td></tr>
+            <tr><td>27</td><td class="ao">AO</td><td><span class="cond-badge ca">Aleatoria</span></td><td>2.2</td><td>1690</td></tr>
+            <tr><td>28</td><td class="oc">Occidental</td><td><span class="cond-badge ce">Expansión</span></td><td>2.5</td><td>800</td></tr>
+            <tr><td>29</td><td class="oc">Occidental</td><td><span class="cond-badge ce">Expansión</span></td><td>2.6</td><td>820</td></tr>
+            <tr><td>30</td><td class="oc">Occidental</td><td><span class="cond-badge ce">Expansión</span></td><td>2.4</td><td>810</td></tr>
+            <tr><td>31</td><td class="oc">Occidental</td><td><span class="cond-badge ce">Expansión</span></td><td>2.5</td><td>790</td></tr>
+            <tr><td>32</td><td class="oc">Occidental</td><td><span class="cond-badge ce">Expansión</span></td><td>2.6</td><td>800</td></tr>
+            <tr><td>33</td><td class="oc">Occidental</td><td><span class="cond-badge ce">Expansión</span></td><td>2.4</td><td>830</td></tr>
+            <tr><td>34</td><td class="oc">Occidental</td><td><span class="cond-badge ce">Expansión</span></td><td>2.5</td><td>805</td></tr>
+            <tr><td>35</td><td class="oc">Occidental</td><td><span class="cond-badge ce">Expansión</span></td><td>2.6</td><td>795</td></tr>
+            <tr><td>36</td><td class="oc">Occidental</td><td><span class="cond-badge ce">Expansión</span></td><td>2.5</td><td>810</td></tr>
+            <tr><td>37</td><td class="oc">Occidental</td><td><span class="cond-badge cs">Misma</span></td><td>2.7</td><td>780</td></tr>
+            <tr><td>38</td><td class="oc">Occidental</td><td><span class="cond-badge cs">Misma</span></td><td>2.6</td><td>770</td></tr>
+            <tr><td>39</td><td class="oc">Occidental</td><td><span class="cond-badge cs">Misma</span></td><td>2.8</td><td>760</td></tr>
+            <tr><td>40</td><td class="oc">Occidental</td><td><span class="cond-badge cs">Misma</span></td><td>2.7</td><td>775</td></tr>
+            <tr><td>41</td><td class="oc">Occidental</td><td><span class="cond-badge cs">Misma</span></td><td>2.6</td><td>785</td></tr>
+            <tr><td>42</td><td class="oc">Occidental</td><td><span class="cond-badge cs">Misma</span></td><td>2.7</td><td>765</td></tr>
+            <tr><td>43</td><td class="oc">Occidental</td><td><span class="cond-badge cs">Misma</span></td><td>2.8</td><td>755</td></tr>
+            <tr><td>44</td><td class="oc">Occidental</td><td><span class="cond-badge cs">Misma</span></td><td>2.6</td><td>780</td></tr>
+            <tr><td>45</td><td class="oc">Occidental</td><td><span class="cond-badge ca">Aleatoria</span></td><td>2.3</td><td>830</td></tr>
+            <tr><td>46</td><td class="oc">Occidental</td><td><span class="cond-badge ca">Aleatoria</span></td><td>2.4</td><td>820</td></tr>
+            <tr><td>47</td><td class="oc">Occidental</td><td><span class="cond-badge ca">Aleatoria</span></td><td>2.2</td><td>840</td></tr>
+            <tr><td>48</td><td class="oc">Occidental</td><td><span class="cond-badge ca">Aleatoria</span></td><td>2.3</td><td>835</td></tr>
+            <tr><td>49</td><td class="oc">Occidental</td><td><span class="cond-badge ca">Aleatoria</span></td><td>2.4</td><td>825</td></tr>
+            <tr><td>50</td><td class="oc">Occidental</td><td><span class="cond-badge ca">Aleatoria</span></td><td>2.3</td><td>840</td></tr>
+            <tr><td>51</td><td class="oc">Occidental</td><td><span class="cond-badge ca">Aleatoria</span></td><td>2.2</td><td>850</td></tr>
+            <tr><td>52</td><td class="oc">Occidental</td><td><span class="cond-badge ca">Aleatoria</span></td><td>2.3</td><td>835</td></tr>
+            <tr><td>53</td><td class="oc">Occidental</td><td><span class="cond-badge ca">Aleatoria</span></td><td>2.4</td><td>820</td></tr>
+            <tr><td>54</td><td class="oc">Occidental</td><td><span class="cond-badge ca">Aleatoria</span></td><td>2.3</td><td>830</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ANALYSIS TABLE -->
+  <div class="card">
+    <div class="card-header" style="background:var(--am-l)">📝 Tabla 2×3 — Completen las medias (M) aquí</div>
+    <div class="card-body">
+      <p style="font-size:13px;color:var(--txt2);margin-bottom:12px">Calculen la media de cada celda usando los datos de la tabla de arriba. Las celdas amarillas son para ingresar. Cuando terminen, presionen "Verificar".</p>
+      <div style="overflow-x:auto">
+        <table class="analysis-table">
+          <thead>
+            <tr>
+              <th class="th-cultura" rowspan="2" style="width:130px">Cultura</th>
+              <th class="th-cond" colspan="3">Condición experimental</th>
+            </tr>
+            <tr>
+              <th class="th-cond">Misma</th>
+              <th class="th-cond">Expansión</th>
+              <th class="th-cond">Aleatoria</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="td-ao" style="font-weight:700;color:var(--az2)">Asiático Oriental<br><span style="font-size:11px;font-weight:400">d' (M)</span></td>
+              <td class="td-input"><input class="cell-input" id="ao-misma-d" placeholder="?" oninput="checkCell(this)"></td>
+              <td class="td-input"><input class="cell-input" id="ao-exp-d" placeholder="?" oninput="checkCell(this)"></td>
+              <td class="td-input"><input class="cell-input" id="ao-alea-d" placeholder="?" oninput="checkCell(this)"></td>
+            </tr>
+            <tr>
+              <td class="td-oc" style="font-weight:700;color:var(--ve2)">Occidental<br><span style="font-size:11px;font-weight:400">d' (M)</span></td>
+              <td class="td-input"><input class="cell-input" id="oc-misma-d" placeholder="?" oninput="checkCell(this)"></td>
+              <td class="td-input"><input class="cell-input" id="oc-exp-d" placeholder="?" oninput="checkCell(this)"></td>
+              <td class="td-input"><input class="cell-input" id="oc-alea-d" placeholder="?" oninput="checkCell(this)"></td>
+            </tr>
+            <tr>
+              <td class="td-ao" style="font-weight:700;color:var(--az2)">Asiático Oriental<br><span style="font-size:11px;font-weight:400">TR_focal (M, ms)</span></td>
+              <td class="td-input"><input class="cell-input" id="ao-misma-trf" placeholder="?" oninput="checkCell(this)"></td>
+              <td class="td-input"><input class="cell-input" id="ao-exp-trf" placeholder="?" oninput="checkCell(this)"></td>
+              <td class="td-input"><input class="cell-input" id="ao-alea-trf" placeholder="?" oninput="checkCell(this)"></td>
+            </tr>
+            <tr>
+              <td class="td-oc" style="font-weight:700;color:var(--ve2)">Occidental<br><span style="font-size:11px;font-weight:400">TR_focal (M, ms)</span></td>
+              <td class="td-input"><input class="cell-input" id="oc-misma-trf" placeholder="?" oninput="checkCell(this)"></td>
+              <td class="td-input"><input class="cell-input" id="oc-exp-trf" placeholder="?" oninput="checkCell(this)"></td>
+              <td class="td-input"><input class="cell-input" id="oc-alea-trf" placeholder="?" oninput="checkCell(this)"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px">
+        <button onclick="verifyTable()" class="btn btn-am">✅ Verificar mis medias</button>
+        <button onclick="showAnswers()" class="btn btn-secondary">👁 Ver respuestas</button>
+        <button onclick="saveTable()" class="btn btn-ve">💾 Guardar tabla</button>
+      </div>
+      <div id="verify-result" style="display:none;margin-top:12px;font-size:13.5px;padding:10px 13px;border-radius:var(--rad-s)"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ T6 INTERPRETACIÓN ═══ -->
+<div class="tab-panel" id="t6">
+  <div class="sec-title">💡 PI · Primeras interpretaciones</div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px">
+    <span class="tag tag-pi">Proyecto Integrador</span>
+    <span class="tag tag-clase">🏫 En clase si hay tiempo · 🏠 En casa</span>
+  </div>
+
+  <div class="alert info">
+    <div class="alert-ico">📌</div>
+    <div><strong>Antes de responder:</strong> asegúrense de tener la tabla 2×3 completada (Módulo 5). Las interpretaciones deben apoyarse en los números, no en intuición.</div>
+  </div>
+
+  <div class="interp-q">
+    <div class="iq-num">Pregunta 1 de 4</div>
+    <div class="iq-text">¿En qué condición el grupo AO tiene el d' más alto? ¿Y el grupo Occidental? ¿Qué dice eso sobre la forma en que cada grupo distribuye su atención?</div>
+    <textarea id="q1-resp" placeholder="Escribe la respuesta del grupo aquí..." oninput="saveInterp()"></textarea>
+  </div>
+
+  <div class="interp-q">
+    <div class="iq-num">Pregunta 2 de 4</div>
+    <div class="iq-text">¿En qué condición la diferencia entre los dos grupos es mayor en d'? ¿En cuál condición es casi nula la diferencia? ¿Qué sugiere ese patrón?</div>
+    <textarea id="q2-resp" placeholder="Escribe la respuesta del grupo aquí..." oninput="saveInterp()"></textarea>
+  </div>
+
+  <div class="interp-q">
+    <div class="iq-num">Pregunta 3 de 4 — la más importante</div>
+    <div class="iq-text">El grupo AO tarda aproximadamente el doble que el Occidental en detectar un estímulo central (TR_focal ≈ 1500 ms vs ≈ 800 ms). Intuitivamente esto parece "peor desempeño" para el AO. Pero en el marco del experimento, ¿es realmente una desventaja? ¿Qué les dice esa diferencia sobre cómo el grupo AO distribuye su atención?</div>
+    <textarea id="q3-resp" placeholder="Escribe la respuesta del grupo aquí..." oninput="saveInterp()"></textarea>
+  </div>
+
+  <div class="interp-q" style="background:var(--az-l);border-color:var(--az2)">
+    <div class="iq-num" style="color:var(--az2)">Pregunta 4 de 4 — Conectar con la hipótesis de S9</div>
+    <div class="iq-text">Miren la hipótesis tentativa que formularon en la sesión 9. Con los datos que calcularon hoy, ¿qué ajustarían de esa hipótesis? ¿Qué elementos ya se ven apoyados por los descriptivos? ¿Qué sigue siendo incierto?</div>
+    <textarea id="q4-resp" placeholder="Escribe la respuesta del grupo aquí..." oninput="saveInterp()"></textarea>
+  </div>
+
+  <button onclick="saveInterp(); alert('Respuestas guardadas ✅')" class="btn btn-ve" style="margin-top:8px">💾 Guardar todas las respuestas</button>
+
+  <div class="alert am" style="margin-top:16px">
+    <div class="alert-ico">🔮</div>
+    <div><strong>¿Qué sigue?</strong> En las próximas sesiones aprenderán a hacer el análisis inferencial: ¿son estas diferencias estadísticamente significativas? ¿Hay interacción entre cultura y condición? Las respuestas a esas preguntas son el corazón de la Actividad 2 del PI.</div>
+  </div>
+</div>
+
+<!-- ═══ T7 QUIZ ═══ -->
+<div class="tab-panel" id="t7">
+  <div class="sec-title">🎯 Quiz de autoevaluación — Sesión 10</div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px">
+    <span class="tag tag-casa">🏠 Para la casa</span>
+  </div>
+  <div id="quiz-stored-notice">
+    <strong>📊 Ya respondiste este quiz.</strong> Tu primera nota fue: <strong id="stored-score-display">—</strong><br>
+    <span style="font-size:12.5px;color:var(--txt2)">Puedes volver a practicar, pero tu primera nota está guardada.</span>
+  </div>
+  <div class="alert info">
+    <div class="alert-ico">💡</div>
+    <div><strong>Instrucción:</strong> responde todas las preguntas y presiona "Calificar". La primera nota queda guardada en este dispositivo.</div>
+  </div>
+  <div id="quiz-form">
+    <!-- Q1 -->
+    <div class="quiz-q">
+      <div class="q-num">Pregunta 1 de 7</div>
+      <div class="q-text">Daniela quiere estudiar si un programa de entrenamiento en regulación emocional reduce la ansiedad en estudiantes de primer semestre de la UDEC. Asigna aleatoriamente a 40 estudiantes al programa y 40 a un grupo de lista de espera. Mide el GAD-7 antes y después. ¿Qué tipo de diseño es?</div>
+      <div class="quiz-option"><input type="radio" name="q1" value="a"><label>a) No experimental — observa la ansiedad que los estudiantes ya traen sin modificar nada.</label></div>
+      <div class="quiz-option"><input type="radio" name="q1" value="b"><label>b) Experimento puro — hay manipulación de la VI (programa sí/no) y asignación aleatoria a grupos.</label></div>
+      <div class="quiz-option"><input type="radio" name="q1" value="c"><label>c) Cuasiexperimento — hay manipulación pero los grupos son estudiantes de primer semestre que ya existen como grupo natural.</label></div>
+      <div class="quiz-option"><input type="radio" name="q1" value="d"><label>d) Preexperimento — no hay grupo de control real porque la lista de espera es solo un procedimiento administrativo.</label></div>
+      <div class="quiz-feedback" id="fb1"></div>
+    </div>
+    <!-- Q2 -->
+    <div class="quiz-q">
+      <div class="q-num">Pregunta 2 de 7</div>
+      <div class="q-text">En el experimento del PI, ¿por qué la variable "cultura" (AO vs. Occidental) hace que el diseño sea cuasiexperimental y no un experimento puro?</div>
+      <div class="quiz-option"><input type="radio" name="q2" value="a"><label>a) Porque la cultura es una variable cualitativa y los experimentos puros solo pueden usar variables cuantitativas.</label></div>
+      <div class="quiz-option"><input type="radio" name="q2" value="b"><label>b) Porque los investigadores no midieron la cultura con un instrumento validado — solo preguntaron a los participantes a qué cultura pertenecían.</label></div>
+      <div class="quiz-option"><input type="radio" name="q2" value="c"><label>c) Porque los participantes no fueron asignados aleatoriamente a los grupos culturales — pertenecen a esas culturas por razones ajenas al experimento, y eso impide controlar otras diferencias entre grupos.</label></div>
+      <div class="quiz-option"><input type="radio" name="q2" value="d"><label>d) Porque hubo más participantes en un grupo que en el otro, lo que viola el principio de equivalencia muestral de los experimentos puros.</label></div>
+      <div class="quiz-feedback" id="fb2"></div>
+    </div>
+    <!-- Q3 -->
+    <div class="quiz-q">
+      <div class="q-num">Pregunta 3 de 7</div>
+      <div class="q-text">Un estudio cuasiexperimental encuentra que los estudiantes de colegios privados de Bogotá obtienen mejores puntajes en pruebas de comprensión lectora que los de colegios públicos de municipios rurales de Cundinamarca. ¿Qué conclusión está justificada?</div>
+      <div class="quiz-option"><input type="radio" name="q3" value="a"><label>a) El tipo de colegio (público/privado) causa las diferencias en comprensión lectora.</label></div>
+      <div class="quiz-option"><input type="radio" name="q3" value="b"><label>b) Los estudiantes de colegios privados son más inteligentes que los de colegios públicos rurales.</label></div>
+      <div class="quiz-option"><input type="radio" name="q3" value="c"><label>c) Existe una asociación entre el tipo de colegio y el puntaje en comprensión lectora, aunque la diferencia podría explicarse también por el nivel socioeconómico, el acceso a tecnología u otras variables no controladas.</label></div>
+      <div class="quiz-option"><input type="radio" name="q3" value="d"><label>d) El diseño cuasiexperimental no permite ninguna conclusión porque no hubo asignación aleatoria.</label></div>
+      <div class="quiz-feedback" id="fb3"></div>
+    </div>
+    <!-- Q4 -->
+    <div class="quiz-q">
+      <div class="q-num">Pregunta 4 de 7</div>
+      <div class="q-text">¿Cuál de las siguientes es una AMENAZA a la validez interna de un experimento?</div>
+      <div class="quiz-option"><input type="radio" name="q4" value="a"><label>a) La muestra del estudio está compuesta solo por estudiantes universitarios, lo que limita generalizar los resultados a la población general.</label></div>
+      <div class="quiz-option"><input type="radio" name="q4" value="b"><label>b) Durante el estudio ocurrió una huelga universitaria que afectó los niveles de estrés de todos los participantes, no solo del grupo experimental.</label></div>
+      <div class="quiz-option"><input type="radio" name="q4" value="c"><label>c) El instrumento utilizado fue diseñado originalmente en España y no fue validado en Colombia.</label></div>
+      <div class="quiz-option"><input type="radio" name="q4" value="d"><label>d) Los resultados no son estadísticamente significativos al nivel de p < .05.</label></div>
+      <div class="quiz-feedback" id="fb4"></div>
+    </div>
+    <!-- Q5 -->
+    <div class="quiz-q">
+      <div class="q-num">Pregunta 5 de 7</div>
+      <div class="q-text">En el dataset del PI, el grupo AO tiene una media de d' de 3.16 en la condición de Expansión, mientras que el grupo Occidental tiene 2.51. ¿Qué describe más precisamente esta diferencia?</div>
+      <div class="quiz-option"><input type="radio" name="q5" value="a"><label>a) El grupo AO tiene mayor inteligencia visual que el grupo Occidental, lo que explica su mejor desempeño en todos los aspectos.</label></div>
+      <div class="quiz-option"><input type="radio" name="q5" value="b"><label>b) En la condición de Expansión, el grupo AO detectó los cambios con mayor exactitud que el Occidental — lo cual es consistente con la hipótesis de que el grupo AO distribuye su atención más ampliamente hacia la periferia.</label></div>
+      <div class="quiz-option"><input type="radio" name="q5" value="c"><label>c) El grupo AO tiene mejor visión periférica porque evolutivamente los seres humanos de Asia Oriental desarrollaron una anatomía ocular diferente.</label></div>
+      <div class="quiz-option"><input type="radio" name="q5" value="d"><label>d) La diferencia es solo estadística y no tiene ninguna implicación para entender la cognición cultural.</label></div>
+      <div class="quiz-feedback" id="fb5"></div>
+    </div>
+    <!-- Q6 -->
+    <div class="quiz-q">
+      <div class="q-num">Pregunta 6 de 7</div>
+      <div class="q-text">El grupo AO tarda aproximadamente 1490 ms en responder a la tarea focal central, mientras el grupo Occidental tarda 807 ms. ¿Qué interpretación metodológica es más adecuada?</div>
+      <div class="quiz-option"><input type="radio" name="q6" value="a"><label>a) El grupo AO tiene peor tiempo de reacción general, lo que sugiere que son más lentos cognitivamente en tareas visuales.</label></div>
+      <div class="quiz-option"><input type="radio" name="q6" value="b"><label>b) El mayor TR_focal del grupo AO es consistente con la hipótesis de que su atención está distribuida periféricamente: cuando aparece un estímulo central, su sistema atencional tarda más en orientarse porque no estaba concentrado en ese punto.</label></div>
+      <div class="quiz-option"><input type="radio" name="q6" value="c"><label>c) La diferencia en TR_focal indica que los participantes AO no entendieron bien la instrucción de la tarea focal, lo que es una amenaza a la validez del estudio.</label></div>
+      <div class="quiz-option"><input type="radio" name="q6" value="d"><label>d) Como el TR_focal no es la variable principal del estudio, no se puede usar para interpretar los patrones atencionales del PI.</label></div>
+      <div class="quiz-feedback" id="fb6"></div>
+    </div>
+    <!-- Q7 -->
+    <div class="quiz-q">
+      <div class="q-num">Pregunta 7 de 7</div>
+      <div class="q-text">¿Cuál de los siguientes estudios sobre el municipio de Facatativá tiene mayor validez interna?</div>
+      <div class="quiz-option"><input type="radio" name="q7" value="a"><label>a) Una encuesta a 200 residentes de Facatativá sobre su percepción del servicio de salud municipal, aplicada en el parque principal en un día de mercado.</label></div>
+      <div class="quiz-option"><input type="radio" name="q7" value="b"><label>b) Un experimento donde 60 estudiantes de un colegio de Facatativá son asignados aleatoriamente a dos condiciones de aprendizaje (clase tradicional vs. aprendizaje cooperativo), controlando que ambos grupos tengan el mismo docente, la misma asignatura y el mismo horario.</label></div>
+      <div class="quiz-option"><input type="radio" name="q7" value="c"><label>c) Un estudio que compara el nivel de bienestar de personas que trabajan en Madrid (Cundinamarca) con las que trabajan en Facatativá, sin ningún control adicional.</label></div>
+      <div class="quiz-option"><input type="radio" name="q7" value="d"><label>d) Una revisión sistemática de los estudios publicados sobre bienestar en municipios de la Sabana Occidente en los últimos 10 años.</label></div>
+      <div class="quiz-feedback" id="fb7"></div>
+    </div>
+    <button onclick="gradeQuiz()" class="btn btn-primary" style="font-size:15px;padding:12px 28px;margin-top:8px">🎯 Calificar</button>
+  </div>
+  <div class="quiz-result" id="quiz-result">
+    <div class="score" id="result-score">—</div>
+    <div style="font-size:14px;color:var(--txt2);margin-top:4px">preguntas correctas de 7</div>
+    <div class="score-msg" id="result-msg"></div>
+  </div>
+</div>
+
+<!-- ═══ T8 PRÓXIMA SESIÓN ═══ -->
+<div class="tab-panel" id="t8">
+  <div class="sec-title">📖 Próxima sesión — Sesión 11</div>
+  <div class="alert am">
+    <div class="alert-ico">🗓️</div>
+    <div><strong>Tema S11:</strong> Diseños de encuesta y comparación transcultural. Minkov et al. (2024) — ¿Cómo se comparan culturas sin cometer el error de asumir que son equivalentes?</div>
+  </div>
+  <div class="next-reading">
+    <div class="nr-label">📄 Lectura obligatoria — Sesión 11</div>
+    <div class="nr-title">Comparative Culturology and Cross-Cultural Psychology: How Comparing Societal Cultures Differs From Comparing Individuals' Minds Across Cultures</div>
+    <div class="nr-meta">Minkov, M., Vignoles, V. L., Welzel, C., Akaliyski, P., Bond, M. H., Kaasa, A. & Smith, P. B. (2024). <em>Journal of Cross-Cultural Psychology, 55</em>(2), 164–188.</div>
+    <div class="nr-doi">https://doi.org/10.1177/00220221231220027</div>
+    <div class="nr-consigna">
+      📌 <strong>Consigna:</strong> ¿Qué diferencia establecen Minkov et al. entre comparar culturas a nivel societal y comparar mentes individuales entre culturas? ¿En cuál de esos niveles opera el experimento del PI?<br><br>
+      🔗 <strong>Conexión con el PI:</strong> El experimento compara participantes de dos culturas diferentes. ¿Está comparando culturas como sociedades o como mentes individuales? ¿Qué implicaciones tiene eso para interpretar los resultados?
+    </div>
+  </div>
+  <div class="alert ve" style="margin-top:14px">
+    <div class="alert-ico">🗂️</div>
+    <div>
+      <strong>Avance del PI para S11:</strong>
+      <ul style="margin-top:6px;padding-left:18px;font-size:13.5px">
+        <li>Tabla 2×3 completa (Módulo 5) — traerla terminada</li>
+        <li>Respuestas a las 4 preguntas de interpretación (Módulo 6)</li>
+        <li>Si no lo tienen: mínimo 3 artículos localizados para la Actividad 1</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+</div><!-- /content -->
+
+<script>
+// ═══ TABS ═══════════════════════════════════════
+function showTab(id){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.currentTarget.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function toggleAcc(head){
+  const body=head.nextElementSibling;
+  const arrow=head.querySelector('.acc-arrow');
+  body.classList.toggle('open');
+  arrow.textContent=body.classList.contains('open')?'▴':'▾';
+}
+
+// ═══ CLASIFICADOR DE DISEÑOS ═════════════════════
+const tipoAnswers = {
+  a: 'exp',
+  b: 'noexp',
+  c: 'exp', // within-subjects with randomization = experiment
+  pi: 'mixto'
+};
+
+const tipoFeedback = {
+  a: {
+    exp: '✅ Correcto. Hay manipulación (taller sí/no) y asignación aleatoria → experimento puro. Los estudiantes no eligieron en qué grupo estar.',
+    cuasi: '❌ Para ser cuasiexperimento los grupos deberían existir previamente o no poderse asignar al azar. Aquí sí hay asignación aleatoria.',
+    noexp: '❌ No experimental sería si el investigador solo observara — aquí hay una intervención deliberada (el taller).'
+  },
+  b: {
+    exp: '❌ No hay manipulación: los participantes ya trabajan de noche o de día antes del estudio. El investigador no puede cambiar eso.',
+    cuasi: '⚠️ Hay grupos que se comparan, lo que podría llamarse cuasiexperimental en sentido amplio. Sin embargo, Sampieri lo clasificaría como no experimental porque no hay ninguna manipulación — el investigador solo observa.',
+    noexp: '✅ Correcto. No hay manipulación: la "VI" (turno de trabajo) ya existía antes. El investigador la observa y mide su asociación con la ansiedad.'
+  },
+  c: {
+    exp: '✅ Correcto. Hay manipulación (música sí/no) y el orden se asigna al azar. Cada participante sirve como su propio control. Es un diseño within-subjects con aleatorización → experimento.',
+    cuasi: '⚠️ El debate es válido: en algunos textos el diseño within-subjects sin grupo de control separado se llama cuasiexperimento. Pero la aleatorización del orden y la manipulación de la VI lo acercan al experimento puro. Sampieri podría clasificarlo de ambas formas según el criterio usado.',
+    noexp: '❌ Hay manipulación explícita (el investigador controla si hay música o no). Eso lo aleja del no experimental.'
+  },
+  pi: {
+    exp: '❌ Para ser experimento puro, ambas VI deberían manipularse con asignación aleatoria. La cultura no se puede asignar aleatoriamente.',
+    cuasi: '⚠️ Parcialmente correcto: el factor cultura es cuasiexperimental. Pero el factor condición tiene elementos experimentales. La clasificación más precisa es "mixto".',
+    noexp: '❌ El investigador sí manipuló la condición experimental. No experimental sería si solo observara sin crear condiciones.',
+    mixto: '✅ Correcto. El PI tiene dos factores de naturaleza diferente: cultura (cuasiexperimental — grupos naturales) y condición (experimental — manipulada con aleatorización del orden). Es un diseño factorial mixto 2×3.'
+  }
+};
+
+function selectTipo(btn, estudio, tipo){
+  const parent = btn.closest('.estudio-box');
+  parent.querySelectorAll('.radio-chip').forEach(b=>{
+    b.className = 'radio-chip';
+  });
+  btn.className = `radio-chip selected-${tipo === 'mixto' ? 'exp' : tipo}`;
+  const fb = document.getElementById(`fb-${estudio}`);
+  const ans = tipoAnswers[estudio];
+  const isCorrect = tipo === ans;
+  fb.textContent = tipoFeedback[estudio][tipo] || '';
+  fb.className = `estudio-feedback show ${isCorrect ? 'correct' : tipo === 'cuasi' && estudio === 'c' ? 'info' : 'wrong'}`;
+}
+
+// ═══ ANALYSIS TABLE ══════════════════════════════
+const CORRECT_MEANS = {
+  'ao-misma-d':  {val:2.58, tol:0.05},
+  'ao-exp-d':    {val:3.16, tol:0.05},
+  'ao-alea-d':   {val:2.30, tol:0.05},
+  'oc-misma-d':  {val:2.69, tol:0.05},
+  'oc-exp-d':    {val:2.51, tol:0.05},
+  'oc-alea-d':   {val:2.31, tol:0.05},
+  'ao-misma-trf':{val:1542, tol:5},
+  'ao-exp-trf':  {val:1490, tol:5},
+  'ao-alea-trf': {val:1635, tol:5},
+  'oc-misma-trf':{val:771,  tol:5},
+  'oc-exp-trf':  {val:807,  tol:5},
+  'oc-alea-trf': {val:832,  tol:5},
+};
+
+function checkCell(el){
+  const val = parseFloat(el.value);
+  if(!isNaN(val)){
+    el.classList.add('filled');
+  }
+}
+
+function verifyTable(){
+  let correct = 0, total = 0, wrong = [];
+  for(const [id, info] of Object.entries(CORRECT_MEANS)){
+    const el = document.getElementById(id);
+    if(!el) continue;
+    total++;
+    const val = parseFloat(el.value);
+    if(!isNaN(val) && Math.abs(val - info.val) <= info.tol){
+      correct++;
+      el.style.background = '#E8F5E9';
+      el.style.color = 'var(--ve)';
+    } else if(!isNaN(val)){
+      wrong.push(id);
+      el.style.background = '#FFEBEE';
+      el.style.color = 'var(--ro2)';
+    }
+  }
+  const res = document.getElementById('verify-result');
+  res.style.display = 'block';
+  if(correct === total){
+    res.style.background = '#E8F5E9';
+    res.style.borderLeft = '3px solid var(--ve2)';
+    res.textContent = `✅ ¡Todas las medias son correctas! (${correct}/${total}). Pasen al Módulo 6 para interpretar el patrón.`;
+  } else {
+    res.style.background = '#FFF8E1';
+    res.style.borderLeft = '3px solid var(--am2)';
+    res.textContent = `⚠️ ${correct}/${total} correctas. Revisen los valores marcados en rojo — recalculen con los datos del dataset.`;
+  }
+}
+
+function showAnswers(){
+  for(const [id, info] of Object.entries(CORRECT_MEANS)){
+    const el = document.getElementById(id);
+    if(el){
+      el.value = info.val;
+      el.style.background = '#F0F4FA';
+      el.style.color = 'var(--az2)';
+    }
+  }
+  const res = document.getElementById('verify-result');
+  res.style.display = 'block';
+  res.style.background = '#EBF1FB';
+  res.style.borderLeft = '3px solid var(--az2)';
+  res.textContent = 'Valores correctos mostrados. Úsenlos para interpretar el patrón en el Módulo 6.';
+  saveTable();
+}
+
+const TABLE_KEY = 'disenios_s10_table_v1';
+const INTERP_KEY = 'disenios_s10_interp_v1';
+
+function saveTable(){
+  const data = {};
+  for(const id of Object.keys(CORRECT_MEANS)){
+    const el = document.getElementById(id);
+    if(el) data[id] = el.value;
+  }
+  try{ localStorage.setItem(TABLE_KEY, JSON.stringify(data)); } catch(e){}
+  const res = document.getElementById('verify-result');
+  res.style.display = 'block';
+  if(!res.textContent.includes('✅') && !res.textContent.includes('⚠️')){
+    res.style.background = '#E8F5E9';
+    res.style.borderLeft = '3px solid var(--ve2)';
+    res.textContent = '💾 Tabla guardada en este dispositivo.';
+  }
+}
+
+function saveInterp(){
+  const data = {};
+  for(let i=1;i<=4;i++){
+    const el = document.getElementById(`q${i}-resp`);
+    if(el) data[`q${i}`] = el.value;
+  }
+  try{ localStorage.setItem(INTERP_KEY, JSON.stringify(data)); } catch(e){}
+}
+
+// ═══ QUIZ ════════════════════════════════════════
+const QUIZ_KEY = 'disenios_inv1_s10_quiz_v1';
+const correct = {q1:'b',q2:'c',q3:'c',q4:'b',q5:'b',q6:'b',q7:'b'};
+const feedbacks = {
+  q1:{
+    b:'✅ Correcto. Hay manipulación deliberada (programa sí/no) y asignación aleatoria a los grupos → experimento puro. La medición pre/post también es un elemento de diseño experimental sólido.',
+    a:'❌ No experimental sería si el investigador solo midiera la ansiedad sin intervenir. Aquí hay una intervención activa.',
+    c:'❌ Cuasiexperimental requeriría que no hubiera asignación aleatoria. Aquí sí la hay → experimento puro.',
+    d:'❌ El grupo de lista de espera es un grupo de control válido. Los preexperimentos se caracterizan por la ausencia total de grupo de comparación.'
+  },
+  q2:{
+    c:'✅ Correcto. La razón fundamental es la ausencia de asignación aleatoria para la variable cultura. Eso significa que los grupos pueden diferir en muchas otras variables además de la cultura (nivel educativo, acceso a tecnología, contexto geopolítico), y esas diferencias no se pueden controlar.',
+    a:'❌ El tipo de escala (cualitativa vs. cuantitativa) no determina si un diseño es experimental o cuasiexperimental.',
+    b:'❌ El instrumento de medición no afecta la clasificación del diseño. La clasificación depende de si hubo manipulación y asignación aleatoria.',
+    d:'❌ El tamaño desigual de grupos no define el tipo de diseño; es una característica de la muestra que puede corregirse con pruebas estadísticas apropiadas.'
+  },
+  q3:{
+    c:'✅ Correcto. En un cuasiexperimento, solo se puede afirmar asociación, no causalidad. Las diferencias entre grupos privados y públicos rurales incluyen múltiples variables confundidoras (nivel socioeconómico, recursos familiares, acceso a internet, años de experiencia docente) que no se controlaron.',
+    a:'❌ Afirmar causalidad requiere un experimento donde las variables extrañas estén controladas. En este diseño, hay demasiadas diferencias entre grupos para atribuir la diferencia solo al tipo de colegio.',
+    b:'❌ "Inteligencia" no es una conclusión válida: la prueba de comprensión lectora mide esa habilidad específica en esas condiciones, no inteligencia general. Además, la inteligencia no se puede inferir de diseños cuasiexperimentales sin control.',
+    d:'❌ Los cuasiexperimentos sí permiten conclusiones — solo que más limitadas que los experimentos puros. La conclusión de "asociación con múltiples explicaciones posibles" es legítima.'
+  },
+  q4:{
+    b:'✅ Correcto. La huelga universitaria es un evento externo que afectó a todos los participantes durante el experimento — eso es exactamente una amenaza a la validez interna del tipo "historia". Hace difícil saber si los cambios observados se deben al tratamiento o a la huelga.',
+    a:'❌ Eso describe una amenaza a la validez EXTERNA (generalización). El sesgo de la muestra limita a quiénes se pueden generalizar los resultados, pero no afecta la validez de la relación interna VI→VD.',
+    c:'❌ La falta de validación en Colombia es una limitación del instrumento que afecta la validez de constructo, no la validez interna del diseño experimental.',
+    d:'❌ La significancia estadística es una cuestión del análisis de datos, no una amenaza a la validez interna. Un resultado no significativo no invalida el diseño.'
+  },
+  q5:{
+    b:'✅ Correcto. La descripción es precisa: el grupo AO detectó mejor los cambios en expansión (d\' más alto) → consistente con la hipótesis de foco atencional más amplio. La palabra "consistente con" es metodológicamente honesta — no dice que lo causó la cultura.',
+    a:'❌ "Mayor inteligencia visual" es una interpretación no justificada por los datos. Los datos solo muestran mejor desempeño en esa tarea específica en esa condición específica.',
+    c:'❌ El argumento evolutivo sobre anatomía ocular no está respaldado por el experimento ni por evidencia anatómica. Además, los cambios evolutivos en la visión no ocurren en escalas de tiempo históricas.',
+    d:'❌ Las diferencias descriptivas sí tienen implicaciones teóricas — son el primer paso para comprender patrones cognitivos culturales. Que sean descriptivas no las hace irrelevantes.'
+  },
+  q6:{
+    b:'✅ Correcto. La lógica del foco atencional: si la atención del grupo AO está distribuida hacia la periferia, cuando aparece un estímulo central el sistema debe reorientarse — lo que toma más tiempo. Mayor TR_focal es evidencia de que la atención no estaba concentrada centralmente, no de lentitud cognitiva general.',
+    a:'❌ "Lentitud cognitiva general" no es válida porque el grupo AO tiene mejor d\' en expansión — es decir, responde más efectivamente cuando la tarea requiere atención periférica. La diferencia en TR_focal es específica del tipo de tarea.',
+    c:'❌ No hay evidencia de problemas de comprensión de instrucciones — el grupo AO completó la tarea con resultados coherentes y consistentes internamente.',
+    d:'❌ El TR_focal fue diseñado específicamente para medir el costo de la distribución atencional. Es una variable de resultado relevante para la hipótesis principal.'
+  },
+  q7:{
+    b:'✅ Correcto. El Estudio B controla múltiples fuentes de varianza: mismo docente, misma asignatura, mismo horario. La asignación aleatoria distribuye las diferencias previas entre grupos. Eso maximiza la validez interna.',
+    a:'❌ La encuesta en el parque tiene un sesgo de selección importante (solo personas presentes ese día) y no controla ninguna variable extraña. Baja validez interna y externa.',
+    c:'❌ Sin controles adicionales, la comparación entre Madrid y Facatativá tiene múltiples variables confundidoras (economía local, migración, infraestructura). Baja validez interna.',
+    d:'❌ Una revisión sistemática tiene alta validez externa (integra muchos estudios) pero no tiene un diseño experimental propio — no aplica la categoría "validez interna" de la misma forma.'
+  }
+};
+
+function gradeQuiz(){
+  const stored = localStorage.getItem(QUIZ_KEY);
+  let score = 0;
+  const answers = {};
+  for(let i=1;i<=7;i++){
+    const sel = document.querySelector(`input[name="q${i}"]:checked`);
+    if(!sel){alert('Responde todas las preguntas antes de calificar.');return;}
+    answers[`q${i}`] = sel.value;
+  }
+  for(let i=1;i<=7;i++){
+    const qKey=`q${i}`;
+    const ans=answers[qKey];
+    const isCorrect=ans===correct[qKey];
+    if(isCorrect)score++;
+    document.querySelectorAll(`input[name="${qKey}"]`).forEach(inp=>{
+      const opt=inp.closest('.quiz-option');
+      opt.classList.remove('correct','wrong');
+      if(inp.value===correct[qKey])opt.classList.add('correct');
+      else if(inp.value===ans&&!isCorrect)opt.classList.add('wrong');
+      inp.disabled=true;
+    });
+    const fb=document.getElementById(`fb${i}`);
+    fb.textContent=feedbacks[qKey][ans]||'Revisa la respuesta correcta marcada en verde.';
+    fb.className=`quiz-feedback show ${isCorrect?'correct':'wrong'}`;
+  }
+  const res=document.getElementById('quiz-result');
+  res.classList.add('show');
+  document.getElementById('result-score').textContent=`${score}/7`;
+  const pct=Math.round(score/7*100);
+  document.getElementById('result-msg').textContent=
+    score>=6?'🏆 Excelente dominio de los conceptos de diseño experimental.':
+    score>=5?'✅ Buen desempeño. Revisa las retroalimentaciones de las preguntas incorrectas.':
+    score>=4?'📚 Desempeño aceptable. Relee Sampieri Cap. 7 con atención a tipos y validez.':
+    '📖 Refuerza los conceptos. Revisa los módulos de Tipos y Validez, y los ejemplos del PI.';
+  if(!stored){
+    localStorage.setItem(QUIZ_KEY,JSON.stringify({score,total:7,pct,date:new Date().toISOString()}));
+    document.getElementById('stored-score-display').textContent=`${score}/7 (${pct}%)`;
+    document.getElementById('quiz-stored-notice').style.display='block';
+  }
+  document.getElementById('quiz-form').querySelector('button[onclick="gradeQuiz()"]').style.display='none';
+}
+
+// ═══ LOAD SAVED DATA ═════════════════════════════
+window.addEventListener('DOMContentLoaded',()=>{
+  // Quiz stored
+  const stored = localStorage.getItem(QUIZ_KEY);
+  if(stored){
+    const d = JSON.parse(stored);
+    document.getElementById('stored-score-display').textContent=`${d.score}/7 (${d.pct||Math.round(d.score/7*100)}%)`;
+    document.getElementById('quiz-stored-notice').style.display='block';
+  }
+  // Table
+  try{
+    const t = localStorage.getItem(TABLE_KEY);
+    if(t){
+      const data = JSON.parse(t);
+      for(const [id,val] of Object.entries(data)){
+        const el = document.getElementById(id);
+        if(el && val){ el.value=val; el.classList.add('filled'); }
+      }
+    }
+  } catch(e){}
+  // Interp
+  try{
+    const ip = localStorage.getItem(INTERP_KEY);
+    if(ip){
+      const data = JSON.parse(ip);
+      for(let i=1;i<=4;i++){
+        const el = document.getElementById(`q${i}-resp`);
+        if(el && data[`q${i}`]) el.value = data[`q${i}`];
+      }
+    }
+  } catch(e){}
+});
+</script>
+</body>
+</html>
