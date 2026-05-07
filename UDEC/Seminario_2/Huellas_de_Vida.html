@@ -138,6 +138,27 @@ font-family:system-ui,sans-serif;font-weight:700;margin-left:8px;
 vertical-align:middle;
 }
 .leer-inline:focus-visible{outline:3px solid var(–focus);outline-offset:2px}
+/* Read-section button — first element inside each card */
+.leer-sec{
+display:flex;align-items:center;gap:7px;
+padding:8px 14px;border-radius:6px;
+background:var(–vc);color:var(–v);
+border:2px solid var(–vm);
+font-family:system-ui,sans-serif;font-size:12px;font-weight:700;
+cursor:pointer;transition:all .2s;margin-bottom:12px;min-height:40px;
+width:auto;
+}
+.leer-sec:hover{background:var(–vm);color:#fff}
+.leer-sec:focus-visible{outline:4px solid var(–focus);outline-offset:3px}
+.leer-sec svg{flex-shrink:0;width:15px;height:15px}
+/* Section nav list at top of each tab */
+.sec-nav{
+background:var(–gs);border:1.5px solid var(–bd);border-radius:8px;
+padding:12px 16px;margin-bottom:18px;font-family:system-ui,sans-serif;
+}
+.sec-nav p{font-size:12px;color:var(–vm);font-weight:700;margin-bottom:6px;text-transform:uppercase;letter-spacing:.04em}
+.sec-nav ol{padding-left:18px;margin:0}
+.sec-nav li{font-size:13px;color:var(–g);margin-bottom:3px}
 
 /* ══ TYPOGRAPHY ══ */
 h2{font-family:system-ui,sans-serif;font-size:21px;font-weight:700;color:var(–v);margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid var(–vc)}
@@ -370,7 +391,8 @@ aria-label="Leer el módulo completo actual">
 
 <!-- ════════ M0 DESCUBRIR ════════ -->
 
-<section role="tabpanel" id="t0" aria-labelledby="b0" class="vis" tabindex="-1">
+<section role="tabpanel" id="t0"
+  data-hint="Módulo Descubrir. Contiene una introducción y cuatro situaciones para reflexionar. Cada situación tiene su botón Leer al inicio." aria-labelledby="b0" class="vis" tabindex="-1">
   <h2 id="h0">Módulo 0 — Descubrir</h2>
   <div class="prog-txt"><span class="en-clase">📍 Primera actividad de la clase</span></div>
   <button class="leer-btn" onclick="leerId('t0')" aria-label="Leer todo el módulo Descubrir en voz alta">
@@ -379,97 +401,115 @@ aria-label="Leer el módulo completo actual">
   </button>
 
   <div class="banner" id="banner-m0">
+  <button class="leer-sec" onclick="hablar(document.getElementById('banner-m0').innerText,true)" aria-label="Leer introducción del módulo Descubrir"><svg aria-hidden='true' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5'><polygon points='5 3 19 12 5 21 5 3'/></svg>Leer introducción</button>
     Antes de cualquier definición: cuatro situaciones donde una vida completa —o un tramo de ella— es el objeto mismo de la investigación. Reflexiona y luego revela lo que está detrás de cada caso.
   </div>
 
   <!-- Dilema 1 -->
 
   <article class="dilema" id="dilema1" aria-label="Situación 1: excombatientes en Cundinamarca">
+  <div style="padding:8px 18px 0;background:var(--gs)"><button class="leer-sec" onclick="hablar('Situación 1. '+document.getElementById('dilema1').innerText.replace(/Leer situación \d/g,''),true)" aria-label="Leer situación 1: excombatientes en Cundinamarca">Leer situación 1</button></div>
     <div class="dil-head">
       <div class="dil-num" aria-hidden="true">1</div>
       <div class="dil-txt" id="dil1-txt">
         Una psicóloga investiga procesos de reintegración de excombatientes de las FARC en Cundinamarca. Le interesa entender cómo estas personas reconstruyen su identidad después de años en el grupo armado. Diseña una entrevista semiestructurada de 90 minutos con preguntas sobre su situación actual: qué hacen, dónde viven, cómo se sienten hoy.
-        <button class="leer-inline" onclick="hablar(document.getElementById('dil1-txt').innerText)" aria-label="Leer situación 1">🔊 Leer</button>
-      </div>
-    </div>
-    <div style="padding:0 20px 14px;background:var(--gs)">
-      <button class="btn-rev" id="rev1-btn" onclick="rev('d1','rev1-btn')" aria-expanded="false" aria-controls="ten-d1">
-        ¿Qué le falta a este diseño?
-      </button>
-    </div>
-    <div class="dil-tension" id="ten-d1" role="region" aria-label="Reflexión sobre la situación 1" tabindex="-1">
-      <div class="dil-lbl">La tensión</div>
-      <p>Preguntar por el presente de alguien que vivió una ruptura biográfica profunda —años en un grupo armado, salida, reintegración— sin preguntar por la trayectoria es perder exactamente lo que más importa. La identidad no es un estado: es el resultado de una historia. El diseño adecuado aquí es el método biográfico o al menos el relato de vida focalizado en la trayectoria. La entrevista semiestructurada sobre el presente captura efectos sin entender causas ni procesos.</p>
-    </div>
+
+```
+  </div>
+</div>
+<div style="padding:0 20px 14px;background:var(--gs)">
+  <button class="btn-rev" id="rev1-btn" onclick="rev('d1','rev1-btn')" aria-expanded="false" aria-controls="ten-d1">
+    ¿Qué le falta a este diseño?
+  </button>
+</div>
+<div class="dil-tension" id="ten-d1" role="region" aria-label="Reflexión sobre la situación 1" tabindex="-1">
+  <div class="dil-lbl">La tensión</div>
+  <p>Preguntar por el presente de alguien que vivió una ruptura biográfica profunda —años en un grupo armado, salida, reintegración— sin preguntar por la trayectoria es perder exactamente lo que más importa. La identidad no es un estado: es el resultado de una historia. El diseño adecuado aquí es el método biográfico o al menos el relato de vida focalizado en la trayectoria. La entrevista semiestructurada sobre el presente captura efectos sin entender causas ni procesos.</p>
+</div>
+```
+
   </article>
 
   <!-- Dilema 2 -->
 
   <article class="dilema" id="dilema2" aria-label="Situación 2: historia de vida en una sola entrevista">
+  <div style="padding:8px 18px 0;background:var(--gs)"><button class="leer-sec" onclick="hablar('Situación 2. '+document.getElementById('dilema2').innerText.replace(/Leer situación \d/g,'').replace(/Ocultar reflexión|Cuál es el problema metodológico/g,''),true)" aria-label="Leer situación 2: historia de vida en una sola entrevista">Leer situación 2</button></div>
     <div class="dil-head">
       <div class="dil-num" aria-hidden="true">2</div>
       <div class="dil-txt" id="dil2-txt">
         Un estudiante decide hacer la "historia de vida" de doña Esperanza, una mujer de 72 años que migró de un municipio rural de Boyacá a Facatativá hace 40 años. Le hace una sola entrevista de dos horas y concluye que "tiene la historia de vida completa".
-        <button class="leer-inline" onclick="hablar(document.getElementById('dil2-txt').innerText)" aria-label="Leer situación 2">🔊 Leer</button>
-      </div>
-    </div>
-    <div style="padding:0 20px 14px;background:var(--gs)">
-      <button class="btn-rev" id="rev2-btn" onclick="rev('d2','rev2-btn')" aria-expanded="false" aria-controls="ten-d2">
-        ¿Cuál es el problema metodológico?
-      </button>
-    </div>
-    <div class="dil-tension" id="ten-d2" role="region" aria-label="Reflexión sobre la situación 2" tabindex="-1">
-      <div class="dil-lbl">La tensión</div>
-      <p>Una historia de vida real exige múltiples sesiones para que el relato se desgrane con profundidad (Mallimaci y Giménez Béliveau, 2006). En dos horas, doña Esperanza apenas está comenzando a confiar. Los aspectos más significativos —los momentos de quiebre, las contradicciones— aparecen cuando hay tiempo, rapport y confianza acumulada. Una sola sesión puede producir un relato de vida focalizado, pero no una historia de vida en el sentido metodológico.</p>
-    </div>
+
+```
+  </div>
+</div>
+<div style="padding:0 20px 14px;background:var(--gs)">
+  <button class="btn-rev" id="rev2-btn" onclick="rev('d2','rev2-btn')" aria-expanded="false" aria-controls="ten-d2">
+    ¿Cuál es el problema metodológico?
+  </button>
+</div>
+<div class="dil-tension" id="ten-d2" role="region" aria-label="Reflexión sobre la situación 2" tabindex="-1">
+  <div class="dil-lbl">La tensión</div>
+  <p>Una historia de vida real exige múltiples sesiones para que el relato se desgrane con profundidad (Mallimaci y Giménez Béliveau, 2006). En dos horas, doña Esperanza apenas está comenzando a confiar. Los aspectos más significativos —los momentos de quiebre, las contradicciones— aparecen cuando hay tiempo, rapport y confianza acumulada. Una sola sesión puede producir un relato de vida focalizado, pero no una historia de vida en el sentido metodológico.</p>
+</div>
+```
+
   </article>
 
   <!-- Dilema 3 -->
 
   <article class="dilema" id="dilema3" aria-label="Situación 3: turning points sin analizar">
+  <div style="padding:8px 18px 0;background:var(--gs)"><button class="leer-sec" onclick="hablar('Situación 3. '+document.getElementById('dilema3').innerText.replace(/Leer situación \d/g,'').replace(/Ocultar reflexión|Qué oportunidad analítica/g,''),true)" aria-label="Leer situación 3: turning points sin analizar">Leer situación 3</button></div>
     <div class="dil-head">
       <div class="dil-num" aria-hidden="true">3</div>
       <div class="dil-txt" id="dil3-txt">
         Una investigadora estudia la experiencia de madres con hijos diagnosticados con TEA en Bogotá. Todas las participantes describieron su vida como "un antes del diagnóstico y un después". La investigadora lo reporta sin más análisis.
-        <button class="leer-inline" onclick="hablar(document.getElementById('dil3-txt').innerText)" aria-label="Leer situación 3">🔊 Leer</button>
-      </div>
-    </div>
-    <div style="padding:0 20px 14px;background:var(--gs)">
-      <button class="btn-rev" id="rev3-btn" onclick="rev('d3','rev3-btn')" aria-expanded="false" aria-controls="ten-d3">
-        ¿Qué oportunidad analítica se perdió?
-      </button>
-    </div>
-    <div class="dil-tension" id="ten-d3" role="region" aria-label="Reflexión sobre la situación 3" tabindex="-1">
-      <div class="dil-lbl">La tensión</div>
-      <p>El "antes y después" es exactamente lo que Denzin llama una epifanía o turning point. Reportarlo sin analizarlo es desperdiciar el hallazgo más valioso. El análisis debería explorar qué reconstruyeron estas mujeres sobre su vida anterior, qué rupturas de identidad implicó ese punto de quiebre, y cómo cada una narró su proceso de reorganización.</p>
-    </div>
+
+```
+  </div>
+</div>
+<div style="padding:0 20px 14px;background:var(--gs)">
+  <button class="btn-rev" id="rev3-btn" onclick="rev('d3','rev3-btn')" aria-expanded="false" aria-controls="ten-d3">
+    ¿Qué oportunidad analítica se perdió?
+  </button>
+</div>
+<div class="dil-tension" id="ten-d3" role="region" aria-label="Reflexión sobre la situación 3" tabindex="-1">
+  <div class="dil-lbl">La tensión</div>
+  <p>El "antes y después" es exactamente lo que Denzin llama una epifanía o turning point. Reportarlo sin analizarlo es desperdiciar el hallazgo más valioso. El análisis debería explorar qué reconstruyeron estas mujeres sobre su vida anterior, qué rupturas de identidad implicó ese punto de quiebre, y cómo cada una narró su proceso de reorganización.</p>
+</div>
+```
+
   </article>
 
   <!-- Dilema 4 -->
 
   <article class="dilema" id="dilema4" aria-label="Situación 4: relato demasiado coherente">
+  <div style="padding:8px 18px 0;background:var(--gs)"><button class="leer-sec" onclick="hablar('Situación 4. '+document.getElementById('dilema4').innerText.replace(/Leer situación \d/g,'').replace(/Ocultar reflexión|Por qué la coherencia/g,''),true)" aria-label="Leer situación 4: relato demasiado coherente">Leer situación 4</button></div>
     <div class="dil-head">
       <div class="dil-num" aria-hidden="true">4</div>
       <div class="dil-txt" id="dil4-txt">
         Un investigador hace la historia de vida de un ex-líder comunitario de Zipaquirá. El sujeto narra de manera muy ordenada y coherente: "Primero fue esto, luego aquello, y así fui llegando." El investigador concluye que la historia fue exitosa porque el relato es claro y sin contradicciones.
-        <button class="leer-inline" onclick="hablar(document.getElementById('dil4-txt').innerText)" aria-label="Leer situación 4">🔊 Leer</button>
-      </div>
-    </div>
-    <div style="padding:0 20px 14px;background:var(--gs)">
-      <button class="btn-rev" id="rev4-btn" onclick="rev('d4','rev4-btn')" aria-expanded="false" aria-controls="ten-d4">
-        ¿Por qué la coherencia puede ser una señal de alerta?
-      </button>
-    </div>
-    <div class="dil-tension" id="ten-d4" role="region" aria-label="Reflexión sobre la situación 4" tabindex="-1">
-      <div class="dil-lbl">La tensión</div>
-      <p>Bourdieu advierte sobre la ilusión biográfica: la tendencia del narrador a presentar su vida como si tuviera un hilo conductor coherente que lo explica todo, borrando contradicciones y virajes imprevistos. Un relato demasiado ordenado puede ser señal de que el entrevistado está produciendo una versión pública de sí mismo, no una reconstrucción crítica.</p>
-    </div>
+
+```
+  </div>
+</div>
+<div style="padding:0 20px 14px;background:var(--gs)">
+  <button class="btn-rev" id="rev4-btn" onclick="rev('d4','rev4-btn')" aria-expanded="false" aria-controls="ten-d4">
+    ¿Por qué la coherencia puede ser una señal de alerta?
+  </button>
+</div>
+<div class="dil-tension" id="ten-d4" role="region" aria-label="Reflexión sobre la situación 4" tabindex="-1">
+  <div class="dil-lbl">La tensión</div>
+  <p>Bourdieu advierte sobre la ilusión biográfica: la tendencia del narrador a presentar su vida como si tuviera un hilo conductor coherente que lo explica todo, borrando contradicciones y virajes imprevistos. Un relato demasiado ordenado puede ser señal de que el entrevistado está produciendo una versión pública de sí mismo, no una reconstrucción crítica.</p>
+</div>
+```
+
   </article>
 </section>
 
 <!-- ════════ M1 APERTURA COOPERATIVA ════════ -->
 
-<section role="tabpanel" id="t1" aria-labelledby="b1" tabindex="-1">
+<section role="tabpanel" id="t1"
+  data-hint="Módulo Apertura cooperativa. Contiene la actividad de diálogo sobre el texto y una nota pedagógica. Cada sección tiene su botón Leer." aria-labelledby="b1" tabindex="-1">
   <h2 id="h1">Módulo 1 — Apertura cooperativa</h2>
   <div class="prog-txt"><span class="en-clase">📍 Clase · Primera actividad · 20 minutos</span></div>
   <button class="leer-btn" onclick="leerId('t1')" aria-label="Leer todo el módulo Apertura cooperativa">
@@ -478,6 +518,7 @@ aria-label="Leer el módulo completo actual">
   </button>
 
   <div class="ac-box" id="ac-m1">
+  <div style="padding:8px 16px 0;background:var(--pc)"><button class="leer-sec" style="background:#fff;color:var(--p);border-color:var(--p)" onclick="hablar('Actividad cooperativa. '+document.getElementById('ac-m1').innerText,true)" aria-label="Leer actividad cooperativa del módulo 1">Leer actividad cooperativa</button></div>
     <div class="ac-hdr">
       <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
       ACTIVIDAD COOPERATIVA — Diálogo sobre el texto
@@ -522,7 +563,8 @@ aria-label="Leer el módulo completo actual">
 
 <!-- ════════ M2 CONCEPTOS CLAVE ════════ -->
 
-<section role="tabpanel" id="t2" aria-labelledby="b2" tabindex="-1">
+<section role="tabpanel" id="t2"
+  data-hint="Módulo Conceptos clave. Contiene una introducción, una tabla comparativa y cinco conceptos expandibles. Cada sección tiene su botón Leer." aria-labelledby="b2" tabindex="-1">
   <h2 id="h2">Módulo 2 — Conceptos clave</h2>
   <div class="prog-txt"><span class="en-clase">📍 Clase — referencia proyectable</span></div>
   <button class="leer-btn" onclick="leerId('t2')" aria-label="Leer todo el módulo Conceptos clave">
@@ -530,11 +572,14 @@ aria-label="Leer el módulo completo actual">
     Leer este módulo
   </button>
 
-  <div class="banner">
-    El método biográfico no es "hacer una entrevista muy larga". Es una decisión epistemológica: elegir narrar para comprender. La pregunta no es qué piensa alguien hoy, sino <strong>cómo llegó a pensar eso y qué trayectoria construyó ese presente</strong>.
+  <div class="banner" id="banner-m2">
+  <button class="leer-sec" onclick="hablar(document.getElementById('banner-m2').innerText,true)" aria-label="Leer introducción sobre el método biográfico">Leer introducción</button>
+  El método biográfico no es "hacer una entrevista muy larga". Es una decisión epistemológica: elegir narrar para comprender. La pregunta no es qué piensa alguien hoy, sino <strong>cómo llegó a pensar eso y qué trayectoria construyó ese presente</strong>.
   </div>
 
   <h3>Historia de vida vs. relato de vida</h3>
+
+<button class="leer-sec" id="btn-tabla" onclick="hablar('Tabla comparativa. Historia de vida versus relato de vida. '+document.querySelector('.comp-table').innerText,true)" aria-label="Leer tabla comparativa: historia de vida versus relato de vida">Leer tabla comparativa</button>
 
   <table class="comp-table" role="table" aria-label="Comparación entre historia de vida y relato de vida según Mallimaci y Giménez Béliveau">
     <caption style="font-family:system-ui,sans-serif;font-size:13px;color:#5a5650;text-align:left;padding-bottom:8px">Tabla 1. Diferencia entre historia de vida y relato de vida (Mallimaci y Giménez Béliveau, 2006)</caption>
@@ -629,7 +674,8 @@ aria-label="Leer el módulo completo actual">
 
 <!-- ════════ M3 LÍNEA DE VIDA ════════ -->
 
-<section role="tabpanel" id="t3" aria-labelledby="b3" tabindex="-1">
+<section role="tabpanel" id="t3"
+  data-hint="Módulo La línea de vida. Contiene la actividad cooperativa, cuatro pasos y un ejemplo. Cada sección tiene su botón Leer." aria-labelledby="b3" tabindex="-1">
   <h2 id="h3">Módulo 3 — La línea de vida</h2>
   <div class="prog-txt"><span class="en-clase">📍 Clase · Actividad cooperativa · 25 minutos</span></div>
   <button class="leer-btn" onclick="leerId('t3')" aria-label="Leer todo el módulo La línea de vida">
@@ -637,8 +683,9 @@ aria-label="Leer el módulo completo actual">
     Leer este módulo
   </button>
 
-  <div class="ac-box">
-    <div class="ac-hdr">
+  <div class="ac-box" id="ac-m3">
+  <div style="padding:8px 16px 0;background:var(--pc)"><button class="leer-sec" style="background:#fff;color:var(--p);border-color:var(--p)" onclick="hablar('Actividad cooperativa. '+document.getElementById('ac-m3').innerText,true)" aria-label="Leer actividad cooperativa: línea de vida aplicada a tu investigación">Leer actividad cooperativa</button></div>
+  <div class="ac-hdr">
       <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
       ACTIVIDAD COOPERATIVA — Línea de vida aplicada a tu investigación
     </div>
@@ -648,6 +695,7 @@ aria-label="Leer el módulo completo actual">
   </div>
 
   <h3>¿Qué hacen en esta actividad?</h3>
+  <button class="leer-sec" id="btn-pasos" onclick="hablar('Los cuatro pasos de la actividad. '+document.getElementById('btn-pasos').closest('section').querySelector('h3').nextElementSibling.nextElementSibling.innerText,true)" aria-label="Leer los cuatro pasos de la actividad de línea de vida">Leer los pasos</button>
 
   <div class="paso"><div class="paso-n">1</div><div>
     <strong>Eje temático.</strong> Si usaran el método biográfico, ¿cuál sería el hilo conductor? No es "toda la vida" — es el tramo o dimensión relevante para su pregunta. Escríbanlo en una frase.
@@ -669,6 +717,7 @@ aria-label="Leer el módulo completo actual">
   </div></div>
 
   <h3>Ejemplo de línea de vida</h3>
+  <button class="leer-sec" onclick="hablar(document.querySelector('.linea-vida').getAttribute('aria-label'),true)" aria-label="Leer descripción del ejemplo de línea de vida">Leer ejemplo de línea de vida</button>
   <div class="linea-vida" role="img" aria-label="Diagrama de línea de vida biográfica con cuatro momentos: punto 1 - inicio del eje temático: primera experiencia de discriminación laboral narrada por el entrevistado; punto 2 - desarrollo: estrategias de adaptación y resistencia; punto 3 - turning point o epifanía señalado como bisagra, el evento que el sujeto identifica como antes y después; punto 4 - presente: cómo resignifica el pasado desde hoy y qué proyecta al futuro">
     <div class="lv-line" aria-hidden="true"></div>
     <div class="lv-item"><div class="lv-dot" aria-hidden="true"></div><div class="lv-content"><span class="tag tag-v">Inicio del eje temático</span><p style="font-size:14px;margin:0">Primera experiencia de discriminación laboral narrada por el entrevistado.</p></div></div>
@@ -680,7 +729,8 @@ aria-label="Leer el módulo completo actual">
 
 <!-- ════════ M4 MI DISEÑO ════════ -->
 
-<section role="tabpanel" id="t4" aria-labelledby="b4" tabindex="-1">
+<section role="tabpanel" id="t4"
+  data-hint="Módulo Mi diseño biográfico. Contiene instrucciones y un formulario de diagnóstico para completar en casa." aria-labelledby="b4" tabindex="-1">
   <h2 id="h4">Módulo 4 — Mi diseño biográfico</h2>
   <div class="prog-txt"><span class="en-casa">🏠 Trabajo para casa</span></div>
   <button class="leer-btn" onclick="leerId('t4')" aria-label="Leer todo el módulo Mi diseño biográfico">
@@ -688,8 +738,9 @@ aria-label="Leer el módulo completo actual">
     Leer instrucciones del módulo
   </button>
 
-  <div class="card card-o">
-    <p>Completa este módulo en casa. Trae las respuestas a la sesión siguiente para la clínica entre pares.</p>
+  <div class="card card-o" id="m4-instrucciones">
+  <button class="leer-sec" onclick="hablar(document.getElementById('m4-instrucciones').innerText,true)" aria-label="Leer instrucciones del módulo Mi diseño biográfico">Leer instrucciones</button>
+  <p>Completa este módulo en casa. Trae las respuestas a la sesión siguiente para la clínica entre pares.</p>
   </div>
 
   <h3>Diagnóstico de tu investigación</h3>
@@ -747,12 +798,14 @@ aria-label="Leer el módulo completo actual">
 
 <!-- ════════ M5 QUIZ ════════ -->
 
-<section role="tabpanel" id="t5" aria-labelledby="b5" tabindex="-1">
+<section role="tabpanel" id="t5"
+  data-hint="Módulo Quiz de autoevaluación. Ocho preguntas de opción múltiple. Cada pregunta tiene botón para leerla." aria-labelledby="b5" tabindex="-1">
   <h2 id="h5">Módulo 5 — Quiz de autoevaluación</h2>
   <div class="prog-txt"><span class="en-casa">🏠 Para casa</span></div>
 
-  <div class="card card-o">
-    <p>Responde las ocho preguntas. La retroalimentación aparece cuando hayas respondido todas. Con el modo audio activado, las preguntas y opciones se leen automáticamente al hacer foco en cada una.</p>
+  <div class="card card-o" id="m5-instrucciones">
+  <button class="leer-sec" onclick="hablar(document.getElementById('m5-instrucciones').innerText,true)" aria-label="Leer instrucciones del quiz">Leer instrucciones del quiz</button>
+  <p>Responde las ocho preguntas. La retroalimentación aparece cuando hayas respondido todas. Con el modo audio activado, las preguntas y opciones se leen automáticamente al hacer foco en cada una.</p>
   </div>
 
   <div id="quiz-area" role="region" aria-label="Preguntas del quiz"></div>
@@ -760,7 +813,8 @@ aria-label="Leer el módulo completo actual">
 
 <!-- ════════ M6 LECTURAS S11 ════════ -->
 
-<section role="tabpanel" id="t6" aria-labelledby="b6" tabindex="-1">
+<section role="tabpanel" id="t6"
+  data-hint="Módulo Lecturas para la sesión 11. Contiene la presentación y la guía completa de lecturas sobre grupo de discusión." aria-labelledby="b6" tabindex="-1">
   <h2 id="h6">Módulo 6 — Lecturas para la sesión 11</h2>
   <div class="prog-txt"><span class="en-casa">🏠 Para casa · Lectura única para ambos</span></div>
   <button class="leer-btn" onclick="leerId('t6')" aria-label="Leer todo el módulo de lecturas para la sesión 11">
@@ -768,8 +822,9 @@ aria-label="Leer el módulo completo actual">
     Leer instrucciones
   </button>
 
-  <div class="banner">
-    Sesión 11: <strong>Grupo de discusión.</strong> Esta vez ambos leen el mismo texto. El interaprendizaje será diferente: deberán haber llegado a reflexiones distintas sobre el mismo material.
+  <div class="banner" id="banner-m6">
+  <button class="leer-sec" onclick="hablar(document.getElementById('banner-m6').innerText,true)" aria-label="Leer presentación de las lecturas para la sesión 11">Leer presentación</button>
+  Sesión 11: <strong>Grupo de discusión.</strong> Esta vez ambos leen el mismo texto. El interaprendizaje será diferente: deberán haber llegado a reflexiones distintas sobre el mismo material.
   </div>
 
   <div class="lect-card">
@@ -812,17 +867,17 @@ aria-label="Leer el módulo completo actual">
     <h2 id="help-titulo">Controles de teclado y audio</h2>
     <table aria-label="Lista de atajos de teclado">
       <tbody>
-        <tr><td>L</td><td>Leer el módulo actual completo</td></tr>
-        <tr><td>S o Escape</td><td>Detener la lectura</td></tr>
-        <tr><td>A</td><td>Activar / desactivar Modo audio automático</td></tr>
+        <tr><td>Tab</td><td><strong>Navegar entre botones.</strong> Cada sección tiene un botón "Leer..." al inicio. Tab lleva de botón en botón.</td></tr>
+        <tr><td>Enter</td><td>Activar el botón enfocado (leer esa sección, revelar reflexión, etc.)</td></tr>
+        <tr><td>L</td><td>Leer el módulo completo actual de una sola vez</td></tr>
+        <tr><td>S o Escape</td><td>Detener la lectura en cualquier momento</td></tr>
+        <tr><td>A</td><td>Activar / desactivar Modo audio: lee automáticamente cada elemento al enfocarlo</td></tr>
         <tr><td>+ / –</td><td>Aumentar o reducir velocidad de lectura</td></tr>
-        <tr><td>Tab</td><td>Navegar entre elementos interactivos</td></tr>
-        <tr><td>Flechas ← →</td><td>Navegar entre módulos (tabs)</td></tr>
-        <tr><td>Enter / Espacio</td><td>Activar botón o selección enfocada</td></tr>
+        <tr><td>Flechas ← →</td><td>Cambiar de módulo (pestaña)</td></tr>
         <tr><td>H</td><td>Abrir / cerrar esta ventana de ayuda</td></tr>
       </tbody>
     </table>
-    <p style="margin-top:16px;font-size:14px">El Modo audio automático lee el contenido cuando navegas con el teclado. Se puede activar con el botón "Modo audio" o con la tecla A.</p>
+    <p style="margin-top:16px;font-size:14px"><strong>Para navegar sin ver la pantalla:</strong> usa Tab para moverte entre botones. Cada sección tiene un botón "Leer…" como primer elemento — al llegar a él, presiona Enter para escuchar esa sección. El lector de pantalla de tu dispositivo (VoiceOver en Apple, TalkBack en Android) funciona junto con los botones de audio propios de esta herramienta.</p>
     <button class="btn-p" onclick="cerrarAyuda()" style="margin-top:16px;background:var(--v);color:#fff">Cerrar ayuda</button>
   </div>
 </div>
@@ -923,8 +978,13 @@ function ir(n){
   document.querySelectorAll('nav[role="tablist"] button').forEach((b,i)=>{ b.setAttribute('aria-selected', i===n?'true':'false'); });
   const h = document.getElementById('h'+n);
   if(h){ h.setAttribute('tabindex','-1'); h.focus(); }
-  anunciar(NOMBRES[n]);
-  if(modoAudio) hablar(NOMBRES[n], true);
+  // Announce module name + navigation hint for blind users
+  const panel = document.getElementById('t'+n);
+  const hint = panel ? panel.getAttribute('data-hint') : '';
+  const msg = hint || NOMBRES[n];
+  anunciar(msg);
+  if(modoAudio) hablar(msg, true);
+  else hablar(NOMBRES[n] + '. ' + (hint||''), false);
   if(n===5) initQuiz();
   window.scrollTo(0,0);
 }
@@ -1121,7 +1181,7 @@ function renderForm(){
       <div class="quiz-qhdr">
         <div class="quiz-qnum" aria-hidden="true">${i+1}</div>
         <div class="quiz-qtxt" id="qtxt${i}">${q.q}
-          <button type="button" class="leer-inline" onclick="hablar('Pregunta ${i+1}. ${q.q}')" aria-label="Leer pregunta ${i+1}">🔊</button>
+          
         </div>
       </div>
       <fieldset class="quiz-opts" style="border:none;margin:0;padding:0">
@@ -1132,7 +1192,7 @@ function renderForm(){
         <input type="radio" name="q${i}" id="q${i}o${j}" value="${j}"
           aria-describedby="lbl_q${i}o${j}">
         <span>${letra}) ${o}</span>
-        <button type="button" class="leer-inline" onclick="hablar('Opción ${letra}. ${o}')" aria-label="Leer opción ${letra}">🔊</button>
+        
       </label>`;
     });
     html+=`</fieldset><div class="quiz-feedback" id="fb${i}" aria-live="polite"></div></div>`;
@@ -1202,11 +1262,11 @@ function showResult(score,answers,fromSaved){
       const chosen=answers[i];
       html+=`<div class="quiz-qcard">
         <div class="quiz-qhdr"><div class="quiz-qnum" aria-hidden="true">${i+1}</div>
-        <div class="quiz-qtxt">${q.q}<button type="button" class="leer-inline" onclick="hablar('Pregunta ${i+1}. ${q.q}')" aria-label="Leer pregunta ${i+1}">🔊</button></div></div>
+        <div class="quiz-qtxt">${q.q}</div></div>
         <div class="quiz-opts" style="padding:14px 20px 18px">`;
       q.opts.forEach((o,j)=>{
         let cls='quiz-opt'; if(j===q.correct) cls+=' correct'; else if(j===chosen&&chosen!==q.correct) cls+=' wrong';
-        html+=`<div class="${cls}" aria-label="Opción ${String.fromCharCode(65+j)}${j===q.correct?' (correcta)':''}${j===chosen&&chosen!==q.correct?' (tu respuesta, incorrecta)':''}">${String.fromCharCode(65+j)}) ${o}<button type="button" class="leer-inline" onclick="hablar('Opción ${String.fromCharCode(65+j)}. ${o}')" aria-label="Leer opción ${String.fromCharCode(65+j)}">🔊</button></div>`;
+        html+=`<div class="${cls}" aria-label="Opción ${String.fromCharCode(65+j)}${j===q.correct?' (correcta)':''}${j===chosen&&chosen!==q.correct?' (tu respuesta, incorrecta)':''}">${String.fromCharCode(65+j)}) ${o}</div>`;
       });
       html+=`</div><div class="quiz-feedback vis"><div class="feedback-ok">${chosen===q.correct?'✔ Correcta':'✘ Incorrecta. Correcta: opción '+String.fromCharCode(65+q.correct)+'.'}</div><div class="feedback-exp">${q.fb[chosen!==undefined?chosen:q.correct]}</div></div></div>`;
     });
@@ -1294,7 +1354,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   iniciarVoces();
   // Welcome message
   setTimeout(()=>{
-    hablar('Bienvenida a Huellas de Vida, herramienta de la sesión 10 sobre método biográfico. Presiona H para ver los atajos de teclado. Presiona A para activar el modo audio automático. Presiona L para leer el módulo actual.', false);
+    hablar('Bienvenida a Huellas de Vida, sesión 10 sobre método biográfico. Navegación con Tab: cada sección tiene su propio botón de lectura al inicio. Cuando llegas a un botón que dice Leer, presiona Enter para escuchar esa sección. Presiona L para leer todo el módulo de una vez. Presiona H para ver todos los atajos de teclado. Presiona A para activar el modo audio automático, que lee cada elemento al enfocarlo.', false);
   }, 800);
 });
 </script>
