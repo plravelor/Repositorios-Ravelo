@@ -210,7 +210,7 @@ button{-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none}
 #opts-inner::-webkit-scrollbar-thumb{background:var(--border);border-radius:99px}
 #opts-wrap.has-cont{border-top:1px solid var(--border)}
 #opts-wrap.has-cont #btn-cont{border-top:1px solid var(--border);position:relative}
-#opts-wrap.has-cont{max-height:52vh}
+#opts-wrap.has-cont{max-height:56vh}
 
 /* ── CHIPS ── */
 .chips{display:flex;flex-wrap:wrap;gap:6px}
@@ -474,14 +474,14 @@ button{-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none}
 
 
 .a11y-badge{
-  margin-top:10px;padding:9px 11px;
+  margin-top:0;padding:5px 8px;
   background:var(--gll);border:1px solid var(--ga);
-  border-radius:9px;display:flex;align-items:center;gap:8px;
+  border-radius:7px;display:flex;align-items:center;gap:6px;
   font-family:var(--f);
 }
-.a11y-badge svg{width:22px;height:22px;color:var(--gd);stroke-width:2;flex-shrink:0}
-.a11y-badge b{font-size:11px;font-weight:800;color:var(--gd);letter-spacing:.4px;display:block;line-height:1.2}
-.a11y-badge span{font-size:9.5px;color:var(--muted);font-weight:500;display:block;line-height:1.2;margin-top:1px}
+.a11y-badge svg{width:15px;height:15px;color:var(--gd);stroke-width:2;flex-shrink:0}
+.a11y-badge b{font-size:10px;font-weight:800;color:var(--gd);letter-spacing:.3px;display:block;line-height:1.2}
+.a11y-badge span{font-size:9px;color:var(--muted);font-weight:500;display:block;line-height:1.2;margin-top:0}
 [data-theme="dark"] .a11y-badge{background:var(--gl);border-color:var(--gd)}
 
 /* TTS speak button on bot bubbles */
@@ -502,20 +502,20 @@ button{-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none}
 
 /* SHARE BOX */
 .share-box{
-  background:var(--gll);border:1px solid var(--ga);border-radius:12px;
-  padding:14px;margin-top:10px;
+  background:var(--gll);border:1px solid var(--ga);border-radius:10px;
+  padding:9px 12px;margin-top:7px;
 }
-.share-box h4{font-size:13px;font-weight:700;color:var(--gd);margin-bottom:9px;display:flex;align-items:center;gap:6px}
-.share-btns{display:flex;flex-wrap:wrap;gap:8px}
+.share-box h4{font-size:11.5px;font-weight:700;color:var(--gd);margin-bottom:6px;display:flex;align-items:center;gap:5px}
+.share-btns{display:flex;flex-wrap:wrap;gap:6px}
 .share-b{
-  flex:1;min-width:140px;display:flex;align-items:center;justify-content:center;gap:6px;
-  padding:10px 12px;background:var(--card);color:var(--g);border:1.5px solid var(--g);
-  border-radius:9px;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--f);
+  flex:1;min-width:110px;display:flex;align-items:center;justify-content:center;gap:6px;
+  padding:7px 10px;background:var(--card);color:var(--g);border:1.5px solid var(--g);
+  border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:var(--f);
   transition:.15s;
 }
 .share-b:hover{background:var(--g);color:#fff;transform:translateY(-1px)}
-.share-b svg{width:16px;height:16px;stroke-width:2.2}
-.share-tip{font-size:11px;color:var(--muted);margin-top:8px;font-style:italic}
+.share-b svg{width:13px;height:13px;stroke-width:2.2}
+.share-tip{font-size:10px;color:var(--muted);margin-top:5px;font-style:italic}
 
 /* PRINT styles: solo apoyos, sin chat — fcards siempre expandidas */
 @page{margin:14mm 12mm 16mm}
@@ -579,10 +579,11 @@ button{-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none}
 /* Footer */
 #footer{
   flex-shrink:0;text-align:center;
-  padding:7px 14px 11px;font-size:10.5px;color:var(--muted);line-height:1.6;
+  padding:4px 14px 5px;font-size:9.5px;color:var(--muted);line-height:1.4;
   border-top:1px solid var(--border);background:var(--card);
   transition:background .35s ease,border-color .35s ease,color .35s ease;
   position:relative;z-index:2;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
 }
 #footer a{color:var(--g);font-weight:600}
 
@@ -703,12 +704,12 @@ button{-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none}
 #sb-links .lk-ico svg{width:15px;height:15px;stroke-width:2.1}
 #sb-footer{
   border-top:1px solid var(--border);
-  padding:14px 20px;
-  display:flex;align-items:center;gap:10px;
+  padding:9px 16px;
+  display:flex;align-items:center;gap:8px;
   background:var(--sidebar-bg);
 }
-#sb-footer .sb-meta{flex:1;font-size:10.5px;color:var(--muted);line-height:1.5}
-#sb-footer .sb-meta b{color:var(--txt);font-weight:700;display:block;font-size:11.5px}
+#sb-footer .sb-meta{flex:1;font-size:10px;color:var(--muted);line-height:1.4}
+#sb-footer .sb-meta b{color:var(--txt);font-weight:700;display:inline;font-size:10.5px}
 
 /* Theme toggle button */
 .theme-toggle{
@@ -761,15 +762,16 @@ button{-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none}
     box-shadow:none;
   }
   #sidebar{display:flex;width:260px}
-  #sb-brand{padding:16px 18px 14px}
+  #sb-brand{padding:10px 18px 8px}
   #sb-logo{width:38px;height:38px;font-size:18px;border-radius:11px}
   #sb-brand h1{font-size:18px}
   #sb-brand p{font-size:10.5px}
-  #sb-body{padding:18px 16px 14px;gap:20px}
+  #sb-body{padding:14px 16px 12px;gap:16px}
   #sb-steps li{font-size:12px}
   #sb-links button{font-size:12px;padding:8px 10px}
   #hdr{padding:14px 20px}
-  #opts-wrap{max-height:32vh;min-height:100px}
+  #opts-wrap{max-height:44vh}
+  #opts-wrap.has-cont{max-height:52vh}
   #opts-inner{padding:8px 18px 14px}
   #msgs{padding:20px max(22px,calc((100% - 780px)/2)) 14px}
   .msg{max-width:520px}
@@ -783,11 +785,11 @@ button{-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none}
 /* ── DESKTOP (≥1024px) ── */
 @media (min-width:1024px){
   #sidebar{width:320px}
-  #sb-brand{padding:18px 20px 16px}
+  #sb-brand{padding:12px 20px 10px}
   #sb-logo{width:44px;height:44px;font-size:22px;border-radius:13px}
   #sb-brand h1{font-size:20px}
   #sb-brand p{font-size:11px}
-  #sb-body{padding:22px 20px 16px;gap:24px}
+  #sb-body{padding:16px 20px 14px;gap:18px}
   #sb-steps li{font-size:12.5px}
   #sb-links button{font-size:12.5px;padding:9px 11px}
   #hdr{padding:16px 28px}
@@ -796,18 +798,19 @@ button{-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none}
   .bub{font-size:14px;padding:11px 15px;line-height:1.6}
   #hdr-name{font-size:16px}
   #hdr-av{width:44px;height:44px;font-size:21px}
-  #opts-wrap{max-height:30vh;min-height:110px}
+  #opts-wrap{max-height:44vh}
+  #opts-wrap.has-cont{max-height:52vh}
   #opts-inner{padding:8px max(28px,calc((100% - 860px)/2)) 16px}
-  #footer{padding:9px 28px 12px;font-size:11px}
+  #footer{padding:4px 28px 5px;font-size:9.5px}
   .ms-item{font-size:13.5px;padding:10px 14px}
 }
 
 /* ── LARGE DESKTOP (≥1440px) ── */
 @media (min-width:1440px){
   #sidebar{width:360px}
-  #sb-brand{padding:22px 24px 18px}
+  #sb-brand{padding:13px 22px 11px}
   #sb-brand h1{font-size:22px;letter-spacing:-.5px}
-  #sb-body{padding:26px 24px 18px;gap:28px}
+  #sb-body{padding:18px 22px 14px;gap:20px}
   #sb-steps li{font-size:13px;padding:7px 0}
   #sb-links button{font-size:13px;padding:10px 12px}
   #hdr{padding:18px 36px}
@@ -815,14 +818,16 @@ button{-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none}
   #msgs{padding:32px max(40px,calc((100% - 960px)/2)) 22px}
   .msg{max-width:620px}
   .bub{font-size:14.5px;padding:12px 16px}
-  #opts-wrap{max-height:28vh;min-height:120px}
+  #opts-wrap{max-height:42vh}
+  #opts-wrap.has-cont{max-height:50vh}
   #opts-inner{padding:10px max(40px,calc((100% - 960px)/2)) 18px}
-  #footer{padding:11px 36px 14px;font-size:11.5px}
+  #footer{padding:4px 36px 5px;font-size:9.5px}
 }
 
 /* ── ULTRAWIDE (≥1920px) ── */
 @media (min-width:1920px){
-  #opts-wrap{max-height:26vh;min-height:130px}
+  #opts-wrap{max-height:40vh}
+  #opts-wrap.has-cont{max-height:48vh}
   #msgs{padding:36px max(48px,calc((100% - 1040px)/2)) 24px}
   #opts-inner{padding:12px max(48px,calc((100% - 1040px)/2)) 20px}
   .msg{max-width:680px}
@@ -842,11 +847,11 @@ button{-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none}
   #btn-restart.vis{padding:6px;width:30px;height:30px;justify-content:center;font-size:0;gap:0}
   #btn-restart.vis svg{width:15px;height:15px}
   /* Tighter mobile opts panel & prevent continuar button overlap */
-  #opts-wrap{max-height:40vh}
-  #opts-wrap.has-cont{max-height:45vh}
+  #opts-wrap{max-height:45vh}
+  #opts-wrap.has-cont{max-height:52vh}
   #opts-inner{padding:4px 12px 10px}
   #btn-cont{margin:6px 12px 10px;padding:11px;font-size:14px}
-  #footer{padding:6px 12px 9px;font-size:10px;line-height:1.5}
+  #footer{padding:3px 12px 4px;font-size:9px;line-height:1.4}
 }
 @media (max-width:380px){
   #hdr-logo{width:48px;height:22px}
@@ -860,6 +865,40 @@ button{-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none}
 .msg,.fcard,.ccf-card,.disc,.res-section-hdr,.conv-disclaimer,.cta-box,.no-res{
   animation:fadeUp .32s cubic-bezier(.4,0,.2,1) both;
 }
+
+/* ── FONT SIZE SCALE SYSTEM ── */
+:root { --text-scale: 1; }
+html[data-fs="lg"] { --text-scale: 1.18; }
+
+/* Reduced base sizes + scalable overrides */
+.bub { font-size: calc(14px * var(--text-scale)) !important; }
+.ch  { font-size: calc(12.5px * var(--text-scale)) !important;
+       padding: calc(7px * var(--text-scale)) calc(11px * var(--text-scale)) !important; }
+.ms-item { font-size: calc(12.5px * var(--text-scale)) !important;
+           padding: calc(8px * var(--text-scale)) calc(11px * var(--text-scale)) !important; }
+.fc-name  { font-size: calc(12px * var(--text-scale)) !important; }
+.fc-sub   { font-size: calc(11px * var(--text-scale)) !important; }
+.fc-body p, .fc-body li { font-size: calc(12px * var(--text-scale)) !important; }
+.monto    { font-size: calc(12px * var(--text-scale)) !important; }
+.disc     { font-size: calc(11.5px * var(--text-scale)) !important; }
+.ccf-desc { font-size: calc(12px * var(--text-scale)) !important; }
+
+/* Font-size toggle button */
+.fs-toggle {
+  display: inline-flex; align-items: center; justify-content: center;
+  border: 1.5px solid var(--border); background: var(--card); color: var(--muted);
+  border-radius: 7px; padding: 3px 8px; font-size: 11px; font-weight: 800;
+  cursor: pointer; font-family: var(--f); transition: .15s; flex-shrink: 0;
+  line-height: 1; letter-spacing: .4px; -webkit-tap-highlight-color: transparent;
+  white-space: nowrap; user-select: none;
+}
+.fs-toggle:hover { background: var(--gll); color: var(--g); border-color: var(--g); }
+html[data-fs="lg"] .fs-toggle { background: var(--gl); color: var(--g); border-color: var(--g); }
+/* Mobile-only header font button */
+#btn-fontsize-mobile { display: none; }
+@media (max-width: 767px) {
+  #btn-fontsize-mobile { display: inline-flex; }
+}
 </style>
 </head>
 <body>
@@ -869,7 +908,7 @@ button{-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none}
       <div id="sb-logo-img" role="img" aria-label="Escuela Superior de Administración Pública"></div>
       <p>Asesor de Apoyos Externos · 2026</p>
     </div>
-    <div id="sb-body">
+    <div id="sb-body" style="width: 250px">
       <div class="sb-section">
         <h3>Progreso de la consulta</h3>
         <ol id="sb-steps">
@@ -901,6 +940,7 @@ button{-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none}
         <span id="theme-label">Claro</span>
       </div>
       <button class="theme-toggle" onclick="toggleTheme()" aria-label="Cambiar tema"></button>
+      <button class="fs-toggle" onclick="cycleFontSize()" aria-label="Tamaño de texto" title="Agrandar texto">A+</button>
       <div class="a11y-badge" title="Cumple WCAG 2.1 nivel AA en contraste, navegación por teclado, regiones aria-live, etiquetas de formulario y compatibilidad con lectores de pantalla">
         <i data-lucide="accessibility"></i>
         <div>
@@ -923,6 +963,7 @@ button{-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none}
       <button id="btn-theme-mobile" class="hdr-btn icon" onclick="toggleTheme()" aria-label="Cambiar tema" title="Cambiar tema">
         <span id="btn-theme-slot"><i data-lucide="moon"></i></span>
       </button>
+      <button id="btn-fontsize-mobile" class="hdr-btn fs-toggle" onclick="cycleFontSize()" aria-label="Tamaño de texto" title="Agrandar texto">A+</button>
       <button id="btn-restart" class="hdr-btn" onclick="restart()"><i data-lucide="rotate-ccw"></i> Reiniciar</button>
     </div>
 
@@ -942,11 +983,7 @@ button{-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none}
       <div id="opts-inner"></div>
     </div>
 
-    <div id="footer">
-      ⚠️ Información orientativa — verificar vigencia con cada entidad antes de aplicar.<br>
-      <span id="ft-line">ICETEX: 01 8000 180672 · Bienestar ESAP: bienestaruniversitario<span class="at-sign">&#64;</span>esap.edu.co</span><br>
-      <span id="verif-note">Última verificación: abril 2026</span>
-    </div>
+    <div id="footer">⚠️ Inf. orientativa — verificar vigencia · <span id="ft-line">ICETEX: 01 8000 180672 · bienestar&#64;esap.edu.co</span> · <span id="verif-note">Verif.: abr. 2026</span></div>
   </main>
 </div>
 
@@ -2485,13 +2522,43 @@ document.addEventListener('click', (e) => {
   if (t && typeof t.blur === 'function') setTimeout(() => t.blur(), 50);
 }, true);
 
+/* ══════════════════════════════════════════════════════
+   FONT SIZE
+══════════════════════════════════════════════════════ */
+function cycleFontSize() {
+  const cur = document.documentElement.getAttribute('data-fs') || 'normal';
+  const next = cur === 'lg' ? 'normal' : 'lg';
+  applyFontSize(next);
+  try { localStorage.setItem('esap-fs', next); } catch(e) {}
+}
+
+function applyFontSize(fs) {
+  document.documentElement.setAttribute('data-fs', fs || 'normal');
+  const isLg = fs === 'lg';
+  const label = isLg ? 'A−' : 'A+';
+  const tip   = isLg ? 'Reducir texto' : 'Agrandar texto';
+  document.querySelectorAll('.fs-toggle').forEach(btn => {
+    btn.textContent = label;
+    btn.title = tip;
+    btn.setAttribute('aria-label', tip);
+  });
+}
+
+function initFontSize() {
+  let saved = null;
+  try { saved = localStorage.getItem('esap-fs'); } catch(e) {}
+  applyFontSize(saved || 'normal');
+}
+
 /* INIT */
 document.addEventListener('DOMContentLoaded', () => {
   renderIcons();
   initTheme();
+  initFontSize();
   updateSidebarSteps();
   goToStep('welcome');
 });
 </script>
 </body>
 </html>
+
