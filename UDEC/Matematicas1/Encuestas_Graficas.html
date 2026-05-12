@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
+<title>Encuestas y Gráficas · Clase 9 · UdeC</title>
+<style>
+:root{
+  --bg:#f4f0e6;--card:#fff;--border:rgba(37,99,235,.12);--border2:rgba(37,99,235,.06);
+  --text:#1a2030;--muted:#6b7280;--muted2:#b09f80;
+  --serif:Georgia,'Palatino Linotype',serif;
+  --sans:-apple-system,'Segoe UI',Arial,sans-serif;
+  --mono:'Courier New',monospace;
+  --T:#1e3a6e;--Tm:#2563eb;--Tl:rgba(37,99,235,.08);--Tb:rgba(37,99,235,.28);
+  --Am:#92400e;--Amm:#d97706;--Aml:rgba(217,119,6,.09);--Amb:rgba(217,119,6,.3);
+  --E:#991b1b;--Em:#ef4444;--El:rgba(185,28,28,.09);--Eb:rgba(185,28,28,.28);
+  --G:#166534;--Gm:#16a34a;--Gl:rgba(21,128,61,.09);--Gb:rgba(34,197,94,.3);
+  --V:#5b21b6;--Vm:#7c3aed;--Vl:rgba(109,40,217,.09);--Vb:rgba(109,40,217,.28);
+  --Tq:#134e4a;--Tqm:#0d9488;--Tql:rgba(13,148,136,.09);--Tqb:rgba(13,148,136,.28);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--sans);color:var(--text);background:var(--bg);
+  background-image:radial-gradient(ellipse 130% 60% at -5% -5%,rgba(37,99,235,.1),transparent 55%),
+  radial-gradient(ellipse 100% 65% at 105% 110%,rgba(217,119,6,.1),transparent 55%);
+  background-attachment:fixed;padding-bottom:70px;font-size:15px;line-height:1.65;}
+.hdr{background:rgba(255,255,255,.93);border-bottom:1.5px solid var(--border);backdrop-filter:blur(20px);padding:14px 16px 0;overflow:hidden;position:relative;}
+.hdr-deco{position:absolute;right:10px;top:9px;font-family:var(--mono);font-size:44px;font-weight:700;color:rgba(37,99,235,.05);pointer-events:none;}
+.hdr-badge{display:inline-flex;align-items:center;background:var(--Tl);border:1px solid var(--Tb);color:var(--T);padding:3px 11px;border-radius:99px;font-size:.58rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px;}
+.hdr h1{font-family:var(--serif);color:var(--T);font-size:1.28rem;font-weight:700;font-style:italic;margin-bottom:2px;}
+.hdr h1 em{color:var(--Amm);font-style:normal;}
+.hdr-sub{font-size:.7rem;color:var(--muted);margin-bottom:10px;}
+.tabs{display:flex;overflow-x:auto;scrollbar-width:none;border-top:1px solid var(--border2);margin:0 -16px;}
+.tabs::-webkit-scrollbar{display:none;}
+.tab{flex-shrink:0;padding:9px 12px 8px;font-size:.57rem;font-weight:800;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;transition:all .2s;text-transform:uppercase;letter-spacing:.4px;white-space:nowrap;display:flex;flex-direction:column;align-items:center;gap:2px;}
+.tab .ti{font-size:.9rem;}
+.tab.on{color:var(--T);border-bottom-color:var(--Tm);}
+.wrap{max-width:520px;margin:0 auto;padding:16px 14px 8px;}
+.mod{display:none;}.mod.on{display:block;}
+.sb{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:99px;font-size:.57rem;font-weight:800;text-transform:uppercase;letter-spacing:.3px;}
+.sb-clase{background:var(--Tl);border:1px solid var(--Tb);color:var(--T);}
+.sb-casa{background:var(--Aml);border:1px solid var(--Amb);color:var(--Am);}
+.sb-coop{background:var(--Vl);border:1px solid var(--Vb);color:var(--V);}
+.srow{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px;}
+.card{background:var(--card);border:1.5px solid var(--border);border-radius:16px;padding:16px;margin-bottom:12px;box-shadow:0 2px 16px rgba(30,58,110,.06);}
+.ct{font-size:.57rem;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted2);margin-bottom:9px;}
+.stitle{font-family:var(--serif);font-size:1.04rem;font-weight:700;font-style:italic;color:var(--T);margin-bottom:8px;}
+.alert{padding:11px 14px;border-radius:12px;font-size:.82rem;line-height:1.65;margin:9px 0;}
+.al-T{background:var(--Tl);border:1.5px solid var(--Tb);color:var(--T);}
+.al-Am{background:var(--Aml);border:1.5px solid var(--Amb);color:var(--Am);}
+.al-G{background:var(--Gl);border:1.5px solid var(--Gb);color:var(--G);}
+.al-E{background:var(--El);border:1.5px solid var(--Eb);color:var(--E);}
+.al-V{background:var(--Vl);border:1.5px solid var(--Vb);color:var(--V);}
+.al-Tq{background:var(--Tql);border:1.5px solid var(--Tqb);color:var(--Tq);}
+.hint{font-size:.75rem;color:var(--muted);background:var(--Tl);border-left:3px solid var(--Tb);padding:7px 11px;border-radius:0 9px 9px 0;margin:7px 0;line-height:1.55;}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:10px;font-size:.82rem;font-weight:700;cursor:pointer;border:1.5px solid;transition:all .15s;font-family:var(--sans);}
+.btn-T{background:var(--T);color:#fff;border-color:var(--T);}
+.btn-T:hover{background:#163569;}
+.btn-Am{background:var(--Amm);color:#fff;border-color:var(--Amm);}
+.btn-V{background:var(--Vm);color:#fff;border-color:var(--Vm);}
+.btn-outline{background:transparent;color:var(--T);border-color:var(--Tb);}
+.btn-outline:hover{background:var(--Tl);}
+.btn-sm{padding:6px 12px;font-size:.75rem;}
+.btn-xs{padding:4px 10px;font-size:.7rem;border-radius:8px;}
+.btn-grey{background:rgba(0,0,0,.06);color:var(--muted);border-color:var(--border);font-size:.75rem;padding:6px 12px;}
+.inp{width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:10px;font-size:.85rem;font-family:var(--sans);background:#fff;color:var(--text);outline:none;transition:border .15s;}
+.inp:focus{border-color:var(--Tm);}
+.inp-label{font-size:.72rem;font-weight:700;color:var(--muted);margin-bottom:4px;display:block;}
+.inp-group{margin-bottom:10px;}
+.formula{background:var(--Tql);border:1.5px solid var(--Tqb);border-radius:12px;padding:14px;margin:10px 0;text-align:center;}
+.formula-main{font-family:var(--mono);font-size:1rem;font-weight:700;color:var(--Tq);}
+.formula-sub{font-size:.78rem;color:var(--muted);margin-top:4px;}
+/* EULER */
+.eul-card{background:var(--card);border:1.5px solid var(--border);border-radius:14px;padding:14px;margin-bottom:10px;}
+.eul-premises{font-size:.83rem;line-height:1.6;padding:9px 12px;background:var(--Tl);border-radius:9px;margin-bottom:6px;}
+.eul-conc{font-size:.83rem;font-weight:700;font-style:italic;padding:7px 12px;border-radius:8px;background:rgba(0,0,0,.03);border:1px solid var(--border2);margin-bottom:8px;}
+.eul-btns{display:flex;gap:7px;margin-bottom:8px;}
+.eul-btn{flex:1;padding:8px;border-radius:9px;font-size:.78rem;font-weight:700;cursor:pointer;border:1.5px solid var(--border);background:rgba(250,248,242,.9);color:var(--muted);transition:all .15s;font-family:var(--sans);}
+.eul-btn:hover{background:var(--Tl);}
+.eul-btn.is-v{background:var(--G);color:#fff;border-color:var(--G);}
+.eul-btn.is-i{background:var(--E);color:#fff;border-color:var(--E);}
+.eul-reveal{display:none;margin-top:10px;}
+.eul-reveal.on{display:block;}
+.rv-badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:99px;font-size:.65rem;font-weight:800;margin-bottom:8px;border:1px solid;}
+/* VENN */
+.venn-wrap{background:#fff;border:1.5px solid var(--border);border-radius:14px;overflow:hidden;margin:12px 0;}
+.venn-wrap svg{width:100%;display:block;}
+/* SURVEY */
+.topic-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0;}
+.topic-btn{padding:10px 12px;border-radius:12px;background:var(--card);border:1.5px solid var(--border);cursor:pointer;font-size:.8rem;font-weight:600;text-align:left;color:var(--text);transition:all .2s;line-height:1.4;}
+.topic-btn:hover{border-color:var(--Tb);background:var(--Tl);}
+.topic-btn.chosen{border-color:var(--Tm);background:var(--T);color:#fff;}
+.topic-btn .ti{display:block;font-size:1.1rem;margin-bottom:3px;}
+.opt-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:10px 0;}
+.opt-item{display:flex;align-items:center;gap:7px;padding:7px 9px;background:rgba(255,255,255,.7);border:1.5px solid var(--border);border-radius:9px;}
+.opt-item label{font-size:.78rem;font-weight:600;flex:1;color:var(--text);}
+.opt-count{width:54px;padding:5px 6px;border:1.5px solid var(--border);border-radius:7px;font-size:.82rem;text-align:center;font-family:var(--mono);background:#fff;}
+.chart-toggle{display:flex;gap:0;border:1.5px solid var(--border);border-radius:10px;overflow:hidden;margin:8px 0;background:var(--card);}
+.ct-btn{flex:1;padding:7px;font-size:.75rem;font-weight:700;cursor:pointer;border:none;background:transparent;color:var(--muted);transition:all .15s;}
+.ct-btn.on{background:var(--T);color:#fff;}
+.sel{padding:8px 10px;border:1.5px solid var(--border);border-radius:9px;font-size:.82rem;font-family:var(--sans);background:#fff;color:var(--text);width:100%;outline:none;}
+.sel:focus{border-color:var(--Tm);}
+.res-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0;}
+.res-cell{background:var(--card);border:1.5px solid var(--border);border-radius:12px;padding:12px;text-align:center;}
+.rc-lbl{font-size:.63rem;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);margin-bottom:3px;}
+.rc-val{font-family:var(--mono);font-size:1.5rem;font-weight:800;color:var(--T);}
+.rc-hl{border-color:var(--Tqb) !important;background:var(--Tql) !important;}
+.rc-hl .rc-val{color:var(--Tqm);}
+/* QUIZ */
+.qcard{background:var(--card);border:1.5px solid var(--border);border-radius:14px;padding:14px;margin-bottom:10px;}
+.qnum{font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--muted2);margin-bottom:6px;}
+.qtext{font-size:.87rem;line-height:1.6;margin-bottom:10px;color:var(--text);}
+.qopt{display:block;padding:9px 12px;border-radius:9px;background:rgba(245,242,235,.8);border:1.5px solid var(--border2);cursor:pointer;transition:all .12s;font-size:.82rem;line-height:1.4;margin-bottom:6px;color:var(--text);width:100%;text-align:left;}
+.qopt:hover{background:var(--Tl);border-color:var(--Tb);}
+.qopt.sel-q{background:var(--T);color:#fff;border-color:var(--T);}
+.qopt.correct{background:var(--Gl);border-color:var(--Gb);color:var(--G);font-weight:600;}
+.qopt.wrong{background:var(--El);border-color:var(--Eb);color:var(--E);}
+.qfb{display:none;font-size:.79rem;line-height:1.55;padding:9px 11px;border-radius:9px;margin-top:7px;}
+.qcard.graded .qfb{display:block;}
+.qbar-wrap{background:rgba(0,0,0,.07);border-radius:99px;height:8px;overflow:hidden;margin:8px 0;}
+.qbar-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--Tm),var(--Amm));transition:width .6s ease;}
+/* COOP */
+.coop-blk{border-radius:16px;border:2px solid var(--Vb);background:#faf5ff;padding:16px;margin-bottom:13px;}
+.coop-title{font-family:var(--serif);font-size:1.04rem;font-weight:700;font-style:italic;color:var(--V);margin-bottom:4px;}
+.coop-timer{display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:.71rem;font-weight:800;padding:3px 10px;border-radius:99px;background:var(--Vl);border:1px solid var(--Vb);color:var(--V);margin-bottom:10px;}
+.role-card{display:flex;align-items:flex-start;gap:9px;padding:9px 12px;border-radius:10px;background:rgba(255,255,255,.7);border:1px solid rgba(109,40,217,.15);font-size:.8rem;line-height:1.5;margin-bottom:6px;color:var(--text);}
+.rtag{font-size:.57rem;font-weight:800;text-transform:uppercase;letter-spacing:.4px;padding:2px 8px;border-radius:99px;flex-shrink:0;margin-top:2px;}
+.step-c{display:flex;align-items:flex-start;gap:9px;font-size:.82rem;line-height:1.55;margin-bottom:8px;color:var(--text);}
+.sc-n{min-width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:800;flex-shrink:0;margin-top:1px;background:var(--Vl);color:var(--V);border:1.5px solid var(--Vb);}
+.proc-box{background:rgba(245,232,255,.5);border:1.5px solid var(--Vb);border-radius:11px;padding:11px 13px;margin:10px 0;font-size:.8rem;line-height:1.6;}
+/* GRAPHS */
+.graph-tabs{display:flex;gap:8px;margin:10px 0;}
+.gtab{flex:1;padding:8px;border-radius:10px;font-size:.78rem;font-weight:700;cursor:pointer;border:1.5px solid var(--border);background:var(--card);color:var(--muted);text-align:center;transition:all .2s;}
+.gtab.on{background:var(--Amm);color:#fff;border-color:var(--Amm);}
+.interp-q{margin:8px 0;padding:10px 12px;border-radius:10px;background:rgba(255,255,255,.6);border:1.5px solid var(--border);}
+.iq-text{font-size:.83rem;margin-bottom:8px;color:var(--text);}
+.iq-opt{display:block;padding:7px 10px;border-radius:8px;font-size:.8rem;cursor:pointer;margin-bottom:5px;border:1px solid var(--border2);background:rgba(250,248,242,.9);transition:all .12s;color:var(--text);width:100%;text-align:left;}
+.iq-opt:hover{background:var(--Aml);}
+.iq-opt.sel{background:var(--Amm);color:#fff;border-color:var(--Amm);}
+.iq-opt.ok{background:var(--Gl);border-color:var(--Gb);color:var(--G);font-weight:600;}
+.iq-opt.ko{background:var(--El);border-color:var(--Eb);color:var(--E);}
+.iq-fb{display:none;font-size:.78rem;padding:7px 10px;border-radius:8px;margin-top:5px;}
+/* HOME */
+.level-hdr{display:flex;align-items:center;gap:8px;padding:12px 14px;border-radius:12px;cursor:pointer;margin-bottom:6px;user-select:none;border:1.5px solid var(--border);background:var(--card);}
+.ex-item{border-radius:11px;border:1.5px solid var(--border);padding:12px 14px;margin-bottom:8px;background:rgba(255,255,255,.7);}
+.ex-q{font-size:.85rem;line-height:1.6;margin-bottom:8px;}
+.ans-fb{display:none;font-size:.79rem;padding:7px 10px;border-radius:8px;margin-top:6px;}
+.ans-row{display:flex;gap:8px;align-items:center;margin-top:6px;flex-wrap:wrap;}
+canvas{border-radius:12px;display:block;}
+hr.d{border:none;border-top:1px solid var(--border2);margin:12px 0;}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:8px 0;}
+@media(max-width:400px){.two-col,.topic-grid,.opt-grid,.res-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="hdr">
+  <div class="hdr-deco">∩∪</div>
+  <div class="hdr-badge">Clase 9 · Matemáticas I · UdeC Facatativá 2026</div>
+  <h1>Encuestas, Conjuntos <em>&amp; Gráficas</em></h1>
+  <div class="hdr-sub">Cierre Euler · §2.4 Encuestas y Cardinales · §1.4 Lectura de Gráficas</div>
+  <div class="tabs">
+    <div class="tab on" onclick="show('m0',this)"><span class="ti">🔷</span>M0 Euler</div>
+    <div class="tab" onclick="show('m1',this)"><span class="ti">📐</span>M1 Encuestas</div>
+    <div class="tab" onclick="show('m2',this)"><span class="ti">👥</span>M2 La Encuesta</div>
+    <div class="tab" onclick="show('m3',this)"><span class="ti">📊</span>M3 Gráficas</div>
+    <div class="tab" onclick="show('m4',this)"><span class="ti">👥</span>M4 Interpreta</div>
+    <div class="tab" onclick="show('m5',this)"><span class="ti">✏️</span>M5 Quiz</div>
+    <div class="tab" onclick="show('m6',this)"><span class="ti">🏠</span>M6 Casa</div>
+  </div>
+</div>
+<div class="wrap">
+<!-- ===== M0 EULER ===== -->
+<div class="mod on" id="m0">
+<div class="srow"><span class="sb sb-clase">🏫 En clase · antes de la magistral</span><span class="sb" style="background:var(--Tl);border:1px solid var(--Tb);color:var(--T);">🔷 Cierre Diagramas de Euler</span></div>
+<div class="card">
+  <div class="ct">M0 · Gancho Individual — 7 min</div>
+  <div class="stitle">¿Válido o inválido? Decide antes de revelar</div>
+  <p style="font-size:.83rem;color:var(--muted);line-height:1.6;margin-bottom:10px;">Para cada argumento, marca tu respuesta <strong>antes</strong> de presionar "Revelar diagrama". El diagrama de Euler muestra gráficamente por qué.</p>
+  <div class="alert al-T">💡 <strong>Recuerda:</strong> Un argumento es <em>válido</em> si, suponiendo que todas las premisas son verdaderas, la conclusión <em>tiene que</em> ser verdadera. Si la conclusión <em>podría</em> ser falsa aunque las premisas fueran verdaderas, el argumento es <strong>inválido</strong>.</div>
+</div>
+<div id="eul-container"></div>
+</div><!-- /m0 -->
+
+<!-- ===== M1 ENCUESTAS ===== -->
+<div class="mod" id="m1">
+<div class="srow"><span class="sb sb-clase">🏫 En clase · después de magistral M1</span><span class="sb" style="background:var(--Tql);border:1px solid var(--Tqb);color:var(--Tq);">📐 Fórmula cardinal</span></div>
+<div class="card">
+  <div class="ct">Conceptos clave</div>
+  <div class="stitle">n(A∪B) = n(A) + n(B) − n(A∩B)</div>
+  <p style="font-size:.84rem;color:var(--muted);line-height:1.65;margin-bottom:10px;">Al sumar n(A) + n(B) contamos doble a los que están en ambos conjuntos. La fórmula corrige eso restando n(A∩B) una sola vez.</p>
+  <div class="formula"><div class="formula-main">n(A ∪ B) = n(A) + n(B) − n(A ∩ B)</div><div class="formula-sub">n(A∪B)' = n(U) − n(A∪B) &nbsp;·&nbsp; Solo A = n(A) − n(A∩B) &nbsp;·&nbsp; Solo B = n(B) − n(A∩B)</div></div>
+</div>
+<div class="card">
+  <div class="ct">Calculadora interactiva con Venn dinámico</div>
+  <div class="stitle">Ingresa los datos y ve el resultado</div>
+  <div class="two-col">
+    <div class="inp-group"><label class="inp-label">n(A)</label><input class="inp" type="number" id="c_nA" min="0" value="22" oninput="calcV1()"></div>
+    <div class="inp-group"><label class="inp-label">n(B)</label><input class="inp" type="number" id="c_nB" min="0" value="18" oninput="calcV1()"></div>
+    <div class="inp-group"><label class="inp-label">n(A ∩ B)</label><input class="inp" type="number" id="c_nAB" min="0" value="9" oninput="calcV1()"></div>
+    <div class="inp-group"><label class="inp-label">n(U) — total</label><input class="inp" type="number" id="c_nU" min="0" value="40" oninput="calcV1()"></div>
+  </div>
+  <div class="venn-wrap"><svg id="venn1" viewBox="0 0 380 170">
+    <rect x="3" y="3" width="374" height="164" rx="8" fill="rgba(37,99,235,.03)" stroke="rgba(37,99,235,.25)" stroke-width="1.5"/>
+    <text x="11" y="16" fill="var(--muted)" font-size="9.5" font-family="Georgia">U</text>
+    <ellipse cx="148" cy="90" rx="108" ry="68" fill="rgba(37,99,235,.12)" stroke="var(--Tm)" stroke-width="2.5"/>
+    <ellipse cx="232" cy="90" rx="108" ry="68" fill="rgba(217,119,6,.12)" stroke="var(--Amm)" stroke-width="2.5"/>
+    <text x="83" y="35" fill="var(--T)" font-size="12" font-weight="bold" text-anchor="middle" font-family="Georgia" font-style="italic">A</text>
+    <text x="297" y="35" fill="var(--Am)" font-size="12" font-weight="bold" text-anchor="middle" font-family="Georgia" font-style="italic">B</text>
+    <text id="v1-oa" x="90" y="94" fill="var(--T)" font-size="22" font-weight="800" text-anchor="middle">13</text>
+    <text x="90" y="108" fill="var(--muted)" font-size="8.5" text-anchor="middle">solo A</text>
+    <text id="v1-ab" x="190" y="94" fill="#374151" font-size="22" font-weight="800" text-anchor="middle">9</text>
+    <text x="190" y="108" fill="var(--muted)" font-size="8.5" text-anchor="middle">A∩B</text>
+    <text id="v1-ob" x="290" y="94" fill="var(--Am)" font-size="22" font-weight="800" text-anchor="middle">9</text>
+    <text x="290" y="108" fill="var(--muted)" font-size="8.5" text-anchor="middle">solo B</text>
+    <text id="v1-ni" x="354" y="155" fill="var(--muted)" font-size="14" font-weight="700" text-anchor="middle">8</text>
+    <text x="354" y="165" fill="var(--muted)" font-size="8" text-anchor="middle">ninguno</text>
+  </svg></div>
+  <div id="v1-formula" class="formula"><div class="formula-main">n(A∪B) = 22 + 18 − 9 = <span style="color:var(--Tqm);">31</span></div><div class="formula-sub">n(ninguno) = n(U) − n(A∪B) = 40 − 31 = <strong>9</strong></div></div>
+  <div id="v1-warn" class="alert al-E" style="display:none;"></div>
+</div>
+<div class="card">
+  <div class="ct">Ejemplo · Psicología UdeC</div>
+  <div class="stitle">Encuesta de bienestar estudiantil</div>
+  <div class="alert al-T" style="margin-bottom:10px;"><strong>Situación:</strong> En un grupo de 40 estudiantes de psicología de la UdeC:<br>• 22 reportan síntomas de estrés académico (A)<br>• 18 reportan dificultades de sueño (B)<br>• 9 reportan <strong>ambos</strong> problemas<br><br>Los valores ya están cargados arriba. El Venn muestra cómo se distribuyen las 40 personas.</div>
+  <div class="alert al-Tq">🧮 <strong>Interpretación:</strong> 31 estudiantes tienen al menos un problema. Los 9 de la intersección son los más vulnerables. Los 9 de "ninguno" no reportan ni estrés ni problemas de sueño.</div>
+</div>
+<div class="card">
+  <div class="ct">Extensión · Tres conjuntos</div>
+  <div class="stitle">Fórmula para 3 conjuntos</div>
+  <div class="formula"><div class="formula-main" style="font-size:.85rem;">n(A∪B∪C) = n(A)+n(B)+n(C) − n(A∩B) − n(A∩C) − n(B∩C) + n(A∩B∩C)</div></div>
+  <div class="hint">Estrategia práctica: siempre comienza por el centro (A∩B∩C), luego las intersecciones de dos, luego los que están en solo un conjunto, y finalmente los que no están en ninguno.</div>
+  <div class="alert al-T">🎯 <strong>Ejemplo de la clase:</strong> Si el grupo que eligió "Redes sociales" preguntó sobre Instagram (A), TikTok (B) y WhatsApp (C), puede usar esta fórmula en el Tab M2 para analizar las tres plataformas juntas.</div>
+</div>
+</div><!-- /m1 -->
+
+<!-- ===== M2 LA GRAN ENCUESTA ===== -->
+<div class="mod" id="m2">
+<div class="srow"><span class="sb sb-coop">👥 Actividad cooperativa · 28 min</span><span class="sb sb-clase">🏫 En clase</span></div>
+<div class="coop-blk">
+  <div class="coop-title">📋 La Gran Encuesta del Curso</div>
+  <div class="coop-timer">⏱ 28 min · 5 fases</div>
+  <div class="role-card"><span class="rtag" style="background:var(--Tl);color:var(--T);border:1px solid var(--Tb);">COORD.</span>Elige el tema. Organiza quién pregunta a quién. Controla las fases.</div>
+  <div class="role-card"><span class="rtag" style="background:var(--Vl);color:var(--V);border:1px solid var(--Vb);">SECRET.</span>Ingresa los datos en la herramienta. Verifica que los números cuadren con la fórmula.</div>
+  <div class="role-card"><span class="rtag" style="background:var(--Aml);color:var(--Am);border:1px solid var(--Amb);">VOCERO</span>Prepara la interpretación: qué descubrió el grupo sobre sus compañeros.</div>
+  <div class="step-c"><span class="sc-n">!</span><span><strong>Encuesten a TODOS</strong> los estudiantes presentes (incluyendo su propio grupo). n(U) = total presentes hoy.</span></div>
+</div>
+<div class="card">
+  <div class="ct">Fase 1 (2 min) — Elige el tema de tu grupo</div>
+  <div class="stitle">¿Sobre qué encuestamos hoy al curso?</div>
+  <div class="topic-grid">
+    <button class="topic-btn" onclick="chooseTopic('transporte')"><span class="ti">🚌</span><strong>Transporte</strong><br><span style="font-size:.7rem;font-weight:400;">¿Cómo llegaste hoy?</span></button>
+    <button class="topic-btn" onclick="chooseTopic('redes')"><span class="ti">📱</span><strong>Redes sociales</strong><br><span style="font-size:.7rem;font-weight:400;">¿Cuáles usas a diario?</span></button>
+    <button class="topic-btn" onclick="chooseTopic('actividad')"><span class="ti">🏃</span><strong>Actividad física</strong><br><span style="font-size:.7rem;font-weight:400;">¿Qué practicas?</span></button>
+    <button class="topic-btn" onclick="chooseTopic('estudio')"><span class="ti">📚</span><strong>Hábitos de estudio</strong><br><span style="font-size:.7rem;font-weight:400;">¿Cómo preparas parciales?</span></button>
+    <button class="topic-btn" onclick="chooseTopic('campus')" style="grid-column:1/-1;"><span class="ti">☕</span><strong>Consumo en el campus</strong><br><span style="font-size:.7rem;font-weight:400;">¿Qué consumes durante el día?</span></button>
+  </div>
+</div>
+<div id="survey-panel" style="display:none;">
+  <div class="card">
+    <div class="ct" id="s-topic-label">Tema elegido</div>
+    <div class="stitle" id="s-question">Pregunta</div>
+    <div id="s-note" class="hint"></div>
+    <p style="font-size:.8rem;color:var(--muted);margin:8px 0;">Fase 2 (10 min) — Ingresa cuántos estudiantes eligieron cada opción <em>(una persona puede marcar más de una)</em>:</p>
+    <div class="opt-grid" id="opt-grid"></div>
+    <div class="inp-group" style="margin-top:8px;"><label class="inp-label">n(U) — Total de estudiantes encuestados hoy</label><input class="inp" type="number" id="s-total" min="1" value="25" oninput="updateSChart()"></div>
+    <button class="btn btn-T btn-sm" style="margin-top:8px;" onclick="updateSChart()">📊 Ver gráfica</button>
+  </div>
+  <div class="card" id="chart-card" style="display:none;">
+    <div class="ct">Fase 3 — Distribución de respuestas</div>
+    <div class="chart-toggle"><button class="ct-btn on" id="ct-bar" onclick="switchSChart('bar')">📊 Barras</button><button class="ct-btn" id="ct-pie" onclick="switchSChart('pie')">🥧 Circular</button></div>
+    <canvas id="survey-canvas" height="220" style="width:100%;"></canvas>
+    <p style="font-size:.73rem;color:var(--muted);margin-top:6px;line-height:1.5;">💡 Cambia entre barras y circular. ¿Cuál comunica mejor las comparaciones? ¿Cuál las proporciones?</p>
+  </div>
+  <div class="card">
+    <div class="ct">Fase 4 — Análisis con Venn (elige 2 opciones)</div>
+    <div class="stitle">Intersección entre dos categorías</div>
+    <div class="hint">Selecciona las dos opciones que quieres comparar. Luego ingresa cuántos estudiantes eligieron <strong>ambas</strong>.</div>
+    <div class="two-col">
+      <div class="inp-group"><label class="inp-label">Opción A</label><select class="sel" id="v-selA" onchange="updateV2()"></select></div>
+      <div class="inp-group"><label class="inp-label">Opción B</label><select class="sel" id="v-selB" onchange="updateV2()"></select></div>
+    </div>
+    <div class="inp-group"><label class="inp-label">n(A ∩ B) — ¿Cuántos eligieron AMBAS opciones?</label><input class="inp" type="number" id="v-nAB" min="0" value="0" oninput="updateV2()"></div>
+    <button class="btn btn-T btn-sm" onclick="drawVenn2()">🔵 Dibujar Venn</button>
+    <div class="venn-wrap" id="venn2-wrap" style="display:none;"><svg id="venn2" viewBox="0 0 380 175">
+      <rect x="3" y="3" width="374" height="169" rx="8" fill="rgba(37,99,235,.03)" stroke="rgba(37,99,235,.2)" stroke-width="1.5"/>
+      <text x="11" y="16" fill="var(--muted)" font-size="9.5" font-family="Georgia">U</text>
+      <ellipse cx="148" cy="92" rx="108" ry="68" fill="rgba(37,99,235,.12)" stroke="var(--Tm)" stroke-width="2.5"/>
+      <ellipse cx="232" cy="92" rx="108" ry="68" fill="rgba(217,119,6,.12)" stroke="var(--Amm)" stroke-width="2.5"/>
+      <text id="v2-la" x="80" y="35" fill="var(--T)" font-size="11" font-weight="bold" text-anchor="middle" font-family="Georgia" font-style="italic">A</text>
+      <text id="v2-lb" x="300" y="35" fill="var(--Am)" font-size="11" font-weight="bold" text-anchor="middle" font-family="Georgia" font-style="italic">B</text>
+      <text id="v2-oa" x="90" y="96" fill="var(--T)" font-size="22" font-weight="800" text-anchor="middle">—</text>
+      <text x="90" y="110" fill="var(--muted)" font-size="8.5" text-anchor="middle">solo A</text>
+      <text id="v2-ab" x="190" y="96" fill="#374151" font-size="22" font-weight="800" text-anchor="middle">—</text>
+      <text x="190" y="110" fill="var(--muted)" font-size="8.5" text-anchor="middle">A∩B</text>
+      <text id="v2-ob" x="290" y="96" fill="var(--Am)" font-size="22" font-weight="800" text-anchor="middle">—</text>
+      <text x="290" y="110" fill="var(--muted)" font-size="8.5" text-anchor="middle">solo B</text>
+      <text id="v2-ni" x="352" y="160" fill="var(--muted)" font-size="14" font-weight="700" text-anchor="middle">—</text>
+      <text x="352" y="170" fill="var(--muted)" font-size="8" text-anchor="middle">ninguno</text>
+    </svg></div>
+    <div id="v2-formula" class="formula" style="display:none;"><div class="formula-main" id="v2-fmain"></div><div class="formula-sub" id="v2-fsub"></div></div>
+    <div id="v2-warn" class="alert al-E" style="display:none;"></div>
+    <div class="res-grid" id="v2-res" style="display:none;">
+      <div class="res-cell"><div class="rc-lbl">Solo A</div><div class="rc-val" id="v2-r-oa">—</div></div>
+      <div class="res-cell"><div class="rc-lbl">Solo B</div><div class="rc-val" id="v2-r-ob">—</div></div>
+      <div class="res-cell rc-hl"><div class="rc-lbl">A ∪ B</div><div class="rc-val" id="v2-r-union">—</div></div>
+      <div class="res-cell"><div class="rc-lbl">Ninguno (A∪B)'</div><div class="rc-val" id="v2-r-none">—</div></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="ct">Fase 5 — Procesamiento grupal (2 min)</div>
+    <div class="proc-box">🤝 <strong>Antes de continuar, respondan en el Cuaderno de Equipo:</strong><br>
+    1. ¿Qué fue más difícil: recolectar los datos o calcular la intersección?<br>
+    2. ¿Hubo algún error de conteo al principio? ¿Cómo lo detectaron?<br>
+    3. ¿Qué harían diferente si hicieran esta encuesta en una investigación real?</div>
+  </div>
+</div>
+</div><!-- /m2 -->
+<!-- ===== M3 GRÁFICAS (MAGISTRAL) ===== -->
+<div class="mod" id="m3">
+<div class="srow"><span class="sb sb-clase">🏫 En clase · después de plenaria AC2</span><span class="sb" style="background:var(--Aml);border:1px solid var(--Amb);color:var(--Am);">📊 Lectura de gráficas</span></div>
+<div class="card">
+  <div class="ct">M3 · Magistral — Los 3 tipos de gráfica</div>
+  <div class="stitle">Circular, Barras y Lineal</div>
+  <p style="font-size:.83rem;color:var(--muted);line-height:1.6;margin-bottom:12px;">Verás los mismos datos representados de tres formas diferentes. Cada tipo de gráfica tiene un propósito específico.</p>
+  <div class="graph-tabs">
+    <button class="gtab on" onclick="showGraph('bar',this)">📊 Barras</button>
+    <button class="gtab" onclick="showGraph('pie',this)">🥧 Circular</button>
+    <button class="gtab" onclick="showGraph('line',this)">📈 Lineal</button>
+  </div>
+  <!-- Bar chart panel -->
+  <div id="g-bar" class="g-panel">
+    <div class="alert al-Am" style="margin-bottom:10px;">📊 <strong>Gráfica de Barras:</strong> Sirve para <em>comparar categorías</em>. El eje Y tiene la escala de valores; el X tiene las categorías. Lee el valor de cada barra mirando su altura en el eje Y.</div>
+    <canvas id="g-canvas-bar" height="220" style="width:100%;"></canvas>
+    <div class="alert al-T" style="margin-top:10px;"><strong>Cómo leerla:</strong> (1) Lee el título. (2) Identifica los ejes y sus unidades. (3) Localiza la cima de la barra y proyecta hacia el eje Y. (4) Compara alturas entre barras.<br><br>⚠️ <strong>Trampa frecuente:</strong> Si el eje Y no empieza en 0, las diferencias entre barras parecen más grandes de lo que son.</div>
+    <div class="hint">Estos datos muestran consultas al Área de Bienestar Psicológico UdeC (Facatativá, enero–junio 2025). <strong>¿En qué mes hubo más consultas?</strong></div>
+  </div>
+  <!-- Pie chart panel -->
+  <div id="g-pie" class="g-panel" style="display:none;">
+    <div class="alert al-Am" style="margin-bottom:10px;">🥧 <strong>Gráfica Circular (Pastel):</strong> Muestra <em>proporciones de un todo</em>. El círculo completo = 100%. Cada sector es una fracción. Útil para ver qué parte del total representa cada categoría.</div>
+    <canvas id="g-canvas-pie" height="250" style="width:100%;"></canvas>
+    <div class="alert al-T" style="margin-top:10px;"><strong>Cómo leerla:</strong> (1) Identifica el sector más grande y más pequeño. (2) Lee el porcentaje. (3) Multiplica por el total si necesitas un número absoluto.<br><br>⚠️ <strong>Trampa:</strong> Las gráficas circulares en 3D distorsionan visualmente el área de los sectores.</div>
+    <div class="hint">Los datos muestran los <em>motivos de consulta</em> al Bienestar UdeC. <strong>¿Qué motivo es más frecuente?</strong> Si el total fue 118 consultas, ¿cuántas fueron por ansiedad?</div>
+  </div>
+  <!-- Line chart panel -->
+  <div id="g-line" class="g-panel" style="display:none;">
+    <div class="alert al-Am" style="margin-bottom:10px;">📈 <strong>Gráfica Lineal:</strong> Muestra <em>cambios o tendencias en el tiempo</em>. El eje X es el tiempo; el eje Y es el valor medido. La dirección de la línea indica si aumenta, disminuye o se estabiliza.</div>
+    <canvas id="g-canvas-line" height="220" style="width:100%;"></canvas>
+    <div class="alert al-T" style="margin-top:10px;"><strong>Cómo leerla:</strong> (1) Sigue la línea de izquierda a derecha. Sube → aumenta; baja → disminuye; plana → estable. (2) Busca el punto más alto y el más bajo. (3) Describe la tendencia general.<br><br>⚠️ <strong>Trampa:</strong> Una gráfica lineal implica que hay tiempo en el eje X. No la uses para datos de un solo momento puntual.</div>
+    <div class="hint"><strong>¿La gráfica lineal era adecuada para los datos de tu encuesta de transporte?</strong> Discute con tu grupo.</div>
+  </div>
+</div>
+<div class="card">
+  <div class="ct">Regla de oro</div>
+  <div class="stitle">¿Cuándo usar cada tipo?</div>
+  <div class="two-col">
+    <div class="alert al-Am">📊 <strong>Barras</strong><br>Comparar categorías en un mismo momento</div>
+    <div class="alert al-Am">🥧 <strong>Circular</strong><br>Mostrar proporciones de un total</div>
+  </div>
+  <div class="alert al-Am" style="margin:0;">📈 <strong>Lineal</strong><br>Mostrar cambios o tendencias en el tiempo</div>
+  <div class="hint" style="margin-top:10px;">⚠️ <strong>Siempre</strong> incluir: título, ejes con unidades, y fuente de los datos. Sin esas tres cosas, la gráfica es incompleta.</div>
+</div>
+</div><!-- /m3 -->
+
+<!-- ===== M4 ACTIVIDAD COOPERATIVA GRÁFICAS ===== -->
+<div class="mod" id="m4">
+<div class="srow"><span class="sb sb-coop">👥 Actividad cooperativa · 16 min</span><span class="sb sb-clase">🏫 En clase · Tab M3</span></div>
+<div class="coop-blk">
+  <div class="coop-title">📈 AC3 — Interpretando Gráficas en Contexto</div>
+  <div class="coop-timer">⏱ 16 min</div>
+  <div class="role-card"><span class="rtag" style="background:var(--Tl);color:var(--T);border:1px solid var(--Tb);">COORD.</span>Asigna qué tipo de gráfica lee primero cada integrante. Garantiza que todos las lean antes de consensuar.</div>
+  <div class="role-card"><span class="rtag" style="background:var(--Vl);color:var(--V);border:1px solid var(--Vb);">SECRET.</span>Registra las respuestas consensuadas en el Cuaderno de Equipo.</div>
+  <div class="role-card"><span class="rtag" style="background:var(--Aml);color:var(--Am);border:1px solid var(--Amb);">VOCERO</span>Prepara la defensa de la recomendación final: ¿qué gráfica eligieron y por qué?</div>
+</div>
+<div class="card">
+  <div class="ct">Escenario · Bienestar Estudiantil UdeC Facatativá 2025</div>
+  <div class="stitle">Área de Bienestar Psicológico — Informe semestral</div>
+  <div class="alert al-V">El área de Bienestar recopiló datos sobre consultas psicológicas durante el primer semestre de 2025. Como futuros psicólogos, deben aprender a leer e interpretar estos datos para un informe real.</div>
+</div>
+<div class="card">
+  <div class="ct">Bloque A — Gráfica de Barras: Consultas por mes</div>
+  <canvas id="m4-bar" height="200" style="width:100%;margin-bottom:10px;"></canvas>
+  <div id="m4-q1" class="interp-q">
+    <div class="iq-text">1. ¿En qué mes se registraron más consultas?</div>
+    <button class="iq-opt" onclick="chkIQ('m4-q1',this,'A')">A) Febrero</button>
+    <button class="iq-opt" onclick="chkIQ('m4-q1',this,'B')">B) Abril</button>
+    <button class="iq-opt" onclick="chkIQ('m4-q1',this,'C','ok')">C) Mayo ✓</button>
+    <button class="iq-opt" onclick="chkIQ('m4-q1',this,'D')">D) Junio</button>
+    <div class="iq-fb alert al-G" id="m4-q1-fb">✅ Correcto. Mayo registró 27 consultas, el máximo del semestre.</div>
+  </div>
+  <div id="m4-q2" class="interp-q" style="margin-top:8px;">
+    <div class="iq-text">2. ¿Cuántas consultas más hubo en mayo que en enero?</div>
+    <button class="iq-opt" onclick="chkIQ('m4-q2',this,'A')">A) 9</button>
+    <button class="iq-opt" onclick="chkIQ('m4-q2',this,'B')">B) 12</button>
+    <button class="iq-opt" onclick="chkIQ('m4-q2',this,'C','ok')">C) 15 ✓</button>
+    <button class="iq-opt" onclick="chkIQ('m4-q2',this,'D')">D) 27</button>
+    <div class="iq-fb alert al-G" id="m4-q2-fb">✅ Correcto. Mayo=27, Enero=12. 27−12 = 15 consultas más.</div>
+  </div>
+</div>
+<div class="card">
+  <div class="ct">Bloque B — Gráfica Circular: Motivos de consulta</div>
+  <canvas id="m4-pie" height="260" style="width:100%;margin-bottom:10px;"></canvas>
+  <div id="m4-q3" class="interp-q">
+    <div class="iq-text">3. ¿Cuál es el motivo de consulta más frecuente?</div>
+    <button class="iq-opt" onclick="chkIQ('m4-q3',this,'A','ok')">A) Ansiedad ✓</button>
+    <button class="iq-opt" onclick="chkIQ('m4-q3',this,'B')">B) Estrés académico</button>
+    <button class="iq-opt" onclick="chkIQ('m4-q3',this,'C')">C) Problemas relacionales</button>
+    <button class="iq-opt" onclick="chkIQ('m4-q3',this,'D')">D) Orientación vocacional</button>
+    <div class="iq-fb alert al-G" id="m4-q3-fb">✅ Correcto. Ansiedad representa el 38% de las consultas.</div>
+  </div>
+  <div id="m4-q4" class="interp-q" style="margin-top:8px;">
+    <div class="iq-text">4. Si el total de consultas fue 118, ¿cuántas fueron por estrés académico? (28%)</div>
+    <button class="iq-opt" onclick="chkIQ('m4-q4',this,'A')">A) 28</button>
+    <button class="iq-opt" onclick="chkIQ('m4-q4',this,'B','ok')">B) 33 ✓</button>
+    <button class="iq-opt" onclick="chkIQ('m4-q4',this,'C')">C) 45</button>
+    <button class="iq-opt" onclick="chkIQ('m4-q4',this,'D')">D) 22</button>
+    <div class="iq-fb alert al-G" id="m4-q4-fb">✅ Correcto. 118 × 0.28 = 33.04 ≈ 33 consultas.</div>
+  </div>
+</div>
+<div class="card">
+  <div class="ct">Bloque C — Gráfica Lineal: Tendencia semestral</div>
+  <canvas id="m4-line" height="200" style="width:100%;margin-bottom:10px;"></canvas>
+  <div id="m4-q5" class="interp-q">
+    <div class="iq-text">5. ¿Cómo describe mejor la tendencia general del semestre?</div>
+    <button class="iq-opt" onclick="chkIQ('m4-q5',this,'A')">A) Constante sin variaciones</button>
+    <button class="iq-opt" onclick="chkIQ('m4-q5',this,'B','ok')">B) Creciente hasta mayo, con leve baja en junio ✓</button>
+    <button class="iq-opt" onclick="chkIQ('m4-q5',this,'C')">C) Decreciente en general</button>
+    <button class="iq-opt" onclick="chkIQ('m4-q5',this,'D')">D) Sin tendencia clara</button>
+    <div class="iq-fb alert al-G" id="m4-q5-fb">✅ Correcto. La línea sube progresivamente de enero a mayo y baja levemente en junio.</div>
+  </div>
+  <div id="m4-q6" class="interp-q" style="margin-top:8px;">
+    <div class="iq-text">6. El pico en mayo probablemente se relaciona con:</div>
+    <button class="iq-opt" onclick="chkIQ('m4-q6',this,'A')">A) Vacaciones de mayo (hay más tiempo libre)</button>
+    <button class="iq-opt" onclick="chkIQ('m4-q6',this,'B','ok')">B) La época de parciales y entregas del primer semestre ✓</button>
+    <button class="iq-opt" onclick="chkIQ('m4-q6',this,'C')">C) El calor en mayo genera más estrés</button>
+    <button class="iq-opt" onclick="chkIQ('m4-q6',this,'D')">D) La gráfica no permite ninguna interpretación</button>
+    <div class="iq-fb alert al-G" id="m4-q6-fb">✅ Correcto. La interpretación más razonable conecta el pico con las evaluaciones del primer corte. Siempre conecta los datos con el contexto.</div>
+  </div>
+</div>
+<div class="card">
+  <div class="ct">Decisión grupal — Procesamiento</div>
+  <div class="proc-box">🤝 <strong>En el Cuaderno de Equipo, respondan:</strong><br>
+  1. Para un informe de bienestar que va a leer el decano, ¿qué gráfica recomendarían y por qué?<br>
+  2. ¿Qué pregunta no pudo responder ninguna de las tres gráficas?<br>
+  3. ¿En qué pregunta del bloque el grupo tuvo más desacuerdo?</div>
+</div>
+</div><!-- /m4 -->
+<!-- ===== M5 QUIZ ===== -->
+<div class="mod" id="m5">
+<div class="srow"><span class="sb sb-clase">🏫 En clase · individual</span><span class="sb" style="background:var(--Gl);border:1px solid var(--Gb);color:var(--G);">✏️ Quiz — 10 preguntas</span></div>
+<div class="card">
+  <div class="ct">Quiz individual</div>
+  <div class="stitle">Responde todo antes de ver tu nota</div>
+  <p style="font-size:.83rem;color:var(--muted);line-height:1.6;margin-bottom:10px;">Sin hablar con tu grupo. Selecciona una respuesta por pregunta. Cuando termines todas, presiona <strong>"Ver mi nota"</strong>.</p>
+  <div class="qbar-wrap"><div class="qbar-fill" id="qprogress" style="width:0%"></div></div>
+  <div id="q-prog-txt" style="font-size:.72rem;color:var(--muted);text-align:right;margin-bottom:8px;">0 / 10 respondidas</div>
+</div>
+<div id="quiz-container"></div>
+<div class="card" id="quiz-actions">
+  <button class="btn btn-T" style="width:100%;margin-bottom:8px;justify-content:center;" onclick="submitQuiz()">📊 Ver mi nota</button>
+  <button class="btn btn-grey" style="width:100%;justify-content:center;" onclick="resetQuiz()">🔄 Reintentar</button>
+  <div id="quiz-score-display" style="display:none;margin-top:12px;text-align:center;"></div>
+</div>
+</div><!-- /m5 -->
+
+<!-- ===== M6 PARA CASA ===== -->
+<div class="mod" id="m6">
+<div class="srow"><span class="sb sb-casa">🏠 Para casa</span><span class="sb" style="background:var(--Aml);border:1px solid var(--Amb);color:var(--Am);">📚 3 niveles</span></div>
+<div class="card">
+  <div class="ct">M6 · Trabajo en casa</div>
+  <div class="stitle">Ejercicios por niveles pedagógicos</div>
+  <p style="font-size:.83rem;color:var(--muted);line-height:1.6;margin-bottom:8px;">Completa al menos los niveles 1 y 2 para la próxima clase. El nivel 3 es desafiante y conecta con la investigación en psicología.</p>
+  <div class="alert al-T">💡 <strong>Objetivo:</strong> Nivel 1 consolida la adquisición · Nivel 2 desarrolla fluidez · Nivel 3 lleva hacia la generalización en nuevos contextos.</div>
+</div>
+
+<!-- NIVEL 1 -->
+<div class="level-hdr" onclick="toggleLevel('lv1')" style="background:var(--Tl);border-color:var(--Tb);">
+  <span style="font-size:1.1rem;">📗</span>
+  <div style="flex:1;"><div style="font-weight:700;color:var(--T);font-size:.9rem;">Nivel 1 — Adquisición</div><div style="font-size:.72rem;color:var(--muted);">Fórmula cardinal y lectura básica · 4 ejercicios</div></div>
+  <span style="color:var(--Tm);font-size:1rem;" id="lv1-arr">▼</span>
+</div>
+<div id="lv1" style="display:none;">
+  <div class="ex-item">
+    <div class="ex-q"><strong>1.</strong> En una encuesta a 50 estudiantes de la UdeC: 28 usan Instagram, 22 usan TikTok, 10 usan ambas redes. ¿Cuántos no usan ninguna de las dos?</div>
+    <div class="ans-row">
+      <input class="inp" style="max-width:80px;" type="number" id="h1a1" placeholder="R=">
+      <button class="btn btn-T btn-xs" onclick="chkHome('h1a1',10,'h1a1-fb')">Verificar</button>
+    </div>
+    <div class="ans-fb alert al-G" id="h1a1-fb">✅ n(I∪T) = 28+22−10 = 40. Ninguna = 50−40 = <strong>10</strong> estudiantes.</div>
+  </div>
+  <div class="ex-item">
+    <div class="ex-q"><strong>2.</strong> Si n(A∪B) = 45, n(A) = 30, n(A∩B) = 8, ¿cuánto es n(B)?</div>
+    <div class="ans-row">
+      <input class="inp" style="max-width:80px;" type="number" id="h1a2" placeholder="n(B)=">
+      <button class="btn btn-T btn-xs" onclick="chkHome('h1a2',23,'h1a2-fb')">Verificar</button>
+    </div>
+    <div class="ans-fb alert al-G" id="h1a2-fb">✅ n(B) = n(A∪B) − n(A) + n(A∩B) = 45 − 30 + 8 = <strong>23</strong>.</div>
+  </div>
+  <div class="ex-item">
+    <div class="ex-q"><strong>3.</strong> Una gráfica circular muestra que el 35% de los estudiantes usa bus para llegar a la U. Si hay 80 estudiantes encuestados, ¿cuántos usan bus?</div>
+    <div class="ans-row">
+      <input class="inp" style="max-width:80px;" type="number" id="h1a3" placeholder="R=">
+      <button class="btn btn-T btn-xs" onclick="chkHome('h1a3',28,'h1a3-fb')">Verificar</button>
+    </div>
+    <div class="ans-fb alert al-G" id="h1a3-fb">✅ 80 × 0.35 = <strong>28</strong> estudiantes usan bus.</div>
+  </div>
+  <div class="ex-item">
+    <div class="ex-q"><strong>4.</strong> ¿Qué tipo de gráfica es más apropiada para mostrar cómo cambió la asistencia a Bienestar mes a mes durante el año? <em>Escribe: barras, circular o lineal.</em></div>
+    <div class="ans-row">
+      <input class="inp" style="max-width:140px;" type="text" id="h1a4" placeholder="Tu respuesta">
+      <button class="btn btn-T btn-xs" onclick="chkHomeText('h1a4',['lineal','líneal','line','gráfica lineal'],'h1a4-fb')">Verificar</button>
+    </div>
+    <div class="ans-fb alert al-G" id="h1a4-fb">✅ <strong>Lineal</strong>. Siempre que haya tiempo en el eje X y quieras mostrar tendencias o cambios, usa la gráfica lineal.</div>
+  </div>
+</div>
+
+<!-- NIVEL 2 -->
+<div class="level-hdr" onclick="toggleLevel('lv2')" style="background:var(--Aml);border-color:var(--Amb);">
+  <span style="font-size:1.1rem;">📙</span>
+  <div style="flex:1;"><div style="font-weight:700;color:var(--Am);font-size:.9rem;">Nivel 2 — Fluidez</div><div style="font-size:.72rem;color:var(--muted);">Problemas de encuesta con Venn · 3 ejercicios</div></div>
+  <span style="color:var(--Amm);font-size:1rem;" id="lv2-arr">▼</span>
+</div>
+<div id="lv2" style="display:none;">
+  <div class="ex-item">
+    <div class="ex-q"><strong>5.</strong> En una encuesta a 65 estudiantes de psicología de la UdeC:<br>• 37 reportan que usan estrategias de estudio activo<br>• 36 reportan que estudian en grupo<br>• 31 reportan que hacen ejercicio regularmente<br>• 14 hacen las dos primeras (activo + grupo)<br>• 21 hacen activo + ejercicio<br>• 14 hacen grupo + ejercicio<br>• 8 hacen los tres<br><br>¿A cuántos estudiantes les aplica <strong>exactamente una</strong> de las tres estrategias?</div>
+    <div class="ans-row">
+      <input class="inp" style="max-width:80px;" type="number" id="h2a1" placeholder="R=">
+      <button class="btn btn-Am btn-xs" onclick="chkHome('h2a1',29,'h2a1-fb')">Verificar</button>
+    </div>
+    <div class="ans-fb alert al-G" id="h2a1-fb">✅ Usando el Venn de 3 conjuntos: solo Activo=37−(14−8)−(21−8)−8=10; solo Grupo=36−6−6−8=16; solo Ejercicio=31−13−6−8=4. No esperes: solo A + solo B + solo C = 10+16+4 = <strong>30</strong>. (La intersección exactamente-dos = (14-8)+(21-8)+(14-8)=6+13+6=25; intersección-tres=8; sin restricción=65−10−16−4−6−13−6−8=2). Exactamente uno = 30. Verifica tu Venn paso a paso.</div>
+  </div>
+  <div class="ex-item">
+    <div class="ex-q"><strong>6.</strong> Una gráfica de barras muestra el número de estudiantes que buscaron orientación psicológica por semestre: 2021-I: 45, 2021-II: 62, 2022-I: 58, 2022-II: 78, 2023-I: 95, 2023-II: 88.<br><br>a) ¿En qué semestre hubo mayor incremento respecto al semestre anterior?<br>b) ¿Cuál fue la tendencia general entre 2021 y 2023?</div>
+    <div style="margin-top:8px;">
+      <label class="inp-label">a) Semestre con mayor incremento:</label>
+      <input class="inp" style="max-width:140px;" type="text" id="h2a2" placeholder="ej. 2022-II">
+      <button class="btn btn-Am btn-xs" style="margin-top:5px;" onclick="chkHomeText('h2a2',['2022-ii','2022 ii','2022-2','segundo semestre 2022'],'h2a2-fb')">Verificar</button>
+    </div>
+    <div class="ans-fb alert al-G" id="h2a2-fb">✅ 2022-II: 78−58=20 (mayor incremento). Los demás: 2021-II: +17, 2022-I: −4, 2023-I: +17, 2023-II: −7.</div>
+  </div>
+  <div class="ex-item">
+    <div class="ex-q"><strong>7.</strong> En el diagrama de Venn de una encuesta sobre hábitos de consumo:<br>Solo café=12, solo comedor=8, café∩comedor=5, ninguno=3, total n(U)=?<br><br>Calcula n(U) y verifica usando la fórmula cardinal.</div>
+    <div class="ans-row">
+      <input class="inp" style="max-width:80px;" type="number" id="h2a3" placeholder="n(U)=">
+      <button class="btn btn-Am btn-xs" onclick="chkHome('h2a3',28,'h2a3-fb')">Verificar</button>
+    </div>
+    <div class="ans-fb alert al-G" id="h2a3-fb">✅ n(U) = soloA + soloB + A∩B + ninguno = 12+8+5+3 = <strong>28</strong>. Verificación: n(A∪B)=n(A)+n(B)−n(A∩B)=(12+5)+(8+5)−5=17+13−5=25; 28−25=3=ninguno. ✓</div>
+  </div>
+</div>
+
+<!-- NIVEL 3 -->
+<div class="level-hdr" onclick="toggleLevel('lv3')" style="background:var(--Vl);border-color:var(--Vb);">
+  <span style="font-size:1.1rem;">📕</span>
+  <div style="flex:1;"><div style="font-weight:700;color:var(--V);font-size:.9rem;">Nivel 3 — Fluidez hacia Generalización</div><div style="font-size:.72rem;color:var(--muted);">Aplicación en investigación psicológica · 2 ejercicios desafiantes</div></div>
+  <span style="color:var(--Vm);font-size:1rem;" id="lv3-arr">▼</span>
+</div>
+<div id="lv3" style="display:none;">
+  <div class="ex-item">
+    <div class="ex-q"><strong>8.</strong> Un investigador reporta en un artículo: "El 68% de los participantes presenta síntomas de ansiedad (A) y el 72% presenta síntomas de depresión (D). Ambas muestras provienen del mismo grupo de 150 personas."<br><br>a) ¿Cuál es el mínimo posible de personas que presentan AMBAS condiciones?<br>b) ¿Cuál es el máximo posible?<br>c) ¿Podría ser que solo el 10% tenga ambas? Justifica.</div>
+    <div style="margin-top:8px;">
+      <label class="inp-label">a) Mínimo n(A∩D) = ?</label>
+      <input class="inp" style="max-width:80px;" type="number" id="h3a1" placeholder="R=">
+      <button class="btn btn-V btn-xs" onclick="chkHome('h3a1',60,'h3a1-fb')">Verificar</button>
+    </div>
+    <div class="ans-fb alert al-G" id="h3a1-fb">✅ Mínimo = n(A)+n(D)−n(U) = 102+108−150 = <strong>60</strong> personas. (Principio de inclusión-exclusión: n(A∩B) ≥ n(A)+n(B)−n(U))</div>
+    <div style="margin-top:8px;">
+      <label class="inp-label">b) Máximo n(A∩D) = ?</label>
+      <input class="inp" style="max-width:80px;" type="number" id="h3a2" placeholder="R=">
+      <button class="btn btn-V btn-xs" onclick="chkHome('h3a2',102,'h3a2-fb')">Verificar</button>
+    </div>
+    <div class="ans-fb alert al-G" id="h3a2-fb">✅ Máximo = mín(n(A), n(D)) = mín(102, 108) = <strong>102</strong>. (No puede haber más personas con ambas que personas en el conjunto más pequeño)</div>
+  </div>
+  <div class="ex-item">
+    <div class="ex-q"><strong>9.</strong> Diseña tú mismo una pregunta de encuesta para estudiantes de psicología que:<br>• Tenga 3 opciones de respuesta con selección múltiple posible<br>• Sea relevante para el bienestar estudiantil<br>• Genere datos que puedas analizar con un Venn de 3 conjuntos<br><br>Escribe: (1) la pregunta, (2) las 3 opciones, (3) los datos hipotéticos para un grupo de 30 estudiantes que permitan construir el Venn, (4) calcula n(A∪B∪C).</div>
+    <div style="margin-top:8px;padding:10px;border-radius:9px;background:var(--Vl);border:1px solid var(--Vb);font-size:.79rem;color:var(--V);line-height:1.6;">
+      📝 <strong>Este ejercicio se entrega escrito al profesor.</strong> No tiene verificación automática porque requiere creatividad y justificación. Criterios: (1) pregunta relevante y bien formulada, (2) datos coherentes (no negativos, sin contradicciones), (3) cálculo correcto de n(A∪B∪C).</div>
+  </div>
+</div>
+</div><!-- /m6 -->
+
+</div><!-- /wrap -->
+<script>
+// ====== TAB SWITCHING ======
+function show(id,el){
+  document.querySelectorAll('.mod').forEach(m=>m.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  if(el)el.classList.add('on');
+  if(id==='m3')initM3Charts();
+  if(id==='m4')initM4Charts();
+}
+
+// ====== EULER ARGUMENTS ======
+const EULER=[
+  {id:1, type:'Cuantificador universal · Modus ponens',
+   premises:['Todos los mamíferos son vertebrados.','Las ballenas son mamíferos.'],
+   conc:'∴ Las ballenas son vertebrados.',
+   valid:true, tag:'✅ VÁLIDO — Modus ponens',
+   svg:`<svg viewBox="0 0 380 185" style="width:100%;background:#f8faff;border-radius:10px;display:block;">
+     <ellipse cx="190" cy="97" rx="162" ry="82" fill="rgba(37,99,235,.08)" stroke="#4f72c4" stroke-width="2"/>
+     <text x="55" y="34" fill="#2563eb" font-size="12" font-family="Georgia" font-style="italic">Vertebrados</text>
+     <ellipse cx="192" cy="107" rx="88" ry="52" fill="rgba(37,99,235,.14)" stroke="#2563eb" stroke-width="2" stroke-dasharray="5,3"/>
+     <text x="148" y="75" fill="#1e3a6e" font-size="11" font-family="Georgia" font-style="italic">Mamíferos</text>
+     <circle cx="192" cy="118" r="21" fill="rgba(234,88,12,.2)" stroke="#ea580c" stroke-width="2.5"/>
+     <text x="192" y="113" fill="#ea580c" font-size="13" font-weight="bold" text-anchor="middle">×</text>
+     <text x="192" y="126" fill="#c05621" font-size="9" text-anchor="middle">Ballenas</text>
+     <text x="190" y="178" fill="#6b7280" font-size="10" text-anchor="middle">× está dentro de Mamíferos → necesariamente dentro de Vertebrados</text>
+   </svg>`,
+   expl:'✅ Válido. El círculo "Mamíferos" está completamente dentro de "Vertebrados". Las ballenas (×) están en Mamíferos, por lo tanto forzosamente están en Vertebrados. No hay otra posibilidad.'},
+  {id:2, type:'Modus tollens',
+   premises:['Todo estudiante de la UdeC tiene carné estudiantil.','Julián no tiene carné estudiantil.'],
+   conc:'∴ Julián no es estudiante de la UdeC.',
+   valid:true, tag:'✅ VÁLIDO — Modus tollens',
+   svg:`<svg viewBox="0 0 380 185" style="width:100%;background:#f8faff;border-radius:10px;display:block;">
+     <ellipse cx="195" cy="95" rx="158" ry="78" fill="rgba(37,99,235,.07)" stroke="#4f72c4" stroke-width="2"/>
+     <text x="48" y="34" fill="#2563eb" font-size="12" font-family="Georgia" font-style="italic">Tienen carné estudiantil</text>
+     <ellipse cx="195" cy="102" rx="78" ry="46" fill="rgba(37,99,235,.14)" stroke="#2563eb" stroke-width="2" stroke-dasharray="5,3"/>
+     <text x="158" y="78" fill="#1e3a6e" font-size="11" font-family="Georgia" font-style="italic">Est. UdeC</text>
+     <circle cx="50" cy="162" r="19" fill="rgba(234,88,12,.2)" stroke="#ea580c" stroke-width="2.5"/>
+     <text x="50" y="157" fill="#ea580c" font-size="13" font-weight="bold" text-anchor="middle">×</text>
+     <text x="50" y="170" fill="#c05621" font-size="9" text-anchor="middle">Julián</text>
+     <text x="190" y="182" fill="#6b7280" font-size="10" text-anchor="middle">× fuera del óvalo externo → obligatoriamente fuera del interior también</text>
+   </svg>`,
+   expl:'✅ Válido. "Est. UdeC" está dentro de "Tienen carné". Como Julián (×) está fuera de "Tienen carné", también está fuera de "Est. UdeC". No hay otra ubicación posible.'},
+  {id:3, type:'Afirmar el consecuente — FALACIA',
+   premises:['Todos los psicólogos estudian estadística.','Valentina estudia estadística.'],
+   conc:'∴ Valentina es psicóloga.',
+   valid:false, tag:'❌ INVÁLIDO — Afirmar el consecuente',
+   svg:`<svg viewBox="0 0 380 195" style="width:100%;background:#fff8f8;border-radius:10px;display:block;">
+     <ellipse cx="195" cy="98" rx="160" ry="84" fill="rgba(234,88,12,.07)" stroke="#ea580c" stroke-width="2"/>
+     <text x="48" y="32" fill="#c05621" font-size="12" font-family="Georgia" font-style="italic">Estudian estadística</text>
+     <ellipse cx="195" cy="106" rx="75" ry="46" fill="rgba(234,88,12,.13)" stroke="#c05621" stroke-width="2" stroke-dasharray="5,3"/>
+     <text x="157" y="80" fill="#92400e" font-size="11" font-family="Georgia" font-style="italic">Psicólogos</text>
+     <circle cx="298" cy="98" r="19" fill="rgba(239,68,68,.15)" stroke="#ef4444" stroke-width="2" stroke-dasharray="4,3"/>
+     <text x="298" y="93" fill="#ef4444" font-size="11" font-weight="bold" text-anchor="middle">×?</text>
+     <text x="298" y="105" fill="#c05621" font-size="8.5" text-anchor="middle">Valentina</text>
+     <circle cx="195" cy="108" r="19" fill="rgba(239,68,68,.15)" stroke="#ef4444" stroke-width="2" stroke-dasharray="4,3"/>
+     <text x="195" y="103" fill="#ef4444" font-size="11" font-weight="bold" text-anchor="middle">×?</text>
+     <text x="195" y="115" fill="#c05621" font-size="8.5" text-anchor="middle">Valentina</text>
+     <text x="190" y="186" fill="#6b7280" font-size="10" text-anchor="middle">× puede estar DENTRO o FUERA de Psicólogos — dos posiciones posibles</text>
+   </svg>`,
+   expl:'❌ Inválido (falacia). "Psicólogos" está dentro de "Estudian estadística", pero Valentina solo sabemos que está en "Estudian estadística". Podría ser matemática, ingeniera, etc. El diagrama muestra dos posiciones posibles para ×.'},
+  {id:4, type:'Silogismo en cadena',
+   premises:['Todos los objetos costosos son deseables.','Todos los objetos deseables te hacen sentir bien.','Todo lo que te hace sentir bien ocasiona que vivas más.'],
+   conc:'∴ Los objetos costosos ocasionan que vivas más.',
+   valid:true, tag:'✅ VÁLIDO — Silogismo en cadena (conclusión cuestionable en la realidad)',
+   svg:`<svg viewBox="0 0 380 195" style="width:100%;background:#f8faff;border-radius:10px;display:block;">
+     <ellipse cx="190" cy="98" rx="163" ry="86" fill="rgba(21,128,61,.06)" stroke="#16a34a" stroke-width="2"/>
+     <text x="40" y="30" fill="#166534" font-size="11" font-family="Georgia" font-style="italic">Ocasionan vivir más</text>
+     <ellipse cx="190" cy="103" rx="118" ry="62" fill="rgba(21,128,61,.08)" stroke="#16a34a" stroke-width="2"/>
+     <text x="90" y="57" fill="#166534" font-size="11" font-family="Georgia" font-style="italic">Te hacen sentir bien</text>
+     <ellipse cx="190" cy="110" rx="72" ry="40" fill="rgba(21,128,61,.13)" stroke="#166534" stroke-width="2" stroke-dasharray="5,3"/>
+     <text x="152" y="84" fill="#166534" font-size="11" font-family="Georgia" font-style="italic">Deseables</text>
+     <ellipse cx="190" cy="117" rx="35" ry="22" fill="rgba(37,99,235,.2)" stroke="#2563eb" stroke-width="2"/>
+     <text x="190" y="120" fill="#1e3a6e" font-size="9.5" text-anchor="middle" font-family="Georgia">Costosos</text>
+     <text x="190" y="186" fill="#6b7280" font-size="10" text-anchor="middle">Costosos ⊂ Deseables ⊂ Sentirse bien ⊂ Vivir más</text>
+   </svg>`,
+   expl:'✅ Válido (aunque la conclusión sea cuestionable). La cadena de inclusiones fuerza que "Costosos" esté dentro de "Vivir más". Esto ilustra que validez ≠ verdad: el argumento es formalmente correcto aunque la premisa 1 sea discutible.'},
+  {id:5, type:'Cuantificador existencial — FALACIA',
+   premises:['Algunos estudiantes de psicología sufren estrés académico.','Santiago estudia psicología.'],
+   conc:'∴ Santiago sufre estrés académico.',
+   valid:false, tag:'❌ INVÁLIDO — Cuantificador existencial',
+   svg:`<svg viewBox="0 0 380 195" style="width:100%;background:#fff8f8;border-radius:10px;display:block;">
+     <ellipse cx="145" cy="97" rx="105" ry="74" fill="rgba(37,99,235,.08)" stroke="#4f72c4" stroke-width="2"/>
+     <text x="78" y="36" fill="#2563eb" font-size="11" font-family="Georgia" font-style="italic">Psicología</text>
+     <ellipse cx="235" cy="97" rx="105" ry="74" fill="rgba(234,88,12,.08)" stroke="#c05621" stroke-width="2"/>
+     <text x="220" y="36" fill="#c05621" font-size="11" font-family="Georgia" font-style="italic">Estrés</text>
+     <circle cx="108" cy="97" r="20" fill="rgba(37,99,235,.18)" stroke="#2563eb" stroke-width="2" stroke-dasharray="4,3"/>
+     <text x="108" y="92" fill="#2563eb" font-size="11" font-weight="bold" text-anchor="middle">×?</text>
+     <text x="108" y="104" fill="#1e3a6e" font-size="8.5" text-anchor="middle">Santiago</text>
+     <circle cx="195" cy="97" r="20" fill="rgba(37,99,235,.18)" stroke="#2563eb" stroke-width="2" stroke-dasharray="4,3"/>
+     <text x="195" y="92" fill="#2563eb" font-size="11" font-weight="bold" text-anchor="middle">×?</text>
+     <text x="195" y="104" fill="#1e3a6e" font-size="8.5" text-anchor="middle">Santiago</text>
+     <text x="190" y="185" fill="#6b7280" font-size="10" text-anchor="middle">"Algunos" ≠ "todos": Santiago puede estar en Psicología con o sin estrés</text>
+   </svg>`,
+   expl:'❌ Inválido. "Algunos" no garantiza nada sobre Santiago en particular. Puede estar en la parte de Psicología sin estrés, o en la intersección. Hay dos posiciones posibles. La conclusión no está garantizada.'},
+  {id:6, type:'Conjuntos disjuntos',
+   premises:['Ningún psicópata siente empatía genuina.','Laura siente empatía genuina.'],
+   conc:'∴ Laura no es psicópata.',
+   valid:true, tag:'✅ VÁLIDO — Conjuntos disjuntos',
+   svg:`<svg viewBox="0 0 380 185" style="width:100%;background:#f8faff;border-radius:10px;display:block;">
+     <ellipse cx="108" cy="94" rx="88" ry="70" fill="rgba(239,68,68,.08)" stroke="#ef4444" stroke-width="2"/>
+     <text x="52" y="35" fill="#991b1b" font-size="11" font-family="Georgia" font-style="italic">Psicópatas</text>
+     <ellipse cx="270" cy="94" rx="88" ry="70" fill="rgba(37,99,235,.08)" stroke="#4f72c4" stroke-width="2"/>
+     <text x="220" y="35" fill="#1e3a6e" font-size="11" font-family="Georgia" font-style="italic">Empáticos</text>
+     <circle cx="270" cy="105" r="22" fill="rgba(21,128,61,.22)" stroke="#16a34a" stroke-width="2.5"/>
+     <text x="270" y="100" fill="#166534" font-size="13" font-weight="bold" text-anchor="middle">×</text>
+     <text x="270" y="113" fill="#166534" font-size="9" text-anchor="middle">Laura</text>
+     <text x="190" y="178" fill="#6b7280" font-size="10" text-anchor="middle">Círculos sin intersección: × en Empáticos → imposible estar en Psicópatas</text>
+   </svg>`,
+   expl:'✅ Válido. "Psicópatas" y "Empáticos" son disjuntos (P1 establece que no comparten elementos). Laura está en "Empáticos", que no se intersecta con "Psicópatas". Por lo tanto Laura no puede ser psicópata.'},
+];
+
+function buildEuler(){
+  const c=document.getElementById('eul-container');
+  EULER.forEach(arg=>{
+    const div=document.createElement('div');
+    div.className='eul-card';
+    div.id='eul-'+arg.id;
+    div.innerHTML=`
+      <div style="font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--muted2);margin-bottom:6px;">Argumento ${arg.id} · ${arg.type}</div>
+      <div class="eul-premises">${arg.premises.map(p=>'<div>'+p+'</div>').join('')}</div>
+      <div class="eul-conc">${arg.conc}</div>
+      <div class="eul-btns">
+        <button class="eul-btn" id="eb-v-${arg.id}" onclick="markEuler(${arg.id},'valid',${arg.valid})">✅ Válido</button>
+        <button class="eul-btn" id="eb-i-${arg.id}" onclick="markEuler(${arg.id},'invalid',${!arg.valid})">❌ Inválido</button>
+      </div>
+      <button class="btn btn-outline btn-xs" onclick="revealEuler(${arg.id})">👁 Revelar diagrama</button>
+      <div class="eul-reveal" id="eul-rev-${arg.id}">
+        <div class="rv-badge" style="${arg.valid?'background:var(--Gl);border-color:var(--Gb);color:var(--G);':'background:var(--El);border-color:var(--Eb);color:var(--E);'}">${arg.tag}</div>
+        <div class="eul-diag">${arg.svg}</div>
+        <div class="alert ${arg.valid?'al-G':'al-E'}">${arg.expl}</div>
+      </div>`;
+    c.appendChild(div);
+  });
+}
+
+function markEuler(id,choice,correct){
+  const vb=document.getElementById('eb-v-'+id);
+  const ib=document.getElementById('eb-i-'+id);
+  vb.className='eul-btn';ib.className='eul-btn';
+  if(choice==='valid')vb.className='eul-btn '+(correct?'is-v':'is-i');
+  else ib.className='eul-btn '+(correct?'is-v':'is-i');
+}
+
+function revealEuler(id){
+  const rev=document.getElementById('eul-rev-'+id);
+  rev.classList.add('on');
+  rev.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+// ====== M1 LIVE VENN ======
+function calcV1(){
+  const nA=+document.getElementById('c_nA').value||0;
+  const nB=+document.getElementById('c_nB').value||0;
+  const nAB=+document.getElementById('c_nAB').value||0;
+  const nU=+document.getElementById('c_nU').value||0;
+  const warn=document.getElementById('v1-warn');
+  warn.style.display='none';
+  if(nAB>nA||nAB>nB){warn.textContent='⚠️ n(A∩B) no puede ser mayor que n(A) o n(B).';warn.style.display='block';return;}
+  const union=nA+nB-nAB;
+  const onlyA=nA-nAB,onlyB=nB-nAB,neither=nU-union;
+  if(neither<0){warn.textContent='⚠️ Los valores son inconsistentes: n(A∪B) = '+union+' > n(U) = '+nU+'. Revisa los datos.';warn.style.display='block';}
+  document.getElementById('v1-oa').textContent=onlyA;
+  document.getElementById('v1-ab').textContent=nAB;
+  document.getElementById('v1-ob').textContent=onlyB;
+  document.getElementById('v1-ni').textContent=Math.max(0,neither);
+  document.getElementById('v1-formula').innerHTML=`<div class="formula-main">n(A∪B) = ${nA} + ${nB} − ${nAB} = <span style="color:var(--Tqm);">${union}</span></div><div class="formula-sub">n(ninguno) = n(U) − n(A∪B) = ${nU} − ${union} = <strong>${Math.max(0,neither)}</strong></div>`;
+}
+
+// ====== M2 SURVEY ======
+const TOPICS={
+  transporte:{name:'🚌 Medios de Transporte',q:'¿Cómo llegaste hoy a la U? (marca todos los que apliquen)',note:'En Facatativá muchos usan más de un medio: flota + bus, o flota + TransMilenio.',opts:['A pie','Bus / SITP','TransMilenio','Flota intermunicipal','Moto','Carro particular'],colors:['#4f72c4','#ea580c','#16a34a','#d97706','#7c3aed','#0d9488']},
+  redes:{name:'📱 Redes Sociales',q:'¿Cuáles redes sociales usas a diario? (marca todas las que apliquen)',note:'Muchas personas usan varias redes simultáneamente.',opts:['Instagram','TikTok','WhatsApp','YouTube','Facebook','Otra'],colors:['#e1306c','#000','#25d366','#ff0000','#1877f2','#777']},
+  actividad:{name:'🏃 Actividad Física',q:'¿Qué actividad física practicas regularmente? (marca todas las que apliquen)',note:'Algunas personas combinan varias actividades.',opts:['Caminar','Gimnasio','Deporte en equipo','Yoga / meditación','Ninguna'],colors:['#16a34a','#7c3aed','#ea580c','#4f72c4','#aaa']},
+  estudio:{name:'📚 Hábitos de Estudio',q:'¿Cómo preparas los parciales? (marca todas las que apliquen)',note:'Muchos estudiantes combinan estrategias de estudio.',opts:['Solo','En grupo','Resúmenes / mapas','Videos / YouTube','Ejercicios y práctica'],colors:['#4f72c4','#ea580c','#16a34a','#ff0000','#d97706']},
+  campus:{name:'☕ Consumo en el Campus',q:'¿Qué consumes normalmente en el campus? (marca todo lo que aplique)',note:'El consumo puede variar: algunos traen algo de casa Y también compran algo.',opts:['Tinto / café','Comedor universitario','Snacks / mecato','Merienda de casa','Agua / naturales'],colors:['#92400e','#16a34a','#d97706','#7c3aed','#4f72c4']},
+};
+
+let curTopic=null,sChartType='bar',sChartData=[];
+
+function chooseTopic(key){
+  document.querySelectorAll('.topic-btn').forEach(b=>b.classList.remove('chosen'));
+  event.currentTarget.classList.add('chosen');
+  curTopic=key;
+  const t=TOPICS[key];
+  document.getElementById('s-topic-label').textContent='Tema elegido: '+t.name;
+  document.getElementById('s-question').textContent=t.q;
+  document.getElementById('s-note').textContent=t.note;
+  const og=document.getElementById('opt-grid');
+  og.innerHTML='';
+  t.opts.forEach((o,i)=>{
+    const d=document.createElement('div');d.className='opt-item';
+    d.innerHTML=`<label style="color:var(--text);">${o}</label><input class="opt-count" type="number" min="0" value="0" id="oc-${i}" oninput="updateSChart()">`;
+    og.appendChild(d);
+  });
+  const vs=document.getElementById('v-selA');const vsb=document.getElementById('v-selB');
+  vs.innerHTML='';vsb.innerHTML='';
+  t.opts.forEach((o,i)=>{
+    vs.innerHTML+=`<option value="${i}">${o}</option>`;
+    vsb.innerHTML+=`<option value="${i}">${o}</option>`;
+  });
+  if(t.opts.length>1){vsb.value='1';}
+  document.getElementById('survey-panel').style.display='block';
+  document.getElementById('chart-card').style.display='none';
+  document.getElementById('venn2-wrap').style.display='none';
+  document.getElementById('v2-formula').style.display='none';
+  document.getElementById('v2-res').style.display='none';
+}
+
+function updateSChart(){
+  if(!curTopic)return;
+  const t=TOPICS[curTopic];
+  sChartData=t.opts.map((_,i)=>+document.getElementById('oc-'+i)?.value||0);
+  document.getElementById('chart-card').style.display='block';
+  drawSurveyChart();
+}
+
+function switchSChart(type){
+  sChartType=type;
+  document.getElementById('ct-bar').className='ct-btn'+(type==='bar'?' on':'');
+  document.getElementById('ct-pie').className='ct-btn'+(type==='pie'?' on':'');
+  drawSurveyChart();
+}
+
+function drawSurveyChart(){
+  if(!curTopic)return;
+  const t=TOPICS[curTopic];
+  const cvs=document.getElementById('survey-canvas');
+  cvs.width=cvs.parentElement.offsetWidth||320;
+  if(sChartType==='bar') drawBar(cvs,sChartData,t.opts,t.colors,'Distribución de respuestas');
+  else drawPie(cvs,sChartData,t.opts,t.colors,'Proporción de respuestas');
+}
+
+function updateV2(){}
+
+function drawVenn2(){
+  if(!curTopic)return;
+  const t=TOPICS[curTopic];
+  const ia=+document.getElementById('v-selA').value;
+  const ib=+document.getElementById('v-selB').value;
+  const nAB=+document.getElementById('v-nAB').value||0;
+  const nU=+document.getElementById('s-total').value||1;
+  const nA=+document.getElementById('oc-'+ia)?.value||0;
+  const nB=+document.getElementById('oc-'+ib)?.value||0;
+  const warn=document.getElementById('v2-warn');warn.style.display='none';
+  if(ia===ib){warn.textContent='⚠️ Elige dos opciones diferentes.';warn.style.display='block';return;}
+  if(nAB>nA||nAB>nB){warn.textContent='⚠️ n(A∩B) no puede ser mayor que n(A) o n(B).';warn.style.display='block';return;}
+  const union=nA+nB-nAB;const neither=nU-union;
+  if(neither<0){warn.textContent='⚠️ n(A∪B)='+union+' > n(U)='+nU+'. Verifica los conteos.';warn.style.display='block';}
+  document.getElementById('v2-la').textContent=t.opts[ia];
+  document.getElementById('v2-lb').textContent=t.opts[ib];
+  document.getElementById('v2-oa').textContent=nA-nAB;
+  document.getElementById('v2-ab').textContent=nAB;
+  document.getElementById('v2-ob').textContent=nB-nAB;
+  document.getElementById('v2-ni').textContent=Math.max(0,neither);
+  document.getElementById('venn2-wrap').style.display='block';
+  document.getElementById('v2-formula').style.display='block';
+  document.getElementById('v2-fmain').innerHTML=`n(A∪B) = ${nA} + ${nB} − ${nAB} = <span style="color:var(--Tqm);">${union}</span>`;
+  document.getElementById('v2-fsub').textContent=`n(ninguno) = n(U) − n(A∪B) = ${nU} − ${union} = ${Math.max(0,neither)}`;
+  document.getElementById('v2-res').style.display='grid';
+  document.getElementById('v2-r-oa').textContent=nA-nAB;
+  document.getElementById('v2-r-ob').textContent=nB-nAB;
+  document.getElementById('v2-r-union').textContent=union;
+  document.getElementById('v2-r-none').textContent=Math.max(0,neither);
+}
+
+// ====== CHART DRAWING FUNCTIONS ======
+function drawBar(cvs,data,labels,colors,title){
+  const ctx=cvs.getContext('2d');const W=cvs.width,H=cvs.height;
+  const P={t:40,r:15,b:55,l:45};const cw=W-P.l-P.r,ch=H-P.t-P.b;
+  ctx.clearRect(0,0,W,H);ctx.fillStyle='#fff';ctx.fillRect(0,0,W,H);
+  const max=Math.max(...data,1)*1.2;
+  ctx.fillStyle='#1e3a6e';ctx.font='bold 12px Georgia';ctx.textAlign='center';ctx.fillText(title,W/2,22);
+  for(let i=0;i<=5;i++){
+    const y=P.t+ch-i/5*ch;const v=Math.round(i/5*max);
+    ctx.strokeStyle='#eee';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(P.l,y);ctx.lineTo(P.l+cw,y);ctx.stroke();
+    ctx.fillStyle='#777';ctx.font='10px sans-serif';ctx.textAlign='right';ctx.fillText(v,P.l-4,y+4);
+  }
+  ctx.strokeStyle='#ccc';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(P.l,P.t);ctx.lineTo(P.l,P.t+ch);ctx.lineTo(P.l+cw,P.t+ch);ctx.stroke();
+  const bw=Math.min(cw/data.length*0.6,50);const gap=cw/data.length;
+  data.forEach((v,i)=>{
+    const x=P.l+i*gap+gap*0.2;const h=v/max*ch;const y=P.t+ch-h;
+    ctx.fillStyle=colors[i%colors.length];ctx.fillRect(x,y,bw,h);
+    ctx.fillStyle='#333';ctx.font='bold 10px sans-serif';ctx.textAlign='center';ctx.fillText(v,x+bw/2,y-4);
+    ctx.fillStyle='#555';ctx.font='9.5px sans-serif';
+    const lbl=labels[i];const lx=x+bw/2,ly=P.t+ch+14;
+    if(lbl.length>8){const words=lbl.split(' ');let ln='',ly2=ly;words.forEach(w=>{const t=ln+w+' ';if(ctx.measureText(t).width>gap+4&&ln){ctx.fillText(ln.trim(),lx,ly2);ln=w+' ';ly2+=12;}else ln=t;});ctx.fillText(ln.trim(),lx,ly2);}
+    else ctx.fillText(lbl,lx,ly);
+  });
+}
+
+function drawPie(cvs,data,labels,colors,title){
+  const ctx=cvs.getContext('2d');const W=cvs.width,H=cvs.height;
+  ctx.clearRect(0,0,W,H);ctx.fillStyle='#fff';ctx.fillRect(0,0,W,H);
+  ctx.fillStyle='#1e3a6e';ctx.font='bold 12px Georgia';ctx.textAlign='center';ctx.fillText(title,W/2,22);
+  const total=data.reduce((a,b)=>a+b,0)||1;
+  const cx=W/2,cy=(H-30)/2+30,r=Math.min(W/2,cy)-30;
+  let start=-Math.PI/2;
+  data.forEach((v,i)=>{
+    const angle=v/total*Math.PI*2;
+    ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,r,start,start+angle);ctx.closePath();
+    ctx.fillStyle=colors[i%colors.length];ctx.fill();
+    ctx.strokeStyle='#fff';ctx.lineWidth=2;ctx.stroke();
+    const mid=start+angle/2;const pct=Math.round(v/total*100);
+    if(pct>4){ctx.fillStyle='#fff';ctx.font='bold 10px sans-serif';ctx.textAlign='center';ctx.fillText(pct+'%',cx+Math.cos(mid)*r*0.65,cy+Math.sin(mid)*r*0.65+4);}
+    start+=angle;
+  });
+  // Legend
+  const lx=10,ly=H-22;
+  data.forEach((v,i)=>{
+    const tx=lx+i*(W/data.length);if(tx+60>W)return;
+    ctx.fillStyle=colors[i%colors.length];ctx.fillRect(tx,ly,10,10);
+    ctx.fillStyle='#333';ctx.font='9px sans-serif';ctx.textAlign='left';
+    const short=labels[i].length>9?labels[i].slice(0,9)+'…':labels[i];ctx.fillText(short,tx+13,ly+9);
+  });
+}
+
+function drawLine(cvs,data,labels,title,color){
+  const ctx=cvs.getContext('2d');const W=cvs.width,H=cvs.height;
+  const P={t:40,r:20,b:40,l:45};const cw=W-P.l-P.r,ch=H-P.t-P.b;
+  ctx.clearRect(0,0,W,H);ctx.fillStyle='#fff';ctx.fillRect(0,0,W,H);
+  ctx.fillStyle='#92400e';ctx.font='bold 12px Georgia';ctx.textAlign='center';ctx.fillText(title,W/2,22);
+  const max=Math.max(...data,1)*1.2;
+  for(let i=0;i<=5;i++){const y=P.t+ch-i/5*ch;const v=Math.round(i/5*max);ctx.strokeStyle='#eee';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(P.l,y);ctx.lineTo(P.l+cw,y);ctx.stroke();ctx.fillStyle='#777';ctx.font='10px sans-serif';ctx.textAlign='right';ctx.fillText(v,P.l-4,y+4);}
+  ctx.strokeStyle='#ccc';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(P.l,P.t);ctx.lineTo(P.l,P.t+ch);ctx.lineTo(P.l+cw,P.t+ch);ctx.stroke();
+  const step=cw/(data.length-1);
+  ctx.beginPath();ctx.strokeStyle=color||'#d97706';ctx.lineWidth=2.5;
+  data.forEach((v,i)=>{const x=P.l+i*step,y=P.t+ch-v/max*ch;i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);});ctx.stroke();
+  data.forEach((v,i)=>{
+    const x=P.l+i*step,y=P.t+ch-v/max*ch;
+    ctx.beginPath();ctx.arc(x,y,4,0,Math.PI*2);ctx.fillStyle=color||'#d97706';ctx.fill();ctx.strokeStyle='#fff';ctx.lineWidth=1.5;ctx.stroke();
+    ctx.fillStyle='#333';ctx.font='bold 10px sans-serif';ctx.textAlign='center';ctx.fillText(v,x,y-9);
+    ctx.fillStyle='#555';ctx.font='9.5px sans-serif';ctx.fillText(labels[i],x,P.t+ch+14);
+  });
+}
+
+// ====== M3 GRAPHS ======
+const M3_BAR_DATA=[12,18,15,22,27,24];
+const M3_BAR_LBL=['Ene','Feb','Mar','Abr','May','Jun'];
+const M3_PIE_DATA=[38,28,18,10,6];
+const M3_PIE_LBL=['Ansiedad','Estrés académico','Prob. relacionales','Orientación vocacional','Otras'];
+const M3_PIE_COL=['#4f72c4','#ea580c','#16a34a','#7c3aed','#aaa'];
+let m3Inited=false;
+
+function showGraph(type,el){
+  document.querySelectorAll('.g-panel').forEach(p=>p.style.display='none');
+  document.querySelectorAll('.gtab').forEach(t=>t.classList.remove('on'));
+  document.getElementById('g-'+type).style.display='block';
+  el.classList.add('on');
+  const m3Colors=['#4f72c4','#2563eb','#1e3a6e','#0d9488','#16a34a','#d97706'];
+  setTimeout(()=>{
+    const canvId='g-canvas-'+type;
+    const cvs=document.getElementById(canvId);
+    cvs.width=cvs.parentElement.offsetWidth||320;
+    if(type==='bar')drawBar(cvs,M3_BAR_DATA,M3_BAR_LBL,m3Colors,'Consultas Bienestar UdeC (Jan–Jun 2025)');
+    else if(type==='pie')drawPie(cvs,M3_PIE_DATA,M3_PIE_LBL,M3_PIE_COL,'Motivos de consulta (%)');
+    else drawLine(cvs,M3_BAR_DATA,M3_BAR_LBL,'Tendencia de consultas (Jan–Jun 2025)','#d97706');
+  },50);
+}
+
+function initM3Charts(){if(m3Inited)return;m3Inited=true;setTimeout(()=>showGraph('bar',document.querySelectorAll('.gtab')[0]),100);}
+
+// ====== M4 PRESET CHARTS ======
+let m4Inited=false;
+function initM4Charts(){
+  if(m4Inited)return;m4Inited=true;
+  setTimeout(()=>{
+    [['m4-bar','bar'],['m4-pie','pie'],['m4-line','line']].forEach(([id,type])=>{
+      const cvs=document.getElementById(id);if(!cvs)return;
+      cvs.width=cvs.parentElement.offsetWidth||320;
+      if(type==='bar')drawBar(cvs,M3_BAR_DATA,M3_BAR_LBL,['#4f72c4','#2563eb','#1e3a6e','#0d9488','#16a34a','#d97706'],'Consultas por mes — Bienestar UdeC 2025');
+      else if(type==='pie')drawPie(cvs,M3_PIE_DATA,M3_PIE_LBL,M3_PIE_COL,'Motivos de consulta (%)');
+      else drawLine(cvs,M3_BAR_DATA,M3_BAR_LBL,'Tendencia de consultas — Bienestar UdeC 2025','#d97706');
+    });
+  },100);
+}
+
+function chkIQ(qid,el,choice,correct){
+  const q=document.getElementById(qid);
+  if(q.querySelector('.ok'))return;
+  q.querySelectorAll('.iq-opt').forEach(b=>b.classList.remove('sel'));
+  el.classList.add('sel');
+  if(correct==='ok'){
+    el.className='iq-opt ok';
+    const fb=document.getElementById(qid+'-fb');if(fb){fb.style.display='block';}
+  } else {
+    el.className='iq-opt ko';
+  }
+}
+
+// ====== QUIZ SYSTEM ======
+const QUIZ_KEY='encuestas_graficas_c9_v1';
+const QUESTIONS=[
+  {q:'En una encuesta a 35 estudiantes: 20 usan Instagram, 18 usan TikTok, 8 usan ambas. ¿Cuántos no usan ninguna de las dos?',opts:['A) 5','B) 10','C) 30','D) 8'],ans:'A',fb:{A:'✅ n(I∪T)=20+18−8=30. Ninguna=35−30=5.',B:'❌ Recuerda usar la fórmula: n(I∪T)=20+18−8=30, no 25.',C:'❌ 30 es n(I∪T), no los que no usan ninguna. Ninguna=35−30=5.',D:'❌ 8 es n(I∩T), la intersección. Ninguna=35−30=5.'}},
+  {q:'P1: Todos los estudiantes de psicología toman Matemáticas I. P2: Andrea toma Matemáticas I. C: Andrea estudia psicología. ¿Es válido?',opts:['A) Válido, Andrea cumple la condición','B) Inválido, Andrea podría no ser de psicología','C) Válido, las premisas son verdaderas','D) Inválido, Matemáticas no es solo de psicología'],ans:'B',fb:{A:'❌ El diagrama muestra que Andrea podría estar en "toman Matemáticas I" fuera del círculo de "psicología".',B:'✅ Inválido — afirmar el consecuente. Psicología ⊂ Toman Matemáticas, pero Andrea solo sabemos que está en el conjunto grande.',C:'❌ La validez no depende de si las premisas son verdaderas, sino de si la conclusión es necesaria.',D:'❌ Esa razón describe por qué la premisa es cuestionable, pero la falla lógica es que la conclusión no está garantizada por la estructura del argumento.'}},
+  {q:'Una gráfica circular muestra: Ansiedad 40%, Estrés académico 30%, Otras 30%. Si el total fue 80 consultas, ¿cuántas fueron por estrés?',opts:['A) 30','B) 24','C) 12','D) 32'],ans:'B',fb:{A:'❌ 30 es el porcentaje, no el número de consultas. Debes multiplicar: 80×0.30=24.',B:'✅ 80 × 0.30 = 24 consultas por estrés académico.',C:'❌ 12 sería el 15% de 80. Estrés es el 30%.',D:'❌ Revisa: 80 × 0.40 = 32 sería para ansiedad, no para estrés.'}},
+  {q:'¿Qué tipo de gráfica es más apropiado para mostrar cómo cambió el número de consultas de bienestar mes a mes durante el año?',opts:['A) Circular / pastel','B) Barras verticales','C) Lineal','D) De dispersión'],ans:'C',fb:{A:'❌ La gráfica circular muestra proporciones de un todo, no cambios en el tiempo.',B:'❌ Las barras comparan categorías. Para tendencias en el tiempo, la lineal es más clara.',C:'✅ La gráfica lineal es ideal para mostrar cambios o tendencias cuando el eje X es el tiempo.',D:'❌ La dispersión relaciona dos variables numéricas. Aquí queremos mostrar evolución temporal.'}},
+  {q:'En un Venn: n(A)=15, n(B)=12, n(A∩B)=5. ¿Cuántos elementos están en A pero NO en B?',opts:['A) 20','B) 10','C) 7','D) 15'],ans:'B',fb:{A:'❌ 20 = n(A)+n(B)−n(A∩B)×2, eso no es ninguna región estándar.',B:'✅ n(solo A) = n(A) − n(A∩B) = 15 − 5 = 10.',C:'❌ 7 = n(B) − n(A∩B) = n(solo B). Eso sería los elementos en B pero no en A.',D:'❌ 15 es n(A) completo, incluyendo la intersección.'}},
+  {q:'Si n(A∪B)=40, n(B)=22, n(A∩B)=7, ¿cuánto es n(A)?',opts:['A) 69','B) 25','C) 15','D) 40'],ans:'B',fb:{A:'❌ 69 = 40+22+7. Confundiste las operaciones.',B:'✅ n(A) = n(A∪B) − n(B) + n(A∩B) = 40 − 22 + 7 = 25.',C:'❌ 15 = 22 − 7. Eso sería n(solo B), no n(A).',D:'❌ 40 es n(A∪B), no n(A).'}},
+  {q:'Gráfica de barras: Ene=15, Feb=22, Mar=19, Abr=28. ¿En qué mes hubo mayor incremento respecto al anterior?',opts:['A) Febrero (subió 7)','B) Abril (subió 9)','C) Marzo (bajó 3)','D) Enero (sin comparación)'],ans:'B',fb:{A:'❌ Feb−Ene=7. Es incremento, pero no el mayor.',B:'✅ Abr−Mar=28−19=9, el mayor incremento del período.',C:'❌ Marzo bajó (19−22=−3), no subió.',D:'❌ Enero es el primer dato, no tiene mes anterior para comparar.'}},
+  {q:'P1: Algunos psicólogos trabajan en empresas. P2: Daniela es psicóloga. C: Daniela trabaja en una empresa. ¿Es válido?',opts:['A) Válido, Daniela podría ser uno de ellos','B) Inválido, "algunos" no garantiza que Daniela sea uno','C) Válido, si las premisas son verdaderas la conclusión también','D) Inválido, debería decir "todos"'],ans:'B',fb:{A:'❌ "Podría ser" no es suficiente para que el argumento sea válido. Se necesita certeza.',B:'✅ Cuantificador existencial inválido. Daniela puede estar en la parte de psicólogos que no trabaja en empresas.',C:'❌ Eso no es correcto: la conclusión solo se garantiza si es estructuralmente necesaria, no porque las premisas sean verdaderas.',D:'❌ Aunque esa sería la premisa para un argumento válido, la razón de la invalidez es que "algunos" deja a Daniela en posición ambigua.'}},
+  {q:'En encuesta a 60 estudiantes: 25 hacen deporte en equipo (D), 30 van al gimnasio (G), 8 hacen los dos. ¿Cuántos hacen al menos uno?',opts:['A) 47','B) 55','C) 39','D) 8'],ans:'A',fb:{A:'✅ n(D∪G) = 25 + 30 − 8 = 47 estudiantes.',B:'❌ 55 = 25+30. Error clásico: sumar sin restar la intersección.',C:'❌ Revisa la fórmula: n(D∪G) = n(D)+n(G)−n(D∩G) = 25+30−8 = 47.',D:'❌ 8 es n(D∩G), la intersección, no la unión.'}},
+  {q:'La gráfica lineal de Bienestar muestra que las consultas subieron de enero a mayo, luego bajaron en junio. La conclusión MÁS adecuada es:',opts:['A) Las consultas siempre aumentan en psicología universitaria','B) El pico en mayo probablemente refleja la época de parciales','C) En junio los estudiantes se recuperaron definitivamente','D) La gráfica indica que se necesitan menos psicólogos en junio'],ans:'B',fb:{A:'❌ Una gráfica de un semestre no permite conclusiones sobre "siempre". Es una generalización inválida.',B:'✅ La interpretación conecta los datos con el contexto académico. Mayo = parciales del primer corte.',C:'❌ "Definitivamente" es demasiado fuerte. La gráfica muestra una baja puntual, no una recuperación permanente.',D:'❌ Una baja en consultas no indica que se necesiten menos psicólogos — puede haber muchas razones.'}},
+];
+
+let qState={answers:{},firstGrade:null,firstDate:null,lastGrade:null,lastDate:null};
+
+function loadQ(){try{const r=localStorage.getItem(QUIZ_KEY);if(r)qState=JSON.parse(r);}catch{}}
+function saveQ(){try{localStorage.setItem(QUIZ_KEY,JSON.stringify(qState));}catch{}}
+
+function buildQuiz(){
+  loadQ();
+  const c=document.getElementById('quiz-container');c.innerHTML='';
+  QUESTIONS.forEach((q,i)=>{
+    const div=document.createElement('div');div.className='qcard';div.id='qc-'+i;
+    const saved=qState.answers['q'+(i+1)];
+    div.innerHTML=`<div class="qnum">Pregunta ${i+1} de ${QUESTIONS.length}</div>
+    <div class="qtext">${q.q}</div>
+    ${q.opts.map(o=>`<button class="qopt${saved&&saved===o[0]?' sel-q':''}" onclick="selQ(${i},'${o[0]}',this)">${o}</button>`).join('')}
+    <div class="qfb"></div>`;
+    c.appendChild(div);
+  });
+  updateQProgress();
+  if(qState.firstGrade!==null){const sc=document.getElementById('quiz-score-display');sc.style.display='block';sc.innerHTML=`<div style="font-size:.75rem;color:var(--muted);">Primera nota (oficial): <strong>${qState.firstGrade.toFixed(1)}/5.0</strong> &nbsp;|&nbsp; Última nota: <strong>${(qState.lastGrade||qState.firstGrade).toFixed(1)}/5.0</strong></div>`;}
+}
+
+function selQ(i,choice,btn){
+  document.querySelectorAll(`#qc-${i} .qopt`).forEach(b=>b.classList.remove('sel-q'));
+  btn.classList.add('sel-q');
+  qState.answers['q'+(i+1)]=choice;
+  saveQ();
+  updateQProgress();
+}
+
+function updateQProgress(){
+  const total=QUESTIONS.length;const done=Object.keys(qState.answers).length;
+  const pct=done/total*100;
+  document.getElementById('qprogress').style.width=pct+'%';
+  document.getElementById('q-prog-txt').textContent=done+' / '+total+' respondidas';
+}
+
+function submitQuiz(){
+  const total=QUESTIONS.length;let correct=0;
+  QUESTIONS.forEach((q,i)=>{
+    const ans=qState.answers['q'+(i+1)];
+    const card=document.getElementById('qc-'+i);
+    card.classList.add('graded');
+    card.querySelectorAll('.qopt').forEach(b=>{
+      const l=b.textContent.trim()[0];
+      if(l===q.ans)b.classList.add('correct');
+      else if(b.classList.contains('sel-q'))b.classList.add('wrong');
+    });
+    const fb=card.querySelector('.qfb');
+    if(ans){fb.className='qfb alert '+(ans===q.ans?'al-G':'al-E');fb.textContent=q.fb[ans]||'';}
+    else{fb.className='qfb alert al-E';fb.textContent='⚠️ No respondiste esta pregunta.';}
+    if(ans===q.ans)correct++;
+  });
+  const grade=correct/total*5;
+  if(qState.firstGrade===null){qState.firstGrade=grade;qState.firstDate=new Date().toISOString();}
+  qState.lastGrade=grade;qState.lastDate=new Date().toISOString();
+  saveQ();
+  const sc=document.getElementById('quiz-score-display');sc.style.display='block';
+  sc.innerHTML=`<div style="font-size:1.1rem;font-weight:800;color:var(--T);margin-bottom:4px;">${correct}/${total} correctas — <span style="color:${grade>=3?'var(--G)':'var(--E)'}">${grade.toFixed(1)} / 5.0</span></div>
+  <div style="font-size:.73rem;color:var(--muted);">Primera nota (oficial): <strong>${qState.firstGrade.toFixed(1)}</strong> &nbsp;|&nbsp; Última nota: <strong>${qState.lastGrade.toFixed(1)}</strong></div>`;
+}
+
+function resetQuiz(){
+  qState.answers={};qState.lastGrade=null;qState.lastDate=null;
+  saveQ();buildQuiz();
+  document.getElementById('quiz-score-display').style.display='none';
+  document.querySelectorAll('.qcard').forEach(c=>c.classList.remove('graded'));
+}
+
+// ====== HOME EXERCISES ======
+function chkHome(id,ans,fbId){
+  const inp=document.getElementById(id);const fb=document.getElementById(fbId);
+  if(+inp.value===ans){fb.className='ans-fb alert al-G';fb.style.display='block';}
+  else{fb.className='ans-fb alert al-E';fb.textContent='❌ No es correcto. Verifica la fórmula y vuelve a intentarlo.';fb.style.display='block';}
+}
+
+function chkHomeText(id,validAnswers,fbId){
+  const inp=document.getElementById(id).value.toLowerCase().trim();
+  const fb=document.getElementById(fbId);
+  if(validAnswers.some(a=>inp.includes(a))){fb.className='ans-fb alert al-G';fb.style.display='block';}
+  else{fb.className='ans-fb alert al-E';fb.textContent='❌ Revisa tu respuesta. Piensa qué tipo de gráfica muestra tendencias en el tiempo.';fb.style.display='block';}
+}
+
+function toggleLevel(id){
+  const el=document.getElementById(id);const arr=document.getElementById(id+'-arr');
+  if(el.style.display==='none'){el.style.display='block';arr.textContent='▲';}
+  else{el.style.display='none';arr.textContent='▼';}
+}
+
+// ====== INIT ======
+buildEuler();
+buildQuiz();
+</script>
+</body>
+</html>
