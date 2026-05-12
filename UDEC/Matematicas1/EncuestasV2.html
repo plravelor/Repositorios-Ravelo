@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
+<title>Encuestas y Gráficas · Clase 9 · UdeC</title>
+<style>
+:root{
+  --bg:#f3f0e8;--card:#ffffff;--border:rgba(15,140,130,.13);--border2:rgba(15,140,130,.07);
+  --text:#1c1408;--muted:#7a6a50;--muted2:#b5a88a;
+  --serif:Georgia,'Palatino Linotype',serif;
+  --sans:-apple-system,'Segoe UI','Helvetica Neue',Arial,sans-serif;
+  --mono:'Courier New',Courier,monospace;
+  --T:#1b5250;--Tm:#0d9688;--Tl:rgba(13,150,136,.09);--Tb:rgba(13,150,136,.28);
+  --Am:#a16207;--Amm:#d97706;--Aml:rgba(161,98,7,.09);--Amb:rgba(217,119,6,.28);
+  --Co:#b91c1c;--Com:#ef4444;--Col:rgba(185,28,28,.08);--Cob:rgba(185,28,28,.25);
+  --G:#15803d;--Gl:rgba(21,128,61,.09);--Gb:rgba(34,197,94,.28);
+  --E:#991b1b;--El:rgba(153,27,27,.09);--Eb:rgba(220,38,38,.28);
+  --V:#6d28d9;--Vl:rgba(109,40,217,.09);--Vb:rgba(109,40,217,.28);
+  --Az:#0369a1;--Azl:rgba(3,105,161,.09);--Azb:rgba(3,105,161,.26);
+  --Opt:#b45309;--Optl:rgba(180,83,9,.09);--Optb:rgba(180,83,9,.26);
+  --P:#be185d;--Pl:rgba(190,24,93,.08);--Pb:rgba(190,24,93,.26);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+body{font-family:var(--sans);color:var(--text);background-color:var(--bg);
+  background-image:radial-gradient(ellipse 130% 60% at -5% -5%,rgba(13,150,136,.14) 0%,transparent 55%),
+  radial-gradient(ellipse 110% 65% at 105% 110%,rgba(217,119,6,.11) 0%,transparent 55%);
+  background-attachment:fixed;padding-bottom:60px;font-size:15px;line-height:1.65;}
+.hdr{background:rgba(255,255,255,.92);border-bottom:1.5px solid var(--border);backdrop-filter:blur(20px);padding:14px 16px 0;overflow:hidden;position:sticky;top:0;z-index:50;}
+.hdr-deco{position:absolute;right:12px;top:8px;font-family:var(--serif);font-size:54px;font-weight:700;color:rgba(13,150,136,.07);pointer-events:none;letter-spacing:-2px;line-height:1;font-style:italic;}
+.hdr-badge{display:inline-flex;align-items:center;background:var(--Tl);border:1px solid var(--Tb);color:var(--T);padding:3px 11px;border-radius:99px;font-size:.58rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px;}
+.hdr h1{font-family:var(--serif);color:var(--T);font-size:1.24rem;font-weight:700;font-style:italic;margin-bottom:2px;line-height:1.2;}
+.hdr h1 em{color:var(--Amm);font-style:normal;}
+.hdr-sub{font-size:.69rem;color:var(--muted);margin-bottom:10px;}
+.tabs{display:flex;overflow-x:auto;scrollbar-width:none;border-top:1px solid var(--border2);margin:0 -16px;}
+.tabs::-webkit-scrollbar{display:none;}
+.tab{flex-shrink:0;padding:8px 11px 7px;font-size:.56rem;font-weight:800;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;transition:all .2s;text-transform:uppercase;letter-spacing:.4px;white-space:nowrap;display:flex;flex-direction:column;align-items:center;gap:2px;}
+.tab .ti{font-size:1rem;}
+.tab:hover,.tab.on{color:var(--T);border-bottom-color:var(--Tm);background:rgba(13,150,136,.04);}
+.wrap{max-width:540px;margin:0 auto;padding:16px 14px 8px;}
+.mod{display:none;}.mod.on{display:block;}
+.sb{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:99px;font-size:.57rem;font-weight:800;text-transform:uppercase;letter-spacing:.3px;}
+.sb-clase{background:var(--Tl);border:1px solid var(--Tb);color:var(--T);}
+.sb-casa{background:var(--Aml);border:1px solid var(--Amb);color:var(--Am);}
+.sb-coop{background:var(--Col);border:1px solid var(--Cob);color:var(--Co);}
+.sb-opt{background:var(--Optl);border:1px solid var(--Optb);color:var(--Opt);}
+.srow{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px;}
+.card{background:var(--card);border:1.5px solid var(--border);border-radius:16px;padding:16px;margin-bottom:12px;box-shadow:0 2px 18px rgba(27,82,74,.07);}
+.ct{font-size:.57rem;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted2);margin-bottom:9px;}
+.stitle{font-family:var(--serif);font-size:1.04rem;font-weight:700;font-style:italic;color:var(--T);margin-bottom:8px;}
+.subtitle{font-size:.82rem;font-weight:700;color:var(--T);margin:10px 0 6px;}
+.alert{padding:11px 14px;border-radius:12px;font-size:.81rem;line-height:1.65;margin:9px 0;color:var(--text);}
+.al-T{background:var(--Tl);border:1.5px solid var(--Tb);color:var(--T);}
+.al-Am{background:var(--Aml);border:1.5px solid var(--Amb);color:var(--Am);}
+.al-G{background:var(--Gl);border:1.5px solid var(--Gb);color:var(--G);}
+.al-E{background:var(--El);border:1.5px solid var(--Eb);color:var(--E);}
+.al-V{background:var(--Vl);border:1.5px solid var(--Vb);color:var(--V);}
+.al-Az{background:var(--Azl);border:1.5px solid var(--Azb);color:var(--Az);}
+.al-Co{background:var(--Col);border:1.5px solid var(--Cob);color:var(--Co);}
+.hint{font-size:.75rem;color:var(--muted);background:rgba(13,150,136,.05);border-left:3px solid var(--Tb);padding:7px 11px;border-radius:0 9px 9px 0;margin:7px 0;line-height:1.55;}
+.p-text{font-size:.86rem;line-height:1.7;margin-bottom:8px;color:var(--text);}
+.story{font-family:var(--serif);font-size:.87rem;line-height:1.75;font-style:italic;color:var(--muted);background:rgba(217,119,6,.04);border-left:3px solid var(--Amb);padding:10px 14px;border-radius:0 10px 10px 0;margin:10px 0;}
+.story strong{color:var(--Am);font-style:normal;}
+.formula-box{background:linear-gradient(180deg,#fdfbf6 0%,#f8f4ea 100%);border:1.5px solid var(--Amb);border-radius:12px;padding:14px;margin:10px 0;font-family:var(--mono);font-size:.92rem;text-align:center;line-height:1.7;color:var(--Am);font-weight:700;}
+.formula-box small{display:block;font-size:.68rem;color:var(--muted);font-family:var(--sans);font-weight:400;margin-top:4px;}
+.divider{height:1px;background:var(--border2);margin:14px -4px;}
+.divider.thick{height:1.5px;background:var(--border);margin:18px -4px;}
+.section-sep{display:flex;align-items:center;gap:10px;margin:14px 0 10px;color:var(--T);font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.6px;}
+.section-sep::before,.section-sep::after{content:'';flex:1;height:1px;background:var(--border);}
+.btn{display:inline-block;padding:7px 14px;border:1.5px solid var(--Tb);border-radius:10px;background:none;color:var(--T);font-size:.74rem;font-weight:700;cursor:pointer;font-family:var(--sans);transition:all .15s;}
+.btn:hover{background:var(--Tl);}
+.btn-primary{background:var(--Tm);color:#fff;border-color:var(--Tm);}
+.btn-primary:hover{background:var(--T);}
+.btn-primary:disabled{background:var(--muted2);border-color:var(--muted2);cursor:not-allowed;}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;}
+
+/* M0 — EULER ARGUMENT CARDS */
+.euler-card{background:#fdfbf6;border:1.5px solid var(--border);border-radius:14px;padding:14px;margin-bottom:10px;}
+.euler-num{display:inline-block;font-family:var(--mono);font-size:.62rem;font-weight:800;background:var(--Vl);color:var(--V);padding:2px 9px;border-radius:99px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;}
+.euler-arg{font-family:var(--serif);font-style:italic;font-size:.88rem;line-height:1.7;color:var(--text);margin-bottom:10px;}
+.euler-prem{padding-left:12px;border-left:2px solid var(--Tb);margin:6px 0;}
+.euler-svg{display:block;margin:10px auto;max-width:280px;background:#fff;border:1px solid var(--border);border-radius:10px;}
+.euler-btns{display:flex;gap:6px;margin-top:10px;}
+.euler-btn{flex:1;padding:8px;border:1.5px solid var(--border);border-radius:9px;background:#fff;font-size:.74rem;font-weight:700;cursor:pointer;font-family:var(--sans);transition:all .15s;}
+.euler-btn:hover{background:rgba(0,0,0,.03);}
+.euler-btn.sel-g{background:var(--Gl);border-color:var(--Gb);color:var(--G);}
+.euler-btn.sel-e{background:var(--El);border-color:var(--Eb);color:var(--E);}
+.euler-fb{display:none;font-size:.79rem;line-height:1.6;padding:10px 12px;border-radius:9px;margin-top:9px;}
+.euler-card.answered .euler-fb{display:block;}
+.euler-card.answered .euler-btns{opacity:.55;pointer-events:none;}
+
+/* COOP BOX */
+.coop-box{background:linear-gradient(180deg,rgba(185,28,28,.04) 0%,rgba(185,28,28,.07) 100%);border:1.5px solid var(--Cob);border-radius:14px;padding:14px;margin:12px 0;}
+.coop-head{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+.coop-badge{font-size:.55rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;background:var(--Co);color:#fff;padding:3px 10px;border-radius:99px;}
+.coop-title{font-family:var(--serif);font-size:.96rem;font-weight:700;font-style:italic;color:var(--Co);}
+.coop-time{font-size:.7rem;color:var(--muted);font-weight:600;}
+.coop-step{display:flex;gap:10px;margin:7px 0;font-size:.81rem;line-height:1.55;}
+.coop-step-n{flex-shrink:0;width:22px;height:22px;background:var(--Co);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:800;font-family:var(--mono);}
+.role-list{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0;}
+.role-pill{display:inline-flex;align-items:center;gap:5px;font-size:.66rem;font-weight:700;padding:3px 9px;border-radius:99px;background:rgba(255,255,255,.7);border:1px solid var(--Cob);color:var(--Co);}
+
+/* M1 — VENN CALCULATOR */
+.venn-inputs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0;}
+.venn-inputs.three{grid-template-columns:1fr 1fr;}
+.vi-cell{background:#fdfbf6;border:1.5px solid var(--border);border-radius:10px;padding:8px 10px;}
+.vi-label{font-size:.66rem;font-weight:700;color:var(--T);text-transform:uppercase;letter-spacing:.3px;font-family:var(--mono);margin-bottom:3px;}
+.vi-cell input{width:100%;border:none;background:none;font-family:var(--mono);font-size:1.05rem;font-weight:700;color:var(--text);outline:none;text-align:center;}
+.vi-cell input:focus{color:var(--Tm);}
+.venn-svg-wrap{display:flex;justify-content:center;margin:10px 0;}
+.venn-svg{max-width:320px;width:100%;height:auto;}
+.venn-result{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-top:10px;}
+.vr-cell{background:#fff;border:1.5px solid var(--Tb);border-radius:10px;padding:8px;text-align:center;}
+.vr-cell.alt{border-color:var(--Amb);}
+.vr-name{font-size:.6rem;font-weight:700;color:var(--muted);font-family:var(--mono);margin-bottom:2px;}
+.vr-val{font-size:1.2rem;font-weight:800;color:var(--T);font-family:var(--mono);}
+.vr-cell.alt .vr-val{color:var(--Am);}
+
+/* TABLE */
+.data-table{width:100%;border-collapse:collapse;font-size:.78rem;border-radius:10px;overflow:hidden;border:1.5px solid var(--border);background:#fff;margin:8px 0;}
+.data-table th{background:var(--Tl);color:var(--T);padding:7px 8px;font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.3px;text-align:center;border-bottom:1.5px solid var(--Tb);}
+.data-table th.row-h{background:var(--Aml);color:var(--Am);}
+.data-table td{padding:7px 8px;text-align:center;border-bottom:1px solid var(--border2);font-family:var(--mono);font-weight:600;}
+.data-table td.label{text-align:left;font-weight:700;color:var(--T);font-family:var(--sans);background:var(--Tl);font-size:.72rem;}
+.data-table tr:last-child td{border-bottom:none;}
+.data-table tr.total td{background:rgba(217,119,6,.06);font-weight:800;color:var(--Am);}
+
+/* M2 — GRAN ENCUESTA */
+.topic-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0;}
+.topic-btn{background:#fff;border:1.5px solid var(--border);border-radius:11px;padding:10px;cursor:pointer;text-align:center;transition:all .15s;}
+.topic-btn:hover{border-color:var(--Tm);background:var(--Tl);}
+.topic-btn.on{background:var(--Tl);border-color:var(--Tm);}
+.topic-emoji{font-size:1.5rem;margin-bottom:3px;}
+.topic-label{font-size:.72rem;font-weight:700;color:var(--T);}
+.topic-sub{font-size:.6rem;color:var(--muted);margin-top:2px;}
+.opt-input-row{display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1.5px solid var(--border);border-radius:10px;margin-bottom:6px;}
+.opt-input-row .opt-name{flex:1;font-size:.81rem;font-weight:600;color:var(--text);}
+.opt-input-row input{width:55px;border:1.5px solid var(--border);border-radius:7px;padding:4px;text-align:center;font-family:var(--mono);font-size:.92rem;font-weight:700;outline:none;}
+.opt-input-row input:focus{border-color:var(--Tm);}
+.chart-toggle{display:flex;gap:5px;margin:10px 0;}
+.chart-toggle button{flex:1;padding:7px;border:1.5px solid var(--border);border-radius:8px;background:#fff;font-size:.7rem;font-weight:700;cursor:pointer;color:var(--muted);transition:all .15s;}
+.chart-toggle button.on{background:var(--Tm);color:#fff;border-color:var(--Tm);}
+.chart-area{background:#fff;border:1.5px solid var(--border);border-radius:12px;padding:12px;margin:8px 0;min-height:200px;}
+.chart-svg{display:block;width:100%;max-width:480px;margin:0 auto;height:auto;}
+
+/* M3 — TIPOS DE GRAFICAS */
+.graph-type-card{background:#fff;border:1.5px solid var(--border);border-radius:12px;padding:12px;margin-bottom:10px;}
+.graph-type-head{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
+.graph-type-icon{font-size:1.4rem;}
+.graph-type-name{font-family:var(--serif);font-size:.95rem;font-weight:700;font-style:italic;color:var(--T);}
+.graph-when{font-size:.74rem;color:var(--muted);font-style:italic;margin:6px 0;line-height:1.55;}
+.bad-graph{border:2px solid var(--Cob);background:rgba(185,28,28,.03);border-radius:12px;padding:12px;margin:10px 0;position:relative;}
+.bad-graph::before{content:'⚠ ERROR';position:absolute;top:-9px;left:14px;background:var(--Co);color:#fff;font-size:.55rem;font-weight:800;padding:2px 9px;border-radius:99px;letter-spacing:.5px;}
+.good-graph{border:2px solid var(--Gb);background:rgba(21,128,61,.04);border-radius:12px;padding:12px;margin:10px 0;position:relative;}
+.good-graph::before{content:'✓ CORRECTA';position:absolute;top:-9px;left:14px;background:var(--G);color:#fff;font-size:.55rem;font-weight:800;padding:2px 9px;border-radius:99px;letter-spacing:.5px;}
+.bg-desc{font-size:.76rem;color:var(--muted);line-height:1.55;margin-top:6px;}
+
+/* M4 / M5 — QUIZ STYLE */
+.q-item{background:#fff;border:1.5px solid var(--border);border-radius:12px;padding:12px 14px;margin-bottom:10px;}
+.q-num{font-size:.59rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--muted2);margin-bottom:5px;}
+.q-text{font-size:.85rem;line-height:1.65;color:var(--text);margin-bottom:9px;}
+.q-text .ph{font-family:var(--serif);font-style:italic;}
+.q-opts{display:flex;flex-direction:column;gap:5px;}
+.q-opt{font-size:.81rem;padding:8px 11px;border-radius:9px;background:rgba(240,240,240,.45);border:1.5px solid var(--border2);cursor:pointer;transition:all .12s;line-height:1.45;color:var(--text);}
+.q-opt:hover{background:rgba(13,150,136,.06);border-color:var(--Tb);}
+.q-opt.sel{background:var(--Tl);border-color:var(--Tm);font-weight:600;}
+.q-opt.ok{background:var(--Gl);border-color:var(--Gb);color:var(--G);font-weight:600;}
+.q-opt.ko{background:var(--El);border-color:var(--Eb);color:var(--E);}
+.q-fb{display:none;font-size:.78rem;line-height:1.55;padding:9px 11px;border-radius:9px;margin-top:8px;}
+.q-fb.show{display:block;}
+
+/* QUIZ HEADER + SCORE */
+.quiz-meta{display:flex;justify-content:space-between;align-items:center;background:var(--Tl);border:1.5px solid var(--Tb);border-radius:11px;padding:9px 12px;margin-bottom:12px;font-size:.74rem;}
+.quiz-meta .qm-prog{font-family:var(--mono);font-weight:700;color:var(--T);}
+.score-box{display:none;background:linear-gradient(180deg,#fdfbf6 0%,#f5efe1 100%);border:2px solid var(--Amb);border-radius:14px;padding:16px;text-align:center;margin:14px 0;}
+.score-box.show{display:block;}
+.score-row{display:flex;justify-content:center;gap:14px;margin:10px 0;flex-wrap:wrap;}
+.score-cell{background:#fff;border:1.5px solid var(--border);border-radius:11px;padding:10px 14px;min-width:120px;}
+.score-cell.first{border-color:var(--Tb);}
+.score-cell.last{border-color:var(--Amb);}
+.score-label{font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);margin-bottom:3px;}
+.score-cell.first .score-label{color:var(--T);}
+.score-cell.last .score-label{color:var(--Am);}
+.score-num{font-family:var(--mono);font-size:1.8rem;font-weight:800;color:var(--text);line-height:1;}
+.score-msg{font-size:.84rem;color:var(--T);font-style:italic;margin-top:10px;font-family:var(--serif);line-height:1.5;}
+
+/* M6 — HOMEWORK */
+.hw-day{background:#fdfbf6;border:1.5px solid var(--Amb);border-radius:14px;padding:14px;margin-bottom:11px;}
+.hw-day-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px;}
+.hw-day-label{font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:#fff;background:var(--Amm);padding:3px 10px;border-radius:99px;}
+.hw-day-time{font-size:.66rem;color:var(--muted);font-weight:600;}
+.hw-day-title{font-family:var(--serif);font-size:.95rem;font-weight:700;font-style:italic;color:var(--Am);margin-bottom:6px;}
+.hw-ex{background:#fff;border:1.5px solid var(--border);border-radius:10px;padding:10px 12px;margin:6px 0;}
+.hw-ex-q{font-size:.82rem;line-height:1.6;margin-bottom:7px;}
+.hw-ex .q-opts{gap:4px;}
+.hw-ex .q-opt{font-size:.78rem;padding:7px 10px;}
+
+.entregable{background:linear-gradient(135deg,var(--Aml) 0%,rgba(217,119,6,.15) 100%);border:2px solid var(--Amb);border-radius:14px;padding:14px;margin:12px 0;}
+.entregable-head{font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--Am);margin-bottom:6px;}
+.entregable-title{font-family:var(--serif);font-size:1rem;font-weight:700;font-style:italic;color:var(--Am);margin-bottom:8px;}
+
+/* FOOTER */
+.foot{text-align:center;padding:18px 14px;margin-top:14px;border-top:1.5px solid var(--border);}
+.foot p{font-family:var(--serif);font-style:italic;font-size:.88rem;color:var(--muted);margin-bottom:4px;}
+.foot small{font-size:.66rem;color:var(--muted2);line-height:1.7;}
+
+.k{font-family:var(--mono);font-weight:700;}
+.kt{font-family:var(--mono);font-weight:700;color:var(--T);}
+.ka{font-family:var(--mono);font-weight:700;color:var(--Am);}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <span class="hdr-deco">∪∩</span>
+  <span class="hdr-badge">Clase 9 · Matemáticas I</span>
+  <h1>Encuestas, conjuntos <em>y</em> gráficas</h1>
+  <div class="hdr-sub">Cierre de lógica · Euler · Fórmula cardinal · Lectura crítica de gráficas</div>
+  <nav class="tabs">
+    <div class="tab on" onclick="sw(0)"><span class="ti">⊃</span>M0 · Euler</div>
+    <div class="tab" onclick="sw(1)"><span class="ti">∪</span>M1 · Fórmula</div>
+    <div class="tab" onclick="sw(2)"><span class="ti">📋</span>M2 · Encuesta</div>
+    <div class="tab" onclick="sw(3)"><span class="ti">📊</span>M3 · Gráficas</div>
+    <div class="tab" onclick="sw(4)"><span class="ti">🔍</span>M4 · Interpreta</div>
+    <div class="tab" onclick="sw(5)"><span class="ti">📝</span>M5 · Quiz</div>
+    <div class="tab" onclick="sw(6)"><span class="ti">🏠</span>M6 · Casa</div>
+  </nav>
+</header>
+
+<main class="wrap" id="main-wrap">
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     M0 — CIERRE DE LÓGICA: ARGUMENTOS CON DIAGRAMAS DE EULER
+     ═══════════════════════════════════════════════════════════════════════ -->
+<section class="mod on" id="m0">
+  <div class="srow"><span class="sb sb-clase">📍 En clase</span><span class="sb sb-coop">👥 Cooperativo</span></div>
+
+  <div class="card">
+    <div class="ct">Antes de empezar el tema nuevo</div>
+    <h2 class="stitle">Cerramos lógica: el truco de Euler para validar argumentos</h2>
+    <div class="story">
+      En 1768, <strong>Leonhard Euler</strong> escribió cartas a una princesa alemana explicándole cómo los círculos podían demostrar si un razonamiento era válido. La idea es simple y poderosa: las <strong>premisas</strong> de un argumento se dibujan como círculos que se contienen, se solapan o se separan. Si todas las premisas se cumplen y el sujeto de la conclusión <em>está obligado</em> a quedar dentro del círculo de la conclusión, el argumento es válido. Si tiene libertad para estar afuera, es una <strong>falacia</strong>.
+    </div>
+    <div class="alert al-T">
+      <strong>Recuerda — el lenguaje de Euler:</strong><br>
+      • <span class="k">Todos los A son B</span> → círculo A <em>dentro</em> de B<br>
+      • <span class="k">Ningún A es B</span> → círculos A y B <em>separados</em><br>
+      • <span class="k">Algunos A son B</span> → círculos A y B <em>se solapan</em><br>
+      • <span class="k">x es A</span> → un punto x <em>dentro</em> de A
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ct">Activación · Individual</div>
+    <h3 class="subtitle">Marca tu veredicto — antes de discutir</h3>
+    <p class="p-text">Para cada argumento, primero marca si crees que es <strong>válido</strong> o <strong>falacia</strong>. Después podrás revisar el diagrama de Euler y la explicación.</p>
+    <div id="euler-cards"></div>
+  </div>
+
+  <div class="coop-box">
+    <div class="coop-head">
+      <span class="coop-badge">AC₁</span>
+      <div>
+        <div class="coop-title">El Juicio del Argumento</div>
+        <span class="coop-time">⏱ 12 minutos · Tríos</span>
+      </div>
+    </div>
+    <p class="p-text" style="margin-bottom:8px;">Después de marcar individualmente, comparen veredictos en el grupo. Si hubo desacuerdo en algún argumento, vuelvan al diagrama de Euler y construyan juntos el razonamiento que decide.</p>
+    <div class="role-list">
+      <span class="role-pill">COORD · lee y modera</span>
+      <span class="role-pill">SECRET · dibuja Euler</span>
+      <span class="role-pill">VOCERO · presenta uno</span>
+    </div>
+    <div class="coop-step"><div class="coop-step-n">1</div><div>Cada miembro muestra su veredicto inicial al mismo tiempo (votación simultánea con dedos: 1 = válido, 2 = falacia).</div></div>
+    <div class="coop-step"><div class="coop-step-n">2</div><div>En los argumentos donde haya desacuerdo, SECRET dibuja el diagrama de Euler en el Cuaderno de Equipo. El grupo decide si la x tiene libertad para salirse de la región de la conclusión.</div></div>
+    <div class="coop-step"><div class="coop-step-n">3</div><div>Acuerdan un veredicto grupal escrito + nombre de la regla (Modus Ponens, Tollens, falacia AC, falacia NA, silogismo disyuntivo).</div></div>
+    <div class="coop-step"><div class="coop-step-n">4</div><div>El VOCERO presenta UN argumento al curso. El docente puede llamar a cualquier miembro del grupo.</div></div>
+    <div class="alert al-Co" style="margin-top:8px;">
+      <strong>Procesamiento grupal (1 min al cerrar):</strong> ¿en cuál argumento estuvieron más en desacuerdo? ¿Qué los hizo cambiar de opinión?
+    </div>
+  </div>
+
+  <div class="alert al-Am">
+    <strong>Puente al tema nuevo:</strong> los círculos de Euler son la <em>misma idea</em> que los diagramas de Venn que ya conocen. Los usamos en lógica para validar argumentos; ahora los usaremos para algo distinto — para <strong>contar personas en una encuesta</strong>. Pasa a M1.
+  </div>
+</section>
+
+<!-- M1 — APLICACIONES DE CONJUNTOS EN ENCUESTAS -->
+<section class="mod" id="m1">
+  <div class="srow"><span class="sb sb-clase">📍 En clase · Magistral + práctica</span></div>
+
+  <div class="card">
+    <div class="ct">Magistral · El problema</div>
+    <h2 class="stitle">Cuando sumar no basta: la fórmula cardinal</h2>
+    <div class="story">
+      <strong>Imagina esto:</strong> el Programa de Psicología de la UdeC Facatativá hace una encuesta de bienestar a 80 estudiantes de primer semestre. Pregunta dos cosas: ¿asistes a las charlas de Bienestar Universitario? (B) y ¿usas la app de mindfulness recomendada? (M). Los resultados llegan así: 45 asisten a Bienestar, 38 usan la app, 22 hacen las dos cosas, y 10 no hacen ninguna. Tu jefe de programa te pregunta: ¿<em>cuántos estudiantes alcanzamos en total con al menos una de las dos cosas</em>? Si respondes <span class="k">45 + 38 = 83</span>, te equivocaste — pero si respondes <span class="k">83 − 22 = 61</span>, acertaste. ¿Por qué?
+    </div>
+    <p class="p-text">El problema es que <strong>los 22 que hacen ambas cosas se cuentan dos veces</strong>: aparecen en los 45 de Bienestar Y en los 38 de la app. Para no contarlos dos veces, restamos la intersección una vez. Esta es la <strong>fórmula cardinal</strong>:</p>
+    <div class="formula-box">
+      n(A ∪ B) = n(A) + n(B) − n(A ∩ B)
+      <small>El número de elementos en la unión = suma de cada uno − los que se contaron dos veces</small>
+    </div>
+    <p class="p-text">Aplicada a nuestro caso: <span class="kt">n(B ∪ M) = 45 + 38 − 22 = 61</span>. Los <strong>10</strong> que no hacen ninguna están afuera de los dos círculos. Total encuestados: <span class="ka">61 + 10 = 71</span>... pero como dijimos que eran 80, faltan <span class="k">9 sin clasificar</span> — probablemente no respondieron. Las encuestas reales casi siempre tienen estos huecos.</p>
+  </div>
+
+  <div class="card">
+    <div class="ct">Práctica · Calculadora interactiva</div>
+    <h3 class="subtitle">📐 Calculadora de 2 conjuntos · Bienestar y App</h3>
+    <p class="p-text">Cambia los valores y mira cómo se actualiza el diagrama de Venn y la fórmula.</p>
+    <div class="venn-inputs">
+      <div class="vi-cell"><div class="vi-label">n(B) — Bienestar</div><input type="number" id="v2_a" value="45" min="0" oninput="updateV2()"></div>
+      <div class="vi-cell"><div class="vi-label">n(M) — App</div><input type="number" id="v2_b" value="38" min="0" oninput="updateV2()"></div>
+      <div class="vi-cell"><div class="vi-label">n(B ∩ M) — Ambas</div><input type="number" id="v2_ab" value="22" min="0" oninput="updateV2()"></div>
+      <div class="vi-cell"><div class="vi-label">Fuera (ninguna)</div><input type="number" id="v2_none" value="10" min="0" oninput="updateV2()"></div>
+    </div>
+    <div class="venn-svg-wrap"><svg id="v2-svg" class="venn-svg" viewBox="0 0 320 200"></svg></div>
+    <div class="venn-result">
+      <div class="vr-cell"><div class="vr-name">Solo B</div><div class="vr-val" id="v2-onlyA">23</div></div>
+      <div class="vr-cell"><div class="vr-name">Solo M</div><div class="vr-val" id="v2-onlyB">16</div></div>
+      <div class="vr-cell alt"><div class="vr-name">n(B ∪ M)</div><div class="vr-val" id="v2-union">61</div></div>
+      <div class="vr-cell"><div class="vr-name">TOTAL</div><div class="vr-val" id="v2-total">71</div></div>
+    </div>
+    <div class="hint">El diagrama responde a tus números. Prueba con n(B∩M) = 50 y n(B) = 45: la herramienta te avisa que es <em>imposible</em> — la intersección no puede ser mayor que ninguno de los conjuntos.</div>
+  </div>
+
+  <div class="card">
+    <div class="ct">Tres conjuntos · Caso real</div>
+    <h3 class="subtitle">🧠 Encuesta de salud mental UdeC · Tres servicios</h3>
+    <div class="story">
+      Una psicóloga de Bienestar UdeC hace seguimiento a <strong>120 estudiantes</strong> que han pedido apoyo. Cada uno puede haber usado uno, dos, tres o ningún servicio: <strong>C</strong> = consulta individual con psicóloga, <strong>T</strong> = taller grupal de manejo de estrés, <strong>L</strong> = línea de escucha 24/7. Los datos: <span class="kt">n(C)=60, n(T)=45, n(L)=38, n(C∩T)=25, n(C∩L)=20, n(T∩L)=15, n(C∩T∩L)=10, ninguno=12</span>.
+    </div>
+    <p class="p-text">La fórmula se extiende:</p>
+    <div class="formula-box" style="font-size:.78rem;">
+      n(A∪B∪C) = n(A)+n(B)+n(C) − n(A∩B) − n(A∩C) − n(B∩C) + n(A∩B∩C)
+      <small>Se suman las intersecciones dobles (porque al restarlas, el centro se restó 3 veces — hay que devolverlo)</small>
+    </div>
+    <div class="venn-inputs three">
+      <div class="vi-cell"><div class="vi-label">n(C)</div><input type="number" id="v3_a" value="60" min="0" oninput="updateV3()"></div>
+      <div class="vi-cell"><div class="vi-label">n(T)</div><input type="number" id="v3_b" value="45" min="0" oninput="updateV3()"></div>
+      <div class="vi-cell"><div class="vi-label">n(L)</div><input type="number" id="v3_c" value="38" min="0" oninput="updateV3()"></div>
+      <div class="vi-cell"><div class="vi-label">n(C∩T)</div><input type="number" id="v3_ab" value="25" min="0" oninput="updateV3()"></div>
+      <div class="vi-cell"><div class="vi-label">n(C∩L)</div><input type="number" id="v3_ac" value="20" min="0" oninput="updateV3()"></div>
+      <div class="vi-cell"><div class="vi-label">n(T∩L)</div><input type="number" id="v3_bc" value="15" min="0" oninput="updateV3()"></div>
+      <div class="vi-cell"><div class="vi-label">n(C∩T∩L)</div><input type="number" id="v3_abc" value="10" min="0" oninput="updateV3()"></div>
+      <div class="vi-cell"><div class="vi-label">Ninguno</div><input type="number" id="v3_none" value="12" min="0" oninput="updateV3()"></div>
+    </div>
+    <div class="venn-svg-wrap"><svg id="v3-svg" class="venn-svg" viewBox="0 0 340 240"></svg></div>
+    <div class="alert al-T" id="v3-result" style="font-size:.78rem;line-height:1.7;"></div>
+  </div>
+
+  <div class="card">
+    <div class="ct">Tercera técnica · Tablas de doble entrada</div>
+    <h3 class="subtitle">🍽️ Las tablas también guardan conjuntos</h3>
+    <div class="story">
+      <strong>Adaptado de Miller §2.4:</strong> la cafetería del campus UdeC quiere saber si el tipo de almuerzo preferido depende del semestre. Un viernes, organiza los pedidos así:
+    </div>
+    <table class="data-table">
+      <thead>
+        <tr><th></th><th>Corrientazo (C)</th><th>Ejecutivo (E)</th><th>Vegetariano (V)</th><th>Total</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="label">Semestres 1–3 (P)</td><td>52</td><td>12</td><td>8</td><td class="ka">72</td></tr>
+        <tr><td class="label">Semestres 4–6 (M)</td><td>28</td><td>30</td><td>15</td><td class="ka">73</td></tr>
+        <tr><td class="label">Semestres 7+ (A)</td><td>10</td><td>35</td><td>20</td><td class="ka">65</td></tr>
+        <tr class="total"><td class="label" style="background:transparent;color:var(--Am);">Total</td><td>90</td><td>77</td><td>43</td><td>210</td></tr>
+      </tbody>
+    </table>
+    <p class="p-text" style="font-size:.79rem;">Las letras al lado del semestre y del plato son los <strong>nombres del conjunto</strong>. Cada celda es la <em>intersección</em> de su fila con su columna.</p>
+    <div class="alert al-V">
+      <strong>Ejercicio guiado:</strong><br>
+      a) <span class="k">n(P ∩ C)</span> = personas en semestres 1–3 que pidieron corrientazo = <strong>52</strong> (celda directa).<br>
+      b) <span class="k">n(M ∪ V)</span> = todos los de semestres 4–6 más todos los vegetarianos, sin doble contar = <span class="ka">73 + 43 − 15 = 101</span>.<br>
+      c) <span class="k">n(A' ∩ E)</span> = los que NO son de semestres 7+ y pidieron ejecutivo = <span class="ka">12 + 30 = 42</span> (las dos primeras filas, columna ejecutivo).
+    </div>
+  </div>
+
+  <div class="alert al-Am">
+    <strong>Conexión:</strong> ahora que sabes contar, vamos a hacer nuestra propia encuesta del curso en M2. Cada grupo recolectará datos reales y los analizará con esta misma fórmula.
+  </div>
+</section>
+
+<!-- M2 — LA GRAN ENCUESTA -->
+<section class="mod" id="m2">
+  <div class="srow"><span class="sb sb-clase">📍 En clase</span><span class="sb sb-coop">👥 Cooperativo AC₂</span></div>
+
+  <div class="coop-box">
+    <div class="coop-head">
+      <span class="coop-badge">AC₂</span>
+      <div>
+        <div class="coop-title">La Gran Encuesta del curso</div>
+        <span class="coop-time">⏱ 25 minutos · Tríos · Recolección + análisis</span>
+      </div>
+    </div>
+    <p class="p-text">Cada grupo recibe un tema diferente, entrevista a todos los compañeros del curso (incluyendo los del propio grupo), captura los datos en esta herramienta, los visualiza como gráfica y los analiza con la fórmula cardinal.</p>
+    <div class="role-list">
+      <span class="role-pill">COORD · pregunta a cada compañero</span>
+      <span class="role-pill">SECRET · llena la herramienta</span>
+      <span class="role-pill">VOCERO · presenta gráfica + análisis</span>
+    </div>
+    <div class="coop-step"><div class="coop-step-n">1</div><div>Eligen UN tema entre los 5 disponibles (acuerdan con el docente para que no se repita entre grupos).</div></div>
+    <div class="coop-step"><div class="coop-step-n">2</div><div>Entrevistan a TODOS los compañeros del curso (incluido el propio grupo). Para temas de respuesta múltiple, registran cada opción marcada.</div></div>
+    <div class="coop-step"><div class="coop-step-n">3</div><div>Ingresan los conteos por opción en la herramienta. La herramienta dibuja la gráfica.</div></div>
+    <div class="coop-step"><div class="coop-step-n">4</div><div>Eligen 2 categorías para el análisis Venn (ej.: "usan bus urbano Y vienen de fuera de Faca") y calculan unión, intersección y solos.</div></div>
+    <div class="coop-step"><div class="coop-step-n">5</div><div>VOCERO presenta: gráfica + 3 hallazgos del análisis Venn. Cada grupo escucha a los demás.</div></div>
+  </div>
+
+  <div class="card">
+    <div class="ct">Paso 1 · Elige el tema del grupo</div>
+    <h3 class="subtitle">📌 Cinco temas de encuesta</h3>
+    <div class="topic-grid" id="topic-grid"></div>
+    <div id="survey-active" style="display:none;">
+      <div class="divider thick"></div>
+      <h3 class="subtitle" id="survey-title">— escoge un tema —</h3>
+      <p class="p-text" id="survey-desc"></p>
+      <div class="ct" style="margin-top:10px;">Paso 2 · Cuenten las respuestas del curso</div>
+      <div id="survey-inputs"></div>
+      <div class="ct" style="margin-top:14px;">Paso 3 · Visualicen los datos</div>
+      <div class="chart-toggle">
+        <button class="on" onclick="setChart('bar')">📊 Barras</button>
+        <button onclick="setChart('pie')">🥧 Pastel</button>
+        <button onclick="setChart('hbar')">📈 Barras H</button>
+      </div>
+      <div class="chart-area"><svg id="survey-chart" class="chart-svg" viewBox="0 0 480 280"></svg></div>
+      <div class="hint">Compara las dos vistas: la gráfica de barras es mejor para comparar tamaños; el pastel funciona si quieres mostrar la proporción de cada opción <em>respecto al total</em>.</div>
+      <div class="ct" style="margin-top:14px;">Paso 4 · Análisis con conjuntos (solo temas de respuesta múltiple)</div>
+      <div id="venn-analysis"></div>
+    </div>
+  </div>
+
+  <div class="coop-box">
+    <div class="coop-head">
+      <span class="coop-badge">+</span>
+      <div>
+        <div class="coop-title">Mini-cooperativa de la fórmula</div>
+        <span class="coop-time">⏱ 7 minutos · Tríos</span>
+      </div>
+    </div>
+    <p class="p-text">Adicional a la Gran Encuesta. Resuelvan este problema sin abrir la calculadora hasta el final.</p>
+    <div class="alert al-V" style="margin:8px 0;">
+      <strong>Problema:</strong> en una práctica del Hospital San Rafael de Facatativá se encuestaron <strong>50 pacientes</strong> de salud mental: 28 reciben atención psicológica (P), 22 reciben medicación psiquiátrica (M), 15 reciben ambas. ¿Cuántos pacientes hay con <em>tratamiento</em> (al menos una de las dos)? ¿Cuántos solo medicación? ¿Cuántos sin tratamiento de los dos tipos?
+    </div>
+    <div class="coop-step"><div class="coop-step-n">1</div><div>COORD lee el problema. SECRET dibuja el Venn de 2 círculos en el Cuaderno de Equipo.</div></div>
+    <div class="coop-step"><div class="coop-step-n">2</div><div>El grupo llena las regiones: empiezan por la intersección (15), luego "solo P" = 28−15 y "solo M" = 22−15.</div></div>
+    <div class="coop-step"><div class="coop-step-n">3</div><div>Aplican la fórmula y obtienen n(P∪M). Restan del total para saber cuántos no reciben ninguno.</div></div>
+    <div class="alert al-G" style="margin-top:8px;font-size:.79rem;">
+      <strong>Respuesta (que el docente revela al cierre):</strong> n(P∪M) = 28+22−15 = <strong>35</strong>. Solo P = 13, solo M = 7, ambas = 15. Sin tratamiento de los dos tipos = 50−35 = <strong>15</strong>.
+    </div>
+  </div>
+</section>
+
+<!-- M3 — LECTURA DE GRÁFICAS + GRÁFICAS QUE ENGAÑAN -->
+<section class="mod" id="m3">
+  <div class="srow"><span class="sb sb-clase">📍 En clase · Magistral</span></div>
+
+  <div class="card">
+    <div class="ct">Magistral · La pregunta correcta</div>
+    <h2 class="stitle">¿Qué gráfica para qué pregunta?</h2>
+    <div class="story">
+      <strong>En psicología, las gráficas no son adornos: son argumentos.</strong> Una intervención que "mejoró los resultados" puede mostrarse como una victoria contundente o como una mejora marginal — dependiendo de quién dibuje la gráfica. Esta es la habilidad que vamos a desarrollar: <em>leer una gráfica antes de aceptarla</em>. Miller §1.4 lo presenta sencillo: la elección de la gráfica depende de la pregunta que quieras responder.
+    </div>
+
+    <div class="graph-type-card">
+      <div class="graph-type-head"><span class="graph-type-icon">📊</span><span class="graph-type-name">Gráfica de barras</span></div>
+      <p class="graph-when"><strong>Cuándo usarla:</strong> comparar magnitudes de categorías discretas (medios de transporte, candidatos, semestres). El ojo humano compara longitudes con mucha precisión.</p>
+      <svg viewBox="0 0 300 150" style="width:100%;max-width:300px;background:#fafafa;border-radius:8px;display:block;margin:6px auto;">
+        <line x1="35" y1="120" x2="290" y2="120" stroke="#888" stroke-width="1"/>
+        <line x1="35" y1="20" x2="35" y2="120" stroke="#888" stroke-width="1"/>
+        <rect x="50" y="40" width="35" height="80" fill="#0d9688"/>
+        <rect x="100" y="65" width="35" height="55" fill="#0d9688"/>
+        <rect x="150" y="80" width="35" height="40" fill="#0d9688"/>
+        <rect x="200" y="95" width="35" height="25" fill="#0d9688"/>
+        <text x="67" y="135" font-size="9" text-anchor="middle" fill="#666">Bus</text>
+        <text x="117" y="135" font-size="9" text-anchor="middle" fill="#666">A pie</text>
+        <text x="167" y="135" font-size="9" text-anchor="middle" fill="#666">Carro</text>
+        <text x="217" y="135" font-size="9" text-anchor="middle" fill="#666">Moto</text>
+        <text x="67" y="35" font-size="9" text-anchor="middle" fill="#0d9688" font-weight="700">16</text>
+        <text x="117" y="60" font-size="9" text-anchor="middle" fill="#0d9688" font-weight="700">11</text>
+        <text x="167" y="75" font-size="9" text-anchor="middle" fill="#0d9688" font-weight="700">8</text>
+        <text x="217" y="90" font-size="9" text-anchor="middle" fill="#0d9688" font-weight="700">5</text>
+        <text x="25" y="25" font-size="8" text-anchor="end" fill="#666">20</text>
+        <text x="25" y="125" font-size="8" text-anchor="end" fill="#666">0</text>
+      </svg>
+      <div class="hint">Para leerla: encuentra la categoría, sigue la altura de la barra hasta el eje Y, lee el valor. La <strong>cumbre</strong> de cada barra debe estar etiquetada en una buena gráfica.</div>
+    </div>
+
+    <div class="graph-type-card">
+      <div class="graph-type-head"><span class="graph-type-icon">🥧</span><span class="graph-type-name">Gráfica circular (pastel)</span></div>
+      <p class="graph-when"><strong>Cuándo usarla:</strong> mostrar la <em>proporción</em> de cada categoría respecto al total. Los porcentajes suman 100%. Funciona con pocas categorías (≤6).</p>
+      <svg viewBox="0 0 200 200" style="width:100%;max-width:200px;display:block;margin:6px auto;">
+        <circle cx="100" cy="100" r="70" fill="#fff" stroke="#888"/>
+        <path d="M100,100 L100,30 A70,70 0 0,1 162,135 Z" fill="#0d9688"/>
+        <path d="M100,100 L162,135 A70,70 0 0,1 65,164 Z" fill="#d97706"/>
+        <path d="M100,100 L65,164 A70,70 0 0,1 33,80 Z" fill="#6d28d9"/>
+        <path d="M100,100 L33,80 A70,70 0 0,1 100,30 Z" fill="#0369a1"/>
+        <text x="130" y="80" font-size="9" fill="#fff" font-weight="700">40%</text>
+        <text x="125" y="135" font-size="9" fill="#fff" font-weight="700">28%</text>
+        <text x="75" y="148" font-size="9" fill="#fff" font-weight="700">17%</text>
+        <text x="62" y="85" font-size="9" fill="#fff" font-weight="700">15%</text>
+      </svg>
+      <div class="hint">Para leerla: el ángulo del sector = porcentaje × 360°/100. Un 25% es un cuarto del círculo (90°). Un 50% es la mitad (180°).</div>
+    </div>
+
+    <div class="graph-type-card">
+      <div class="graph-type-head"><span class="graph-type-icon">📈</span><span class="graph-type-name">Gráfica lineal</span></div>
+      <p class="graph-when"><strong>Cuándo usarla:</strong> mostrar cómo cambia un valor a lo largo del <em>tiempo</em> (semanas, años, sesiones de terapia). El eje X siempre es ordenable y continuo.</p>
+      <svg viewBox="0 0 300 150" style="width:100%;max-width:300px;background:#fafafa;border-radius:8px;display:block;margin:6px auto;">
+        <line x1="35" y1="120" x2="290" y2="120" stroke="#888" stroke-width="1"/>
+        <line x1="35" y1="20" x2="35" y2="120" stroke="#888" stroke-width="1"/>
+        <polyline points="50,90 95,70 140,75 185,50 230,45 275,35" fill="none" stroke="#0d9688" stroke-width="2.5"/>
+        <circle cx="50" cy="90" r="3" fill="#0d9688"/>
+        <circle cx="95" cy="70" r="3" fill="#0d9688"/>
+        <circle cx="140" cy="75" r="3" fill="#0d9688"/>
+        <circle cx="185" cy="50" r="3" fill="#0d9688"/>
+        <circle cx="230" cy="45" r="3" fill="#0d9688"/>
+        <circle cx="275" cy="35" r="3" fill="#0d9688"/>
+        <text x="50" y="135" font-size="8" text-anchor="middle" fill="#666">S1</text>
+        <text x="95" y="135" font-size="8" text-anchor="middle" fill="#666">S2</text>
+        <text x="140" y="135" font-size="8" text-anchor="middle" fill="#666">S3</text>
+        <text x="185" y="135" font-size="8" text-anchor="middle" fill="#666">S4</text>
+        <text x="230" y="135" font-size="8" text-anchor="middle" fill="#666">S5</text>
+        <text x="275" y="135" font-size="8" text-anchor="middle" fill="#666">S6</text>
+        <text x="160" y="15" font-size="9" text-anchor="middle" fill="#0d9688" font-weight="700">Disminución de ansiedad por sesión</text>
+      </svg>
+      <div class="hint">Para leerla: la <strong>pendiente</strong> dice la velocidad del cambio. Pendiente subiendo = aumento, bajando = disminución, plana = sin cambio.</div>
+    </div>
+
+    <div class="graph-type-card">
+      <div class="graph-type-head"><span class="graph-type-icon">📉</span><span class="graph-type-name">Histograma</span></div>
+      <p class="graph-when"><strong>Cuándo usarla:</strong> mostrar la <em>distribución</em> de datos numéricos agrupados en clases (horas de estudio, edades, puntajes). Es como una gráfica de barras, pero <strong>sin espacios entre barras</strong> — los datos son continuos.</p>
+      <svg viewBox="0 0 300 150" style="width:100%;max-width:300px;background:#fafafa;border-radius:8px;display:block;margin:6px auto;">
+        <line x1="35" y1="120" x2="290" y2="120" stroke="#888" stroke-width="1"/>
+        <line x1="35" y1="20" x2="35" y2="120" stroke="#888" stroke-width="1"/>
+        <rect x="50" y="100" width="40" height="20" fill="#d97706"/>
+        <rect x="90" y="70" width="40" height="50" fill="#d97706"/>
+        <rect x="130" y="50" width="40" height="70" fill="#d97706"/>
+        <rect x="170" y="60" width="40" height="60" fill="#d97706"/>
+        <rect x="210" y="85" width="40" height="35" fill="#d97706"/>
+        <rect x="250" y="105" width="40" height="15" fill="#d97706"/>
+        <text x="70" y="135" font-size="7" text-anchor="middle" fill="#666">0-5</text>
+        <text x="110" y="135" font-size="7" text-anchor="middle" fill="#666">5-10</text>
+        <text x="150" y="135" font-size="7" text-anchor="middle" fill="#666">10-15</text>
+        <text x="190" y="135" font-size="7" text-anchor="middle" fill="#666">15-20</text>
+        <text x="230" y="135" font-size="7" text-anchor="middle" fill="#666">20-25</text>
+        <text x="270" y="135" font-size="7" text-anchor="middle" fill="#666">25+</text>
+        <text x="160" y="15" font-size="9" text-anchor="middle" fill="#d97706" font-weight="700">Horas de estudio semanal (n=120)</text>
+      </svg>
+      <div class="hint">La <strong>forma</strong> de la distribución dice mucho: simétrica (campana), sesgada a la derecha (cola larga hacia valores altos), sesgada a la izquierda, bimodal (dos picos).</div>
+    </div>
+  </div>
+
+  <div class="card" style="border:2px solid var(--Cob);">
+    <div class="ct" style="color:var(--Co);">⚠️ Sección especial · Las gráficas no son neutrales</div>
+    <h2 class="stitle" style="color:var(--Co);">Las encuestas presidenciales colombianas: un caso de estudio</h2>
+    <div class="story">
+      <strong>Las elecciones presidenciales en Colombia (2018, 2022, 2026)</strong> dejaron una lección que no enseñan en los manuales: las gráficas con que los medios reportaron las encuestas <em>predispusieron la percepción del país sobre quién iba ganando</em>. Algunas distorsiones fueron honestas; otras parecieron diseñadas para favorecer a un candidato. Aprende a identificar las tres trampas más comunes.
+    </div>
+
+    <h3 class="subtitle" style="color:var(--Co);">Trampa 1 · Eje Y truncado</h3>
+    <p class="p-text">Primera vuelta presidencial Colombia 2022. Resultados reales: <span class="kt">Petro 40.3% · Hernández 28.2% · Gutiérrez 23.9% · Otros 7.6%</span>.</p>
+    <div class="bad-graph">
+      <svg viewBox="0 0 300 200" style="width:100%;display:block;">
+        <text x="150" y="15" font-size="9" font-weight="700" text-anchor="middle" fill="#b91c1c">Encuestas pre-elección · 1ª vuelta 2022</text>
+        <line x1="50" y1="180" x2="280" y2="180" stroke="#888"/>
+        <line x1="50" y1="30" x2="50" y2="180" stroke="#888"/>
+        <text x="45" y="183" text-anchor="end" font-size="8" fill="#b91c1c" font-weight="700">22%</text>
+        <text x="45" y="148" text-anchor="end" font-size="8" fill="#666">25%</text>
+        <text x="45" y="113" text-anchor="end" font-size="8" fill="#666">30%</text>
+        <text x="45" y="78" text-anchor="end" font-size="8" fill="#666">35%</text>
+        <text x="45" y="43" text-anchor="end" font-size="8" fill="#666">40%</text>
+        <rect x="65" y="36" width="55" height="144" fill="#0d9688"/>
+        <rect x="135" y="106" width="55" height="74" fill="#6d28d9"/>
+        <rect x="205" y="135" width="55" height="45" fill="#d97706"/>
+        <text x="92" y="195" font-size="9" text-anchor="middle">Petro 40.3%</text>
+        <text x="162" y="195" font-size="9" text-anchor="middle">Hdez 28.2%</text>
+        <text x="232" y="195" font-size="9" text-anchor="middle">Gtz 23.9%</text>
+        <text x="92" y="32" font-size="9" font-weight="700" fill="#0d9688" text-anchor="middle">40.3</text>
+        <text x="162" y="102" font-size="9" font-weight="700" fill="#6d28d9" text-anchor="middle">28.2</text>
+        <text x="232" y="131" font-size="9" font-weight="700" fill="#d97706" text-anchor="middle">23.9</text>
+      </svg>
+      <div class="bg-desc"><strong>El truco:</strong> el eje Y empieza en 22% (no en 0). La barra de Petro parece <strong>~3 veces</strong> más alta que la de Gutiérrez, cuando la proporción real es solo 1.69. El espectador percibe una victoria aplastante donde hay una ventaja sólida pero no abrumadora.</div>
+    </div>
+    <div class="good-graph">
+      <svg viewBox="0 0 300 200" style="width:100%;display:block;">
+        <text x="150" y="15" font-size="9" font-weight="700" text-anchor="middle" fill="#15803d">Misma elección · Eje desde 0</text>
+        <line x1="50" y1="180" x2="280" y2="180" stroke="#888"/>
+        <line x1="50" y1="30" x2="50" y2="180" stroke="#888"/>
+        <text x="45" y="183" text-anchor="end" font-size="8" fill="#666">0%</text>
+        <text x="45" y="143" text-anchor="end" font-size="8" fill="#666">25%</text>
+        <text x="45" y="103" text-anchor="end" font-size="8" fill="#666">50%</text>
+        <rect x="65" y="116" width="55" height="64" fill="#0d9688"/>
+        <rect x="135" y="135" width="55" height="45" fill="#6d28d9"/>
+        <rect x="205" y="142" width="55" height="38" fill="#d97706"/>
+        <text x="92" y="195" font-size="9" text-anchor="middle">Petro</text>
+        <text x="162" y="195" font-size="9" text-anchor="middle">Hdez</text>
+        <text x="232" y="195" font-size="9" text-anchor="middle">Gtz</text>
+        <text x="92" y="112" font-size="9" font-weight="700" fill="#0d9688" text-anchor="middle">40.3</text>
+        <text x="162" y="131" font-size="9" font-weight="700" fill="#6d28d9" text-anchor="middle">28.2</text>
+        <text x="232" y="138" font-size="9" font-weight="700" fill="#d97706" text-anchor="middle">23.9</text>
+      </svg>
+      <div class="bg-desc"><strong>La diferencia real:</strong> Petro dobla a Gutiérrez. Hernández queda cerca de Gutiérrez. La percepción honesta es que Petro lidera pero no arrasa.</div>
+    </div>
+
+    <h3 class="subtitle" style="color:var(--Co);">Trampa 2 · Pastel 3D inclinado</h3>
+    <p class="p-text">Segunda vuelta presidencial 2022. Resultado real: <span class="kt">Petro 50.4% · Hernández 47.3% · Voto en blanco/nulo 2.3%</span>.</p>
+    <div class="bad-graph">
+      <svg viewBox="0 0 280 180" style="width:100%;display:block;">
+        <text x="140" y="15" font-size="9" font-weight="700" text-anchor="middle" fill="#b91c1c">Pastel 3D · 2ª vuelta 2022</text>
+        <ellipse cx="140" cy="105" rx="90" ry="35" fill="#888"/>
+        <rect x="50" y="90" width="180" height="15" fill="#666"/>
+        <ellipse cx="140" cy="90" rx="90" ry="35" fill="#fff" stroke="#888"/>
+        <path d="M140,90 L140,55 A90,35 0 0,1 230,90 Z" fill="#0d9688"/>
+        <path d="M140,90 L50,90 A90,35 0 0,1 140,55 Z" fill="#0d9688" opacity=".7"/>
+        <path d="M140,90 L230,90 A90,35 0 0,1 142,125 Z" fill="#6d28d9"/>
+        <path d="M140,90 L142,125 A90,35 0 0,1 50,90 Z" fill="#6d28d9" opacity=".75"/>
+        <text x="170" y="80" font-size="11" font-weight="700" fill="#fff">Petro 50.4%</text>
+        <text x="100" y="115" font-size="11" font-weight="700" fill="#fff">Hdez 47.3%</text>
+      </svg>
+      <div class="bg-desc"><strong>El truco:</strong> los sectores frontales del pastel 3D <em>parecen más grandes</em> que los traseros, aunque numéricamente sean iguales. Si el medio quería mostrar a Petro como ganador holgado, ponía su sector al frente; si quería mostrar a Hernández cerca, lo ponía al frente. La diferencia real fue de solo <strong>3.1 puntos</strong>.</div>
+    </div>
+    <div class="good-graph">
+      <svg viewBox="0 0 240 180" style="width:100%;display:block;">
+        <text x="120" y="15" font-size="9" font-weight="700" text-anchor="middle" fill="#15803d">Pastel 2D plano</text>
+        <circle cx="120" cy="100" r="60" fill="#fff" stroke="#888"/>
+        <path d="M120,100 L120,40 A60,60 0 0,1 119,160 Z" fill="#0d9688"/>
+        <path d="M120,100 L119,160 A60,60 0 0,1 121.5,40.05 Z" fill="#6d28d9"/>
+        <path d="M120,100 L121.5,40.05 A60,60 0 0,1 120,40 Z" fill="#888"/>
+        <text x="148" y="95" font-size="11" font-weight="700" fill="#fff">50.4%</text>
+        <text x="88" y="115" font-size="11" font-weight="700" fill="#fff">47.3%</text>
+      </svg>
+      <div class="bg-desc"><strong>Sin el truco:</strong> los sectores son casi iguales. La elección fue reñida.</div>
+    </div>
+
+    <h3 class="subtitle" style="color:var(--Co);">Trampa 3 · Intervalos del eje X no uniformes</h3>
+    <p class="p-text">Una gráfica lineal de aprobación presidencial donde el espacio entre 2020 y 2022 es igual al espacio entre 2023 y 2024 — aunque el primero abarca el doble del tiempo.</p>
+    <div class="bad-graph">
+      <svg viewBox="0 0 320 180" style="width:100%;display:block;">
+        <text x="160" y="15" font-size="9" font-weight="700" text-anchor="middle" fill="#b91c1c">Aprobación presidencial 2019–2025</text>
+        <line x1="40" y1="150" x2="300" y2="150" stroke="#888"/>
+        <line x1="40" y1="30" x2="40" y2="150" stroke="#888"/>
+        <polyline points="60,80 100,90 140,55 190,75 235,85 280,95" fill="none" stroke="#6d28d9" stroke-width="2.5"/>
+        <circle cx="60" cy="80" r="3" fill="#b91c1c"/>
+        <circle cx="100" cy="90" r="3" fill="#b91c1c"/>
+        <circle cx="140" cy="55" r="3" fill="#b91c1c"/>
+        <circle cx="190" cy="75" r="3" fill="#6d28d9"/>
+        <circle cx="235" cy="85" r="3" fill="#6d28d9"/>
+        <circle cx="280" cy="95" r="3" fill="#6d28d9"/>
+        <text x="60" y="165" font-size="8" text-anchor="middle" fill="#b91c1c" font-weight="700">2019</text>
+        <text x="100" y="165" font-size="8" text-anchor="middle" fill="#b91c1c" font-weight="700">2020</text>
+        <text x="140" y="165" font-size="8" text-anchor="middle" fill="#b91c1c" font-weight="700">2022</text>
+        <text x="120" y="175" font-size="7" text-anchor="middle" fill="#b91c1c">¡2021 falta!</text>
+        <text x="190" y="165" font-size="8" text-anchor="middle" fill="#888">2023</text>
+        <text x="235" y="165" font-size="8" text-anchor="middle" fill="#888">2024</text>
+        <text x="280" y="165" font-size="8" text-anchor="middle" fill="#888">2025</text>
+      </svg>
+      <div class="bg-desc"><strong>El truco:</strong> 2021 se "saltó" pero el espacio entre 2020 y 2022 se mantuvo igual al de los años consecutivos. Si la aprobación cayó fuerte en 2021, la gráfica oculta esa caída. Pasa muy a menudo cuando hay datos faltantes o el medio quiere ocultar un mal año.</div>
+    </div>
+
+    <div class="alert al-Co">
+      <strong>Tres reglas mínimas para leer cualquier gráfica:</strong><br>
+      1. <strong>¿Dónde empieza el eje Y?</strong> Si no es en 0, las diferencias visuales no son las reales.<br>
+      2. <strong>¿El eje X tiene intervalos uniformes?</strong> Si hay años faltantes con espacio igual, hay distorsión.<br>
+      3. <strong>¿La gráfica es 3D o 2D?</strong> El 3D casi siempre distorsiona los sectores frontales.
+    </div>
+  </div>
+</section>
+
+<!-- M4 — INTERPRETA -->
+<section class="mod" id="m4">
+  <div class="srow"><span class="sb sb-clase">📍 En clase</span><span class="sb sb-coop">👥 Cooperativo</span></div>
+
+  <div class="coop-box">
+    <div class="coop-head">
+      <span class="coop-badge">AC₃</span>
+      <div>
+        <div class="coop-title">El comité editorial</div>
+        <span class="coop-time">⏱ 10 minutos · Tríos</span>
+      </div>
+    </div>
+    <p class="p-text">Ustedes son el comité editorial de una revista de psicología que va a publicar una infografía. Reciben 6 preguntas sobre las gráficas que vimos. Discutan cada una y respondan en grupo. El docente revisa en plenaria.</p>
+    <div class="role-list">
+      <span class="role-pill">COORD · controla tiempo</span>
+      <span class="role-pill">SECRET · marca respuestas</span>
+      <span class="role-pill">VOCERO · justifica una</span>
+    </div>
+    <div class="alert al-Co" style="font-size:.77rem;">
+      <strong>Procesamiento (1 min):</strong> al cerrar, el grupo escribe en una sola frase: <em>"Lo más importante al elegir una gráfica es..."</em>.
+    </div>
+  </div>
+
+  <div id="interp-quiz"></div>
+</section>
+
+<!-- M5 — QUIZ FINAL -->
+<section class="mod" id="m5">
+  <div class="srow"><span class="sb sb-clase">📍 En clase · Individual</span></div>
+
+  <div class="card">
+    <div class="ct">Quiz · 12 preguntas</div>
+    <h2 class="stitle">📝 Lo que dominas hoy</h2>
+    <p class="p-text">12 preguntas: 3 de Euler/argumentos, 4 de fórmula cardinal y encuestas, 3 de lectura de gráficas, 2 de gráficas engañosas. Responde todas y presiona <strong>Calificar</strong> al final. Puedes rehacer el quiz; se guarda tu primera nota y tu última.</p>
+    <div class="quiz-meta">
+      <span>📋 <strong>12 preguntas</strong></span>
+      <span class="qm-prog" id="qm-prog">0 / 12 respondidas</span>
+    </div>
+    <div id="quiz-container"></div>
+    <div class="btn-row">
+      <button class="btn btn-primary" id="quiz-btn" onclick="gradeQuiz()">Calificar quiz</button>
+      <button class="btn" onclick="resetQuiz()">Volver a intentarlo</button>
+    </div>
+    <div class="score-box" id="score-box">
+      <div style="font-family:var(--serif);font-style:italic;font-size:1.1rem;color:var(--Am);">Tu resultado</div>
+      <div class="score-row">
+        <div class="score-cell first">
+          <div class="score-label">Primera nota</div>
+          <div class="score-num" id="score-first">—</div>
+        </div>
+        <div class="score-cell last">
+          <div class="score-label">Última nota</div>
+          <div class="score-num" id="score-last">—</div>
+        </div>
+      </div>
+      <div class="score-msg" id="score-msg"></div>
+    </div>
+  </div>
+</section>
+
+<!-- M6 — PARA CASA -->
+<section class="mod" id="m6">
+  <div class="srow"><span class="sb sb-casa">🏠 Para casa</span></div>
+
+  <div class="card">
+    <div class="ct">Plan de estudio · Práctica distribuida</div>
+    <h2 class="stitle">El secreto no es estudiar mucho de una vez</h2>
+    <div class="story">
+      La investigación en aprendizaje (<strong>Dunlosky et al., 2013; Rosenshine, 2012</strong>) muestra dos cosas: la <strong>práctica distribuida</strong> (poco a poco, varios días) fija mucho mejor el contenido que estudiar todo de un solo día. Y la <strong>recuperación activa</strong> (intentar antes de mirar la respuesta) crea memorias mucho más duraderas que releer. Este módulo está organizado para que practiques así — no para que termines en una hora.
+    </div>
+  </div>
+
+  <div class="hw-day">
+    <div class="hw-day-head">
+      <span class="hw-day-label">Día 1 · Hoy</span>
+      <span class="hw-day-time">~20 min</span>
+    </div>
+    <div class="hw-day-title">Nivel A · Adquisición — fórmula cardinal con 2 conjuntos</div>
+    <p class="p-text" style="font-size:.79rem;">5 ejercicios para fijar la fórmula básica. Sin trampa: dibuja el Venn antes de calcular.</p>
+    <div id="hw-A"></div>
+  </div>
+
+  <div class="hw-day">
+    <div class="hw-day-head">
+      <span class="hw-day-label">Día 2 · Mañana</span>
+      <span class="hw-day-time">~25 min</span>
+    </div>
+    <div class="hw-day-title">Nivel B · Fluidez — 3 conjuntos + lectura de tablas</div>
+    <p class="p-text" style="font-size:.79rem;">4 ejercicios. Ya no se trata solo de aplicar la fórmula sino de identificarla rápido.</p>
+    <div id="hw-B"></div>
+  </div>
+
+  <div class="hw-day">
+    <div class="hw-day-head">
+      <span class="hw-day-label">Día 3 · Antes de la próxima clase</span>
+      <span class="hw-day-time">~25 min</span>
+    </div>
+    <div class="hw-day-title">Nivel C · Generalización — lectura crítica de gráficas</div>
+    <p class="p-text" style="font-size:.79rem;">4 preguntas sobre gráficas con sus posibles trampas. Aquí no basta con calcular: hay que <em>juzgar</em>.</p>
+    <div id="hw-C"></div>
+  </div>
+
+  <div class="entregable">
+    <div class="entregable-head">📋 Entregable · Trae a la próxima clase</div>
+    <div class="entregable-title">Caza la gráfica tramposa</div>
+    <p class="p-text" style="font-size:.83rem;">Busca <strong>una gráfica real</strong> en una noticia, post de redes, artículo académico o informe institucional (puede ser de salud mental, política, deportes, lo que te interese). Analízala en media página respondiendo:</p>
+    <ol style="padding-left:18px;font-size:.82rem;line-height:1.75;color:var(--text);">
+      <li><strong>¿Qué tipo de gráfica es</strong> y por qué eligieron ese tipo?</li>
+      <li>¿El eje Y empieza en 0? Si no, ¿qué efecto tiene en la percepción?</li>
+      <li>¿Hay alguna distorsión (3D, intervalos no uniformes, escala doble)?</li>
+      <li>¿Cómo la rediseñarías para que fuera más honesta?</li>
+    </ol>
+    <p class="p-text" style="font-size:.78rem;margin-top:8px;font-style:italic;color:var(--muted);">Pega o adjunta la gráfica original. Una sola hoja. Máximo media página de análisis.</p>
+  </div>
+
+  <div class="alert al-T">
+    <strong>Mira para atrás:</strong> ya tienes las tres herramientas que el psicólogo necesita para una encuesta: pensar lógicamente las preguntas (lógica proposicional, clase 8), contar a las personas (fórmula cardinal, hoy), y mostrar los resultados sin engañar (gráficas, hoy). En la próxima clase pasamos a <strong>razones, proporciones y porcentajes</strong> — el lenguaje natural de las encuestas.
+  </div>
+</section>
+
+<footer class="foot">
+  <p>Matemáticas I · Encuestas, conjuntos y gráficas · UdeC Facatativá · 2026</p>
+  <small>Miller §3.5 (Euler) · §2.4 (Encuestas) · §1.4 + §10.1 (Gráficas) · Johnson &amp; Johnson (1994) · Dunlosky et al. (2013) · Rosenshine (2012)</small>
+</footer>
+
+</main>
+
+<script>
+/* ════════════════ GLOBAL STATE ════════════════ */
+const QUIZ_KEY='mat1_c9_quiz_v1';
+let quizAnswers={},firstScore=null,lastScore=null,quizGraded=false;
+(function(){try{const r=localStorage.getItem(QUIZ_KEY);if(r){const d=JSON.parse(r);firstScore=d.first||null;lastScore=d.last||null;}}catch(e){}})();
+
+function sw(n){document.querySelectorAll('.mod').forEach((m,i)=>m.classList.toggle('on',i===n));document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('on',i===n));window.scrollTo({top:0,behavior:'smooth'});}
+
+/* ════════════════ M0 — EULER ════════════════ */
+const EULER=[
+  {n:1,
+   arg:`<em>"Todas las personas que cumplen los criterios DSM-5 de TDM presentan al menos cinco síntomas durante dos semanas. Ana cumple los criterios DSM-5 de TDM. Por tanto, Ana presenta al menos cinco síntomas durante dos semanas."</em>`,
+   valid:true,diagram:'nested_in',
+   labels:['TDM','≥5 síntomas 2 sem.','Ana'],
+   feedback:`<strong>VÁLIDO — Modus Ponens silogístico.</strong> "Todos los A son B" → A queda dentro de B. Ana ∈ A, así que Ana ∈ B obligatoriamente. La x no tiene libertad para salirse del círculo grande.`,
+   fbClass:'al-G'},
+  {n:2,
+   arg:`<em>"Todos los estudiantes que asisten regularmente a Bienestar UdeC reportan mejor manejo del estrés. María reporta mejor manejo del estrés. Por tanto, María asiste regularmente a Bienestar UdeC."</em>`,
+   valid:false,diagram:'nested_out',
+   labels:['Asisten Bienestar','Mejor manejo estrés','María'],
+   feedback:`<strong>FALACIA — Afirmar el Consecuente.</strong> El círculo "asisten a Bienestar" está dentro de "mejor manejo del estrés", pero esta región también incluye personas que manejan bien el estrés por otras razones (meditan, hacen ejercicio, tienen buena red de apoyo). María puede estar en cualquier parte del círculo grande — no obligatoriamente en el pequeño. La x tiene libertad.`,
+   fbClass:'al-E'},
+  {n:3,
+   arg:`<em>"Ninguna intervención psicológica basada en placebo produce efectos a largo plazo. El método X produce efectos a largo plazo (validados en 5 estudios). Por tanto, el método X no es una intervención basada en placebo."</em>`,
+   valid:true,diagram:'disjoint_x_out',
+   labels:['Placebo','Efectos largo plazo','Método X'],
+   feedback:`<strong>VÁLIDO — Modus Tollens silogístico.</strong> "Ningún A es B" → A y B separados. Si X está dentro de B (efectos a largo plazo), X NO puede estar en A (placebo). Razonamiento típico del falsacionismo de Popper.`,
+   fbClass:'al-G'},
+  {n:4,
+   arg:`<em>"Algunos estudiantes universitarios tienen síntomas depresivos. Camilo es estudiante universitario. Por tanto, Camilo tiene síntomas depresivos."</em>`,
+   valid:false,diagram:'overlap_x_uncertain',
+   labels:['Universitarios','Síntomas depresivos','Camilo'],
+   feedback:`<strong>FALACIA — generalización indebida.</strong> "Algunos A son B" → A y B se solapan parcialmente. Camilo ∈ A, pero la x puede caer en la parte donde A y B se solapan O en la parte de A sola. No hay obligación. Esta es la falacia más común al leer estadísticas de salud mental.`,
+   fbClass:'al-E'},
+  {n:5,
+   arg:`<em>"Todas las pruebas psicométricas estandarizadas en Colombia están normalizadas para población urbana. El test que aplicamos no fue estandarizado en Colombia. Por tanto, el test no está normalizado para población urbana."</em>`,
+   valid:false,diagram:'nested_x_out',
+   labels:['Estand. Colombia','Norm. pob. urbana','Test aplicado'],
+   feedback:`<strong>FALACIA — Negar el Antecedente.</strong> "Todas las A son B" → A dentro de B. Si X está fuera de A, X puede estar en B (en la parte de B fuera de A) o fuera de B. La x tiene libertad. Un test estandarizado en México puede estar normalizado para población urbana sin haber sido hecho en Colombia.`,
+   fbClass:'al-E'},
+  {n:6,
+   arg:`<em>"Todos los terapeutas certificados por COLPSIC han presentado el examen de ética profesional. La Dra. Pérez no ha presentado el examen de ética profesional. Por tanto, la Dra. Pérez no está certificada por COLPSIC."</em>`,
+   valid:true,diagram:'nested_x_outside',
+   labels:['Certificados COLPSIC','Examen ética','Dra. Pérez'],
+   feedback:`<strong>VÁLIDO — Modus Tollens.</strong> Si "todos los A son B", entonces "estar fuera de B" obliga a estar fuera de A. La x está fuera del círculo grande (B), por tanto fuera del círculo pequeño (A). Este es el razonamiento de las verificaciones de credenciales.`,
+   fbClass:'al-G'},
+];
+
+function drawEulerDiagram(type,labels){
+  const colA='#0d9688',colB='#d97706',colX='#b91c1c';
+  let svg=`<svg viewBox="0 0 280 175" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto;max-width:280px;">`;
+  if(type==='nested_in'){
+    svg+=`<ellipse cx="140" cy="90" rx="115" ry="68" fill="none" stroke="${colB}" stroke-width="1.8"/>`;
+    svg+=`<text x="140" y="28" font-family="Georgia" font-style="italic" font-size="10" text-anchor="middle" fill="${colB}">${labels[1]}</text>`;
+    svg+=`<ellipse cx="140" cy="105" rx="60" ry="36" fill="rgba(13,150,136,.13)" stroke="${colA}" stroke-width="1.8"/>`;
+    svg+=`<text x="140" y="82" font-family="Georgia" font-style="italic" font-size="9.5" text-anchor="middle" fill="${colA}">${labels[0]}</text>`;
+    svg+=`<circle cx="140" cy="110" r="4" fill="${colX}"/><text x="148" y="113" font-size="11" font-weight="700" fill="${colX}">x = ${labels[2]}</text>`;
+    svg+=`<text x="140" y="165" font-size="9" text-anchor="middle" fill="${colA}" font-style="italic">x ∈ A → x ∈ B obligatoriamente · VÁLIDO</text>`;
+  } else if(type==='nested_out'){
+    svg+=`<ellipse cx="140" cy="90" rx="120" ry="65" fill="none" stroke="${colB}" stroke-width="1.8"/>`;
+    svg+=`<text x="140" y="28" font-family="Georgia" font-style="italic" font-size="10" text-anchor="middle" fill="${colB}">${labels[1]}</text>`;
+    svg+=`<ellipse cx="120" cy="100" rx="55" ry="32" fill="rgba(13,150,136,.13)" stroke="${colA}" stroke-width="1.8"/>`;
+    svg+=`<text x="120" y="82" font-family="Georgia" font-style="italic" font-size="9.5" text-anchor="middle" fill="${colA}">${labels[0]}</text>`;
+    svg+=`<circle cx="215" cy="115" r="4" fill="${colX}"/><text x="195" y="138" font-size="10.5" font-weight="700" fill="${colX}">x = ${labels[2]}?</text>`;
+    svg+=`<circle cx="170" cy="95" r="4" fill="${colX}" opacity=".5"/><text x="174" y="92" font-size="9.5" font-weight="700" fill="${colX}" opacity=".6">¿o aquí?</text>`;
+    svg+=`<text x="140" y="165" font-size="9" text-anchor="middle" fill="${colX}" font-style="italic">x ∈ B pero libre dentro de B · FALACIA AC</text>`;
+  } else if(type==='disjoint_x_out'){
+    svg+=`<ellipse cx="80" cy="85" rx="55" ry="40" fill="rgba(190,24,93,.08)" stroke="${colA}" stroke-width="1.8"/>`;
+    svg+=`<text x="80" y="48" font-family="Georgia" font-style="italic" font-size="9.5" text-anchor="middle" fill="${colA}">${labels[0]}</text>`;
+    svg+=`<ellipse cx="200" cy="85" rx="55" ry="40" fill="rgba(13,150,136,.10)" stroke="${colB}" stroke-width="1.8"/>`;
+    svg+=`<text x="200" y="48" font-family="Georgia" font-style="italic" font-size="9.5" text-anchor="middle" fill="${colB}">${labels[1]}</text>`;
+    svg+=`<circle cx="200" cy="100" r="4" fill="${colX}"/><text x="210" y="103" font-size="10.5" font-weight="700" fill="${colX}">x = ${labels[2]}</text>`;
+    svg+=`<text x="140" y="160" font-size="9" text-anchor="middle" fill="${colB}" font-style="italic">x ∈ B → x ∉ A obligatoriamente · VÁLIDO</text>`;
+  } else if(type==='overlap_x_uncertain'){
+    svg+=`<ellipse cx="105" cy="85" rx="70" ry="45" fill="rgba(13,150,136,.12)" stroke="${colA}" stroke-width="1.8"/>`;
+    svg+=`<text x="75" y="43" font-family="Georgia" font-style="italic" font-size="9.5" text-anchor="middle" fill="${colA}">${labels[0]}</text>`;
+    svg+=`<ellipse cx="180" cy="85" rx="70" ry="45" fill="rgba(217,119,6,.12)" stroke="${colB}" stroke-width="1.8"/>`;
+    svg+=`<text x="210" y="43" font-family="Georgia" font-style="italic" font-size="9.5" text-anchor="middle" fill="${colB}">${labels[1]}</text>`;
+    svg+=`<circle cx="80" cy="105" r="4" fill="${colX}"/><text x="56" y="125" font-size="9.5" font-weight="700" fill="${colX}">x?</text>`;
+    svg+=`<circle cx="142" cy="100" r="4" fill="${colX}" opacity=".5"/><text x="132" y="125" font-size="9.5" font-weight="700" fill="${colX}" opacity=".7">¿o aquí?</text>`;
+    svg+=`<text x="140" y="165" font-size="9" text-anchor="middle" fill="${colX}" font-style="italic">x ∈ A pero libre · FALACIA</text>`;
+  } else if(type==='nested_x_out'){
+    svg+=`<ellipse cx="140" cy="85" rx="115" ry="62" fill="none" stroke="${colB}" stroke-width="1.8"/>`;
+    svg+=`<text x="140" y="30" font-family="Georgia" font-style="italic" font-size="10" text-anchor="middle" fill="${colB}">${labels[1]}</text>`;
+    svg+=`<ellipse cx="140" cy="100" rx="55" ry="32" fill="rgba(13,150,136,.13)" stroke="${colA}" stroke-width="1.8"/>`;
+    svg+=`<text x="140" y="82" font-family="Georgia" font-style="italic" font-size="9.5" text-anchor="middle" fill="${colA}">${labels[0]}</text>`;
+    svg+=`<circle cx="220" cy="115" r="4" fill="${colX}"/><text x="200" y="138" font-size="10.5" font-weight="700" fill="${colX}">x = ${labels[2]}?</text>`;
+    svg+=`<circle cx="40" cy="50" r="4" fill="${colX}" opacity=".5"/><text x="48" y="42" font-size="9.5" font-weight="700" fill="${colX}" opacity=".7">¿o aquí?</text>`;
+    svg+=`<text x="140" y="165" font-size="9" text-anchor="middle" fill="${colX}" font-style="italic">x ∉ A: puede estar en B o fuera · FALACIA NA</text>`;
+  } else if(type==='nested_x_outside'){
+    svg+=`<ellipse cx="140" cy="80" rx="105" ry="55" fill="none" stroke="${colB}" stroke-width="1.8"/>`;
+    svg+=`<text x="140" y="28" font-family="Georgia" font-style="italic" font-size="10" text-anchor="middle" fill="${colB}">${labels[1]}</text>`;
+    svg+=`<ellipse cx="140" cy="92" rx="55" ry="32" fill="rgba(13,150,136,.13)" stroke="${colA}" stroke-width="1.8"/>`;
+    svg+=`<text x="140" y="78" font-family="Georgia" font-style="italic" font-size="9.5" text-anchor="middle" fill="${colA}">${labels[0]}</text>`;
+    svg+=`<circle cx="40" cy="150" r="4" fill="${colX}"/><text x="50" y="153" font-size="10.5" font-weight="700" fill="${colX}">x = ${labels[2]}</text>`;
+    svg+=`<text x="140" y="167" font-size="9" text-anchor="middle" fill="${colB}" font-style="italic">x ∉ B → x ∉ A · VÁLIDO (MT)</text>`;
+  }
+  svg+=`</svg>`;
+  return svg;
+}
+
+function buildEuler(){
+  const c=document.getElementById('euler-cards');
+  if(!c)return;
+  EULER.forEach((e,i)=>{
+    const d=document.createElement('div');
+    d.className='euler-card';d.id='euler-'+i;
+    d.innerHTML=`<div class="euler-num">Argumento ${e.n} de ${EULER.length}</div>
+      <div class="euler-arg">${e.arg}</div>
+      <div class="euler-btns">
+        <button class="euler-btn" onclick="answerEuler(${i},true)">✓ Válido</button>
+        <button class="euler-btn" onclick="answerEuler(${i},false)">✗ Falacia</button>
+      </div>
+      <div class="euler-fb alert ${e.fbClass}">${drawEulerDiagram(e.diagram,e.labels)}<div style="margin-top:8px;">${e.feedback}</div></div>`;
+    c.appendChild(d);
+  });
+}
+function answerEuler(i,userValid){
+  const card=document.getElementById('euler-'+i);
+  if(card.classList.contains('answered'))return;
+  card.classList.add('answered');
+  const correct=EULER[i].valid===userValid;
+  const btns=card.querySelectorAll('.euler-btn');
+  btns[userValid?0:1].classList.add(correct?'sel-g':'sel-e');
+}
+
+/* ════════════════ M1 — VENN CALCULATORS ════════════════ */
+function drawVenn2SVG(a,b,ab,none){
+  const onlyA=Math.max(a-ab,0),onlyB=Math.max(b-ab,0);
+  let svg='';
+  svg+=`<ellipse cx="115" cy="100" rx="75" ry="55" fill="rgba(13,150,136,.18)" stroke="#0d9688" stroke-width="2"/>`;
+  svg+=`<ellipse cx="205" cy="100" rx="75" ry="55" fill="rgba(217,119,6,.18)" stroke="#d97706" stroke-width="2"/>`;
+  svg+=`<text x="60" y="40" font-family="Georgia" font-style="italic" font-size="13" fill="#0d9688" font-weight="700">B</text>`;
+  svg+=`<text x="250" y="40" font-family="Georgia" font-style="italic" font-size="13" fill="#d97706" font-weight="700">M</text>`;
+  svg+=`<text x="80" y="106" text-anchor="middle" font-size="16" font-family="Courier New" font-weight="800" fill="#0d9688">${onlyA}</text>`;
+  svg+=`<text x="160" y="106" text-anchor="middle" font-size="16" font-family="Courier New" font-weight="800" fill="#7a6a50">${ab}</text>`;
+  svg+=`<text x="240" y="106" text-anchor="middle" font-size="16" font-family="Courier New" font-weight="800" fill="#d97706">${onlyB}</text>`;
+  svg+=`<rect x="10" y="15" width="300" height="170" fill="none" stroke="#b5a88a" stroke-width="1.2" stroke-dasharray="4,3" rx="6"/>`;
+  svg+=`<text x="295" y="180" text-anchor="end" font-size="11" font-family="Courier New" font-weight="700" fill="#7a6a50">U: ${none} fuera</text>`;
+  return svg;
+}
+function updateV2(){
+  const g=id=>+document.getElementById(id).value||0;
+  const a=g('v2_a'),b=g('v2_b'),ab=g('v2_ab'),none=g('v2_none');
+  document.getElementById('v2-svg').innerHTML=drawVenn2SVG(a,b,ab,none);
+  document.getElementById('v2-onlyA').textContent=Math.max(a-ab,0);
+  document.getElementById('v2-onlyB').textContent=Math.max(b-ab,0);
+  const union=a+b-ab;
+  if(ab>a||ab>b){document.getElementById('v2-union').textContent='⚠';document.getElementById('v2-union').style.color='var(--E)';}
+  else {document.getElementById('v2-union').textContent=union;document.getElementById('v2-union').style.color='';}
+  document.getElementById('v2-total').textContent=union+none;
+}
+
+function drawVenn3SVG(a,b,c,ab,ac,bc,abc,none){
+  const r_abc=abc;
+  const r_ab=Math.max(ab-abc,0),r_ac=Math.max(ac-abc,0),r_bc=Math.max(bc-abc,0);
+  const r_a=Math.max(a-ab-ac+abc,0),r_b=Math.max(b-ab-bc+abc,0),r_c=Math.max(c-ac-bc+abc,0);
+  let svg='';
+  svg+=`<ellipse cx="125" cy="100" rx="68" ry="52" fill="rgba(13,150,136,.16)" stroke="#0d9688" stroke-width="2"/>`;
+  svg+=`<ellipse cx="215" cy="100" rx="68" ry="52" fill="rgba(217,119,6,.16)" stroke="#d97706" stroke-width="2"/>`;
+  svg+=`<ellipse cx="170" cy="160" rx="68" ry="52" fill="rgba(109,40,217,.13)" stroke="#6d28d9" stroke-width="2"/>`;
+  svg+=`<text x="65" y="50" font-family="Georgia" font-style="italic" font-size="13" fill="#0d9688" font-weight="700">C</text>`;
+  svg+=`<text x="265" y="50" font-family="Georgia" font-style="italic" font-size="13" fill="#d97706" font-weight="700">T</text>`;
+  svg+=`<text x="175" y="225" font-family="Georgia" font-style="italic" font-size="13" fill="#6d28d9" font-weight="700">L</text>`;
+  svg+=`<text x="90" y="95" text-anchor="middle" font-size="13" font-family="Courier New" font-weight="800" fill="#0d9688">${r_a}</text>`;
+  svg+=`<text x="250" y="95" text-anchor="middle" font-size="13" font-family="Courier New" font-weight="800" fill="#d97706">${r_b}</text>`;
+  svg+=`<text x="170" y="200" text-anchor="middle" font-size="13" font-family="Courier New" font-weight="800" fill="#6d28d9">${r_c}</text>`;
+  svg+=`<text x="170" y="88" text-anchor="middle" font-size="12" font-family="Courier New" font-weight="800" fill="#7a6a50">${r_ab}</text>`;
+  svg+=`<text x="120" y="155" text-anchor="middle" font-size="12" font-family="Courier New" font-weight="800" fill="#7a6a50">${r_ac}</text>`;
+  svg+=`<text x="220" y="155" text-anchor="middle" font-size="12" font-family="Courier New" font-weight="800" fill="#7a6a50">${r_bc}</text>`;
+  svg+=`<text x="170" y="128" text-anchor="middle" font-size="13" font-family="Courier New" font-weight="800" fill="#1c1408">${r_abc}</text>`;
+  svg+=`<rect x="10" y="15" width="320" height="215" fill="none" stroke="#b5a88a" stroke-width="1.2" stroke-dasharray="4,3" rx="6"/>`;
+  svg+=`<text x="320" y="35" text-anchor="end" font-size="10.5" font-family="Courier New" font-weight="700" fill="#7a6a50">U: ${none} fuera</text>`;
+  return svg;
+}
+function updateV3(){
+  const g=id=>+document.getElementById(id).value||0;
+  const a=g('v3_a'),b=g('v3_b'),c=g('v3_c'),ab=g('v3_ab'),ac=g('v3_ac'),bc=g('v3_bc'),abc=g('v3_abc'),none=g('v3_none');
+  document.getElementById('v3-svg').innerHTML=drawVenn3SVG(a,b,c,ab,ac,bc,abc,none);
+  const union=a+b+c-ab-ac-bc+abc;
+  const total=union+none;
+  let warn='';
+  if(abc>ab||abc>ac||abc>bc)warn='⚠ La triple intersección no puede ser mayor que las dobles.';
+  else if(ab>a||ab>b||ac>a||ac>c||bc>b||bc>c)warn='⚠ Una intersección doble no puede ser mayor que sus conjuntos.';
+  document.getElementById('v3-result').innerHTML=`<strong>Fórmula:</strong> n(C∪T∪L) = ${a}+${b}+${c}−${ab}−${ac}−${bc}+${abc} = <strong>${union}</strong> han usado al menos un servicio.<br><strong>Total encuestados:</strong> ${total} (= ${union} + ${none} fuera).${warn?'<br><span style="color:var(--E);font-weight:700;">'+warn+'</span>':''}`;
+}
+
+/* ════════════════ M2 — LA GRAN ENCUESTA ════════════════ */
+const TOPICS=[
+  {id:'transporte',emoji:'🚌',title:'Transporte hoy a la U',desc:'¿En qué medio(s) viniste a la UdeC hoy? <strong>Marca todos los que aplican</strong> — algunos compañeros vienen en bus + a pie, o flota desde otro municipio + transporte interno.',opts:['A pie','Bicicleta','Bus urbano Faca','Carro propio','Moto','Flota desde otro municipio'],multi:true,sub:'Respuesta múltiple'},
+  {id:'redes',emoji:'📱',title:'Redes sociales que usas hoy',desc:'¿Cuáles redes abriste hoy? Marca todas las que usaste antes de venir a clase.',opts:['Instagram','TikTok','WhatsApp','X (Twitter)','YouTube','Otra/ninguna'],multi:true,sub:'Respuesta múltiple'},
+  {id:'estudio',emoji:'🎧',title:'Cómo estudias mejor',desc:'¿En qué condición rindes mejor estudiando? Elige UNA principal (no la combinación).',opts:['Música con letra','Música instrumental','Silencio total','Ruido ambiente','Sin preferencia'],multi:false,sub:'Respuesta única'},
+  {id:'ejercicio',emoji:'🏃',title:'Actividad física semanal',desc:'¿Cuántas veces hiciste ejercicio físico (≥30 min) la semana pasada?',opts:['0 veces','1–2 veces','3–4 veces','5 o más'],multi:false,sub:'Respuesta única'},
+  {id:'campus',emoji:'🍽️',title:'Servicios del campus UdeC',desc:'¿Cuáles servicios del campus usaste esta semana? Marca todos.',opts:['Cafetería','Biblioteca','Bienestar Univ.','Salas de cómputo','Áreas verdes','Ninguno'],multi:true,sub:'Respuesta múltiple'},
+];
+let currentTopic=null,chartType='bar',surveyData={};
+
+function buildTopicGrid(){
+  const g=document.getElementById('topic-grid');
+  if(!g)return;
+  TOPICS.forEach(t=>{
+    const d=document.createElement('div');
+    d.className='topic-btn';d.id='tb-'+t.id;
+    d.innerHTML=`<div class="topic-emoji">${t.emoji}</div><div class="topic-label">${t.title}</div><div class="topic-sub">${t.sub}</div>`;
+    d.onclick=()=>pickTopic(t.id);
+    g.appendChild(d);
+  });
+}
+function pickTopic(id){
+  currentTopic=TOPICS.find(t=>t.id===id);
+  document.querySelectorAll('.topic-btn').forEach(b=>b.classList.toggle('on',b.id==='tb-'+id));
+  document.getElementById('survey-active').style.display='block';
+  document.getElementById('survey-title').innerHTML=`${currentTopic.emoji} ${currentTopic.title}`;
+  document.getElementById('survey-desc').innerHTML=currentTopic.desc;
+  surveyData={};
+  currentTopic.opts.forEach((o,i)=>surveyData[i]=0);
+  buildSurveyInputs();
+  buildVennAnalysis();
+  drawSurveyChart();
+}
+function buildSurveyInputs(){
+  const c=document.getElementById('survey-inputs');
+  c.innerHTML='';
+  currentTopic.opts.forEach((o,i)=>{
+    const d=document.createElement('div');
+    d.className='opt-input-row';
+    d.innerHTML=`<span class="opt-name">${String.fromCharCode(65+i)}. ${o}</span><input type="number" min="0" value="${surveyData[i]||0}" oninput="setOpt(${i},this.value)">`;
+    c.appendChild(d);
+  });
+}
+function setOpt(i,v){
+  surveyData[i]=+v||0;
+  drawSurveyChart();
+}
+function setChart(t){
+  chartType=t;
+  document.querySelectorAll('.chart-toggle button').forEach((b,i)=>b.classList.toggle('on',['bar','pie','hbar'][i]===t));
+  drawSurveyChart();
+}
+function drawSurveyChart(){
+  if(!currentTopic)return;
+  const svg=document.getElementById('survey-chart');
+  const opts=currentTopic.opts,data=opts.map((_,i)=>surveyData[i]||0),total=data.reduce((a,b)=>a+b,0);
+  const colors=['#0d9688','#d97706','#6d28d9','#0369a1','#b91c1c','#be185d','#15803d','#a16207'];
+  let s='';
+  if(chartType==='bar'){
+    const max=Math.max(...data,1),W=480,H=280,pad=40;
+    const bw=(W-pad-20)/data.length;
+    s+=`<line x1="${pad}" y1="${H-pad}" x2="${W-10}" y2="${H-pad}" stroke="#888"/>`;
+    s+=`<line x1="${pad}" y1="20" x2="${pad}" y2="${H-pad}" stroke="#888"/>`;
+    const step=Math.max(Math.ceil(max/5),1);
+    for(let v=0;v<=max;v+=step){
+      const y=H-pad-(v/max)*(H-pad-30);
+      s+=`<line x1="${pad}" y1="${y}" x2="${W-10}" y2="${y}" stroke="#e8e0cc" stroke-width="1"/>`;
+      s+=`<text x="${pad-5}" y="${y+3}" font-size="9" text-anchor="end" fill="#666">${v}</text>`;
+    }
+    data.forEach((v,i)=>{
+      const x=pad+10+i*bw,h=(v/max)*(H-pad-30),y=H-pad-h;
+      s+=`<rect x="${x}" y="${y}" width="${bw-12}" height="${h}" fill="${colors[i%colors.length]}" rx="3"/>`;
+      s+=`<text x="${x+(bw-12)/2}" y="${y-4}" text-anchor="middle" font-size="11" font-weight="700" fill="${colors[i%colors.length]}">${v}</text>`;
+      s+=`<text x="${x+(bw-12)/2}" y="${H-pad+14}" text-anchor="middle" font-size="9" fill="#444">${String.fromCharCode(65+i)}</text>`;
+    });
+  } else if(chartType==='pie'){
+    if(total===0){s+=`<text x="240" y="140" text-anchor="middle" font-size="13" fill="#888">Ingresa datos para ver el pastel</text>`;}
+    else {
+      const cx=200,cy=140,r=95;let angle=-Math.PI/2;
+      data.forEach((v,i)=>{
+        if(v===0)return;
+        const frac=v/total,sweep=frac*2*Math.PI;
+        const x1=cx+r*Math.cos(angle),y1=cy+r*Math.sin(angle);
+        const x2=cx+r*Math.cos(angle+sweep),y2=cy+r*Math.sin(angle+sweep);
+        const large=sweep>Math.PI?1:0;
+        if(data.filter(d=>d>0).length===1){
+          s+=`<circle cx="${cx}" cy="${cy}" r="${r}" fill="${colors[i%colors.length]}"/>`;
+        } else {
+          s+=`<path d="M${cx},${cy} L${x1.toFixed(1)},${y1.toFixed(1)} A${r},${r} 0 ${large},1 ${x2.toFixed(1)},${y2.toFixed(1)} Z" fill="${colors[i%colors.length]}" stroke="#fff" stroke-width="2"/>`;
+        }
+        const ma=angle+sweep/2,tx=cx+r*0.65*Math.cos(ma),ty=cy+r*0.65*Math.sin(ma);
+        if(frac>0.05)s+=`<text x="${tx.toFixed(1)}" y="${ty.toFixed(1)}" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">${(frac*100).toFixed(0)}%</text>`;
+        angle+=sweep;
+      });
+      data.forEach((v,i)=>{
+        const ly=30+i*22;
+        s+=`<rect x="320" y="${ly-9}" width="14" height="14" fill="${colors[i%colors.length]}" rx="2"/>`;
+        s+=`<text x="340" y="${ly+2}" font-size="10" fill="#333">${String.fromCharCode(65+i)} (${v})</text>`;
+      });
+    }
+  } else if(chartType==='hbar'){
+    const max=Math.max(...data,1),W=480,H=280,pad=130;
+    const bh=(H-30-20)/data.length;
+    data.forEach((v,i)=>{
+      const y=20+i*bh,w=(v/max)*(W-pad-30);
+      s+=`<rect x="${pad}" y="${y+4}" width="${w}" height="${bh-12}" fill="${colors[i%colors.length]}" rx="3"/>`;
+      const label=opts[i].length>16?opts[i].substring(0,14)+'…':opts[i];
+      s+=`<text x="${pad-8}" y="${y+bh/2+4}" text-anchor="end" font-size="10" fill="#333">${label}</text>`;
+      s+=`<text x="${pad+w+6}" y="${y+bh/2+4}" font-size="11" font-weight="700" fill="${colors[i%colors.length]}">${v}</text>`;
+    });
+  }
+  svg.innerHTML=s;
+}
+
+function buildVennAnalysis(){
+  const c=document.getElementById('venn-analysis');
+  if(!currentTopic){c.innerHTML='';return;}
+  if(!currentTopic.multi){
+    c.innerHTML=`<div class="hint">Este tema es de respuesta única — una persona elige UNA sola opción. No hay intersección posible. Pasa al M3 para aprender a leer gráficas.</div>`;
+    return;
+  }
+  c.innerHTML=`<div class="hint">Las opciones son de respuesta múltiple. Escojan 2 opciones y pidan al grupo cuántas personas marcaron <strong>ambas</strong>.</div>
+  <div class="venn-inputs">
+    <div class="vi-cell"><div class="vi-label">A — opción</div><select id="venn-A" onchange="updSurveyVenn()" style="width:100%;border:none;background:none;font-family:var(--mono);font-weight:700;font-size:.92rem;outline:none;color:var(--T);">${currentTopic.opts.map((o,i)=>`<option value="${i}">${String.fromCharCode(65+i)}. ${o}</option>`).join('')}</select></div>
+    <div class="vi-cell"><div class="vi-label">B — opción</div><select id="venn-B" onchange="updSurveyVenn()" style="width:100%;border:none;background:none;font-family:var(--mono);font-weight:700;font-size:.92rem;outline:none;color:var(--Am);">${currentTopic.opts.map((o,i)=>`<option value="${i}" ${i===1?'selected':''}>${String.fromCharCode(65+i)}. ${o}</option>`).join('')}</select></div>
+    <div class="vi-cell"><div class="vi-label">n(A ∩ B)</div><input type="number" id="venn-AB" value="0" min="0" oninput="updSurveyVenn()"></div>
+    <div class="vi-cell"><div class="vi-label">Total curso (n)</div><input type="number" id="venn-N" value="25" min="0" oninput="updSurveyVenn()"></div>
+  </div>
+  <div class="venn-svg-wrap"><svg id="vS-svg" class="venn-svg" viewBox="0 0 320 200"></svg></div>
+  <div class="alert al-T" id="vS-result" style="font-size:.78rem;"></div>`;
+  updSurveyVenn();
+}
+function updSurveyVenn(){
+  if(!currentTopic||!currentTopic.multi)return;
+  const ai=+document.getElementById('venn-A').value,bi=+document.getElementById('venn-B').value;
+  const a=surveyData[ai]||0,b=surveyData[bi]||0,ab=+document.getElementById('venn-AB').value||0;
+  const N=+document.getElementById('venn-N').value||0,outside=Math.max(N-(a+b-ab),0);
+  document.getElementById('vS-svg').innerHTML=drawVenn2GenericSVG(a,b,ab,outside,currentTopic.opts[ai],currentTopic.opts[bi]);
+  const union=a+b-ab;
+  document.getElementById('vS-result').innerHTML=`<strong>n(A)</strong>=${a} · <strong>n(B)</strong>=${b} · <strong>n(A∩B)</strong>=${ab}<br><strong>n(A∪B)</strong> = ${a}+${b}−${ab} = <strong>${union}</strong> compañeros marcaron al menos una.<br><strong>Solo A:</strong> ${Math.max(a-ab,0)} · <strong>Solo B:</strong> ${Math.max(b-ab,0)} · <strong>Fuera de ambas:</strong> ${outside} de ${N}.`;
+}
+function drawVenn2GenericSVG(a,b,ab,none,labelA,labelB){
+  const onlyA=Math.max(a-ab,0),onlyB=Math.max(b-ab,0);
+  const lA=labelA.length>11?labelA.substring(0,10)+'…':labelA;
+  const lB=labelB.length>11?labelB.substring(0,10)+'…':labelB;
+  let svg='';
+  svg+=`<ellipse cx="115" cy="100" rx="75" ry="55" fill="rgba(13,150,136,.18)" stroke="#0d9688" stroke-width="2"/>`;
+  svg+=`<ellipse cx="205" cy="100" rx="75" ry="55" fill="rgba(217,119,6,.18)" stroke="#d97706" stroke-width="2"/>`;
+  svg+=`<text x="55" y="36" font-family="Georgia" font-style="italic" font-size="11" fill="#0d9688" font-weight="700">A · ${lA}</text>`;
+  svg+=`<text x="265" y="36" text-anchor="end" font-family="Georgia" font-style="italic" font-size="11" fill="#d97706" font-weight="700">B · ${lB}</text>`;
+  svg+=`<text x="80" y="106" text-anchor="middle" font-size="15" font-family="Courier New" font-weight="800" fill="#0d9688">${onlyA}</text>`;
+  svg+=`<text x="160" y="106" text-anchor="middle" font-size="15" font-family="Courier New" font-weight="800" fill="#7a6a50">${ab}</text>`;
+  svg+=`<text x="240" y="106" text-anchor="middle" font-size="15" font-family="Courier New" font-weight="800" fill="#d97706">${onlyB}</text>`;
+  svg+=`<rect x="10" y="15" width="300" height="170" fill="none" stroke="#b5a88a" stroke-width="1.2" stroke-dasharray="4,3" rx="6"/>`;
+  svg+=`<text x="295" y="180" text-anchor="end" font-size="10" font-family="Courier New" font-weight="700" fill="#7a6a50">U: ${none} fuera</text>`;
+  return svg;
+}
+
+/* ════════════════ M4 — INTERPRETA ════════════════ */
+const INTERP=[
+  {q:'En la gráfica de barras de transporte (M3), la barra de "Bus" tiene altura 80 y la de "Carro" tiene altura 40, con el eje Y desde 0. ¿Cuál interpretación es correcta?',
+   opts:['Por cada 2 personas que vienen en bus, 1 viene en carro.','Las personas que vienen en bus son el doble de las que vienen en carro.','El bus es 80% más popular que el carro.','El doble de personas usan bus, pero también podríamos decir que solo es 40 personas de diferencia.'],
+   ans:3,fb:'La D es la más completa: dice la proporción (doble) Y la diferencia absoluta (40). A y B son equivalentes y correctas pero parciales. La C confunde proporción con porcentaje.'},
+  {q:'En la encuesta presidencial 2022 (eje Y desde 22%), la barra de Petro parece tres veces la de Gutiérrez. La diferencia visual real comparada con un eje desde 0% es:',
+   opts:['Igual, solo cambia la escala.','La gráfica engaña al espectador: en la realidad Petro fue 1.69 veces, no 3 veces, lo de Gutiérrez.','No hay diferencia porque los números son los mismos.','Es más correcta porque amplifica las diferencias reales.'],
+   ans:1,fb:'La B. El truco del eje Y truncado amplifica visualmente las diferencias. Cuando el eje empieza en 0, Petro es 1.69× Gutiérrez (40.3/23.9). Cuando empieza en 22%, parece 3× o más.'},
+  {q:'Una encuesta arroja que 60 estudiantes hacen deporte, 45 leen por hobby, 20 hacen ambas. La fórmula cardinal da:',
+   opts:['n(D∪L) = 60 + 45 + 20 = 125','n(D∪L) = 60 + 45 − 20 = 85','n(D∪L) = 60 + 45 = 105','n(D∪L) = (60 + 45) / 2 = 52.5'],
+   ans:1,fb:'n(D∪L) = n(D) + n(L) − n(D∩L) = 60 + 45 − 20 = 85. Los 20 que hacen ambas estaban contados en los 60 Y en los 45 — se restan una vez para no contarlos dos veces.'},
+  {q:'Una gráfica circular (pastel) tiene 3 sectores: 50%, 30% y 20%. ¿Cuál tipo de pregunta NO debería responder esta gráfica?',
+   opts:['¿Qué proporción del total representa cada categoría?','¿Cuál categoría tiene la mayor proporción?','¿Cómo cambió cada categoría entre 2024 y 2026?','¿Cuál es el porcentaje de la categoría más grande?'],
+   ans:2,fb:'C. El pastel muestra proporciones en un solo momento — NO cambios en el tiempo. Para eso necesitas dos pasteles (uno por año) o una gráfica de barras agrupadas o lineal.'},
+  {q:'Histograma de horas de estudio: la mayor frecuencia está en la clase 10–15 horas, la segunda en 15–20 horas, y la menor en 25+. ¿Qué describe mejor la distribución?',
+   opts:['Sesgada hacia la derecha (cola larga en valores altos).','Sesgada hacia la izquierda.','Simétrica.','Bimodal.'],
+   ans:0,fb:'Sesgada a la derecha: la masa está en valores bajos-medios y la cola se extiende hacia valores altos. Típico en mediciones de tiempo y dinero.'},
+  {q:'Una tabla de doble entrada muestra el número de pacientes por edad y trastorno. Una fila es "18–25 años" con totales 30, y una columna es "Trastorno de Ansiedad" con totales 45. La celda intersección dice 18. ¿Qué representa este 18?',
+   opts:['Los pacientes con ansiedad menores de 18 años.','Los pacientes entre 18 y 25 años que NO tienen ansiedad.','Los pacientes entre 18 y 25 años que tienen trastorno de ansiedad — la intersección Edad ∩ Trastorno.','El porcentaje de pacientes con ansiedad.'],
+   ans:2,fb:'La celda intersección representa n(A∩B), donde A=edad 18–25 y B=ansiedad. Es el número de pacientes que están en ambos conjuntos simultáneamente.'},
+];
+function buildInterp(){
+  const c=document.getElementById('interp-quiz');
+  if(!c)return;
+  INTERP.forEach((q,qi)=>{
+    const el=document.createElement('div');
+    el.className='q-item';
+    el.id='ip-'+qi;
+    el.innerHTML=`<div class="q-num">Pregunta ${qi+1} de ${INTERP.length} · Análisis grupal</div>
+      <div class="q-text">${q.q}</div>
+      <div class="q-opts">${q.opts.map((o,oi)=>`<div class="q-opt" id="ipo-${qi}-${oi}" onclick="answerInterp(${qi},${oi})">${String.fromCharCode(65+oi)}. ${o}</div>`).join('')}</div>
+      <div class="q-fb" id="ipf-${qi}"></div>`;
+    c.appendChild(el);
+  });
+}
+function answerInterp(qi,oi){
+  const item=document.getElementById('ip-'+qi);
+  if(item.classList.contains('done'))return;
+  item.classList.add('done');
+  const ans=INTERP[qi].ans;
+  document.querySelectorAll(`#ip-${qi} .q-opt`).forEach((el,i)=>{
+    if(i===ans)el.classList.add('ok');
+    else if(i===oi&&oi!==ans)el.classList.add('ko');
+  });
+  const fb=document.getElementById('ipf-'+qi);
+  fb.textContent=INTERP[qi].fb;
+  fb.className='q-fb show '+(oi===ans?'al-G':'al-E');
+}
+
+/* ════════════════ M5 — FINAL QUIZ ════════════════ */
+const QUIZ=[
+  {q:'"Todos los terapeutas certificados por COLPSIC tienen título profesional. La Dra. López NO tiene título profesional. Por tanto, NO está certificada por COLPSIC." Esta es:',
+   opts:['Modus Ponens — válido','Modus Tollens — válido','Afirmar el Consecuente — falacia','Negar el Antecedente — falacia'],
+   ans:1,fb:'Modus Tollens (p→q, ¬q ∴ ¬p). En Euler: A (COLPSIC) dentro de B (título). La x está fuera de B, por tanto obligada a estar fuera de A.'},
+  {q:'"Algunos estudiantes que usan TikTok tienen baja concentración. Camila usa TikTok. Por tanto, Camila tiene baja concentración."',
+   opts:['Válido','Falacia: la palabra "algunos" no obliga a Camila a estar en la intersección','Válido si TikTok es la única causa','Modus Ponens'],
+   ans:1,fb:'Falacia. "Algunos A son B" = los círculos A y B se solapan parcialmente. Camila ∈ A puede caer en la parte de A sola o en la intersección — tiene libertad.'},
+  {q:'En un diagrama de Euler para validar "Ningún terapeuta ético cobra antes de la primera sesión. El Dr. Pérez cobra antes de la primera sesión. Por tanto, no es un terapeuta ético." el diagrama correcto muestra:',
+   opts:['Los dos círculos solapados, con x en la intersección','Un círculo dentro del otro','Los dos círculos separados (disjuntos), con x dentro de "cobran antes" y por tanto fuera de "éticos"','No requiere diagrama'],
+   ans:2,fb:'"Ningún A es B" → A y B disjuntos. El Dr. Pérez está en B (cobran antes) y eso lo deja obligatoriamente fuera de A (éticos). Modus Tollens silogístico — válido.'},
+  {q:'En la clase de Matemáticas I (25 estudiantes): 18 usan WhatsApp para estudiar, 12 usan Google Drive, 8 usan ambos. ¿Cuántos usan al menos uno de los dos?',
+   opts:['38','30','22','25'],
+   ans:2,fb:'n(W∪G) = 18 + 12 − 8 = 22. Los 3 restantes (25−22) no usan ninguno de estos dos para estudiar.'},
+  {q:'Encuesta de Bienestar UdeC: 60 hacen consulta individual (C), 45 hacen taller grupal (T), 25 hacen ambos. ¿Cuántos hacen SOLO consulta individual?',
+   opts:['60','35','25','80'],
+   ans:1,fb:'Solo C = n(C) − n(C∩T) = 60 − 25 = 35. Los 25 que hacen ambos están dentro de los 60 — al restarlos, quedan los que hacen consulta sin taller.'},
+  {q:'En una encuesta a 100 estudiantes: 50 usan Instagram, 40 usan X, 30 usan ambas. ¿Cuántos NO usan ninguna de las dos?',
+   opts:['0','40','60','no puede determinarse'],
+   ans:1,fb:'n(I∪X) = 50 + 40 − 30 = 60 usan al menos una. Los que no usan ninguna = 100 − 60 = 40.'},
+  {q:'Tabla de doble entrada — semestre vs servicio de cafetería usado: la celda "1°–3° semestre" ∩ "Almuerzo en cafetería" tiene 32 estudiantes. ¿Qué representa este número?',
+   opts:['Solo los estudiantes de 1°–3° semestre','Solo los estudiantes que almuerzan en cafetería','Los estudiantes que están en AMBOS conjuntos: 1°–3° semestre Y almuerzan en cafetería','El total de la fila menos el total de la columna'],
+   ans:2,fb:'En tabla de doble entrada, la celda es la intersección de la fila con la columna: n(fila ∩ columna).'},
+  {q:'¿Cuál gráfica es la mejor para mostrar cómo cambió la matrícula de Psicología UdeC entre 2018 y 2026 (un dato por año)?',
+   opts:['Pastel','Histograma','Lineal','Barras agrupadas'],
+   ans:2,fb:'Gráfica lineal. El eje X representa tiempo (años) y el eje Y la matrícula. Una línea conecta los puntos para mostrar la tendencia.'},
+  {q:'En una gráfica de barras, la altura de la barra "Bus" es 4 veces la de la barra "Bicicleta", con eje Y desde 0. La conclusión más segura es:',
+   opts:['Hay 4 veces más buses que bicicletas en Facatativá','El número de personas que usan bus es 4 veces el número que usa bicicleta','La bicicleta es un transporte malo','El 4% usa bicicleta'],
+   ans:1,fb:'B. La altura de la barra es proporcional al valor (eje desde 0 → la proporción visual es la proporción real).'},
+  {q:'Un histograma de horas de sueño en estudiantes de Matemáticas I tiene 7 barras pegadas (sin espacios entre ellas). ¿Por qué no tiene espacios?',
+   opts:['Porque es lo más bonito','Porque las clases son intervalos numéricos continuos — el siguiente intervalo empieza donde termina el anterior','Es un error de diseño','Porque son pocas barras'],
+   ans:1,fb:'En histogramas los datos son continuos (horas, edades, puntajes). El intervalo 6–7 horas termina justo donde empieza el 7–8. Si hubiera espacios, sería una gráfica de barras.'},
+  {q:'En una gráfica de barras presidencial, el eje Y va desde 35% hasta 50%. Esto:',
+   opts:['Es válido si todos los candidatos están por encima de 35%','Distorsiona la percepción amplificando las diferencias entre candidatos','Es buena práctica para resaltar las diferencias','Es un error de software'],
+   ans:1,fb:'Truncar el eje Y amplifica las diferencias visuales sin cambiar los números. Es el truco más común en gráficas políticas. La convención honesta es empezar el eje en 0 para barras.'},
+  {q:'Una gráfica circular (pastel) 3D muestra dos sectores casi iguales (50% y 47%), pero el sector frontal se ve mucho más grande. ¿Por qué?',
+   opts:['Es un truco visual del 3D: la perspectiva hace que los sectores frontales parezcan más grandes','Los números están mal calculados','El sector frontal sí es matemáticamente mayor','Es una gráfica de barras disfrazada'],
+   ans:0,fb:'El 3D agrega "profundidad" al sector frontal, que el ojo interpreta como tamaño mayor. Por eso un pastel 2D plano siempre es más honesto.'},
+];
+
+function buildQuiz(){
+  const c=document.getElementById('quiz-container');
+  if(!c)return;
+  c.innerHTML='';
+  QUIZ.forEach((q,qi)=>{
+    const el=document.createElement('div');
+    el.className='q-item';
+    el.id='q-'+qi;
+    el.innerHTML=`<div class="q-num">Pregunta ${qi+1} de ${QUIZ.length}</div>
+      <div class="q-text">${q.q}</div>
+      <div class="q-opts" id="qopts-${qi}">${q.opts.map((o,oi)=>`<div class="q-opt" id="qo-${qi}-${oi}" onclick="selQ(${qi},${oi})">${String.fromCharCode(65+oi)}. ${o}</div>`).join('')}</div>
+      <div class="q-fb" id="qf-${qi}"></div>`;
+    c.appendChild(el);
+  });
+  updateProgress();
+  if(firstScore!==null){
+    document.getElementById('score-first').textContent=firstScore.toFixed(1);
+    document.getElementById('score-last').textContent=(lastScore!==null?lastScore:firstScore).toFixed(1);
+    document.getElementById('score-box').classList.add('show');
+    document.getElementById('score-msg').textContent='Ya tienes resultado guardado. Puedes intentar de nuevo para mejorar tu última nota — la primera nota nunca cambia.';
+  }
+}
+function selQ(qi,oi){
+  if(quizGraded)return;
+  quizAnswers[qi]=oi;
+  document.querySelectorAll(`#qopts-${qi} .q-opt`).forEach((el,i)=>el.classList.toggle('sel',i===oi));
+  updateProgress();
+}
+function updateProgress(){
+  const n=Object.keys(quizAnswers).length;
+  const el=document.getElementById('qm-prog');
+  if(el)el.textContent=`${n} / ${QUIZ.length} respondidas`;
+}
+function gradeQuiz(){
+  const un=QUIZ.filter((_,i)=>quizAnswers[i]===undefined).length;
+  if(un>0){
+    const el=document.getElementById('quiz-btn');
+    el.textContent=`Faltan ${un} preguntas`;
+    setTimeout(()=>{el.textContent='Calificar quiz';},1800);
+    return;
+  }
+  quizGraded=true;
+  const correct=QUIZ.filter((q,i)=>quizAnswers[i]===q.ans).length;
+  const nota=correct/QUIZ.length*5;
+  if(firstScore===null)firstScore=nota;
+  lastScore=nota;
+  try{localStorage.setItem(QUIZ_KEY,JSON.stringify({first:firstScore,last:lastScore}));}catch(e){}
+  QUIZ.forEach((q,qi)=>{
+    const sel=quizAnswers[qi];
+    q.opts.forEach((_,oi)=>{
+      const el=document.getElementById(`qo-${qi}-${oi}`);
+      if(!el)return;
+      el.classList.remove('sel');
+      if(oi===q.ans)el.classList.add('ok');
+      else if(oi===sel&&sel!==q.ans)el.classList.add('ko');
+    });
+    const fb=document.getElementById('qf-'+qi);
+    if(fb){fb.textContent=q.fb;fb.className='q-fb show '+(sel===q.ans?'al-G':'al-E');}
+  });
+  document.getElementById('quiz-btn').disabled=true;
+  document.getElementById('score-first').textContent=firstScore.toFixed(1);
+  document.getElementById('score-last').textContent=lastScore.toFixed(1);
+  const msgs=['Sigue practicando — revisa el M6 y rehazlo mañana.','Vas bien pero hay conceptos por afianzar. Revisa los que fallaste.','Buen desempeño. Un repaso del Para Casa y excelente.','Muy bien. Quedaste cerca de perfecto.','¡Perfecto! Dominas los tres temas.'];
+  const mi=correct<=4?0:correct<=7?1:correct<=9?2:correct<=11?3:4;
+  document.getElementById('score-msg').textContent=msgs[mi];
+  document.getElementById('score-box').classList.add('show');
+  setTimeout(()=>document.getElementById('score-box').scrollIntoView({behavior:'smooth',block:'center'}),100);
+}
+function resetQuiz(){
+  quizAnswers={};quizGraded=false;
+  buildQuiz();
+  document.getElementById('quiz-btn').disabled=false;
+  window.scrollTo({top:document.getElementById('m5').offsetTop-80,behavior:'smooth'});
+}
+
+/* ════════════════ M6 — HOMEWORK ════════════════ */
+const HW_A=[
+  {q:'En una encuesta a 50 estudiantes de psicología: 30 hacen deporte, 25 leen por hobby, 12 hacen ambas. ¿Cuántos hacen al menos una?',
+   opts:['43','55','67','30'],ans:0,fb:'n(D∪L) = 30 + 25 − 12 = 43.'},
+  {q:'En 80 pacientes: 50 reciben TCC, 30 reciben medicación, 20 reciben ambas. ¿Cuántos reciben SOLO TCC?',
+   opts:['50','30','20','80'],ans:1,fb:'Solo TCC = n(T) − n(T∩M) = 50 − 20 = 30.'},
+  {q:'En la cafetería UdeC: 70 estudiantes piden bebida caliente, 45 piden postre, 25 piden ambas, 10 no piden ninguna. ¿Cuántos hay en total?',
+   opts:['100','115','90','125'],ans:0,fb:'n(B∪P) = 70+45−25 = 90. Total = 90 (al menos una) + 10 (ninguna) = 100.'},
+  {q:'Si n(A) = 35, n(B) = 28, n(A∪B) = 50, ¿cuánto vale n(A∩B)?',
+   opts:['13','7','63','22'],ans:0,fb:'Despejando: n(A∩B) = n(A) + n(B) − n(A∪B) = 35 + 28 − 50 = 13.'},
+  {q:'¿En cuál de estas situaciones la fórmula n(A∪B) = n(A) + n(B) (SIN restar la intersección) es correcta?',
+   opts:['Siempre','Cuando n(A∩B) = 0, es decir, A y B son disjuntos','Cuando A está dentro de B','Nunca'],ans:1,fb:'Cuando A y B no tienen elementos en común, n(A∩B)=0, y la fórmula se simplifica. Por ejemplo: hombres y mujeres en una encuesta — no hay intersección.'},
+];
+const HW_B=[
+  {q:'Bienestar UdeC: 50 usan consulta (C), 35 usan taller (T), 20 usan línea telefónica (L). n(C∩T)=15, n(C∩L)=8, n(T∩L)=10, n(C∩T∩L)=5. ¿Cuántos usan al menos un servicio?',
+   opts:['77','82','113','100'],ans:0,fb:'n(C∪T∪L) = 50+35+20 − 15−8−10 + 5 = 77.'},
+  {q:'En la tabla de cafetería UdeC (M1), n(Semestres 1-3 ∪ Vegetariano) — todos los que son de semestres 1-3 más todos los que pidieron vegetariano (sin doble contar):',
+   opts:['72 + 43 = 115','72 + 43 − 8 = 107','72 + 43 + 8 = 123','115 ÷ 2'],ans:1,fb:'n(P∪V) = n(P) + n(V) − n(P∩V) = 72 + 43 − 8 = 107. Restamos los 8 vegetarianos de semestres 1-3 que se contaron dos veces.'},
+  {q:'En la misma tabla, n((Semestres 7+)\' ∩ Corrientazo) — los que NO son de 7+ y pidieron corrientazo:',
+   opts:['10','80','90','52 + 28 = 80'],ans:3,fb:'(Semestres 7+)\' incluye semestres 1-3 y 4-6. Corrientazo en esas dos filas: 52 + 28 = 80.'},
+  {q:'Encuesta de redes sociales: 40 usan Instagram, 30 usan TikTok, 25 usan ambas. La fórmula da n(I∪T) = 45. Pero el grupo tiene 50 personas y todos dicen usar al menos una red. ¿Qué pasa?',
+   opts:['La fórmula está mal','Alguien mintió o los datos son inconsistentes — debería haber al menos 50 en la unión','5 personas usan una tercera red','No hay problema'],ans:1,fb:'Si todos usan al menos una red, n(I∪T) debería ser ≥ 50. Como da 45, faltan al menos 5 personas — probablemente usan otra red. Los datos están incompletos.'},
+];
+const HW_C=[
+  {q:'Una gráfica circular de "motivos para consultar psicólogo" en una clínica UdeC suma 110%. ¿Qué pasa?',
+   opts:['Es un error de cálculo','Los pacientes pueden marcar más de un motivo — el pastel NO es la gráfica correcta para datos de respuesta múltiple','Está bien, los pasteles pueden pasar 100%','El psicólogo cobró extra'],ans:1,fb:'B. Cuando una persona puede pertenecer a varias categorías (respuesta múltiple), las proporciones se solapan y el pastel pierde sentido. Mejor: gráfica de barras donde cada barra es independiente.'},
+  {q:'En una gráfica lineal del peso de un paciente durante terapia, el eje Y va de 0 a 200 kg. La línea cambia muy poco visualmente. Si quisieras MOSTRAR los cambios pequeños sin engañar, podrías:',
+   opts:['Truncar el eje Y empezando en 50 kg, INDICANDO claramente el corte con líneas zigzag','Cambiar las unidades a gramos','Hacer la gráfica más grande','No se puede sin engañar'],ans:0,fb:'A. El truncamiento NO es engañoso si se indica con líneas zigzag (≈) o un corte visible en el eje. Lo deshonesto es truncar SIN avisar al lector.'},
+  {q:'Un titular dice "Las consultas de salud mental aumentaron 50%". La gráfica muestra que en 2025 hubo 60 consultas y en 2026 hubo 90. ¿Es correcto el titular?',
+   opts:['Sí, el aumento es 30 que sobre 60 es 50%','No, el aumento fue de 30 que sobre 60 es 33%','Sí, porque sobre 90 es 33%','No, el aumento fue 30%'],ans:0,fb:'Aumento porcentual = (nuevo − viejo) / viejo × 100 = (90−60)/60 × 100 = 50%. El titular es correcto.'},
+  {q:'En una encuesta sobre transporte en Facatativá, el medio "moto" tiene 8% en la gráfica circular. Si en total se encuestaron 200 personas, ¿cuántas usan moto?',
+   opts:['8','16','25','40'],ans:1,fb:'8% de 200 = 200 × 0.08 = 16 personas.'},
+];
+
+function buildHW(data,cid){
+  const c=document.getElementById(cid);
+  if(!c)return;
+  data.forEach((q,qi)=>{
+    const el=document.createElement('div');
+    el.className='hw-ex';
+    el.id=`${cid}-${qi}`;
+    el.innerHTML=`<div class="hw-ex-q"><strong>${qi+1}.</strong> ${q.q}</div>
+      <div class="q-opts">${q.opts.map((o,oi)=>`<div class="q-opt" id="${cid}-o-${qi}-${oi}" onclick="answerHW('${cid}',${qi},${oi})">${String.fromCharCode(65+oi)}. ${o}</div>`).join('')}</div>
+      <div class="q-fb" id="${cid}-f-${qi}"></div>`;
+    c.appendChild(el);
+  });
+}
+const HW_DATA={'hw-A':HW_A,'hw-B':HW_B,'hw-C':HW_C};
+function answerHW(cid,qi,oi){
+  const item=document.getElementById(`${cid}-${qi}`);
+  if(item.classList.contains('done'))return;
+  item.classList.add('done');
+  const ans=HW_DATA[cid][qi].ans;
+  document.querySelectorAll(`#${cid}-${qi} .q-opt`).forEach((el,i)=>{
+    if(i===ans)el.classList.add('ok');
+    else if(i===oi&&oi!==ans)el.classList.add('ko');
+  });
+  const fb=document.getElementById(`${cid}-f-${qi}`);
+  fb.textContent=HW_DATA[cid][qi].fb;
+  fb.className='q-fb show '+(oi===ans?'al-G':'al-E');
+}
+
+/* ════════════════ INIT ════════════════ */
+buildEuler();
+updateV2();
+updateV3();
+buildTopicGrid();
+buildInterp();
+buildQuiz();
+buildHW(HW_A,'hw-A');
+buildHW(HW_B,'hw-B');
+buildHW(HW_C,'hw-C');
+</script>
+
+</body>
+</html>
