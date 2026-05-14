@@ -1,0 +1,1310 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<title>Voces del Grupo — El grupo de discusión · Sesión 11 · Versión accesible</title>
+<meta name="description" content="Herramienta pedagógica accesible para Seminario de Investigación II. Lectura en voz alta por sección, activable a demanda. Sesión 11: El grupo de discusión.">
+<style>
+html{color-scheme:light!important}
+*{-webkit-color-scheme:light!important;color-scheme:light!important}
+@media(prefers-color-scheme:dark){html,body,*{background-color:initial!important;color:initial!important}html{color-scheme:light!important;background:#faf7f0!important}body{background:#faf7f0!important;color:#1c1917!important}}
+</style>
+<style>
+:root{
+  color-scheme:light;
+  --verde:#1a5c3a;--verdec:#ddeee5;--verdem:#2d7a52;
+  --azul:#1a3a5c;--azulc:#dce9f5;
+  --naranja:#5c3a00;--naranjac:#fef0d8;
+  --morado:#3a1a5c;--moradoc:#ebe3f5;
+  --rojo:#7a1a1a;--rojoc:#fce8e8;
+  --brecht:#2c1810;--brechtc:#f9efe5;
+  --gris:#1c1917;--griss:#e8e3db;--borde:#c0b9b0;
+  --fondo:#f5f1e8;
+  --focus:#0055cc;
+  --focus-ring:0 0 0 4px #faf7f0,0 0 0 7px var(--focus);
+  --tts-bg:#eaf4ee;--tts-fg:#1a3a28;
+  --tts-off:#f5ede3;--tts-off-fg:#5c3a00;
+}
+html{background:#faf7f0;color:#1c1917}
+*{box-sizing:border-box;margin:0;padding:0}
+*:focus{outline:4px solid var(--focus);outline-offset:3px}
+*:focus:not(:focus-visible){outline:none}
+*:focus-visible{outline:4px solid var(--focus);outline-offset:3px;box-shadow:var(--focus-ring)}
+
+/* ── Skip links ── */
+.skip-group{position:absolute;top:0;left:0;z-index:10000}
+.skip{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;background:var(–focus);color:#fff;font-weight:700;padding:14px 22px;font-size:15px;border:3px solid #fff;text-decoration:none;border-radius:0 0 8px 0}
+.skip:focus{position:static;left:auto;width:auto;height:auto;overflow:visible;display:block}
+#live-polite,#live-assertive{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}
+
+/* ── TTS Bar ── */
+#tts-bar{
+background:var(–tts-off);color:var(–tts-off-fg);
+display:flex;align-items:center;flex-wrap:wrap;gap:10px;
+padding:9px 16px;border-bottom:2px solid var(–borde);
+font-family:‘Georgia’,serif;font-size:12px;
+transition:background .4s,color .4s;
+}
+#tts-bar.activo{background:var(–tts-bg);color:var(–tts-fg);border-bottom-color:var(–verdem)}
+.tts-label{font-weight:700;font-size:11px;letter-spacing:.05em;text-transform:uppercase;flex-shrink:0}
+.tts-toggle{
+display:inline-flex;align-items:center;gap:8px;padding:6px 14px;
+border-radius:20px;border:2px solid currentColor;
+background:transparent;color:inherit;
+font-family:‘Georgia’,serif;font-size:12px;font-weight:700;cursor:pointer;
+transition:all .3s;
+}
+.tts-toggle:hover{background:rgba(0,0,0,.07)}
+.toggle-dot{width:14px;height:14px;border-radius:50%;background:currentColor;opacity:.35;transition:opacity .3s,transform .3s}
+#tts-bar.activo .toggle-dot{opacity:1;transform:scale(1.15)}
+.tts-stop{display:none;padding:5px 11px;border-radius:5px;border:1.5px solid var(–verdem);background:#fff;color:var(–verde);font-family:‘Georgia’,serif;font-size:12px;font-weight:700;cursor:pointer}
+#tts-bar.activo .tts-stop{display:inline-flex;align-items:center;gap:5px}
+.tts-reading{font-size:11px;font-style:italic;flex:1;text-align:right;max-width:40%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;opacity:.7}
+#tts-aviso{display:none;position:fixed;bottom:22px;right:22px;background:#5c3a00;color:#fff;padding:10px 18px;border-radius:8px;font-family:‘Georgia’,serif;font-size:13px;z-index:9999;animation:fadeout 2.5s forwards}
+@keyframes fadeout{0%{opacity:1}70%{opacity:1}100%{opacity:0}}
+
+/* ── Header ── */
+header{background:var(–brecht);color:#f9efe5;padding:20px 24px 16px;font-family:‘Georgia’,serif}
+header h1{font-size:clamp(18px,3vw,26px);font-weight:700;line-height:1.25;margin-bottom:4px}
+header p{font-size:13px;opacity:.8;margin-top:4px}
+.badge{display:inline-block;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#f9efe5;font-size:10px;padding:3px 8px;border-radius:3px;margin-top:6px;font-family:system-ui,sans-serif;letter-spacing:.03em}
+
+/* ── Nav tabs ── */
+nav#modulos-nav{
+display:flex;flex-wrap:wrap;gap:4px;padding:10px 12px;
+background:#e8e3db;border-bottom:2px solid var(–borde);
+position:sticky;top:0;z-index:100;
+}
+nav#modulos-nav button{
+padding:7px 10px;border-radius:6px;border:1.5px solid var(–borde);
+background:#fff;color:var(–gris);font-family:‘Georgia’,serif;
+font-size:11px;cursor:pointer;transition:all .2s;text-align:center;
+line-height:1.3;min-width:70px;
+}
+nav#modulos-nav button[aria-selected=“true”]{background:var(–brecht);color:#f9efe5;border-color:var(–brecht);font-weight:700}
+nav#modulos-nav button:hover:not([aria-selected=“true”]){background:var(–griss)}
+
+/* ── Main ── */
+main{padding:0}
+section[role=“tabpanel”]{display:none;padding:20px 18px 40px;max-width:860px;margin:0 auto;font-family:‘Georgia’,serif;animation:fadein .25s ease}
+section[role=“tabpanel”].activa{display:block}
+@keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+h2{font-size:18px;color:var(–brecht);margin-bottom:4px;border-bottom:2px solid var(–borde);padding-bottom:8px}
+h3{font-size:15px;color:var(–azul);margin:18px 0 8px}
+p{font-size:14px;line-height:1.75;color:#2c2820;margin-bottom:10px}
+ul,ol{font-size:14px;line-height:1.75;padding-left:22px;color:#2c2820;margin-bottom:10px}
+li{margin-bottom:4px}
+
+.prog-txt{margin:6px 0 14px;font-family:system-ui,sans-serif}
+.en-clase{background:var(–verdec);color:var(–verde);padding:3px 9px;border-radius:3px;font-size:11px;font-weight:700;letter-spacing:.04em}
+.en-casa{background:var(–naranjac);color:var(–naranja);padding:3px 9px;border-radius:3px;font-size:11px;font-weight:700;letter-spacing:.04em}
+.clase-casa{background:var(–azulc);color:var(–azul);padding:3px 9px;border-radius:3px;font-size:11px;font-weight:700;letter-spacing:.04em}
+
+/* ── Leer buttons ── */
+.leer-bloque{
+display:inline-flex;align-items:center;gap:7px;
+padding:7px 14px;border-radius:6px;
+border:2px solid var(–verdem);
+background:var(–verdec);color:var(–verde);
+font-family:‘Georgia’,serif;font-size:13px;font-weight:700;
+cursor:pointer;margin:8px 0 14px;transition:all .2s;
+}
+.leer-bloque:hover{background:var(–verdem);color:#fff}
+.leer-bloque svg{width:14px;height:14px;flex-shrink:0}
+.leer-sec{
+display:inline-flex;align-items:center;gap:6px;
+padding:5px 11px;border-radius:5px;
+border:1.5px solid var(–borde);
+background:#fff;color:var(–azul);
+font-family:‘Georgia’,serif;font-size:12px;font-weight:700;
+cursor:pointer;margin:6px 0 10px;transition:all .2s;
+}
+.leer-sec:hover{background:var(–azulc)}
+.leer-sec svg{width:12px;height:12px;flex-shrink:0}
+
+/* ── Poem ── */
+.poema-bloque{
+background:var(–brechtc);border-left:4px solid var(–brecht);
+padding:22px 24px 18px;border-radius:0 8px 8px 0;
+margin:14px 0;font-family:‘Georgia’,serif;
+}
+.poema-titulo{font-size:13px;font-weight:700;color:var(–brecht);letter-spacing:.05em;text-transform:uppercase;margin-bottom:4px}
+.poema-autor{font-size:12px;color:#7a6050;margin-bottom:16px;font-style:italic}
+.poema-verso{font-size:14px;color:#2c1810;line-height:2;margin:0;white-space:pre-line}
+.poema-verso em{font-style:italic;color:#5c3a00}
+
+/* ── Cards ── */
+.card{border-radius:8px;padding:16px 18px;margin:12px 0;border:1.5px solid}
+.card-v{background:var(–verdec);border-color:#a8d5bc}
+.card-a{background:var(–azulc);border-color:#a8c5e0}
+.card-n{background:var(–naranjac);border-color:#f0c880}
+.card-m{background:var(–moradoc);border-color:#c0a0e0}
+.card-r{background:var(–rojoc);border-color:#e0a0a0}
+.card-g{background:var(–griss);border-color:var(–borde)}
+
+/* ── Cooperative activity boxes ── */
+.ac-box{background:#fff;border:2px solid var(–verde);border-radius:8px;margin:12px 0;overflow:hidden}
+.ac-hdr{background:var(–verde);color:#fff;padding:10px 16px;display:flex;align-items:center;gap:8px;font-family:system-ui,sans-serif;font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.ac-body{padding:14px 16px}
+.ac-body p{margin-bottom:8px}
+.ac-body ol,.ac-body ul{margin-bottom:8px}
+.ac-body li{margin-bottom:6px}
+
+/* ── Steps ── */
+.paso{display:flex;gap:12px;margin:10px 0;align-items:flex-start}
+.paso-n{min-width:28px;height:28px;border-radius:50%;background:var(–brecht);color:#f9efe5;font-family:system-ui,sans-serif;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+
+/* ── Table comparison ── */
+.comp-table{width:100%;border-collapse:collapse;font-size:13px;margin:12px 0}
+.comp-table th{background:var(–brecht);color:#f9efe5;padding:9px 12px;text-align:left;font-weight:700}
+.comp-table td{padding:8px 12px;border-bottom:1px solid var(–borde);vertical-align:top;line-height:1.55}
+.comp-table tr:nth-child(even) td{background:#f5f1e8}
+.comp-table caption{font-size:12px;color:#7a6050;text-align:left;padding-bottom:6px;font-style:italic}
+
+/* ── Concept accordion ── */
+.concepto{border:1.5px solid var(–borde);border-radius:7px;margin:8px 0;overflow:hidden}
+.concepto-hdr{width:100%;display:flex;align-items:center;gap:10px;padding:11px 14px;background:#fff;border:none;cursor:pointer;text-align:left;font-family:‘Georgia’,serif;transition:background .2s}
+.concepto-hdr:hover{background:var(–griss)}
+.concepto-ico{font-size:18px;flex-shrink:0}
+.concepto-tit{flex:1;font-size:14px;font-weight:700;color:var(–brecht);display:flex;flex-direction:column}
+.concepto-sub{font-size:11px;font-weight:400;color:#7a6050;font-style:italic}
+.concepto-chev{font-size:14px;color:var(–borde);transition:transform .3s;flex-shrink:0}
+.concepto-hdr[aria-expanded=“true”] .concepto-chev{transform:rotate(180deg)}
+.concepto-body{display:none;padding:14px 16px;background:#faf7f0;border-top:1px solid var(–borde)}
+.concepto-body.abierto{display:block}
+
+/* ── Simulation box ── */
+.sim-box{background:#fff;border:2px solid var(–morado);border-radius:8px;margin:12px 0;overflow:hidden}
+.sim-hdr{background:var(–morado);color:#fff;padding:10px 16px;font-family:system-ui,sans-serif;font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.sim-body{padding:14px 16px}
+.sim-rol{display:inline-block;padding:2px 8px;border-radius:3px;font-size:11px;font-weight:700;margin-right:6px;font-family:system-ui,sans-serif}
+.rol-m{background:var(–moradoc);color:var(–morado)}
+.rol-o{background:var(–naranjac);color:var(–naranja)}
+.rol-a{background:var(–azulc);color:var(–azul)}
+
+/* ── Pregunta card ── */
+.pregunta-card{background:#fff;border:1.5px solid var(–borde);border-radius:7px;padding:14px 16px;margin:10px 0}
+.pregunta-num{font-size:11px;font-weight:700;color:var(–borde);font-family:system-ui,sans-serif;letter-spacing:.05em;text-transform:uppercase;margin-bottom:4px}
+.pregunta-texto{font-size:14px;font-weight:700;color:var(–brecht);line-height:1.55;margin-bottom:8px}
+.pregunta-hint{font-size:12px;color:#7a6050;font-style:italic}
+.pregunta-incomoda{border-color:var(–rojo);background:var(–rojoc)}
+.pregunta-incomoda .pregunta-num{color:var(–rojo)}
+.pregunta-incomoda .pregunta-texto{color:var(–rojo)}
+
+/* ── Textarea ── */
+.form-g{margin:12px 0}
+.form-g label{display:block;font-size:13px;font-weight:700;color:var(–brecht);margin-bottom:5px}
+.form-g textarea{width:100%;padding:10px 12px;border:1.5px solid var(–borde);border-radius:6px;font-family:‘Georgia’,serif;font-size:13px;line-height:1.65;resize:vertical;background:#fff;color:var(–gris)}
+.form-g textarea:focus{border-color:var(–focus);outline:none;box-shadow:0 0 0 3px rgba(0,85,204,.2)}
+.form-g .hint{font-size:11px;color:#7a6050;margin-top:4px;font-style:italic}
+
+/* ── Quote ── */
+.cita{border-left:3px solid var(–borde);padding:8px 14px;margin:12px 0;font-style:italic;color:#5a4a3a;font-size:13px}
+.cita-ref{font-size:11px;font-style:normal;color:#7a6050;display:block;margin-top:4px}
+
+/* ── Help overlay ── */
+#help-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9998;align-items:center;justify-content:center}
+#help-overlay.vis{display:flex}
+#help-modal{background:#fff;border-radius:10px;padding:24px;max-width:480px;width:90%;max-height:80vh;overflow-y:auto}
+#help-modal h2{font-size:16px;margin-bottom:14px;color:var(–brecht)}
+.atajos{width:100%;border-collapse:collapse;font-size:13px}
+.atajos td{padding:7px 10px;border-bottom:1px solid #eee}
+.atajos td:first-child{font-family:monospace;background:#f0ede8;border-radius:3px;white-space:nowrap;width:90px}
+
+/* ── Help button ── */
+#btn-ayuda{position:fixed;bottom:18px;left:18px;background:var(–brecht);color:#f9efe5;border:none;border-radius:50%;width:44px;height:44px;font-size:18px;cursor:pointer;z-index:900;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+</style>
+
+</head>
+<body>
+
+<!-- Skip links -->
+
+<div class="skip-group" role="navigation" aria-label="Atajos de navegación">
+  <a href="#main-content" class="skip">Ir al contenido principal</a>
+  <a href="#modulos-nav" class="skip">Ir a la navegación por módulos</a>
+  <a href="#tts-bar" class="skip">Ir a controles de voz</a>
+</div>
+
+<!-- Live regions -->
+
+<div id="live-polite" aria-live="polite" aria-atomic="true" role="status"></div>
+<div id="live-assertive" aria-live="assertive" aria-atomic="true" role="alert"></div>
+<div id="tts-aviso" role="status" aria-live="assertive"></div>
+
+<!-- ── TTS Bar (desactivada por defecto) ── -->
+
+<div id="tts-bar" role="toolbar" aria-label="Controles de lectura en voz alta">
+  <span class="tts-label" id="tts-label-txt">🔇 Voz desactivada</span>
+  <button class="tts-toggle" id="btn-activar-voz"
+    aria-pressed="false"
+    aria-describedby="tts-desc"
+    onclick="toggleTTS()">
+    <span class="toggle-dot" aria-hidden="true"></span>
+    Activar lectura en voz alta
+  </button>
+  <span id="tts-desc" style="display:none">Activa la lectura en voz alta. Cada sección tiene su propio botón para escuchar solo esa parte.</span>
+  <button class="tts-stop" onclick="detener()" aria-label="Detener lectura">
+    <svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+    Detener
+  </button>
+  <div class="tts-reading" id="tts-reading" aria-live="polite" aria-label="Texto que se está leyendo"></div>
+</div>
+
+<!-- ── Header ── -->
+
+<header role="banner">
+  <h1>Voces del Grupo — El grupo de discusión</h1>
+  <p>Seminario de Investigación II · Psicología · UdeC Facatativá · Sesión 11</p>
+  <div>
+    <span class="badge">♿ Versión con audio a demanda · WCAG 2.1 AAA</span>
+    <span class="badge" style="margin-left:6px">Canales Cerón, 2006</span>
+  </div>
+</header>
+
+<!-- ── Navigation ── -->
+
+<nav id="modulos-nav" aria-label="Módulos de la herramienta" role="tablist">
+  <button role="tab" aria-selected="true"  aria-controls="t0" id="b0" onclick="ir(0)">0. Apertura<br><span style="font-size:9px;font-weight:400">📍 Clase</span></button>
+  <button role="tab" aria-selected="false" aria-controls="t1" id="b1" onclick="ir(1)">1. Lo que traje<br><span style="font-size:9px;font-weight:400">📍 Clase</span></button>
+  <button role="tab" aria-selected="false" aria-controls="t2" id="b2" onclick="ir(2)">2. Conceptos<br><span style="font-size:9px;font-weight:400">📍 Clase</span></button>
+  <button role="tab" aria-selected="false" aria-controls="t3" id="b3" onclick="ir(3)">3. Acto. 1<br><span style="font-size:9px;font-weight:400">📍 Parejas</span></button>
+  <button role="tab" aria-selected="false" aria-controls="t4" id="b4" onclick="ir(4)">4. Acto. 2<br><span style="font-size:9px;font-weight:400">📍 Grupos</span></button>
+  <button role="tab" aria-selected="false" aria-controls="t5" id="b5" onclick="ir(5)">5. Acto. 3<br><span style="font-size:9px;font-weight:400">📍 Parejas</span></button>
+  <button role="tab" aria-selected="false" aria-controls="t6" id="b6" onclick="ir(6)">6. Después<br><span style="font-size:9px;font-weight:400">📍+🏠</span></button>
+  <button role="tab" aria-selected="false" aria-controls="t7" id="b7" onclick="ir(7)">7. Próxima S12<br><span style="font-size:9px;font-weight:400">🏠 Casa</span></button>
+</nav>
+
+<!-- ── Main ── -->
+
+<main id="main-content" role="main">
+
+<!-- ═══════════════════════════════════════════════════
+     M0 — APERTURA: BRECHT Y LAS VOCES QUE NO FIGURAN
+═══════════════════════════════════════════════════ -->
+
+<section role="tabpanel" id="t0" class="activa"
+  aria-labelledby="b0" tabindex="-1"
+  data-hint="Módulo de apertura. Contiene el poema de Brecht y dos preguntas de cierre de la sesión anterior.">
+  <h2 id="h0">Módulo 0 — Las voces que no figuran</h2>
+  <div class="prog-txt"><span class="en-clase">📍 Clase · Apertura · ≈ 15 minutos</span></div>
+
+  <!-- Poema -->
+
+  <div id="sec-poema">
+    <h3>El poema con el que cerramos y abrimos</h3>
+    <button class="leer-sec" onclick="leerSec('sec-poema')"
+      aria-label="Leer el poema de Brecht: Preguntas de un obrero ante un libro">
+      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      Leer el poema
+    </button>
+
+```
+<div class="poema-bloque" aria-label="Poema: Preguntas de un obrero ante un libro, de Bertolt Brecht">
+  <div class="poema-titulo">Preguntas de un obrero ante un libro</div>
+  <div class="poema-autor">Bertolt Brecht</div>
+  <p class="poema-verso">Tebas, la de las Siete Puertas, ¿quién la construyó?
+```
+
+En los libros figuran los nombres de los reyes.
+¿Arrastraron los reyes los grandes bloques de piedra?
+Y Babilonia, destruida tantas veces,
+¿quién la volvió a construir otras tantas? ¿En qué casas
+de la dorada Lima vivían los obreros que la construyeron?
+La noche en que fue terminada la Muralla china,
+¿adónde fueron los albañiles? Roma la Grande
+está llena de arcos de triunfo. ¿Quién los erigió?
+¿Sobre quiénes triunfaron los Césares? Bizancio, tan cantada,
+¿tenía sólo palacios para sus habitantes? Hasta en la fabulosa Atlántida,
+la noche en que el mar se la tragaba, los habitantes clamaban
+pidiendo ayuda a sus esclavos.
+
+El joven Alejandro conquistó la India.
+¿Él solo?
+César venció a los galos.
+¿No llevaba consigo ni siquiera un cocinero?
+Felipe II lloró al hundirse
+su flota. ¿No lloró nadie más?
+Federico II venció la Guerra de los Siete Años.
+¿Quién la venció, además?
+
+Una victoria en cada página.
+¿Quién cocinaba los banquetes de la victoria?
+Un gran hombre cada diez años.
+¿Quién pagaba sus gastos?
+
+<em>Una pregunta para cada historia.</em></p>
+</div>
+
+  </div>
+
+  <!-- Cierre S10 -->
+
+  <div id="sec-cierre-s10">
+    <h3>Para cerrar la sesión anterior: dos preguntas</h3>
+    <button class="leer-sec" onclick="leerSec('sec-cierre-s10')"
+      aria-label="Leer preguntas de cierre de la sesión anterior">
+      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      Leer preguntas de cierre
+    </button>
+
+```
+<div class="card card-a">
+  <p>La clase pasada hablamos del método biográfico, de las personas que no son los "grandes protagonistas" y de cómo los millones de desplazados en Colombia —y en tantos otros lugares— <strong>no aparecen en las estadísticas como individuos con historias</strong>, solo como cifras.</p>
+  <p>Canales dice que el método biográfico le devuelve la palabra a quienes la historia académica no les da un capítulo. Antes de entrar a la técnica de hoy, quédate con estas dos preguntas:</p>
+</div>
+
+<div class="pregunta-card">
+  <div class="pregunta-num">Pregunta 1 — Conexión con S10</div>
+  <div class="pregunta-texto">Si el método biográfico da voz a las personas individualmente, ¿qué pasa cuando lo que queremos entender es cómo habla un grupo, una comunidad, un barrio? ¿Alcanza con sumar relatos individuales?</div>
+  <div class="pregunta-hint">Piénsala 2 minutos. No hay respuesta correcta todavía.</div>
+</div>
+
+<div class="pregunta-card">
+  <div class="pregunta-num">Pregunta 2 — Conexión con S10</div>
+  <div class="pregunta-texto">Brecht pregunta: "¿Quién cocinaba los banquetes de la victoria?" Si una investigación solo entrevistara a los líderes de un proceso de desplazamiento forzado, ¿qué voces quedarían por fuera? ¿Cómo se investigaría lo que esas voces comparten como grupo?</div>
+  <div class="pregunta-hint">Anota o discute brevemente con quien tengas al lado.</div>
+</div>
+```
+
+  </div>
+
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     M1 — LO QUE TRAJE HOY
+═══════════════════════════════════════════════════ -->
+
+<section role="tabpanel" id="t1"
+  aria-labelledby="b1" tabindex="-1"
+  data-hint="Módulo lo que traje hoy. Contiene las preguntas de reflexión antes de la lectura y espacio para compartir la reflexión de cinco líneas que trajiste.">
+  <h2 id="h1">Módulo 1 — Lo que traje hoy</h2>
+  <div class="prog-txt"><span class="en-clase">📍 Clase · ≈ 10 minutos</span></div>
+
+  <!-- Reflexión de 5 líneas -->
+
+  <div id="sec-traje">
+    <h3>Tu reflexión de 5 líneas</h3>
+    <button class="leer-sec" onclick="leerSec('sec-traje')"
+      aria-label="Leer instrucciones de la reflexión que trajiste">
+      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      Leer instrucciones
+    </button>
+
+```
+<div class="card card-v">
+  <p>Para esta clase debías traer una reflexión escrita de <strong>máximo 5 líneas</strong> sobre alguna experiencia propia en la que la presencia de otras personas cambió lo que dijiste o pensaste sobre algo.</p>
+  <p>La idea es conectar esa experiencia con lo que Canales plantea teóricamente: que las opiniones no preexisten a la conversación, sino que se producen en ella.</p>
+</div>
+
+<div class="form-g">
+  <label for="reflexion-5">Puedes escribir o repasar aquí tu reflexión antes de compartirla:</label>
+  <textarea id="reflexion-5" rows="5"
+    placeholder="Escribe aquí tu reflexión de 5 líneas si no la trajiste escrita, o repásala antes de compartir con tu pareja..."
+    aria-describedby="hint-refl"></textarea>
+  <div class="hint" id="hint-refl">Solo tú puedes ver esto. No se guarda en ningún servidor.</div>
+</div>
+```
+
+  </div>
+
+  <!-- Actividad cooperativa: compartir -->
+
+  <div id="sec-act-refl">
+    <h3>Actividad: compartir en pareja</h3>
+    <button class="leer-sec" onclick="leerSec('sec-act-refl')"
+      aria-label="Leer la actividad cooperativa de compartir reflexiones en pareja">
+      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      Leer actividad
+    </button>
+
+```
+<div class="ac-box">
+  <div class="ac-hdr">
+    <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+    ACTIVIDAD COOPERATIVA — Mis 5 líneas con la pareja
+  </div>
+  <div class="ac-body">
+    <p><strong>Trabajen en pareja. Tiempo: 7 minutos.</strong></p>
+    <ol>
+      <li><strong>Cada persona lee o cuenta</strong> su reflexión de 5 líneas en máximo 1 minuto.</li>
+      <li><strong>La pareja identifica juntos</strong>: ¿en qué momento la presencia del grupo cambió lo que decías o pensabas? ¿Fue censura, acomodación, o construcción conjunta?</li>
+      <li><strong>Conecten con Canales</strong>: él dice que las opiniones no existen antes de ser dichas en grupo, sino que se producen ahí. ¿Eso coincide o contradice lo que les pasó a ustedes?</li>
+      <li><strong>Preparen una frase</strong> que resuma la conexión entre su experiencia y la teoría. La plenaria pedirá escuchar dos o tres.</li>
+    </ol>
+    <p style="font-size:12px;color:#7a6050;font-style:italic">Responsabilidad individual: cualquier persona de la pareja puede ser llamada a presentar la frase.</p>
+  </div>
+</div>
+```
+
+  </div>
+
+  <!-- Preguntas ANTES -->
+
+  <div id="sec-antes">
+    <h3>Las preguntas que te trajiste de casa</h3>
+    <button class="leer-sec" onclick="leerSec('sec-antes')"
+      aria-label="Leer las preguntas de reflexión antes de la lectura">
+      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      Leer preguntas
+    </button>
+
+```
+<div class="card card-n">
+  <p style="font-size:12px;font-style:italic;margin-bottom:8px">Estas eran las preguntas para reflexionar <strong>antes</strong> de leer a Canales. No tienen respuesta definitiva — son la puerta de entrada al texto.</p>
+  <div class="pregunta-card" style="background:#fff">
+    <div class="pregunta-num">Antes · 1</div>
+    <div class="pregunta-texto">¿Las personas dicen lo mismo cuando hablan solas que cuando hablan frente a otros?</div>
+  </div>
+  <div class="pregunta-card" style="background:#fff">
+    <div class="pregunta-num">Antes · 2</div>
+    <div class="pregunta-texto">¿Qué cosas nos hacen cambiar, matizar o censurar lo que decimos en grupo?</div>
+  </div>
+  <div class="pregunta-card" style="background:#fff">
+    <div class="pregunta-num">Antes · 3</div>
+    <div class="pregunta-texto">¿Una opinión ya existe antes de ser dicha, o se construye mientras conversamos?</div>
+  </div>
+  <div class="pregunta-card" style="background:#fff">
+    <div class="pregunta-num">Antes · 4</div>
+    <div class="pregunta-texto">¿Hasta qué punto nuestras opiniones son realmente individuales?</div>
+  </div>
+</div>
+```
+
+  </div>
+
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     M2 — CONCEPTOS: EL GRUPO DE DISCUSIÓN
+═══════════════════════════════════════════════════ -->
+
+<section role="tabpanel" id="t2"
+  aria-labelledby="b2" tabindex="-1"
+  data-hint="Módulo de conceptos. Explica qué es el grupo de discusión, cómo se diferencia del grupo focal, qué tipo de conocimiento produce y cómo se diseña técnicamente.">
+  <h2 id="h2">Módulo 2 — El grupo de discusión: conceptos clave</h2>
+  <div class="prog-txt"><span class="en-clase">📍 Clase · Magistral + exploración · ≈ 25 minutos</span></div>
+
+  <!-- Idea central -->
+
+  <div id="sec-idea-central">
+    <h3>La idea central: el discurso social</h3>
+    <button class="leer-sec" onclick="leerSec('sec-idea-central')"
+      aria-label="Leer la idea central del grupo de discusión">
+      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      Leer esta sección
+    </button>
+
+```
+<div class="card card-g">
+  <p>El grupo de discusión <strong>no agrupa opiniones individuales</strong>. Produce algo diferente: el <em>discurso social</em> que existe antes de que cada persona lo diga, porque ese discurso pertenece al grupo, a la comunidad, a la clase social.</p>
+  <p>Cuando una persona habla en grupo, habla buscando el consenso. Busca las palabras que el grupo comparte. Eso es lo que el investigador quiere capturar.</p>
+</div>
+
+<div class="cita">
+  "La conversación libre […] de un conjunto de participantes […] produce un discurso y un grupo que lo produce. Produce un discurso, que puede entenderse como la puesta en habla de la lengua social que comparten los miembros del grupo."
+  <span class="cita-ref">Canales Cerón (2006, p. 265)</span>
+</div>
+```
+
+  </div>
+
+  <!-- GD vs GF -->
+
+  <div id="sec-gdvsgf">
+    <h3>Grupo de discusión vs. Grupo focal</h3>
+    <button class="leer-sec" onclick="leerSec('sec-gdvsgf')"
+      aria-label="Leer tabla comparativa entre grupo de discusión y grupo focal">
+      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      Leer comparación
+    </button>
+
+```
+<table class="comp-table" role="table" aria-label="Comparación entre grupo de discusión y grupo focal según Canales Cerón">
+  <caption>Tabla 1. Diferencia entre Grupo de Discusión y Grupo Focal (Canales Cerón, 2006)</caption>
+  <thead>
+    <tr><th scope="col">Grupo de Discusión (GD)</th><th scope="col">Grupo Focal (GF)</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Investiga el <strong>deber</strong>: normas, ideales, lo que "se debe" pensar o hacer</td><td>Investiga el <strong>saber</strong>: percepciones, experiencias, lo que realmente pasa</td></tr>
+    <tr><td>Tradición durkheimiana: conciencia colectiva, representaciones sociales</td><td>Tradición weberiana: sentido típico de la acción, experiencia del actor</td></tr>
+    <tr><td>Produce <em>discurso colectivo</em>: lo que el grupo dice como grupo</td><td>Produce <em>tipicidad social</em>: lo que las personas hacen y cómo lo viven</td></tr>
+    <tr><td>La conversación construye el dato: las opiniones emergen en el habla grupal</td><td>Las opiniones/experiencias ya existen; el grupo las hace visibles</td></tr>
+    <tr><td>El investigador interviene mínimo, solo lanza temas</td><td>El moderador tiene una guía de preguntas más estructurada</td></tr>
+    <tr><td>Ejemplo de uso: ¿Qué representa "el éxito" para jóvenes de una barriada?</td><td>Ejemplo de uso: ¿Cómo viven el proceso de rehabilitación los pacientes?</td></tr>
+  </tbody>
+</table>
+```
+
+  </div>
+
+  <!-- Conceptos clave acordeón -->
+
+  <div id="sec-conceptos">
+    <h3>Conceptos clave — haz clic para expandir</h3>
+    <button class="leer-sec" onclick="leerSec('sec-conceptos')"
+      aria-label="Leer todos los conceptos clave del módulo">
+      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      Leer todos los conceptos
+    </button>
+
+```
+<div class="concepto" id="conc1">
+  <button class="concepto-hdr" onclick="conc(this,'cc1')" aria-expanded="false" aria-controls="cc1" id="c1h">
+    <span class="concepto-ico" aria-hidden="true">💬</span>
+    <span class="concepto-tit">Discurso social<span class="concepto-sub">Lo que el grupo dice como grupo</span></span>
+    <span class="concepto-chev" aria-hidden="true">▼</span>
+  </button>
+  <div class="concepto-body" id="cc1" role="region" aria-labelledby="c1h">
+    <p>El grupo de discusión no suma opiniones individuales: produce el discurso que circula socialmente en un colectivo determinado. Ese discurso existe antes de la sesión, en la cultura del grupo. El GD lo hace audible.</p>
+    <p>Por eso los participantes son desconocidos entre sí (para que no traigan conversaciones previas) pero comparten una posición social similar (para que sí compartan el discurso que se quiere capturar).</p>
+  </div>
+</div>
+
+<div class="concepto" id="conc2">
+  <button class="concepto-hdr" onclick="conc(this,'cc2')" aria-expanded="false" aria-controls="cc2" id="c2h">
+    <span class="concepto-ico" aria-hidden="true">⚖️</span>
+    <span class="concepto-tit">Saber y deber<span class="concepto-sub">La doble dimensión del sentido común</span></span>
+    <span class="concepto-chev" aria-hidden="true">▼</span>
+  </button>
+  <div class="concepto-body" id="cc2" role="region" aria-labelledby="c2h">
+    <p><strong>El saber</strong>: lo que se percibe como real, lo que "es así", las tipificaciones de la realidad. Es el territorio del grupo focal.</p>
+    <p><strong>El deber</strong>: lo que se siente que "se debe" hacer, pensar o ser. Las normas implícitas, los ideales del grupo, lo que Durkheim llamaba la conciencia colectiva. Es el territorio del grupo de discusión.</p>
+    <p>Ejemplo: en una investigación sobre crianza, el <em>saber</em> sería cómo las madres describen lo que realmente hacen. El <em>deber</em> sería lo que el grupo dice que "una buena madre debería hacer".</p>
+  </div>
+</div>
+
+<div class="concepto" id="conc3">
+  <button class="concepto-hdr" onclick="conc(this,'cc3')" aria-expanded="false" aria-controls="cc3" id="c3h">
+    <span class="concepto-ico" aria-hidden="true">🎭</span>
+    <span class="concepto-tit">Opiniones, juicios y prejuicios<span class="concepto-sub">Lo que el grupo produce en la conversación</span></span>
+    <span class="concepto-chev" aria-hidden="true">▼</span>
+  </button>
+  <div class="concepto-body" id="cc3" role="region" aria-labelledby="c3h">
+    <p>Canales distingue tres niveles de lo que emerge en un GD: las <strong>opiniones</strong> (posiciones más razonadas), los <strong>juicios</strong> (valoraciones rápidas sobre lo correcto o incorrecto) y los <strong>prejuicios</strong> (los supuestos implícitos que el grupo da por sentados).</p>
+    <p>El investigador cualitativo está especialmente interesado en los <em>prejuicios</em>, porque revelan el nivel más profundo del imaginario social del grupo.</p>
+  </div>
+</div>
+
+<div class="concepto" id="conc4">
+  <button class="concepto-hdr" onclick="conc(this,'cc4')" aria-expanded="false" aria-controls="cc4" id="c4h">
+    <span class="concepto-ico" aria-hidden="true">🧩</span>
+    <span class="concepto-tit">Diseño técnico del GD<span class="concepto-sub">Quiénes, cuántos, cuándo, cómo</span></span>
+    <span class="concepto-chev" aria-hidden="true">▼</span>
+  </button>
+  <div class="concepto-body" id="cc4" role="region" aria-labelledby="c4h">
+    <ul>
+      <li><strong>Tamaño del grupo:</strong> entre 5 y 8 participantes. Menos de 5 limita la dinámica; más de 8 la fragmenta.</li>
+      <li><strong>Participantes:</strong> desconocidos entre sí, pero con posición social similar respecto al tema.</li>
+      <li><strong>El pretext o consigna:</strong> el moderador lanza un tema amplio y se retira. No hace preguntas directas, no opina. El grupo "se organiza solo".</li>
+      <li><strong>La muestra:</strong> es estructural, no estadística. No busca representación numérica sino posiciones sociales relevantes para el tema.</li>
+      <li><strong>Duración:</strong> entre 90 y 120 minutos generalmente.</li>
+      <li><strong>Registro:</strong> siempre grabación de audio; idealmente vídeo. La transcripción es el material de análisis.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="concepto" id="conc5">
+  <button class="concepto-hdr" onclick="conc(this,'cc5')" aria-expanded="false" aria-controls="cc5" id="c5h">
+    <span class="concepto-ico" aria-hidden="true">🔬</span>
+    <span class="concepto-tit">El análisis del discurso del GD<span class="concepto-sub">Qué busca el investigador en la transcripción</span></span>
+    <span class="concepto-chev" aria-hidden="true">▼</span>
+  </button>
+  <div class="concepto-body" id="cc5" role="region" aria-labelledby="c5h">
+    <p>El análisis no es cuantitativo (no cuenta cuántas veces se dice algo). Es semántico y social: busca los <em>campos semánticos</em>, las <em>oposiciones</em> que el grupo construye, los <em>consensos tácitos</em> y las <em>exclusiones</em>.</p>
+    <p>Una pregunta clave en el análisis: ¿Qué <strong>no puede decirse</strong> en este grupo sin generar malestar o silencio? Eso que no puede decirse revela el límite del discurso social.</p>
+    <p>En términos de Lincoln y Guba: la credibilidad del GD se sostiene en el "checkeo" entre grupos (¿aparece el mismo discurso en grupos similares?) y en la triangulación con otras fuentes.</p>
+  </div>
+</div>
+```
+
+  </div>
+
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     M3 — ACTIVIDAD 1: GD vs GF CARA A CARA
+═══════════════════════════════════════════════════ -->
+
+<section role="tabpanel" id="t3"
+  aria-labelledby="b3" tabindex="-1"
+  data-hint="Módulo actividad uno. Actividad cooperativa en parejas para analizar cuatro situaciones de investigación y decidir qué técnica usar.">
+  <h2 id="h3">Módulo 3 — Actividad 1: ¿GD, GF, entrevista, o ninguno?</h2>
+  <div class="prog-txt"><span class="en-clase">📍 Clase · Actividad cooperativa en parejas · ≈ 20 minutos</span></div>
+
+  <div id="sec-consigna-a1">
+    <h3>Consigna de la actividad</h3>
+    <button class="leer-sec" onclick="leerSec('sec-consigna-a1')"
+      aria-label="Leer la consigna de la actividad uno">
+      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      Leer consigna
+    </button>
+
+```
+<div class="ac-box">
+  <div class="ac-hdr">
+    <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+    ACTIVIDAD COOPERATIVA 1 — Diagnóstico de técnica
+  </div>
+  <div class="ac-body">
+    <p><strong>Trabajen en pareja. Tiempo: 15 minutos de trabajo + 5 de plenaria.</strong></p>
+    <p>A continuación hay 4 situaciones de investigación. Para cada una, la pareja debe <strong>decidir y justificar</strong> qué técnica usaría: Grupo de Discusión, Grupo Focal, Entrevista individual, u otra. No hay una sola respuesta correcta, pero sí argumentos más sólidos que otros.</p>
+    <p style="font-size:12px;font-style:italic;color:#7a6050">Responsabilidad individual: cualquier persona de la pareja puede ser llamada a explicar la decisión.</p>
+  </div>
+</div>
+```
+
+  </div>
+
+  <div id="sec-situaciones">
+    <h3>Las 4 situaciones</h3>
+    <button class="leer-sec" onclick="leerSec('sec-situaciones')"
+      aria-label="Leer las cuatro situaciones de investigación">
+      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      Leer situaciones
+    </button>
+
+```
+<div class="pregunta-card">
+  <div class="pregunta-num">Situación A</div>
+  <div class="pregunta-texto">Una investigadora quiere entender qué imagen tiene la comunidad de un barrio periférico sobre "la juventud". No le interesa lo que los jóvenes hacen, sino lo que el barrio <em>cree</em> que la juventud es o debería ser.</div>
+  <div class="pregunta-hint">¿Qué técnica elegirían y por qué? Escriban su decisión en una línea.</div>
+</div>
+
+<div class="pregunta-card">
+  <div class="pregunta-num">Situación B</div>
+  <div class="pregunta-texto">Un investigador quiere documentar la experiencia específica de mujeres que sobrevivieron un proceso de desplazamiento forzado: qué vivieron, cómo lo vivieron, qué estrategias usaron.</div>
+  <div class="pregunta-hint">¿Qué técnica elegirían y por qué? Escriban su decisión en una línea.</div>
+</div>
+
+<div class="pregunta-card">
+  <div class="pregunta-num">Situación C</div>
+  <div class="pregunta-texto">Una psicóloga quiere saber qué entienden los padres de familia de un colegio estrato 2 por "una crianza adecuada". Le interesa el imaginario compartido, no los casos individuales.</div>
+  <div class="pregunta-hint">¿Qué técnica elegirían y por qué? Escriban su decisión en una línea.</div>
+</div>
+
+<div class="pregunta-card">
+  <div class="pregunta-num">Situación D — Tu investigación</div>
+  <div class="pregunta-texto">Describan brevemente la pregunta de investigación de <strong>uno de los dos</strong> proyectos de monografía de la pareja. ¿Sería pertinente usar un Grupo de Discusión? ¿Un Grupo Focal? ¿Por qué sí o por qué no?</div>
+  <div class="pregunta-hint">Si la investigación es cuantitativa, argumenten por qué el GD no aplica y qué valor tendría conocer esta técnica para cuando ejerzan de profesionales.</div>
+</div>
+```
+
+  </div>
+
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     M4 — ACTIVIDAD 2: SIMULACIÓN DE GRUPO DE DISCUSIÓN
+═══════════════════════════════════════════════════ -->
+
+<section role="tabpanel" id="t4"
+  aria-labelledby="b4" tabindex="-1"
+  data-hint="Módulo actividad dos. Simulación de un grupo de discusión en clase con roles y consigna específica.">
+  <h2 id="h4">Módulo 4 — Actividad 2: Simulamos un grupo de discusión</h2>
+  <div class="prog-txt"><span class="en-clase">📍 Clase · Actividad cooperativa en grupos · ≈ 30 minutos</span></div>
+
+  <div id="sec-sim-intro">
+    <h3>¿Qué vamos a hacer?</h3>
+    <button class="leer-sec" onclick="leerSec('sec-sim-intro')"
+      aria-label="Leer introducción a la simulación del grupo de discusión">
+      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      Leer introducción
+    </button>
+
+```
+<div class="card card-m">
+  <p>La única manera de entender realmente cómo funciona un grupo de discusión es haciendo uno. En esta actividad la clase se divide en <strong>grupos de 5 a 6 personas</strong>. Uno de ellos hará de moderador-investigador; los demás serán participantes.</p>
+  <p>El objetivo <em>no</em> es llegar a conclusiones sobre el tema. El objetivo es <strong>vivir la experiencia de producir discurso colectivo</strong> y luego analizarla.</p>
+</div>
+```
+
+  </div>
+
+  <div id="sec-sim-roles">
+    <h3>Roles</h3>
+    <button class="leer-sec" onclick="leerSec('sec-sim-roles')"
+      aria-label="Leer la descripción de los roles de la simulación">
+      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      Leer roles
+    </button>
+
+```
+<div class="sim-box">
+  <div class="sim-hdr">Roles de la simulación</div>
+  <div class="sim-body">
+    <div class="paso">
+      <div class="paso-n">M</div>
+      <div>
+        <span class="sim-rol rol-m">MODERADOR/A</span>
+        <strong>1 persona por grupo.</strong> Su trabajo es lanzar la consigna y luego <em>no hablar</em>. Solo puede intervenir si hay un silencio mayor a 2 minutos (relanzando el tema con una palabra, no con una pregunta). No opina. No aprueba ni desaprueba. Observa y toma notas rápidas.
+      </div>
+    </div>
+    <div class="paso">
+      <div class="paso-n">O</div>
+      <div>
+        <span class="sim-rol rol-o">OBSERVADOR/A</span>
+        <strong>1 persona por grupo (opcional).</strong> Observa desde afuera del círculo. Anota: ¿quién toma la palabra? ¿Hay censura? ¿Hay momentos donde alguien cambia su posición al escuchar al grupo? ¿Qué no se dice?
+      </div>
+    </div>
+    <div class="paso">
+      <div class="paso-n">P</div>
+      <div>
+        <span class="sim-rol rol-a">PARTICIPANTES</span>
+        <strong>4 o 5 personas.</strong> Hablan libremente sobre el tema. Se desconocen formalmente para efectos de la actividad. Comparten una "posición social" común: son estudiantes de psicología de la misma universidad.
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+  </div>
+
+  <div id="sec-sim-consigna">
+    <h3>La consigna del grupo de discusión</h3>
+    <button class="leer-sec" onclick="leerSec('sec-sim-consigna')"
+      aria-label="Leer la consigna que el moderador lanzará al grupo de discusión">
+      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      Leer consigna
+    </button>
+
+```
+<div class="card card-a">
+  <p style="font-size:13px;font-weight:700;color:var(--brecht);margin-bottom:10px">El/la moderador/a lee esto al grupo y luego guarda silencio:</p>
+  <div style="background:#fff;border:1.5px dashed var(--azul);padding:14px 18px;border-radius:6px;font-size:15px;color:#1a3a5c;font-style:italic;line-height:1.75">
+    "Quiero que conversen sobre lo siguiente: cuando ustedes piensan en cómo debería ser un psicólogo o psicóloga que trabaja bien con su comunidad, ¿qué imagen tienen? ¿Qué debería saber hacer, qué no debería hacer nunca, qué papel debería jugar?"
+  </div>
+  <p style="font-size:12px;margin-top:10px;color:#7a6050">Tiempo de conversación: 12 a 15 minutos. El moderador activa el cronómetro y observa.</p>
+</div>
+```
+
+  </div>
+
+  <div id="sec-sim-analisis">
+    <h3>Análisis post-simulación: las preguntas del investigador</h3>
+    <button class="leer-sec" onclick="leerSec('sec-sim-analisis')"
+      aria-label="Leer las preguntas de análisis post simulación">
+      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      Leer preguntas de análisis
+    </button>
+
+```
+<div class="ac-box">
+  <div class="ac-hdr">
+    <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
+    ANÁLISIS EN GRUPO — 10 minutos después de la simulación
+  </div>
+  <div class="ac-body">
+    <p>Cuando termine el tiempo, el grupo analiza lo ocurrido. El observador/a da su reporte primero.</p>
+    <ol>
+      <li>¿Hubo algún momento en que alguien <strong>cambió</strong> lo que iba a decir por la presencia del grupo? ¿Cómo se notó?</li>
+      <li>¿Qué <strong>consensos tácitos</strong> emergieron? ¿Qué cosas se dieron por sentadas sin que nadie las discutiera?</li>
+      <li>¿Hubo algo que nadie se atrevió a decir o que generó incomodidad? ¿Qué revela eso sobre el discurso del grupo?</li>
+      <li>¿Lo que produjo el grupo es la suma de opiniones individuales, o es <strong>algo diferente</strong>? ¿En qué se nota la diferencia?</li>
+      <li>¿Qué habría sido diferente si el moderador hubiera preguntado directamente "¿tú qué piensas?"</li>
+    </ol>
+    <p style="font-size:12px;color:#7a6050;font-style:italic">Plenaria final: cada grupo comparte 1 hallazgo de su análisis. No resumen — comparten lo más inesperado.</p>
+  </div>
+</div>
+```
+
+  </div>
+
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     M5 — ACTIVIDAD 3: MI INVESTIGACIÓN Y EL GD
+═══════════════════════════════════════════════════ -->
+
+<section role="tabpanel" id="t5"
+  aria-labelledby="b5" tabindex="-1"
+  data-hint="Módulo actividad tres. Actividad cooperativa en parejas para conectar el grupo de discusión con sus propios proyectos de monografía.">
+  <h2 id="h5">Módulo 5 — Actividad 3: ¿Qué le sirve el GD a mi investigación?</h2>
+  <div class="prog-txt"><span class="en-clase">📍 Clase · Actividad cooperativa en parejas · ≈ 20 minutos</span></div>
+
+  <div id="sec-intro-a3">
+    <h3>¿Por qué hago esto si mi investigación no es cualitativa?</h3>
+    <button class="leer-sec" onclick="leerSec('sec-intro-a3')"
+      aria-label="Leer la explicación de por qué esta actividad sirve independientemente del enfoque de tu investigación">
+      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      Leer explicación
+    </button>
+
+```
+<div class="card card-v">
+  <p>No se espera que salgas de esta sesión dominando el grupo de discusión. Se espera que sepas que existe, que entiendas para qué sirve, cuándo y por qué usarlo —y también por qué no—, y que hayas tenido una experiencia práctica con él.</p>
+  <p>Cuando ejerzas como psicóloga o psicólogo, vas a tomar decisiones metodológicas. Esa decisión requiere conocer el menú completo, no solo lo que ya conoces.</p>
+</div>
+
+<div class="card card-n">
+  <p><strong>Tres escenarios posibles para tu monografía:</strong></p>
+  <ul>
+    <li><strong>Mi investigación es cuantitativa:</strong> El GD no aplica para tu diseño actual. Pero sí podrías usarlo en la fase exploratoria o en un estudio complementario futuro.</li>
+    <li><strong>Mi investigación es cualitativa pero usa entrevistas:</strong> El GD podría complementarla o reemplazar algunas entrevistas si lo que buscas es el discurso colectivo, no el relato individual.</li>
+    <li><strong>Mi investigación ya usa GD o GF:</strong> ¿Lo estás diferenciando correctamente? ¿Estás investigando saber o deber?</li>
+  </ul>
+</div>
+```
+
+  </div>
+
+  <div id="sec-act3-consigna">
+    <h3>Consigna de la actividad</h3>
+    <button class="leer-sec" onclick="leerSec('sec-act3-consigna')"
+      aria-label="Leer la consigna de la actividad tres">
+      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      Leer consigna
+    </button>
+
+```
+<div class="ac-box">
+  <div class="ac-hdr">
+    <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+    ACTIVIDAD COOPERATIVA 3 — El GD y mi proyecto
+  </div>
+  <div class="ac-body">
+    <p><strong>Trabajen en pareja. Tiempo: 15 minutos.</strong></p>
+    <p>Cada persona completa el diagnóstico de su propia investigación (pasos 1-4). Luego comparan y discuten el paso 5 juntos.</p>
+    <ol>
+      <li><strong>Mi pregunta de investigación es:</strong> <em>[escríbela en una línea en el espacio de abajo]</em></li>
+      <li><strong>Mi enfoque es:</strong> cuantitativo / cualitativo / mixto. <em>[marca el tuyo]</em></li>
+      <li><strong>¿Podría un GD responder mi pregunta?</strong> Sí / No / Parcialmente. Argumenta en 2-3 líneas.</li>
+      <li><strong>Si no aplica ahora:</strong> ¿en qué momento de tu trayectoria profesional podrías necesitar esta técnica? ¿Para qué tipo de pregunta?</li>
+      <li><strong>Con tu pareja:</strong> ¿cuál de los dos proyectos se beneficiaría más de un GD? ¿Por qué?</li>
+    </ol>
+    <p style="font-size:12px;font-style:italic;color:#7a6050">La pareja no necesita llegar a un acuerdo — necesita argumentar bien la posición de cada quien.</p>
+  </div>
+</div>
+
+<div class="form-g" style="margin-top:14px">
+  <label for="diag-pregunta">1. Mi pregunta de investigación:</label>
+  <textarea id="diag-pregunta" rows="2" placeholder="Escribe tu pregunta aquí..." aria-describedby="h-dp"></textarea>
+  <div class="hint" id="h-dp">Solo visible para ti en esta sesión.</div>
+</div>
+<div class="form-g">
+  <label for="diag-aplica">3. ¿Podría un GD responder mi pregunta? Argumenta:</label>
+  <textarea id="diag-aplica" rows="3" placeholder="Sí / No / Parcialmente. Porque..." aria-describedby="h-da"></textarea>
+  <div class="hint" id="h-da">Piensa en si tu pregunta investiga el deber (normas, ideales, imaginarios) o el saber (experiencias, prácticas).</div>
+</div>
+<div class="form-g">
+  <label for="diag-futuro">4. ¿Cuándo podría necesitar esta técnica en mi práctica profesional?</label>
+  <textarea id="diag-futuro" rows="3" placeholder="Imagina un escenario profesional concreto donde usarías un GD..." aria-describedby="h-df"></textarea>
+  <div class="hint" id="h-df">Piensa en tu campo de interés: clínica, social, organizacional, educativa...</div>
+</div>
+```
+
+  </div>
+
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     M6 — DESPUÉS DE LEER
+═══════════════════════════════════════════════════ -->
+
+<section role="tabpanel" id="t6"
+  aria-labelledby="b6" tabindex="-1"
+  data-hint="Módulo después de leer. Contiene las cuatro preguntas de reflexión post lectura, incluyendo la pregunta incómoda sobre consentimiento informado.">
+  <h2 id="h6">Módulo 6 — Después de leer a Canales</h2>
+  <div class="prog-txt"><span class="clase-casa">📍 Clase + 🏠 Casa · Reflexión individual</span></div>
+
+  <div id="sec-post-intro">
+    <h3>Preguntas para reflexionar después de la lectura</h3>
+    <button class="leer-sec" onclick="leerSec('sec-post-intro')"
+      aria-label="Leer introducción a las preguntas post lectura">
+      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      Leer introducción
+    </button>
+
+```
+<div class="card card-g">
+  <p>Estas preguntas integran la lectura con lo que trabajamos en clase. Algunas pueden responderse al final de la sesión; la última, especialmente, merece más tiempo y reflexión.</p>
+</div>
+```
+
+  </div>
+
+  <div id="sec-post-preguntas">
+    <button class="leer-sec" onclick="leerSec('sec-post-preguntas')"
+      aria-label="Leer las cuatro preguntas post lectura">
+      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      Leer preguntas
+    </button>
+
+```
+<div class="pregunta-card">
+  <div class="pregunta-num">Después · 1</div>
+  <div class="pregunta-texto">¿En qué se diferencia el grupo de discusión de un grupo focal?</div>
+  <div class="pregunta-hint">No es solo "uno tiene guía de preguntas y el otro no". La diferencia es epistemológica: qué tipo de conocimiento busca cada uno.</div>
+</div>
+
+<div class="pregunta-card">
+  <div class="pregunta-num">Después · 2</div>
+  <div class="pregunta-texto">¿Qué tipo de conocimiento produce el grupo de discusión que no puede producir una entrevista individual?</div>
+  <div class="pregunta-hint">Piensa en el concepto de "discurso social". Una entrevista produce el discurso de una persona. El GD produce algo que no pertenece a nadie en particular.</div>
+</div>
+
+<div class="pregunta-card">
+  <div class="pregunta-num">Después · 3</div>
+  <div class="pregunta-texto">¿Cómo se aplica el criterio de credibilidad de Lincoln y Guba en un grupo de discusión?</div>
+  <div class="pregunta-hint">Recuerda que la credibilidad en investigación cualitativa no es validez estadística. ¿Cómo se verifica que lo que el GD produjo es creíble?</div>
+</div>
+
+<div class="pregunta-card pregunta-incomoda">
+  <div class="pregunta-num">⚠ Después · 4 — La pregunta incómoda</div>
+  <div class="pregunta-texto">Si el grupo de discusión produce discurso colectivo, ¿a quién pertenece ese dato? ¿Qué implica esto para el consentimiento informado?</div>
+  <div class="pregunta-hint">Cuando una persona firma un consentimiento informado en un GD, ¿está consintiendo solo por sí misma? ¿Puede retirar "su parte" del discurso colectivo una vez producido? No hay respuesta única — hay implicaciones éticas que el investigador debe asumir explícitamente.</div>
+</div>
+```
+
+  </div>
+
+  <div id="sec-post-reflexion">
+    <h3>Espacio de reflexión escrita</h3>
+    <button class="leer-sec" onclick="leerSec('sec-post-reflexion')"
+      aria-label="Leer instrucciones del espacio de reflexión">
+      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      Leer instrucciones
+    </button>
+
+```
+<div class="form-g">
+  <label for="refl-post">Escoge una pregunta y desarrolla tu respuesta:</label>
+  <textarea id="refl-post" rows="6"
+    placeholder="Puedes escribir aquí tu reflexión sobre cualquiera de las cuatro preguntas..."
+    aria-describedby="h-rp"></textarea>
+  <div class="hint" id="h-rp">Esta reflexión puede ser punto de partida para una discusión en plenaria o para tu diario de campo.</div>
+</div>
+```
+
+  </div>
+
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     M7 — PRÓXIMA SESIÓN
+═══════════════════════════════════════════════════ -->
+
+<section role="tabpanel" id="t7"
+  aria-labelledby="b7" tabindex="-1"
+  data-hint="Módulo para casa. Contiene la lectura y preguntas para la sesión doce.">
+  <h2 id="h7">Módulo 7 — Para la sesión 12</h2>
+  <div class="prog-txt"><span class="en-casa">🏠 Trabajo para casa</span></div>
+
+  <div id="sec-prox-lectura">
+    <h3>Lectura y preguntas para la S12</h3>
+    <button class="leer-sec" onclick="leerSec('sec-prox-lectura')"
+      aria-label="Leer las indicaciones para la próxima sesión">
+      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      Leer indicaciones
+    </button>
+
+```
+<div class="card card-n">
+  <p>La lectura y las preguntas para la sesión 12 serán indicadas por tu docente al cierre de la clase de hoy.</p>
+  <p>Escríbelas aquí para no olvidarlas:</p>
+</div>
+
+<div class="form-g">
+  <label for="prox-ref">Referencia de la lectura:</label>
+  <textarea id="prox-ref" rows="2" placeholder="Autor, año, título, capítulo..."></textarea>
+</div>
+<div class="form-g">
+  <label for="prox-preguntas">Preguntas para reflexionar antes de leer:</label>
+  <textarea id="prox-preguntas" rows="4" placeholder="1. \n2. \n3. ..."></textarea>
+</div>
+<div class="form-g">
+  <label for="prox-traer">Lo que debo traer a la S12:</label>
+  <textarea id="prox-traer" rows="2" placeholder="Reflexión escrita, material, actividad..."></textarea>
+</div>
+```
+
+  </div>
+
+  <div id="sec-sintesis">
+    <h3>Síntesis de hoy: lo que me llevo de la S11</h3>
+    <button class="leer-sec" onclick="leerSec('sec-sintesis')"
+      aria-label="Leer el espacio de síntesis de la sesión">
+      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      Leer instrucciones
+    </button>
+
+```
+<div class="form-g">
+  <label for="sintesis">En 3 líneas: ¿qué entendiste hoy que no entendías antes?</label>
+  <textarea id="sintesis" rows="3"
+    placeholder="Escribe la idea más importante que te llevas de esta sesión..."
+    aria-describedby="h-sint"></textarea>
+  <div class="hint" id="h-sint">No es un resumen — es lo que cambió en tu comprensión.</div>
+</div>
+```
+
+  </div>
+
+</section>
+
+</main><!-- /main -->
+
+<!-- ── Help button ── -->
+
+<button id="btn-ayuda" onclick="abrirAyuda()" aria-label="Abrir ayuda y atajos de teclado" title="Ayuda · H">?</button>
+
+<!-- ── Help overlay ── -->
+
+<div id="help-overlay" role="dialog" aria-modal="true" aria-labelledby="help-title" aria-hidden="true">
+  <div id="help-modal">
+    <h2 id="help-title">Atajos de teclado y accesibilidad</h2>
+    <table class="atajos" role="table">
+      <caption style="font-size:12px;text-align:left;margin-bottom:8px;color:#7a6050">Atajos disponibles con el teclado</caption>
+      <tbody>
+        <tr><td>Tab</td><td>Navegar entre botones y campos</td></tr>
+        <tr><td>Enter / Espacio</td><td>Activar el botón enfocado</td></tr>
+        <tr><td>H</td><td>Abrir/cerrar esta ventana de ayuda</td></tr>
+        <tr><td>V</td><td>Activar o desactivar la voz</td></tr>
+        <tr><td>S</td><td>Detener la lectura en curso</td></tr>
+        <tr><td>←  →</td><td>Navegar entre módulos</td></tr>
+        <tr><td>Escape</td><td>Cerrar ventana de ayuda / Detener voz</td></tr>
+      </tbody>
+    </table>
+    <div style="margin-top:14px;font-size:13px;color:#5a4a3a;line-height:1.65">
+      <p><strong>Sobre la voz:</strong> La lectura en voz alta está desactivada por defecto. Actívala con el botón "Activar lectura en voz alta" en la barra superior, o presiona V. Una vez activa, cada sección tiene su propio botón para ser leída.</p>
+      <p style="margin-top:8px"><strong>Navegación por módulos:</strong> Usa las flechas izquierda y derecha del teclado para moverse entre los módulos de la herramienta.</p>
+    </div>
+    <button onclick="cerrarAyuda()" style="margin-top:18px;padding:8px 18px;border-radius:5px;border:2px solid var(--brecht);background:var(--brecht);color:#f9efe5;font-family:'Georgia',serif;font-weight:700;cursor:pointer">Cerrar ayuda</button>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════════════════
+// ESTADO
+// ══════════════════════════════════════════════════════
+let modActual = 0;
+const totalMod = 8;
+let ttsActivo = false;
+let vozActual = null;
+let sintetizador = window.speechSynthesis;
+let prevFocus = null;
+
+// ══════════════════════════════════════════════════════
+// NAVEGACIÓN ENTRE MÓDULOS
+// ══════════════════════════════════════════════════════
+function ir(n){
+  document.querySelectorAll('section[role="tabpanel"]').forEach(s=>s.classList.remove('activa'));
+  document.querySelectorAll('nav button[role="tab"]').forEach(b=>{b.setAttribute('aria-selected','false')});
+  document.getElementById('t'+n).classList.add('activa');
+  document.getElementById('b'+n).setAttribute('aria-selected','true');
+  modActual=n;
+  detener();
+  document.getElementById('main-content').scrollIntoView({behavior:'smooth',block:'start'});
+  anunciar('Módulo '+n+' activo: '+document.getElementById('b'+n).textContent.trim().replace('\n',' '));
+}
+
+document.addEventListener('keydown',e=>{
+  const tag=document.activeElement.tagName;
+  if(tag==='TEXTAREA'||tag==='INPUT') return;
+  if(e.key==='ArrowRight') ir((modActual+1)%totalMod);
+  if(e.key==='ArrowLeft') ir((modActual-1+totalMod)%totalMod);
+  if(e.key==='h'||e.key==='H') abrirAyuda();
+  if(e.key==='v'||e.key==='V') toggleTTS();
+  if(e.key==='s'||e.key==='S') detener();
+  if(e.key==='Escape'){cerrarAyuda();detener();}
+});
+
+// ══════════════════════════════════════════════════════
+// TTS — SISTEMA DE VOZ (desactivado por defecto)
+// ══════════════════════════════════════════════════════
+function iniciarVoces(){
+  if(sintetizador.getVoices().length>0){return;}
+  sintetizador.addEventListener('voiceschanged',()=>{},false);
+}
+
+function obtenerVozLatina(){
+  const voces=sintetizador.getVoices();
+  const prioridad=['es-MX','es-US','es-419','es-CO','es-AR','es-CL','es-PE','es-VE','es-ES'];
+  for(const lang of prioridad){
+    const v=voces.find(v=>v.lang===lang||v.lang.startsWith(lang));
+    if(v) return v;
+  }
+  return voces.find(v=>v.lang&&v.lang.startsWith('es'))||null;
+}
+
+function toggleTTS(){
+  ttsActivo=!ttsActivo;
+  const bar=document.getElementById('tts-bar');
+  const btn=document.getElementById('btn-activar-voz');
+  const lbl=document.getElementById('tts-label-txt');
+  if(ttsActivo){
+    bar.classList.add('activo');
+    btn.setAttribute('aria-pressed','true');
+    btn.textContent=''; // reset
+    btn.innerHTML='<span class="toggle-dot" aria-hidden="true"></span> Desactivar voz';
+    lbl.textContent='🔊 Voz activada';
+    // Saludo con voz más natural
+    setTimeout(()=>{
+      hablar('Lectura en voz alta activada. Cada sección tiene su propio botón para escuchar solo esa parte. Presiona la letra S para detener la lectura en cualquier momento.',false);
+    },300);
+  } else {
+    detener();
+    bar.classList.remove('activo');
+    btn.setAttribute('aria-pressed','false');
+    btn.innerHTML='<span class="toggle-dot" aria-hidden="true"></span> Activar lectura en voz alta';
+    lbl.textContent='🔇 Voz desactivada';
+    document.getElementById('tts-reading').textContent='';
+  }
+  anunciar(ttsActivo?'Voz activada':'Voz desactivada');
+}
+
+function hablar(texto,interrumpir=true){
+  if(!ttsActivo) return;
+  if(!texto||texto.trim()==='') return;
+  if(interrumpir) sintetizador.cancel();
+  
+  // Limpiar texto para TTS: quitar emojis, normalizar
+  let textoLimpio=texto.replace(/[📍🏠♿⚠🔊🔇💬⚖️🎭🧩🔬]/g,'')
+    .replace(/\s+/g,' ').trim();
+  
+  // Dividir en frases para voz más natural
+  const frases=textoLimpio.split(/(?<=[.!?;])\s+/).filter(f=>f.length>3);
+  let idx=0;
+  
+  function hablarSiguiente(){
+    if(idx>=frases.length||!ttsActivo) return;
+    const u=new SpeechSynthesisUtterance(frases[idx]);
+    const voz=obtenerVozLatina();
+    if(voz) u.voice=voz;
+    u.lang='es-419';
+    u.rate=0.87;
+    u.pitch=1.02;
+    u.volume=1.0;
+    u.onend=()=>{idx++;hablarSiguiente();};
+    u.onerror=()=>{idx++;hablarSiguiente();};
+    sintetizador.speak(u);
+    if(idx===0){
+      const preview=frases[0].substring(0,50)+(frases[0].length>50?'…':'');
+      document.getElementById('tts-reading').textContent=preview;
+    }
+    idx++;
+    // Pausa pequeña entre frases para sonar más natural
+    if(idx<frases.length){
+      const nextFrase=frases[idx];
+      const u2=new SpeechSynthesisUtterance(nextFrase);
+      if(voz) u2.voice=voz;
+      u2.lang='es-419';u2.rate=0.87;u2.pitch=1.02;
+      // No hacer nada con u2 aquí, onend lo maneja
+    }
+  }
+  
+  // Método alternativo más confiable: una sola utterance con pausas
+  const unica=new SpeechSynthesisUtterance(textoLimpio);
+  const voz=obtenerVozLatina();
+  if(voz) unica.voice=voz;
+  unica.lang='es-419';
+  unica.rate=0.87;
+  unica.pitch=1.02;
+  unica.volume=1.0;
+  unica.onstart=()=>{
+    const preview=textoLimpio.substring(0,60)+(textoLimpio.length>60?'…':'');
+    document.getElementById('tts-reading').textContent=preview;
+  };
+  unica.onend=()=>{
+    document.getElementById('tts-reading').textContent='';
+  };
+  sintetizador.speak(unica);
+}
+
+function leerSec(idElemento){
+  if(!ttsActivo){
+    mostrarAviso('Activa la voz primero con el botón en la barra superior, o presiona V');
+    return;
+  }
+  const el=document.getElementById(idElemento);
+  if(!el) return;
+  // Obtener texto accesible del elemento
+  let texto=el.innerText||el.textContent||'';
+  // Quitar el texto de los botones leer-sec para no leer "Leer esta sección"
+  texto=texto.replace(/Leer\s+(esta\s+)?[\w\s]+/gi,'').trim();
+  hablar(texto,true);
+}
+
+function detener(){
+  sintetizador.cancel();
+  document.getElementById('tts-reading').textContent='';
+}
+
+// ══════════════════════════════════════════════════════
+// LIVE REGION & AVISO
+// ══════════════════════════════════════════════════════
+function anunciar(txt){
+  const el=document.getElementById('live-polite');
+  el.textContent='';
+  setTimeout(()=>{el.textContent=txt;},50);
+}
+
+function mostrarAviso(msg){
+  const aviso=document.getElementById('tts-aviso');
+  aviso.textContent=msg;
+  aviso.style.display='block';
+  aviso.style.animation='none';
+  void aviso.offsetWidth;
+  aviso.style.animation='fadeout 3s forwards';
+  setTimeout(()=>{aviso.style.display='none';},3000);
+}
+
+// ══════════════════════════════════════════════════════
+// ACORDEÓN
+// ══════════════════════════════════════════════════════
+function conc(btn,bodyId){
+  const body=document.getElementById(bodyId);
+  const isOpen=btn.getAttribute('aria-expanded')==='true';
+  btn.setAttribute('aria-expanded',!isOpen);
+  body.classList.toggle('abierto',!isOpen);
+  if(!isOpen && ttsActivo){
+    hablar(body.innerText||body.textContent||'',true);
+  }
+}
+
+// ══════════════════════════════════════════════════════
+// AYUDA
+// ══════════════════════════════════════════════════════
+function abrirAyuda(){
+  prevFocus=document.activeElement;
+  const overlay=document.getElementById('help-overlay');
+  overlay.classList.add('vis');
+  overlay.removeAttribute('aria-hidden');
+  overlay.querySelector('button').focus();
+  if(ttsActivo) hablar('Ventana de ayuda abierta. Atajos de teclado disponibles.',false);
+}
+function cerrarAyuda(){
+  const overlay=document.getElementById('help-overlay');
+  overlay.classList.remove('vis');
+  overlay.setAttribute('aria-hidden','true');
+  if(prevFocus) prevFocus.focus();
+}
+document.getElementById('help-overlay').addEventListener('keydown',e=>{
+  if(e.key==='Escape') cerrarAyuda();
+});
+// Focus trap
+document.getElementById('help-modal').addEventListener('keydown',e=>{
+  if(e.key!=='Tab') return;
+  const foc=[...document.getElementById('help-modal').querySelectorAll('button,[href],input,select,textarea,[tabindex]:not([tabindex="-1"])')];
+  const first=foc[0],last=foc[foc.length-1];
+  if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}
+  else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
+});
+
+// ══════════════════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════════════════
+document.addEventListener('DOMContentLoaded',()=>{
+  iniciarVoces();
+  // No saludo automático — la voz está desactivada por defecto
+  // Solo anunciar para lectores de pantalla sin TTS
+  anunciar('Herramienta cargada. Sesión 11: El grupo de discusión. Para activar lectura en voz alta, busca el botón Activar lectura en voz alta en la barra superior, o presiona V.');
+});
+</script>
+
+</body>
+</html>
