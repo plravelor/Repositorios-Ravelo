@@ -1,0 +1,1572 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sesión 11 — Encuestas + Muestra | Diseños de Investigación I</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --az:#1E3A5F;--az2:#2A5298;--az-l:#EBF1FB;--az-ll:#F4F7FD;
+  --ve:#1B5E3B;--ve2:#2E7D52;--ve-l:#E6F4EC;--ve-ll:#F2FAF5;
+  --am:#C67C00;--am2:#E99B18;--am-l:#FFF8E1;--am-ll:#FFFDE7;
+  --ro:#8B1A1A;--ro2:#C0392B;--ro-l:#FFEBEE;
+  --mo:#4A235A;--mo2:#7B4FA6;--mo-l:#F3E5F5;
+  --ci:#0277BD;--ci-l:#E1F5FE;
+  --pi:#1A2F1A;--pi-l:#2E4D2E;--pi-acc:#7ECB9A;
+  --gr:#F0F2F6;--gr2:#E2E6EE;--gr3:#CBD5E0;
+  --txt:#1A1A2E;--txt2:#4A5568;--txt3:#718096;
+  --wht:#FFFFFF;
+  --shadow:0 2px 10px rgba(30,58,95,.1);
+  --shadow-sm:0 1px 4px rgba(30,58,95,.08);
+  --rad:12px;--rad-s:8px;--rad-xs:5px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;font-size:15px;color:var(--txt);background:#F5F7FB;line-height:1.65;min-height:100vh}
+
+/* TOP BAR */
+.topbar{background:linear-gradient(135deg,var(--az) 0%,var(--az2) 100%);color:white;padding:0}
+.topbar-inner{max-width:960px;margin:0 auto;padding:18px 18px 0;display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.topbar h1{font-family:'DM Serif Display',serif;font-size:20px;line-height:1.25}
+.topbar-sub{font-size:12px;opacity:.75;margin-top:3px}
+.topbar-badge{font-size:11px;font-weight:600;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:3px 10px;white-space:nowrap}
+
+/* TABS */
+.tab-nav{background:var(--az);overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.tab-nav::-webkit-scrollbar{display:none}
+.tab-nav-inner{max-width:960px;margin:0 auto;display:flex;gap:2px;padding:0 14px}
+.tab-btn{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;color:rgba(255,255,255,.6);background:transparent;border:none;cursor:pointer;padding:11px 13px;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s;letter-spacing:.02em;flex-shrink:0}
+.tab-btn:hover{color:rgba(255,255,255,.9)}
+.tab-btn.active{color:white;border-bottom-color:var(--am2)}
+
+/* LAYOUT */
+.content{max-width:960px;margin:0 auto;padding:22px 14px 60px}
+.tab-panel{display:none}.tab-panel.active{display:block}
+
+/* TAGS */
+.tag{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:700;letter-spacing:.08em;padding:3px 9px;border-radius:20px;text-transform:uppercase;flex-shrink:0}
+.tag-clase{background:var(--az);color:white}
+.tag-casa{background:var(--ve-l);color:var(--ve);border:1.5px solid var(--ve2)}
+.tag-coop{background:var(--ve);color:white}
+.tag-pi{background:var(--am-l);color:var(--am);border:1.5px solid var(--am2)}
+.tag-row{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px;align-items:center}
+
+/* CARDS */
+.card{background:var(--wht);border-radius:var(--rad);box-shadow:var(--shadow);margin-bottom:18px;overflow:hidden}
+.card-header{padding:13px 17px;font-weight:600;font-size:14px;border-bottom:1px solid var(--gr2);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.card-body{padding:16px 17px}
+.card-body p{font-size:14px;color:var(--txt2);line-height:1.7;margin-bottom:10px}
+.card-body p:last-child{margin-bottom:0}
+
+/* SECTION */
+.sec-title{font-family:'DM Serif Display',serif;font-size:20px;color:var(--az);margin-bottom:14px;padding-bottom:6px;border-bottom:2px solid var(--az-l)}
+.sec-intro{font-size:14px;color:var(--txt2);margin-bottom:16px;line-height:1.7}
+
+/* ALERTS */
+.alert{border-radius:var(--rad-s);padding:13px 15px;margin-bottom:14px;font-size:13.5px;display:flex;gap:10px;align-items:flex-start;line-height:1.6}
+.alert-ico{font-size:18px;flex-shrink:0;margin-top:1px}
+.alert.info{background:var(--az-l);border-left:4px solid var(--az2)}
+.alert.ve{background:var(--ve-l);border-left:4px solid var(--ve2)}
+.alert.am{background:var(--am-l);border-left:4px solid var(--am2)}
+.alert.ro{background:var(--ro-l);border-left:4px solid var(--ro2)}
+.alert.pi{background:#EFF7EF;border-left:4px solid var(--ve2)}
+.alert p{margin-bottom:4px;font-size:13.5px}
+.alert ul{padding-left:16px;margin-top:4px;font-size:13.5px}
+.alert li{margin-bottom:2px}
+.alert strong{font-weight:700}
+
+/* DEFINITION BOX */
+.def-box{background:var(--az-ll);border-left:4px solid var(--az2);border-radius:0 var(--rad-s) var(--rad-s) 0;padding:13px 16px;margin-bottom:12px}
+.def-box .def-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--az);margin-bottom:4px}
+.def-box .def-text{font-size:13.5px;color:var(--txt);line-height:1.65}
+.def-box .def-src{font-size:11px;color:var(--txt3);margin-top:5px;font-style:italic}
+
+/* ACCORDION */
+.acc{border:1.5px solid var(--gr2);border-radius:var(--rad-s);overflow:hidden;margin-bottom:8px}
+.acc-head{display:flex;align-items:center;justify-content:space-between;padding:12px 15px;cursor:pointer;background:white;font-weight:600;font-size:13.5px;transition:background .15s;user-select:none;gap:8px}
+.acc-head:hover{background:var(--az-ll)}
+.acc-head .acc-icon{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;background:var(--az-l);color:var(--az);flex-shrink:0}
+.acc-arrow{transition:transform .25s;color:var(--txt3);font-size:14px;flex-shrink:0}
+.acc-body{display:none;padding:14px 16px;font-size:13.5px;border-top:1px solid var(--gr2);background:white;line-height:1.7}
+.acc-body.open{display:block}
+.acc-body p{margin-bottom:8px;color:var(--txt2)}
+.acc-body p:last-child{margin-bottom:0}
+.acc-body ul{padding-left:17px;margin-bottom:8px;color:var(--txt2)}
+.acc-body li{margin-bottom:4px}
+.acc-body strong{font-weight:700;color:var(--txt)}
+
+/* TENSION BOX */
+.tension-box{background:linear-gradient(135deg,#0D1B2E 0%,#1A2F4A 100%);border-radius:var(--rad);padding:24px 22px;margin-bottom:20px;color:white}
+.tension-label{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,200,80,.9);margin-bottom:8px}
+.tension-title{font-family:'DM Serif Display',serif;font-size:17px;color:white;line-height:1.4;margin-bottom:12px}
+.tension-body{font-size:13.5px;color:rgba(255,255,255,.8);line-height:1.7;margin-bottom:14px}
+.tension-qs{list-style:none;padding:0}
+.tension-qs li{font-size:13.5px;color:rgba(255,255,255,.9);padding:8px 12px;border-left:3px solid rgba(255,200,80,.7);margin-bottom:6px;background:rgba(255,255,255,.07);border-radius:0 6px 6px 0;line-height:1.55}
+.tension-nota{font-size:12px;color:rgba(255,255,255,.5);margin-top:10px;font-style:italic}
+
+/* COMPARISON GRID */
+.comp-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
+@media(max-width:580px){.comp-grid{grid-template-columns:1fr}}
+.comp-card{border-radius:var(--rad-s);padding:14px 15px;border:2px solid}
+.comp-az{background:var(--az-l);border-color:var(--az2)}
+.comp-ve{background:var(--ve-l);border-color:var(--ve2)}
+.comp-am{background:var(--am-l);border-color:var(--am2)}
+.comp-mo{background:var(--mo-l);border-color:var(--mo2)}
+.comp-card .cl{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px}
+.comp-az .cl{color:var(--az2)}
+.comp-ve .cl{color:var(--ve2)}
+.comp-am .cl{color:var(--am)}
+.comp-mo .cl{color:var(--mo2)}
+.comp-card h4{font-weight:700;font-size:14px;margin-bottom:6px;color:var(--txt)}
+.comp-card p{font-size:13px;color:var(--txt2);line-height:1.55}
+.comp-card ul{font-size:13px;color:var(--txt2);padding-left:15px;margin-top:5px}
+.comp-card li{margin-bottom:3px}
+
+/* AC BOX */
+.ac-box{background:#EBF7EF;border:2px solid var(--ve2);border-radius:var(--rad);margin:20px 0;overflow:hidden}
+.ac-header{background:var(--ve);color:white;padding:14px 18px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.ac-title{font-family:'DM Serif Display',serif;font-size:16px;font-weight:400;color:white;flex:1}
+.ac-meta{font-size:11px;color:rgba(255,255,255,.8);display:flex;gap:14px;flex-wrap:wrap;margin-top:4px;width:100%}
+.ac-meta span{display:flex;align-items:center;gap:4px}
+.ac-body{padding:16px 18px}
+
+/* ROLES */
+.roles-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0}
+@media(max-width:560px){.roles-grid{grid-template-columns:1fr}}
+.role-card{border-radius:var(--rad-s);padding:12px 13px;border:1.5px solid var(--ve2);background:white}
+.role-name{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ve);margin-bottom:5px}
+.role-title{font-weight:700;font-size:13.5px;margin-bottom:5px;color:var(--txt)}
+.role-task{font-size:12.5px;color:var(--txt2);line-height:1.5}
+
+/* PROTOCOL STEPS */
+.proto{margin:14px 0}
+.proto-step{display:flex;gap:12px;margin-bottom:10px;align-items:flex-start}
+.proto-num{width:26px;height:26px;border-radius:50%;background:var(--ve);color:white;font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.proto-content{flex:1}
+.proto-content strong{font-weight:700;font-size:13.5px;color:var(--txt)}
+.proto-content p{font-size:13px;color:var(--txt2);line-height:1.6;margin-top:2px}
+.proto-time{font-size:11px;font-weight:700;color:var(--ve);background:var(--ve-l);padding:2px 7px;border-radius:20px;display:inline-block;margin-top:3px}
+
+/* PRODUCT BOX */
+.product-box{background:white;border:1.5px solid var(--ve2);border-radius:var(--rad-s);padding:13px 15px;margin:12px 0}
+.product-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ve);margin-bottom:6px}
+.product-desc{font-size:13.5px;color:var(--txt);line-height:1.6}
+
+/* PUESTA EN COMUN */
+.pec-box{background:var(--az-l);border-radius:var(--rad-s);padding:12px 15px;margin-top:10px;border-left:3px solid var(--az2)}
+.pec-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--az);margin-bottom:5px}
+.pec-desc{font-size:13px;color:var(--txt2);line-height:1.6}
+
+/* FICHA INTERACTIVA */
+.ficha{background:white;border:1.5px solid var(--gr2);border-radius:var(--rad-s);padding:14px 16px;margin:12px 0}
+.ficha-row{display:flex;gap:8px;margin-bottom:8px;align-items:flex-start}
+.ficha-label{font-size:12px;font-weight:700;color:var(--az);min-width:150px;padding-top:7px;flex-shrink:0}
+.ficha-input{width:100%;border:1.5px solid var(--gr2);border-radius:6px;padding:7px 10px;font-family:'DM Sans',sans-serif;font-size:13.5px;color:var(--txt);resize:vertical;min-height:36px;transition:border-color .15s;background:var(--az-ll)}
+.ficha-input:focus{outline:none;border-color:var(--az2)}
+@media(max-width:520px){.ficha-row{flex-direction:column}.ficha-label{min-width:auto}}
+
+/* SCALE TABLE */
+.scale-table{width:100%;border-collapse:collapse;font-size:13px;margin:12px 0}
+.scale-table th{background:var(--az);color:white;padding:9px 12px;text-align:left;font-weight:600;font-size:12px}
+.scale-table td{padding:9px 12px;border-bottom:1px solid var(--gr2);vertical-align:top;line-height:1.55;color:var(--txt2)}
+.scale-table tr:nth-child(even) td{background:var(--az-ll)}
+.scale-table tr:last-child td{border-bottom:none}
+.scale-table .eg{font-style:italic;color:var(--txt3);font-size:12px}
+
+/* CASA SECTION */
+.casa-section{margin-bottom:22px}
+.casa-level{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--am);background:var(--am-l);padding:4px 10px;border-radius:20px;display:inline-block;margin-bottom:10px}
+.ejercicio{background:white;border-radius:var(--rad-s);box-shadow:var(--shadow-sm);padding:15px 16px;margin-bottom:10px;border-left:3px solid var(--gr3)}
+.ej-num{font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--txt3);margin-bottom:4px}
+.ej-pregunta{font-size:14px;color:var(--txt);line-height:1.65;margin-bottom:8px}
+.ej-input{width:100%;border:1.5px solid var(--gr2);border-radius:6px;padding:8px 10px;font-family:'DM Sans',sans-serif;font-size:13.5px;color:var(--txt);resize:vertical;min-height:58px;transition:border-color .15s}
+.ej-input:focus{outline:none;border-color:var(--az2)}
+.ej-hint{margin-top:6px}
+.ej-hint-btn{font-size:12px;color:var(--az);cursor:pointer;background:none;border:none;padding:0;text-decoration:underline;font-family:'DM Sans',sans-serif}
+.ej-hint-text{display:none;background:var(--az-l);border-radius:5px;padding:8px 11px;font-size:12.5px;color:var(--az);margin-top:5px;line-height:1.55}
+.ej-hint-text.show{display:block}
+
+/* RADIO/OPTION SELECTOR */
+.opcion-grupo{display:flex;flex-direction:column;gap:6px;margin:8px 0}
+.opcion{display:flex;align-items:flex-start;gap:8px;padding:9px 12px;border:1.5px solid var(--gr2);border-radius:var(--rad-s);cursor:pointer;background:white;transition:all .15s;font-size:13.5px}
+.opcion:hover{border-color:var(--az2);background:var(--az-ll)}
+.opcion input[type=radio]{margin-top:2px;flex-shrink:0;accent-color:var(--az)}
+.opcion.correct{border-color:var(--ve2);background:var(--ve-l)}
+.opcion.wrong{border-color:var(--ro2);background:var(--ro-l)}
+.opcion label{cursor:pointer;line-height:1.5;color:var(--txt2)}
+.opcion.correct label{color:var(--ve)}
+.opcion.wrong label{color:var(--ro2)}
+
+/* QUIZ */
+.quiz-pregunta{background:white;border-radius:var(--rad-s);box-shadow:var(--shadow-sm);padding:16px 17px;margin-bottom:14px}
+.quiz-n{font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--az);margin-bottom:7px}
+.quiz-texto{font-size:14px;color:var(--txt);line-height:1.65;margin-bottom:10px}
+.quiz-feedback{display:none;margin-top:8px;padding:9px 12px;border-radius:var(--rad-xs);font-size:13px;line-height:1.55}
+.quiz-feedback.show{display:block}
+.quiz-feedback.correct{background:var(--ve-l);color:var(--ve);border-left:3px solid var(--ve2)}
+.quiz-feedback.wrong{background:var(--ro-l);color:var(--ro2);border-left:3px solid var(--ro2)}
+
+/* QUIZ RESULT */
+.quiz-result{display:none;background:linear-gradient(135deg,var(--az) 0%,var(--az2) 100%);border-radius:var(--rad);padding:20px 22px;margin:16px 0;color:white;text-align:center}
+.quiz-result.show{display:block}
+.qr-score{font-family:'DM Serif Display',serif;font-size:48px;color:white;margin-bottom:4px}
+.qr-label{font-size:12px;color:rgba(255,255,255,.7);margin-bottom:10px}
+.qr-msg{font-size:14px;color:rgba(255,255,255,.9);line-height:1.6}
+
+/* SAVED SCORE BANNER */
+.saved-banner{background:var(--az-l);border:1.5px solid var(--az2);border-radius:var(--rad-s);padding:12px 15px;margin-bottom:16px;display:none}
+.saved-banner.show{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.sb-text{font-size:13.5px;color:var(--az);flex:1}
+.sb-scores{display:flex;gap:14px;flex-wrap:wrap}
+.sb-item{text-align:center}
+.sb-val{font-family:'DM Serif Display',serif;font-size:20px;color:var(--az);display:block;line-height:1}
+.sb-lbl{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--txt3);margin-top:2px;display:block}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:7px;padding:10px 20px;border-radius:6px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;transition:all .15s}
+.btn-az{background:var(--az);color:white}.btn-az:hover{background:var(--az2)}
+.btn-ve{background:var(--ve);color:white}.btn-ve:hover{background:var(--ve2)}
+.btn-am{background:var(--am);color:white}.btn-am:hover{background:var(--am2);color:white}
+.btn-out{background:white;color:var(--az);border:1.5px solid var(--az2)}.btn-out:hover{background:var(--az-l)}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+
+/* NEXT SESSION */
+.next-reading{background:var(--az-ll);border-radius:var(--rad-s);padding:16px 18px;margin-bottom:14px}
+.nr-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--az);margin-bottom:5px}
+.nr-title{font-weight:700;font-size:14px;color:var(--txt);margin-bottom:4px;line-height:1.4}
+.nr-meta{font-size:12.5px;color:var(--txt3);font-style:italic;margin-bottom:8px}
+.nr-doi{font-size:12px;color:var(--ci);word-break:break-all;margin-bottom:8px}
+.nr-consigna{font-size:13.5px;color:var(--txt2);line-height:1.65;background:white;border-radius:5px;padding:10px 12px;border-left:3px solid var(--az2)}
+
+/* DIVISOR */
+.divider{border:none;border-top:1.5px solid var(--gr2);margin:20px 0}
+
+/* MINKOV DIAGRAM */
+.mk-diagram{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}
+@media(max-width:560px){.mk-diagram{grid-template-columns:1fr}}
+.mk-card{border-radius:var(--rad-s);padding:14px 16px;border:2px solid}
+.mk-cp{background:#EBF1FB;border-color:var(--az2)}
+.mk-cc{background:#EFF7EF;border-color:var(--ve2)}
+.mk-card .mk-l{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px}
+.mk-cp .mk-l{color:var(--az2)}
+.mk-cc .mk-l{color:var(--ve2)}
+.mk-card h4{font-weight:700;font-size:13.5px;margin-bottom:7px;color:var(--txt)}
+.mk-card p{font-size:12.5px;color:var(--txt2);line-height:1.55;margin-bottom:5px}
+.mk-card ul{font-size:12.5px;color:var(--txt2);padding-left:14px}
+.mk-card li{margin-bottom:3px}
+
+/* MUESTRA DIAGRAM */
+.mues-viz{background:white;border:1.5px solid var(--gr2);border-radius:var(--rad);padding:16px;margin:14px 0;text-align:center}
+.mues-circle{border-radius:50%;display:flex;align-items:center;justify-content:center;flex-direction:column;margin:0 auto;position:relative}
+.mues-outer{width:200px;height:200px;background:var(--az-l);border:2px dashed var(--az2)}
+.mues-inner{width:130px;height:130px;background:var(--ve-l);border:2px solid var(--ve2);position:absolute}
+.mues-label{font-size:11px;font-weight:700;text-align:center;line-height:1.3}
+.mues-outer .mues-label{color:var(--az);position:absolute;bottom:10px;font-size:10px}
+.mues-inner .mues-label{color:var(--ve);font-size:10px}
+
+/* RESPONSIVE */
+@media(max-width:680px){
+  .topbar h1{font-size:17px}
+  .sec-title{font-size:17px}
+  .tension-title{font-size:15px}
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <div>
+      <div class="topbar-sub">Diseños de Investigación I · Psicología · UdeC Facatativá · 2026-I</div>
+      <h1>Sesión 11 — Encuestas · Muestra · Recolección</h1>
+    </div>
+    <div class="topbar-badge">Sesión 11 de 15</div>
+  </div>
+
+  <!-- TABS -->
+  <div class="tab-nav">
+    <div class="tab-nav-inner">
+      <button class="tab-btn active" onclick="showTab('t0',this)">🔗 Apertura</button>
+      <button class="tab-btn" onclick="showTab('t1',this)">📋 Encuestas</button>
+      <button class="tab-btn" onclick="showTab('t2',this)">📏 Escalas</button>
+      <button class="tab-btn" onclick="showTab('t3',this)">🌐 Minkov</button>
+      <button class="tab-btn" onclick="showTab('t4',this)">👥 Muestra · AC1</button>
+      <button class="tab-btn" onclick="showTab('t5',this)">🔧 Instrumento · AC2</button>
+      <button class="tab-btn" onclick="showTab('t6',this)">🏠 Para la casa</button>
+      <button class="tab-btn" onclick="showTab('t7',this)">📝 Quiz</button>
+      <button class="tab-btn" onclick="showTab('t8',this)">📖 Próxima sesión</button>
+    </div>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- ══════════════════════════════════════════════════════
+     TAB 0 — APERTURA / TENSIÓN
+══════════════════════════════════════════════════════ -->
+<div class="tab-panel active" id="t0">
+  <div class="tag-row"><span class="tag tag-clase">🏫 En clase</span><span class="tag tag-pi">Tensión de apertura</span></div>
+  <div class="sec-title">Un estudio con más problemas de los que parece</div>
+
+  <div class="tension-box">
+    <div class="tension-label">⚡ Situación — léela con atención</div>
+    <div class="tension-title">¿Es válida esta comparación entre Bogotá y Chicago?</div>
+    <div class="tension-body">
+      Una investigadora quiere comparar si los jóvenes colombianos son más colectivistas que los estadounidenses. Diseña en español un cuestionario de 12 preguntas con escala del 1 al 5 sobre "valores colectivos". Lo traduce al inglés con Google Translate. Luego aplica la encuesta a 180 estudiantes universitarios de la Universidad Nacional en Bogotá y a 180 estudiantes de una universidad en Chicago que se ofrecen voluntariamente en el campus.
+      <br><br>
+      Obtiene estos resultados: los bogotanos tienen una puntuación promedio de 68/100 y los chicagüenses de 53/100. Concluye: <em>"Los jóvenes colombianos son significativamente más colectivistas que los jóvenes estadounidenses."</em>
+    </div>
+    <div class="tension-label">💭 Preguntas para pensar — sin buscar, solo con lo que ya saben</div>
+    <ul class="tension-qs">
+      <li>1. ¿Qué supone la investigadora que mide el cuestionario? ¿Es esa suposición válida? ¿Mide lo mismo "colectivismo" en Bogotá y en Chicago?</li>
+      <li>2. ¿Los 180 estudiantes de cada ciudad representan a "los jóvenes" de ese país? ¿Qué grupos quedaron fuera?</li>
+      <li>3. ¿Hay algún error en cómo recolectó los datos que pueda haber distorsionado las respuestas?</li>
+    </ul>
+    <div class="tension-nota">El docente retomará estas preguntas al final de cada bloque. Guarda tus respuestas mentalmente — las vas a necesitar.</div>
+  </div>
+
+  <div class="alert info">
+    <div class="alert-ico">🗺️</div>
+    <div>
+      <strong>Mapa de hoy:</strong> esta sesión tiene dos partes. En la primera (<strong>Encuestas</strong>, pestañas 📋 📏 🌐) vas a entender qué es un diseño de encuesta, cómo funcionan las escalas y por qué comparar culturas con encuestas no es tan simple como parece. En la segunda (<strong>Muestra + Instrumento</strong>, pestañas 👥 🔧) vas a trabajar en tríos usando esos conceptos para analizar el experimento del Proyecto Integrador.
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">🔗 Puente con S10 — un paso más en la cadena</div>
+    <div class="card-body">
+      <div style="display:flex;align-items:center;flex-wrap:wrap;gap:0;margin:8px 0 14px">
+        <div style="background:var(--gr2);padding:8px 12px;font-size:12px;font-weight:600;border-radius:4px;flex:1;min-width:70px;text-align:center;color:var(--txt3)">Pregunta</div>
+        <div style="color:var(--txt3);padding:0 5px;font-size:16px">→</div>
+        <div style="background:var(--gr2);padding:8px 12px;font-size:12px;font-weight:600;border-radius:4px;flex:1;min-width:70px;text-align:center;color:var(--txt3)">Marco teórico</div>
+        <div style="color:var(--txt3);padding:0 5px;font-size:16px">→</div>
+        <div style="background:var(--gr2);padding:8px 12px;font-size:12px;font-weight:600;border-radius:4px;flex:1;min-width:70px;text-align:center;color:var(--txt3)">Hipótesis</div>
+        <div style="color:var(--txt3);padding:0 5px;font-size:16px">→</div>
+        <div style="background:var(--az);color:white;padding:8px 12px;font-size:12px;font-weight:600;border-radius:4px;flex:1;min-width:70px;text-align:center">Diseño ✓</div>
+        <div style="color:var(--txt3);padding:0 5px;font-size:16px">→</div>
+        <div style="background:var(--am);color:white;padding:8px 12px;font-size:12px;font-weight:600;border-radius:4px;flex:1;min-width:70px;text-align:center">Muestra ← Hoy</div>
+        <div style="color:var(--txt3);padding:0 5px;font-size:16px">→</div>
+        <div style="background:var(--gr2);padding:8px 12px;font-size:12px;font-weight:600;border-radius:4px;flex:1;min-width:70px;text-align:center;color:var(--txt3)">Datos</div>
+      </div>
+      <p style="font-size:13.5px;color:var(--txt2)">En S10 clasificamos el <em>tipo</em> de diseño del PI (factorial mixto 2×3) y construimos la tabla de medias descriptivas. Hoy toca la pregunta siguiente: ¿<em>a quiénes</em> se les aplicó el experimento? ¿Con qué instrumento se recolectaron los datos? ¿Qué tan representativo es ese grupo?</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     TAB 1 — DISEÑOS DE ENCUESTA
+══════════════════════════════════════════════════════ -->
+<div class="tab-panel" id="t1">
+  <div class="tag-row"><span class="tag tag-clase">🏫 En clase</span><span style="font-size:12px;color:var(--txt3)">Contenido teórico — magistral</span></div>
+  <div class="sec-title">📋 Diseños de investigación por encuesta</div>
+  <div class="sec-intro">Un diseño de encuesta (<em>survey</em>) es una estrategia de investigación que recolecta información de una muestra para <strong>describir, explorar o explicar</strong> características, actitudes, opiniones o comportamientos de una población. No hay manipulación de variables: el investigador observa y mide lo que ya existe.</div>
+
+  <div class="def-box">
+    <div class="def-label">Definición operativa</div>
+    <div class="def-text">El diseño de encuesta recolecta datos mediante <strong>instrumentos estandarizados</strong> (cuestionarios, escalas) aplicados a una muestra seleccionada de una población, con el propósito de generalizar los hallazgos a esa población.</div>
+    <div class="def-src">Basado en Hernández-Sampieri et al. (2014, Cap. 7 y 8).</div>
+  </div>
+
+  <div class="acc">
+    <div class="acc-head" onclick="toggleAcc(this)">
+      <span class="acc-icon">🔑</span>
+      <span style="flex:1">¿Qué distingue a una encuesta de un experimento?</span>
+      <span class="acc-arrow">▾</span>
+    </div>
+    <div class="acc-body">
+      <p>La diferencia central es la <strong>ausencia de manipulación</strong>. En una encuesta el investigador no crea condiciones: mide lo que ya existe en las personas. En un experimento, en cambio, el investigador controla deliberadamente la variable independiente.</p>
+      <p>Por eso, las encuestas permiten <strong>describir y correlacionar</strong>, pero raramente permiten afirmar <em>causalidad</em>. Si una encuesta en Medellín encuentra que las personas que duermen menos tienen más ansiedad, eso es una asociación — no podemos decir que el insomnio <em>causa</em> la ansiedad, porque pueden haber muchas otras explicaciones.</p>
+      <strong>Ejemplo colombiano:</strong>
+      <ul>
+        <li><strong>Encuesta:</strong> Aplicar el PHQ-9 a 500 trabajadores de salud en Bogotá para describir niveles de depresión durante turnos de noche.</li>
+        <li><strong>Experimento:</strong> Dividir al azar 100 trabajadores en dos grupos, y enseñar a un grupo técnicas de higiene del sueño, midiendo la depresión al final del semestre.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="acc">
+    <div class="acc-head" onclick="toggleAcc(this)">
+      <span class="acc-icon">📅</span>
+      <span style="flex:1">Tipos según el tiempo: transversal vs. longitudinal</span>
+      <span class="acc-arrow">▾</span>
+    </div>
+    <div class="acc-body">
+      <p><strong>Encuesta transversal:</strong> los datos se recolectan en un <em>único momento</em>. Como una fotografía. Se usa para describir el estado actual o explorar relaciones en un punto del tiempo.</p>
+      <p><em>Ejemplo:</em> Aplicar el Cuestionario de Salud Mental Positiva (Lluch) a todos los estudiantes de primer semestre de UdeC Facatativá en marzo de 2026. Una sola medición, un solo momento.</p>
+      <p><strong>Encuesta longitudinal:</strong> los datos se recolectan en <em>varios momentos</em>. Como una película. Permite observar cambios y evolución.</p>
+      <p><em>Ejemplo:</em> Aplicar la misma encuesta de bienestar a los mismos estudiantes en marzo, junio y noviembre de 2026 para ver cómo cambia el bienestar a lo largo del semestre. Tipos: panel (mismas personas), tendencia (diferentes personas del mismo grupo en cada momento), cohorte (mismo cohorte de edad).</p>
+      <p><strong>Para el PI:</strong> el experimento midió a todos los participantes en una sola sesión → diseño transversal.</p>
+    </div>
+  </div>
+
+  <div class="acc">
+    <div class="acc-head" onclick="toggleAcc(this)">
+      <span class="acc-icon">🎯</span>
+      <span style="flex:1">Tipos según el objetivo: descriptiva, correlacional, explicativa</span>
+      <span class="acc-arrow">▾</span>
+    </div>
+    <div class="acc-body">
+      <p><strong>Descriptiva:</strong> ¿cómo es? ¿cuántos? ¿qué proporción? Describe características de una población sin establecer relaciones.</p>
+      <p><em>Ejemplo:</em> ¿Qué porcentaje de adolescentes en Facatativá tiene síntomas de ansiedad social según el SPIN?</p>
+      <p><strong>Correlacional:</strong> ¿existe relación entre X e Y? ¿en qué dirección? No afirma causa.</p>
+      <p><em>Ejemplo:</em> ¿Hay relación entre el uso de redes sociales y los síntomas de soledad en universitarios de Bogotá?</p>
+      <p><strong>Explicativa (causal-comparativa):</strong> aunque en las encuestas no hay manipulación, algunos diseños buscan identificar factores que pueden <em>explicar</em> diferencias entre grupos ya existentes.</p>
+      <p><em>Ejemplo:</em> ¿Por qué los trabajadores informales reportan mayor estrés laboral que los formales? (Comparación de grupos naturales.)</p>
+    </div>
+  </div>
+
+  <div class="acc">
+    <div class="acc-head" onclick="toggleAcc(this)">
+      <span class="acc-icon">⚠️</span>
+      <span style="flex:1">Limitaciones de las encuestas — lo que NO pueden hacer</span>
+      <span class="acc-arrow">▾</span>
+    </div>
+    <div class="acc-body">
+      <ul>
+        <li><strong>No establecen causalidad</strong> por sí solas. Siempre hay variables de confusión posibles.</li>
+        <li><strong>Sesgo de deseabilidad social:</strong> las personas tienden a responder lo que creen que se espera de ellas. Especialmente en temas sensibles (violencia, sexualidad, consumo de sustancias).</li>
+        <li><strong>Sesgo de memoria:</strong> si se pregunta sobre eventos del pasado, la memoria puede fallar.</li>
+        <li><strong>Sesgo de no respuesta:</strong> las personas que deciden no participar pueden ser sistemáticamente diferentes a las que sí lo hacen.</li>
+        <li><strong>Equivalencia transcultural:</strong> una misma pregunta puede significar cosas diferentes en contextos culturales distintos. Este es el problema central que aborda el artículo de Minkov et al. que leyeron.</li>
+      </ul>
+      <p><strong>Ejemplo colombiano de deseabilidad social:</strong> si encuestas en Tunja sobre consumo de alcohol y usas una escala genérica, es probable que las personas subreported el consumo real por presión social y cultural.</p>
+    </div>
+  </div>
+
+  <div class="alert am">
+    <div class="alert-ico">💡</div>
+    <div><strong>Vuelta a la tensión:</strong> ¿recuerdas el estudio de Bogotá–Chicago? ¿Qué tipo de encuesta era? ¿Transversal o longitudinal? ¿Descriptiva o correlacional? ¿Cuáles de las limitaciones que acabas de leer estaban presentes?</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     TAB 2 — ESCALAS DE MEDICIÓN
+══════════════════════════════════════════════════════ -->
+<div class="tab-panel" id="t2">
+  <div class="tag-row"><span class="tag tag-clase">🏫 En clase</span><span style="font-size:12px;color:var(--txt3)">Contenido teórico — magistral</span></div>
+  <div class="sec-title">📏 Escalas de medición y niveles de medida</div>
+  <div class="sec-intro">Cuando usamos una encuesta, las respuestas que obtenemos no son todas del mismo tipo. "¿Eres hombre o mujer?" no es lo mismo que "¿Cuántos años tienes?" ni que "Del 1 al 5, ¿cuánto bienestar sientes?" El tipo de escala determina qué análisis estadísticos puedes hacer — y por eso es crítico entenderlo.</div>
+
+  <table class="scale-table">
+    <thead><tr><th>Nivel</th><th>Qué mide</th><th>Operaciones válidas</th><th>Ejemplo en Colombia</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>Nominal</strong></td>
+        <td>Categorías sin orden. Solo nombra.</td>
+        <td>Frecuencias, moda, Chi²</td>
+        <td class="eg">¿En qué departamento vives? (Cundinamarca, Antioquia, Valle…)</td>
+      </tr>
+      <tr>
+        <td><strong>Ordinal</strong></td>
+        <td>Categorías con orden, pero sin distancias iguales entre ellas.</td>
+        <td>Mediana, percentiles, Spearman</td>
+        <td class="eg">Nivel de estrés: bajo / medio / alto. La distancia de "bajo a medio" no es igual a "medio a alto".</td>
+      </tr>
+      <tr>
+        <td><strong>Intervalo</strong></td>
+        <td>Distancias iguales entre puntos, pero sin cero absoluto.</td>
+        <td>Media, DE, correlación de Pearson, t de Student</td>
+        <td class="eg">Temperatura en °C, puntuación en el PHQ-9. El 0 en PHQ-9 no significa "nada de depresión para siempre".</td>
+      </tr>
+      <tr>
+        <td><strong>Razón</strong></td>
+        <td>Distancias iguales + cero absoluto real.</td>
+        <td>Todas las anteriores + ratios</td>
+        <td class="eg">Edad en años, tiempo de reacción en milisegundos, ingresos en COP. El cero sí significa ausencia total.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="alert info">
+    <div class="alert-ico">🔢</div>
+    <div><strong>Para el PI:</strong> d' (exactitud) y TR_ms (tiempo de reacción) son variables de razón — tienen cero absoluto real. Eso permite usar pruebas paramétricas como la t de Student. Si hubieran medido "percepción del desempeño" con una escala del 1 al 5, sería ordinal y necesitarían pruebas no paramétricas.</div>
+  </div>
+
+  <div class="acc">
+    <div class="acc-head" onclick="toggleAcc(this)">
+      <span class="acc-icon">📊</span>
+      <span style="flex:1">La escala Likert — ¿ordinal o intervalo?</span>
+      <span class="acc-arrow">▾</span>
+    </div>
+    <div class="acc-body">
+      <p>La escala Likert es una de las más usadas en psicología: "Totalmente en desacuerdo / En desacuerdo / Ni de acuerdo ni en desacuerdo / De acuerdo / Totalmente de acuerdo".</p>
+      <p>En estricto rigor, es una escala <strong>ordinal</strong> (la diferencia entre "en desacuerdo" y "ni acuerdo ni desacuerdo" no es matemáticamente igual a la diferencia entre "de acuerdo" y "totalmente de acuerdo"). Sin embargo, existe un debate vigente en psicometría: cuando una escala tiene suficientes puntos (5 o más) y se comporta simétricamente, muchos investigadores la tratan como <strong>intervalo aproximado</strong> y usan análisis paramétricos.</p>
+      <p><strong>Conclusión práctica:</strong> si en tu proyecto usas una escala Likert, debes <em>justificar</em> el tratamiento que le das. El estándar de muchas revistas hoy es tratar escalas Likert de 5+ puntos como intervalo, pero siempre debes verificar la distribución.</p>
+    </div>
+  </div>
+
+  <div class="acc">
+    <div class="acc-head" onclick="toggleAcc(this)">
+      <span class="acc-icon">🌍</span>
+      <span style="flex:1">Equivalencia de medición en encuestas transculturales</span>
+      <span class="acc-arrow">▾</span>
+    </div>
+    <div class="acc-body">
+      <p>Cuando aplicas la misma escala en dos culturas diferentes, necesitas verificar que estás midiendo el mismo constructo. Esto se llama <strong>equivalencia de medición</strong> y tiene tres niveles:</p>
+      <ul>
+        <li><strong>Equivalencia lingüística:</strong> la traducción preserva el significado. No es suficiente con Google Translate — se necesita traducción–retrotraducción con expertos bilingües.</li>
+        <li><strong>Equivalencia conceptual:</strong> el constructo existe y tiene el mismo significado en ambas culturas. "Bienestar subjetivo" puede significar cosas diferentes en Medellín que en Tokio.</li>
+        <li><strong>Equivalencia de medición (invarianza):</strong> los ítems funcionan de la misma manera estadísticamente en ambos grupos. Se prueba con modelos de ecuaciones estructurales multigrupo.</li>
+      </ul>
+      <p><strong>Si no hay equivalencia de medición, la comparación no tiene sentido.</strong> Es como comparar temperaturas midiendo una en Celsius y otra en Fahrenheit sin convertirlas.</p>
+      <p><em>Vuelta a la tensión:</em> la investigadora de Bogotá–Chicago usó Google Translate y no verificó ningún nivel de equivalencia. Sus comparaciones son metodológicamente inválidas.</p>
+    </div>
+  </div>
+
+  <div class="acc">
+    <div class="acc-head" onclick="toggleAcc(this)">
+      <span class="acc-icon">🔄</span>
+      <span style="flex:1">Confiabilidad vs. validez — no son lo mismo</span>
+      <span class="acc-arrow">▾</span>
+    </div>
+    <div class="acc-body">
+      <p><strong>Confiabilidad:</strong> el instrumento da resultados <em>consistentes</em> cuando se aplica en condiciones similares. Si aplico el PHQ-9 hoy y mañana a alguien que no ha cambiado, debería obtener resultados similares. Se mide con alfa de Cronbach (consistencia interna) o test-retest.</p>
+      <p><strong>Validez:</strong> el instrumento mide <em>lo que dice que mide</em>. Un PHQ-9 puede ser confiable (consistente) pero inválido si lo estoy usando para medir ansiedad en lugar de depresión.</p>
+      <p><strong>Regla importante:</strong> un instrumento puede ser confiable sin ser válido (un termómetro roto que siempre marca 36.5°C es consistente pero no válido). Pero no puede ser válido sin ser confiable (si mido lo correcto pero de manera errática, no tiene valor científico).</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     TAB 3 — MINKOV
+══════════════════════════════════════════════════════ -->
+<div class="tab-panel" id="t3">
+  <div class="tag-row"><span class="tag tag-clase">🏫 En clase</span><span style="font-size:12px;color:var(--txt3)">Lectura asignada — Minkov et al. (2024)</span></div>
+  <div class="sec-title">🌐 Comparar culturas vs. comparar mentes</div>
+  <div class="sec-intro">El artículo de Minkov et al. (2024) plantea una distinción que parece sutil pero tiene consecuencias metodológicas enormes: ¿estás comparando <em>culturas como sociedades</em> o estás comparando <em>individuos de diferentes culturas</em>? No es lo mismo, y confundirlo produce conclusiones inválidas.</div>
+
+  <div class="mk-diagram">
+    <div class="mk-card mk-cc">
+      <div class="mk-l">Culturología Comparativa</div>
+      <h4>Comparar culturas como unidades societales</h4>
+      <p>La <strong>unidad de análisis es la sociedad o cultura como un todo</strong>. Los datos agregados de individuos se usan para caracterizar la cultura, no al individuo.</p>
+      <ul>
+        <li>Ejemplo: Índices de Hofstede (poder, individualismo, masculinidad)</li>
+        <li>Los valores son promedios nacionales, no individuales</li>
+        <li>Pregunta: ¿Colombia como sociedad es más colectivista que Alemania?</li>
+      </ul>
+    </div>
+    <div class="mk-card mk-cp">
+      <div class="mk-l">Psicología Transcultural</div>
+      <h4>Comparar mentes individuales entre culturas</h4>
+      <p>La <strong>unidad de análisis es la persona</strong>. Se mide a individuos de diferentes culturas y se comparan sus respuestas.</p>
+      <ul>
+        <li>Ejemplo: Aplicar el BFI a personas de 30 países y comparar perfiles</li>
+        <li>Los resultados hablan de individuos, no de culturas como entidades</li>
+        <li>Pregunta: ¿Las personas de origen colombiano tienen puntuaciones más altas en amabilidad que las de origen germánico?</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="acc">
+    <div class="acc-head" onclick="toggleAcc(this)">
+      <span class="acc-icon">⚠️</span>
+      <span style="flex:1">El error del nivel de análisis — y por qué importa</span>
+      <span class="acc-arrow">▾</span>
+    </div>
+    <div class="acc-body">
+      <p>Minkov et al. argumentan que muchos estudios cometen el error de usar datos de un nivel para hacer afirmaciones sobre el otro. Hay dos errores en direcciones opuestas:</p>
+      <p><strong>Falacia ecológica:</strong> usar datos del nivel societal para hacer conclusiones sobre individuos. Si Colombia tiene un índice de colectivismo alto en los datos de Hofstede, no se puede concluir que <em>Juan</em>, colombiano de 22 años de Bogotá, es colectivista. Los promedios nacionales ocultan enorme variabilidad individual.</p>
+      <p><strong>Falacia individualista (atomismo):</strong> usar datos individuales para hacer conclusiones sobre la cultura como sistema. Si 200 estudiantes universitarios de Bogotá puntúan alto en colectivismo, no se puede concluir que "la cultura colombiana" es colectivista — esos estudiantes son un grupo muy específico y no representan toda la sociedad.</p>
+      <p><strong>Ejemplo en Colombia:</strong> decir que "los colombianos son resilientes" basándose en un estudio con 80 universitarios de Medellín comete los dos errores: usa una muestra reducida para hablar de toda la sociedad, y confunde características individuales con características culturales sistémicas.</p>
+    </div>
+  </div>
+
+  <div class="acc">
+    <div class="acc-head" onclick="toggleAcc(this)">
+      <span class="acc-icon">🔍</span>
+      <span style="flex:1">¿Qué implicaciones tiene para diseñar encuestas transculturales?</span>
+      <span class="acc-arrow">▾</span>
+    </div>
+    <div class="acc-body">
+      <p>La distinción de Minkov et al. tiene consecuencias directas para el diseño:</p>
+      <ul>
+        <li><strong>Define claramente tu nivel de análisis antes de medir:</strong> ¿comparas culturas o individuos? Eso determina qué instrumento usas, qué muestra necesitas y qué conclusiones puedes hacer.</li>
+        <li><strong>Si comparas individuos:</strong> verifica equivalencia de medición. Asegúrate de que el constructo existe igual en ambas culturas y que el instrumento funciona igual en ambos grupos.</li>
+        <li><strong>Si comparas culturas:</strong> necesitas datos agregados representativos — no basta con un grupo de universitarios en cada país. Necesitas muestras amplias y diversas que representen la heterogeneidad de la sociedad.</li>
+        <li><strong>Las conclusiones deben respetar el nivel:</strong> si mediste individuos, hablas de individuos. Si mediste culturas, hablas de culturas. No saltes entre niveles.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="acc">
+    <div class="acc-head" onclick="toggleAcc(this)">
+      <span class="acc-icon">🔬</span>
+      <span style="flex:1">Conexión con el PI: ¿qué nivel de análisis usa el experimento?</span>
+      <span class="acc-arrow">▾</span>
+    </div>
+    <div class="acc-body">
+      <p>El experimento del PI compara participantes de cultura asiático-oriental con participantes de cultura occidental en una tarea de detección de cambios visuales. Analicemos el nivel de análisis:</p>
+      <p><strong>¿Es psicología transcultural o culturología comparativa?</strong> Es claramente <strong>psicología transcultural</strong>: se mide a individuos (tiempos de reacción, exactitud en milisegundos de cada persona) y se comparan las medias entre grupos. La unidad de análisis es el participante individual, no la cultura como sistema.</p>
+      <p><strong>Consecuencia para las conclusiones:</strong> los resultados del PI no permiten decir "la cultura asiático-oriental es más atenta" — eso sería culturología (y además una afirmación demasiado amplia). Lo que sí permiten es decir: "los participantes de origen asiático-oriental en este experimento mostraron patrones de distribución atencional diferentes a los participantes occidentales, consistentes con la hipótesis del foco atencional amplio".</p>
+      <p><strong>Esto es fundamental para tu Discusión:</strong> en la Actividad 3, cada vez que interpretes los resultados, debes respetar el nivel de análisis. No generalices más allá de lo que los datos permiten.</p>
+    </div>
+  </div>
+
+  <div class="alert pi">
+    <div class="alert-ico">🗂️</div>
+    <div>
+      <strong>Para la Actividad 1 del PI (revisión bibliográfica):</strong> cuando busquen artículos, noten si cada estudio compara <em>individuos</em> (psicología transcultural) o <em>culturas como sistemas</em> (culturología comparativa). Es una caracterización que puede ir en la síntesis teórica de la Actividad 1.
+    </div>
+  </div>
+
+  <div class="alert am">
+    <div class="alert-ico">💡</div>
+    <div><strong>Cierre de la tensión:</strong> el estudio de Bogotá–Chicago usaba datos individuales pero hacía conclusiones sobre "los jóvenes colombianos" como categoría cultural — salto ilegítimo entre niveles. Además, la muestra de estudiantes universitarios voluntarios no representa ni a los individuos colombianos ni a la cultura colombiana.</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     TAB 4 — MUESTRA + AC1
+══════════════════════════════════════════════════════ -->
+<div class="tab-panel" id="t4">
+  <div class="tag-row"><span class="tag tag-clase">🏫 En clase</span><span class="tag tag-coop">🤝 Actividad Cooperativa 1</span><span class="tag tag-pi">PI — Método</span></div>
+  <div class="sec-title">👥 Muestra, población y muestreo</div>
+  <div class="sec-intro">Antes de la actividad cooperativa, repasa estos conceptos clave. Son la base para analizar la muestra del PI.</div>
+
+  <!-- CONCEPTOS TEÓRICOS -->
+  <div class="acc">
+    <div class="acc-head" onclick="toggleAcc(this)">
+      <span class="acc-icon">🌐</span>
+      <span style="flex:1">Población o universo vs. muestra</span>
+      <span class="acc-arrow">▾</span>
+    </div>
+    <div class="acc-body">
+      <p>La <strong>población o universo</strong> es el conjunto completo de todos los casos que interesan para la investigación, definido por sus características específicas. Es el grupo al que quiero generalizar.</p>
+      <p><em>Ejemplo:</em> Si quiero estudiar el bienestar de los estudiantes universitarios colombianos, la población son todos los estudiantes universitarios de Colombia (¡son más de 2 millones!).</p>
+      <p>La <strong>muestra</strong> es el subconjunto de la población que realmente estudio. Debe ser representativa para que pueda generalizar los hallazgos.</p>
+      <p><em>Ejemplo:</em> Encuestar a 500 estudiantes de 10 universidades distribuidas por regiones sería una muestra de esa población.</p>
+      <p><strong>Unidad de análisis:</strong> el "quién" o "qué" se mide en cada observación. Puede ser una persona, un hogar, una institución, un texto. En la mayoría de estudios psicológicos, la unidad de análisis es el individuo.</p>
+    </div>
+  </div>
+
+  <div class="acc">
+    <div class="acc-head" onclick="toggleAcc(this)">
+      <span class="acc-icon">🎲</span>
+      <span style="flex:1">Tipos de muestreo — probabilístico vs. no probabilístico</span>
+      <span class="acc-arrow">▾</span>
+    </div>
+    <div class="acc-body">
+      <p><strong>Muestreo probabilístico:</strong> todos los individuos de la población tienen una <em>probabilidad conocida y mayor que cero</em> de ser seleccionados. Permite hacer inferencias estadísticas sobre la población. Tipos:</p>
+      <ul>
+        <li><strong>Aleatorio simple:</strong> cada individuo tiene la misma probabilidad. Como sacar papelitos de una urna.</li>
+        <li><strong>Sistemático:</strong> se selecciona cada n-ésimo elemento de la lista. Cada 10 personas del registro.</li>
+        <li><strong>Estratificado:</strong> se divide la población en grupos (estratos) y se toma una muestra de cada grupo de forma proporcional. Garantiza representación de subgrupos clave (por región, género, etnia).</li>
+        <li><strong>Por conglomerados:</strong> se seleccionan grupos naturales completos (salones, barrios, municipios).</li>
+      </ul>
+      <p><strong>Muestreo no probabilístico:</strong> la selección no depende de la probabilidad sino de criterios del investigador. No permite generalizar estadísticamente. Tipos:</p>
+      <ul>
+        <li><strong>Por conveniencia:</strong> se usa lo que está disponible. Los estudiantes que están en clase ese día.</li>
+        <li><strong>Intencional o por criterio:</strong> se seleccionan casos que cumplen criterios específicos.</li>
+        <li><strong>Bola de nieve:</strong> cada participante refiere al siguiente. Útil para poblaciones ocultas.</li>
+        <li><strong>Por cuotas:</strong> se establece un número fijo de participantes por categoría.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="acc">
+    <div class="acc-head" onclick="toggleAcc(this)">
+      <span class="acc-icon">📐</span>
+      <span style="flex:1">Representatividad y tamaño de la muestra</span>
+      <span class="acc-arrow">▾</span>
+    </div>
+    <div class="acc-body">
+      <p>Una muestra es <strong>representativa</strong> cuando sus características son similares a las de la población que intenta representar. La representatividad no depende solo del tamaño — depende del método de selección y de qué tan bien cubre la diversidad de la población.</p>
+      <p><strong>¿Cuántos participantes necesito?</strong> El tamaño ideal depende de: (a) la variabilidad esperada del fenómeno, (b) el nivel de confianza que quieres (generalmente 95%), (c) el margen de error que toleras, y (d) el tipo de análisis estadístico que vas a hacer.</p>
+      <p><em>Regla práctica en psicología experimental:</em> para pruebas paramétricas de comparación de grupos, se recomienda un mínimo de 20–30 participantes por grupo para tener suficiente poder estadístico. Para correlaciones, se necesitan al menos 30 casos totales.</p>
+      <p><strong>Nota crítica:</strong> muchos estudios en psicología experimental — incluyendo estudios publicados en revistas indexadas — usan muestras pequeñas de universitarios voluntarios. Esto es un problema reconocido del campo (relacionado con el problema WEIRD que estudiamos en S2).</p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- AC1 -->
+  <div class="ac-box">
+    <div class="ac-header">
+      <div>
+        <div class="ac-title">🤝 AC1 — Perfil de la muestra del Proyecto Integrador</div>
+        <div class="ac-meta">
+          <span>⏱️ 15 minutos en total</span>
+          <span>👥 Tríos — roles asignados</span>
+          <span>📦 Producto: Ficha de participantes</span>
+        </div>
+      </div>
+    </div>
+    <div class="ac-body">
+      <div class="alert ve" style="margin-bottom:14px">
+        <div class="alert-ico">🎯</div>
+        <div><strong>¿Para qué sirve esto?</strong> La Ficha de Participantes que van a completar hoy es la base de la sección <em>Participantes</em> del Método del informe final del PI. Cuando la terminen, tendrán redactado el esqueleto de esa sección.</div>
+      </div>
+
+      <div class="roles-grid">
+        <div class="role-card">
+          <div class="role-name">Rol 1</div>
+          <div class="role-title">🔍 Analista</div>
+          <div class="role-task">Lee la descripción del experimento en la Ficha del PI (abajo) e identifica: quiénes son los participantes, cuántos hay, qué características tienen.</div>
+        </div>
+        <div class="role-card">
+          <div class="role-name">Rol 2</div>
+          <div class="role-title">📋 Codificador</div>
+          <div class="role-task">Clasifica el tipo de muestreo que usaron los investigadores del PI. Busca criterios de inclusión y exclusión implícitos en el diseño. Usa las definiciones de esta pestaña.</div>
+        </div>
+        <div class="role-card">
+          <div class="role-name">Rol 3</div>
+          <div class="role-title">⚖️ Evaluador</div>
+          <div class="role-task">Evalúa la representatividad: ¿esta muestra representa a la población objetivo? ¿Cuáles son las limitaciones? ¿Pueden generalizarse los resultados a jóvenes colombianos?</div>
+        </div>
+      </div>
+
+      <div class="proto">
+        <div class="proto-step">
+          <div class="proto-num">1</div>
+          <div class="proto-content">
+            <strong>Individual — lee el contexto del PI</strong>
+            <p>Cada integrante lee la ficha del experimento (abajo). En silencio, anota en tu cuaderno 2 datos concretos sobre los participantes.</p>
+            <span class="proto-time">2 minutos</span>
+          </div>
+        </div>
+        <div class="proto-step">
+          <div class="proto-num">2</div>
+          <div class="proto-content">
+            <strong>Trío — completan la Ficha de Participantes</strong>
+            <p>Cada uno reporta lo que encontró desde su rol. El Codificador lidera las preguntas 3 y 4. El Evaluador lidera las preguntas 5 y 6. El Analista sintetiza la respuesta de la pregunta 1 y 2. Entre los tres llenan la ficha interactiva.</p>
+            <span class="proto-time">10 minutos</span>
+          </div>
+        </div>
+        <div class="proto-step">
+          <div class="proto-num">3</div>
+          <div class="proto-content">
+            <strong>Puesta en común</strong>
+            <p>El docente pregunta al Vocero de un grupo: <em>"¿Cuál es la limitación más importante que encontraron en la muestra?"</em> Otros grupos pueden agregar o corregir. El docente cierra con el criterio metodológico correcto.</p>
+            <span class="proto-time">3 minutos</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:14px">
+        <div class="card-header">📄 Contexto del experimento — datos para la ficha</div>
+        <div class="card-body">
+          <p>El experimento del PI compara <strong>dos grupos culturales</strong>: participantes de cultura <strong>asiático-oriental (AO)</strong> y participantes de cultura <strong>occidental (Oc)</strong>. Los participantes son en su mayoría <strong>estudiantes universitarios</strong> jóvenes con visión normal o corregida. Se implementó en un entorno altamente controlado con software especializado.</p>
+          <p>El dataset contiene <strong>54 observaciones</strong>, distribuidas entre los dos grupos culturales y las tres condiciones experimentales (Misma, Expansión, Aleatoria). Los participantes no fueron asignados aleatoriamente a sus grupos culturales — pertenecen a esos grupos por su origen y contexto de vida.</p>
+          <p>Los criterios técnicos de inclusión incluyeron: visión normal o corregida, capacidad de realizar la tarea computarizada, y disponibilidad para participar en la sesión experimental bajo condiciones estandarizadas de iluminación y distancia a la pantalla.</p>
+        </div>
+      </div>
+
+      <div class="product-box">
+        <div class="product-label">📦 Producto — Ficha de participantes del PI (llenar en trío)</div>
+        <div class="product-desc">Completen juntos las siguientes preguntas. Lo que escriban aquí es el esqueleto de la sección Participantes del informe final.</div>
+      </div>
+
+      <div class="ficha">
+        <div class="ficha-row"><div class="ficha-label">1. ¿Quiénes son los participantes?</div><textarea class="ficha-input" id="ac1-q1" rows="2" placeholder="Describe quiénes son (características demográficas, contexto)…" oninput="saveAC1()"></textarea></div>
+        <div class="ficha-row"><div class="ficha-label">2. Unidad de análisis</div><textarea class="ficha-input" id="ac1-q2" rows="2" placeholder="¿Qué es lo que se mide en cada observación? ¿Es un individuo, un ensayo, un grupo?…" oninput="saveAC1()"></textarea></div>
+        <div class="ficha-row"><div class="ficha-label">3. Tipo de muestreo usado</div><textarea class="ficha-input" id="ac1-q3" rows="2" placeholder="¿Qué tipo de muestreo usaron los investigadores? ¿Cómo lo sabes?…" oninput="saveAC1()"></textarea></div>
+        <div class="ficha-row"><div class="ficha-label">4. Criterios de inclusión/exclusión</div><textarea class="ficha-input" id="ac1-q4" rows="2" placeholder="¿Qué características debía tener un participante para ser incluido? ¿Cuáles habrían sido motivo de exclusión?…" oninput="saveAC1()"></textarea></div>
+        <div class="ficha-row"><div class="ficha-label">5. ¿Es representativa la muestra? ¿De qué?</div><textarea class="ficha-input" id="ac1-q5" rows="2" placeholder="¿Esta muestra representa a quiénes? ¿Qué grupos quedaron fuera?…" oninput="saveAC1()"></textarea></div>
+        <div class="ficha-row"><div class="ficha-label">6. Limitación principal</div><textarea class="ficha-input" id="ac1-q6" rows="2" placeholder="¿Cuál es la limitación más importante de esta muestra para generalizar los resultados?…" oninput="saveAC1()"></textarea></div>
+        <div class="ficha-row"><div class="ficha-label">7. ¿Aplica a Colombia?</div><textarea class="ficha-input" id="ac1-q7" rows="2" placeholder="¿Podemos generalizar los resultados del PI a jóvenes colombianos? ¿Por qué sí o por qué no?…" oninput="saveAC1()"></textarea></div>
+        <div class="btn-row">
+          <button class="btn btn-ve" onclick="saveAC1()">💾 Guardar ficha</button>
+        </div>
+        <div id="ac1-save-msg" style="display:none;margin-top:8px;font-size:12.5px;color:var(--ve);">✅ Ficha guardada en este dispositivo.</div>
+      </div>
+
+      <div class="pec-box">
+        <div class="pec-label">🗣️ Puesta en común — instrucción para el Vocero</div>
+        <div class="pec-desc">Cuando el docente pregunte, el Vocero lee en voz alta la respuesta a la pregunta 6 (limitación principal). Si otro grupo identificó una limitación diferente, la agrega. El docente integra las respuestas y señala cuáles son metodológicamente más relevantes.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     TAB 5 — INSTRUMENTO + AC2
+══════════════════════════════════════════════════════ -->
+<div class="tab-panel" id="t5">
+  <div class="tag-row"><span class="tag tag-clase">🏫 En clase</span><span class="tag tag-coop">🤝 Actividad Cooperativa 2</span><span class="tag tag-pi">PI — Método</span></div>
+  <div class="sec-title">🔧 Instrumentos y recolección de datos</div>
+  <div class="sec-intro">Todo instrumento de recolección de información debe cumplir requisitos de calidad. Vamos a ver cuáles son y luego los vamos a aplicar para evaluar el instrumento del PI.</div>
+
+  <div class="acc">
+    <div class="acc-head" onclick="toggleAcc(this)">
+      <span class="acc-icon">📌</span>
+      <span style="flex:1">Requisitos de un instrumento de recolección de información</span>
+      <span class="acc-arrow">▾</span>
+    </div>
+    <div class="acc-body">
+      <p>Según Sampieri et al. (2014), todo instrumento debe cumplir tres requisitos fundamentales:</p>
+      <ul>
+        <li><strong>Validez:</strong> mide realmente el constructo que dice medir. No solo el nombre del instrumento — la operacionalización real. Un cronómetro que mide tiempo de reacción tiene validez para medir "velocidad de respuesta" pero no para medir "ansiedad".</li>
+        <li><strong>Confiabilidad:</strong> si se aplica dos veces en condiciones iguales, da resultados similares. En tareas cognitivas computarizadas, la confiabilidad se verifica con test-retest o correlación entre ensayos.</li>
+        <li><strong>Objetividad:</strong> los resultados no dependen del investigador que aplica el instrumento. Las tareas computarizadas son altamente objetivas: el software mide lo mismo sin importar quién lo administra.</li>
+      </ul>
+      <p>A estos se suman criterios adicionales: <strong>sensibilidad</strong> (detecta diferencias pequeñas), <strong>especificidad</strong> (no confunde fenómenos similares) y <strong>pertinencia cultural</strong> (el instrumento es apropiado para la población estudiada).</p>
+    </div>
+  </div>
+
+  <div class="acc">
+    <div class="acc-head" onclick="toggleAcc(this)">
+      <span class="acc-icon">🚫</span>
+      <span style="flex:1">Errores comunes en la recolección de datos</span>
+      <span class="acc-arrow">▾</span>
+    </div>
+    <div class="acc-body">
+      <p>Los errores en recolección pueden invalidar un estudio entero aunque el diseño sea perfecto. Los más importantes:</p>
+      <ul>
+        <li><strong>Error de administración:</strong> el instrumento no se aplica igual a todos los participantes. En encuestas, el encuestador puede influir con el tono o el lenguaje corporal.</li>
+        <li><strong>Error de instrumento:</strong> el instrumento está mal construido, tiene ítems ambiguos, la traducción es deficiente.</li>
+        <li><strong>Error de muestra:</strong> la muestra no representa la población o hay sesgo en la selección.</li>
+        <li><strong>Efectos del orden:</strong> el orden en que se presentan los estímulos afecta las respuestas. En experimentos, se controla con aleatorización del orden.</li>
+        <li><strong>Efectos de práctica / fatiga:</strong> si el experimento es largo, los participantes mejoran (aprenden) o empeoran (se cansan). Puede alterar los resultados sistemáticamente.</li>
+        <li><strong>Sesgo del experimentador:</strong> el investigador interactúa con los participantes de manera que les informa sobre la hipótesis esperada. Se controla con doble ciego.</li>
+        <li><strong>Datos atípicos (outliers):</strong> valores extremos que distorsionan las medias. Necesitan identificarse en la depuración.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="acc">
+    <div class="acc-head" onclick="toggleAcc(this)">
+      <span class="acc-icon">💻</span>
+      <span style="flex:1">Instrumentos computarizados — ¿ventajas o nuevos problemas?</span>
+      <span class="acc-arrow">▾</span>
+    </div>
+    <div class="acc-body">
+      <p>Las tareas cognitivas computarizadas (como las del PI) tienen ventajas claras sobre las encuestas de papel:</p>
+      <ul>
+        <li><strong>Precisión milimétrica:</strong> miden tiempos de reacción con precisión de milisegundos.</li>
+        <li><strong>Estandarización perfecta:</strong> todos los participantes reciben exactamente el mismo estímulo en exactamente las mismas condiciones.</li>
+        <li><strong>Reducción del sesgo del experimentador:</strong> el computador aplica el protocolo sin variación.</li>
+        <li><strong>Registro automático:</strong> no hay error de transcripción de datos.</li>
+      </ul>
+      <p>Pero también tienen limitaciones nuevas:</p>
+      <ul>
+        <li><strong>Brecha tecnológica:</strong> participantes no familiarizados con computadores pueden tener tiempos de reacción más altos por torpeza con el teclado, no por diferencias cognitivas reales.</li>
+        <li><strong>Validez ecológica:</strong> una tarea de laboratorio altamente controlada puede no reflejar cómo funciona la atención en la vida cotidiana.</li>
+        <li><strong>Hardware diferente:</strong> si el experimento se corre en computadores de diferente velocidad o pantallas de diferente resolución, los tiempos de reacción no son comparables.</li>
+      </ul>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- AC2 -->
+  <div class="ac-box">
+    <div class="ac-header">
+      <div>
+        <div class="ac-title">🤝 AC2 — Evaluando el instrumento del PI</div>
+        <div class="ac-meta">
+          <span>⏱️ 13 minutos en total</span>
+          <span>👥 Tríos — roles asignados (mismos tríos del AC1)</span>
+          <span>📦 Producto: Tarjeta de evaluación del instrumento</span>
+        </div>
+      </div>
+    </div>
+    <div class="ac-body">
+      <div class="alert ve" style="margin-bottom:14px">
+        <div class="alert-ico">🎯</div>
+        <div><strong>¿Para qué sirve esto?</strong> La evaluación que van a hacer es la base de la subsección <em>Materiales y Procedimiento</em> del Método, y también de la sección <em>Limitaciones</em> de la Discusión del informe final.</div>
+      </div>
+
+      <div class="roles-grid">
+        <div class="role-card">
+          <div class="role-name">Rol 1 — hoy</div>
+          <div class="role-title">📖 Descriptor</div>
+          <div class="role-task">Describe el instrumento: ¿qué tipo es? ¿qué mide exactamente? ¿cómo se operacionaliza la variable "distribución atencional"? Lee la descripción del instrumento (abajo).</div>
+        </div>
+        <div class="role-card">
+          <div class="role-name">Rol 2 — hoy</div>
+          <div class="role-title">✅ Evaluador de validez</div>
+          <div class="role-task">Evalúa: ¿el instrumento mide lo que dice medir? ¿Hay evidencia de validez de constructo? ¿Podría estar midiendo otra cosa además de distribución atencional?</div>
+        </div>
+        <div class="role-card">
+          <div class="role-name">Rol 3 — hoy</div>
+          <div class="role-title">⚠️ Evaluador de errores</div>
+          <div class="role-task">Identifica posibles errores en la recolección de datos: ¿qué pudo haber salido mal? ¿Cómo intentaron controlar esos errores? Usa la lista de errores comunes de esta pestaña.</div>
+        </div>
+      </div>
+
+      <div class="proto">
+        <div class="proto-step">
+          <div class="proto-num">1</div>
+          <div class="proto-content">
+            <strong>Individual — lee la descripción del instrumento</strong>
+            <p>Cada integrante lee la ficha del instrumento (abajo). El Descriptor anota el tipo y qué mide. El Evaluador de validez anota qué constructo se supone que mide. El Evaluador de errores anota 2 posibles fuentes de error.</p>
+            <span class="proto-time">2 minutos</span>
+          </div>
+        </div>
+        <div class="proto-step">
+          <div class="proto-num">2</div>
+          <div class="proto-content">
+            <strong>Trío — completan la tarjeta de evaluación</strong>
+            <p>Cada uno reporta desde su rol. El Descriptor abre con las preguntas 1 y 2. El Evaluador de validez lidera las preguntas 3 y 4. El Evaluador de errores lidera las preguntas 5 y 6. Entre todos construyen las respuestas.</p>
+            <span class="proto-time">9 minutos</span>
+          </div>
+        </div>
+        <div class="proto-step">
+          <div class="proto-num">3</div>
+          <div class="proto-content">
+            <strong>Puesta en común — corrección entre pares</strong>
+            <p>El docente pregunta a un grupo: <em>"¿Cuál es el error de recolección más difícil de controlar en el PI?"</em> Luego pregunta a otros grupos si detectan algo que el primer grupo no consideró. La corrección entre pares tiene más impacto que la del docente.</p>
+            <span class="proto-time">2 minutos</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:14px">
+        <div class="card-header">📄 Descripción del instrumento del PI — datos para la evaluación</div>
+        <div class="card-body">
+          <p>El instrumento del PI es una <strong>tarea de detección de cambios visuales computarizada</strong>. Cada ensayo: (1) cruz de fijación central (~500 ms), (2) primer display: 4 cuadrados de colores (~150 ms), (3) intervalo en blanco (~900 ms), (4) segundo display: 4 cuadrados. El participante presiona una tecla indicando si algún color cambió.</p>
+          <p>Las <strong>variables dependientes</strong> son: d' (índice de exactitud de la teoría de detección de señales), TR_ms (tiempo de reacción promedio en ms) y TR_focal (tiempo de reacción en ensayos con un solo estímulo central). El experimento incluyó dos tipos de ensayos intercalados: cambio de colores y detección focal. El hardware y el software estaban estandarizados con distancia al monitor y tamaño de estímulos controlados.</p>
+          <p>Las tres <strong>condiciones experimentales</strong> (Misma, Expansión, Aleatoria) fueron presentadas de manera aleatorizada entre participantes para controlar los efectos del orden.</p>
+        </div>
+      </div>
+
+      <div class="product-box">
+        <div class="product-label">📦 Producto — Tarjeta de evaluación del instrumento (llenar en trío)</div>
+        <div class="product-desc">Completen las siguientes preguntas. Este análisis va a la sección de Limitaciones de la Discusión del informe final.</div>
+      </div>
+
+      <div class="ficha">
+        <div class="ficha-row"><div class="ficha-label">1. Tipo de instrumento</div><textarea class="ficha-input" id="ac2-q1" rows="2" placeholder="¿Qué tipo de instrumento es? ¿Cuestionario, tarea cognitiva, escala, prueba psicofísica?…" oninput="saveAC2()"></textarea></div>
+        <div class="ficha-row"><div class="ficha-label">2. ¿Qué mide exactamente?</div><textarea class="ficha-input" id="ac2-q2" rows="2" placeholder="¿Cómo se operacionaliza la distribución atencional? ¿Qué es d'? ¿Qué representa TR_focal?…" oninput="saveAC2()"></textarea></div>
+        <div class="ficha-row"><div class="ficha-label">3. Evidencia de validez</div><textarea class="ficha-input" id="ac2-q3" rows="2" placeholder="¿Por qué los investigadores creen que este instrumento mide distribución atencional? ¿Hay algo más que podría estar midiendo?…" oninput="saveAC2()"></textarea></div>
+        <div class="ficha-row"><div class="ficha-label">4. ¿Podría medir otra cosa?</div><textarea class="ficha-input" id="ac2-q4" rows="2" placeholder="¿Alguna variable confusora podría explicar los resultados además de la distribución atencional?…" oninput="saveAC2()"></textarea></div>
+        <div class="ficha-row"><div class="ficha-label">5. Posibles errores de recolección</div><textarea class="ficha-input" id="ac2-q5" rows="3" placeholder="Lista al menos 3 errores posibles. Sé específico: no solo 'fatiga', sino 'los participantes que vinieron tarde pueden haber estado más cansados'…" oninput="saveAC2()"></textarea></div>
+        <div class="ficha-row"><div class="ficha-label">6. Controles del PI</div><textarea class="ficha-input" id="ac2-q6" rows="2" placeholder="¿Qué hicieron los investigadores para controlar esos errores? ¿Qué quedó sin controlar?…" oninput="saveAC2()"></textarea></div>
+        <div class="btn-row">
+          <button class="btn btn-ve" onclick="saveAC2()">💾 Guardar evaluación</button>
+        </div>
+        <div id="ac2-save-msg" style="display:none;margin-top:8px;font-size:12.5px;color:var(--ve);">✅ Evaluación guardada en este dispositivo.</div>
+      </div>
+
+      <div class="pec-box">
+        <div class="pec-label">🗣️ Puesta en común — corrección entre pares</div>
+        <div class="pec-desc">El docente selecciona un grupo al azar y pide al Vocero que lea la respuesta 5 (errores de recolección). Luego pregunta al resto de la clase: <em>"¿Qué error importante creen que este grupo no mencionó?"</em> Los grupos que corrijan tienen razón metodológica por encima del grupo original — la corrección entre pares tiene mayor impacto de aprendizaje que la corrección del docente.</div>
+      </div>
+
+      <div class="alert pi" style="margin-top:14px">
+        <div class="alert-ico">🗂️</div>
+        <div>
+          <strong>Conexión con la Actividad 3 del PI (Discusión):</strong> los errores de recolección que identificaron hoy van a la subsección de "Limitaciones" de la Discusión. Una buena discusión científica reconoce lo que el estudio no pudo controlar. Guarden esta tarjeta — la van a necesitar en la S14.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     TAB 6 — PARA LA CASA
+══════════════════════════════════════════════════════ -->
+<div class="tab-panel" id="t6">
+  <div class="tag-row"><span class="tag tag-casa">🏠 Para la casa</span></div>
+  <div class="sec-title">🏠 Trabajo de consolidación</div>
+  <div class="sec-intro">Este trabajo es para consolidar el aprendizaje, no para entregar. Está diseñado para hacerse en partes: en el bus, en un descanso, antes de dormir. Guarda tus respuestas en el dispositivo con el botón al final de cada ejercicio.</div>
+
+  <!-- NIVEL 1: COMPRENSIÓN -->
+  <div class="casa-section">
+    <div class="casa-level">Nivel 1 — Comprensión</div>
+
+    <div class="ejercicio">
+      <div class="ej-num">Ejercicio 1.1</div>
+      <div class="ej-pregunta">¿Cuál es la diferencia principal entre un diseño experimental y un diseño de encuesta? Da un ejemplo de cada uno situado en el contexto colombiano (no el mismo ejemplo del docente).</div>
+      <textarea class="ej-input" id="casa-1-1" rows="3" placeholder="Tu respuesta…" oninput="saveCasa('1-1')"></textarea>
+      <div class="ej-hint">
+        <button class="ej-hint-btn" onclick="toggleHint('h1-1')">Ver pista</button>
+        <div class="ej-hint-text" id="h1-1">Piensa en el criterio central: ¿el investigador crea condiciones o solo mide? ¿Puede afirmar causalidad o solo asociación? Para el ejemplo colombiano, puedes usar cualquier tema de psicología en el contexto nacional.</div>
+      </div>
+    </div>
+
+    <div class="ejercicio">
+      <div class="ej-num">Ejercicio 1.2</div>
+      <div class="ej-pregunta">Explica con tus propias palabras qué es la equivalencia de medición y por qué sin ella una comparación transcultural no es válida. ¿Qué debería haber hecho la investigadora del estudio Bogotá–Chicago antes de comparar resultados?</div>
+      <textarea class="ej-input" id="casa-1-2" rows="3" placeholder="Tu respuesta…" oninput="saveCasa('1-2')"></textarea>
+      <div class="ej-hint">
+        <button class="ej-hint-btn" onclick="toggleHint('h1-2')">Ver pista</button>
+        <div class="ej-hint-text" id="h1-2">Recuerda los tres niveles: lingüística, conceptual y de medición (invarianza). ¿Cuál de los tres es más difícil de lograr y por qué?</div>
+      </div>
+    </div>
+
+    <div class="ejercicio">
+      <div class="ej-num">Ejercicio 1.3</div>
+      <div class="ej-pregunta">¿Qué distingue a la culturología comparativa de la psicología transcultural según Minkov et al.? Pon un ejemplo de cada una con datos de Colombia o América Latina.</div>
+      <textarea class="ej-input" id="casa-1-3" rows="3" placeholder="Tu respuesta…" oninput="saveCasa('1-3')"></textarea>
+      <div class="ej-hint">
+        <button class="ej-hint-btn" onclick="toggleHint('h1-3')">Ver pista</button>
+        <div class="ej-hint-text" id="h1-3">La clave está en la unidad de análisis: ¿qué es lo que se compara? ¿Una sociedad entera o individuos pertenecientes a distintas culturas?</div>
+      </div>
+    </div>
+
+    <div class="ejercicio">
+      <div class="ej-num">Ejercicio 1.4</div>
+      <div class="ej-pregunta">Nombra los tres requisitos fundamentales de un instrumento de recolección de información y explica en una oración cada uno. ¿Cuál crees que es el más difícil de garantizar en una tarea computarizada aplicada en un país en desarrollo?</div>
+      <textarea class="ej-input" id="casa-1-4" rows="3" placeholder="Tu respuesta…" oninput="saveCasa('1-4')"></textarea>
+    </div>
+  </div>
+
+  <!-- NIVEL 2: APLICACIÓN -->
+  <div class="casa-section">
+    <div class="casa-level">Nivel 2 — Aplicación</div>
+
+    <div class="ejercicio">
+      <div class="ej-num">Ejercicio 2.1</div>
+      <div class="ej-pregunta">Una investigadora en Cali quiere saber si los niveles de empatía difieren entre estudiantes de psicología y de ingeniería en la Universidad del Valle. Diseña una encuesta con el Índice de Reactividad Interpersonal (IRI) y aplica la misma versión a ambos grupos el mismo día. ¿Qué tipo de encuesta es? ¿Qué nivel de medición tiene el IRI? ¿Puede afirmar causalidad? ¿Por qué?</div>
+      <textarea class="ej-input" id="casa-2-1" rows="4" placeholder="Tu respuesta…" oninput="saveCasa('2-1')"></textarea>
+      <div class="ej-hint">
+        <button class="ej-hint-btn" onclick="toggleHint('h2-1')">Ver pista</button>
+        <div class="ej-hint-text" id="h2-1">Transversal vs longitudinal (¿cuándo mide?), descriptiva/correlacional/comparativa (¿qué objetivo tiene?), nivel de medición (¿el IRI es nominal, ordinal, intervalo o razón?), y la pregunta de causalidad depende de si hay manipulación.</div>
+      </div>
+    </div>
+
+    <div class="ejercicio">
+      <div class="ej-num">Ejercicio 2.2</div>
+      <div class="ej-pregunta">Un psicólogo del ICBF en Bogotá necesita estimar cuántos niños entre 8 y 12 años en Soacha presentan síntomas de estrés postraumático. La población es de aproximadamente 40.000 niños en ese rango de edad. Describe paso a paso cómo diseñarías el muestreo probabilístico estratificado para este estudio. ¿Por qué estratificado y no aleatorio simple?</div>
+      <textarea class="ej-input" id="casa-2-2" rows="4" placeholder="Tu respuesta…" oninput="saveCasa('2-2')"></textarea>
+      <div class="ej-hint">
+        <button class="ej-hint-btn" onclick="toggleHint('h2-2')">Ver pista</button>
+        <div class="ej-hint-text" id="h2-2">Piensa en los estratos relevantes: ¿por qué dividir por edad, género, barrio o estrato socioeconómico antes de seleccionar? ¿Qué garantiza que con aleatorio simple no obtendrías representación de todos los subgrupos?</div>
+      </div>
+    </div>
+
+    <div class="ejercicio">
+      <div class="ej-num">Ejercicio 2.3</div>
+      <div class="ej-pregunta">Clasifica los siguientes instrumentos según el nivel de medición (nominal, ordinal, intervalo, razón) y explica por qué: (a) Registro de diagnóstico según el DSM-5: sí/no tiene el diagnóstico. (b) Escala de Gravedad de Síntomas del TOC (1 a 5). (c) Número de cigarrillos fumados por semana. (d) Temperatura corporal en °C. (e) Tiempo de reacción en milisegundos en el PI.</div>
+      <textarea class="ej-input" id="casa-2-3" rows="5" placeholder="a) … b) … c) … d) … e) …" oninput="saveCasa('2-3')"></textarea>
+      <div class="ej-hint">
+        <button class="ej-hint-btn" onclick="toggleHint('h2-3')">Ver pista</button>
+        <div class="ej-hint-text" id="h2-3">La diferencia entre intervalo y razón es el cero absoluto. ¿El cero significa "nada" de forma real? Para la temperatura en Celsius: 0°C no significa ausencia de temperatura molecular. Para TR: 0 ms significaría respuesta instantánea antes del estímulo, que es imposible. Por lo tanto…</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NIVEL 3: ANÁLISIS -->
+  <div class="casa-section">
+    <div class="casa-level">Nivel 3 — Análisis de errores</div>
+
+    <div class="ejercicio">
+      <div class="ej-num">Ejercicio 3.1 — Identifica los problemas</div>
+      <div class="ej-pregunta">Lee este fragmento de un hipotético informe y señala todos los errores metodológicos que encuentres. Hay al menos cinco. Sé específico al nombrar cada error y explica por qué es un problema.</div>
+      <div style="background:var(--am-ll);border-left:3px solid var(--am2);border-radius:5px;padding:12px 14px;font-size:13.5px;color:var(--txt2);margin:8px 0;line-height:1.65;font-style:italic">
+        "Para comparar el bienestar psicológico entre Colombia y Japón, aplicamos el Cuestionario de Bienestar Ryff (1989) en su versión original en inglés a 45 estudiantes universitarios de psicología de la Universidad Nacional sede Bogotá, reclutados por conveniencia en la cafetería. Los mismos 45 cuestionarios fueron enviados por correo a un contacto en Kioto que los distribuyó entre estudiantes de una academia privada de idiomas. Los resultados muestran que los colombianos tienen una puntuación media de 4.2/6 y los japoneses de 3.7/6. Concluimos que los colombianos tienen mayor bienestar psicológico que los japoneses, lo cual refleja la cultura colectivista y alegre de Colombia."
+      </div>
+      <textarea class="ej-input" id="casa-3-1" rows="6" placeholder="Error 1: … Error 2: … Error 3: … Error 4: … Error 5: …" oninput="saveCasa('3-1')"></textarea>
+      <div class="ej-hint">
+        <button class="ej-hint-btn" onclick="toggleHint('h3-1')">Ver pista</button>
+        <div class="ej-hint-text" id="h3-1">Busca errores relacionados con: idioma del instrumento, representatividad de la muestra, muestreo, equivalencia transcultural, nivel de análisis (individuos vs. cultura), conclusiones que van más allá de los datos, y generalización injustificada.</div>
+      </div>
+    </div>
+
+    <div class="ejercicio">
+      <div class="ej-num">Ejercicio 3.2 — Distingue los tipos de muestreo</div>
+      <div class="ej-pregunta">Clasifica cada uno de estos procedimientos de selección de muestra. Nombra el tipo exacto y explica si es probabilístico o no probabilístico y por qué:<br><br>
+      (a) El investigador pone un aviso en la plataforma de la universidad pidiendo voluntarios para un estudio sobre memoria.<br>
+      (b) Se toma la lista de todos los pacientes del Hospital de Kennedy con diagnóstico de depresión y se selecciona uno de cada cinco nombres en orden alfabético.<br>
+      (c) Se dividen los estudiantes de UdeC Facatativá por semestre (1° al 10°) y se seleccionan 8 estudiantes de forma aleatoria de cada semestre.<br>
+      (d) Un investigador pide a los primeros participantes que refieran a otros que conozcan con el mismo diagnóstico de esquizofrenia.</div>
+      <textarea class="ej-input" id="casa-3-2" rows="5" placeholder="a) … b) … c) … d) …" oninput="saveCasa('3-2')"></textarea>
+    </div>
+  </div>
+
+  <!-- NIVEL 4: EXTRAPOLACIÓN AL PI -->
+  <div class="casa-section">
+    <div class="casa-level">Nivel 4 — Extrapolación al PI</div>
+
+    <div class="ejercicio">
+      <div class="ej-num">Ejercicio 4.1</div>
+      <div class="ej-pregunta">Usando los datos del experimento del PI (54 observaciones, 2 grupos culturales, estudiantes universitarios), responde: ¿A qué población puede generalizar sus hallazgos este estudio? Formula una oración que describa correctamente el alcance de la generalización, y otra que describa una generalización inválida que sería un error cometer.</div>
+      <textarea class="ej-input" id="casa-4-1" rows="4" placeholder="Generalización válida: …\nGeneralización inválida: …" oninput="saveCasa('4-1')"></textarea>
+    </div>
+
+    <div class="ejercicio">
+      <div class="ej-num">Ejercicio 4.2</div>
+      <div class="ej-pregunta">Imagina que eres tú quien diseñó el PI y debes redactar el párrafo de "Participantes" del Método. Escribe ese párrafo completo usando las respuestas que completaste en el AC1. Incluye: quiénes son, cuántos, cómo fueron seleccionados, criterios de inclusión, y una oración sobre las limitaciones de representatividad. Máximo 100 palabras.</div>
+      <textarea class="ej-input" id="casa-4-2" rows="5" placeholder="Los participantes fueron…" oninput="saveCasa('4-2')"></textarea>
+      <div class="ej-hint">
+        <button class="ej-hint-btn" onclick="toggleHint('h4-2')">Ver pista</button>
+        <div class="ej-hint-text" id="h4-2">Estructura sugerida: [N total] participantes universitarios divididos en dos grupos: [descripción grupo 1] (n=X) y [descripción grupo 2] (n=X). Los criterios de inclusión fueron [lista]. La selección fue [tipo de muestreo]. Una limitación de representatividad es [limitación]. Ajusta los números según tu ficha del AC1.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NIVEL 5: SÍNTESIS -->
+  <div class="casa-section">
+    <div class="casa-level">Nivel 5 — Síntesis</div>
+
+    <div class="ejercicio">
+      <div class="ej-num">Ejercicio 5.1 — Diseña un instrumento hipotético</div>
+      <div class="ej-pregunta">Tu grupo de investigación quiere estudiar el "bienestar académico" en estudiantes de psicología de UdeC Facatativá. No tienen un instrumento validado para Colombia. Describe: (a) qué tipo de instrumento usarían (cuestionario, tarea, entrevista…), (b) cuál sería su nivel de medición, (c) cómo verificarían su validez, (d) cómo verificarían su confiabilidad, y (e) qué tipo de muestreo usarían y por qué.</div>
+      <textarea class="ej-input" id="casa-5-1" rows="6" placeholder="(a) Tipo: …\n(b) Nivel de medición: …\n(c) Validez: …\n(d) Confiabilidad: …\n(e) Muestreo: …" oninput="saveCasa('5-1')"></textarea>
+    </div>
+
+    <div class="ejercicio">
+      <div class="ej-num">Ejercicio 5.2 — Conexión con tu propio proyecto</div>
+      <div class="ej-pregunta">Pensando en la pregunta de investigación de tu proyecto grupal del semestre: (a) ¿qué tipo de instrumento necesitarías para recolectar datos? (b) ¿está validado en Colombia o Latinoamérica? (c) ¿qué tipo de muestreo sería más adecuado para tu población objetivo? Justifica cada respuesta con conceptos de la sesión de hoy.</div>
+      <textarea class="ej-input" id="casa-5-2" rows="5" placeholder="(a) Instrumento: …\n(b) Validación: …\n(c) Muestreo: …" oninput="saveCasa('5-2')"></textarea>
+    </div>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn btn-az" onclick="saveAllCasa()">💾 Guardar todo el trabajo</button>
+  </div>
+  <div id="casa-save-msg" style="display:none;margin-top:8px;font-size:12.5px;color:var(--ve);">✅ Todo guardado en este dispositivo.</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     TAB 7 — QUIZ
+══════════════════════════════════════════════════════ -->
+<div class="tab-panel" id="t7">
+  <div class="tag-row"><span class="tag tag-casa">🏠 Para la casa</span></div>
+  <div class="sec-title">📝 Quiz de la sesión</div>
+  <div class="sec-intro">Responde todas las preguntas y luego presiona <strong>Calificar</strong>. La retroalimentación aparece solo al calificar. Puedes hacerlo tantas veces como quieras — siempre verás tu primera nota y tu nota más reciente.</div>
+
+  <!-- SAVED SCORE BANNER -->
+  <div class="saved-banner" id="saved-banner">
+    <div class="sb-text">📊 Tus notas guardadas en este dispositivo:</div>
+    <div class="sb-scores">
+      <div class="sb-item">
+        <span class="sb-val" id="first-score-display">—</span>
+        <span class="sb-lbl">Primera nota</span>
+      </div>
+      <div class="sb-item">
+        <span class="sb-val" id="last-score-display">—</span>
+        <span class="sb-lbl">Nota más reciente</span>
+      </div>
+    </div>
+  </div>
+
+  <div id="quiz-form">
+
+    <!-- Q1 -->
+    <div class="quiz-pregunta">
+      <div class="quiz-n">Pregunta 1 de 8</div>
+      <div class="quiz-texto">¿Cuál de las siguientes características define mejor a un diseño de encuesta transversal?</div>
+      <div class="opcion-grupo">
+        <label class="opcion"><input type="radio" name="q1" value="a"> <label>Mide el mismo grupo de personas en múltiples momentos a lo largo del tiempo.</label></label>
+        <label class="opcion"><input type="radio" name="q1" value="b"> <label>Recolecta datos de una muestra en un único punto del tiempo para describir o explorar un fenómeno.</label></label>
+        <label class="opcion"><input type="radio" name="q1" value="c"> <label>Requiere asignación aleatoria de los participantes a condiciones experimentales.</label></label>
+        <label class="opcion"><input type="radio" name="q1" value="d"> <label>Está limitado a variables medidas en escala nominal u ordinal.</label></label>
+      </div>
+      <div class="quiz-feedback" id="fb1"></div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="quiz-pregunta">
+      <div class="quiz-n">Pregunta 2 de 8</div>
+      <div class="quiz-texto">Una investigadora aplica el Inventario de Depresión de Beck (BDI-II) a estudiantes universitarios colombianos y australianos. Antes de comparar los resultados entre países, ¿qué debe verificar obligatoriamente?</div>
+      <div class="opcion-grupo">
+        <label class="opcion"><input type="radio" name="q2" value="a"> <label>Que el tamaño de la muestra sea exactamente igual en ambos países.</label></label>
+        <label class="opcion"><input type="radio" name="q2" value="b"> <label>Que ambas versiones del BDI-II tengan el mismo número de ítems y el mismo formato visual.</label></label>
+        <label class="opcion"><input type="radio" name="q2" value="c"> <label>Que el instrumento mida el mismo constructo de manera equivalente en ambas culturas (equivalencia de medición).</label></label>
+        <label class="opcion"><input type="radio" name="q2" value="d"> <label>Que los participantes de ambos países hablen el mismo idioma nativo.</label></label>
+      </div>
+      <div class="quiz-feedback" id="fb2"></div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="quiz-pregunta">
+      <div class="quiz-n">Pregunta 3 de 8</div>
+      <div class="quiz-texto">Según Minkov et al. (2024), ¿cuál es la diferencia central entre la culturología comparativa y la psicología transcultural?</div>
+      <div class="opcion-grupo">
+        <label class="opcion"><input type="radio" name="q3" value="a"> <label>La culturología usa exclusivamente métodos cualitativos; la psicología transcultural usa métodos cuantitativos.</label></label>
+        <label class="opcion"><input type="radio" name="q3" value="b"> <label>La psicología transcultural estudia culturas históricas desaparecidas; la culturología estudia culturas contemporáneas.</label></label>
+        <label class="opcion"><input type="radio" name="q3" value="c"> <label>La culturología compara culturas como unidades societales; la psicología transcultural compara mentes individuales en distintas culturas.</label></label>
+        <label class="opcion"><input type="radio" name="q3" value="d"> <label>Son términos sinónimos; ambas disciplinas estudian exactamente lo mismo con el mismo nivel de análisis.</label></label>
+      </div>
+      <div class="quiz-feedback" id="fb3"></div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="quiz-pregunta">
+      <div class="quiz-n">Pregunta 4 de 8</div>
+      <div class="quiz-texto">Un psicólogo quiere estudiar el estrés laboral en trabajadores de salud de Colombia. Decide encuestar a todos los enfermeros y médicos del Hospital San José de Bogotá. ¿Cómo se denominan correctamente los trabajadores del Hospital San José respecto a la investigación?</div>
+      <div class="opcion-grupo">
+        <label class="opcion"><input type="radio" name="q4" value="a"> <label>La población objetivo del estudio, ya que representan a todos los trabajadores de salud de Colombia.</label></label>
+        <label class="opcion"><input type="radio" name="q4" value="b"> <label>Una muestra de la población de trabajadores de salud colombianos, obtenida por conveniencia.</label></label>
+        <label class="opcion"><input type="radio" name="q4" value="c"> <label>La unidad de análisis del estudio, ya que son los individuos que se medirán.</label></label>
+        <label class="opcion"><input type="radio" name="q4" value="d"> <label>Una muestra representativa, ya que incluye a todos los trabajadores del hospital más grande de Bogotá.</label></label>
+      </div>
+      <div class="quiz-feedback" id="fb4"></div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="quiz-pregunta">
+      <div class="quiz-n">Pregunta 5 de 8</div>
+      <div class="quiz-texto">Una investigadora del DANE quiere que cada región geográfica de Colombia esté representada en su estudio sobre bienestar subjetivo de manera proporcional a su tamaño poblacional. ¿Qué tipo de muestreo probabilístico describe este procedimiento?</div>
+      <div class="opcion-grupo">
+        <label class="opcion"><input type="radio" name="q5" value="a"> <label>Muestreo aleatorio simple, porque todos tienen igual probabilidad de ser seleccionados.</label></label>
+        <label class="opcion"><input type="radio" name="q5" value="b"> <label>Muestreo por conveniencia, porque selecciona los casos más accesibles de cada región.</label></label>
+        <label class="opcion"><input type="radio" name="q5" value="c"> <label>Muestreo estratificado, porque divide la población en grupos (regiones) y selecciona proporcionalmente de cada uno.</label></label>
+        <label class="opcion"><input type="radio" name="q5" value="d"> <label>Muestreo por conglomerados, porque trabaja con grupos naturales completos.</label></label>
+      </div>
+      <div class="quiz-feedback" id="fb5"></div>
+    </div>
+
+    <!-- Q6 -->
+    <div class="quiz-pregunta">
+      <div class="quiz-n">Pregunta 6 de 8</div>
+      <div class="quiz-texto">¿Cuál de las siguientes NO es un requisito metodológico fundamental de un instrumento de recolección de información según Sampieri?</div>
+      <div class="opcion-grupo">
+        <label class="opcion"><input type="radio" name="q6" value="a"> <label>Validez: que el instrumento mida realmente el constructo que dice medir.</label></label>
+        <label class="opcion"><input type="radio" name="q6" value="b"> <label>Confiabilidad: que produzca resultados consistentes en condiciones similares.</label></label>
+        <label class="opcion"><input type="radio" name="q6" value="c"> <label>Brevedad: que tenga el menor número posible de ítems para no cansar al participante.</label></label>
+        <label class="opcion"><input type="radio" name="q6" value="d"> <label>Objetividad: que los resultados sean independientes del investigador que lo aplica.</label></label>
+      </div>
+      <div class="quiz-feedback" id="fb6"></div>
+    </div>
+
+    <!-- Q7 -->
+    <div class="quiz-pregunta">
+      <div class="quiz-n">Pregunta 7 de 8</div>
+      <div class="quiz-texto">En el PI, los participantes de cultura asiático-oriental mostraron tiempos de reacción focal (TR_focal) de ~1490 ms, frente a ~807 ms en los occidentales. Un error de interpretación frecuente sería concluir que…</div>
+      <div class="opcion-grupo">
+        <label class="opcion"><input type="radio" name="q7" value="a"> <label>Los participantes AO distribuyen su atención más ampliamente en el espacio visual, lo que ralentiza su respuesta a estímulos estrictamente centrales.</label></label>
+        <label class="opcion"><input type="radio" name="q7" value="b"> <label>El TR_focal alto en AO es evidencia de que su sistema atencional opera de forma diferente, no de que sean más lentos en general.</label></label>
+        <label class="opcion"><input type="radio" name="q7" value="c"> <label>Los participantes asiático-orientales tienen un procesamiento cognitivo general menos eficiente que los occidentales.</label></label>
+        <label class="opcion"><input type="radio" name="q7" value="d"> <label>El diseño experimental capturó efectivamente diferencias en la distribución espacial de la atención.</label></label>
+      </div>
+      <div class="quiz-feedback" id="fb7"></div>
+    </div>
+
+    <!-- Q8 -->
+    <div class="quiz-pregunta">
+      <div class="quiz-n">Pregunta 8 de 8</div>
+      <div class="quiz-texto">Investigadores de la UdeC Facatativá aplican una encuesta sobre hábitos de estudio a 300 estudiantes de cuarto semestre de Psicología en 2026-I, con el único objetivo de describir cómo estudian ese semestre. No buscan establecer relaciones ni predecir el rendimiento. ¿Cuál es el alcance metodológico de este estudio?</div>
+      <div class="opcion-grupo">
+        <label class="opcion"><input type="radio" name="q8" value="a"> <label>Correlacional, porque compara características entre estudiantes de diferentes grupos.</label></label>
+        <label class="opcion"><input type="radio" name="q8" value="b"> <label>Exploratorio, porque los investigadores no tienen hipótesis previas sobre los hábitos de estudio.</label></label>
+        <label class="opcion"><input type="radio" name="q8" value="c"> <label>Descriptivo, porque su objetivo es caracterizar el fenómeno tal como existe sin buscar relaciones o causas.</label></label>
+        <label class="opcion"><input type="radio" name="q8" value="d"> <label>Explicativo, porque al describir los hábitos se está explicando por qué los estudiantes estudian así.</label></label>
+      </div>
+      <div class="quiz-feedback" id="fb8"></div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-az" onclick="gradeQuiz()">📊 Calificar todas las respuestas</button>
+      <button class="btn btn-out" onclick="resetQuiz()">🔄 Reiniciar quiz</button>
+    </div>
+
+    <div class="quiz-result" id="quiz-result">
+      <div class="qr-score" id="result-score">—</div>
+      <div class="qr-label">puntos de 8</div>
+      <div class="qr-msg" id="result-msg"></div>
+    </div>
+
+  </div><!-- /quiz-form -->
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     TAB 8 — PRÓXIMA SESIÓN
+══════════════════════════════════════════════════════ -->
+<div class="tab-panel" id="t8">
+  <div class="tag-row"><span class="tag tag-casa">🏠 Para preparar</span></div>
+  <div class="sec-title">📖 Próxima sesión — S12</div>
+
+  <div class="alert info" style="margin-bottom:18px">
+    <div class="alert-ico">📅</div>
+    <div><strong>S12 es la última clase antes del parcial.</strong> Va a ser protagonista porque tiene las herramientas estadísticas que necesitan para completar el análisis inferencial del PI. Llega habiendo leído.</div>
+  </div>
+
+  <div class="next-reading">
+    <div class="nr-label">📄 Lectura obligatoria — Sesión 12</div>
+    <div class="nr-title">Análisis de datos cuantitativos</div>
+    <div class="nr-meta">Hernández-Sampieri, R., Fernández, C. y Baptista, P. (2014). <em>Metodología de la investigación</em> (6ª ed.), Capítulo 10. McGraw-Hill.</div>
+    <div class="nr-consigna">
+      📌 <strong>Consigna mientras lees:</strong>
+      <ul style="margin-top:6px;font-size:13.5px;padding-left:16px;line-height:1.7">
+        <li>¿Cuál es la diferencia entre estadística descriptiva e inferencial? ¿Cuándo usas cada una?</li>
+        <li>¿Qué criterios determinan si una prueba estadística debe ser paramétrica o no paramétrica?</li>
+        <li>Localiza la Tabla 10.22 del libro. ¿Qué lógica organiza esa tabla? ¿Qué prueba corresponde a comparar dos grupos independientes en una variable de intervalo o razón?</li>
+        <li>¿Para qué sirve la prueba t de Student y cuándo es apropiada?</li>
+      </ul>
+      🔗 <strong>Conexión con el PI:</strong> las variables d' y TR_focal son de nivel de razón. El PI compara dos grupos independientes (AO vs. Occidental). ¿Qué prueba deberías usar para el análisis inferencial del PI, según la lógica de la Tabla 10.22?
+    </div>
+  </div>
+
+  <div class="alert pi" style="margin-top:14px">
+    <div class="alert-ico">🗂️</div>
+    <div>
+      <strong>Avance del PI para llevar a S12:</strong>
+      <ul style="margin-top:6px;padding-left:16px;font-size:13.5px">
+        <li>✅ Tabla 2×3 de medias (completada en S10)</li>
+        <li>✅ Ficha de participantes del PI (AC1 de hoy)</li>
+        <li>✅ Tarjeta de evaluación del instrumento (AC2 de hoy)</li>
+        <li>📖 Capítulo 10 de Sampieri leído con las preguntas de consigna respondidas</li>
+        <li>🤔 Hipótesis sobre qué prueba estadística necesita el PI (antes de llegar)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:14px">
+    <div class="card-header">🗺️ ¿Qué queda del PI?</div>
+    <div class="card-body">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:6px">
+        <div style="border-radius:var(--rad-s);padding:12px;background:var(--ve-l);border:1.5px solid var(--ve2);text-align:center">
+          <div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ve);margin-bottom:5px">Actividad 1</div>
+          <div style="font-weight:700;font-size:13px;color:var(--txt);margin-bottom:4px">Revisión bibliográfica</div>
+          <div style="font-size:12px;color:var(--txt2)">Mín. 5 artículos, síntesis teórica</div>
+          <div style="margin-top:6px;font-size:11px;font-weight:700;color:var(--ve)">En proceso ✓</div>
+        </div>
+        <div style="border-radius:var(--rad-s);padding:12px;background:var(--am-l);border:1.5px solid var(--am2);text-align:center">
+          <div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--am);margin-bottom:5px">Actividad 2</div>
+          <div style="font-weight:700;font-size:13px;color:var(--txt);margin-bottom:4px">Análisis de datos</div>
+          <div style="font-size:12px;color:var(--txt2)">Descriptivos ✓ · Inferencial → S12</div>
+          <div style="margin-top:6px;font-size:11px;font-weight:700;color:var(--am)">Parcial 🔄</div>
+        </div>
+        <div style="border-radius:var(--rad-s);padding:12px;background:var(--az-l);border:1.5px solid var(--az2);text-align:center">
+          <div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--az);margin-bottom:5px">Actividad 3</div>
+          <div style="font-weight:700;font-size:13px;color:var(--txt);margin-bottom:4px">Discusión</div>
+          <div style="font-size:12px;color:var(--txt2)">Interpretación + limitaciones</div>
+          <div style="margin-top:6px;font-size:11px;font-weight:700;color:var(--az)">Pendiente →S14</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /content -->
+
+<script>
+// ═══ TABS ═══════════════════════════════════════════
+function showTab(id, btn){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if(btn) btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ═══ ACCORDION ════════════════════════════════════
+function toggleAcc(head){
+  const body = head.nextElementSibling;
+  const arrow = head.querySelector('.acc-arrow');
+  body.classList.toggle('open');
+  arrow.textContent = body.classList.contains('open') ? '▴' : '▾';
+}
+
+// ═══ HINTS ════════════════════════════════════════
+function toggleHint(id){
+  const el = document.getElementById(id);
+  el.classList.toggle('show');
+}
+
+// ═══ LOCAL STORAGE KEYS ══════════════════════════
+const KEY_AC1   = 'disenios_s11_ac1_v1';
+const KEY_AC2   = 'disenios_s11_ac2_v1';
+const KEY_CASA  = 'disenios_s11_casa_v1';
+const KEY_FIRST = 'disenios_s11_quiz_first_v1';
+const KEY_LAST  = 'disenios_s11_quiz_last_v1';
+
+// ═══ SAVE AC1 ════════════════════════════════════
+function saveAC1(){
+  const d = {};
+  for(let i=1;i<=7;i++){
+    const el = document.getElementById(`ac1-q${i}`);
+    if(el) d[`q${i}`] = el.value;
+  }
+  try{ localStorage.setItem(KEY_AC1, JSON.stringify(d)); } catch(e){}
+  const msg = document.getElementById('ac1-save-msg');
+  if(msg){ msg.style.display='block'; setTimeout(()=>msg.style.display='none',2000); }
+}
+
+// ═══ SAVE AC2 ════════════════════════════════════
+function saveAC2(){
+  const d = {};
+  for(let i=1;i<=6;i++){
+    const el = document.getElementById(`ac2-q${i}`);
+    if(el) d[`q${i}`] = el.value;
+  }
+  try{ localStorage.setItem(KEY_AC2, JSON.stringify(d)); } catch(e){}
+  const msg = document.getElementById('ac2-save-msg');
+  if(msg){ msg.style.display='block'; setTimeout(()=>msg.style.display='none',2000); }
+}
+
+// ═══ SAVE CASA ═══════════════════════════════════
+function saveCasa(id){
+  try{
+    const stored = JSON.parse(localStorage.getItem(KEY_CASA)||'{}');
+    const el = document.getElementById(`casa-${id}`);
+    if(el) stored[id] = el.value;
+    localStorage.setItem(KEY_CASA, JSON.stringify(stored));
+  } catch(e){}
+}
+
+function saveAllCasa(){
+  const all = ['1-1','1-2','1-3','1-4','2-1','2-2','2-3','3-1','3-2','4-1','4-2','5-1','5-2'];
+  const d = {};
+  all.forEach(id=>{
+    const el = document.getElementById(`casa-${id}`);
+    if(el) d[id] = el.value;
+  });
+  try{ localStorage.setItem(KEY_CASA, JSON.stringify(d)); } catch(e){}
+  const msg = document.getElementById('casa-save-msg');
+  if(msg){ msg.style.display='block'; setTimeout(()=>msg.style.display='none',2500); }
+}
+
+// ═══ QUIZ LOGIC ═══════════════════════════════════
+const CORRECT = {q1:'b',q2:'c',q3:'c',q4:'b',q5:'c',q6:'c',q7:'c',q8:'c'};
+
+const FEEDBACKS = {
+  q1:{
+    b:'✅ Correcto. El diseño transversal toma una "fotografía" del fenómeno en un único momento del tiempo. Es el diseño de encuesta más común porque es eficiente y permite describir el estado actual.',
+    a:'❌ Eso describe un diseño longitudinal (panel), donde las mismas personas son medidas en varios momentos. El transversal mide una sola vez.',
+    c:'❌ La asignación aleatoria es una característica de los diseños experimentales, no de las encuestas. Las encuestas no manipulan variables.',
+    d:'❌ Las encuestas pueden usarse con variables de cualquier nivel de medición — nominal, ordinal, intervalo y razón. El tipo de escala no define si el diseño es de encuesta o no.'
+  },
+  q2:{
+    c:'✅ Correcto. Sin equivalencia de medición no se puede saber si ambos grupos están respondiendo al mismo constructo con el mismo instrumento. Comparar sin verificarla es como comparar temperaturas en Celsius y Fahrenheit sin convertir.',
+    a:'❌ El tamaño de muestra afecta el poder estadístico, pero no garantiza que estés midiendo lo mismo en ambas culturas. Puedes tener muestras idénticas y resultados completamente inválidos por falta de equivalencia.',
+    b:'❌ Tener el mismo número de ítems no garantiza que funcionen de manera equivalente en ambas culturas. Un ítem puede funcionar bien en Colombia y de manera diferente en Australia por razones culturales o lingüísticas.',
+    d:'❌ Aunque compartir idioma ayuda, la equivalencia lingüística es solo uno de los tres niveles de equivalencia (lingüística, conceptual, de medición). Además, dos personas del mismo idioma pueden dar significados diferentes a los ítems según su contexto cultural.'
+  },
+  q3:{
+    c:'✅ Correcto. Minkov et al. distinguen claramente el nivel de análisis: la culturología comparativa toma la cultura como unidad (y el riesgo es la falacia ecológica al bajar al individuo); la psicología transcultural toma al individuo como unidad (y el riesgo es la falacia atomista al subir a la cultura).',
+    a:'❌ Ambas disciplinas pueden usar métodos cuantitativos y cualitativos. La distinción no es metodológica en ese sentido, sino sobre qué se compara — la cultura como sistema vs. el individuo dentro de la cultura.',
+    b:'❌ Ninguna de las dos está limitada a culturas históricas o contemporáneas específicamente. La distinción central es el nivel de análisis, no la temporalidad del objeto de estudio.',
+    d:'❌ Son términos con diferencias sustanciales, no sinónimos. Usarlos indistintamente es exactamente el problema que Minkov et al. buscan corregir.'
+  },
+  q4:{
+    b:'✅ Correcto. Los trabajadores del Hospital San José son una muestra — un subconjunto de la población de trabajadores de salud colombianos. Y dado que se tomaron por disponibilidad (un solo hospital en una sola ciudad), el muestreo es por conveniencia, no representativo.',
+    a:'❌ La población objetivo sería TODOS los trabajadores de salud de Colombia. Los de un solo hospital son solo una fracción muy específica de esa población, y no representan su diversidad regional, de especialidad ni de contexto.',
+    c:'❌ La unidad de análisis es el tipo de entidad que se mide (en este caso, el individuo — cada trabajador). Pero el conjunto de todos los individuos estudiados es la muestra, no la unidad de análisis.',
+    d:'❌ Incluir a todos los trabajadores de un solo hospital no hace la muestra representativa. La representatividad depende del método de selección y de qué tan bien cubre la diversidad de la población, no del tamaño dentro de un establecimiento.'
+  },
+  q5:{
+    c:'✅ Correcto. El muestreo estratificado divide la población en subgrupos (estratos — en este caso, regiones) y luego selecciona de cada uno proporcionalmente. Garantiza que los grupos relevantes estén representados.',
+    a:'❌ En el muestreo aleatorio simple, se selecciona del total sin dividir primero en grupos. Podría resultar en que una región pequeña quede sub-representada o sobre-representada por azar.',
+    b:'❌ El muestreo por conveniencia es no probabilístico: se toman los casos más accesibles. No garantiza representatividad ni permite inferencias estadísticas sobre la población.',
+    d:'❌ El muestreo por conglomerados selecciona grupos naturales completos (como municipios o escuelas enteras) y mide a todos sus miembros. Aquí el objetivo es representación proporcional por región, lo cual corresponde a muestreo estratificado.'
+  },
+  q6:{
+    c:'✅ Correcto. La brevedad es una recomendación práctica (para reducir fatiga y mejorar la tasa de respuesta), pero NO es un requisito metodológico fundamental. Un instrumento largo puede ser perfectamente válido, confiable y objetivo. Los tres requisitos son validez, confiabilidad y objetividad.',
+    a:'❌ La validez SÍ es un requisito fundamental. Sin ella, el instrumento no mide lo que dice medir y los datos no tienen valor científico para el constructo de interés.',
+    b:'❌ La confiabilidad SÍ es un requisito fundamental. Sin resultados consistentes, no se puede separar el error de medición de las diferencias reales entre participantes.',
+    d:'❌ La objetividad SÍ es un requisito fundamental. Si los resultados dependen de quién aplica el instrumento, los datos no son comparables entre aplicaciones.'
+  },
+  q7:{
+    c:'✅ Correcto — esa ES la interpretación errónea. El TR_focal alto en AO no indica lentitud cognitiva general; indica que la atención del participante estaba distribuida hacia la periferia. Al aparecer un estímulo central, el sistema debe reorientarse, lo que toma más tiempo. El grupo AO tiene mejor d\' en la condición Expansión, lo que demuestra que no son "lentos" — son diferentes en la distribución atencional.',
+    a:'❌ Esa es la interpretación CORRECTA, no el error. Si la atención está distribuida periféricamente, responder a un estímulo central requiere reorientación → mayor TR_focal.',
+    b:'❌ Esa también es una interpretación correcta del fenómeno. Es una descripción precisa del mecanismo cognitivo que explica el TR_focal alto.',
+    d:'❌ Esa es una conclusión metodológicamente válida sobre el diseño, no una interpretación errónea de los datos.'
+  },
+  q8:{
+    c:'✅ Correcto. El alcance descriptivo se caracteriza por el objetivo de "describir cómo es" el fenómeno — sus características, frecuencias, proporciones — sin buscar relaciones entre variables ni explicar causas. El estudio de hábitos de estudio en ese semestre es exactamente descriptivo.',
+    a:'❌ El alcance correlacional busca establecer relaciones entre dos o más variables. Aquí el objetivo no es ver si los hábitos se relacionan con el rendimiento u otra variable — solo se describe cómo son los hábitos.',
+    b:'❌ El alcance exploratorio se usa cuando el fenómeno es poco conocido y no hay suficiente marco conceptual. Los hábitos de estudio en universitarios están suficientemente documentados como para que este no sea exploratorio. Además, tener o no hipótesis previas no es el criterio para llamar algo exploratorio.',
+    d:'❌ El alcance explicativo busca entender por qué ocurre el fenómeno — las causas. Describir cómo estudian no explica por qué estudian así. Eso requeriría otro diseño.'
+  }
+};
+
+function gradeQuiz(){
+  // Check all answered
+  for(let i=1;i<=8;i++){
+    const sel = document.querySelector(`input[name="q${i}"]:checked`);
+    if(!sel){ alert('Responde todas las preguntas antes de calificar.'); return; }
+  }
+
+  let score = 0;
+  for(let i=1;i<=8;i++){
+    const qKey = `q${i}`;
+    const sel = document.querySelector(`input[name="${qKey}"]:checked`);
+    const ans = sel.value;
+    const isCorrect = ans === CORRECT[qKey];
+    if(isCorrect) score++;
+
+    // Style options
+    document.querySelectorAll(`input[name="${qKey}"]`).forEach(inp=>{
+      const opt = inp.closest('.opcion');
+      opt.classList.remove('correct','wrong');
+      if(inp.value === CORRECT[qKey]) opt.classList.add('correct');
+      else if(inp.value === ans && !isCorrect) opt.classList.add('wrong');
+      inp.disabled = true;
+    });
+
+    // Show feedback
+    const fb = document.getElementById(`fb${i}`);
+    fb.textContent = FEEDBACKS[qKey][ans] || 'Revisa la opción marcada en verde.';
+    fb.className = `quiz-feedback show ${isCorrect ? 'correct' : 'wrong'}`;
+  }
+
+  // Show result
+  const res = document.getElementById('quiz-result');
+  res.classList.add('show');
+  document.getElementById('result-score').textContent = `${score}/8`;
+  document.getElementById('result-msg').textContent =
+    score === 8 ? '🏆 ¡Perfecto! Dominas todos los conceptos de encuestas, muestreo y el PI.' :
+    score >= 6  ? '✅ Muy bien. Revisa la retroalimentación de las preguntas que fallaste.' :
+    score >= 5  ? '📚 Buen avance. Relee los módulos de Minkov y Muestra con atención.' :
+    '📖 Refuerza los conceptos. Repasa la herramienta y haz los ejercicios de la casa antes de volver al quiz.';
+
+  // Save scores
+  try{
+    const first = localStorage.getItem(KEY_FIRST);
+    if(!first){
+      localStorage.setItem(KEY_FIRST, JSON.stringify({score, total:8, pct:Math.round(score/8*100)}));
+    }
+    localStorage.setItem(KEY_LAST, JSON.stringify({score, total:8, pct:Math.round(score/8*100)}));
+    updateScoreBanner();
+  } catch(e){}
+
+  // Hide grade button
+  document.querySelector('[onclick="gradeQuiz()"]').style.display = 'none';
+}
+
+function resetQuiz(){
+  // Re-enable all inputs
+  document.querySelectorAll('#quiz-form input[type=radio]').forEach(inp=>{
+    inp.disabled = false;
+    inp.checked = false;
+    inp.closest('.opcion').classList.remove('correct','wrong');
+  });
+  // Hide feedbacks and result
+  document.querySelectorAll('.quiz-feedback').forEach(fb=>{ fb.className='quiz-feedback'; fb.textContent=''; });
+  document.getElementById('quiz-result').classList.remove('show');
+  // Show grade button again
+  const btn = document.querySelector('[onclick="gradeQuiz()"]');
+  if(btn) btn.style.display = '';
+}
+
+function updateScoreBanner(){
+  try{
+    const first = localStorage.getItem(KEY_FIRST);
+    const last  = localStorage.getItem(KEY_LAST);
+    if(first || last){
+      const banner = document.getElementById('saved-banner');
+      banner.classList.add('show');
+      if(first){
+        const fd = JSON.parse(first);
+        document.getElementById('first-score-display').textContent = `${fd.score}/8`;
+      }
+      if(last){
+        const ld = JSON.parse(last);
+        document.getElementById('last-score-display').textContent = `${ld.score}/8`;
+      }
+    }
+  } catch(e){}
+}
+
+// ═══ LOAD SAVED DATA ON INIT ══════════════════════
+window.addEventListener('DOMContentLoaded', ()=>{
+  // Update quiz banner
+  updateScoreBanner();
+
+  // Load AC1
+  try{
+    const d = JSON.parse(localStorage.getItem(KEY_AC1)||'null');
+    if(d){ for(let i=1;i<=7;i++){ const el=document.getElementById(`ac1-q${i}`); if(el&&d[`q${i}`]) el.value=d[`q${i}`]; } }
+  } catch(e){}
+
+  // Load AC2
+  try{
+    const d = JSON.parse(localStorage.getItem(KEY_AC2)||'null');
+    if(d){ for(let i=1;i<=6;i++){ const el=document.getElementById(`ac2-q${i}`); if(el&&d[`q${i}`]) el.value=d[`q${i}`]; } }
+  } catch(e){}
+
+  // Load Casa
+  try{
+    const d = JSON.parse(localStorage.getItem(KEY_CASA)||'null');
+    if(d){ const all=['1-1','1-2','1-3','1-4','2-1','2-2','2-3','3-1','3-2','4-1','4-2','5-1','5-2']; all.forEach(id=>{ const el=document.getElementById(`casa-${id}`); if(el&&d[id]) el.value=d[id]; }); }
+  } catch(e){}
+});
+</script>
+</body>
+</html>
