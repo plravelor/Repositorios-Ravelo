@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
+<title>Gráficas y Proporcionalidad · Clase 10 · Matemáticas I</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,600&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F8F7F4;--surf:#FFFFFF;--surf2:#F3F2EE;
+  --navy:#1B3A6B;--navy-d:#0F2347;--navy-l:#E8EEF7;--navy-b:rgba(27,58,107,.22);
+  --amber:#C95D0A;--amber-d:#9E4608;--amber-l:#FEF3EC;--amber-b:rgba(201,93,10,.25);
+  --green:#1A6B3A;--green-l:#E8F4ED;--green-b:rgba(26,107,58,.25);
+  --red:#8B1A1A;--red-l:#F8EAEA;--red-b:rgba(139,26,26,.22);
+  --purple:#4A1B6B;--purple-l:#F0EAF8;--purple-b:rgba(74,27,107,.22);
+  --gold:#8B6914;--gold-l:#FBF5E1;--gold-b:rgba(139,105,20,.25);
+  --text:#1A1A2E;--muted:#6B6B80;--muted2:#A8A3B3;
+  --border:#E2DDD6;--border2:#EDE9E3;
+  --sans:'DM Sans',sans-serif;--serif:'Playfair Display',serif;--mono:'DM Mono',monospace;
+  --shadow:0 2px 16px rgba(27,58,107,.08);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+body{font-family:var(--sans);color:var(--text);background:var(--bg);font-size:15px;line-height:1.68;padding-bottom:80px;}
+.hdr{background:rgba(255,255,255,.96);border-bottom:1.5px solid var(--border);position:sticky;top:0;z-index:60;backdrop-filter:blur(16px);}
+.hdr-top{display:flex;align-items:center;justify-content:space-between;padding:11px 16px 0;}
+.hdr-pill{background:var(--navy-l);border:1px solid var(--navy-b);color:var(--navy);font-size:.57rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px;padding:3px 11px;border-radius:99px;}
+.hdr-title{font-family:var(--serif);font-size:1.05rem;color:var(--navy);font-style:italic;font-weight:700;margin-left:8px;}
+.hdr-title em{color:var(--amber);font-style:normal;}
+.hdr-deco{font-family:var(--serif);font-size:2.5rem;color:rgba(27,58,107,.05);font-weight:700;line-height:1;user-select:none;}
+.tabs{display:flex;overflow-x:auto;scrollbar-width:none;border-top:1px solid var(--border2);}
+.tabs::-webkit-scrollbar{display:none;}
+.tab{flex-shrink:0;display:flex;flex-direction:column;align-items:center;padding:8px 11px 7px;gap:3px;font-size:.52rem;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;transition:all .18s;white-space:nowrap;}
+.tab .ti{font-size:.9rem;}
+.tab:hover{color:var(--navy);background:rgba(27,58,107,.03);}
+.tab.on{color:var(--navy);border-bottom-color:var(--amber);}
+.tab.quiz-tab.on{color:var(--purple);border-bottom-color:var(--purple);}
+.tab.home-tab.on{color:var(--gold);border-bottom-color:var(--gold);}
+.wrap{max-width:560px;margin:0 auto;padding:20px 14px 12px;}
+.mod{display:none;animation:fi .22s ease;}
+.mod.on{display:block;}
+@keyframes fi{from{opacity:0;transform:translateY(5px);}to{opacity:1;transform:translateY(0);}}
+.srow{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:13px;}
+.sb{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:99px;font-size:.56rem;font-weight:700;text-transform:uppercase;letter-spacing:.3px;border:1px solid;}
+.sb-clase{background:var(--navy-l);border-color:var(--navy-b);color:var(--navy);}
+.sb-coop{background:var(--red-l);border-color:var(--red-b);color:var(--red);}
+.sb-miller{background:var(--gold-l);border-color:var(--gold-b);color:var(--gold);}
+.card{background:var(--surf);border:1.5px solid var(--border);border-radius:16px;padding:17px;margin-bottom:13px;box-shadow:var(--shadow);}
+.ct{font-size:.56rem;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted2);margin-bottom:8px;}
+.stitle{font-family:var(--serif);font-size:1.06rem;font-weight:700;font-style:italic;color:var(--navy);margin-bottom:10px;line-height:1.25;}
+.subtitle{font-size:.83rem;font-weight:700;color:var(--navy);margin:11px 0 5px;}
+.p-text{font-size:.84rem;line-height:1.7;margin-bottom:8px;color:var(--text);}
+.story{font-family:var(--serif);font-size:.85rem;line-height:1.75;font-style:italic;color:var(--muted);background:var(--amber-l);border-left:3px solid var(--amber-b);padding:10px 14px;border-radius:0 10px 10px 0;margin:10px 0;}
+.story strong{color:var(--amber-d);font-style:normal;}
+.hint{font-size:.76rem;color:var(--navy-d);background:var(--navy-l);border-left:3px solid var(--navy-b);padding:7px 12px;border-radius:0 9px 9px 0;margin:7px 0;line-height:1.55;}
+.alert{padding:11px 14px;border-radius:11px;font-size:.81rem;line-height:1.65;margin:9px 0;}
+.al-navy{background:var(--navy-l);border:1.5px solid var(--navy-b);color:var(--navy-d);}
+.al-amber{background:var(--amber-l);border:1.5px solid var(--amber-b);color:var(--amber-d);}
+.al-green{background:var(--green-l);border:1.5px solid var(--green-b);color:var(--green);}
+.al-red{background:var(--red-l);border:1.5px solid var(--red-b);color:var(--red);}
+.fbox{background:linear-gradient(145deg,var(--navy-l),rgba(27,58,107,.07));border:1.5px solid var(--navy-b);border-radius:12px;padding:13px 15px;margin:10px 0;text-align:center;}
+.fbox .fm{font-family:var(--mono);font-size:1rem;font-weight:600;color:var(--navy);line-height:1.5;}
+.fbox .fs{font-size:.71rem;color:var(--muted);margin-top:5px;font-style:italic;}
+.fbox-a{background:linear-gradient(145deg,var(--amber-l),rgba(201,93,10,.06));border-color:var(--amber-b);}
+.fbox-a .fm{color:var(--amber-d);}
+.sep{display:flex;align-items:center;gap:10px;margin:15px 0 11px;font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--navy);}
+.sep::before,.sep::after{content:'';flex:1;height:1.5px;background:var(--border);}
+/* Q items */
+.qw{background:var(--surf2);border:1.5px solid var(--border);border-radius:12px;padding:13px;margin:10px 0;}
+.qn{font-size:.57rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted2);margin-bottom:5px;}
+.qs{font-size:.85rem;line-height:1.65;color:var(--text);margin-bottom:10px;}
+.qopts{display:flex;flex-direction:column;gap:5px;}
+.qo{font-size:.81rem;padding:8px 12px;border-radius:9px;background:var(--surf);border:1.5px solid var(--border2);cursor:pointer;transition:all .13s;color:var(--text);display:flex;align-items:flex-start;gap:8px;}
+.qo:hover:not(.locked){background:var(--navy-l);border-color:var(--navy-b);}
+.qo .oi{flex-shrink:0;width:20px;height:20px;border-radius:50%;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:700;font-family:var(--mono);margin-top:1px;}
+.qo.ok{background:var(--green-l);border-color:var(--green-b);}.qo.ok .oi{background:var(--green);border-color:var(--green);color:#fff;}
+.qo.ko{background:var(--red-l);border-color:var(--red-b);}.qo.ko .oi{background:var(--red);border-color:var(--red);color:#fff;}
+.qfb{display:none;font-size:.77rem;line-height:1.58;padding:8px 11px;border-radius:9px;margin-top:8px;}
+.qfb.show{display:block;}
+.qfb.ok{background:var(--green-l);border:1.5px solid var(--green-b);color:var(--green);}
+.qfb.ko{background:var(--red-l);border:1.5px solid var(--red-b);color:var(--red);}
+/* Coop */
+.coop-box{background:linear-gradient(145deg,rgba(139,26,26,.04),rgba(139,26,26,.08));border:1.5px solid var(--red-b);border-radius:14px;padding:14px;margin:12px 0;}
+.coop-head{display:flex;align-items:center;gap:8px;margin-bottom:9px;}
+.coop-badge{background:var(--red);color:#fff;font-size:.54rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:3px 10px;border-radius:99px;}
+.coop-title{font-family:var(--serif);font-size:.93rem;font-weight:700;font-style:italic;color:var(--red);}
+.coop-step{display:flex;gap:10px;margin:6px 0;font-size:.81rem;line-height:1.55;}
+.coop-n{flex-shrink:0;width:22px;height:22px;background:var(--red);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.67rem;font-weight:700;}
+.role-row{display:flex;gap:6px;flex-wrap:wrap;margin:7px 0;}
+.rpill{display:inline-flex;align-items:center;gap:3px;font-size:.65rem;font-weight:700;padding:3px 8px;border-radius:99px;background:rgba(255,255,255,.8);border:1px solid var(--red-b);color:var(--red);}
+/* Var classifier */
+.vgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0;}
+.vc{background:var(--surf);border:1.5px solid var(--border);border-radius:12px;padding:11px;}
+.vc-name{font-size:.87rem;font-weight:700;color:var(--text);margin-bottom:3px;}
+.vc-eg{font-size:.7rem;color:var(--muted);font-style:italic;margin-bottom:9px;}
+.vc-btns{display:flex;flex-wrap:wrap;gap:4px;}
+.vbtn{font-size:.61rem;font-weight:700;padding:4px 8px;border-radius:7px;border:1.5px solid var(--border);background:var(--surf2);cursor:pointer;color:var(--muted);transition:all .12s;font-family:var(--sans);}
+.vbtn:hover{border-color:var(--navy-b);color:var(--navy);background:var(--navy-l);}
+.vc-fb{display:none;font-size:.7rem;margin-top:7px;padding:5px 8px;border-radius:7px;line-height:1.45;}
+.vc.answered .vc-fb{display:block;}
+.vc-fb.ok{background:var(--green-l);color:var(--green);border:1px solid var(--green-b);}
+.vc-fb.ko{background:var(--red-l);color:var(--red);border:1px solid var(--red-b);}
+/* Chart types */
+.cptypes{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0;}
+.cpt{background:var(--surf);border:1.5px solid var(--border);border-radius:12px;padding:11px;text-align:center;}
+.cpt-icon{font-size:1.5rem;margin-bottom:4px;}
+.cpt-name{font-size:.74rem;font-weight:700;color:var(--navy);margin-bottom:3px;}
+.cpt-when{font-size:.67rem;color:var(--muted);line-height:1.4;}
+.cpt-tag{font-size:.59rem;font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-top:5px;padding:2px 8px;border-radius:99px;display:inline-block;}
+.t-cat{background:var(--amber-l);color:var(--amber-d);}
+.t-cont{background:var(--navy-l);color:var(--navy);}
+.t-rel{background:var(--purple-l);color:var(--purple);}
+/* freq table */
+.ftable{width:100%;border-collapse:collapse;font-size:.79rem;border-radius:11px;overflow:hidden;border:1.5px solid var(--border);margin:10px 0;}
+.ftable th{background:var(--navy);color:#fff;padding:7px 9px;font-size:.63rem;font-weight:700;text-transform:uppercase;letter-spacing:.3px;text-align:center;}
+.ftable td{padding:7px 9px;text-align:center;border-bottom:1px solid var(--border2);font-family:var(--mono);font-weight:600;}
+.ftable td.label{text-align:left;font-weight:600;color:var(--navy);font-family:var(--sans);font-size:.77rem;background:var(--navy-l);}
+.ftable tr:last-child td{border-bottom:none;font-weight:800;background:var(--amber-l);color:var(--amber-d);}
+.ftable input[type=number]{width:60px;border:1.5px solid var(--border);border-radius:6px;padding:3px 5px;text-align:center;font-family:var(--mono);font-size:.9rem;font-weight:700;outline:none;background:var(--surf);}
+.ftable input.ok{border-color:var(--green);background:var(--green-l);color:var(--green);}
+/* Steps */
+.srev{background:var(--surf2);border:1.5px solid var(--border);border-radius:12px;padding:13px;margin:10px 0;}
+.si{display:none;animation:fi .2s ease;}
+.si.show{display:block;}
+.snum{font-size:.59rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--amber);margin-bottom:4px;}
+.scalc{font-family:var(--mono);font-size:.9rem;background:var(--navy-l);color:var(--navy);padding:5px 11px;border-radius:7px;margin:5px 0;display:inline-block;font-weight:600;}
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:5px;padding:8px 15px;border-radius:10px;font-size:.75rem;font-weight:700;cursor:pointer;border:1.5px solid;font-family:var(--sans);transition:all .15s;}
+.btn-navy{background:var(--navy);color:#fff;border-color:var(--navy);}.btn-navy:hover{background:var(--navy-d);}
+.btn-outline{background:transparent;color:var(--navy);border-color:var(--navy-b);}.btn-outline:hover{background:var(--navy-l);}
+.btn-amber{background:var(--amber);color:#fff;border-color:var(--amber);}.btn-amber:hover{background:var(--amber-d);}
+.btn-amber:disabled{background:var(--muted2);border-color:var(--muted2);cursor:not-allowed;}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:11px;}
+/* Pct grid */
+.pgrid{display:grid;grid-template-columns:repeat(10,1fr);gap:3px;margin:12px 0;}
+.pcell{aspect-ratio:1;border-radius:4px;}
+.pleg{display:flex;gap:12px;font-size:.72rem;margin-bottom:7px;flex-wrap:wrap;}
+.pdot{width:12px;height:12px;border-radius:3px;flex-shrink:0;margin-top:2px;}
+/* Calc box */
+.cbox{background:var(--surf2);border:1.5px solid var(--border);border-radius:12px;padding:13px;margin:10px 0;}
+.crow{display:grid;grid-template-columns:1fr auto auto auto;gap:7px;align-items:center;margin:6px 0;}
+.cinp{width:62px;border:1.5px solid var(--border);border-radius:7px;padding:5px;text-align:center;font-family:var(--mono);font-size:.88rem;font-weight:600;outline:none;background:var(--surf);}
+.cinp:focus{border-color:var(--amber);}
+.cprod{font-family:var(--mono);font-size:.83rem;font-weight:600;color:var(--amber-d);min-width:38px;text-align:right;}
+.cresult{background:var(--navy);color:#fff;border-radius:10px;padding:12px 15px;text-align:center;margin-top:10px;}
+.crl{font-size:.63rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;opacity:.75;margin-bottom:3px;}
+.crv{font-family:var(--mono);font-size:1.6rem;font-weight:600;}
+/* Spurious */
+.spgrid{display:grid;gap:8px;margin:10px 0;}
+.spc{background:var(--surf2);border:1.5px solid var(--border);border-radius:11px;padding:11px;}
+.spv{display:flex;align-items:center;gap:7px;font-size:.81rem;margin-bottom:4px;}
+.spvp{background:var(--navy-l);color:var(--navy);padding:3px 8px;border-radius:7px;font-weight:600;font-size:.76rem;}
+/* Data table */
+.dtable{width:100%;border-collapse:collapse;font-size:.78rem;border-radius:10px;overflow:hidden;border:1.5px solid var(--border);margin:10px 0;}
+.dtable th{background:var(--navy);color:#fff;padding:7px 9px;font-size:.63rem;font-weight:700;text-transform:uppercase;letter-spacing:.3px;text-align:center;}
+.dtable td{padding:7px 9px;text-align:center;border-bottom:1px solid var(--border2);font-family:var(--mono);font-weight:600;}
+.dtable td.label{text-align:left;font-weight:600;color:var(--navy);font-family:var(--sans);font-size:.76rem;background:var(--navy-l);}
+.dtable tr.tot td{background:var(--amber-l);font-weight:800;color:var(--amber-d);}
+.dtable input{width:58px;border:1.5px solid var(--border);border-radius:6px;padding:3px 5px;text-align:center;font-family:var(--mono);font-size:.87rem;font-weight:700;outline:none;}
+.dtable input:focus{border-color:var(--amber);}
+/* Debate */
+.dbcard{background:var(--surf);border:1.5px solid var(--border);border-radius:11px;padding:12px;margin:8px 0;}
+.dbside{font-size:.59rem;font-weight:700;text-transform:uppercase;letter-spacing:.6px;padding:2px 9px;border-radius:99px;margin-bottom:5px;display:inline-block;}
+.dspro{background:var(--green-l);color:var(--green);}
+.dscon{background:var(--red-l);color:var(--red);}
+/* Quiz */
+.quiz-meta{display:flex;justify-content:space-between;align-items:center;background:var(--purple-l);border:1.5px solid var(--purple-b);border-radius:11px;padding:9px 13px;margin-bottom:13px;font-size:.75rem;}
+.qm-l{font-weight:700;color:var(--purple);}
+.qm-r{font-size:.71rem;color:var(--muted);font-style:italic;}
+.qq{background:var(--surf);border:1.5px solid var(--border);border-radius:12px;padding:12px 14px;margin-bottom:10px;}
+.qqn{font-size:.59rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted2);margin-bottom:5px;}
+.qqt{font-size:.84rem;line-height:1.65;color:var(--text);margin-bottom:9px;}
+.qqopts{display:flex;flex-direction:column;gap:5px;}
+.qqo{font-size:.8rem;padding:8px 11px;border-radius:9px;background:var(--surf2);border:1.5px solid var(--border2);cursor:pointer;transition:all .12s;color:var(--text);}
+.qqo:hover:not(.locked){border-color:var(--purple-b);background:var(--purple-l);}
+.qqo.sel{background:var(--purple-l);border-color:var(--purple-b);font-weight:600;color:var(--purple);}
+.qqo.ok{background:var(--green-l);border-color:var(--green-b);color:var(--green);font-weight:600;}
+.qqo.ko{background:var(--red-l);border-color:var(--red-b);color:var(--red);}
+.qqfb{display:none;font-size:.76rem;padding:7px 10px;border-radius:8px;margin-top:7px;line-height:1.55;}
+.qqfb.show{display:block;}
+.qqfb.ok{background:var(--green-l);border:1.5px solid var(--green-b);color:var(--green);}
+.qqfb.ko{background:var(--red-l);border:1.5px solid var(--red-b);color:var(--red);}
+.score-box{display:none;background:linear-gradient(145deg,#fff,var(--navy-l));border:2px solid var(--navy-b);border-radius:16px;padding:20px;text-align:center;margin:15px 0;}
+.score-box.show{display:block;}
+.score-row{display:flex;justify-content:center;gap:12px;margin:12px 0;flex-wrap:wrap;}
+.sc{background:var(--surf);border:1.5px solid var(--border);border-radius:12px;padding:12px 15px;min-width:110px;}
+.sc.first{border-color:var(--navy-b);}.sc.last{border-color:var(--amber-b);}
+.sc-l{font-size:.59rem;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);margin-bottom:3px;}
+.sc.first .sc-l{color:var(--navy);}.sc.last .sc-l{color:var(--amber);}
+.sc-v{font-family:var(--mono);font-size:1.7rem;font-weight:600;color:var(--text);}
+.score-msg{font-family:var(--serif);font-size:.93rem;font-style:italic;color:var(--navy);margin-top:10px;line-height:1.5;}
+/* Homework */
+.hwday{background:var(--surf);border:1.5px solid var(--gold-b);border-radius:14px;padding:14px;margin-bottom:11px;}
+.hwdl{background:var(--gold);color:#fff;font-size:.57rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:3px 10px;border-radius:99px;display:inline-block;margin-bottom:7px;}
+.hwdt{font-family:var(--serif);font-size:.92rem;font-weight:700;font-style:italic;color:var(--gold);margin-bottom:7px;}
+.hwlist{list-style:none;padding:0;}
+.hwlist li{font-size:.8rem;line-height:1.6;padding:5px 0;border-bottom:1px solid var(--border2);display:flex;gap:7px;align-items:flex-start;}
+.hwlist li:last-child{border-bottom:none;}
+.hwlist li::before{content:'→';color:var(--gold);flex-shrink:0;font-weight:700;}
+.hwref{font-size:.68rem;font-family:var(--mono);background:var(--gold-l);color:var(--gold);padding:2px 7px;border-radius:5px;margin-left:4px;white-space:nowrap;}
+@media(max-width:400px){.vgrid,.cptypes{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="hdr">
+  <div class="hdr-top">
+    <div style="display:flex;align-items:center;">
+      <span class="hdr-pill">Clase 10</span>
+      <span class="hdr-title">Gráficas y <em>Proporcionalidad</em></span>
+    </div>
+    <div class="hdr-deco">10</div>
+  </div>
+  <div class="tabs" id="tabBar">
+    <div class="tab on" data-mod="m0"><span class="ti">🔡</span>Variables</div>
+    <div class="tab" data-mod="m1"><span class="ti">📊</span>Frecuencia</div>
+    <div class="tab" data-mod="m2"><span class="ti">🔍</span>Correlación</div>
+    <div class="tab" data-mod="m3"><span class="ti">⚖️</span>Razones</div>
+    <div class="tab" data-mod="m4"><span class="ti">💯</span>Porcentaje</div>
+    <div class="tab" data-mod="m5"><span class="ti">🔁</span>Regla ×3</div>
+    <div class="tab" data-mod="m6"><span class="ti">🎓</span>Prom.Pond.</div>
+    <div class="tab" data-mod="m7"><span class="ti">🤝</span>Actividad</div>
+    <div class="tab quiz-tab" data-mod="m8"><span class="ti">📝</span>Quiz</div>
+    <div class="tab home-tab" data-mod="m9"><span class="ti">🏠</span>Casa</div>
+  </div>
+</div>
+
+<!-- ===== M0: VARIABLES ===== -->
+<div class="mod on" id="m0"><div class="wrap">
+  <div class="srow"><span class="sb sb-clase">📖 Clase</span><span class="sb sb-miller">Miller §1.4 y §10.1</span></div>
+  <div class="ct">Módulo 1</div>
+  <div class="stitle">Tipos de variables y gráficas</div>
+  <div class="p-text">Antes de graficar, la pregunta es: <strong>¿qué tipo de dato tengo?</strong> Esa respuesta determina todo: qué gráfica usar, qué operaciones son válidas, qué significan los promedios.</div>
+  <div class="card">
+    <div class="ct">El mapa de los datos — Miller §10.1</div>
+    <div class="subtitle">Datos cualitativos (categóricos)</div>
+    <div class="p-text">Describen <em>categorías</em>. No tienen orden numérico inherente. Ej: carrera universitaria, color favorito, red social preferida.</div>
+    <div class="subtitle">Datos cuantitativos (numéricos)</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0;">
+      <div class="alert al-navy"><strong>Discretos</strong><br><span style="font-size:.79rem;">Valores enteros/contables. No hay valores intermedios posibles.<br>Ej: número de hermanos, materias cursadas.</span></div>
+      <div class="alert al-amber"><strong>Continuos</strong><br><span style="font-size:.79rem;">Pueden tomar cualquier valor en un rango.<br>Ej: peso, temperatura, tiempo de desplazamiento.</span></div>
+    </div>
+    <div class="hint">Las barras del <strong>histograma se tocan</strong> porque los datos continuos no tienen saltos. La gráfica de barras tiene <strong>espacios</strong> porque cada categoría es independiente.</div>
+  </div>
+  <div class="sep">¿Qué gráfica corresponde?</div>
+  <div class="cptypes">
+    <div class="cpt"><div class="cpt-icon">📊</div><div class="cpt-name">Barras</div><div class="cpt-when">Comparar categorías. Barras separadas.</div><div class="cpt-tag t-cat">Categórica</div></div>
+    <div class="cpt"><div class="cpt-icon">🔲</div><div class="cpt-name">Histograma</div><div class="cpt-when">Datos continuos en intervalos. Barras contiguas.</div><div class="cpt-tag t-cont">Continua</div></div>
+    <div class="cpt"><div class="cpt-icon">📈</div><div class="cpt-name">Lineal</div><div class="cpt-when">Tendencias en el tiempo o secuencias.</div><div class="cpt-tag t-cont">Cuantitativa + tiempo</div></div>
+    <div class="cpt"><div class="cpt-icon">⭕</div><div class="cpt-name">Circular</div><div class="cpt-when">Partes de un todo. Cada sector es un porcentaje.</div><div class="cpt-tag t-cat">Proporciones</div></div>
+    <div class="cpt"><div class="cpt-icon">✦</div><div class="cpt-name">Dispersión</div><div class="cpt-when">Relación entre dos variables cuantitativas.</div><div class="cpt-tag t-rel">Dos variables</div></div>
+    <div class="cpt"><div class="cpt-icon">🌿</div><div class="cpt-name">Tallo y hoja</div><div class="cpt-when">Preserva valores individuales. Datos pequeños.</div><div class="cpt-tag t-cont">Cuantitativa</div></div>
+  </div>
+  <div class="sep">Practica: ¿Qué tipo de variable es?</div>
+  <div class="p-text" style="font-size:.8rem;">Haz clic en la categoría correcta para cada ejemplo.</div>
+  <div class="vgrid" id="varGrid"></div>
+  <div class="card" style="background:var(--amber-l);border-color:var(--amber-b);margin-top:14px;">
+    <div class="ct" style="color:var(--amber-d);">Conexión clave</div>
+    <div class="p-text"><strong>Frecuencia relativa = porcentaje = razón.</strong> Si 12 de 28 prefieren trabajo nocturno: frecuencia relativa = 12/28 = 0.43 = 43%. Es la <em>razón</em> entre quienes prefieren y el total. Todo lo que sigue parte de aquí.</div>
+  </div>
+</div></div>
+
+<!-- ===== M1: FRECUENCIA ===== -->
+<div class="mod" id="m1"><div class="wrap">
+  <div class="srow"><span class="sb sb-clase">📖 Clase</span><span class="sb sb-miller">Miller §10.1</span></div>
+  <div class="ct">Módulo 2</div>
+  <div class="stitle">Frecuencia, distribuciones e histogramas</div>
+  <div class="story"><strong>El punto de partida:</strong> La clase pasada recogieron datos de sus compañeros. Esos datos en bruto son difíciles de leer. La tabla de frecuencias los organiza. El histograma los hace visibles. Y la frecuencia relativa los convierte en porcentajes — el puente hacia todo lo que sigue.</div>
+  <div class="card">
+    <div class="ct">Tabla de frecuencias — Miller §10.1 Ejemplo 1</div>
+    <div class="p-text">25 estudiantes de Psicología reportaron el número de integrantes de su familia. Datos: <code style="font-family:var(--mono);font-size:.8rem;background:var(--surf2);padding:2px 6px;border-radius:5px;">2,3,1,3,3,5,2,3,3,1,1,4,2,4,2,5,4,3,6,5,1,6,2,2,2</code></div>
+    <div class="p-text" style="font-size:.8rem;">Completa la columna de frecuencias (f). La frecuencia relativa y el porcentaje aparecerán automáticamente.</div>
+    <table class="ftable" id="ftable">
+      <tr><th>Valor (x)</th><th>Freq. (f)</th><th>Fr. relativa</th><th>%</th></tr>
+      <tr><td class="label">1 integrante</td><td><input type="number" min="0" max="25" data-ans="4" data-row="1" oninput="checkF(this)" placeholder="?"></td><td id="fr1">—</td><td id="fp1">—</td></tr>
+      <tr><td class="label">2 integrantes</td><td><input type="number" min="0" max="25" data-ans="7" data-row="2" oninput="checkF(this)" placeholder="?"></td><td id="fr2">—</td><td id="fp2">—</td></tr>
+      <tr><td class="label">3 integrantes</td><td><input type="number" min="0" max="25" data-ans="6" data-row="3" oninput="checkF(this)" placeholder="?"></td><td id="fr3">—</td><td id="fp3">—</td></tr>
+      <tr><td class="label">4 integrantes</td><td><input type="number" min="0" max="25" data-ans="3" data-row="4" oninput="checkF(this)" placeholder="?"></td><td id="fr4">—</td><td id="fp4">—</td></tr>
+      <tr><td class="label">5 integrantes</td><td><input type="number" min="0" max="25" data-ans="3" data-row="5" oninput="checkF(this)" placeholder="?"></td><td id="fr5">—</td><td id="fp5">—</td></tr>
+      <tr><td class="label">6 integrantes</td><td><input type="number" min="0" max="25" data-ans="2" data-row="6" oninput="checkF(this)" placeholder="?"></td><td id="fr6">—</td><td id="fp6">—</td></tr>
+      <tr><td class="label" style="font-weight:800;">Total</td><td colspan="3" id="ftotal" style="font-family:var(--mono);font-weight:800;color:var(--amber-d);text-align:left;padding-left:20px;">n = 25</td></tr>
+    </table>
+    <div id="freqMsg" class="alert al-navy" style="display:none;"></div>
+  </div>
+  <div class="card">
+    <div class="ct">Histograma de datos agrupados — Miller §10.1 Ejemplo 2</div>
+    <div class="p-text">40 estudiantes en la cafetería estimaron sus horas de estudio semanal. Datos agrupados en intervalos de 10 horas.</div>
+    <div style="background:var(--surf);border:1.5px solid var(--border);border-radius:12px;padding:13px;margin:10px 0;text-align:center;">
+      <svg id="histSvg" viewBox="0 0 420 210" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:420px;display:block;margin:0 auto;"></svg>
+    </div>
+    <div class="hint">Las barras se <strong>tocan</strong>: las horas son continuas. No hay salto entre 29 y 30. Esto es lo que distingue un histograma de una gráfica de barras.</div>
+  </div>
+  <div class="qw"><div class="qn">Pregunta 1</div>
+    <div class="qs">La frecuencia relativa de "2 integrantes" es 7/25 = 0.28. ¿Cómo se lee e interpreta?</div>
+    <div class="qopts" data-qid="q1m1">
+      <div class="qo" data-v="A"><span class="oi">A</span>28% de las familias en esta muestra tienen 2 integrantes.</div>
+      <div class="qo" data-v="B"><span class="oi">B</span>Hay 28 familias con 2 integrantes.</div>
+      <div class="qo" data-v="C"><span class="oi">C</span>El 0.28% de las familias del país tiene 2 integrantes.</div>
+      <div class="qo" data-v="D"><span class="oi">D</span>La media es 2.</div>
+    </div><div class="qfb" id="fb_q1m1"></div>
+  </div>
+  <div class="qw"><div class="qn">Pregunta 2</div>
+    <div class="qs">Datos del 12 al 72 (rango = 60). Miller recomienda 5–12 clases. ¿Cuál es una buena amplitud de clase?</div>
+    <div class="qopts" data-qid="q2m1">
+      <div class="qo" data-v="A"><span class="oi">A</span>Amplitud = 1 (una barra por hora)</div>
+      <div class="qo" data-v="B"><span class="oi">B</span>Amplitud = 10 (7 clases — exactamente lo que usa Miller en §10.1)</div>
+      <div class="qo" data-v="C"><span class="oi">C</span>Amplitud = 60 (una sola barra)</div>
+      <div class="qo" data-v="D"><span class="oi">D</span>Amplitud = 100</div>
+    </div><div class="qfb" id="fb_q2m1"></div>
+  </div>
+</div></div>
+
+<!-- ===== M2: CORRELACIÓN ===== -->
+<div class="mod" id="m2"><div class="wrap">
+  <div class="srow"><span class="sb sb-clase">📖 Clase</span><span class="sb sb-coop">🤝 Debate</span></div>
+  <div class="ct">Módulo 3</div>
+  <div class="stitle">Correlación, causalidad y la gráfica del Financial Times</div>
+  <div class="card" style="border-color:var(--navy-b);">
+    <div class="ct">El caso — FT / Hudson y Moscoso Boedo (2026)</div>
+    <div class="p-text">La gráfica muestra el cambio porcentual en la tasa de fertilidad antes y después de la masificación del smartphone. Eje X = años antes/después del año 0. Eje Y = % de cambio vs tendencia esperada. Cada línea es un país.</div>
+    <div style="background:var(--surf);border:1.5px solid var(--border);border-radius:12px;padding:13px;margin:10px 0;overflow:hidden;">
+      <svg viewBox="0 0 410 250" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:410px;display:block;margin:0 auto;">
+        <line x1="55" y1="195" x2="395" y2="195" stroke="#A8A3B3" stroke-width="1.2"/>
+        <line x1="55" y1="20" x2="55" y2="198" stroke="#A8A3B3" stroke-width="1.2"/>
+        <line x1="55" y1="100" x2="395" y2="100" stroke="#E2DDD6" stroke-width="1" stroke-dasharray="4,3"/>
+        <rect x="152" y="20" width="16" height="175" fill="rgba(168,163,179,.18)" rx="2"/>
+        <text x="160" y="210" text-anchor="middle" font-size="8.5" fill="#6B6B80">Año 0</text>
+        <text x="160" y="220" text-anchor="middle" font-size="8" fill="#6B6B80">(smartphones)</text>
+        <polyline points="58,97 80,93 102,94 124,90 148,84 160,80 185,108 210,135 240,155 270,168 300,176 330,183 365,190" fill="none" stroke="#1B3A6B" stroke-width="2" stroke-linecap="round" opacity=".9"/>
+        <polyline points="58,100 80,96 102,95 124,91 148,86 160,81 185,115 210,142 240,160 270,173 300,181 330,187" fill="none" stroke="#C95D0A" stroke-width="2" stroke-linecap="round" opacity=".9"/>
+        <polyline points="58,94 80,90 102,91 124,87 148,82 160,77 185,106 210,130 240,150 270,163 300,170 330,178 365,186" fill="none" stroke="#1A6B3A" stroke-width="2" stroke-linecap="round" opacity=".9"/>
+        <polyline points="58,101 80,97 102,96 124,93 148,89 160,83 185,120 210,150 240,173 270,183" fill="none" stroke="#8B1A1A" stroke-width="2" stroke-linecap="round" opacity=".9"/>
+        <polyline points="58,98 80,94 102,92 124,89 148,85 160,79 185,112 210,138 240,156 270,166 300,173 330,182 365,193" fill="none" stroke="#4A1B6B" stroke-width="2" stroke-linecap="round" opacity=".9"/>
+        <text x="50" y="104" text-anchor="end" font-size="8" fill="#6B6B80">+0</text>
+        <text x="50" y="148" text-anchor="end" font-size="8" fill="#6B6B80">-10</text>
+        <text x="50" y="192" text-anchor="end" font-size="8" fill="#6B6B80">-20</text>
+        <text x="50" y="78" text-anchor="end" font-size="8" fill="#6B6B80">+5</text>
+        <text x="58" y="210" text-anchor="middle" font-size="8" fill="#6B6B80">-10</text>
+        <text x="120" y="210" text-anchor="middle" font-size="8" fill="#6B6B80">-5</text>
+        <text x="220" y="210" text-anchor="middle" font-size="8" fill="#6B6B80">+5</text>
+        <text x="285" y="210" text-anchor="middle" font-size="8" fill="#6B6B80">+10</text>
+        <text x="350" y="210" text-anchor="middle" font-size="8" fill="#6B6B80">+15</text>
+        <text x="225" y="235" text-anchor="middle" font-size="7.5" fill="#6B6B80">Cada línea = un país. Fuente: FT/Hudson y Moscoso Boedo (2026)</text>
+      </svg>
+    </div>
+    <div class="alert al-amber"><strong>Titular de Los Andes:</strong> "La baja natalidad ya no se debe al dinero sino a los celulares y las redes sociales." ¿Eso está justificado por la gráfica?</div>
+  </div>
+  <div class="sep">Correlación ≠ Causalidad</div>
+  <div class="card">
+    <div class="subtitle" style="color:var(--navy);">Correlación</div>
+    <div class="p-text">Dos variables están <strong>correlacionadas</strong> cuando tienden a moverse juntas. No implica que una produzca la otra.</div>
+    <div class="subtitle" style="color:var(--navy);">Causalidad</div>
+    <div class="p-text">Hay <strong>causalidad</strong> cuando una variable <em>produce directamente</em> cambios en la otra. Requiere: mecanismo explicativo, precedencia temporal y ausencia de variables confundidoras.</div>
+    <div class="hint">Una <strong>variable confundidora</strong> es una tercera variable que explica por qué dos variables parecen relacionadas. Helados y ahogamientos suben juntos en verano — pero el calor es la causa de ambos.</div>
+  </div>
+  <div class="sep">Correlaciones espurias — casos reales</div>
+  <div class="spgrid">
+    <div class="spc"><div class="spv"><span class="spvp">🍦 Helados vendidos</span><span style="color:var(--muted2);">↔</span><span class="spvp">🏊 Ahogamientos</span></div><div style="font-size:.71rem;color:var(--muted);font-style:italic;">Confundidora: temperatura del verano</div></div>
+    <div class="spc"><div class="spv"><span class="spvp">📚 Libros en casa</span><span style="color:var(--muted2);">↔</span><span class="spvp">📈 Notas académicas</span></div><div style="font-size:.71rem;color:var(--muted);font-style:italic;">Confundidora: nivel socioeconómico e interés familiar</div></div>
+    <div class="spc"><div class="spv"><span class="spvp">👟 Tamaño del pie</span><span style="color:var(--muted2);">↔</span><span class="spvp">🔢 Habilidad en matemáticas</span></div><div style="font-size:.71rem;color:var(--muted);font-style:italic;">Confundidora: edad (los niños pequeños tienen pies pequeños y menos matemáticas)</div></div>
+  </div>
+  <div class="qw"><div class="qn">Pregunta 1</div>
+    <div class="qs">La gráfica muestra que en todos los países la natalidad cae después de la masificación del smartphone. ¿Qué afirma eso con certeza?</div>
+    <div class="qopts" data-qid="q1m2">
+      <div class="qo" data-v="A"><span class="oi">A</span>Los celulares causan la caída de la natalidad.</div>
+      <div class="qo" data-v="B"><span class="oi">B</span>Existe una asociación temporal entre masificación de smartphones y caída de la fertilidad en estos países.</div>
+      <div class="qo" data-v="C"><span class="oi">C</span>Las redes sociales reducen el deseo de tener hijos.</div>
+      <div class="qo" data-v="D"><span class="oi">D</span>El efecto es universal y aplica a todos los países.</div>
+    </div><div class="qfb" id="fb_q1m2"></div>
+  </div>
+  <div class="qw"><div class="qn">Pregunta 2</div>
+    <div class="qs">Una posible variable confundidora para la relación celulares–natalidad podría ser:</div>
+    <div class="qopts" data-qid="q2m2">
+      <div class="qo" data-v="A"><span class="oi">A</span>El color del teléfono más vendido en cada país.</div>
+      <div class="qo" data-v="B"><span class="oi">B</span>La urbanización y el aumento del nivel educativo de las mujeres (ambos coinciden temporalmente con la adopción del celular).</div>
+      <div class="qo" data-v="C"><span class="oi">C</span>El precio del mercado de acciones en 2010.</div>
+      <div class="qo" data-v="D"><span class="oi">D</span>La producción de películas animadas.</div>
+    </div><div class="qfb" id="fb_q2m2"></div>
+  </div>
+  <div class="qw"><div class="qn">Pregunta 3</div>
+    <div class="qs">¿Qué necesitarían los investigadores para afirmar causalidad con mayor solidez?</div>
+    <div class="qopts" data-qid="q3m2">
+      <div class="qo" data-v="A"><span class="oi">A</span>Más países en la muestra (aunque todos muestren el mismo patrón correlacional).</div>
+      <div class="qo" data-v="B"><span class="oi">B</span>Un mecanismo plausible, descartar confundidoras y mostrar que el cambio en celulares precede al cambio de fertilidad a nivel individual, no solo nacional.</div>
+      <div class="qo" data-v="C"><span class="oi">C</span>Una gráfica más colorida con más países.</div>
+      <div class="qo" data-v="D"><span class="oi">D</span>Publicar en el Financial Times.</div>
+    </div><div class="qfb" id="fb_q3m2"></div>
+  </div>
+  <div class="coop-box">
+    <div class="coop-head"><span class="coop-badge">AC1</span><span class="coop-title">El Debate: ¿Celulares y natalidad?</span></div>
+    <div class="role-row"><span class="rpill">⚖️ Árbitro</span><span class="rpill">🔍 Fiscal (pro-causalidad)</span><span class="rpill">🛡️ Defensa (solo correlación)</span></div>
+    <div class="coop-step"><div class="coop-n">1</div><div>Asignan roles. Fiscal: SÍ hay causalidad. Defensa: es solo correlación. Árbitro: evalúa con criterios matemáticos.</div></div>
+    <div class="coop-step"><div class="coop-n">2</div><div>Fiscal: 1 min → Defensa: 1 min → Intercambio libre: 2 min.</div></div>
+    <div class="coop-step"><div class="coop-n">3</div><div>Árbitro da el veredicto con justificación. ¿Qué evidencia cambiaría el fallo?</div></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0;">
+    <div class="dbcard"><div class="dbside dspro">A favor de causalidad</div><div style="font-size:.81rem;line-height:1.6;">Patrón consistente en países con culturas distintas. Coincidencia temporal exacta. Redes sociales documentadamente cambian prioridades vitales.</div></div>
+    <div class="dbcard"><div class="dbside dscon">A favor de solo correlación</div><div style="font-size:.81rem;line-height:1.6;">Los países que adoptaron celulares primero son los más urbanizados. La caída de fertilidad antecede al celular en varios casos. No hay experimento controlado.</div></div>
+  </div>
+</div></div>
+
+<!-- ===== M3: RAZONES ===== -->
+<div class="mod" id="m3"><div class="wrap">
+  <div class="srow"><span class="sb sb-clase">📖 Clase</span><span class="sb sb-miller">Miller §6.3</span></div>
+  <div class="ct">Módulo 4</div>
+  <div class="stitle">Razones y proporciones</div>
+  <div class="card">
+    <div class="ct">Razón: comparar por división</div>
+    <div class="p-text">Una <strong>razón</strong> es el cociente de dos cantidades. El promedio de bateo en béisbol es una razón. La frecuencia relativa de la clase anterior es una razón.</div>
+    <div class="fbox"><div class="fm">Razón de a a b = a ÷ b</div><div class="fs">Si hay 12 mujeres y 8 hombres → razón = 12/8 = 3/2. "Por cada 3 mujeres hay 2 hombres."</div></div>
+  </div>
+  <div class="card">
+    <div class="ct">Precio unitario (Miller §6.3)</div>
+    <div class="p-text">¿Cuál café es la mejor compra?</div>
+    <table class="ftable">
+      <tr><th>Tamaño</th><th>Precio</th><th>Gramos</th><th>$/gramo</th></tr>
+      <tr><td class="label">Pequeño</td><td>$4.200</td><td>250 g</td><td id="pu1" style="color:var(--muted);">?</td></tr>
+      <tr><td class="label">Mediano</td><td>$7.100</td><td>450 g</td><td id="pu2" style="color:var(--muted);">?</td></tr>
+      <tr><td class="label">Grande</td><td>$11.500</td><td>800 g</td><td id="pu3" style="color:var(--muted);">?</td></tr>
+    </table>
+    <div class="btn-row"><button class="btn btn-navy" onclick="calcPU()">Calcular precios unitarios</button></div>
+    <div id="puRes" class="alert al-green" style="display:none;"></div>
+  </div>
+  <div class="sep">Proporciones y productos cruzados</div>
+  <div class="card">
+    <div class="p-text">Una <strong>proporción</strong> dice que dos razones son iguales. La propiedad clave: <strong>los productos cruzados son iguales</strong>.</div>
+    <div class="fbox"><div class="fm">a/b = c/d → a × d = b × c</div><div class="fs">Si 3/4 = x/10 → 3×10 = 4×x → 30 = 4x → x = 7.5</div></div>
+  </div>
+  <div class="card"><div class="ct">Problema 1: La receta</div>
+    <div class="p-text">Receta de <strong>4 porciones</strong> necesita <strong>3 huevos</strong>. ¿Cuántos para <strong>10 porciones</strong>?</div>
+    <div class="srev" id="sr_r"><div class="si" id="s1r"><div class="snum">Paso 1</div><div style="font-size:.84rem;">Planteo: huevos/porciones = huevos/porciones</div><div class="scalc">3/4 = x/10</div></div><div class="si" id="s2r"><div class="snum">Paso 2 — Productos cruzados</div><div class="scalc">3 × 10 = 4 × x → 30 = 4x</div></div><div class="si" id="s3r"><div class="snum">Paso 3 — Despejar x</div><div class="scalc">x = 30/4 = 7.5 huevos</div><div class="alert al-green" style="margin-top:7px;">✓ Para 10 porciones: 7.5 huevos. En la práctica: 8.</div></div></div>
+    <div class="btn-row"><button class="btn btn-outline" onclick="nextSR('r',3)" id="btn_r">Ver paso 1</button></div>
+  </div>
+  <div class="card"><div class="ct">Problema 2: Encuesta expandida</div>
+    <div class="p-text">En el salón (28 estudiantes), <strong>12 prefieren trabajar de noche</strong>. El salón es el 14% del semestre. ¿Cuántos en total preferirán trabajar de noche?</div>
+    <div class="srev" id="sr_e"><div class="si" id="s1e"><div class="snum">Paso 1: ¿Cuántos estudiantes en total?</div><div class="scalc">28/T = 14/100 → T = 2800/14 = 200</div></div><div class="si" id="s2e"><div class="snum">Paso 2: Extrapolar la proporción</div><div class="scalc">12/28 = x/200 → x = 2400/28 ≈ 86</div></div><div class="si" id="s3e"><div class="snum">Resultado</div><div style="font-size:.84rem;">Aproximadamente <strong>86 de 200</strong> preferirían trabajo nocturno — si el salón es representativo.</div><div class="alert al-amber" style="margin-top:7px;">⚠ Este supuesto de representatividad es central en estadística. ¿Podría el salón NO ser representativo?</div></div></div>
+    <div class="btn-row"><button class="btn btn-outline" onclick="nextSR('e',3)" id="btn_e">Ver paso 1</button></div>
+  </div>
+  <div class="qw"><div class="qn">Práctica</div>
+    <div class="qs">En psicología, de cada 5 personas con ansiedad social, 3 también reportan dificultades para dormir. ¿Cuántas personas con dificultades para dormir se esperan en un grupo de 120 con ansiedad social?</div>
+    <div class="qopts" data-qid="q1m3">
+      <div class="qo" data-v="A"><span class="oi">A</span>24 personas</div>
+      <div class="qo" data-v="B"><span class="oi">B</span>72 personas — 3/5 = x/120 → x = 72 ✓</div>
+      <div class="qo" data-v="C"><span class="oi">C</span>60 personas</div>
+      <div class="qo" data-v="D"><span class="oi">D</span>36 personas</div>
+    </div><div class="qfb" id="fb_q1m3"></div>
+  </div>
+</div></div>
+
+<!-- ===== M4: PORCENTAJE ===== -->
+<div class="mod" id="m4"><div class="wrap">
+  <div class="srow"><span class="sb sb-clase">📖 Clase</span><span class="sb sb-miller">Miller §5.5</span></div>
+  <div class="ct">Módulo 5</div>
+  <div class="stitle">Porcentaje: el "por cada cien" y el misterio del 0.65</div>
+  <div class="card">
+    <div class="ct">¿Qué significa "%" realmente?</div>
+    <div class="p-text"><strong>Porcentaje</strong> viene del italiano <em>per cento</em>: "por cada cien". El símbolo % evolucionó del manuscrito "p 100" comprimido.</div>
+    <div class="fbox-a fbox"><div class="fm">x% = x/100 = x × 0.01</div><div class="fs">35% = 35/100 = 0.35 | 65% = 65/100 = 0.65 | 100% = 1</div></div>
+    <div class="p-text"><strong>Porcentaje → decimal:</strong> mover el punto dos lugares a la izquierda, quitar %. <strong>Decimal → porcentaje:</strong> mover dos lugares a la derecha, agregar %.</div>
+  </div>
+  <div class="sep">El misterio del 0.65 — por qué funciona el descuento</div>
+  <div class="card">
+    <div class="p-text">Cuando hay un descuento del X%, pagas (100−X)% del precio. Mueve el deslizador y observa.</div>
+    <div style="margin:10px 0;">
+      <div style="display:flex;justify-content:space-between;font-size:.76rem;margin-bottom:5px;">
+        <span>Descuento: <strong id="dl">35%</strong></span>
+        <span>Pagas: <strong id="pl" style="color:var(--navy);">65%</strong></span>
+      </div>
+      <input type="range" id="dslider" min="0" max="80" value="35" oninput="updDisc(this.value)" style="width:100%;accent-color:var(--amber);margin:6px 0;">
+    </div>
+    <div class="pleg"><div style="display:flex;align-items:center;gap:4px;font-size:.72rem;"><div class="pdot" style="background:var(--navy);"></div><span>Lo que pagas (<span id="lpay">65</span>/100)</span></div><div style="display:flex;align-items:center;gap:4px;font-size:.72rem;"><div class="pdot" style="background:var(--amber);"></div><span>Descuento (<span id="ldisc">35</span>/100)</span></div></div>
+    <div class="pgrid" id="pctGrid"></div>
+    <div class="fbox" style="margin-top:11px;"><div class="fm" id="discFml">Precio final = Precio × (1 − 0.35) = Precio × 0.65</div><div class="fs">Pagas 100% − 35% = 65% del precio original.</div></div>
+    <div class="hint">El 0.65 es la <em>frecuencia relativa</em> de lo que pagas: 65 de cada 100 pesos. Porcentaje, fracción y frecuencia relativa son la misma idea con distinto nombre.</div>
+  </div>
+  <div class="qw"><div class="qn">Tipo 1: ¿Cuánto es X% de N?</div>
+    <div class="qs">Una prenda cuesta $85.000 con descuento del 40%. ¿Cuánto pagas?</div>
+    <div class="qopts" data-qid="q1m4">
+      <div class="qo" data-v="A"><span class="oi">A</span>$34.000 (eso es solo el descuento, no lo que pagas)</div>
+      <div class="qo" data-v="B"><span class="oi">B</span>$51.000 — 85.000 × (1−0.40) = 85.000 × 0.60 ✓</div>
+      <div class="qo" data-v="C"><span class="oi">C</span>$45.000</div>
+      <div class="qo" data-v="D"><span class="oi">D</span>$68.000</div>
+    </div><div class="qfb" id="fb_q1m4"></div>
+  </div>
+  <div class="qw"><div class="qn">Tipo 2: ¿X es qué % de N?</div>
+    <div class="qs">De 28 estudiantes, 18 aprobaron el parcial. ¿Qué porcentaje aprobó?</div>
+    <div class="qopts" data-qid="q2m4">
+      <div class="qo" data-v="A"><span class="oi">A</span>18%</div>
+      <div class="qo" data-v="B"><span class="oi">B</span>64.3% — 18/28 × 100 ≈ 64.3% ✓</div>
+      <div class="qo" data-v="C"><span class="oi">C</span>28%</div>
+      <div class="qo" data-v="D"><span class="oi">D</span>50%</div>
+    </div><div class="qfb" id="fb_q2m4"></div>
+  </div>
+  <div class="qw"><div class="qn">Tipo 3: Porcentaje de cambio (Miller §5.5)</div>
+    <div class="qs">El promedio del grupo subió de 3.5 a 4.2. ¿Cuál fue el % de aumento? (Divide siempre entre el valor ORIGINAL)</div>
+    <div class="qopts" data-qid="q3m4">
+      <div class="qo" data-v="A"><span class="oi">A</span>20% — 0.7/3.5 × 100 = 20% ✓</div>
+      <div class="qo" data-v="B"><span class="oi">B</span>16.7% (error: dividir entre 4.2 en vez del original)</div>
+      <div class="qo" data-v="C"><span class="oi">C</span>7%</div>
+      <div class="qo" data-v="D"><span class="oi">D</span>0.7%</div>
+    </div><div class="qfb" id="fb_q3m4"></div>
+  </div>
+  <div class="alert al-navy">El eje Y de la gráfica del FT muestra exactamente un <strong>porcentaje de cambio</strong> respecto a la tendencia esperada. Una barra en −20 significa que la tasa cayó un 20% por debajo de lo esperado. Porcentaje y gráficas son inseparables.</div>
+</div></div>
+
+<!-- ===== M5: REGLA DE TRES ===== -->
+<div class="mod" id="m5"><div class="wrap">
+  <div class="srow"><span class="sb sb-clase">📖 Clase</span><span class="sb sb-miller">Miller §6.3</span></div>
+  <div class="ct">Módulo 6</div>
+  <div class="stitle">Regla de tres y variación directa</div>
+  <div class="card">
+    <div class="ct">La lógica detrás del algoritmo</div>
+    <div class="p-text">En el colegio aprendiste a "multiplicar en diagonal y dividir". Hoy entiendes <strong>por qué funciona</strong>: es la propiedad de productos cruzados aplicada a una proporción de variación directa (Miller §6.3).</div>
+    <div class="p-text">La <strong>variación directa</strong> ocurre cuando la razón y/x es constante: y = kx. Si x se duplica, y se duplica.</div>
+    <div class="fbox"><div class="fm">Si A/B = C/X → X = (B × C) / A</div><div class="fs">"Si A produce B, entonces C produce X" — la estructura universal de la regla de tres directa.</div></div>
+  </div>
+  <div class="qw"><div class="qn">Problema 1: Horas de estudio</div>
+    <div class="qs">Si en <strong>3 horas</strong> avanzas <strong>12 páginas</strong> de tu trabajo de investigación, ¿cuántas páginas avanzas en <strong>8 horas</strong> al mismo ritmo?</div>
+    <div class="qopts" data-qid="q1m5">
+      <div class="qo" data-v="A"><span class="oi">A</span>24 páginas</div>
+      <div class="qo" data-v="B"><span class="oi">B</span>32 páginas — 3/12 = 8/x → x = 96/3 = 32 ✓</div>
+      <div class="qo" data-v="C"><span class="oi">C</span>18 páginas</div>
+      <div class="qo" data-v="D"><span class="oi">D</span>40 páginas</div>
+    </div><div class="qfb" id="fb_q1m5"></div>
+  </div>
+  <div class="qw"><div class="qn">Problema 2: Tasa de cambio</div>
+    <div class="qs">Si 1 dólar = $4.100 pesos colombianos, ¿cuántos pesos recibes por $350 dólares?</div>
+    <div class="qopts" data-qid="q2m5">
+      <div class="qo" data-v="A"><span class="oi">A</span>$1.200.000</div>
+      <div class="qo" data-v="B"><span class="oi">B</span>$1.435.000 — 1/4100 = 350/x → x = 350×4100 ✓</div>
+      <div class="qo" data-v="C"><span class="oi">C</span>$980.000</div>
+      <div class="qo" data-v="D"><span class="oi">D</span>$1.750.000</div>
+    </div><div class="qfb" id="fb_q2m5"></div>
+  </div>
+  <div class="qw"><div class="qn">Problema 3: Estimación de población — Miller §6.3</div>
+    <div class="qs">Biólogos marcaron 300 peces. Al regresar capturaron 400 y encontraron 5 marcados. ¿Cuál es la población estimada del lago?</div>
+    <div class="qopts" data-qid="q3m5">
+      <div class="qo" data-v="A"><span class="oi">A</span>5.000 peces</div>
+      <div class="qo" data-v="B"><span class="oi">B</span>24.000 peces — 300/x = 5/400 → 5x = 120.000 → x = 24.000 ✓</div>
+      <div class="qo" data-v="C"><span class="oi">C</span>12.000 peces</div>
+      <div class="qo" data-v="D"><span class="oi">D</span>60.000 peces</div>
+    </div><div class="qfb" id="fb_q3m5"></div>
+  </div>
+  <div class="alert al-amber"><strong>La regla de tres y el porcentaje son lo mismo:</strong> Calcular el 18% de 250 es plantear 18/100 = x/250 → x = 45. Son el mismo principio con diferente presentación.</div>
+</div></div>
+
+<!-- ===== M6: PROMEDIO PONDERADO ===== -->
+<div class="mod" id="m6"><div class="wrap">
+  <div class="srow"><span class="sb sb-clase">📖 Clase</span><span class="sb sb-miller">Miller §10.2</span></div>
+  <div class="ct">Módulo 7</div>
+  <div class="stitle">Promedio ponderado: no todos los 5.0 pesan igual</div>
+  <div class="story"><strong>La pregunta:</strong> Si sacas 5.0 en Cálculo (4 créditos) y 5.0 en Electiva (1 crédito), tu promedio es 5.0. Pero si sacas 5.0 en Cálculo y 2.0 en Electiva (1 crédito), ¿es igual de grave que 5.0 en Cálculo y 2.0 en Metodología (3 créditos)? <em>No.</em></div>
+  <div class="card">
+    <div class="ct">¿Por qué ponderamos?</div>
+    <div class="p-text">El <strong>promedio ponderado</strong> asigna un "peso" a cada valor. En la universidad ese peso son los créditos. Una materia de 4 créditos "jala" el promedio el doble que una de 2 créditos.</div>
+    <div class="fbox"><div class="fm">P.P. = Σ(nota_i × créditos_i) / Σ(créditos_i)</div><div class="fs">Suma de (nota × peso) dividida entre suma de pesos. Es una razón.</div></div>
+  </div>
+  <div class="sep">Calculadora de promedio ponderado</div>
+  <div class="cbox">
+    <div style="font-size:.72rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:9px;display:grid;grid-template-columns:1fr 70px 55px 45px;gap:7px;"><span>Materia</span><span style="text-align:center;">Nota</span><span style="text-align:center;">Créd.</span><span style="text-align:right;">Prod.</span></div>
+    <div id="waRows"></div>
+    <div class="btn-row">
+      <button class="btn btn-outline" onclick="addWA()" style="font-size:.7rem;">+ Materia</button>
+      <button class="btn btn-amber" onclick="calcWA()">Calcular</button>
+    </div>
+    <div class="cresult" id="waRes" style="display:none;margin-top:11px;"><div class="crl">Promedio ponderado</div><div class="crv" id="waVal">—</div><div id="waBd" style="font-size:.72rem;margin-top:5px;opacity:.85;"></div></div>
+  </div>
+  <div class="qw"><div class="qn">Pregunta 1</div>
+    <div class="qs">Álgebra (3 créd, 4.0) + Psicología Social (3 créd, 4.5) + Inglés (2 créd, 5.0). ¿Cuál es el promedio ponderado?</div>
+    <div class="qopts" data-qid="q1m6">
+      <div class="qo" data-v="A"><span class="oi">A</span>4.5 (promedio simple de las tres notas)</div>
+      <div class="qo" data-v="B"><span class="oi">B</span>4.25 — (4.0×3 + 4.5×3 + 5.0×2)/(3+3+2) = (12+13.5+10)/8 = 35.5/8 = 4.44</div>
+      <div class="qo" data-v="C"><span class="oi">C</span>4.44 — Σ(nota×créd)/Σcréd = 35.5/8 ✓</div>
+      <div class="qo" data-v="D"><span class="oi">D</span>4.0 (la nota más baja pesa más por tener más créditos)</div>
+    </div><div class="qfb" id="fb_q1m6"></div>
+  </div>
+  <div class="qw"><div class="qn">Pregunta 2</div>
+    <div class="qs">¿Por qué el promedio ponderado difiere del simple cuando las materias tienen distintos créditos?</div>
+    <div class="qopts" data-qid="q2m6">
+      <div class="qo" data-v="A"><span class="oi">A</span>Porque el ponderado usa sumas y el simple usa restas.</div>
+      <div class="qo" data-v="B"><span class="oi">B</span>Porque el ponderado divide entre la suma de créditos, no entre el número de materias. Las de más créditos "jalan" el promedio hacia su nota. ✓</div>
+      <div class="qo" data-v="C"><span class="oi">C</span>Porque el simple solo funciona con dos valores.</div>
+      <div class="qo" data-v="D"><span class="oi">D</span>No son diferentes — siempre dan el mismo resultado.</div>
+    </div><div class="qfb" id="fb_q2m6"></div>
+  </div>
+</div></div>
+
+<!-- ===== M7: ACTIVIDAD COOPERATIVA ===== -->
+<div class="mod" id="m7"><div class="wrap">
+  <div class="srow"><span class="sb sb-coop">🤝 Cooperativa</span></div>
+  <div class="ct">Módulo 8</div>
+  <div class="stitle">El Analista del Salón: de la encuesta al análisis</div>
+  <div class="coop-box">
+    <div class="coop-head"><span class="coop-badge">AC2</span><span class="coop-title">Los datos del salón</span></div>
+    <div class="role-row"><span class="rpill">🔢 Calculista</span><span class="rpill">✏️ Escriba</span><span class="rpill">🔍 Verificador</span><span class="rpill">🎤 Presentador</span></div>
+    <div class="coop-step"><div class="coop-n">!</div><div style="font-size:.81rem;"><strong>Tiempo: 20 min</strong> — Si tienes los datos reales de tu encuesta (Clase 9), úsalos. Si no, trabaja con los datos de ejemplo abajo.</div></div>
+  </div>
+  <div class="card">
+    <div class="ct">Datos de ejemplo — Uso diario del celular (n=28)</div>
+    <table class="dtable">
+      <tr><th>Horas/día</th><th>Marcas</th><th>Freq. (f)</th><th>Fr.Rel. (%)</th></tr>
+      <tr><td class="label">1–2 horas</td><td style="font-size:.75rem;">|||</td><td><input id="cf1" type="number" min="0" max="28" placeholder="?" style="width:58px;border:1.5px solid var(--border);border-radius:6px;padding:3px 5px;text-align:center;font-family:var(--mono);font-size:.87rem;font-weight:700;outline:none;"></td><td><input id="cp1" type="number" min="0" max="100" placeholder="%" style="width:58px;border:1.5px solid var(--border);border-radius:6px;padding:3px 5px;text-align:center;font-family:var(--mono);font-size:.87rem;font-weight:700;outline:none;"></td></tr>
+      <tr><td class="label">3–4 horas</td><td style="font-size:.75rem;">|||| ||||</td><td><input id="cf2" type="number" min="0" max="28" placeholder="?" style="width:58px;border:1.5px solid var(--border);border-radius:6px;padding:3px 5px;text-align:center;font-family:var(--mono);font-size:.87rem;font-weight:700;outline:none;"></td><td><input id="cp2" type="number" min="0" max="100" placeholder="%" style="width:58px;border:1.5px solid var(--border);border-radius:6px;padding:3px 5px;text-align:center;font-family:var(--mono);font-size:.87rem;font-weight:700;outline:none;"></td></tr>
+      <tr><td class="label">5–6 horas</td><td style="font-size:.75rem;">|||| |||||</td><td><input id="cf3" type="number" min="0" max="28" placeholder="?" style="width:58px;border:1.5px solid var(--border);border-radius:6px;padding:3px 5px;text-align:center;font-family:var(--mono);font-size:.87rem;font-weight:700;outline:none;"></td><td><input id="cp3" type="number" min="0" max="100" placeholder="%" style="width:58px;border:1.5px solid var(--border);border-radius:6px;padding:3px 5px;text-align:center;font-family:var(--mono);font-size:.87rem;font-weight:700;outline:none;"></td></tr>
+      <tr><td class="label">7+ horas</td><td style="font-size:.75rem;">||||||</td><td><input id="cf4" type="number" min="0" max="28" placeholder="?" style="width:58px;border:1.5px solid var(--border);border-radius:6px;padding:3px 5px;text-align:center;font-family:var(--mono);font-size:.87rem;font-weight:700;outline:none;"></td><td><input id="cp4" type="number" min="0" max="100" placeholder="%" style="width:58px;border:1.5px solid var(--border);border-radius:6px;padding:3px 5px;text-align:center;font-family:var(--mono);font-size:.87rem;font-weight:700;outline:none;"></td></tr>
+      <tr class="tot"><td class="label">TOTAL</td><td></td><td id="cft" style="font-family:var(--mono);font-weight:800;color:var(--amber-d);">—</td><td id="cpt" style="font-family:var(--mono);font-weight:800;color:var(--amber-d);">—</td></tr>
+    </table>
+    <div class="btn-row">
+      <button class="btn btn-navy" onclick="checkCoop()">Verificar</button>
+      <button class="btn btn-outline" onclick="revealCoop()">Revelar respuestas</button>
+    </div>
+    <div id="coopMsg" class="alert al-navy" style="display:none;margin-top:8px;"></div>
+  </div>
+  <div class="card">
+    <div class="ct">Tarea 2: tipo de variable</div>
+    <div class="qw" style="background:transparent;border:none;padding:0;margin:0;">
+      <div class="qn">¿Qué tipo son las horas de uso del celular? ¿Qué gráfica corresponde?</div>
+      <div class="qopts" data-qid="q1m7">
+        <div class="qo" data-v="A"><span class="oi">A</span>Categóricas → gráfica de barras separadas.</div>
+        <div class="qo" data-v="B"><span class="oi">B</span>Cuantitativas continuas agrupadas → histograma (barras contiguas). ✓</div>
+        <div class="qo" data-v="C"><span class="oi">C</span>Cuantitativas discretas → polígono de frecuencias.</div>
+        <div class="qo" data-v="D"><span class="oi">D</span>Cualitativas → gráfica circular.</div>
+      </div><div class="qfb" id="fb_q1m7"></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="ct">Tarea 3: Extrapolación con proporciones</div>
+    <div class="p-text">Si el salón (28) es el 15% del semestre, ¿cuántos estudiantes en total usan el celular 7+ horas?</div>
+    <div class="srev" id="sr_c"><div class="si" id="s1c"><div class="snum">Paso 1: Total del semestre</div><div class="scalc">28/T = 15/100 → T = 28×100/15 ≈ 187</div></div><div class="si" id="s2c"><div class="snum">Paso 2: Extrapolar la proporción de 7+ horas</div><div class="scalc">6/28 = x/187 → x = 6×187/28 ≈ 40</div></div><div class="si" id="s3c"><div class="snum">Resultado + Reflexión</div><div style="font-size:.84rem;">Aproximadamente <strong>40 de 187</strong> estudiantes usarían el celular 7+ horas. ¿Coincide con la gráfica del FT? ¿Qué confundidoras podrían afectar esta extrapolación?</div></div></div>
+    <div class="btn-row"><button class="btn btn-outline" onclick="nextSR('c',3)" id="btn_c">Ver paso 1</button></div>
+  </div>
+  <div class="card">
+    <div class="ct">Tarea 4: Promedio ponderado del grupo</div>
+    <div class="p-text">Cada miembro reporta su promedio acumulado y créditos totales cursados.</div>
+    <div class="cbox">
+      <div style="font-size:.72rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;display:grid;grid-template-columns:1fr 70px 55px 45px;gap:7px;"><span>Integrante</span><span style="text-align:center;">Prom.</span><span style="text-align:center;">Créd.</span><span style="text-align:right;">Prod.</span></div>
+      <div id="grpRows"></div>
+      <div class="btn-row"><button class="btn btn-outline" onclick="addGrp()" style="font-size:.7rem;">+ Integrante</button><button class="btn btn-amber" onclick="calcGrp()">Calcular</button></div>
+      <div class="cresult" id="grpRes" style="display:none;margin-top:10px;"><div class="crl">Promedio ponderado del grupo</div><div class="crv" id="grpVal">—</div></div>
+    </div>
+  </div>
+  <div class="alert al-amber"><strong>Plenaria:</strong> El Presentador expone: (1) ¿Qué % del salón usa el celular 5+ horas? (2) ¿Cuál es el promedio ponderado del grupo? (3) ¿Consideran que los datos son representativos del semestre?</div>
+</div></div>
+
+<!-- ===== M8: QUIZ ===== -->
+<div class="mod" id="m8"><div class="wrap">
+  <div class="srow"><span class="sb" style="background:var(--purple-l);border-color:var(--purple-b);color:var(--purple);">📝 Quiz Individual</span></div>
+  <div class="ct">Módulo 9</div>
+  <div class="stitle">Quiz: todos los temas de la sesión</div>
+  <div class="quiz-meta"><span class="qm-l">12 preguntas · todos los temas</span><span class="qm-r">Responde todo antes de ver el resultado</span></div>
+  <div id="qContainer"></div>
+  <div class="btn-row" style="justify-content:center;margin-top:13px;"><button class="btn btn-amber" id="btnQ" onclick="submitQ()" disabled>Ver mi resultado →</button></div>
+  <div class="score-box" id="scorebox">
+    <div style="font-family:var(--serif);font-size:1.1rem;font-weight:700;font-style:italic;color:var(--navy);margin-bottom:8px;">Tu resultado</div>
+    <div class="score-row">
+      <div class="sc first"><div class="sc-l">Primer intento</div><div class="sc-v" id="s1">—</div></div>
+      <div class="sc last"><div class="sc-l">Este intento</div><div class="sc-v" id="s2">—</div></div>
+    </div>
+    <div class="score-msg" id="smsg"></div>
+  </div>
+</div></div>
+
+<!-- ===== M9: PARA CASA ===== -->
+<div class="mod" id="m9"><div class="wrap">
+  <div class="srow"><span class="sb" style="background:var(--gold-l);border-color:var(--gold-b);color:var(--gold);">🏠 Para casa</span></div>
+  <div class="ct">Módulo 10</div>
+  <div class="stitle">Práctica distribuida antes del parcial</div>
+  <div class="alert al-navy"><strong>Sin entrega.</strong> 30 minutos por día durante 4 días produce mejor consolidación que 3 horas la noche antes. Intenta primero sin mirar las notas — el esfuerzo de recuperación es lo que fija la memoria.</div>
+  <div class="hwday"><div class="hwdl">Día 1</div><div class="hwdt">Variables, frecuencias y gráficas</div><ul class="hwlist">
+    <li>Recoge datos de 10 personas: ¿cuántas horas duermen? Construye la tabla de frecuencias con fr. relativa. <span class="hwref">Miller §10.1</span></li>
+    <li>¿Las horas de sueño son discretas o continuas? ¿Qué gráfica corresponde? Justifica. <span class="hwref">Miller §1.4</span></li>
+    <li>Miller §10.1 Ej. 1 adaptado: construye el histograma de tus datos de sueño agrupando en intervalos de 1 hora.</li>
+  </ul></div>
+  <div class="hwday"><div class="hwdl">Día 2</div><div class="hwdt">Razones, proporciones y precios unitarios</div><ul class="hwlist">
+    <li>Busca 3 presentaciones del mismo producto (café, shampoo, etc.). Calcula el precio unitario. ¿Cuál conviene? <span class="hwref">Miller §6.3</span></li>
+    <li>Plantea: Si 5 psicólogos atienden 75 pacientes/semana, ¿cuántos pacientes atenderían 8 psicólogos? <span class="hwref">Miller §6.3</span></li>
+    <li>Usa una proporción para estimar la población de tu barrio si tu muestra de 40 personas representa el 2% de la localidad.</li>
+  </ul></div>
+  <div class="hwday"><div class="hwdl">Día 3</div><div class="hwdt">Porcentajes y cambios porcentuales</div><ul class="hwlist">
+    <li>Tu nota en parcial 1 fue 3.8 y en parcial 2 fue 4.5. ¿Cuál fue el % de mejora? ¿Dividiste entre el valor original? <span class="hwref">Miller §5.5</span></li>
+    <li>Una app ofrece: 25% de descuento + 10% adicional con tarjeta. ¿El total es 35%? Justifica con el cálculo. (Pista: no.)</li>
+    <li>Convierte 3/8, 0.075 y 240% a sus otras formas (fracción, decimal, porcentaje). <span class="hwref">Miller §5.5</span></li>
+  </ul></div>
+  <div class="hwday"><div class="hwdl">Día 4</div><div class="hwdt">Repaso integrado — simulacro</div><ul class="hwlist">
+    <li>Con los datos del Día 1: convierte cada fr. relativa a porcentaje. Usa una proporción para estimar cuántas personas de tu universidad tendrían ese patrón de sueño (asume que tu muestra es el 1% del total).</li>
+    <li>Calcula tu promedio ponderado real del semestre. ¿Qué nota necesitas en el parcial de Matemáticas para que tu promedio en esa materia quede en 4.0?</li>
+    <li>Escribe 5 líneas: ¿Los celulares causan la baja natalidad? Usa los conceptos de correlación, causalidad y variable confundidora. Cita la gráfica del FT.</li>
+  </ul></div>
+</div></div>
+
+<script>
+// ===== TABS =====
+document.querySelectorAll('.tab').forEach(t=>{
+  t.addEventListener('click',()=>{
+    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
+    document.querySelectorAll('.mod').forEach(x=>x.classList.remove('on'));
+    t.classList.add('on');
+    document.getElementById(t.dataset.mod).classList.add('on');
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+});
+
+// ===== QUESTION ANSWERS =====
+const QA={
+  q1m1:{a:'A',fb:'✓ Correcto. La frecuencia relativa 7/25 = 0.28 = 28% significa que el 28% de las familias en esta muestra tienen 2 integrantes. Es una razón expresada como porcentaje.'},
+  q2m1:{a:'B',fb:'✓ Correcto. Rango = 72−12 = 60. Con amplitud 10 se obtienen 7 clases (10–19, 20–29 … 70–79), que cumple el criterio de 5–12 clases de Miller. Pocas clases ocultan el patrón; demasiadas lo fragmentan.'},
+  q1m2:{a:'B',fb:'✓ Correcto. La gráfica muestra una asociación temporal — correlación. Para afirmar causalidad se necesita un mecanismo, eliminar confundidoras y controlar otras variables. La correlación es condición necesaria pero no suficiente para la causalidad.'},
+  q2m2:{a:'B',fb:'✓ Correcto. Los países que adoptaron smartphones primero son los más urbanizados y con mayor nivel educativo de las mujeres — factores que también reducen la natalidad independientemente del celular. Esta es la variable confundidora clave del debate.'},
+  q3m2:{a:'B',fb:'✓ Correcto. Más países con el mismo patrón solo refuerzan la correlación. Para causalidad se necesitan: mecanismo biológico o psicológico explicativo, demostrar que el cambio del celular precede al de fertilidad a nivel individual, y controlar variables confundidoras.'},
+  q1m3:{a:'B',fb:'✓ Correcto. 3/5 = x/120 → 5x = 360 → x = 72. La razón 3:5 (personas con dificultad para dormir / personas con ansiedad social) se mantiene constante en la proporción.'},
+  q1m4:{a:'B',fb:'✓ Correcto. Con 40% de descuento pagas 60%. $85.000 × 0.60 = $51.000. La opción A ($34.000) es el valor del descuento — lo que NO pagas, no lo que pagas.'},
+  q2m4:{a:'B',fb:'✓ Correcto. 18/28 = 0.6428... ≈ 64.3%. Se divide el número que aprobó entre el total (28). El 18% confunde el valor absoluto con el porcentaje.'},
+  q3m4:{a:'A',fb:'✓ Correcto. Cambio = 4.2 − 3.5 = 0.7. Base = valor original = 3.5. Porcentaje = 0.7/3.5 × 100 = 20%. El error más común es dividir entre el valor nuevo (4.2), lo que da 16.7% — incorrecto porque la base siempre es el valor antes del cambio.'},
+  q1m5:{a:'B',fb:'✓ Correcto. 3/12 = 8/x → 3x = 96 → x = 32. También: razón = 12/3 = 4 págs/hora → 8 horas × 4 págs/hora = 32 páginas.'},
+  q2m5:{a:'B',fb:'✓ Correcto. 1/4100 = 350/x → x = 350 × 4100 = $1.435.000. Variación directa: el total en pesos es directamente proporcional al número de dólares con constante k = 4100.'},
+  q3m5:{a:'B',fb:'✓ Correcto (Miller §6.3). 300/x = 5/400 → 5x = 120.000 → x = 24.000. La razón de peces marcados en la muestra debe igualar la razón en el lago total.'},
+  q1m6:{a:'C',fb:'✓ Correcto. (4.0×3 + 4.5×3 + 5.0×2)/(3+3+2) = (12+13.5+10)/8 = 35.5/8 = 4.44. El promedio simple sería (4.0+4.5+5.0)/3 = 4.5 — diferente porque no pondera los créditos.'},
+  q2m6:{a:'B',fb:'✓ Correcto. El promedio ponderado divide entre la suma de créditos, no entre el número de materias. Una materia de 4 créditos influye el doble que una de 2 en el promedio final.'},
+  q1m7:{a:'B',fb:'✓ Correcto. Las horas son cuantitativas y continuas (agrupadas en intervalos). El histograma es la representación correcta — barras contiguas porque no hay salto entre 4 y 5 horas de uso.'},
+};
+
+// ===== IN-MODULE Q HANDLER =====
+document.addEventListener('click', e=>{
+  const opt = e.target.closest('.qo');
+  if (!opt) return;
+  const cont = opt.closest('.qopts');
+  if (!cont) return;
+  if (cont.id && cont.id.startsWith('qq')) return; // skip quiz opts
+  if (cont.classList.contains('locked')) return;
+  const qid = cont.dataset.qid;
+  const v = opt.dataset.v;
+  if (!qid || !QA[qid]) return;
+  cont.classList.add('locked');
+  const correct = QA[qid].a;
+  cont.querySelectorAll('.qo').forEach(o=>{
+    o.classList.add('locked');
+    if(o.dataset.v===correct) o.classList.add('ok');
+    else if(o.dataset.v===v && v!==correct) o.classList.add('ko');
+  });
+  const fb = document.getElementById('fb_'+qid);
+  if(fb){
+    fb.className='qfb show '+(v===correct?'ok':'ko');
+    fb.textContent=(v===correct?'':'✗ Incorrecto. ')+QA[qid].fb;
+  }
+});
+
+// ===== VAR CLASSIFIER =====
+const varData=[
+  {n:'Número de hermanos',eg:'0, 1, 2, 3…',a:'D',label:'Discreta',fb:'Discreta: valores enteros contables. No existen 1.5 hermanos.'},
+  {n:'Género identificado',eg:'Femenino, Masculino, No binario…',a:'C',label:'Categórica',fb:'Categórica: es una categoría sin orden numérico. No se puede promediar.'},
+  {n:'Temperatura corporal',eg:'36.2°C, 37.1°C…',a:'Ct',label:'Continua',fb:'Continua: puede tomar cualquier valor decimal. 36.83°C es válido.'},
+  {n:'Nota del parcial',eg:'2.5, 3.8, 4.2, 5.0',a:'D',label:'Discreta',fb:'Discreta: aunque usa decimales, el sistema de calificación tiene resolución fija (décimas). Se trata como discreta en la práctica.'},
+  {n:'Red social favorita',eg:'Instagram, TikTok, X…',a:'C',label:'Categórica',fb:'Categórica: es una categoría nominativa. No tiene orden numérico.'},
+  {n:'Tiempo de desplazamiento',eg:'25 min, 47.5 min…',a:'Ct',label:'Continua',fb:'Continua: el tiempo puede medirse con cualquier precisión. 25.7 min es válido.'},
+  {n:'Número de materias',eg:'4, 5, 6 asignaturas',a:'D',label:'Discreta',fb:'Discreta: no puedes cursar 4.5 materias. Los valores son enteros.'},
+  {n:'Estrato socioeconómico',eg:'1, 2, 3, 4, 5, 6',a:'C',label:'Categórica/Ordinal',fb:'Aunque usa números, el estrato es una categoría ordinal. La diferencia entre estrato 1 y 2 no equivale matemáticamente a la diferencia entre 4 y 5.'},
+];
+function renderVarGrid(){
+  const g=document.getElementById('varGrid');
+  if(!g) return;
+  g.innerHTML=varData.map((v,i)=>`<div class="vc" id="vc${i}"><div class="vc-name">${v.n}</div><div class="vc-eg">Ej: ${v.eg}</div><div class="vc-btns"><button class="vbtn" onclick="chkVar(${i},'C')">Categórica</button><button class="vbtn" onclick="chkVar(${i},'D')">Discreta</button><button class="vbtn" onclick="chkVar(${i},'Ct')">Continua</button></div><div class="vc-fb" id="vfb${i}"></div></div>`).join('');
+}
+function chkVar(i,sel){
+  const v=varData[i];
+  const card=document.getElementById('vc'+i);
+  if(card.classList.contains('answered')) return;
+  card.classList.add('answered');
+  const fb=document.getElementById('vfb'+i);
+  const ok=sel===v.a;
+  fb.className='vc-fb '+(ok?'ok':'ko');
+  fb.innerHTML=(ok?'✓ ':'✗ Incorrecto — ')+'<strong>'+v.label+':</strong> '+v.fb;
+}
+
+// ===== FREQUENCY TABLE =====
+function checkF(inp){
+  const ans=parseInt(inp.dataset.ans);
+  const row=inp.dataset.row;
+  const val=parseInt(inp.value);
+  if(isNaN(val)) return;
+  const ok=val===ans;
+  inp.className=ok?'ok':'';
+  if(ok){
+    document.getElementById('fr'+row).textContent=(ans/25).toFixed(4);
+    document.getElementById('fp'+row).textContent=(ans/25*100).toFixed(1)+'%';
+    checkAllF();
+  }
+}
+function checkAllF(){
+  const inps=document.querySelectorAll('#ftable input');
+  let allOk=true, sum=0;
+  inps.forEach(inp=>{ if(inp.className!=='ok') allOk=false; sum+=parseInt(inp.value)||0; });
+  const msg=document.getElementById('freqMsg');
+  if(!msg) return;
+  if(allOk){ msg.style.display='block'; msg.className='alert al-green'; msg.innerHTML='✓ ¡Tabla correcta! La suma de las frecuencias relativas = 1.0 (100%). Esto <em>siempre</em> debe cumplirse — es una buena forma de verificar tu trabajo.'; }
+  else if(sum>0){ msg.style.display='block'; msg.className='alert al-navy'; msg.textContent='Suma actual: '+sum+'/25. Continúa.'; }
+}
+
+// ===== HISTOGRAM =====
+function drawHist(){
+  const svg=document.getElementById('histSvg');
+  if(!svg) return;
+  const data=[{l:'10–19',f:6},{l:'20–29',f:11},{l:'30–39',f:9},{l:'40–49',f:7},{l:'50–59',f:4},{l:'60–69',f:2},{l:'70–79',f:1}];
+  const W=420,H=210,ml=48,mr=8,mt=14,mb=48,cw=W-ml-mr,ch=H-mt-mb;
+  const maxF=11,bw=cw/data.length;
+  const blues=['#1B3A6B','#1B3A6B','#1B3A6B','#1B3A6B','#C95D0A','#C95D0A','#C95D0A'];
+  let out='';
+  [0,3,6,9,12].forEach(v=>{ const y=mt+ch-v*(ch/maxF); out+=`<line x1="${ml}" y1="${y}" x2="${W-mr}" y2="${y}" stroke="#E2DDD6" stroke-width="${v===0?1.5:.7}"/><text x="${ml-5}" y="${y+4}" text-anchor="end" font-size="9" fill="#6B6B80">${v}</text>`; });
+  data.forEach((d,i)=>{ const x=ml+i*bw,bh=d.f*(ch/maxF),y=mt+ch-bh; out+=`<rect x="${x}" y="${y}" width="${bw-1}" height="${bh}" fill="${blues[i]}" opacity=".88" rx="1"/><text x="${x+bw/2}" y="${y-3}" text-anchor="middle" font-size="9.5" fill="${blues[i]}">${d.f}</text><text x="${x+bw/2}" y="${H-mb+16}" text-anchor="middle" font-size="8.5" fill="#6B6B80">${d.l}</text>`; });
+  out+=`<text x="${ml-4}" y="${mt-4}" font-size="8.5" fill="#6B6B80">f</text><text x="${W/2}" y="${H-3}" text-anchor="middle" font-size="9" fill="#6B6B80">Horas semanales de estudio</text>`;
+  svg.innerHTML=out;
+}
+
+// ===== STEP REVEAL =====
+const srState={};
+function nextSR(id,total){
+  if(!srState[id]) srState[id]=0;
+  srState[id]++;
+  const el=document.getElementById('s'+srState[id]+id);
+  if(el) el.classList.add('show');
+  const btn=document.getElementById('btn_'+id);
+  if(btn) btn.textContent=srState[id]>=total?'✓ Completado':'Ver paso '+(srState[id]+1);
+}
+
+// ===== UNIT PRICE =====
+function calcPU(){
+  const items=[{p:4200,g:250,id:'pu1'},{p:7100,g:450,id:'pu2'},{p:11500,g:800,id:'pu3'}];
+  const pu=items.map(it=>it.p/it.g);
+  const minI=pu.indexOf(Math.min(...pu));
+  const names=['Pequeño','Mediano','Grande'];
+  items.forEach((it,i)=>{ document.getElementById(it.id).textContent='$'+pu[i].toFixed(1)+'/g'; document.getElementById(it.id).style.color=i===minI?'var(--green)':'var(--text)'; });
+  const res=document.getElementById('puRes');
+  res.style.display='block';
+  res.innerHTML='✓ La mejor compra: <strong>'+names[minI]+'</strong> ($'+pu[minI].toFixed(1)+'/g). '+(minI<2?'El más grande no siempre es el más barato por unidad.':'El grande sí es la mejor opción.');
+}
+
+// ===== DISCOUNT VISUAL =====
+function renderPctGrid(){
+  const g=document.getElementById('pctGrid');
+  if(!g) return;
+  for(let i=0;i<100;i++){ const d=document.createElement('div'); d.className='pcell'; d.style.aspectRatio='1'; d.style.borderRadius='4px'; g.appendChild(d); }
+  updDisc(35);
+}
+function updDisc(v){
+  v=parseInt(v);
+  document.getElementById('dl').textContent=v+'%';
+  document.getElementById('pl').textContent=(100-v)+'%';
+  document.getElementById('lpay').textContent=(100-v);
+  document.getElementById('ldisc').textContent=v;
+  const mult=(1-v/100).toFixed(2);
+  document.getElementById('discFml').textContent='Precio final = Precio × (1 − '+(v/100).toFixed(2)+') = Precio × '+mult;
+  document.querySelectorAll('.pcell').forEach((c,i)=>{ c.style.background=i<v?'var(--amber)':'var(--navy)'; c.style.opacity=i<v?'0.7':'0.9'; });
+}
+
+// ===== WA CALCULATOR =====
+const defMats=['Matemáticas I','Psicología General','Biología','Inglés'];
+const defCred=[4,3,3,2];
+function addWA(mat='',cr=2,nota=''){
+  const c=document.getElementById('waRows');
+  const r=document.createElement('div');
+  r.className='crow';
+  r.innerHTML=`<input class="cinp" style="width:100%;font-family:var(--sans);font-size:.78rem;text-align:left;padding:5px 7px;" placeholder="Materia" value="${mat}">
+    <input class="cinp" type="number" min="0" max="5" step="0.1" placeholder="Nota" value="${nota}" oninput="updWAProd(this)">
+    <input class="cinp" type="number" min="1" max="8" placeholder="Cr" value="${cr}" oninput="updWAProd(this)">
+    <span class="cprod">—</span>`;
+  c.appendChild(r);
+}
+function initWA(){ defMats.forEach((m,i)=>addWA(m,defCred[i],'')); }
+function updWAProd(inp){ const row=inp.closest('.crow'); const n=parseFloat(row.querySelectorAll('input')[1].value),cr=parseFloat(row.querySelectorAll('input')[2].value); const p=row.querySelector('.cprod'); p.textContent=(!isNaN(n)&&!isNaN(cr))?(n*cr).toFixed(2):'—'; }
+function calcWA(){
+  let sNC=0,sC=0;
+  document.querySelectorAll('#waRows .crow').forEach(r=>{ const inps=r.querySelectorAll('input'); const n=parseFloat(inps[1].value),cr=parseFloat(inps[2].value); if(!isNaN(n)&&!isNaN(cr)){sNC+=n*cr;sC+=cr;} });
+  if(sC===0){alert('Ingresa al menos una materia con nota y créditos.');return;}
+  const pp=(sNC/sC).toFixed(2);
+  document.getElementById('waRes').style.display='block';
+  document.getElementById('waVal').textContent=pp+' / 5.0';
+  document.getElementById('waBd').textContent='Σ ponderados: '+sNC.toFixed(2)+' ÷ Σ créditos: '+sC+' = '+pp;
+}
+
+// ===== GROUP WA =====
+function addGrp(){
+  const c=document.getElementById('grpRows');
+  const r=document.createElement('div');
+  r.className='crow';
+  r.innerHTML=`<input class="cinp" style="width:100%;font-family:var(--sans);font-size:.78rem;text-align:left;padding:5px 7px;" placeholder="Nombre">
+    <input class="cinp" type="number" min="0" max="5" step="0.01" placeholder="Prom" oninput="updGrp(this)">
+    <input class="cinp" type="number" min="1" max="30" placeholder="Cr" oninput="updGrp(this)">
+    <span class="cprod">—</span>`;
+  c.appendChild(r);
+}
+function updGrp(inp){ const row=inp.closest('.crow'); const n=parseFloat(row.querySelectorAll('input')[1].value),cr=parseFloat(row.querySelectorAll('input')[2].value); row.querySelector('.cprod').textContent=(!isNaN(n)&&!isNaN(cr))?(n*cr).toFixed(2):'—'; }
+function calcGrp(){
+  let sNC=0,sC=0;
+  document.querySelectorAll('#grpRows .crow').forEach(r=>{ const inps=r.querySelectorAll('input'); const n=parseFloat(inps[1].value),cr=parseFloat(inps[2].value); if(!isNaN(n)&&!isNaN(cr)){sNC+=n*cr;sC+=cr;} });
+  if(sC===0) return;
+  document.getElementById('grpRes').style.display='block';
+  document.getElementById('grpVal').textContent=(sNC/sC).toFixed(2)+' / 5.0';
+}
+
+// ===== COOP TABLE =====
+const coopAns={cf1:3,cf2:9,cf3:10,cf4:6};
+function checkCoop(){
+  let ok=0;
+  Object.entries(coopAns).forEach(([id,ans])=>{ const inp=document.getElementById(id); if(!inp) return; if(parseInt(inp.value)===ans){ok++;inp.style.borderColor='var(--green)';}else inp.style.borderColor='var(--red)'; });
+  const msg=document.getElementById('coopMsg');
+  msg.style.display='block';
+  if(ok===4){ msg.className='alert al-green'; msg.textContent='✓ Frecuencias correctas (3+9+10+6=28). Ahora completa las frecuencias relativas: cada f ÷ 28 × 100 = porcentaje.'; document.getElementById('cft').textContent='28'; document.getElementById('cpt').textContent='100%'; }
+  else { msg.className='alert al-amber'; msg.textContent=ok+'/4 correctas. La suma debe dar 28. Revisa las marcadas en rojo.'; }
+}
+function revealCoop(){
+  Object.entries(coopAns).forEach(([id,ans])=>{ const inp=document.getElementById(id); if(inp){inp.value=ans;inp.style.borderColor='var(--green)';} });
+  const n=28, pcts=[10.7,32.1,35.7,21.4];
+  ['1','2','3','4'].forEach((i,idx)=>{ const pi=document.getElementById('cp'+i); if(pi) pi.value=pcts[idx]; });
+  document.getElementById('cft').textContent='28'; document.getElementById('cpt').textContent='≈100%';
+  const msg=document.getElementById('coopMsg'); msg.style.display='block'; msg.className='alert al-navy';
+  msg.textContent='Respuestas: 3 | 9 | 10 | 6. Porcentajes: 10.7% | 32.1% | 35.7% | 21.4% ≈ 100%. El 57.1% usa el celular 5+ horas diarias.';
+}
+
+// ===== QUIZ =====
+const QDATA=[
+  {q:'¿Cuál de estos es un dato CONTINUO?',o:['Número de hermanos','Red social favorita','Temperatura corporal durante el día','Número de materias cursadas'],a:2,fb:'La temperatura puede tomar cualquier valor decimal (36.83°C). Número de hermanos y materias son discretos; red social es categórica.'},
+  {q:'De 30 estudiantes, 12 prefieren estudiar de noche. La frecuencia relativa es:',o:['12%','0.40 (12/30) = 40%','30%','0.012'],a:1,fb:'Frecuencia relativa = f/n = 12/30 = 0.40 = 40%. La frecuencia relativa y el porcentaje expresan la misma razón de formas diferentes.'},
+  {q:'¿En qué se diferencia un histograma de una gráfica de barras?',o:['El histograma es más colorido','En el histograma las barras se tocan — los datos son continuos o agrupados en intervalos','Solo puede tener 5 barras','Muestra datos categóricos'],a:1,fb:'Las barras contiguas del histograma señalan que los datos forman un continuo — no hay salto entre 29 y 30 horas, por ejemplo.'},
+  {q:'Existe correlación entre el consumo de helado y los ahogamientos. ¿Qué conclusión es correcta?',o:['El helado causa los ahogamientos','Ambos fenómenos tienen una variable confundidora: el calor del verano — no hay causalidad directa','Los ahogamientos causan que la gente coma más helado','La correlación es negativa'],a:1,fb:'Esta es la correlación espuria clásica. El calor provoca tanto el aumento de helados como de personas en el agua. La correlación existe, pero la causalidad es con el calor, no entre ellos.'},
+  {q:'Una camisa de $120.000 tiene 25% de descuento. ¿Cuánto pagas?',o:['$30.000 (el descuento)','$95.000','$90.000 — 120.000 × 0.75 = $90.000','$100.000'],a:2,fb:'Pagas 100% − 25% = 75% del precio. $120.000 × 0.75 = $90.000. La opción A es solo el valor del descuento.'},
+  {q:'Si a/b = c/d, entonces (por la propiedad de los productos cruzados):',o:['a + d = b + c','a × d = b × c','a − d = b − c','a/c = d/b solo si a > c'],a:1,fb:'Los productos cruzados: a×d = b×c. Esta propiedad es el fundamento matemático para resolver cualquier proporción despejando la incógnita.'},
+  {q:'El promedio de bateo en béisbol es 0.312. En términos de porcentaje y razón:',o:['312 impresas por 100 turnos','El bateador conecta 312 de cada 1000 oportunidades (31.2%)','El bateador falla el 31.2% de las veces','Es un número irracional'],a:1,fb:'0.312 = 31.2%. La razón entre hits y turnos al bate. Nótese que el "average" de béisbol es literalmente una razón expresada como decimal — la misma idea que la frecuencia relativa.'},
+  {q:'El promedio subió de 3.2 a 4.0. ¿Cuál fue el porcentaje de aumento? (Base = valor original)',o:['25% — 0.8/3.2 × 100 = 25%','20% — 0.8/4.0 × 100 = 20%','0.8%','8%'],a:0,fb:'% de cambio = (nuevo − original)/original × 100 = 0.8/3.2 × 100 = 25%. Siempre se divide entre el valor original (3.2), no el nuevo (4.0).'},
+  {q:'En 4 horas un grupo recoge 8 kg de basura. ¿Cuánto en 7 horas?',o:['10 kg','14 kg — razón = 2 kg/hora → 7 × 2 = 14','16 kg','11 kg'],a:1,fb:'4/8 = 7/x → 4x = 56 → x = 14. O directamente: 8/4 = 2 kg/hora × 7 horas = 14 kg. Variación directa.'},
+  {q:'Un estudiante tiene: Estadística 4 créd. nota 3.0 + Comunicación 2 créd. nota 5.0. Promedio ponderado:',o:['4.0 (promedio simple)','3.67 — (3.0×4 + 5.0×2)/(4+2) = (12+10)/6 = 22/6 = 3.67','3.5','4.5 (domina la nota más alta)'],a:1,fb:'P.P. = Σ(nota×créd)/Σcréd = (3.0×4 + 5.0×2)/(4+2) = (12+10)/6 = 22/6 ≈ 3.67. El promedio simple daría (3.0+5.0)/2 = 4.0, distinto porque Estadística tiene más peso.'},
+  {q:'¿Cuál gráfica es correcta para mostrar la distribución de horas semanales de estudio?',o:['Gráfica circular (pastel)','Gráfica de barras separadas','Histograma con barras contiguas — son datos continuos agrupados en intervalos','Diagrama de dispersión'],a:2,fb:'Las horas de estudio son datos cuantitativos continuos. El histograma con barras contiguas es la representación correcta. Miller usa exactamente este ejemplo en §10.1 Ejemplo 2.'},
+  {q:'Si 28 estudiantes representan el 14% del semestre, ¿cuántos estudiantes hay en total?',o:['140','200 — 28/T = 14/100 → T = 2800/14 = 200','280','392'],a:1,fb:'28/T = 14/100 → 100×28 = 14×T → T = 2800/14 = 200. Es una proporción donde el total es la incógnita. Esta es exactamente la lógica de extrapolar datos del salón al semestre completo.'},
+];
+
+const qAns=new Array(QDATA.length).fill(null);
+function renderQuiz(){
+  const c=document.getElementById('qContainer');
+  if(!c) return;
+  c.innerHTML=QDATA.map((q,i)=>`
+    <div class="qq" id="qq${i}">
+      <div class="qqn">Pregunta ${i+1} de ${QDATA.length}</div>
+      <div class="qqt">${q.q}</div>
+      <div class="qqopts" id="qopts${i}">
+        ${q.o.map((op,j)=>`<div class="qqo" onclick="selQ(${i},${j})">${String.fromCharCode(65+j)}) ${op}</div>`).join('')}
+      </div>
+      <div class="qqfb" id="qqfb${i}"></div>
+    </div>`).join('');
+}
+function selQ(qi,vi){
+  if(qAns[qi]!==null) return;
+  document.querySelectorAll(`#qopts${qi} .qqo`).forEach(o=>o.classList.remove('sel'));
+  document.querySelectorAll(`#qopts${qi} .qqo`)[vi].classList.add('sel');
+  qAns[qi]=vi;
+  const allAnswered=qAns.every(v=>v!==null);
+  document.getElementById('btnQ').disabled=!allAnswered;
+}
+function submitQ(){
+  let correct=0;
+  QDATA.forEach((q,i)=>{
+    const opts=document.querySelectorAll(`#qopts${i} .qqo`);
+    opts.forEach(o=>o.classList.add('locked'));
+    opts[q.a].classList.add('ok');
+    if(qAns[i]!==q.a && qAns[i]!==null) opts[qAns[i]].classList.add('ko');
+    if(qAns[i]===q.a) correct++;
+    const fb=document.getElementById('qqfb'+i);
+    if(fb){ fb.className='qqfb show '+(qAns[i]===q.a?'ok':'ko'); fb.textContent=(qAns[i]===q.a?'✓ ':'✗ ')+q.fb; }
+  });
+  const pct=Math.round(correct/QDATA.length*100);
+  const score=correct+'/'+QDATA.length+' ('+pct+'%)';
+  const KEY='cls10_quiz';
+  let first=localStorage.getItem(KEY+'_first');
+  if(!first){ first=score; localStorage.setItem(KEY+'_first',first); }
+  localStorage.setItem(KEY+'_last',score);
+  document.getElementById('s1').textContent=first;
+  document.getElementById('s2').textContent=score;
+  const msgs=['Revisa los temas marcados en rojo. La práctica distribuida en casa te ayudará.','¡Buen trabajo! Refuerza los temas donde fallaste antes del parcial.','¡Excelente! Estás listo para el parcial. Revisa igual los que fallaste.','¡Perfecto! Dominas todos los temas de la sesión.'];
+  document.getElementById('smsg').textContent=msgs[pct<60?0:pct<80?1:pct<100?2:3];
+  document.getElementById('scorebox').classList.add('show');
+  document.getElementById('btnQ').disabled=true;
+  document.getElementById('btnQ').textContent='Quiz completado';
+  document.getElementById('scorebox').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+// ===== INIT =====
+function init(){
+  renderVarGrid();
+  drawHist();
+  renderPctGrid();
+  initWA();
+  renderQuiz();
+  addGrp(); addGrp(); addGrp(); addGrp();
+}
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
