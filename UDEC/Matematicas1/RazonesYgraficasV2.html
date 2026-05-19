@@ -1,0 +1,2042 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Clase 10 · Gráficas y Proporcionalidad</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1A1C2C;--ink2:#3D3F56;--muted:#767898;--muted2:#B0B2CC;
+  --bg:#F7F6F1;--surf:#FFFFFF;--surf2:#F0EFE9;--surf3:#E6E4DC;
+  --rule:#DDDBD0;
+  --navy:#1B3A6B;--navy-l:#EAF0FA;--navy-b:rgba(27,58,107,.18);
+  --navy-m:#2A52A0;
+  --teal:#0A6E5F;--teal-l:#E4F4F1;--teal-b:rgba(10,110,95,.2);
+  --amber:#A84A00;--amber-l:#FDF2E8;--amber-b:rgba(168,74,0,.2);
+  --green:#1A5C34;--green-l:#E6F4EC;--green-b:rgba(26,92,52,.2);
+  --red:#8B1A1A;--red-l:#F9EAEA;--red-b:rgba(139,26,26,.18);
+  --purple:#4A1E7A;--purple-l:#F1ECF9;--purple-b:rgba(74,30,122,.2);
+  --gold:#6B4E00;--gold-l:#FBF4E0;--gold-b:rgba(107,78,0,.2);
+  --ff-h:'Libre Baskerville',Georgia,serif;
+  --ff-b:'IBM Plex Sans',system-ui,sans-serif;
+  --ff-m:'IBM Plex Mono',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--ff-b);color:var(--ink);background:var(--bg);font-size:14.5px;line-height:1.72;padding-bottom:100px;}
+
+/* HEADER */
+.hdr{background:#fff;border-bottom:2px solid var(--navy);position:sticky;top:0;z-index:100;}
+.hdr-band{background:var(--navy);color:#fff;padding:5px 14px;display:flex;align-items:center;justify-content:space-between;}
+.hdr-meta{font-size:.6rem;font-weight:600;letter-spacing:.8px;text-transform:uppercase;opacity:.85;}
+.hdr-n{font-family:var(--ff-h);font-size:2.4rem;font-weight:700;opacity:.15;line-height:1;}
+.hdr-title{padding:7px 14px 0;display:flex;align-items:baseline;gap:8px;}
+.hdr-ht{font-family:var(--ff-h);font-size:1rem;font-style:italic;color:var(--navy);font-weight:700;}
+.hdr-hsub{font-size:.65rem;color:var(--muted);font-weight:500;}
+
+/* TABS */
+.tabs{display:flex;overflow-x:auto;scrollbar-width:none;padding:0 0 0 0;border-top:1px solid var(--rule);}
+.tabs::-webkit-scrollbar{display:none;}
+.tab{flex-shrink:0;display:flex;flex-direction:column;align-items:center;padding:6px 10px 5px;gap:1px;font-size:.48rem;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--muted2);cursor:pointer;border-bottom:3px solid transparent;transition:all .15s;white-space:nowrap;}
+.tab .ti{font-size:.85rem;}
+.tab:hover{color:var(--navy);background:var(--navy-l);}
+.tab.on{color:var(--navy);border-bottom-color:var(--navy);background:var(--navy-l);}
+.tab.tb.on{color:var(--amber);border-bottom-color:var(--amber);background:var(--amber-l);}
+.tab.tq.on{color:var(--purple);border-bottom-color:var(--purple);background:var(--purple-l);}
+.tab.tb:hover{color:var(--amber);background:var(--amber-l);}
+.tab.tq:hover{color:var(--purple);background:var(--purple-l);}
+
+/* SEC LABEL */
+.sec-label{font-size:.6rem;font-weight:600;text-transform:uppercase;letter-spacing:.5px;padding:4px 14px;border-bottom:1px solid var(--rule);}
+.sl-a{background:var(--navy-l);color:var(--navy);}
+.sl-b{background:var(--amber-l);color:var(--amber);}
+.sl-q{background:var(--purple-l);color:var(--purple);}
+
+/* LAYOUT */
+.wrap{max-width:600px;margin:0 auto;padding:18px 13px;}
+.mod{display:none;animation:fi .2s ease;}
+.mod.on{display:block;}
+@keyframes fi{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+
+/* TYPOGRAPHY */
+.section-title{font-family:var(--ff-h);font-size:1.22rem;font-weight:700;font-style:italic;color:var(--navy);margin-bottom:4px;line-height:1.25;}
+.section-sub{font-size:.72rem;color:var(--muted);margin-bottom:16px;font-weight:500;}
+.h2{font-family:var(--ff-h);font-size:.95rem;font-weight:700;color:var(--navy);margin:18px 0 7px;line-height:1.3;}
+.h3{font-size:.84rem;font-weight:700;color:var(--ink);margin:12px 0 5px;}
+.p{font-size:.855rem;line-height:1.75;margin-bottom:9px;color:var(--ink2);}
+.p strong{color:var(--ink);font-weight:700;}
+.lead{font-family:var(--ff-h);font-size:.95rem;font-style:italic;line-height:1.75;color:var(--ink2);margin-bottom:12px;}
+
+/* BADGES */
+.badge{display:inline-flex;align-items:center;gap:3px;font-size:.53rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:2px 9px;border-radius:99px;border:1px solid;}
+.badge-navy{background:var(--navy-l);border-color:var(--navy-b);color:var(--navy);}
+.badge-amber{background:var(--amber-l);border-color:var(--amber-b);color:var(--amber);}
+.badge-teal{background:var(--teal-l);border-color:var(--teal-b);color:var(--teal);}
+.badge-green{background:var(--green-l);border-color:var(--green-b);color:var(--green);}
+.badge-miller{background:var(--gold-l);border-color:var(--gold-b);color:var(--gold);}
+.badge-coop{background:var(--purple-l);border-color:var(--purple-b);color:var(--purple);}
+.badge-red{background:var(--red-l);border-color:var(--red-b);color:var(--red);}
+.badges{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px;}
+
+/* CARDS */
+.card{background:var(--surf);border:1.5px solid var(--rule);border-radius:12px;padding:15px;margin:11px 0;}
+.card-navy{border-left:3.5px solid var(--navy);background:linear-gradient(to right,var(--navy-l),var(--surf));}
+.card-amber{border-left:3.5px solid var(--amber);background:linear-gradient(to right,var(--amber-l),var(--surf));}
+.card-teal{border-left:3.5px solid var(--teal);background:linear-gradient(to right,var(--teal-l),var(--surf));}
+.card-green{border-left:3.5px solid var(--green);background:linear-gradient(to right,var(--green-l),var(--surf));}
+.card-red{border-left:3.5px solid var(--red);background:linear-gradient(to right,var(--red-l),var(--surf));}
+.card-purple{border-left:3.5px solid var(--purple);background:linear-gradient(to right,var(--purple-l),var(--surf));}
+.card-gold{border-left:3.5px solid var(--gold);background:linear-gradient(to right,var(--gold-l),var(--surf));}
+.card-dark{background:linear-gradient(135deg,var(--navy),#0E2444);color:#fff;border-color:transparent;border-radius:14px;padding:17px;}
+.card-dark .h2,.card-dark .h3{color:#fff;}
+.card-dark .p{color:rgba(255,255,255,.85);}
+.card-label{font-size:.55rem;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted2);margin-bottom:6px;}
+
+/* ACCORDION */
+.acc{border:1.5px solid var(--rule);border-radius:11px;margin:8px 0;overflow:hidden;background:var(--surf);}
+.acc-hdr{display:flex;align-items:center;justify-content:space-between;padding:11px 14px;cursor:pointer;transition:background .12s;user-select:none;}
+.acc-hdr:hover{background:var(--surf2);}
+.acc-hdr-l{display:flex;align-items:center;gap:8px;}
+.acc-icon{font-size:1rem;}
+.acc-title{font-size:.84rem;font-weight:700;color:var(--navy);}
+.acc-arrow{font-size:.8rem;color:var(--muted);transition:transform .2s;}
+.acc.open .acc-arrow{transform:rotate(180deg);}
+.acc-body{display:none;padding:0 14px 14px;border-top:1px solid var(--rule);}
+.acc.open .acc-body{display:block;animation:fi .2s ease;}
+.acc-navy .acc-hdr{background:var(--navy-l);}.acc-navy .acc-title{color:var(--navy);}
+.acc-amber .acc-hdr{background:var(--amber-l);}.acc-amber .acc-title{color:var(--amber);}
+.acc-teal .acc-hdr{background:var(--teal-l);}.acc-teal .acc-title{color:var(--teal);}
+.acc-green .acc-hdr{background:var(--green-l);}.acc-green .acc-title{color:var(--green);}
+.acc-red .acc-hdr{background:var(--red-l);}.acc-red .acc-title{color:var(--red);}
+.acc-purple .acc-hdr{background:var(--purple-l);}.acc-purple .acc-title{color:var(--purple);}
+
+/* DEFINITION BOX */
+.def{background:var(--ink);color:#fff;border-radius:11px;padding:14px 16px;margin:11px 0;}
+.def-label{font-size:.54rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px;opacity:.55;margin-bottom:5px;}
+.def-body{font-family:var(--ff-h);font-size:.93rem;font-style:italic;line-height:1.6;color:#fff;}
+.def-body strong{color:#FFC87A;font-style:normal;}
+
+/* FORMULA */
+.fml{background:var(--surf2);border:2px solid var(--rule);border-radius:10px;padding:12px 16px;margin:10px 0;text-align:center;}
+.fml-navy{background:var(--navy-l);border-color:var(--navy-b);}
+.fml-amber{background:var(--amber-l);border-color:var(--amber-b);}
+.fml-eq{font-family:var(--ff-m);font-size:1rem;font-weight:600;color:var(--navy);}
+.fml-amber .fml-eq{color:var(--amber);}
+.fml-note{font-size:.73rem;color:var(--muted);margin-top:5px;line-height:1.5;}
+
+/* CITE */
+.cite{font-family:var(--ff-h);font-size:.85rem;font-style:italic;line-height:1.7;color:var(--ink2);border-left:3px solid var(--navy-b);background:var(--navy-l);padding:10px 14px;border-radius:0 10px 10px 0;margin:11px 0;}
+.cite strong{color:var(--navy);font-style:normal;font-family:var(--ff-b);font-size:.78rem;}
+
+/* CALLOUT */
+.callout{border-radius:10px;padding:11px 13px;margin:10px 0;font-size:.83rem;line-height:1.7;border:1.5px solid;}
+.callout-navy{background:var(--navy-l);border-color:var(--navy-b);color:var(--navy);}
+.callout-amber{background:var(--amber-l);border-color:var(--amber-b);color:var(--amber);}
+.callout-green{background:var(--green-l);border-color:var(--green-b);color:var(--green);}
+.callout-teal{background:var(--teal-l);border-color:var(--teal-b);color:var(--teal);}
+.callout-red{background:var(--red-l);border-color:var(--red-b);color:var(--red);}
+.callout-purple{background:var(--purple-l);border-color:var(--purple-b);color:var(--purple);}
+
+/* TABLES */
+.tbl{width:100%;border-collapse:collapse;font-size:.8rem;margin:10px 0;border-radius:10px;overflow:hidden;border:1.5px solid var(--rule);}
+.tbl th{background:var(--navy);color:#fff;padding:7px 10px;font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.3px;text-align:center;}
+.tbl td{padding:7px 10px;border-bottom:1px solid var(--rule);text-align:center;font-family:var(--ff-m);font-size:.82rem;font-weight:500;}
+.tbl td.l{text-align:left;font-family:var(--ff-b);font-weight:600;background:var(--navy-l);color:var(--navy);font-size:.8rem;}
+.tbl tr:last-child td{border-bottom:none;}
+.tbl tr.tot td{background:var(--amber-l);font-weight:700;color:var(--amber);}
+.tbl input[type=number]{width:58px;border:1.5px solid var(--rule);border-radius:6px;padding:3px 4px;text-align:center;font-family:var(--ff-m);font-size:.86rem;font-weight:600;background:var(--surf);outline:none;}
+.tbl input:focus{border-color:var(--navy);}
+.tbl input.ok{border-color:var(--green);background:var(--green-l);color:var(--green);}
+
+/* QUESTION BLOCK */
+.qb{background:var(--surf2);border:1.5px solid var(--rule);border-radius:12px;padding:13px;margin:12px 0;}
+.qb-n{font-size:.54rem;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--muted2);margin-bottom:6px;}
+.qb-q{font-size:.87rem;line-height:1.68;color:var(--ink);margin-bottom:10px;}
+.qb-opts{display:flex;flex-direction:column;gap:5px;}
+.qo{font-size:.82rem;padding:9px 12px;border-radius:9px;background:var(--surf);border:1.5px solid var(--rule);cursor:pointer;transition:all .13s;display:flex;gap:8px;align-items:flex-start;line-height:1.5;}
+.qo-l{flex-shrink:0;width:21px;height:21px;border-radius:50%;border:1.5px solid var(--rule);display:flex;align-items:center;justify-content:center;font-size:.58rem;font-weight:700;font-family:var(--ff-m);margin-top:1px;transition:all .12s;}
+.qo:hover:not(.locked){background:var(--navy-l);border-color:var(--navy-b);}
+.qo.ok{background:var(--green-l);border-color:var(--green-b);}.qo.ok .qo-l{background:var(--green);border-color:var(--green);color:#fff;}
+.qo.ko{background:var(--red-l);border-color:var(--red-b);}.qo.ko .qo-l{background:var(--red);border-color:var(--red);color:#fff;}
+.qfb{display:none;font-size:.79rem;line-height:1.65;padding:9px 12px;border-radius:9px;margin-top:8px;}
+.qfb.show{display:block;}
+.qfb.ok{background:var(--green-l);border:1.5px solid var(--green-b);color:var(--green);}
+.qfb.ko{background:var(--red-l);border:1.5px solid var(--red-b);color:var(--red);}
+
+/* TENSION BOX */
+.tension{background:linear-gradient(135deg,#0E2444,#1B3A6B);border-radius:14px;padding:18px;margin:0 0 16px;color:#fff;}
+.tension-label{font-size:.55rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;opacity:.65;margin-bottom:8px;}
+.tension-q{font-family:var(--ff-h);font-size:.98rem;font-style:italic;line-height:1.65;opacity:.95;}
+.tension-sub{font-size:.77rem;margin-top:10px;opacity:.75;line-height:1.6;}
+
+/* PUENTE */
+.bridge{border:2px dashed var(--navy-b);border-radius:11px;padding:12px 14px;margin:12px 0;background:var(--navy-l);}
+.bridge-l{font-size:.55rem;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--navy);margin-bottom:5px;}
+.bridge-t{font-size:.83rem;line-height:1.65;color:var(--navy);}
+
+/* STEP REVEAL */
+.steps{background:var(--surf2);border:1.5px solid var(--rule);border-radius:12px;padding:13px;margin:10px 0;}
+.step{display:none;margin-bottom:8px;animation:fi .2s ease;}
+.step.show{display:block;}
+.step-n{font-size:.56rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--amber);margin-bottom:4px;}
+.step-eq{font-family:var(--ff-m);font-size:.9rem;background:var(--navy-l);color:var(--navy);padding:5px 12px;border-radius:7px;display:inline-block;margin:4px 0;font-weight:600;}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:5px;padding:8px 15px;border-radius:9px;font-size:.75rem;font-weight:700;cursor:pointer;border:1.5px solid;font-family:var(--ff-b);transition:all .14s;letter-spacing:.1px;}
+.btn-navy{background:var(--navy);color:#fff;border-color:var(--navy);}.btn-navy:hover{background:#0E2444;}
+.btn-amber{background:var(--amber);color:#fff;border-color:var(--amber);}.btn-amber:hover{background:#7A3300;}
+.btn-teal{background:var(--teal);color:#fff;border-color:var(--teal);}
+.btn-out{background:transparent;color:var(--navy);border-color:var(--navy-b);}.btn-out:hover{background:var(--navy-l);}
+.btn-out-a{background:transparent;color:var(--amber);border-color:var(--amber-b);}.btn-out-a:hover{background:var(--amber-l);}
+.btn-out-p{background:transparent;color:var(--purple);border-color:var(--purple-b);}.btn-out-p:hover{background:var(--purple-l);}
+.brow{display:flex;flex-wrap:wrap;gap:8px;margin-top:11px;}
+
+/* SVG CHART */
+.svg-wrap{background:var(--surf);border:1.5px solid var(--rule);border-radius:12px;padding:13px;margin:10px 0;}
+.svg-title{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);margin-bottom:6px;}
+
+/* GRAPH CARDS */
+.gc-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:10px 0;}
+.gc{background:var(--surf);border:1.5px solid var(--rule);border-radius:12px;padding:12px;position:relative;overflow:hidden;}
+.gc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+.gc-bar::before{background:var(--navy);}
+.gc-hist::before{background:var(--teal);}
+.gc-pie::before{background:var(--amber);}
+.gc-line::before{background:var(--green);}
+.gc-poly::before{background:var(--purple);}
+.gc-stem::before{background:var(--red);}
+.gc-icon{font-size:1.5rem;margin-bottom:5px;}
+.gc-name{font-size:.82rem;font-weight:700;color:var(--ink);margin-bottom:2px;}
+.gc-when{font-size:.71rem;color:var(--muted2);line-height:1.45;margin-bottom:6px;}
+.gc-when strong{color:var(--ink2);}
+.gc-eg{font-size:.67rem;font-style:italic;color:var(--muted);border-top:1px solid var(--rule);padding-top:5px;margin-top:4px;}
+.gc-tag{font-size:.57rem;font-weight:700;text-transform:uppercase;letter-spacing:.3px;padding:2px 7px;border-radius:99px;display:inline-block;}
+.tag-cat{background:var(--amber-l);color:var(--amber);}
+.tag-cnt{background:var(--navy-l);color:var(--navy);}
+.tag-time{background:var(--green-l);color:var(--green);}
+.tag-dist{background:var(--purple-l);color:var(--purple);}
+.tag-any{background:var(--teal-l);color:var(--teal);}
+
+/* TALLY */
+.tally-box{background:var(--surf2);border:1.5px solid var(--rule);border-radius:11px;overflow:hidden;margin:10px 0;}
+.tally-row{display:flex;align-items:center;gap:10px;padding:7px 13px;border-bottom:1px solid var(--rule);font-size:.84rem;}
+.tally-row:last-child{border-bottom:none;}
+.tv{font-family:var(--ff-m);font-weight:700;width:24px;color:var(--navy);}
+.tm{flex:1;font-size:.95rem;letter-spacing:3px;color:var(--ink);}
+.tf{font-family:var(--ff-m);font-weight:700;width:24px;text-align:right;color:var(--amber);}
+.tfr{font-family:var(--ff-m);font-size:.78rem;width:55px;text-align:right;color:var(--teal);}
+
+/* STEM LEAF */
+.sl{background:var(--surf2);border:1.5px solid var(--rule);border-radius:11px;padding:13px;font-family:var(--ff-m);font-size:.85rem;margin:10px 0;}
+.sl-head{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted2);margin-bottom:8px;}
+.sl-row{display:flex;align-items:baseline;margin:3px 0;}
+.sl-s{font-weight:700;color:var(--navy);width:22px;text-align:right;padding-right:10px;border-right:2px solid var(--navy);margin-right:9px;}
+.sl-l{color:var(--ink);letter-spacing:4px;}
+
+/* DISK / % GRID */
+.pgrid{display:grid;grid-template-columns:repeat(10,1fr);gap:3px;margin:10px 0;}
+.pcell{aspect-ratio:1;border-radius:3px;}
+
+/* CALC */
+.calc-box{background:var(--surf2);border:1.5px solid var(--rule);border-radius:12px;padding:14px;margin:10px 0;}
+.calc-row{display:grid;grid-template-columns:1fr 62px 50px 46px;gap:7px;align-items:center;margin:5px 0;}
+.c-inp{width:100%;border:1.5px solid var(--rule);border-radius:7px;padding:5px 7px;font-family:var(--ff-m);font-size:.88rem;font-weight:600;outline:none;background:var(--surf);}
+.c-inp:focus{border-color:var(--amber);}
+.c-inp.wide{font-family:var(--ff-b);font-size:.8rem;text-align:left;}
+.c-prod{font-family:var(--ff-m);font-size:.84rem;font-weight:600;color:var(--amber);text-align:right;}
+.c-result{background:var(--navy);color:#fff;border-radius:11px;padding:14px 16px;text-align:center;margin-top:10px;}
+.c-lbl{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;opacity:.65;margin-bottom:3px;}
+.c-val{font-family:var(--ff-m);font-size:1.7rem;font-weight:600;}
+
+/* COOPERATIVE */
+.coop{background:linear-gradient(145deg,#F4EFF9,#FAF7FF);border:2px solid var(--purple-b);border-radius:14px;padding:16px;margin:14px 0;}
+.coop-hdr{display:flex;align-items:flex-start;gap:10px;margin-bottom:12px;}
+.coop-badge{background:var(--purple);color:#fff;font-size:.53rem;font-weight:700;text-transform:uppercase;letter-spacing:.6px;padding:3px 11px;border-radius:99px;white-space:nowrap;margin-top:2px;}
+.coop-title{font-family:var(--ff-h);font-size:.97rem;font-weight:700;font-style:italic;color:var(--purple);line-height:1.3;}
+.coop-time{font-size:.67rem;color:var(--muted);font-weight:600;margin-left:auto;white-space:nowrap;}
+.coop-marco{font-size:.78rem;color:var(--purple);background:rgba(74,30,122,.07);border-radius:8px;padding:8px 12px;margin:8px 0;line-height:1.6;border:1px solid var(--purple-b);}
+.roles{display:flex;flex-wrap:wrap;gap:5px;margin:8px 0;}
+.role{font-size:.66rem;font-weight:700;padding:3px 9px;border-radius:99px;background:rgba(255,255,255,.9);border:1px solid var(--purple-b);color:var(--purple);}
+.coop-step{display:flex;gap:10px;margin:8px 0;font-size:.83rem;line-height:1.6;}
+.cs-n{flex-shrink:0;width:24px;height:24px;background:var(--purple);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:700;}
+.coop-meta{font-size:.77rem;color:var(--purple);border-top:1px solid var(--purple-b);padding-top:9px;margin-top:10px;line-height:1.6;}
+
+/* VUELTA */
+.vuelta{background:linear-gradient(135deg,#0E2444 0%,#1B3A6B 100%);border-radius:12px;padding:14px;margin:16px 0;color:#fff;}
+.vuelta-l{font-size:.54rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px;opacity:.65;margin-bottom:6px;}
+.vuelta-t{font-family:var(--ff-h);font-size:.92rem;font-style:italic;line-height:1.65;}
+
+/* MAP */
+.session-map{display:flex;overflow-x:auto;gap:0;margin:12px 0;scrollbar-width:none;padding-bottom:4px;}
+.session-map::-webkit-scrollbar{display:none;}
+.sm-node{flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:3px;}
+.sm-dot{width:32px;height:32px;border-radius:50%;border:2px solid;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;background:var(--surf);}
+.sm-dot.act{background:var(--navy);color:#fff;border-color:var(--navy);}
+.sm-dot.navy{border-color:var(--navy);color:var(--navy);}
+.sm-dot.amber{border-color:var(--amber);color:var(--amber);}
+.sm-dot.purple{border-color:var(--purple);color:var(--purple);}
+.sm-label{font-size:.5rem;font-weight:600;color:var(--muted);text-align:center;max-width:50px;line-height:1.3;}
+.sm-line{flex:1;height:2px;background:var(--rule);align-self:center;min-width:8px;flex-shrink:1;}
+
+/* SEPARATOR */
+.sep{display:flex;align-items:center;gap:9px;margin:18px 0 12px;font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);}
+.sep::before,.sep::after{content:'';flex:1;height:1.5px;background:var(--rule);}
+
+/* QUIZ */
+.qz-hdr{background:var(--purple-l);border:1.5px solid var(--purple-b);border-radius:11px;padding:10px 14px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;}
+.qz-lbl{font-weight:700;color:var(--purple);font-size:.77rem;}
+.qz-sub{font-size:.7rem;color:var(--muted);font-style:italic;}
+.qqi{background:var(--surf);border:1.5px solid var(--rule);border-radius:12px;padding:13px 15px;margin-bottom:10px;}
+.qqn{font-size:.56rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted2);margin-bottom:5px;}
+.qqt{font-size:.85rem;line-height:1.65;color:var(--ink);margin-bottom:9px;}
+.qqopts{display:flex;flex-direction:column;gap:5px;}
+.qqo{font-size:.81rem;padding:8px 12px;border-radius:9px;background:var(--surf2);border:1.5px solid var(--rule);cursor:pointer;transition:all .12s;}
+.qqo:hover:not(.locked){border-color:var(--purple-b);background:var(--purple-l);}
+.qqo.sel{background:var(--purple-l);border-color:var(--purple-b);font-weight:600;color:var(--purple);}
+.qqo.ok{background:var(--green-l);border-color:var(--green-b);color:var(--green);font-weight:600;}
+.qqo.ko{background:var(--red-l);border-color:var(--red-b);color:var(--red);}
+.qqfb{display:none;font-size:.77rem;padding:8px 11px;border-radius:8px;margin-top:7px;line-height:1.6;}
+.qqfb.show{display:block;}
+.qqfb.ok{background:var(--green-l);border:1.5px solid var(--green-b);color:var(--green);}
+.qqfb.ko{background:var(--red-l);border:1.5px solid var(--red-b);color:var(--red);}
+.score-box{display:none;background:var(--surf);border:2px solid var(--navy-b);border-radius:14px;padding:22px;text-align:center;margin:16px 0;}
+.score-box.show{display:block;}
+
+/* HOMEWORK */
+.hw{background:var(--surf);border:1.5px solid var(--gold-b);border-radius:13px;padding:15px;margin:10px 0;}
+.hw-day{background:var(--gold);color:#fff;font-size:.55rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:2px 9px;border-radius:99px;display:inline-block;margin-bottom:7px;}
+.hw-title{font-family:var(--ff-h);font-size:.92rem;font-weight:700;font-style:italic;color:var(--gold);margin-bottom:7px;}
+.hw-list{list-style:none;}
+.hw-list li{font-size:.81rem;line-height:1.65;padding:5px 0;border-bottom:1px solid var(--rule);display:flex;gap:7px;align-items:flex-start;}
+.hw-list li:last-child{border-bottom:none;}
+.hw-list li::before{content:'→';color:var(--gold);flex-shrink:0;font-weight:700;margin-top:1px;}
+.hw-ref{font-size:.65rem;font-family:var(--ff-m);background:var(--gold-l);color:var(--gold);padding:2px 7px;border-radius:5px;white-space:nowrap;flex-shrink:0;}
+
+@media(max-width:380px){.gc-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="hdr">
+  <div class="hdr-band">
+    <span class="hdr-meta">Matemáticas I · Psicología · UdeC Facatativá · 2026-I</span>
+    <span class="hdr-n">10</span>
+  </div>
+  <div class="hdr-title">
+    <span class="hdr-ht">Sesión 10 — Gráficas · Proporcionalidad</span>
+    <span class="hdr-hsub">Miller §1.4, §5.5, §6.3, §10.1</span>
+  </div>
+  <div class="tabs" id="tabBar">
+    <div class="tab on" data-mod="t0"><span class="ti">🎯</span>Apertura</div>
+    <div class="tab" data-mod="tE"><span class="ti">📊</span>Encuesta</div>
+    <div class="tab" data-mod="t1"><span class="ti">🔡</span>Datos</div>
+    <div class="tab" data-mod="t2"><span class="ti">📋</span>Frecuencias</div>
+    <div class="tab" data-mod="t3"><span class="ti">🔲</span>Histograma</div>
+    <div class="tab" data-mod="t4"><span class="ti">⭕</span>Circular·Barras</div>
+    <div class="tab" data-mod="t5"><span class="ti">📈</span>Lineales</div>
+    <div class="tab" data-mod="t6"><span class="ti">🔍</span>Interpreta</div>
+    <div class="tab tb" data-mod="t7"><span class="ti">⚖️</span>Razones</div>
+    <div class="tab tb" data-mod="t8"><span class="ti">🔗</span>Proporción</div>
+    <div class="tab tb" data-mod="t9"><span class="ti">💯</span>Porcentaje</div>
+    <div class="tab tb" data-mod="t10"><span class="ti">🔁</span>Regla×3</div>
+    <div class="tab tq" data-mod="t11"><span class="ti">📝</span>Quiz</div>
+    <div class="tab" data-mod="t12"><span class="ti">🏠</span>Casa</div>
+  </div>
+</div>
+<div class="sec-label sl-a" id="secLabel">📐 Sección A — Representaciones visuales de datos · Miller §1.4 y §10.1</div>
+
+
+<!-- tE: ENCUESTA DEL SALÓN — datos reales de Clase 9 -->
+<div class="mod" id="tE"><div class="wrap">
+<div class="badges"><span class="badge badge-teal">📊 Datos reales del salón</span><span class="badge badge-navy">Conecta con Clase 9</span></div>
+<div class="section-title">Los datos de <em>nuestra</em> encuesta</div>
+<div class="section-sub">Ingresa los conteos reales que recolectaron en Clase 9 → el tool construye la tabla y la gráfica automáticamente</div>
+
+<div class="bridge">
+  <div class="bridge-l">🔗 Puente con Clase 9 — La Encuesta del Salón</div>
+  <div class="bridge-t">En Clase 9 recolectaron datos del propio salón sobre 5 temas. Esos datos son ahora el material con el que vas a <strong>practicar distribuciones de frecuencia, gráficas de barras y gráficas circulares</strong>. En lugar de trabajar solo con los datos de Miller, los datos son de tu salón — lo que hace que los resultados tengan sentido real para ti.</div>
+</div>
+
+<div class="callout callout-teal">Selecciona uno de los 5 temas de la encuesta, ingresa los conteos que obtuvieron en clase, y el tool calcula la tabla completa y dibuja la gráfica. Puedes repetirlo con todos los temas.</div>
+
+<!-- SELECTOR DE TEMA -->
+<div class="sep">Elige un tema de la encuesta</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0;" id="topicCards">
+  <div class="card" style="cursor:pointer;border-top:3px solid #0A6E5F;" onclick="setTopic('transporte')">
+    <div style="font-size:1.4rem;margin-bottom:4px;">🚌</div>
+    <div style="font-size:.83rem;font-weight:700;color:var(--teal);">Transporte hoy</div>
+    <div style="font-size:.71rem;color:var(--muted);">¿Cómo llegaron a la UdeC?</div>
+    <div style="font-size:.58rem;font-weight:700;text-transform:uppercase;color:var(--teal);margin-top:5px;">Cualitativo · Respuesta múltiple</div>
+  </div>
+  <div class="card" style="cursor:pointer;border-top:3px solid #4A1E7A;" onclick="setTopic('redes')">
+    <div style="font-size:1.4rem;margin-bottom:4px;">📱</div>
+    <div style="font-size:.83rem;font-weight:700;color:var(--purple);">Redes sociales</div>
+    <div style="font-size:.71rem;color:var(--muted);">¿Cuáles usaste hoy?</div>
+    <div style="font-size:.58rem;font-weight:700;text-transform:uppercase;color:var(--purple);margin-top:5px;">Cualitativo · Respuesta múltiple</div>
+  </div>
+  <div class="card" style="cursor:pointer;border-top:3px solid #A84A00;" onclick="setTopic('estudio')">
+    <div style="font-size:1.4rem;margin-bottom:4px;">🎧</div>
+    <div style="font-size:.83rem;font-weight:700;color:var(--amber);">Cómo estudias mejor</div>
+    <div style="font-size:.71rem;color:var(--muted);">¿En qué condición rindes más?</div>
+    <div style="font-size:.58rem;font-weight:700;text-transform:uppercase;color:var(--amber);margin-top:5px;">Cualitativo · Respuesta única</div>
+  </div>
+  <div class="card" style="cursor:pointer;border-top:3px solid #1B3A6B;" onclick="setTopic('ejercicio')">
+    <div style="font-size:1.4rem;margin-bottom:4px;">🏃</div>
+    <div style="font-size:.83rem;font-weight:700;color:var(--navy);">Actividad física</div>
+    <div style="font-size:.71rem;color:var(--muted);">Veces/semana que hiciste ejercicio</div>
+    <div style="font-size:.58rem;font-weight:700;text-transform:uppercase;color:var(--navy);margin-top:5px;">Cuantitativo ordinal · Resp. única</div>
+  </div>
+  <div class="card" style="cursor:pointer;border-top:3px solid #1A5C34;grid-column:span 2;" onclick="setTopic('campus')">
+    <div style="font-size:1.4rem;margin-bottom:4px;">🍽️</div>
+    <div style="font-size:.83rem;font-weight:700;color:var(--green);">Servicios del campus</div>
+    <div style="font-size:.71rem;color:var(--muted);">¿Cuáles usaste esta semana?</div>
+    <div style="font-size:.58rem;font-weight:700;text-transform:uppercase;color:var(--green);margin-top:5px;">Cualitativo · Respuesta múltiple</div>
+  </div>
+</div>
+
+<!-- PANEL DE ENTRADA -->
+<div id="encPanel" style="display:none;">
+  <div class="sep" id="encSepTitle">Ingresa los conteos</div>
+  <div class="card" id="encMeta">
+    <div class="card-label" id="encTopicLabel">—</div>
+    <div style="font-size:.8rem;color:var(--muted2);margin-bottom:10px;" id="encTopicDesc">—</div>
+    <div id="encMultiNote" style="display:none;" class="callout callout-amber" style="font-size:.78rem;margin-bottom:10px;">⚠ Esta pregunta era de <strong>respuesta múltiple</strong>: cada estudiante pudo marcar varias opciones. La suma de conteos puede superar el número de estudiantes del salón. Por eso <strong>no se construye tabla de frecuencias relativas acumuladas</strong> — solo f y fr independiente por categoría.</div>
+    
+    <div style="margin-bottom:10px;">
+      <label style="font-size:.74rem;font-weight:700;color:var(--ink2);">Total de estudiantes en clase: </label>
+      <input type="number" id="encTotal" min="1" max="60" value="28" oninput="recalcEnc()" style="width:55px;border:1.5px solid var(--rule);border-radius:7px;padding:4px 6px;font-family:var(--ff-m);font-size:.9rem;font-weight:700;outline:none;margin-left:6px;">
+      <span style="font-size:.73rem;color:var(--muted);margin-left:5px;">(n)</span>
+    </div>
+
+    <div id="encInputs"></div>
+    <div id="encWarning" style="display:none;" class="callout callout-red" style="margin-top:8px;font-size:.78rem;"></div>
+    <div class="brow" style="margin-top:10px;">
+      <button class="btn btn-navy" onclick="buildEncTable()">Construir tabla y gráfica</button>
+      <button class="btn btn-out" onclick="clearEnc()">Limpiar datos</button>
+    </div>
+  </div>
+
+  <!-- TABLA DE FRECUENCIAS -->
+  <div id="encTableWrap" style="display:none;">
+    <div class="sep" id="encTableTitle">Tabla de frecuencias</div>
+    <div class="callout callout-navy" id="encTableNote" style="font-size:.8rem;margin-bottom:8px;"></div>
+    <div style="overflow-x:auto;"><table class="tbl" id="encTable"></table></div>
+    
+    <!-- GRÁFICA -->
+    <div class="sep">Representación gráfica</div>
+    <div id="encChartNote" class="callout callout-teal" style="font-size:.8rem;margin-bottom:8px;"></div>
+    <div style="display:flex;gap:7px;flex-wrap:wrap;margin-bottom:10px;" id="encChartBtns"></div>
+    <div class="svg-wrap"><div class="svg-title" id="encChartTitle">Gráfica</div><svg id="encChart" viewBox="0 0 400 220" style="width:100%;max-width:400px;display:block;margin:0 auto;"></svg></div>
+
+    <!-- ANÁLISIS GUIADO -->
+    <div class="sep">Analiza los resultados del salón</div>
+    <div class="card card-navy" id="encAnalysis">
+      <div class="card-label">Preguntas de análisis — responde mentalmente o en el cuaderno</div>
+      <div id="encAnalysisQ" style="font-size:.83rem;line-height:1.75;color:var(--ink2);"></div>
+    </div>
+
+    <!-- CONEXIÓN CON MILLER -->
+    <div class="callout callout-amber" style="font-size:.82rem;">
+      <strong>Conexión con el libro:</strong> Acabas de construir exactamente lo que Miller hace en §10.1 Ejemplo 1 — pero con datos reales de tu salón. En la pestaña <strong>📋 Frecuencias</strong> verás el proceso formal paso a paso con los datos de Miller; en la pestaña <strong>⭕ Circular·Barras</strong> verás cómo construir la gráfica circular a partir de tus porcentajes.
+    </div>
+  </div>
+</div>
+
+</div></div>
+
+<!-- T0: APERTURA -->
+<div class="mod on" id="t0"><div class="wrap">
+<div class="badges"><span class="badge badge-navy">📍 En clase</span><span class="badge badge-miller">Apertura · ≈10 min</span></div>
+<div class="section-title">Sesión 10 — Lo que vamos a ver hoy</div>
+
+<div class="tension">
+  <div class="tension-label">⚡ Situación de apertura — mira esta gráfica</div>
+  <div class="tension-q">En 2016 el Financial Times publicó esta gráfica. Mostraba que los países donde más rápido creció el uso de smartphones fueron los que más rápido bajó la natalidad. El titular decía: "Los smartphones destruyen la voluntad de tener hijos".<br><br>Antes de explicar <em>nada</em> de gráficas, responde con lo que ya sabes:</div>
+  <div class="tension-sub">1. ¿Qué te dice visualmente esa gráfica? ¿Qué tipo de datos crees que muestra?<br>2. ¿El titular es una conclusión válida a partir de una gráfica? ¿Por qué sí o no?<br>3. ¿Cómo sabrías si la gráfica te está mostrando la historia completa?</div>
+</div>
+<div class="callout callout-navy">Guarda tus respuestas mentalmente. Al final de la pestaña <strong>🔍 Interpreta</strong> volvemos a esta gráfica con las herramientas que habrás aprendido hoy.</div>
+
+<div class="sep">Mapa de la sesión</div>
+<div class="p">Hoy la sesión tiene dos bloques distintos:</div>
+<div class="session-map">
+  <div class="sm-node"><div class="sm-dot navy act">📊</div><div class="sm-label">Tipos de datos</div></div>
+  <div class="sm-line"></div>
+  <div class="sm-node"><div class="sm-dot navy">📋</div><div class="sm-label">Frecuencias</div></div>
+  <div class="sm-line"></div>
+  <div class="sm-node"><div class="sm-dot navy">🔲</div><div class="sm-label">Histograma</div></div>
+  <div class="sm-line"></div>
+  <div class="sm-node"><div class="sm-dot navy">⭕</div><div class="sm-label">Circular y barras</div></div>
+  <div class="sm-line"></div>
+  <div class="sm-node"><div class="sm-dot navy">📈</div><div class="sm-label">Lineales</div></div>
+  <div class="sm-line"></div>
+  <div class="sm-node"><div class="sm-dot navy">🔍</div><div class="sm-label">Interpreta</div></div>
+  <div class="sm-line" style="background:var(--amber-b);"></div>
+  <div class="sm-node"><div class="sm-dot amber">⚖️</div><div class="sm-label">Razones</div></div>
+  <div class="sm-line" style="background:var(--amber-b);"></div>
+  <div class="sm-node"><div class="sm-dot amber">💯</div><div class="sm-label">Porcentaje</div></div>
+  <div class="sm-line" style="background:var(--amber-b);"></div>
+  <div class="sm-node"><div class="sm-dot amber">🔁</div><div class="sm-label">Regla×3</div></div>
+  <div class="sm-line" style="background:var(--purple-b);"></div>
+  <div class="sm-node"><div class="sm-dot purple">📝</div><div class="sm-label">Quiz</div></div>
+</div>
+
+<div class="bridge">
+  <div class="bridge-l">🔗 Puente con Clase 9</div>
+  <div class="bridge-t">En la sesión anterior trabajamos conjuntos, fórmula cardinal y encuestas (§2.4). Construiste una tabla de conteos con los datos del salón. Hoy tomamos esa misma idea —<em>contar ocurrencias</em>— y la convertimos en <strong>distribuciones de frecuencia</strong>, que son la base de todas las gráficas estadísticas. La pestaña M4·Interpreta que no vimos en clase 9 la vemos hoy integrada en <strong>🔍 Interpreta</strong>.</div>
+</div>
+
+<div class="callout callout-amber"><strong>Esta es la última sesión antes del Parcial 2.</strong> Todo lo que trabajemos hoy es evaluable. Usa los acordeones (▾) para revisar conceptos a tu ritmo. Las preguntas con retroalimentación inmediata te sirven para calibrar qué tienes sólido y qué necesitas reforzar en casa.</div>
+</div></div>
+
+<!-- T1: TIPOS DE DATOS Y GRÁFICAS -->
+<div class="mod" id="t1"><div class="wrap">
+<div class="badges"><span class="badge badge-navy">Miller §10.1</span><span class="badge badge-miller">Conceptos básicos</span></div>
+<div class="section-title">Tipos de datos y tipos de gráficas</div>
+<div class="section-sub">¿Por qué importa saber qué tipo de dato tenemos antes de graficar?</div>
+
+<div class="tension">
+  <div class="tension-label">🤔 Pregunta antes de explicar</div>
+  <div class="tension-q">Tienes estos datos de la encuesta del salón: "¿Cuántos hermanos tienes? — 2, 0, 1, 3, 1, 1, 2, 4, 0, 1" y también "¿Cuál es tu color favorito? — azul, rojo, azul, verde, azul, rojo, amarillo, azul, verde, rojo". ¿Los graficas igual? ¿Por qué sí o por qué no?</div>
+</div>
+
+<div class="h2">1. Dos mundos de datos</div>
+<p class="p">Miller §10.1 establece la primera distinción fundamental: no todos los datos son del mismo tipo, y eso determina qué operaciones matemáticas son válidas y qué gráfica usar.</p>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:10px 0;">
+  <div class="card card-amber">
+    <div class="card-label">Datos cualitativos</div>
+    <div class="h3">Categorías, no cantidades</div>
+    <p class="p" style="font-size:.82rem;">Describen atributos o categorías. <strong>No admiten operaciones aritméticas</strong> con sentido (no puedes sumar "azul + rojo").</p>
+    <div class="callout callout-amber" style="font-size:.78rem;">Ejemplos de tus datos: color favorito, carrera, municipio de origen, marca del celular, nivel de estrés (bajo/medio/alto)</div>
+  </div>
+  <div class="card card-navy">
+    <div class="card-label">Datos cuantitativos</div>
+    <div class="h3">Cantidades medibles</div>
+    <p class="p" style="font-size:.82rem;">Representan magnitudes numéricas. <strong>Admiten operaciones</strong>: sumar, promediar, calcular desviaciones.</p>
+    <div class="callout callout-navy" style="font-size:.78rem;">Ejemplos: número de hermanos, horas de sueño, temperatura, nota del parcial, tiempo de reacción en ms</div>
+  </div>
+</div>
+
+<div class="acc acc-navy">
+  <div class="acc-hdr" onclick="tog(this)"><div class="acc-hdr-l"><span class="acc-icon">🔢</span><span class="acc-title">Los datos cuantitativos se subdividen: discretos vs. continuos ▾</span></div><span class="acc-arrow">▾</span></div>
+  <div class="acc-body">
+    <p class="p" style="margin-top:10px;">Dentro de los datos cuantitativos, Miller hace una subdistinción importante para elegir la gráfica correcta:</p>
+    <div class="callout callout-navy"><strong>Discretos:</strong> toman valores enteros contables. No existen valores intermedios con sentido práctico. <em>Ejemplo:</em> número de hermanos (puedes tener 2 o 3, nunca 2.7). Número de materias matriculadas. Hijos en una familia.</div>
+    <div class="callout callout-teal" style="margin-top:6px;"><strong>Continuos:</strong> pueden tomar cualquier valor dentro de un rango, incluidos decimales con cualquier precisión. <em>Ejemplo:</em> temperatura corporal (36.78°C es válido), tiempo de reacción en ms (342.7 ms), peso en kg.</div>
+    <div class="callout callout-amber" style="margin-top:6px;"><strong>Caso especial — notas:</strong> aunque usan decimales (3.8, 4.5), el sistema de calificación tiene resolución fija. Se tratan como discretas en la práctica. Miller no haría histograma con valores tan concentrados.</div>
+  </div>
+</div>
+
+<div class="acc acc-amber">
+  <div class="acc-hdr" onclick="tog(this)"><div class="acc-hdr-l"><span class="acc-icon">🤔</span><span class="acc-title">¿Por qué importa esta distinción para graficar? ▾</span></div><span class="acc-arrow">▾</span></div>
+  <div class="acc-body">
+    <p class="p" style="margin-top:10px;">La distinción no es solo académica — tiene consecuencias directas:</p>
+    <div class="tbl" style="font-size:.79rem;">
+      <table style="width:100%;border-collapse:collapse;">
+        <tr><th>Tipo de dato</th><th>Gráfica recomendada</th><th>¿Por qué?</th></tr>
+        <tr><td class="l">Cualitativo</td><td>Barras o circular</td><td>Compara categorías sin implicar continuidad</td></tr>
+        <tr><td class="l">Cuantitativo discreto</td><td>Barras o histograma</td><td>Cada valor es una categoría contable</td></tr>
+        <tr><td class="l">Cuantitativo continuo</td><td>Histograma o polígono</td><td>Las barras se tocan: no hay "brecha" entre valores</td></tr>
+        <tr><td class="l">Cambio a lo largo del tiempo</td><td>Lineal</td><td>Conecta puntos para mostrar tendencia</td></tr>
+        <tr><td class="l">Partes de un todo</td><td>Circular</td><td>Muestra proporciones del 100%</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="sep">Las 6 representaciones de Miller</div>
+<p class="p">Miller §10.1 trabaja con 6 tipos de representaciones visuales. Cada una responde a una <em>pregunta diferente</em> sobre los datos.</p>
+
+<div class="gc-grid">
+  <div class="gc gc-bar">
+    <div class="gc-icon">📊</div>
+    <div class="gc-name">Gráfica de barras</div>
+    <div class="gc-when"><strong>¿Para qué?</strong> Comparar frecuencias de categorías. Las barras <em>no se tocan</em> (hay espacio entre ellas).</div>
+    <div class="gc-eg">Ej. Miller §10.1: frecuencia de vocales A, E, I, O, U en un párrafo.</div>
+    <span class="gc-tag tag-cat">Cualitativo / Discreto</span>
+  </div>
+  <div class="gc gc-hist">
+    <div class="gc-icon">🔲</div>
+    <div class="gc-name">Histograma</div>
+    <div class="gc-when"><strong>¿Para qué?</strong> Mostrar distribución de datos continuos agrupados en intervalos. Las barras <em>sí se tocan</em>.</div>
+    <div class="gc-eg">Ej. Miller §10.1 Ej.2: 40 estudiantes y sus horas semanales de estudio.</div>
+    <span class="gc-tag tag-cnt">Cuantitativo continuo</span>
+  </div>
+  <div class="gc gc-pie">
+    <div class="gc-icon">⭕</div>
+    <div class="gc-name">Gráfica circular</div>
+    <div class="gc-when"><strong>¿Para qué?</strong> Mostrar cómo se divide un <em>todo</em> en partes. Cada sector = porcentaje × 360°.</div>
+    <div class="gc-eg">Ej. Miller §10.1 Ej.4: gastos universitarios de Cheri por categoría.</div>
+    <span class="gc-tag tag-cat">Proporciones del total</span>
+  </div>
+  <div class="gc gc-line">
+    <div class="gc-icon">📈</div>
+    <div class="gc-name">Gráfica lineal</div>
+    <div class="gc-when"><strong>¿Para qué?</strong> Mostrar <em>tendencias a lo largo del tiempo</em>. Conecta puntos con segmentos de recta.</div>
+    <div class="gc-eg">Ej. Miller §1.4 Ej.6: fondos de Medicare de 2004 a 2013.</div>
+    <span class="gc-tag tag-time">Cambio en el tiempo</span>
+  </div>
+  <div class="gc gc-poly">
+    <div class="gc-icon">〰️</div>
+    <div class="gc-name">Polígono de frecuencias</div>
+    <div class="gc-when"><strong>¿Para qué?</strong> Versión lineal del histograma. Une los <em>puntos medios</em> de cada intervalo con segmentos y cierra al eje.</div>
+    <div class="gc-eg">Ej. Miller §10.1 Fig.2: hermanos en la clase de Psicología.</div>
+    <span class="gc-tag tag-dist">Distribución de frecuencias</span>
+  </div>
+  <div class="gc gc-stem">
+    <div class="gc-icon">🌿</div>
+    <div class="gc-name">Tallo y hoja</div>
+    <div class="gc-when"><strong>¿Para qué?</strong> Histograma horizontal que <em>conserva los valores exactos</em>. Ventaja sobre el histograma agrupado.</div>
+    <div class="gc-eg">Ej. Miller §10.1 Ej.3: datos de horas de estudio preservando cada valor.</div>
+    <span class="gc-tag tag-any">Cuantitativo (muestras pequeñas)</span>
+  </div>
+</div>
+
+<div class="sep">Clasifica los datos de nuestra encuesta</div>
+<p class="p">Para cada variable de la encuesta del salón (Clase 9), decide: ¿cualitativo o cuantitativo? ¿Discreto o continuo? ¿Qué gráfica usarías?</p>
+<div id="vcArea"></div>
+
+<div class="sep">Preguntas de comprensión</div>
+<div class="qb"><div class="qb-n">Pregunta 1</div>
+  <div class="qb-q">Las respuestas a "¿cuántos hermanos tienes?" son datos cuantitativos discretos. ¿Por qué "discretos" y no "continuos"?</div>
+  <div class="qb-opts" data-qid="T1Q1">
+    <div class="qo" data-v="A"><span class="qo-l">A</span>Porque los números son pequeños.</div>
+    <div class="qo" data-v="B"><span class="qo-l">B</span>Porque solo toman valores enteros (0, 1, 2, 3…): no existe 1.7 hermanos. Son contables sin valores intermedios.</div>
+    <div class="qo" data-v="C"><span class="qo-l">C</span>Porque se pueden graficar en barras.</div>
+    <div class="qo" data-v="D"><span class="qo-l">D</span>Porque provienen de una encuesta.</div>
+  </div><div class="qfb" id="fb_T1Q1"></div>
+</div>
+<div class="qb"><div class="qb-n">Pregunta 2</div>
+  <div class="qb-q">¿Por qué en el histograma las barras se tocan entre sí, pero en la gráfica de barras tienen espacios? (Miller §10.1)</div>
+  <div class="qb-opts" data-qid="T1Q2">
+    <div class="qo" data-v="A"><span class="qo-l">A</span>Por estética — cada tipo de gráfica tiene su estilo.</div>
+    <div class="qo" data-v="B"><span class="qo-l">B</span>En el histograma los intervalos son contiguos (los datos son continuos, no hay brecha entre clases). En la gráfica de barras las categorías son independientes — no hay continuidad entre "rojo" y "azul".</div>
+    <div class="qo" data-v="C"><span class="qo-l">C</span>El histograma siempre tiene más de 5 barras y necesita el espacio.</div>
+    <div class="qo" data-v="D"><span class="qo-l">D</span>Solo el histograma puede representar frecuencias.</div>
+  </div><div class="qfb" id="fb_T1Q2"></div>
+</div>
+<div class="qb"><div class="qb-n">Pregunta 3 — aplica</div>
+  <div class="qb-q">Una investigadora tiene datos de temperatura corporal de 80 pacientes (entre 35°C y 40°C). ¿Qué gráfica recomienda Miller y por qué?</div>
+  <div class="qb-opts" data-qid="T1Q3">
+    <div class="qo" data-v="A"><span class="qo-l">A</span>Gráfica circular — porque hay un total del que ver proporciones.</div>
+    <div class="qo" data-v="B"><span class="qo-l">B</span>Histograma — datos cuantitativos continuos. Los valores pueden agruparse en intervalos (35-35.9, 36-36.9…) y las barras se tocan. Permite ver la forma de la distribución.</div>
+    <div class="qo" data-v="C"><span class="qo-l">C</span>Gráfica de barras — porque tiene categorías.</div>
+    <div class="qo" data-v="D"><span class="qo-l">D</span>Gráfica lineal — para ver tendencias.</div>
+  </div><div class="qfb" id="fb_T1Q3"></div>
+</div>
+</div></div>
+
+<!-- T2: DISTRIBUCIONES DE FRECUENCIA -->
+<div class="mod" id="t2"><div class="wrap">
+<div class="badges"><span class="badge badge-navy">Miller §10.1</span><span class="badge badge-miller">Ejemplo 1 completo</span></div>
+<div class="section-title">Distribuciones de frecuencia</div>
+<div class="section-sub">Cómo organizar datos en bruto — y qué tipos de frecuencia existen</div>
+
+<div class="tension">
+  <div class="tension-label">🤔 El problema de los datos en bruto</div>
+  <div class="tension-q">Te doy estos datos de nuestra clase de Psicología: "2 3 1 3 3 5 2 3 3 1 1 4 2 4 2 5 4 3 6 5 1 6 2 2 2". Son los números de integrantes de las familias de 25 estudiantes. ¿Cuántos tienen 3 integrantes? ¿Cuál es el número más frecuente? ¿Es fácil verlo así?</div>
+</div>
+<div class="callout callout-navy">Los datos así —sin organizar— se llaman <strong>datos en bruto</strong>. El primer paso estadístico es construir una <em>distribución de frecuencias</em> que organice esa información.</div>
+
+<div class="h2">Paso 0: ¿Qué es una frecuencia?</div>
+<p class="p">Antes de hablar de tipos de frecuencia, aclaremos el concepto básico.</p>
+<div class="def"><div class="def-label">Definición</div><div class="def-body">La <strong>frecuencia</strong> de un valor x es el número de veces que ese valor aparece en el conjunto de datos. Si el valor 3 aparece 6 veces en 25 datos, su frecuencia es <strong>f = 6</strong>.</div></div>
+
+<div class="h2">Los 4 tipos de frecuencia — uno a uno</div>
+<p class="p">Una tabla de frecuencias completa tiene <em>cuatro columnas</em>, cada una respondiendo una pregunta diferente. Vamos a construirlas con el mismo ejemplo (Miller §10.1, Ej.1).</p>
+
+<div class="acc acc-navy open">
+  <div class="acc-hdr" onclick="tog(this)"><div class="acc-hdr-l"><span class="acc-icon">1️⃣</span><span class="acc-title">Frecuencia absoluta (f) — ¿cuántas veces aparece? ▾</span></div><span class="acc-arrow">▾</span></div>
+  <div class="acc-body">
+    <p class="p" style="margin-top:10px;"><strong>Pregunta que responde:</strong> ¿Cuántas veces aparece exactamente este valor en mis datos?</p>
+    <div class="fml fml-navy"><div class="fml-eq">f = número de veces que aparece x</div><div class="fml-note">Es el conteo directo. Los "palitos" de las marcas de registro dan la frecuencia absoluta.</div></div>
+    <div class="callout callout-teal"><strong>Ejemplo Miller §10.1 Ej.1:</strong> De 25 estudiantes, ¿cuántos tienen 1 integrante en su familia? Contamos los "1" en los datos brutos → f(1) = 4. ¿Cuántos tienen 2? f(2) = 7.</div>
+    <p class="p">Se usa para construir el histograma. Su <strong>suma total = n</strong> (número total de datos). Si no suma n, hay un error de conteo.</p>
+  </div>
+</div>
+
+<div class="acc acc-teal">
+  <div class="acc-hdr" onclick="tog(this)"><div class="acc-hdr-l"><span class="acc-icon">2️⃣</span><span class="acc-title">Frecuencia relativa (fr) — ¿qué proporción del total? ▾</span></div><span class="acc-arrow">▾</span></div>
+  <div class="acc-body">
+    <p class="p" style="margin-top:10px;"><strong>Pregunta que responde:</strong> Del 100% de mis datos, ¿qué fracción corresponde a este valor?</p>
+    <div class="fml fml-navy"><div class="fml-eq">fr = f / n</div><div class="fml-note">n = total de datos. Resultado: número entre 0 y 1 (o entre 0% y 100%)</div></div>
+    <div class="callout callout-teal"><strong>Ejemplo:</strong> f(2) = 7, n = 25 → fr(2) = 7/25 = 0.28 = 28%. El 28% de los estudiantes tiene 2 integrantes en su familia.</div>
+    <div class="callout callout-navy" style="margin-top:6px;"><strong>Conexión con probabilidad (Miller):</strong> fr = f/n ES la probabilidad empírica. Si eliges un estudiante al azar, la probabilidad de que tenga 2 integrantes es 7/25 = 0.28 = 28%. La distribución de frecuencias relativas <em>es</em> la distribución de probabilidad de los datos.</div>
+    <p class="p">La suma de todas las frecuencias relativas debe ser exactamente <strong>1.0 (100%)</strong>.</p>
+  </div>
+</div>
+
+<div class="acc acc-amber">
+  <div class="acc-hdr" onclick="tog(this)"><div class="acc-hdr-l"><span class="acc-icon">3️⃣</span><span class="acc-title">Frecuencia acumulada (F) — ¿cuántos hay hasta aquí? ▾</span></div><span class="acc-arrow">▾</span></div>
+  <div class="acc-body">
+    <p class="p" style="margin-top:10px;"><strong>Pregunta que responde:</strong> ¿Cuántos datos tienen un valor <em>menor o igual</em> a x?</p>
+    <div class="fml fml-amber"><div class="fml-eq">F(x) = f(x₁) + f(x₂) + ... + f(x)</div><div class="fml-note">Se construye sumando progresivamente. Empieza en f(x₁) y termina en n.</div></div>
+    <div class="callout callout-amber"><strong>Ejemplo:</strong> ¿Cuántos estudiantes tienen familia de 3 o menos integrantes? F(3) = f(1)+f(2)+f(3) = 4+7+6 = <strong>17</strong> de 25 estudiantes.</div>
+    <p class="p">La frecuencia acumulada permite responder preguntas del tipo "¿cuántos están <em>por debajo</em> de cierto valor?" — importantes para calcular percentiles y posición en distribuciones.</p>
+  </div>
+</div>
+
+<div class="acc acc-green">
+  <div class="acc-hdr" onclick="tog(this)"><div class="acc-hdr-l"><span class="acc-icon">4️⃣</span><span class="acc-title">Frecuencia relativa acumulada (Fr) — ¿qué porcentaje hay hasta aquí? ▾</span></div><span class="acc-arrow">▾</span></div>
+  <div class="acc-body">
+    <p class="p" style="margin-top:10px;"><strong>Pregunta que responde:</strong> ¿Qué porcentaje del total tiene valor menor o igual a x?</p>
+    <div class="fml fml-navy"><div class="fml-eq">Fr(x) = F(x) / n = suma de fr hasta x</div><div class="fml-note">Combina la acumulada con la relativa. Termina siempre en 1.0 (100%).</div></div>
+    <div class="callout callout-green"><strong>Ejemplo:</strong> Fr(3) = F(3)/n = 17/25 = 0.68 = <strong>68%</strong>. El 68% de los estudiantes tiene 3 o menos integrantes. Esto es útil para percentiles: el valor 3 está en el percentil 68 aproximadamente.</div>
+    <p class="p">La Fr(x) final siempre debe ser <strong>1.0 (100%)</strong>.</p>
+  </div>
+</div>
+
+<div class="h2">Construir la tabla completa paso a paso — Miller §10.1 Ej.1</div>
+<p class="p">Datos en bruto (25 estudiantes de Psicología, número de integrantes de su familia):</p>
+<div class="callout callout-navy" style="font-family:var(--ff-m);letter-spacing:2px;text-align:center;">2 3 1 3 3 5 2 3 3 1 1 4 2 4 2 5 4 3 6 5 1 6 2 2 2</div>
+
+<p class="p" style="margin-top:10px;"><strong>Paso 1 — Marcas de registro (tally):</strong> recorremos los datos uno a uno, de izquierda a derecha, haciendo una marca por cada ocurrencia.</p>
+<div class="tally-box">
+  <div class="tally-row"><span class="tv">1</span><span class="tm">||||</span><span class="tf">4</span><span class="tfr">= 4/25</span></div>
+  <div class="tally-row"><span class="tv">2</span><span class="tm">|||| ||</span><span class="tf">7</span><span class="tfr">= 7/25</span></div>
+  <div class="tally-row"><span class="tv">3</span><span class="tm">|||| |</span><span class="tf">6</span><span class="tfr">= 6/25</span></div>
+  <div class="tally-row"><span class="tv">4</span><span class="tm">|||</span><span class="tf">3</span><span class="tfr">= 3/25</span></div>
+  <div class="tally-row"><span class="tv">5</span><span class="tm">|||</span><span class="tf">3</span><span class="tfr">= 3/25</span></div>
+  <div class="tally-row"><span class="tv">6</span><span class="tm">||</span><span class="tf">2</span><span class="tfr">= 2/25</span></div>
+</div>
+
+<p class="p"><strong>Paso 2 — Tabla completa:</strong> completa la columna de frecuencia relativa acumulada (Fr). El resto ya está dado.</p>
+<table class="tbl" id="t2tbl">
+  <tr><th>x</th><th>f</th><th>fr (%)</th><th>F</th><th>Fr (%) — completa</th></tr>
+  <tr><td class="l">1 integrante</td><td>4</td><td>16%</td><td>4</td><td><input type="number" data-ans="16" placeholder="?" oninput="chkT2(this,'T2_1','16')"></td></tr>
+  <tr><td class="l">2 integrantes</td><td>7</td><td>28%</td><td>11</td><td><input type="number" data-ans="44" placeholder="?" oninput="chkT2(this,'T2_2','44')"></td></tr>
+  <tr><td class="l">3 integrantes</td><td>6</td><td>24%</td><td>17</td><td><input type="number" data-ans="68" placeholder="?" oninput="chkT2(this,'T2_3','68')"></td></tr>
+  <tr><td class="l">4 integrantes</td><td>3</td><td>12%</td><td>20</td><td><input type="number" data-ans="80" placeholder="?" oninput="chkT2(this,'T2_4','80')"></td></tr>
+  <tr><td class="l">5 integrantes</td><td>3</td><td>12%</td><td>23</td><td><input type="number" data-ans="92" placeholder="?" oninput="chkT2(this,'T2_5','92')"></td></tr>
+  <tr><td class="l">6 integrantes</td><td>2</td><td>8%</td><td>25</td><td><input type="number" data-ans="100" placeholder="?" oninput="chkT2(this,'T2_6','100')"></td></tr>
+  <tr class="tot"><td class="l">TOTAL</td><td>25</td><td>100%</td><td>—</td><td id="t2tot">—</td></tr>
+</table>
+<div class="callout callout-navy" style="font-size:.78rem;">Ingresa los porcentajes de la columna Fr (frecuencia relativa acumulada). Ej: F(2) = 11, n = 25 → Fr(2) = 11/25 = 0.44 = 44%. La última debe dar 100%.</div>
+<div id="t2msg" style="display:none;"></div>
+
+<div class="h2">Histograma y polígono de frecuencias del Ejemplo 1</div>
+<p class="p">Con la tabla construida, Miller dibuja dos representaciones gráficas. Nótese la diferencia:</p>
+
+<div class="acc acc-navy">
+  <div class="acc-hdr" onclick="tog(this)"><div class="acc-hdr-l"><span class="acc-icon">🔲</span><span class="acc-title">Histograma (Fig. 1 de Miller) ▾</span></div><span class="acc-arrow">▾</span></div>
+  <div class="acc-body">
+    <p class="p" style="margin-top:10px;">Rectángulos contiguos con altura = frecuencia. Eje x = valores, eje y = frecuencia. La <em>altura</em> de cada barra representa cuántos datos hay en ese valor.</p>
+    <div class="svg-wrap"><div class="svg-title">Histograma — integrantes familia (n=25)</div><svg id="hist1" viewBox="0 0 380 185" style="width:100%;max-width:380px;display:block;margin:0 auto;"></svg></div>
+  </div>
+</div>
+
+<div class="acc acc-teal">
+  <div class="acc-hdr" onclick="tog(this)"><div class="acc-hdr-l"><span class="acc-icon">〰️</span><span class="acc-title">Polígono de frecuencias (Fig. 2 de Miller) ▾</span></div><span class="acc-arrow">▾</span></div>
+  <div class="acc-body">
+    <p class="p" style="margin-top:10px;">En lugar de barras, se marca un punto a la altura de cada frecuencia y se conectan con segmentos. Se cierra al eje en ambos extremos (más allá del 1 y del 6).</p>
+    <div class="callout callout-teal">¿Por qué cierra al eje? Para que el área total encerrada represente el 100% de los datos. Cada área parcial = probabilidad de ese valor.</div>
+    <div class="svg-wrap"><div class="svg-title">Polígono de frecuencias — mismos datos</div><svg id="poly1" viewBox="0 0 380 185" style="width:100%;max-width:380px;display:block;margin:0 auto;"></svg></div>
+  </div>
+</div>
+
+<div class="sep">Preguntas</div>
+<div class="qb"><div class="qb-n">Pregunta 1</div>
+  <div class="qb-q">¿Cuál es la frecuencia relativa acumulada del valor x=4 en el Ejemplo 1 de Miller?</div>
+  <div class="qb-opts" data-qid="T2Q1">
+    <div class="qo" data-v="A"><span class="qo-l">A</span>12% (solo la fr de x=4)</div>
+    <div class="qo" data-v="B"><span class="qo-l">B</span>80% — F(4) = 20 datos con 4 o menos integrantes. Fr(4) = 20/25 = 0.80 = 80%</div>
+    <div class="qo" data-v="C"><span class="qo-l">C</span>68%</div>
+    <div class="qo" data-v="D"><span class="qo-l">D</span>3/25</div>
+  </div><div class="qfb" id="fb_T2Q1"></div>
+</div>
+<div class="qb"><div class="qb-n">Pregunta 2 — Conexión con probabilidad</div>
+  <div class="qb-q">Si eliges al azar uno de los 25 estudiantes, ¿cuál es la probabilidad de que su familia tenga MÁS DE 4 integrantes?</div>
+  <div class="qb-opts" data-qid="T2Q2">
+    <div class="qo" data-v="A"><span class="qo-l">A</span>20% — f(5)+f(6) = 3+2 = 5. P = 5/25 = 20%</div>
+    <div class="qo" data-v="B"><span class="qo-l">B</span>12%</div>
+    <div class="qo" data-v="C"><span class="qo-l">C</span>8%</div>
+    <div class="qo" data-v="D"><span class="qo-l">D</span>30%</div>
+  </div><div class="qfb" id="fb_T2Q2"></div>
+</div>
+<div class="qb"><div class="qb-n">Pregunta 3</div>
+  <div class="qb-q">¿Para qué sirve la frecuencia relativa acumulada (Fr) que no sirve la frecuencia absoluta (f)?</div>
+  <div class="qb-opts" data-qid="T2Q3">
+    <div class="qo" data-v="A"><span class="qo-l">A</span>Para saber cuántas veces aparece un valor específico.</div>
+    <div class="qo" data-v="B"><span class="qo-l">B</span>Para responder preguntas del tipo "¿qué porcentaje de datos está por debajo de X?" — es la base para calcular percentiles y posición relativa en la distribución.</div>
+    <div class="qo" data-v="C"><span class="qo-l">C</span>Para construir el histograma.</div>
+    <div class="qo" data-v="D"><span class="qo-l">D</span>Para calcular el promedio.</div>
+  </div><div class="qfb" id="fb_T2Q3"></div>
+</div>
+</div></div>
+
+<!-- T3: HISTOGRAMA AGRUPADO -->
+<div class="mod" id="t3"><div class="wrap">
+<div class="badges"><span class="badge badge-navy">Miller §10.1</span><span class="badge badge-miller">Ejemplos 2 y 3</span></div>
+<div class="section-title">Distribuciones agrupadas, histograma y tallo y hoja</div>
+<div class="section-sub">¿Qué hacemos cuando hay demasiados valores distintos?</div>
+
+<div class="tension">
+  <div class="tension-label">🤔 El problema</div>
+  <div class="tension-q">Tienes 40 datos de horas de estudio que van de 12 a 72. Si construyes una tabla con cada valor exacto (12, 13, 14… 72), tendrías 61 filas. El histograma sería ilegible. ¿Cómo lo solucionas?</div>
+</div>
+
+<div class="def"><div class="def-label">Solución de Miller</div><div class="def-body">Cuando un conjunto de datos contiene gran cantidad de elementos, se arreglan en <strong>grupos o clases</strong>. Todos los datos se asignan a la clase adecuada y se obtiene una <strong>distribución de frecuencias agrupadas</strong>.</div></div>
+
+<div class="h2">Los 4 criterios de Miller para construir clases</div>
+<p class="p">No se pueden crear clases arbitrariamente. Miller establece 4 criterios que toda distribución agrupada debe cumplir:</p>
+
+<div class="acc acc-navy open">
+  <div class="acc-hdr" onclick="tog(this)"><div class="acc-hdr-l"><span class="acc-icon">1️⃣</span><span class="acc-title">Criterio 1: Un dato, una clase — sin ambigüedad ▾</span></div><span class="acc-arrow">▾</span></div>
+  <div class="acc-body">
+    <p class="p" style="margin-top:10px;">Cada dato se debe poder asignar a <em>exactamente una</em> clase. Si los intervalos se solapan, no sabes dónde poner un dato que cae en el borde.</p>
+    <div class="callout callout-red"><strong>Incorrecto:</strong> clases 10-20, 20-30 (¿dónde va el 20?)<br><strong>Correcto:</strong> clases 10-19, 20-29 (Miller usa límites sin solapamiento)</div>
+  </div>
+</div>
+<div class="acc acc-teal">
+  <div class="acc-hdr" onclick="tog(this)"><div class="acc-hdr-l"><span class="acc-icon">2️⃣</span><span class="acc-title">Criterio 2: Amplitud uniforme — todas las clases tienen el mismo ancho ▾</span></div><span class="acc-arrow">▾</span></div>
+  <div class="acc-body">
+    <p class="p" style="margin-top:10px;">Todas las clases deben tener la <em>misma amplitud</em>. Si una clase tiene ancho 10 y otra ancho 5, las alturas de las barras no son comparables directamente.</p>
+    <div class="callout callout-teal"><strong>Amplitud recomendada:</strong> Amplitud ≈ Rango / número de clases. En el Ej.2 de Miller: rango = 72−12 = 60. Con 7 clases: amplitud ≈ 60/7 ≈ 8.6 → se usa 10 para redondear.</div>
+  </div>
+</div>
+<div class="acc acc-amber">
+  <div class="acc-hdr" onclick="tog(this)"><div class="acc-hdr-l"><span class="acc-icon">3️⃣</span><span class="acc-title">Criterio 3: Sin traslape — los intervalos son mutuamente excluyentes ▾</span></div><span class="acc-arrow">▾</span></div>
+  <div class="acc-body">
+    <p class="p" style="margin-top:10px;">Ningún valor puede pertenecer a dos clases simultáneamente. Este criterio es consecuencia del criterio 1 — lo refuerza para evitar doble conteo.</p>
+  </div>
+</div>
+<div class="acc acc-green">
+  <div class="acc-hdr" onclick="tog(this)"><div class="acc-hdr-l"><span class="acc-icon">4️⃣</span><span class="acc-title">Criterio 4: Entre 5 y 12 clases — ni pocas ni demasiadas ▾</span></div><span class="acc-arrow">▾</span></div>
+  <div class="acc-body">
+    <p class="p" style="margin-top:10px;">Muy pocas clases (<5) ocultan la distribución — toda la información colapsa en pocos rectángulos. Demasiadas clases (>12) fragmentan demasiado y el histograma pierde sentido.</p>
+    <div class="callout callout-green">Miller §10.1: "Muy pocas o demasiadas clases podrían ocultar las tendencias de los datos." El rango 5-12 es un equilibrio entre síntesis y detalle.</div>
+  </div>
+</div>
+
+<div class="h2">La marca de clase — un concepto clave</div>
+<div class="def"><div class="def-label">Marca de clase</div><div class="def-body">Es el valor <strong>a la mitad</strong> de cada intervalo: (límite inferior + límite superior) / 2. Es el valor representativo de esa clase y se usa para construir el polígono de frecuencias.</div></div>
+<div class="callout callout-navy"><strong>Ejemplo:</strong> Clase 20-29 → marca = (20+29)/2 = 49/2 = <strong>24.5</strong>. Clase 30-39 → marca = (30+39)/2 = <strong>34.5</strong>.</div>
+
+<div class="h2">Ejemplo 2 completo — Miller §10.1</div>
+<p class="p">40 estudiantes estimaron sus horas semanales de estudio. Datos en bruto:</p>
+<div class="callout callout-navy" style="font-family:var(--ff-m);font-size:.8rem;line-height:1.9;text-align:center;">18 60 72 58 20 15 12 26 16 29 | 26 41 45 25 32 24 22 55 30 31<br>55 39 29 44 29 14 40 31 45 62 | 36 52 47 38 36 23 33 44 17 24</div>
+<p class="p" style="margin-top:8px;">Diseño: rango = 72−12 = 60. Con amplitud 10 → 7 clases (12→79). Cumple criterio 4 (entre 5 y 12).</p>
+
+<table class="tbl">
+  <tr><th>Clase</th><th>Marca</th><th>Tally</th><th>f</th><th>fr (%)</th></tr>
+  <tr><td class="l">10 – 19</td><td>14.5</td><td style="font-size:.85rem;letter-spacing:2px;">|||| |</td><td>6</td><td>15.0%</td></tr>
+  <tr><td class="l">20 – 29</td><td>24.5</td><td style="font-size:.85rem;letter-spacing:2px;">|||| |||| |</td><td>11</td><td>27.5%</td></tr>
+  <tr><td class="l">30 – 39</td><td>34.5</td><td style="font-size:.85rem;letter-spacing:2px;">|||| ||||</td><td>9</td><td>22.5%</td></tr>
+  <tr><td class="l">40 – 49</td><td>44.5</td><td style="font-size:.85rem;letter-spacing:2px;">|||| ||</td><td>7</td><td>17.5%</td></tr>
+  <tr><td class="l">50 – 59</td><td>54.5</td><td style="font-size:.85rem;letter-spacing:2px;">||||</td><td>4</td><td>10.0%</td></tr>
+  <tr><td class="l">60 – 69</td><td>64.5</td><td style="font-size:.85rem;letter-spacing:2px;">||</td><td>2</td><td>5.0%</td></tr>
+  <tr><td class="l">70 – 79</td><td>74.5</td><td style="font-size:.85rem;letter-spacing:2px;">|</td><td>1</td><td>2.5%</td></tr>
+  <tr class="tot"><td class="l">Total</td><td>—</td><td>—</td><td>40</td><td>100%</td></tr>
+</table>
+<div class="svg-wrap"><div class="svg-title">Histograma de frecuencias agrupadas (Ej.2 Miller)</div><svg id="hist2" viewBox="0 0 400 195" style="width:100%;max-width:400px;display:block;margin:0 auto;"></svg></div>
+<div class="svg-wrap"><div class="svg-title">Polígono de frecuencias — marcas de clase en eje x</div><svg id="poly2" viewBox="0 0 400 195" style="width:100%;max-width:400px;display:block;margin:0 auto;"></svg></div>
+
+<div class="h2">Diagrama de tallo y hoja — Ejemplo 3</div>
+<p class="p">El histograma agrupado tiene una limitación importante: <strong>pierde los valores exactos</strong>. Solo sabemos que hay 7 datos en la clase 40-49, pero no cuáles. El diagrama de tallo y hoja resuelve esto.</p>
+<div class="def"><div class="def-label">Tallo y hoja — Miller §10.1</div><div class="def-body">El <strong>tallo</strong> son los dígitos de las decenas. Las <strong>hojas</strong> son los dígitos de las unidades. Produce un histograma horizontal que <em>conserva cada valor exacto</em>.</div></div>
+<div class="sl">
+  <div class="sl-head">TALLO | HOJAS (datos de horas semanales de estudio)</div>
+  <div class="sl-row"><span class="sl-s">1</span><span class="sl-l">8 5 2 6 4 7</span></div>
+  <div class="sl-row"><span class="sl-s">2</span><span class="sl-l">0 6 9 6 5 4 2 9 9 3 4</span></div>
+  <div class="sl-row"><span class="sl-s">3</span><span class="sl-l">2 0 1 9 1 6 8 6 3</span></div>
+  <div class="sl-row"><span class="sl-s">4</span><span class="sl-l">1 5 4 0 5 7 4</span></div>
+  <div class="sl-row"><span class="sl-s">5</span><span class="sl-l">8 5 5 2</span></div>
+  <div class="sl-row"><span class="sl-s">6</span><span class="sl-l">0 2</span></div>
+  <div class="sl-row"><span class="sl-s">7</span><span class="sl-l">2</span></div>
+</div>
+<div class="callout callout-teal"><strong>Ventaja sobre el histograma agrupado:</strong> el tallo 4 con hojas 1,5,4,0,5,7,4 nos dice que los 7 valores son <em>exactamente</em> 41, 45, 44, 40, 45, 47, 44. El histograma solo nos dice "hay 7 datos entre 40 y 49".</div>
+
+<div class="sep">Preguntas</div>
+<div class="qb"><div class="qb-n">Pregunta 1</div>
+  <div class="qb-q">En el Ejemplo 2, ¿cuál es la marca de clase del intervalo 40–49?</div>
+  <div class="qb-opts" data-qid="T3Q1">
+    <div class="qo" data-v="A"><span class="qo-l">A</span>40</div>
+    <div class="qo" data-v="B"><span class="qo-l">B</span>44.5 — (40+49)/2 = 89/2 = 44.5. Es el punto medio del intervalo.</div>
+    <div class="qo" data-v="C"><span class="qo-l">C</span>45</div>
+    <div class="qo" data-v="D"><span class="qo-l">D</span>49</div>
+  </div><div class="qfb" id="fb_T3Q1"></div>
+</div>
+<div class="qb"><div class="qb-n">Pregunta 2</div>
+  <div class="qb-q">¿Cuál de los 4 criterios de Miller se violaría si construyes las clases: 10-20, 20-30, 30-40?</div>
+  <div class="qb-opts" data-qid="T3Q2">
+    <div class="qo" data-v="A"><span class="qo-l">A</span>Criterio 4 (demasiadas clases)</div>
+    <div class="qo" data-v="B"><span class="qo-l">B</span>Criterios 1 y 3 (traslape): el dato 20 pertenecería tanto a la clase 10-20 como a 20-30. No hay asignación única.</div>
+    <div class="qo" data-v="C"><span class="qo-l">C</span>Criterio 2 (amplitud no uniforme)</div>
+    <div class="qo" data-v="D"><span class="qo-l">D</span>No se viola ningún criterio</div>
+  </div><div class="qfb" id="fb_T3Q2"></div>
+</div>
+<div class="qb"><div class="qb-n">Pregunta 3</div>
+  <div class="qb-q">¿Qué valores exactos están en el tallo "3" del diagrama de tallo y hoja del Ejemplo 3?</div>
+  <div class="qb-opts" data-qid="T3Q3">
+    <div class="qo" data-v="A"><span class="qo-l">A</span>30, 31, 32, 33, 34, 35, 36, 37, 38, 39 (todos los posibles)</div>
+    <div class="qo" data-v="B"><span class="qo-l">B</span>32, 30, 31, 39, 31, 36, 38, 36, 33 — las hojas 2,0,1,9,1,6,8,6,3 con tallo 3</div>
+    <div class="qo" data-v="C"><span class="qo-l">C</span>Solo el valor 30</div>
+    <div class="qo" data-v="D"><span class="qo-l">D</span>No se puede saber — el tallo oculta los datos</div>
+  </div><div class="qfb" id="fb_T3Q3"></div>
+</div>
+</div></div>
+
+<!-- T4: CIRCULAR Y BARRAS -->
+<div class="mod" id="t4"><div class="wrap">
+<div class="badges"><span class="badge badge-navy">Miller §10.1 y §1.4</span><span class="badge badge-miller">Ejemplos 4 y 5</span></div>
+<div class="section-title">Gráficas circulares y de barras</div>
+<div class="section-sub">Construir e interpretar — no son la misma habilidad</div>
+
+<div class="h2">Gráfica circular — cómo se construye</div>
+<div class="cite"><strong>Miller §10.1:</strong> "El ángulo total del círculo mide 360°. Por ejemplo, una categoría que represente el 20% de un entero debe corresponder a un sector cuyo ángulo central es un 20% de 360°, es decir, 0.20 × 360° = 72°."</div>
+
+<div class="def"><div class="def-label">Fórmula clave</div><div class="def-body">Ángulo central del sector = <strong>porcentaje × 360°</strong> (o equivalentemente: fr × 360°)</div></div>
+
+<div class="h3">Ejemplo 4 completo — Miller §10.1: Gastos universitarios de Cheri</div>
+<p class="p">Cheri registró sus gastos del primer semestre en estas categorías. Completa los ángulos haciendo clic en el botón:</p>
+
+<table class="tbl" id="cheriTbl">
+  <tr><th>Categoría</th><th>Porcentaje</th><th>Ángulo = % × 360°</th></tr>
+  <tr><td class="l">Alimentos</td><td>30%</td><td id="ca1" style="color:var(--muted);">?</td></tr>
+  <tr><td class="l">Renta</td><td>25%</td><td id="ca2" style="color:var(--muted);">?</td></tr>
+  <tr><td class="l">Diversión</td><td>15%</td><td id="ca3" style="color:var(--muted);">?</td></tr>
+  <tr><td class="l">Ropa</td><td>10%</td><td id="ca4" style="color:var(--muted);">?</td></tr>
+  <tr><td class="l">Libros</td><td>10%</td><td id="ca5" style="color:var(--muted);">?</td></tr>
+  <tr><td class="l">Otros</td><td>10%</td><td id="ca6" style="color:var(--muted);">?</td></tr>
+  <tr class="tot"><td class="l">TOTAL</td><td>100%</td><td>360°</td></tr>
+</table>
+<div class="brow"><button class="btn btn-navy" onclick="buildPie()">Calcular ángulos y construir gráfica</button></div>
+<div class="svg-wrap" style="margin-top:10px;"><div class="svg-title">Gráfica circular construida — Cheri (Miller §10.1 Ej.4)</div><svg id="pieCheri" viewBox="0 0 360 230" style="width:100%;max-width:360px;display:block;margin:0 auto;"></svg></div>
+
+<div class="h2">Leer una gráfica circular — Miller §1.4 Ej.4</div>
+<p class="p">Saber <em>leer</em> una circular es una habilidad distinta a construirla. Miller trabaja el precio de la gasolina en California ($3.50/galón):</p>
+<div class="acc acc-navy">
+  <div class="acc-hdr" onclick="tog(this)"><div class="acc-hdr-l"><span class="acc-icon">🔍</span><span class="acc-title">¿Cómo calcular un valor en dólares desde la gráfica circular? ▾</span></div><span class="acc-arrow">▾</span></div>
+  <div class="acc-body">
+    <p class="p" style="margin-top:10px;"><strong>Método de Miller:</strong> valor en $ = precio total × porcentaje decimal</p>
+    <div class="fml fml-navy"><div class="fml-eq">Valor = Total × (Porcentaje / 100)</div><div class="fml-note">Refinería: $3.50 × 0.32 = $1.12 | Petróleo crudo: $3.50 × 0.24 = $0.84</div></div>
+    <div class="callout callout-navy">Este método es <em>exactamente</em> el mismo que usamos para calcular porcentajes. La gráfica circular no da valores directamente — convierte porcentaje en valor multiplicando por el total.</div>
+  </div>
+</div>
+
+<div class="h2">Leer una gráfica de barras — Miller §1.4 Ej.5</div>
+<p class="p">Miller trabaja las ventas de motonetas en EE.UU. (en miles) de 1998 a 2004. Antes de dar las respuestas, practica las 3 preguntas que Miller siempre hace:</p>
+<div class="acc acc-amber">
+  <div class="acc-hdr" onclick="tog(this)"><div class="acc-hdr-l"><span class="acc-icon">📊</span><span class="acc-title">Las 3 preguntas de Miller para cualquier gráfica de barras ▾</span></div><span class="acc-arrow">▾</span></div>
+  <div class="acc-body">
+    <div style="margin-top:10px;display:flex;flex-direction:column;gap:8px;">
+      <div class="callout callout-navy"><strong>Pregunta a: Leer valores específicos.</strong> Localiza el año en el eje X → traza una línea vertical hasta la cima de la barra → traza una línea horizontal hasta el eje Y → lee el valor. Ej: ventas 2000 ≈ 40 mil.</div>
+      <div class="callout callout-teal"><strong>Pregunta b: Identificar años que cruzan un umbral.</strong> Traza una línea horizontal en el valor límite → ¿qué barras quedan por encima? Ej: ventas >50k → años 2002, 2003, 2004.</div>
+      <div class="callout callout-amber"><strong>Pregunta c: Describir la tendencia.</strong> ¿Las barras suben, bajan, fluctúan? ¿A qué ritmo? Ej: "Las ventas se incrementaron de manera constante, de ≈15 mil (1998) a ≈85 mil (2004)."</div>
+    </div>
+  </div>
+</div>
+<div class="svg-wrap"><div class="svg-title">Ventas de motonetas EE.UU. (Miller §1.4 Ej.5)</div><svg id="barMoto" viewBox="0 0 390 190" style="width:100%;max-width:390px;display:block;margin:0 auto;"></svg></div>
+
+<div class="sep">Preguntas</div>
+<div class="qb"><div class="qb-n">Pregunta 1</div>
+  <div class="qb-q">Si los gastos totales de Cheri en el semestre son $2.400.000, ¿cuánto gasta en renta? (Usa el método de Miller: valor = total × porcentaje decimal)</div>
+  <div class="qb-opts" data-qid="T4Q1">
+    <div class="qo" data-v="A"><span class="qo-l">A</span>$25.000</div>
+    <div class="qo" data-v="B"><span class="qo-l">B</span>$600.000 — $2.400.000 × 0.25 = $600.000</div>
+    <div class="qo" data-v="C"><span class="qo-l">C</span>$240.000</div>
+    <div class="qo" data-v="D"><span class="qo-l">D</span>$750.000</div>
+  </div><div class="qfb" id="fb_T4Q1"></div>
+</div>
+<div class="qb"><div class="qb-n">Pregunta 2</div>
+  <div class="qb-q">En la gráfica de motonetas, ¿en cuántos años superaron las ventas los 50 mil? ¿En cuáles?</div>
+  <div class="qb-opts" data-qid="T4Q2">
+    <div class="qo" data-v="A"><span class="qo-l">A</span>2 años (2003 y 2004)</div>
+    <div class="qo" data-v="B"><span class="qo-l">B</span>3 años: 2002, 2003 y 2004 — sus barras superan la línea de 50k</div>
+    <div class="qo" data-v="C"><span class="qo-l">C</span>4 años (2001 al 2004)</div>
+    <div class="qo" data-v="D"><span class="qo-l">D</span>Solo 2004</div>
+  </div><div class="qfb" id="fb_T4Q2"></div>
+</div>
+<div class="qb"><div class="qb-n">Pregunta 3</div>
+  <div class="qb-q">¿Cuál es el ángulo central del sector "Diversión" (15%) en la circular de Cheri?</div>
+  <div class="qb-opts" data-qid="T4Q3">
+    <div class="qo" data-v="A"><span class="qo-l">A</span>15°</div>
+    <div class="qo" data-v="B"><span class="qo-l">B</span>54° — 0.15 × 360° = 54°</div>
+    <div class="qo" data-v="C"><span class="qo-l">C</span>90°</div>
+    <div class="qo" data-v="D"><span class="qo-l">D</span>72°</div>
+  </div><div class="qfb" id="fb_T4Q3"></div>
+</div>
+</div></div>
+
+<!-- T5: LINEALES -->
+<div class="mod" id="t5"><div class="wrap">
+<div class="badges"><span class="badge badge-navy">Miller §10.1 y §1.4</span><span class="badge badge-miller">Ejemplos 5 y 6</span></div>
+<div class="section-title">Gráficas lineales y comparativas</div>
+<div class="section-sub">Tendencias en el tiempo — cómo leerlas y qué conclusiones son válidas</div>
+
+<div class="cite"><strong>Miller §10.1:</strong> "Para comparar los patrones de cambio de dos o más cantidades, podemos incluso trazar varias gráficas lineales juntas en una <em>gráfica lineal comparativa</em>."</div>
+
+<div class="h2">Ejemplo 5 — Miller §10.1: Cheri, 8 semestres</div>
+<p class="p">Cheri registró sus gastos de alimentos y renta a lo largo de los 4 años de universidad (8 semestres). Miller construye una gráfica lineal comparativa para ver qué cambió:</p>
+<table class="tbl" style="font-size:.79rem;">
+  <tr><th>Semestre</th><th>Alimentos</th><th>Renta</th><th>Diferencia A−R</th></tr>
+  <tr><td>1°</td><td>30%</td><td>25%</td><td style="color:var(--green);">+5</td></tr>
+  <tr><td>2°</td><td>31%</td><td>26%</td><td style="color:var(--green);">+5</td></tr>
+  <tr><td>3°</td><td>30%</td><td>28%</td><td style="color:var(--green);">+2</td></tr>
+  <tr><td>4°</td><td>29%</td><td>29%</td><td style="color:var(--muted);">0</td></tr>
+  <tr><td>5°</td><td>28%</td><td>34%</td><td style="color:var(--red);">−6</td></tr>
+  <tr><td>6°</td><td>31%</td><td>34%</td><td style="color:var(--red);">−3</td></tr>
+  <tr><td>7°</td><td>30%</td><td>37%</td><td style="color:var(--red);">−7</td></tr>
+  <tr><td>8°</td><td>29%</td><td>38%</td><td style="color:var(--red);">−9</td></tr>
+</table>
+<div class="svg-wrap"><div class="svg-title">Gráfica lineal comparativa — Cheri (Miller §10.1 Ej.5)</div><svg id="lineCheri" viewBox="0 0 400 205" style="width:100%;max-width:400px;display:block;margin:0 auto;"></svg></div>
+<div class="callout callout-teal"><strong>Conclusión de Miller:</strong> El porcentaje de alimentos permaneció relativamente constante (~30%). La renta, que inició por debajo de alimentos, creció continuamente y los superó tras el 4° semestre. Al final (38% vs 29%), la renta supera a alimentos en 9 puntos porcentuales.</div>
+
+<div class="acc acc-navy">
+  <div class="acc-hdr" onclick="tog(this)"><div class="acc-hdr-l"><span class="acc-icon">🔑</span><span class="acc-title">¿Qué buscar en una gráfica lineal comparativa? ▾</span></div><span class="acc-arrow">▾</span></div>
+  <div class="acc-body">
+    <div style="display:grid;gap:7px;margin-top:10px;">
+      <div class="callout callout-navy"><strong>1. Cruce de líneas:</strong> ¿en qué punto una serie supera a la otra? En Cheri: semestre 4 (ambas en 29%).</div>
+      <div class="callout callout-teal"><strong>2. Pendiente de cada línea:</strong> ¿sube, baja, se mantiene? Pendiente positiva = crecimiento; negativa = decrecimiento; horizontal = estabilidad.</div>
+      <div class="callout callout-amber"><strong>3. La brecha al final:</strong> ¿cuánto separa a las dos series al final? ¿Esa brecha creció o se redujo?</div>
+    </div>
+  </div>
+</div>
+
+<div class="h2">Ejemplo 6 — Miller §1.4: Fondos de Medicare</div>
+<p class="p">Miller usa esta gráfica para enseñar a leer valores, identificar tendencias y hacer proyecciones:</p>
+<div class="svg-wrap"><div class="svg-title">Fondos de Medicare (miles de millones de $) — Miller §1.4 Ej.6</div><svg id="lineMed" viewBox="0 0 400 200" style="width:100%;max-width:400px;display:block;margin:0 auto;"></svg></div>
+
+<div class="steps" id="sr_med">
+  <div class="step show" id="med_s1"><div class="step-n">Tipo A: Leer un valor específico (método X→curva→Y)</div><p class="p" style="font-size:.84rem;">Para estimar los fondos del año 2005: (1) Localiza 2005 en el eje X. (2) Traza una línea vertical hasta la curva. (3) Traza una línea horizontal hasta el eje Y. (4) Lee el valor ≈ $25 mil millones.</p><div class="step-eq">X → ↑ → curva → ← → Y = valor</div></div>
+  <div class="step" id="med_s2"><div class="step-n">Tipo B: Identificar tendencias (pendiente)</div><p class="p" style="font-size:.84rem;">¿Dónde sube la curva (pendiente positiva) y dónde baja (pendiente negativa)? En Medicare: solo sube de 2004 a 2005, luego desciende continuamente hasta 2013.</p></div>
+  <div class="step" id="med_s3"><div class="step-n">Tipo C: Proyecciones y déficits (cruce del cero)</div><p class="p" style="font-size:.84rem;">¿En qué año la curva cruza la línea del 0? → En 2011, la curva desciende por primera vez por debajo de cero, indicando el primer déficit proyectado.</p></div>
+</div>
+<div class="brow"><button class="btn btn-out" id="btn_med" onclick="nextSR('med',3)">Ver tipo de pregunta 1</button></div>
+</div></div>
+
+<!-- T6: INTERPRETA Y CUESTIONA -->
+<div class="mod" id="t6"><div class="wrap">
+<div class="badges"><span class="badge badge-navy">Miller §1.4</span><span class="badge badge-red">Gráficas engañosas</span></div>
+<div class="section-title">Interpretar críticamente — gráficas que engañan</div>
+<div class="section-sub">Cada gráfica cuenta una historia. A veces la historia está tergiversada.</div>
+
+<div class="h2">Las 5 preguntas que debes hacerle a cualquier gráfica</div>
+<div class="acc acc-navy open">
+  <div class="acc-hdr" onclick="tog(this)"><div class="acc-hdr-l"><span class="acc-icon">❓</span><span class="acc-title">La checklist de lectura crítica ▾</span></div><span class="acc-arrow">▾</span></div>
+  <div class="acc-body">
+    <div style="display:grid;gap:7px;margin-top:10px;">
+      <div class="callout callout-navy"><strong>1. ¿Qué miden los ejes?</strong> ¿El eje Y mide frecuencia, porcentaje, valor absoluto, o porcentaje de cambio? ¿Las unidades están indicadas? Sin esa información, la gráfica es ambigua.</div>
+      <div class="callout callout-navy"><strong>2. ¿El eje Y empieza en cero?</strong> Si no empieza en cero, los cambios pequeños pueden verse enormes. Un aumento del 4% puede parecer una duplicación.</div>
+      <div class="callout callout-navy"><strong>3. ¿El período fue seleccionado estratégicamente?</strong> Mostrar solo los años en que una tendencia sube (y no los años previos en que bajó) cambia completamente la historia.</div>
+      <div class="callout callout-navy"><strong>4. ¿Los tamaños visuales son proporcionales a los valores?</strong> Si doblo la altura de un ícono, el área visual se cuadruplica (2²=4), exagerando la diferencia percibida.</div>
+      <div class="callout callout-navy"><strong>5. ¿Correlación implica causalidad?</strong> Que dos variables suban y bajen juntas en una gráfica NO significa que una cause la otra. Puede haber una tercera variable que cause ambas.</div>
+    </div>
+  </div>
+</div>
+
+<div class="h2">El truco del eje Y truncado</div>
+<p class="p">La misma información (ventas: 98 → 99 → 101 → 102 unidades en 4 años) se puede presentar así:</p>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:10px 0;">
+  <div class="svg-wrap" style="padding:9px;">
+    <div class="svg-title" style="color:var(--green);">✓ Honesta — eje desde 0</div>
+    <svg id="hon1" viewBox="0 0 155 130" style="width:100%;display:block;"></svg>
+  </div>
+  <div class="svg-wrap" style="padding:9px;border-color:var(--red-b);">
+    <div class="svg-title" style="color:var(--red);">⚠ Engañosa — eje truncado</div>
+    <svg id="trnc1" viewBox="0 0 155 130" style="width:100%;display:block;"></svg>
+  </div>
+</div>
+<div class="callout callout-red"><strong>Efecto:</strong> Con el eje truncado, la barra del año 4 parece 4 veces más alta que la del año 1, cuando en realidad el cambio es del 4%. El eje truncado no es técnicamente una mentira, pero <em>produce una impresión falsa de la magnitud del cambio</em>.</div>
+
+<div class="vuelta">
+  <div class="vuelta-l">🔁 Vuelta a la apertura — La gráfica del FT</div>
+  <div class="vuelta-t">Ahora sí tienes las herramientas. La gráfica del FT sobre smartphones y natalidad es una <em>gráfica lineal comparativa</em>. Su eje Y muestra un "porcentaje de cambio respecto a la tendencia esperada" — no la tasa de fertilidad directa. Un valor de −20 significa que la natalidad está 20% por debajo de lo que se esperaría sin smartphones. Pero: ¿la gráfica prueba causalidad? No. Solo muestra correlación. ¿Podría haber una tercera variable? Sí: los países donde más creció el uso de smartphones también tuvieron mayor urbanización, más acceso a educación femenina, y más participación laboral femenina — todas variables que también reducen la natalidad. El titular del FT es, como mínimo, impreciso.</div>
+</div>
+
+<div class="sep">Preguntas</div>
+<div class="qb"><div class="qb-n">Pregunta 1</div>
+  <div class="qb-q">Un gráfico de barras muestra ventas de 100, 101, 102, 103 unidades en 4 años. Si el eje Y empieza en 99, ¿cuántas veces más alta parece la barra del año 4 vs el año 1?</div>
+  <div class="qb-opts" data-qid="T6Q1">
+    <div class="qo" data-v="A"><span class="qo-l">A</span>1.03 veces (el cambio real del 3%)</div>
+    <div class="qo" data-v="B"><span class="qo-l">B</span>4 veces — la altura visual del año 1 es 100−99=1; la del año 4 es 103−99=4. El eje truncado hace que el cambio parezca 4× mayor de lo real.</div>
+    <div class="qo" data-v="C"><span class="qo-l">C</span>2 veces</div>
+    <div class="qo" data-v="D"><span class="qo-l">D</span>La percepción no cambia</div>
+  </div><div class="qfb" id="fb_T6Q1"></div>
+</div>
+<div class="qb"><div class="qb-n">Pregunta 2 — La gráfica del FT</div>
+  <div class="qb-q">La gráfica del FT muestra correlación entre smartphones y natalidad. ¿Eso prueba que los smartphones causan la baja en natalidad?</div>
+  <div class="qb-opts" data-qid="T6Q2">
+    <div class="qo" data-v="A"><span class="qo-l">A</span>Sí, si la correlación es alta.</div>
+    <div class="qo" data-v="B"><span class="qo-l">B</span>No. La correlación muestra que dos variables se mueven juntas, pero no establece causalidad. Pueden haber variables de confusión (urbanización, educación, trabajo femenino) que expliquen ambas.</div>
+    <div class="qo" data-v="C"><span class="qo-l">C</span>Sí, si la gráfica es de una fuente confiable como el FT.</div>
+    <div class="qo" data-v="D"><span class="qo-l">D</span>No, porque las gráficas nunca prueban nada.</div>
+  </div><div class="qfb" id="fb_T6Q2"></div>
+</div>
+<div class="qb"><div class="qb-n">Pregunta 3 — Lectura correcta</div>
+  <div class="qb-q">¿Cuál es el método de Miller para leer el valor de un año específico en una gráfica de barras?</div>
+  <div class="qb-opts" data-qid="T6Q3">
+    <div class="qo" data-v="A"><span class="qo-l">A</span>Calcular el promedio de todas las barras</div>
+    <div class="qo" data-v="B"><span class="qo-l">B</span>Localizar el año en el eje X → trazar vertical hasta la cima → trazar horizontal hasta el eje Y → leer el valor</div>
+    <div class="qo" data-v="C"><span class="qo-l">C</span>Multiplicar la altura por el ancho de la barra</div>
+    <div class="qo" data-v="D"><span class="qo-l">D</span>Dividir el total entre el número de barras</div>
+  </div><div class="qfb" id="fb_T6Q3"></div>
+</div>
+</div></div>
+
+<!-- T7: RAZONES -->
+<div class="mod" id="t7"><div class="wrap">
+<div class="badges"><span class="badge badge-amber">Sección B</span><span class="badge badge-miller">Miller §6.3</span></div>
+<div class="section-title">Razones y precio unitario</div>
+<div class="section-sub">Comparar cantidades — sin convertir todo en números</div>
+<div class="callout callout-amber" style="font-size:.82rem;">Esta sección introduce los conceptos de la Sección B. No hay actividad cooperativa aquí — esa viene en Proporción (T8), Porcentaje (T9) y Regla×3 (T10).</div>
+
+<div class="tension">
+  <div class="tension-label">🤔 Pregunta antes de explicar</div>
+  <div class="tension-q">Dos presentaciones de avena: 500g × $8.900 o 750g × $12.600. ¿Cuál conviene más? ¿Cómo lo calculas sin tener que ir a casa a pensarlo?</div>
+</div>
+
+<div class="def"><div class="def-label">Miller §6.3 — Definición</div><div class="def-body">Una <strong>razón</strong> es el cociente de dos cantidades. La razón entre a y b se escribe como <strong>a:b</strong>, <strong>a a b</strong>, o <strong>a/b</strong>. Las unidades deben ser <em>homogéneas</em> (del mismo tipo) para que la comparación tenga sentido.</div></div>
+
+<div class="acc acc-amber">
+  <div class="acc-hdr" onclick="tog(this)"><div class="acc-hdr-l"><span class="acc-icon">⚠️</span><span class="acc-title">Regla crítica: unidades homogéneas antes de dividir ▾</span></div><span class="acc-arrow">▾</span></div>
+  <div class="acc-body">
+    <p class="p" style="margin-top:10px;">Si quieres la razón entre 6 horas y 3 días, no puedes escribir 6/3. Debes convertir primero: 3 días = 72 horas. La razón es 6/72 = 1/12.</p>
+    <div class="callout callout-amber">Miller: "Cuando se comparan unidades de medida, las unidades deben ser homogéneas." La razón 6/3 con unidades distintas no tiene sentido matemático.</div>
+  </div>
+</div>
+
+<div class="h2">Precio unitario — Miller §6.3</div>
+<p class="p">La aplicación directa de razones es el <strong>precio por unidad</strong>: razón = precio / cantidad. Permite comparar presentaciones de diferente tamaño.</p>
+<div class="cite"><strong>Miller §6.3:</strong> "La compra del tamaño más grande <em>no siempre</em> garantiza la mejor compra. Compare el precio por unidad."</div>
+
+<div class="callout callout-amber">Calcula el precio por gramo de cada presentación de café colombiano:</div>
+<table class="tbl" id="puTbl">
+  <tr><th>Presentación</th><th>Precio</th><th>Gramos</th><th>$/gramo</th></tr>
+  <tr><td class="l">100g (Pequeño)</td><td>$2.900</td><td>100</td><td id="pu1" style="color:var(--muted);">—</td></tr>
+  <tr><td class="l">250g (Mediano)</td><td>$6.800</td><td>250</td><td id="pu2" style="color:var(--muted);">—</td></tr>
+  <tr><td class="l">500g (Grande)</td><td>$12.500</td><td>500</td><td id="pu3" style="color:var(--muted);">—</td></tr>
+  <tr><td class="l">1.000g (Jumbo)</td><td>$22.000</td><td>1000</td><td id="pu4" style="color:var(--muted);">—</td></tr>
+</table>
+<div class="brow"><button class="btn btn-amber" onclick="calcPU2()">Calcular y comparar</button></div>
+<div id="puRes2" style="display:none;margin-top:9px;"></div>
+
+<div class="h2">Comparar proporciones sin calculadora — Miller §1.4 Ej.3</div>
+<p class="p">Miller pide comparar qué grupo etario de trabajadores agrícolas tiene mayor proporción de hombres, sin calcular el decimal exacto. El truco: comparar con la <em>mitad</em> del total.</p>
+
+<div class="steps" id="sr_rm">
+  <div class="step show" id="rm_s1"><div class="step-n">Datos del problema</div><p class="p" style="font-size:.84rem;">Grupo 25-29 años: 127.000 hombres de 238.000 totales. Grupo 40-44 años: 160.000 hombres de 331.000 totales. ¿Cuál tiene mayor proporción?</p></div>
+  <div class="step" id="rm_s2"><div class="step-n">Grupo 25-29: ¿hay más o menos de la mitad de hombres?</div><p class="p" style="font-size:.84rem;">Mitad de 238.000 = 119.000. Como 127.000 &gt; 119.000, <strong>más de la mitad son hombres</strong>.</p><div class="step-eq">127k &gt; 119k → proporción &gt; 0.50</div></div>
+  <div class="step" id="rm_s3"><div class="step-n">Grupo 40-44: ¿hay más o menos de la mitad de hombres?</div><p class="p" style="font-size:.84rem;">Mitad de 331.000 = 165.500. Como 160.000 &lt; 165.500, <strong>menos de la mitad son hombres</strong>.</p><div class="step-eq">160k &lt; 165.5k → proporción &lt; 0.50</div></div>
+  <div class="step" id="rm_s4"><div class="step-n">Conclusión</div><p class="p" style="font-size:.84rem;"><strong>El grupo 25-29 tiene mayor proporción de hombres</strong>. Miller lo resuelve sin calcular 127/238 = 0.534 exactamente — basta con comparar con 0.5.</p><div class="callout callout-amber" style="margin-top:6px;">Este método de estimación (comparar con la mitad) es más rápido y reduce errores de cálculo.</div></div>
+</div>
+<div class="brow"><button class="btn btn-out-a" id="btn_rm" onclick="nextSR('rm',4)">Ver paso 1</button></div>
+
+<div class="sep">Preguntas</div>
+<div class="qb"><div class="qb-n">Pregunta 1</div>
+  <div class="qb-q">En el salón hay 18 mujeres y 12 hombres. ¿Cuál es la razón mujeres:hombres en su forma más simple?</div>
+  <div class="qb-opts" data-qid="T7Q1">
+    <div class="qo" data-v="A"><span class="qo-l">A</span>18/12 (sin simplificar)</div>
+    <div class="qo" data-v="B"><span class="qo-l">B</span>3/2 — MCD(18,12)=6; 18÷6=3, 12÷6=2</div>
+    <div class="qo" data-v="C"><span class="qo-l">C</span>12/18 = 2/3</div>
+    <div class="qo" data-v="D"><span class="qo-l">D</span>6/1</div>
+  </div><div class="qfb" id="fb_T7Q1"></div>
+</div>
+<div class="qb"><div class="qb-n">Pregunta 2 — Precio unitario</div>
+  <div class="qb-q">Leche de 200ml a $1.800 vs leche de 500ml a $4.200. ¿Cuál tiene el menor precio por mililitro?</div>
+  <div class="qb-opts" data-qid="T7Q2">
+    <div class="qo" data-v="A"><span class="qo-l">A</span>La de 200ml ($9/ml)</div>
+    <div class="qo" data-v="B"><span class="qo-l">B</span>La de 500ml — $4.200/500ml = $8.40/ml vs $1.800/200ml = $9/ml. La grande es más económica por mililitro.</div>
+    <div class="qo" data-v="C"><span class="qo-l">C</span>Ambas tienen el mismo precio por ml</div>
+    <div class="qo" data-v="D"><span class="qo-l">D</span>No se puede comparar</div>
+  </div><div class="qfb" id="fb_T7Q2"></div>
+</div>
+</div></div>
+
+<!-- T8: PROPORCIONES + AC1 -->
+<div class="mod" id="t8"><div class="wrap">
+<div class="badges"><span class="badge badge-amber">Miller §6.3</span><span class="badge badge-coop">🤝 AC1</span></div>
+<div class="section-title">Proporciones y productos cruzados</div>
+
+<div class="def"><div class="def-label">Definición — Miller §6.3</div><div class="def-body">Una <strong>proporción</strong> es un enunciado de que dos razones son iguales: a/b = c/d. La propiedad fundamental: <strong>el producto de los extremos = el producto de los medios</strong>. Formalmente: a × d = b × c.</div></div>
+
+<div class="acc acc-navy">
+  <div class="acc-hdr" onclick="tog(this)"><div class="acc-hdr-l"><span class="acc-icon">❓</span><span class="acc-title">¿Por qué funciona a×d = b×c? ▾</span></div><span class="acc-arrow">▾</span></div>
+  <div class="acc-body">
+    <p class="p" style="margin-top:10px;">Si a/b = c/d, entonces multiplicando ambos lados por b×d obtenemos: a×d = b×c. Es simplemente álgebra — multiplicar para eliminar denominadores. Por eso se llama "productos cruzados".</p>
+  </div>
+</div>
+
+<div class="h2">Ejemplo 1 — Miller §6.3: 9/63 = 45/x</div>
+<div class="steps" id="sr_p1">
+  <div class="step show" id="p1_s1"><div class="step-n">Paso 1: Identificar extremos y medios</div><p class="p" style="font-size:.84rem;">Extremos: 9 y x. Medios: 63 y 45. La propiedad dice: 9 × x = 63 × 45.</p><div class="step-eq">9 × x = 63 × 45</div></div>
+  <div class="step" id="p1_s2"><div class="step-n">Paso 2: Calcular el producto</div><div class="step-eq">9x = 2.835</div></div>
+  <div class="step" id="p1_s3"><div class="step-n">Paso 3: Despejar x</div><div class="step-eq">x = 2.835 ÷ 9 = 315</div><div class="callout callout-green" style="margin-top:7px;">✓ Verificación: 9/63 = 1/7 y 45/315 = 1/7 ✓</div></div>
+</div>
+<div class="brow"><button class="btn btn-out" id="btn_p1" onclick="nextSR('p1',3)">Ver paso 1</button></div>
+
+<div class="h2">Ejemplo 3 — Miller §6.3: Estimación de población (peces)</div>
+<p class="p">Biólogos marcaron 300 peces. En una segunda captura de 400 encontraron 5 marcados. Supuesto: la proporción de marcados en la muestra ≈ proporción en el lago total.</p>
+<div class="fml fml-navy"><div class="fml-eq">300/x = 5/400</div><div class="fml-note">5x = 120.000 → x = 24.000 peces estimados en el lago</div></div>
+<div class="callout callout-teal">Este método (captura-recaptura) se aplica en psicología para estimar prevalencia de condiciones de salud mental sin censar a toda la población.</div>
+
+<div class="sep">Pregunta</div>
+<div class="qb"><div class="qb-n">Práctica</div>
+  <div class="qb-q">Una receta para 6 porciones usa 2.5 tazas de harina. ¿Cuánta harina se necesita para 15 porciones?</div>
+  <div class="qb-opts" data-qid="T8Q1">
+    <div class="qo" data-v="A"><span class="qo-l">A</span>4 tazas</div>
+    <div class="qo" data-v="B"><span class="qo-l">B</span>6.25 tazas — 2.5/6 = x/15 → 6x = 37.5 → x = 6.25</div>
+    <div class="qo" data-v="C"><span class="qo-l">C</span>5 tazas</div>
+    <div class="qo" data-v="D"><span class="qo-l">D</span>7.5 tazas</div>
+  </div><div class="qfb" id="fb_T8Q1"></div>
+</div>
+
+<!-- AC1 -->
+<div class="coop">
+  <div class="coop-hdr">
+    <span class="coop-badge">AC1</span>
+    <div class="coop-title">El Consultor de Precios — Proporciones en el mercado</div>
+    <span class="coop-time">⏱ 18 min</span>
+  </div>
+  <div class="coop-marco"><strong>Johnson &amp; Johnson (1994) / Pujolàs CA/AC:</strong> Interdependencia positiva de recursos — cada integrante tiene datos que los demás no tienen. La tarea solo se completa si todos comparten su información.</div>
+  <div class="roles"><span class="role">🧮 Calculista</span><span class="role">🔍 Verificador</span><span class="role">📊 Analista</span><span class="role">🎤 Vocero</span></div>
+  <div class="coop-step"><div class="cs-n">🎯</div><div><strong>Misión:</strong> Asesorar a la cafetería universitaria para construir una canasta de 4 productos al menor costo. Tienen datos de 3 proveedores distintos.</div></div>
+  <div class="coop-step"><div class="cs-n">1</div><div><strong>Individual (5 min):</strong> El docente asigna UN proveedor a cada integrante. Calcula el precio unitario ($/gramo o $/ml) de cada producto en tu proveedor.</div></div>
+  <table class="tbl" style="font-size:.78rem;">
+    <tr><th>Producto</th><th>Prov. A</th><th>Prov. B</th><th>Prov. C</th><th>✓ Mejor</th></tr>
+    <tr><td class="l">Café 500g</td><td>$9.800</td><td>$9.200</td><td>$10.100</td><td id="ac1_a">—</td></tr>
+    <tr><td class="l">Azúcar 1kg</td><td>$3.500</td><td>$3.700</td><td>$3.200</td><td id="ac1_b">—</td></tr>
+    <tr><td class="l">Leche 1L</td><td>$2.900</td><td>$2.750</td><td>$2.950</td><td id="ac1_c">—</td></tr>
+    <tr><td class="l">Aceite 500ml</td><td>$6.400</td><td>$5.900</td><td>$6.100</td><td id="ac1_d">—</td></tr>
+  </table>
+  <div class="brow"><button class="btn btn-out-p" onclick="calcAC1()">Ver canasta óptima</button></div>
+  <div id="ac1res" style="display:none;margin-top:8px;"></div>
+  <div class="coop-step"><div class="cs-n">2</div><div><strong>Grupal (8 min):</strong> Comparten precios → ¿cuál proveedor conviene producto a producto? → Si compran todo en un proveedor (simplificar logística), ¿cuál minimiza el total? → Usando proporción: si necesitan 30 canastas para un evento, ¿cuál es el presupuesto total?</div></div>
+  <div class="coop-step"><div class="cs-n">3</div><div><strong>Plenaria (5 min):</strong> El Vocero presenta la recomendación con la proporción usada para las 30 canastas.</div></div>
+  <div class="coop-meta"><strong>Pregunta metacognitiva (Dunlosky, 2013):</strong> ¿En qué situaciones de tu vida cotidiana usas (o podrías usar) proporciones para tomar decisiones de compra? ¿Qué información adicional necesitarías?</div>
+</div>
+</div></div>
+
+<!-- T9: PORCENTAJE + AC2 -->
+<div class="mod" id="t9"><div class="wrap">
+<div class="badges"><span class="badge badge-amber">Miller §5.5</span><span class="badge badge-coop">🤝 AC2</span></div>
+<div class="section-title">Porcentaje — el "por cada cien"</div>
+
+<div class="def"><div class="def-label">Miller §5.5</div><div class="def-body">La palabra <em>porcentaje</em> viene del italiano <em>per cento</em> — "por cada cien". <strong>x% = x/100 = x × 0.01</strong>. Para convertir porcentaje a decimal: mover el punto dos posiciones a la izquierda.</div></div>
+
+<div class="h2">¿Por qué un descuento del 35% implica multiplicar por 0.65?</div>
+<p class="p">Esta visualización conecta el porcentaje con la gráfica circular: el 35% de descuento <em>es</em> un sector del pastel. Lo que pagas es el complemento.</p>
+<div style="display:flex;justify-content:space-between;font-size:.77rem;margin-bottom:5px;"><span>Descuento: <strong id="dLbl">35%</strong></span><span>Pagas: <strong id="pLbl" style="color:var(--navy);">65%</strong></span></div>
+<input type="range" id="dsld" min="0" max="80" value="35" oninput="updD2(this.value)" style="width:100%;accent-color:var(--amber);margin:5px 0;">
+<div class="pgrid" id="pGrid100"></div>
+<div class="fml fml-amber"><div class="fml-eq" id="dFml">Precio final = Precio × (1 − 0.35) = Precio × 0.65</div><div class="fml-note">Cada celda azul = $1 de cada $100 que sí pagas.</div></div>
+
+<div class="h2">Los tres tipos de problemas de porcentaje (Miller §5.5)</div>
+
+<div class="acc acc-navy open">
+  <div class="acc-hdr" onclick="tog(this)"><div class="acc-hdr-l"><span class="acc-icon">1️⃣</span><span class="acc-title">Tipo 1: ¿Cuánto es X% de N? ▾</span></div><span class="acc-arrow">▾</span></div>
+  <div class="acc-body">
+    <p class="p" style="margin-top:10px;"><strong>Pregunta:</strong> ¿Cuánto es el 18% de 250?</p>
+    <div class="fml fml-navy"><div class="fml-eq">Parte = Todo × decimal = 250 × 0.18 = 45</div></div>
+    <div class="callout callout-navy">Método alternativo (proporción): 18/100 = x/250 → 100x = 4.500 → x = 45. El mismo resultado — son el mismo concepto.</div>
+  </div>
+</div>
+<div class="acc acc-teal">
+  <div class="acc-hdr" onclick="tog(this)"><div class="acc-hdr-l"><span class="acc-icon">2️⃣</span><span class="acc-title">Tipo 2: ¿X es qué % de N? ▾</span></div><span class="acc-arrow">▾</span></div>
+  <div class="acc-body">
+    <p class="p" style="margin-top:10px;"><strong>Pregunta:</strong> ¿Qué porcentaje de 500 es 75?</p>
+    <div class="fml fml-navy"><div class="fml-eq">Porcentaje = (Parte / Todo) × 100 = (75/500) × 100 = 15%</div></div>
+  </div>
+</div>
+<div class="acc acc-amber">
+  <div class="acc-hdr" onclick="tog(this)"><div class="acc-hdr-l"><span class="acc-icon">3️⃣</span><span class="acc-title">Tipo 3: X es el Y% de ¿qué número? ▾</span></div><span class="acc-arrow">▾</span></div>
+  <div class="acc-body">
+    <p class="p" style="margin-top:10px;"><strong>Pregunta:</strong> 38 es el 5% de ¿qué número?</p>
+    <div class="fml fml-amber"><div class="fml-eq">Todo = Parte / decimal = 38 / 0.05 = 760</div></div>
+  </div>
+</div>
+
+<div class="h2">Porcentaje de cambio — el error más común</div>
+<div class="def"><div class="def-label">Miller §5.5</div><div class="def-body">% de cambio = (valor nuevo − valor original) / <strong>valor original</strong> × 100. <strong>Siempre se divide entre el valor original</strong>, no el nuevo.</div></div>
+<div class="callout callout-red"><strong>Error frecuente:</strong> Si el precio bajó de $12.750 a $11.350, el error es dividir entre $11.350 (el nuevo): 1.400/11.350 = 12.3%. La respuesta correcta es 1.400/12.750 = 11%. La diferencia es pequeña en valor pero importante en precisión estadística.</div>
+
+<div class="sep">Preguntas</div>
+<div class="qb"><div class="qb-n">Pregunta 1</div>
+  <div class="qb-q">Si tu nota subió de 3.4 a 4.1, ¿cuál es el porcentaje de aumento? ¿Por qué se divide entre 3.4?</div>
+  <div class="qb-opts" data-qid="T9Q1">
+    <div class="qo" data-v="A"><span class="qo-l">A</span>20.6% — (4.1−3.4)/3.4 × 100 = 0.7/3.4 × 100 ≈ 20.6%. Se divide entre el valor original (3.4) porque el cambio se mide desde el punto de partida, no desde la llegada.</div>
+    <div class="qo" data-v="B"><span class="qo-l">B</span>17.1% — dividiendo entre 4.1 (el nuevo)</div>
+    <div class="qo" data-v="C"><span class="qo-l">C</span>7%</div>
+    <div class="qo" data-v="D"><span class="qo-l">D</span>0.7%</div>
+  </div><div class="qfb" id="fb_T9Q1"></div>
+</div>
+
+<!-- AC2 -->
+<div class="coop">
+  <div class="coop-hdr">
+    <span class="coop-badge">AC2</span>
+    <div class="coop-title">El Fiscalizador de Medios — Porcentajes en las noticias</div>
+    <span class="coop-time">⏱ 20 min</span>
+  </div>
+  <div class="coop-marco"><strong>Pujolàs CA/AC — Estructura 4-2-4:</strong> Análisis individual → discusión en parejas → síntesis del grupo de 4. Cada persona analiza su titular individualmente antes del debate grupal.</div>
+  <div class="roles"><span class="role">🔬 Analista</span><span class="role">⚖️ Fiscal</span><span class="role">🛡️ Defensor</span><span class="role">✍️ Redactor</span></div>
+  <div class="coop-step"><div class="cs-n">1</div><div><strong>Individual (4 min):</strong> Lee el titular asignado. Decide: ¿el porcentaje está bien calculado o hay un error?</div></div>
+  <div style="display:grid;gap:7px;margin:10px 0;">
+    <div class="card" style="border-left:4px solid var(--amber);"><div style="font-size:.59rem;font-weight:700;text-transform:uppercase;color:var(--amber);margin-bottom:3px;">TITULAR A</div><div style="font-size:.86rem;font-weight:700;">"Matrículas bajaron de 12.750 a 11.350 — caída del 12.3%"</div><div style="font-size:.76rem;color:var(--muted);margin-top:4px;">¿Dividió entre el valor correcto? Calcula: (12.750−11.350) / _____ × 100</div></div>
+    <div class="card" style="border-left:4px solid var(--amber);"><div style="font-size:.59rem;font-weight:700;text-transform:uppercase;color:var(--amber);margin-bottom:3px;">TITULAR B</div><div style="font-size:.86rem;font-weight:700;">"Ventas aumentaron un 105%: de $200.000 a $410.000"</div><div style="font-size:.76rem;color:var(--muted);margin-top:4px;">¿Es posible un aumento >100%? ¿Qué significa eso en términos del valor original?</div></div>
+    <div class="card" style="border-left:4px solid var(--red);"><div style="font-size:.59rem;font-weight:700;text-transform:uppercase;color:var(--red);margin-bottom:3px;">TITULAR C — POSIBLE ERROR</div><div style="font-size:.86rem;font-weight:700;">"35% de descuento + 10% adicional de socio = 45% de descuento total"</div><div style="font-size:.76rem;color:var(--muted);margin-top:4px;">Prueba con $100: aplica 35% → luego 10% al precio reducido. ¿Es igual al 45%?</div></div>
+    <div class="card" style="border-left:4px solid var(--amber);"><div style="font-size:.59rem;font-weight:700;text-transform:uppercase;color:var(--amber);margin-bottom:3px;">TITULAR D</div><div style="font-size:.86rem;font-weight:700;">"Solo el 2% de los estudiantes de primer semestre tiene promedio &gt;4.5 — eso es 5 estudiantes"</div><div style="font-size:.76rem;color:var(--muted);margin-top:4px;">¿Cuántos estudiantes de primer semestre hay? Usa la proporción: 2/100 = 5/x</div></div>
+  </div>
+  <div class="coop-step"><div class="cs-n">2</div><div><strong>Grupal (10 min):</strong> Fiscal acusa errores. Defensor argumenta si el periodista podría tener razón. Analista calcula el valor correcto. Redactor escribe el titular corregido.</div></div>
+  <div class="coop-step"><div class="cs-n">3</div><div><strong>Plenaria (6 min):</strong> El Redactor presenta el veredicto de cada titular.</div></div>
+  <div class="coop-meta"><strong>Respuestas para verificación docente:</strong> A: error → 1.400/12.750×100 = 11%, no 12.3%. B: correcto — sí existe >100%, significa que las ventas más que se duplicaron. C: error — $100 → −35% = $65 → −10% = $58.50; descuento real = 41.5%, no 45%. D: correcto — 2/100 = 5/x → x = 250 estudiantes totales.</div>
+</div>
+</div></div>
+
+<!-- T10: REGLA DE TRES + PROM PONDERADO + AC3 -->
+<div class="mod" id="t10"><div class="wrap">
+<div class="badges"><span class="badge badge-amber">Miller §6.3</span><span class="badge badge-coop">🤝 AC3</span></div>
+<div class="section-title">Regla de tres, variación directa y promedio ponderado</div>
+
+<div class="cite"><strong>Miller §6.3:</strong> "y varía directamente en relación con x si existe una constante k ≠ 0 tal que <em>y = kx</em>. La constante k se llama la constante de variación."</div>
+
+<div class="h2">La regla de tres como caso particular</div>
+<p class="p">La regla de tres directa <em>es</em> la variación directa aplicada. Si y/x = k (constante), entonces la razón se mantiene para cualquier par de valores:</p>
+<div class="fml fml-amber"><div class="fml-eq">A/B = C/X → X = (B × C) / A</div><div class="fml-note">"Si A produce B, entonces C produce X" — esto son exactamente los productos cruzados de Miller.</div></div>
+
+<div class="h2">Ejemplo — Ley de Hooke (Miller §6.3)</div>
+<p class="p">La distancia que se estira un resorte varía directamente con la fuerza aplicada. Con 150 lb se estira 8 cm. ¿Cuánto con 400 lb?</p>
+<div class="steps" id="sr_hk">
+  <div class="step show" id="hk_s1"><div class="step-n">Paso 1: Ecuación de variación</div><div class="step-eq">d = k × f (distancia = constante × fuerza)</div></div>
+  <div class="step" id="hk_s2"><div class="step-n">Paso 2: Encontrar k</div><div class="step-eq">8 = k × 150 → k = 8/150 = 4/75</div></div>
+  <div class="step" id="hk_s3"><div class="step-n">Paso 3: Aplicar para 400 lb</div><div class="step-eq">d = (4/75) × 400 = 1.600/75 ≈ 21.3 cm</div><div class="callout callout-green" style="margin-top:6px;">Verificación por regla de tres: 8/150 = d/400 → 150d = 3.200 → d ≈ 21.3 ✓</div></div>
+</div>
+<div class="brow"><button class="btn btn-out-a" id="btn_hk" onclick="nextSR('hk',3)">Ver paso 1</button></div>
+
+<div class="h2">Promedio ponderado</div>
+<div class="def"><div class="def-label">Definición</div><div class="def-body">El promedio ponderado es una <em>razón</em>: Σ(nota × créditos) / Σ(créditos). Los créditos son los "pesos" o frecuencias de cada calificación.</div></div>
+<div class="fml fml-navy"><div class="fml-eq">P.P. = Σ(nota_i × créd_i) / Σ(créd_i)</div><div class="fml-note">Un 5.0 en Cálculo (4 créditos) contribuye 5.0×4=20 puntos; un 5.0 en Electiva (2 créditos) solo aporta 10. Por eso pesa el doble.</div></div>
+<div class="calc-box">
+  <div style="display:grid;grid-template-columns:1fr 58px 48px 44px;gap:6px;font-size:.63rem;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);margin-bottom:7px;"><span>Materia</span><span style="text-align:center;">Nota</span><span style="text-align:center;">Créd.</span><span style="text-align:right;">Prod.</span></div>
+  <div id="waRows"></div>
+  <div class="brow"><button class="btn btn-out" onclick="addWA()" style="font-size:.7rem;">+ Materia</button><button class="btn btn-amber" onclick="calcWA()">Calcular P.P.</button></div>
+  <div class="c-result" id="waResult" style="display:none;margin-top:10px;"><div class="c-lbl">Promedio ponderado</div><div class="c-val" id="waVal">—</div><div id="waBd" style="font-size:.73rem;margin-top:4px;opacity:.8;"></div></div>
+</div>
+
+<div class="sep">Pregunta</div>
+<div class="qb"><div class="qb-n">Práctica</div>
+  <div class="qb-q">Biología (4 créd, 3.8) + Historia (3 créd, 4.5) + Inglés (2 créd, 5.0). ¿Cuál es el promedio ponderado?</div>
+  <div class="qb-opts" data-qid="T10Q1">
+    <div class="qo" data-v="A"><span class="qo-l">A</span>4.43 (promedio simple)</div>
+    <div class="qo" data-v="B"><span class="qo-l">B</span>4.24 — (3.8×4+4.5×3+5.0×2)/(4+3+2) = (15.2+13.5+10)/9 = 38.7/9 ≈ 4.30</div>
+    <div class="qo" data-v="C"><span class="qo-l">C</span>4.30 — Σ(nota×créd)=15.2+13.5+10=38.7; Σcréd=9; 38.7/9=4.30 ✓</div>
+    <div class="qo" data-v="D"><span class="qo-l">D</span>3.8 (domina la nota más baja)</div>
+  </div><div class="qfb" id="fb_T10Q1"></div>
+</div>
+
+<!-- AC3 -->
+<div class="coop">
+  <div class="coop-hdr">
+    <span class="coop-badge">AC3</span>
+    <div class="coop-title">El Consejero Académico — Regla de tres y promedio ponderado</div>
+    <span class="coop-time">⏱ 22 min</span>
+  </div>
+  <div class="coop-marco"><strong>Rosenshine (2012) / Dunlosky (2013):</strong> Recuperación activa en contexto. El grupo aplica todos los conceptos del bloque B a un caso real y debe justificar sus decisiones.</div>
+  <div class="roles"><span class="role">📋 Asesor</span><span class="role">🧮 Calculista</span><span class="role">✍️ Redactor de plan</span><span class="role">🎤 Presentador</span></div>
+  <div class="coop-step"><div class="cs-n">🎯</div><div><strong>Misión:</strong> Asesorar a Camilo Rodríguez. Tienen sus notas y deben calcular su situación académica y elaborar un plan de recuperación.</div></div>
+  <div class="card" style="background:var(--purple-l);border-color:var(--purple-b);margin:10px 0;">
+    <div style="font-size:.66rem;font-weight:700;color:var(--purple);margin-bottom:7px;text-transform:uppercase;letter-spacing:.4px;">Caso: Camilo Rodríguez — Psicología Semestre III</div>
+    <table class="tbl" style="font-size:.79rem;">
+      <tr><th>Materia</th><th>Créd.</th><th>Parcial 1 (40%)</th><th>Parcial 2 (40%)</th><th>Final (20%) necesario</th></tr>
+      <tr><td class="l">Estadística</td><td>4</td><td>3.2</td><td>3.8</td><td style="color:var(--purple);">?</td></tr>
+      <tr><td class="l">Psicop. Social</td><td>3</td><td>4.5</td><td>4.0</td><td style="color:var(--purple);">?</td></tr>
+      <tr><td class="l">Metodología</td><td>4</td><td>2.5</td><td>3.0</td><td style="color:var(--purple);">?</td></tr>
+      <tr><td class="l">Inglés III</td><td>2</td><td>4.8</td><td>5.0</td><td style="color:var(--purple);">?</td></tr>
+      <tr><td class="l">Electiva</td><td>1</td><td>3.5</td><td>4.0</td><td style="color:var(--purple);">?</td></tr>
+    </table>
+    <div style="font-size:.77rem;color:var(--purple);margin-top:7px;"><strong>Nota final = 0.40×P1 + 0.40×P2 + 0.20×NF ≥ 3.0 para aprobar · Beca requiere P.P. ≥ 3.8</strong></div>
+  </div>
+  <div class="coop-step"><div class="cs-n">1</div><div><strong>Individual (6 min):</strong> Cada integrante toma 1-2 materias. Despeja NF: 0.40×P1 + 0.40×P2 + 0.20×x ≥ 3.0 → x ≥ ?</div></div>
+  <div class="coop-step"><div class="cs-n">2</div><div><strong>Grupal (10 min):</strong> a) Comparten NF mínimos. b) Con esas notas mínimas calculan el P.P. c) ¿Camilo cumple la condición de beca? d) Usando regla de tres: si el examen dura 90 min y tiene 30 preguntas, y Camilo dedica 45 min por tema con 8 temas, ¿cuántos minutos de estudio necesita en total?</div></div>
+  <div class="coop-step"><div class="cs-n">3</div><div><strong>Plenaria (6 min):</strong> El Presentador expone: notas mínimas en el final, P.P. resultante, ¿cumple beca? y recomendación.</div></div>
+  <div class="coop-meta"><strong>Verificación para docente:</strong> Estadística: 0.40×3.2+0.40×3.8+0.20x ≥ 3.0 → 2.8+0.20x ≥ 3.0 → x ≥ 1.0. Metodología: 0.40×2.5+0.40×3.0+0.20x ≥ 3.0 → 2.2+0.20x ≥ 3.0 → x ≥ 4.0 (¡difícil!).</div>
+</div>
+</div></div>
+
+<!-- T11: QUIZ -->
+<div class="mod" id="t11"><div class="wrap">
+<div class="badges"><span class="badge badge-coop">📝 Quiz individual</span></div>
+<div class="section-title">Quiz — Clase 10</div>
+<div class="qz-hdr"><span class="qz-lbl">15 preguntas · Responde todo antes de calificar</span><span class="qz-sub">Guarda tu primer intento automáticamente</span></div>
+<div id="qzContainer"></div>
+<div class="brow" style="justify-content:center;margin-top:14px;"><button class="btn btn-amber" id="btnQZ" onclick="submitQZ()" disabled>Ver mi resultado →</button></div>
+<div class="score-box" id="scorebox">
+  <div style="font-family:var(--ff-h);font-size:1.1rem;font-weight:700;font-style:italic;color:var(--navy);margin-bottom:10px;">Tu resultado</div>
+  <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-bottom:12px;">
+    <div style="background:var(--surf2);border:1.5px solid var(--navy-b);border-radius:11px;padding:12px 18px;text-align:center;min-width:110px;"><div style="font-size:.58rem;font-weight:700;text-transform:uppercase;color:var(--navy);margin-bottom:3px;">Primer intento</div><div style="font-family:var(--ff-m);font-size:1.7rem;font-weight:600;" id="sc1">—</div></div>
+    <div style="background:var(--surf2);border:1.5px solid var(--amber-b);border-radius:11px;padding:12px 18px;text-align:center;min-width:110px;"><div style="font-size:.58rem;font-weight:700;text-transform:uppercase;color:var(--amber);margin-bottom:3px;">Este intento</div><div style="font-family:var(--ff-m);font-size:1.7rem;font-weight:600;" id="sc2">—</div></div>
+  </div>
+  <div style="font-family:var(--ff-h);font-size:.92rem;font-style:italic;color:var(--navy);" id="scmsg"></div>
+</div>
+</div></div>
+
+<!-- T12: CASA -->
+<div class="mod" id="t12"><div class="wrap">
+<div class="badges"><span class="badge badge-miller">🏠 Para casa</span></div>
+<div class="section-title">Práctica distribuida — sin entrega formal</div>
+<div class="callout callout-navy"><strong>Dunlosky et al. (2013):</strong> 30 min/día × 4 días supera en consolidación de memoria a 2 horas en un solo día. Intenta resolver sin mirar las notas — luego verifica.</div>
+<div class="hw"><div class="hw-day">Día 1</div><div class="hw-title">Frecuencias e histogramas</div><ul class="hw-list">
+  <li>Pide a 15 personas cuántas horas al día usan el celular. Construye la tabla completa (f, fr, F, Fr). Construye el histograma. <span class="hw-ref">§10.1</span></li>
+  <li>Con los mismos datos, construye el diagrama de tallo y hoja. ¿Qué información adicional preserva? <span class="hw-ref">§10.1</span></li>
+  <li>Construye el polígono de frecuencias usando las marcas de clase. ¿Por qué cierra al eje?</li>
+</ul></div>
+<div class="hw"><div class="hw-day">Día 2</div><div class="hw-title">Gráficas circulares, barras y lineales</div><ul class="hw-list">
+  <li>Dibuja la gráfica circular de tus gastos mensuales inventados (categorías que sumen 100%). Calcula el ángulo de cada sector. <span class="hw-ref">§10.1</span></li>
+  <li>Busca una gráfica en una noticia o red social. Aplica las 5 preguntas críticas. ¿Hay algo potencialmente engañoso? <span class="hw-ref">§1.4</span></li>
+  <li>Miller §1.4 Ej.6 Medicare: responde las 3 preguntas del Ejemplo usando el método X→curva→Y.</li>
+</ul></div>
+<div class="hw"><div class="hw-day">Día 3</div><div class="hw-title">Razones, proporciones y porcentaje</div><ul class="hw-list">
+  <li>Busca 3 presentaciones del mismo producto. Calcula el precio unitario. ¿El más grande es el más económico? <span class="hw-ref">§6.3</span></li>
+  <li>Si tu promedio del semestre pasado fue 3.6 y este semestre es 4.3, ¿cuál es el % de mejora? ¿Por qué divides entre 3.6? <span class="hw-ref">§5.5</span></li>
+  <li>Resuelve: el 35% de descuento + 15% de descuento adicional ≠ 50% de descuento. ¿Cuánto sería sobre $100.000?</li>
+</ul></div>
+<div class="hw"><div class="hw-day">Día 4 — Integración</div><div class="hw-title">Repaso total antes del Parcial 2</div><ul class="hw-list">
+  <li>Calcula tu promedio ponderado real del semestre con tus notas actuales. ¿Qué nota necesitas en el Parcial de Matemáticas para que quede en 3.5?</li>
+  <li>El salón tiene 28 estudiantes y representa el 15% del semestre. Si el 60.7% del salón usa celular 5+ horas/día, ¿cuántos estudiantes del semestre completo usarían 5+ horas? (usa proporción)</li>
+  <li>Escribe un párrafo de 6 líneas conectando la gráfica del FT con los conceptos de hoy: gráfica lineal comparativa, porcentaje de cambio, correlación vs causalidad, variable confundidora.</li>
+</ul></div>
+</div></div>
+
+<script>
+// ===== TABS =====
+const secA='📐 Sección A — Representaciones visuales de datos · Miller §1.4 y §10.1';
+const secB='📏 Sección B — Razones, proporciones, porcentaje, regla de tres · Miller §5.5 y §6.3';
+const secQ='📝 Evaluación y práctica';
+const tabSec={'t0':'a','tE':'a','t1':'a','t2':'a','t3':'a','t4':'a','t5':'a','t6':'a','t7':'b','t8':'b','t9':'b','t10':'b','t11':'q','t12':'q'};
+document.querySelectorAll('.tab').forEach(t=>{
+  t.addEventListener('click',()=>{
+    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
+    document.querySelectorAll('.mod').forEach(x=>x.classList.remove('on'));
+    t.classList.add('on');
+    const mid=t.dataset.mod;
+    document.getElementById(mid).classList.add('on');
+    const sec=tabSec[mid]||'a';
+    const lbl=document.getElementById('secLabel');
+    lbl.className='sec-label '+(sec==='b'?'sl-b':sec==='q'?'sl-q':'sl-a');
+    lbl.textContent=sec==='b'?secB:sec==='q'?secQ:secA;
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+});
+
+// ===== ACCORDION =====
+function tog(hdr){hdr.closest('.acc').classList.toggle('open');}
+
+// ===== Q SYSTEM =====
+const QA={
+  T1Q1:{a:'B',fb:'✓ Correcto. Discreto = solo valores enteros contables. No existe 1.7 hermanos. Si pudieras tener cualquier valor decimal (como 1.732...), sería continuo.'},
+  T1Q2:{a:'B',fb:'✓ Correcto. Las barras del histograma se tocan porque los intervalos son contiguos — no hay brecha entre 10-19 y 20-29. Las de la gráfica de barras tienen espacio porque cada categoría (rojo, azul...) es independiente y discreta.'},
+  T1Q3:{a:'B',fb:'✓ Correcto. Temperatura = cuantitativa continua. Con 80 datos en un rango de 5°C, lo más útil es agrupar en intervalos (35-35.9, 36-36.9...) y hacer un histograma para ver la forma de la distribución.'},
+  T2Q1:{a:'B',fb:'✓ Correcto. Fr(4) = F(4)/n = 20/25 = 0.80 = 80%. Eso significa que el 80% de los estudiantes tiene 4 o menos integrantes en su familia.'},
+  T2Q2:{a:'A',fb:'✓ Correcto. "Más de 4" → valores 5 y 6: f(5)=3 + f(6)=2 = 5 datos. P = 5/25 = 0.20 = 20%. Esto es la frecuencia relativa usada como probabilidad empírica (Miller §10.1).'},
+  T2Q3:{a:'B',fb:'✓ Correcto. La Fr acumulada permite responder "¿qué porcentaje está por debajo de X?" — base para percentiles. La frecuencia absoluta (f) solo dice cuántas veces aparece un valor exacto.'},
+  T3Q1:{a:'B',fb:'✓ Correcto. Marca de clase = (límite inferior + límite superior) / 2 = (40+49)/2 = 89/2 = 44.5. Esta marca es el punto que se usa en el eje X del polígono de frecuencias.'},
+  T3Q2:{a:'B',fb:'✓ Correcto. Los criterios 1 y 3 prohíben el traslape. Con clases 10-20 y 20-30, el dato 20 estaría en ambas — doble conteo, asignación ambigua. Los intervalos de Miller usan límites no solapados (10-19, 20-29).'},
+  T3Q3:{a:'B',fb:'✓ Correcto. En el tallo y hoja, el tallo 3 indica "decena 30". Las hojas 2,0,1,9,1,6,8,6,3 dan los valores exactos: 32, 30, 31, 39, 31, 36, 38, 36, 33. El histograma agrupado solo diría "9 datos entre 30-39".'},
+  T4Q1:{a:'B',fb:'✓ Correcto. Valor = Total × decimal = $2.400.000 × 0.25 = $600.000. Método de Miller §1.4 Ej.4: convertir porcentaje a decimal y multiplicar por el total.'},
+  T4Q2:{a:'B',fb:'✓ Correcto. En 2002 (≈60k), 2003 (≈70k) y 2004 (≈85k) las barras superan la línea de 50k. Método: trazar horizontal en 50k y observar qué barras quedan por encima.'},
+  T4Q3:{a:'B',fb:'✓ Correcto. Ángulo = porcentaje × 360° = 0.15 × 360° = 54°. Un sector del 15% es exactamente 54° del círculo total.'},
+  T6Q1:{a:'B',fb:'✓ Correcto. Altura visual año 1: 100−99=1 (desde el eje truncado). Año 4: 103−99=4. Visualmente parece 4× mayor, cuando el cambio real es solo del 3%. El eje truncado amplifica artificialmente las diferencias.'},
+  T6Q2:{a:'B',fb:'✓ Correcto. Correlación ≠ causalidad. La gráfica del FT muestra que ambas variables se mueven juntas, pero no prueba que una cause la otra. Variables de confusión (urbanización, educación, trabajo femenino) podrían causar ambas.'},
+  T6Q3:{a:'B',fb:'✓ Correcto. Miller §1.4 Ej.5: "Localice la parte superior de la barra del año X, y desplácese en forma horizontal a través de la escala vertical." Protocolo: X → barra → Y.'},
+  T7Q1:{a:'B',fb:'✓ Correcto. MCD(18,12)=6. 18÷6=3, 12÷6=2. Razón simplificada = 3:2. Significa que por cada 3 mujeres hay 2 hombres.'},
+  T7Q2:{a:'B',fb:'✓ Correcto. 200ml: $1.800/200 = $9/ml. 500ml: $4.200/500 = $8.40/ml. La presentación grande tiene menor precio por mililitro. Nota: Miller advierte que el más grande no siempre es el más económico, pero en este caso sí lo es.'},
+  T8Q1:{a:'B',fb:'✓ Correcto. 2.5/6 = x/15 → 6x = 37.5 → x = 6.25 tazas. La razón harina/porciones es constante (variación directa), así que la proporción se mantiene.'},
+  T9Q1:{a:'A',fb:'✓ Correcto. % de aumento = (nuevo−original)/original × 100 = (4.1−3.4)/3.4 × 100 = 0.7/3.4 × 100 ≈ 20.6%. Se divide entre 3.4 (el valor original) porque el cambio se mide desde el punto de partida.'},
+  T10Q1:{a:'C',fb:'✓ Correcto. Σ(nota×créd) = 3.8×4 + 4.5×3 + 5.0×2 = 15.2+13.5+10 = 38.7. Σcréd = 9. P.P. = 38.7/9 ≈ 4.30. El promedio simple (4.43) ignora los créditos y sobreestima la contribución de inglés (2 créditos).'},
+};
+
+document.addEventListener('click',e=>{
+  const opt=e.target.closest('.qo');
+  if(!opt) return;
+  const cont=opt.closest('.qb-opts');
+  if(!cont||cont.classList.contains('locked')) return;
+  const qid=cont.dataset.qid;
+  if(!qid||!QA[qid]) return;
+  cont.classList.add('locked');
+  const v=opt.dataset.v,cor=QA[qid].a;
+  cont.querySelectorAll('.qo').forEach(o=>{o.classList.add('locked');if(o.dataset.v===cor)o.classList.add('ok');else if(o.dataset.v===v&&v!==cor)o.classList.add('ko');});
+  const fb=document.getElementById('fb_'+qid);
+  if(fb){fb.className='qfb show '+(v===cor?'ok':'ko');fb.textContent=QA[qid].fb;}
+});
+
+// ===== VAR CLASSIFIER =====
+const VD2=[
+  {n:'Número de hermanos',eg:'0, 1, 2, 3…',a:'D',lbl:'Cuantitativa discreta',g:'Histograma o barras',fb:'Valores enteros contables. No existe 1.7 hermanos. Miller §10.1 usa este ejemplo exactamente.'},
+  {n:'Color favorito',eg:'Azul, rojo, verde…',a:'C',lbl:'Cualitativa (categórica)',g:'Barras o circular',fb:'Categorías sin orden numérico. No se puede "sumar" colores. Solo conteos y porcentajes.'},
+  {n:'Horas de sueño',eg:'5.5h, 7.3h, 8.1h…',a:'Ct',lbl:'Cuantitativa continua',g:'Histograma',fb:'Puede tomar cualquier valor decimal. 7.35 horas es perfectamente válido.'},
+  {n:'Nivel de estrés',eg:'Bajo / Medio / Alto',a:'C',lbl:'Cualitativa ordinal',g:'Barras',fb:'Aunque tiene orden (bajo<medio<alto), la distancia entre niveles no es matemáticamente igual — no es como temperatura. Ordinal.'},
+  {n:'Estatura en cm',eg:'162.5, 175.3, 168.0…',a:'Ct',lbl:'Cuantitativa continua',g:'Histograma',fb:'La estatura puede tomar cualquier valor decimal dentro de un rango — continua.'},
+  {n:'Carrera universitaria',eg:'Psicología, Medicina…',a:'C',lbl:'Cualitativa (categórica)',g:'Barras o circular',fb:'Categorías sin orden numérico inherente. Para comparar proporciones: circular. Para comparar conteos: barras.'},
+];
+function renderVC2(){
+  const g=document.getElementById('vcArea'); if(!g) return;
+  g.innerHTML=VD2.map((v,i)=>`<div class="card" id="vc2_${i}" style="margin:7px 0;"><div style="font-size:.82rem;font-weight:700;color:var(--ink);margin-bottom:2px;">${v.n}</div><div style="font-size:.72rem;color:var(--muted);font-style:italic;margin-bottom:8px;">Ej: ${v.eg}</div><div style="display:flex;flex-wrap:wrap;gap:5px;"><button class="btn btn-out" style="font-size:.65rem;padding:5px 10px;" onclick="chkVC2(${i},'C')">Cualitativa</button><button class="btn btn-out" style="font-size:.65rem;padding:5px 10px;" onclick="chkVC2(${i},'D')">Cuant. Discreta</button><button class="btn btn-out" style="font-size:.65rem;padding:5px 10px;" onclick="chkVC2(${i},'Ct')">Cuant. Continua</button></div><div id="vc2fb_${i}" style="display:none;margin-top:8px;"></div></div>`).join('');
+}
+function chkVC2(i,sel){
+  const v=VD2[i];
+  const card=document.getElementById('vc2_'+i);
+  if(card.dataset.done) return;
+  card.dataset.done='1';
+  const ok=sel===v.a;
+  const fb=document.getElementById('vc2fb_'+i);
+  fb.style.display='block';
+  fb.className='callout '+(ok?'callout-green':'callout-red');
+  fb.innerHTML=(ok?'✓ <strong>':'✗ Incorrecto — <strong>')+v.lbl+'</strong>: '+v.fb+'<br><span style="font-size:.72rem;margin-top:3px;display:block;">📊 Gráfica recomendada: <strong>'+v.g+'</strong></span>';
+}
+
+// ===== T2 TABLE =====
+const T2correct={T2_1:16,T2_2:44,T2_3:68,T2_4:80,T2_5:92,T2_6:100};
+const T2done={};
+function chkT2(inp,id,ans){
+  const v=parseFloat(inp.value);
+  if(isNaN(v)) return;
+  const ok=v===T2correct[id];
+  inp.className=ok?'ok':'';
+  if(ok){T2done[id]=true;checkAllT2();}
+}
+function checkAllT2(){
+  const done=Object.keys(T2correct).filter(k=>T2done[k]).length;
+  const msg=document.getElementById('t2msg');
+  if(done===6){msg.style.display='block';msg.className='callout callout-green';msg.textContent='✓ Tabla completa. La última Fr debe ser siempre 100% — esa es la verificación automática de que no hay errores en los conteos.';}
+  document.getElementById('t2tot').textContent='—';
+}
+
+// ===== STEP REVEAL =====
+const SRS={};
+function nextSR(id,total){
+  if(!SRS[id])SRS[id]=0;
+  SRS[id]++;
+  const el=document.getElementById(id+'_s'+SRS[id]);
+  if(el)el.classList.add('show');
+  const btn=document.getElementById('btn_'+id);
+  if(btn)btn.textContent=SRS[id]>=total?'✓ Completo':'Ver paso '+(SRS[id]+1);
+}
+
+// ===== DRAW CHARTS =====
+function drawH1(){
+  const s=document.getElementById('hist1');if(!s)return;
+  const d=[{x:1,f:4},{x:2,f:7},{x:3,f:6},{x:4,f:3},{x:5,f:3},{x:6,f:2}];
+  const W=380,H=185,ml=40,mr=8,mt=10,mb=40,cw=W-ml-mr,ch=H-mt-mb,bw=cw/d.length,mx=8;
+  let o='';
+  [0,2,4,6,8].forEach(v=>{const y=mt+ch-v*(ch/mx);o+=`<line x1="${ml}" y1="${y}" x2="${W-mr}" y2="${y}" stroke="#E6E4DC" stroke-width="${v===0?1.5:.7}"/><text x="${ml-4}" y="${y+4}" text-anchor="end" font-size="9" fill="#B0B2CC">${v}</text>`;});
+  d.forEach((p,i)=>{const x=ml+i*bw,bh=p.f*(ch/mx),y=mt+ch-bh,col=i<2?'#1B3A6B':i<4?'#0A6E5F':'#A84A00';o+=`<rect x="${x}" y="${y}" width="${bw-1}" height="${bh}" fill="${col}" opacity=".85" rx="1"/><text x="${x+bw/2}" y="${y-3}" text-anchor="middle" font-size="9.5" fill="${col}">${p.f}</text><text x="${x+bw/2}" y="${H-mb+16}" text-anchor="middle" font-size="9" fill="#767898">${p.x}</text>`;});
+  o+=`<text x="${W/2}" y="${H-2}" text-anchor="middle" font-size="9" fill="#767898">Integrantes de la familia</text><text x="8" y="${H/2}" text-anchor="middle" font-size="8.5" fill="#767898" transform="rotate(-90,8,${H/2})">Frecuencia</text>`;
+  s.innerHTML=o;
+}
+function drawP1(){
+  const s=document.getElementById('poly1');if(!s)return;
+  const d=[{x:1,f:4},{x:2,f:7},{x:3,f:6},{x:4,f:3},{x:5,f:3},{x:6,f:2}];
+  const W=380,H=185,ml=40,mr=8,mt=10,mb=40,cw=W-ml-mr,ch=H-mt-mb,bw=cw/6,mx=8;
+  let o='',pts=[`${ml},${mt+ch}`];
+  d.forEach((p,i)=>pts.push(`${ml+(i+0.5)*bw},${mt+ch-p.f*(ch/mx)}`));
+  pts.push(`${ml+7*bw},${mt+ch}`);
+  [0,2,4,6,8].forEach(v=>{const y=mt+ch-v*(ch/mx);o+=`<line x1="${ml}" y1="${y}" x2="${W-mr}" y2="${y}" stroke="#E6E4DC" stroke-width="${v===0?1.5:.7}"/>`;});
+  o+=`<polyline points="${pts.join(' ')}" fill="rgba(10,110,95,.1)" stroke="#0A6E5F" stroke-width="2" stroke-linejoin="round"/>`;
+  d.forEach((p,i)=>{const cx=ml+(i+0.5)*bw,cy=mt+ch-p.f*(ch/mx);o+=`<circle cx="${cx}" cy="${cy}" r="4" fill="#0A6E5F"/><text x="${cx}" y="${cy-7}" text-anchor="middle" font-size="9" fill="#0A6E5F">${p.f}</text><text x="${ml+(i+0.5)*bw}" y="${H-mb+16}" text-anchor="middle" font-size="9" fill="#767898">${p.x}</text>`;});
+  s.innerHTML=o;
+}
+function drawH2(){
+  const s=document.getElementById('hist2');if(!s)return;
+  const d=[{l:'10-19',f:6},{l:'20-29',f:11},{l:'30-39',f:9},{l:'40-49',f:7},{l:'50-59',f:4},{l:'60-69',f:2},{l:'70-79',f:1}];
+  const W=400,H=195,ml=42,mr=8,mt=12,mb=44,cw=W-ml-mr,ch=H-mt-mb,bw=cw/d.length,mx=12;
+  const cols=['#1B3A6B','#1B3A6B','#1B3A6B','#1B3A6B','#A84A00','#A84A00','#A84A00'];
+  let o='';
+  [0,3,6,9,12].forEach(v=>{const y=mt+ch-v*(ch/mx);o+=`<line x1="${ml}" y1="${y}" x2="${W-mr}" y2="${y}" stroke="#E6E4DC" stroke-width="${v===0?1.5:.7}"/><text x="${ml-4}" y="${y+4}" text-anchor="end" font-size="9" fill="#B0B2CC">${v}</text>`;});
+  d.forEach((p,i)=>{const x=ml+i*bw,bh=p.f*(ch/mx),y=mt+ch-bh;o+=`<rect x="${x}" y="${y}" width="${bw}" height="${bh}" fill="${cols[i]}" opacity=".85" rx="1"/><text x="${x+bw/2}" y="${y-3}" text-anchor="middle" font-size="9.5" fill="${cols[i]}">${p.f}</text><text x="${x+bw/2}" y="${H-mb+16}" text-anchor="middle" font-size="8.5" fill="#767898">${p.l}</text>`;});
+  o+=`<text x="${W/2}" y="${H-2}" text-anchor="middle" font-size="9" fill="#767898">Horas semanales de estudio</text>`;
+  s.innerHTML=o;
+}
+function drawP2(){
+  const s=document.getElementById('poly2');if(!s)return;
+  const marks=[4.5,14.5,24.5,34.5,44.5,54.5,64.5,74.5,84.5],freqs=[0,6,11,9,7,4,2,1,0];
+  const W=400,H=195,ml=42,mr=8,mt=12,mb=44,cw=W-ml-mr,ch=H-mt-mb,mx=12;
+  const xp=m=>ml+(m-4.5)*(cw/80),yp=f=>mt+ch-f*(ch/mx);
+  let o='',pts=marks.map((m,i)=>`${xp(m)},${yp(freqs[i])}`).join(' ');
+  [0,3,6,9,12].forEach(v=>{const y=yp(v);o+=`<line x1="${ml}" y1="${y}" x2="${W-mr}" y2="${y}" stroke="#E6E4DC" stroke-width="${v===0?1.5:.7}"/>`;});
+  o+=`<polyline points="${pts}" fill="rgba(74,30,122,.08)" stroke="#4A1E7A" stroke-width="2" stroke-linejoin="round"/>`;
+  marks.forEach((m,i)=>{if(freqs[i]>0){o+=`<circle cx="${xp(m)}" cy="${yp(freqs[i])}" r="3.5" fill="#4A1E7A"/><text x="${xp(m)}" y="${yp(freqs[i])-6}" text-anchor="middle" font-size="8.5" fill="#4A1E7A">${freqs[i]}</text>`;if(i>0&&i<8)o+=`<text x="${xp(m)}" y="${H-mb+16}" text-anchor="middle" font-size="8" fill="#767898">${m}</text>`;}});
+  o+=`<text x="${W/2}" y="${H-2}" text-anchor="middle" font-size="9" fill="#767898">Marca de clase (horas)</text>`;
+  s.innerHTML=o;
+}
+function buildPie(){
+  const pcts=[30,25,15,10,10,10],angs=pcts.map(p=>Math.round(p*3.6));
+  const labels=['Alimentos 30%','Renta 25%','Diversión 15%','Ropa 10%','Libros 10%','Otros 10%'];
+  const colors=['#1B3A6B','#0A6E5F','#A84A00','#4A1E7A','#1A5C34','#8B1A1A'];
+  const ids=['ca1','ca2','ca3','ca4','ca5','ca6'];
+  ids.forEach((id,i)=>{const el=document.getElementById(id);if(el){el.textContent=angs[i]+'°';el.style.color='var(--green)';}});
+  const s=document.getElementById('pieCheri');if(!s)return;
+  const cx=120,cy=115,r=90;
+  let o='',angle=-Math.PI/2;
+  pcts.forEach((p,i)=>{const sl=2*Math.PI*p/100,x1=cx+r*Math.cos(angle),y1=cy+r*Math.sin(angle);angle+=sl;const x2=cx+r*Math.cos(angle),y2=cy+r*Math.sin(angle),lg=p>50?1:0,mx=cx+r*.65*Math.cos(angle-sl/2),my=cy+r*.65*Math.sin(angle-sl/2);o+=`<path d="M${cx},${cy} L${x1},${y1} A${r},${r} 0 ${lg},1 ${x2},${y2} Z" fill="${colors[i]}" opacity=".88" stroke="#fff" stroke-width="1.5"/>`;if(p>=10)o+=`<text x="${mx}" y="${my}" text-anchor="middle" font-size="8.5" fill="#fff" font-weight="700">${p}%</text>`;});
+  const lx=230,ly=40;
+  labels.forEach((l,i)=>{o+=`<rect x="${lx}" y="${ly+i*27}" width="11" height="11" fill="${colors[i]}" rx="2"/><text x="${lx+15}" y="${ly+i*27+9}" font-size="9.5" fill="#1A1C2C">${l}</text>`;});
+  s.innerHTML=o;
+}
+function drawBarMoto(){
+  const s=document.getElementById('barMoto');if(!s)return;
+  const d=[{y:1998,v:15},{y:1999,v:22},{y:2000,v:40},{y:2001,v:45},{y:2002,v:60},{y:2003,v:70},{y:2004,v:85}];
+  const W=390,H=190,ml=42,mr=8,mt=10,mb=44,cw=W-ml-mr,ch=H-mt-mb,bw=(cw/d.length)*.62,gap=(cw/d.length)*.38,mx=90;
+  let o='';
+  [0,20,40,60,80].forEach(v=>{const y=mt+ch-v*(ch/mx);o+=`<line x1="${ml}" y1="${y}" x2="${W-mr}" y2="${y}" stroke="${v===0?'#DDDBD0':'#E6E4DC'}" stroke-width="${v===0?1.5:.7}"/><text x="${ml-4}" y="${y+4}" text-anchor="end" font-size="8.5" fill="#B0B2CC">${v}k</text>`;});
+  const line50=mt+ch-50*(ch/mx);
+  o+=`<line x1="${ml}" y1="${line50}" x2="${W-mr}" y2="${line50}" stroke="#A84A00" stroke-width="1" stroke-dasharray="5,3" opacity=".7"/>`;
+  d.forEach((p,i)=>{const x=ml+i*(cw/d.length)+gap/2,bh=p.v*(ch/mx),y=mt+ch-bh,col=p.v>50?'#A84A00':'#1B3A6B';o+=`<rect x="${x}" y="${y}" width="${bw}" height="${bh}" fill="${col}" opacity=".85" rx="2"/><text x="${x+bw/2}" y="${y-3}" text-anchor="middle" font-size="8.5" fill="${col}">${p.v}k</text><text x="${x+bw/2}" y="${H-mb+16}" text-anchor="middle" font-size="8.5" fill="#767898">${p.y}</text>`;});
+  s.innerHTML=o;
+}
+function drawLineCheri(){
+  const s=document.getElementById('lineCheri');if(!s)return;
+  const food=[30,31,30,29,28,31,30,29],rent=[25,26,28,29,34,34,37,38];
+  const W=400,H=205,ml=42,mr=12,mt=12,mb=44,cw=W-ml-mr,ch=H-mt-mb,n=8;
+  const xp=i=>ml+i*(cw/(n-1)),yp=v=>mt+ch-(v-20)*(ch/25);
+  let o='',fp=food.map((v,i)=>`${xp(i)},${yp(v)}`).join(' '),rp=rent.map((v,i)=>`${xp(i)},${yp(v)}`).join(' ');
+  [20,25,30,35,40,45].forEach(v=>{const y=yp(v);o+=`<line x1="${ml}" y1="${y}" x2="${W-mr}" y2="${y}" stroke="${v===20?'#DDDBD0':'#E6E4DC'}" stroke-width="${v===20?1.5:.7}"/><text x="${ml-4}" y="${y+4}" text-anchor="end" font-size="8.5" fill="#B0B2CC">${v}%</text>`;});
+  o+=`<polyline points="${fp}" fill="none" stroke="#1B3A6B" stroke-width="2.2" stroke-linejoin="round"/>`;
+  o+=`<polyline points="${rp}" fill="none" stroke="#A84A00" stroke-width="2.2" stroke-linejoin="round" stroke-dasharray="6,3"/>`;
+  food.forEach((v,i)=>{o+=`<circle cx="${xp(i)}" cy="${yp(v)}" r="3.5" fill="#1B3A6B"/>`;});
+  rent.forEach((v,i)=>{o+=`<circle cx="${xp(i)}" cy="${yp(v)}" r="3.5" fill="#A84A00"/>`;});
+  for(let i=0;i<n;i++)o+=`<text x="${xp(i)}" y="${H-mb+16}" text-anchor="middle" font-size="8.5" fill="#767898">${i+1}°</text>`;
+  o+=`<rect x="${ml+5}" y="${mt}" width="10" height="3" fill="#1B3A6B" rx="1"/><text x="${ml+19}" y="${mt+5}" font-size="9" fill="#1B3A6B">Alimentos</text>`;
+  o+=`<line x1="${ml+65}" y1="${mt+3}" x2="${ml+75}" y2="${mt+3}" stroke="#A84A00" stroke-width="2" stroke-dasharray="5,2"/><text x="${ml+79}" y="${mt+5}" font-size="9" fill="#A84A00">Renta</text>`;
+  s.innerHTML=o;
+}
+function drawMed(){
+  const s=document.getElementById('lineMed');if(!s)return;
+  const yrs=[2004,2005,2006,2007,2008,2009,2010,2011,2012,2013],vals=[18,25,10,5,3,-2,-5,-8,-15,-22];
+  const W=400,H=200,ml=42,mr=8,mt=12,mb=44,cw=W-ml-mr,ch=H-mt-mb,n=10;
+  const xp=i=>ml+i*(cw/(n-1)),yp=v=>mt+ch/2-v*(ch/50);
+  let o='';
+  [-20,-10,0,10,20].forEach(v=>{const y=yp(v);o+=`<line x1="${ml}" y1="${y}" x2="${W-mr}" y2="${y}" stroke="${v===0?'#1B3A6B':'#E6E4DC'}" stroke-width="${v===0?1.5:.7}"/><text x="${ml-4}" y="${y+4}" text-anchor="end" font-size="8.5" fill="#B0B2CC">${v}</text>`;});
+  let pts=vals.map((v,i)=>`${xp(i)},${yp(v)}`).join(' ');
+  o+=`<polyline points="${pts}" fill="none" stroke="#A84A00" stroke-width="2.2" stroke-linejoin="round"/>`;
+  vals.forEach((v,i)=>{o+=`<circle cx="${xp(i)}" cy="${yp(v)}" r="3.5" fill="${v<0?'#8B1A1A':'#1A5C34'}"/>`;});
+  yrs.forEach((y,i)=>{if(i%2===0)o+=`<text x="${xp(i)}" y="${H-mb+16}" text-anchor="middle" font-size="8" fill="#767898">${y}</text>`;});
+  s.innerHTML=o;
+}
+function drawHT(){
+  const vals=[98,99,101,102];
+  function bar(id,base,range,W,H){
+    const s=document.getElementById(id);if(!s)return;
+    const ml=28,mr=5,mt=10,mb=28,ch=H-mt-mb,bw=((W-ml-mr)/vals.length)*.65,gap=((W-ml-mr)/vals.length)*.35;
+    let o='';
+    const ticks=[base,Math.round(base+range/2),base+range];
+    ticks.forEach(v=>{const y=mt+ch-(v-base)*(ch/range);o+=`<line x1="${ml}" y1="${y}" x2="${W-mr}" y2="${y}" stroke="#E6E4DC" stroke-width=".7"/><text x="${ml-3}" y="${y+4}" text-anchor="end" font-size="7.5" fill="#B0B2CC">${v}</text>`;});
+    vals.forEach((v,i)=>{const x=ml+i*((W-ml-mr)/vals.length)+gap/2,bh=(v-base)*(ch/range),y=mt+ch-bh,col=i===0?'#1B3A6B':'#0A6E5F';o+=`<rect x="${x}" y="${y}" width="${bw}" height="${bh}" fill="${col}" opacity=".85" rx="1.5"/><text x="${x+bw/2}" y="${y-3}" text-anchor="middle" font-size="8" fill="${col}">${v}</text><text x="${x+bw/2}" y="${H-mb+13}" text-anchor="middle" font-size="7.5" fill="#767898">${2020+i}</text>`;});
+    s.innerHTML=o;
+  }
+  bar('hon1',0,120,155,130);
+  bar('trnc1',97,6,155,130);
+}
+function calcPU2(){
+  const items=[{id:'pu1',p:2900,u:100},{id:'pu2',p:6800,u:250},{id:'pu3',p:12500,u:500},{id:'pu4',p:22000,u:1000}];
+  const pu=items.map(it=>it.p/it.u);
+  const mn=Math.min(...pu),mni=pu.indexOf(mn);
+  const nm=['100g','250g','500g','1.000g'];
+  items.forEach((it,i)=>{const el=document.getElementById(it.id);if(el){el.textContent='$'+pu[i].toFixed(2)+'/g';el.style.color=i===mni?'var(--green)':'var(--ink2)';el.style.fontWeight=i===mni?'800':'500';}});
+  const res=document.getElementById('puRes2');if(res){res.style.display='block';res.className='callout callout-'+(mni>=2?'green':'amber');res.innerHTML=`✓ Mejor compra por gramo: <strong>${nm[mni]} ($${pu[mni].toFixed(2)}/g)</strong>. ${mni===3?'El más grande es el más económico aquí.':'¡Ojo! El más grande NO siempre conviene — Miller §6.3.'}`;}
+}
+function calcAC1(){
+  const pa=[9800,3500,2900,6400],pb=[9200,3700,2750,5900],pc=[10100,3200,2950,6100];
+  const ids=['ac1_a','ac1_b','ac1_c','ac1_d'],nm=['A','B','C'];
+  let totA=pa.reduce((a,b)=>a+b,0),totB=pb.reduce((a,b)=>a+b,0),totC=pc.reduce((a,b)=>a+b,0);
+  [pa,pb,pc].forEach((arr,pi)=>arr.forEach((v,i)=>{const best=Math.min(pa[i],pb[i],pc[i]);if(v===best)document.getElementById(ids[i]).textContent='Prov. '+nm[pi]+' ($'+v.toLocaleString()+')';}));
+  const tots=[totA,totB,totC],mn=Math.min(...tots),mni=tots.indexOf(mn);
+  const res=document.getElementById('ac1res');if(res){res.style.display='block';res.className='callout callout-green';res.innerHTML=`Totales: A=$${totA.toLocaleString()} | B=$${totB.toLocaleString()} | C=$${totC.toLocaleString()}. <strong>Proveedor más económico (canasta completa): ${nm[mni]} ($${mn.toLocaleString()})</strong>. 30 canastas: $${(mn*30).toLocaleString()}.`;}
+}
+function renderPctGrid(){
+  const g=document.getElementById('pGrid100');if(!g)return;
+  for(let i=0;i<100;i++){const d=document.createElement('div');d.className='pcell';g.appendChild(d);}
+  updD2(35);
+}
+function updD2(v){
+  v=parseInt(v);
+  document.getElementById('dLbl').textContent=v+'%';
+  document.getElementById('pLbl').textContent=(100-v)+'%';
+  document.getElementById('dFml').textContent=`Precio final = Precio × (1 − ${(v/100).toFixed(2)}) = Precio × ${(1-v/100).toFixed(2)}`;
+  document.querySelectorAll('.pcell').forEach((c,i)=>{c.style.background=i<v?'#A84A00':'#1B3A6B';c.style.opacity=i<v?'.5':'.85';});
+}
+
+// ===== WEIGHTED AVERAGE =====
+const defW=['Matemáticas I','Psicología','Estadística','Inglés'];
+const defC=[4,3,3,2];
+function addWA(mat='',cr=2,nota=''){
+  const c=document.getElementById('waRows');if(!c)return;
+  const r=document.createElement('div');r.className='calc-row';
+  r.innerHTML=`<input class="c-inp wide" placeholder="Materia" value="${mat}"><input class="c-inp" type="number" min="0" max="5" step="0.1" placeholder="Nota" value="${nota}" oninput="updWA(this)"><input class="c-inp" type="number" min="1" max="8" placeholder="Cr" value="${cr}" oninput="updWA(this)"><span class="c-prod">—</span>`;
+  c.appendChild(r);
+}
+function updWA(inp){const r=inp.closest('.calc-row');const n=parseFloat(r.querySelectorAll('input')[1].value),cr=parseFloat(r.querySelectorAll('input')[2].value);r.querySelector('.c-prod').textContent=(!isNaN(n)&&!isNaN(cr))?(n*cr).toFixed(2):'—';}
+function initWA(){defW.forEach((m,i)=>addWA(m,defC[i],''));}
+function calcWA(){
+  let sNC=0,sC=0;
+  document.querySelectorAll('#waRows .calc-row').forEach(r=>{const inps=r.querySelectorAll('input');const n=parseFloat(inps[1].value),cr=parseFloat(inps[2].value);if(!isNaN(n)&&!isNaN(cr)){sNC+=n*cr;sC+=cr;}});
+  if(!sC){return;}
+  const pp=(sNC/sC).toFixed(2);
+  document.getElementById('waResult').style.display='block';
+  document.getElementById('waVal').textContent=pp+' / 5.0';
+  document.getElementById('waBd').textContent=`Σ(nota×créd) = ${sNC.toFixed(2)} ÷ Σcréd = ${sC} = ${pp}`;
+}
+
+// ===== QUIZ =====
+const QZD=[
+  {q:'En una gráfica de barras las barras tienen espacios, pero en un histograma se tocan. ¿Por qué?',o:['Por estética diferente','En el histograma los intervalos son contiguos (datos continuos); en la de barras las categorías son independientes y no hay continuidad entre ellas','El histograma solo tiene 5 barras','Las de barras representan frecuencias; el histograma, porcentajes'],a:1,fb:'Las barras del histograma se tocan porque representan intervalos de un rango continuo. Las de barras tienen espacio porque cada barra es una categoría discreta e independiente. (Miller §10.1)'},
+  {q:'Los 4 tipos de frecuencia son f, fr, F y Fr. ¿Cuál responde "¿qué porcentaje del total tiene valor ≤ x?"',o:['f (frecuencia absoluta)','fr (frecuencia relativa)','F (frecuencia acumulada)','Fr (frecuencia relativa acumulada)'],a:3,fb:'Fr = F/n = frecuencia relativa acumulada. Responde "¿qué porcentaje está por debajo o igual a x?" y es la base para calcular percentiles.'},
+  {q:'¿Cuántas clases debe tener una distribución agrupada según los criterios de Miller?',o:['Exactamente 5','Exactamente 10','Entre 5 y 12','Más de 15'],a:2,fb:'Miller §10.1 criterio 4: "Use de 5 a 12 clases. Muy pocas o demasiadas clases podrían ocultar las tendencias de los datos."'},
+  {q:'¿Qué es la marca de clase en una distribución de frecuencias agrupadas?',o:['El límite inferior del intervalo','El punto medio del intervalo: (límite inferior + límite superior)/2','La frecuencia más alta de la clase','El límite superior menos el límite inferior'],a:1,fb:'La marca de clase = (límite inferior + límite superior)/2. Ejemplo: clase 20-29 → marca = (20+29)/2 = 24.5. Se usa para ubicar los puntos en el polígono de frecuencias.'},
+  {q:'¿Cuál es la ventaja del diagrama de tallo y hoja sobre el histograma agrupado?',o:['Es más colorido y visual','Conserva los valores exactos de los datos originales, que se pierden al agrupar','Ocupa menos espacio en el papel','Funciona para cualquier cantidad de datos'],a:1,fb:'Miller §10.1 Ej.3: "También conserva los valores exactos de los datos." El histograma agrupado pierde esta información — solo sabemos que hay 7 datos en 40-49, no cuáles exactamente.'},
+  {q:'Cheri gasta 25% en renta y el total semestral es $3.200.000. ¿Cuánto gasta en renta?',o:['$25.000','$800.000 — $3.200.000 × 0.25','$320.000','$1.600.000'],a:1,fb:'Método Miller §1.4: valor = total × decimal = $3.200.000 × 0.25 = $800.000. Siempre convertir el porcentaje a decimal (dividir entre 100) antes de multiplicar.'},
+  {q:'¿Cuál es el ángulo central del sector "Alimentos" (30%) en la gráfica circular de Cheri?',o:['30°','108° — 0.30 × 360° = 108°','90°','54°'],a:1,fb:'Ángulo = porcentaje × 360° = 0.30 × 360° = 108°. Miller §10.1 Ej.4. La suma de todos los ángulos debe ser 360°.'},
+  {q:'En la gráfica de motonetas de Miller, las ventas pasan de 15 mil (1998) a 85 mil (2004). ¿Cómo describe Miller esta tendencia?',o:['Fluctuó sin patrón claro','Se mantuvo constante durante los 7 años','Se incrementó de manera constante a lo largo de los 7 años','Bajó levemente y luego subió'],a:2,fb:'Miller §1.4 Ej.5c: "las ventas se incrementaron de manera constante, de aproximadamente 15 mil en 1998 a alrededor de 85 mil en 2004."'},
+  {q:'Un periódico muestra ventas de 100, 101, 102, 103 en 4 años pero el eje Y empieza en 99. ¿Cuántas veces más alta PARECE la barra del año 4 vs el año 1?',o:['1.03 veces (el cambio real)','4 veces — alturas visuales: año 1 = 1, año 4 = 4 (desde la base 99)','2 veces','La percepción no cambia con el eje truncado'],a:1,fb:'Desde la base 99: año 1 tiene altura visual 100-99=1; año 4 tiene 103-99=4. Visualmente parece 4× mayor, aunque el cambio real es solo del 3%. Este es el efecto engañoso del eje Y truncado.'},
+  {q:'Correlación entre dos variables en una gráfica lineal comparativa... ¿prueba causalidad?',o:['Sí, si el coeficiente de correlación es alto','No. La correlación muestra que dos variables se mueven juntas, pero no establece que una cause la otra. Puede haber variables de confusión.','Sí, si la fuente de datos es confiable','No, porque las gráficas nunca prueban nada científicamente'],a:1,fb:'Correlación ≠ causalidad. La gráfica del FT (smartphones y natalidad) muestra correlación, pero variables de confusión (urbanización, educación femenina, trabajo) podrían explicar ambas tendencias simultáneamente.'},
+  {q:'Atún de 140g a $2.800 vs atún de 300g a $5.700. ¿Cuál tiene el menor precio por gramo?',o:['140g ($20/g)','300g — $5.700/300g = $19/g < $20/g del pequeño','Ambos tienen el mismo precio','No se puede comparar porque son tamaños distintos'],a:1,fb:'140g: $2.800/140 = $20/g. 300g: $5.700/300 = $19/g. La presentación grande es más económica por gramo. Miller §6.3: calcular el precio unitario antes de decidir.'},
+  {q:'Si el precio bajó de $15.000 a $12.750, ¿cuál es el porcentaje de disminución? (Miller §5.5)',o:['15% — 2.250/15.000 × 100 = 15% ✓','17.6% — dividiendo entre el precio nuevo','22.5%','0.15%'],a:0,fb:'% de disminución = (original−nuevo)/original × 100 = (15.000−12.750)/15.000 × 100 = 2.250/15.000 × 100 = 15%. Siempre se divide entre el valor original (Miller §5.5).'},
+  {q:'Un automóvil consume 8 litros por cada 100 km. ¿Cuántos litros necesita para 350 km? (Regla de tres)',o:['24 litros','28 litros — 8/100 = x/350 → 100x = 2.800 → x = 28','32 litros','35 litros'],a:1,fb:'Proporción: 8/100 = x/350 → productos cruzados: 100x = 2.800 → x = 28 litros. La razón litros/km es constante (variación directa, Miller §6.3).'},
+  {q:'Biología (4 créd, 3.5) + Psicología (3 créd, 4.0) + Inglés (2 créd, 5.0). Promedio ponderado:',o:['4.17 (promedio simple)','3.89','4.0 — Σ(nota×créd)=14+12+10=36; Σcréd=9; 36/9=4.0 ✓','4.5'],a:2,fb:'P.P. = (3.5×4 + 4.0×3 + 5.0×2)/(4+3+2) = (14+12+10)/9 = 36/9 = 4.0. El promedio simple (4.17) sobreestima porque ignora que inglés tiene menos créditos que biología.'},
+  {q:'La frecuencia relativa de un valor en una distribución de datos TAMBIÉN es...',o:['La frecuencia acumulada de ese valor','La probabilidad empírica de obtener ese valor al elegir un dato al azar','La marca de clase del intervalo correspondiente','El número de veces que aparece dividido entre 100'],a:1,fb:'Miller §10.1: fr = f/n ES la probabilidad empírica. Si f(2)=7 y n=25, entonces fr=7/25=28% = probabilidad de que un estudiante elegido al azar tenga 2 integrantes en su familia. Estadística descriptiva y probabilidad son la misma moneda.'},
+];
+const qzSel=new Array(QZD.length).fill(null);
+function renderQZ(){
+  const c=document.getElementById('qzContainer');if(!c)return;
+  c.innerHTML=QZD.map((q,i)=>`<div class="qqi"><div class="qqn">Pregunta ${i+1} de ${QZD.length}</div><div class="qqt">${q.q}</div><div class="qqopts" id="qqop${i}">${q.o.map((op,j)=>`<div class="qqo" onclick="selQZ(${i},${j})">${String.fromCharCode(65+j)}) ${op}</div>`).join('')}</div><div class="qqfb" id="qqfb${i}"></div></div>`).join('');
+}
+function selQZ(qi,vi){
+  if(qzSel[qi]!==null)return;
+  qzSel[qi]=vi;
+  document.querySelectorAll(`#qqop${qi} .qqo`).forEach((o,j)=>{if(j===vi)o.classList.add('sel');});
+  document.getElementById('btnQZ').disabled=!qzSel.every(v=>v!==null);
+}
+function submitQZ(){
+  let ok=0;
+  QZD.forEach((q,i)=>{
+    const opts=document.querySelectorAll(`#qqop${i} .qqo`);
+    opts.forEach(o=>o.classList.add('locked'));
+    opts[q.a].classList.add('ok');
+    if(qzSel[i]!==q.a&&qzSel[i]!==null)opts[qzSel[i]].classList.add('ko');
+    if(qzSel[i]===q.a)ok++;
+    const fb=document.getElementById('qqfb'+i);
+    if(fb){fb.className='qqfb show '+(qzSel[i]===q.a?'ok':'ko');fb.textContent=(qzSel[i]===q.a?'✓ ':'✗ ')+q.fb;}
+  });
+  const pct=Math.round(ok/QZD.length*100),sc=ok+'/'+QZD.length+' ('+pct+'%)';
+  const KEY='cls10v3_qz';
+  let first=localStorage.getItem(KEY+'_f');
+  if(!first){first=sc;localStorage.setItem(KEY+'_f',first);}
+  localStorage.setItem(KEY+'_l',sc);
+  document.getElementById('sc1').textContent=first;
+  document.getElementById('sc2').textContent=sc;
+  const msgs=['Revisa las pestañas donde fallaste antes del parcial.','Buen trabajo. Refuerza los conceptos con errores.','¡Excelente! Revisa igual los que fallaste.','¡Perfecto! Dominas toda la sesión.'];
+  document.getElementById('scmsg').textContent=msgs[pct<60?0:pct<80?1:pct<100?2:3];
+  document.getElementById('scorebox').style.display='block';
+  document.getElementById('btnQZ').disabled=true;
+  document.getElementById('scorebox').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+
+// ===== ENCUESTA DEL SALÓN =====
+const TOPICS = {
+  transporte: {
+    label: '🚌 Transporte hoy a la UdeC',
+    desc: '¿En qué medio(s) viniste a la UdeC hoy? (Cada estudiante pudo marcar varios)',
+    opts: ['A pie','Bicicleta','Bus urbano Faca','Carro propio','Moto','Flota desde otro municipio'],
+    multi: true,
+    color: '#0A6E5F',
+    tipo: 'cualitativo',
+    grafRec: 'barras',
+    analysis: ['¿Cuál es el medio de transporte más usado en el salón?','¿Qué porcentaje del salón llegó caminando? ¿Te sorprende?','¿Cómo cambiaría esta distribución si la UdeC estuviera en el centro de Facatativá?','¿Podría representarse con una gráfica circular? ¿Por qué sí o por qué no (piensa en respuesta múltiple)?']
+  },
+  redes: {
+    label: '📱 Redes sociales usadas hoy',
+    desc: '¿Cuáles redes abriste hoy antes de clase? (Respuesta múltiple)',
+    opts: ['Instagram','TikTok','WhatsApp','X (Twitter)','YouTube','Otra / ninguna'],
+    multi: true,
+    color: '#4A1E7A',
+    tipo: 'cualitativo',
+    grafRec: 'barras',
+    analysis: ['¿Cuál red tiene la mayor frecuencia? ¿Cuál la menor?','¿El total de marcas supera el número de estudiantes? ¿Por qué?','Si tuvieras que resumir en una sola frase el perfil digital del salón, ¿qué dirías?','¿Qué gráfica NO se puede usar con datos de respuesta múltiple? ¿Por qué?']
+  },
+  estudio: {
+    label: '🎧 Condición de estudio preferida',
+    desc: '¿En qué condición rindes más estudiando? (Respuesta única — cada estudiante eligió una sola)',
+    opts: ['Música con letra','Música instrumental','Silencio total','Ruido ambiente','Sin preferencia clara'],
+    multi: false,
+    color: '#A84A00',
+    tipo: 'cualitativo',
+    grafRec: 'barras_y_circular',
+    analysis: ['¿Cuál es la condición de estudio más frecuente en el salón?','¿La distribución es uniforme (todos más o menos igual) o hay una categoría dominante?','Si el 30% del salón prefiere silencio, ¿cómo debería diseñarse una biblioteca universitaria para este grupo?','Esta es la única encuesta de respuesta única — ¿por qué aquí SÍ se puede construir la gráfica circular y en las otras no?']
+  },
+  ejercicio: {
+    label: '🏃 Actividad física semanal',
+    desc: '¿Cuántas veces hiciste ejercicio físico (≥30 min) la semana pasada? (Respuesta única)',
+    opts: ['0 veces','1–2 veces','3–4 veces','5 o más veces'],
+    multi: false,
+    color: '#1B3A6B',
+    tipo: 'cuantitativo ordinal',
+    grafRec: 'barras_y_poligono',
+    analysis: ['¿La mayoría del salón cumple las recomendaciones de la OMS (≥ 3 veces/semana)?','¿Cuál es la frecuencia relativa acumulada hasta "1–2 veces"? ¿Qué significa?','¿Qué variable confundidora podría explicar los patrones que ves?','Esta variable es ordinal (el orden importa: 0 < 1-2 < 3-4 < 5+). ¿Por qué se puede calcular la frecuencia acumulada y con las otras variables del salón no?']
+  },
+  campus: {
+    label: '🍽️ Servicios del campus usados esta semana',
+    desc: '¿Cuáles servicios usaste esta semana? (Respuesta múltiple)',
+    opts: ['Cafetería','Biblioteca','Bienestar Universitario','Salas de cómputo','Áreas verdes','Ninguno'],
+    multi: true,
+    color: '#1A5C34',
+    tipo: 'cualitativo',
+    grafRec: 'barras',
+    analysis: ['¿Qué servicio usa más el salón? ¿Cuál casi no se usa?','¿Tiene sentido que "Ninguno" esté como opción junto a las demás? ¿Cómo lo manejarías en la tabla?','Si la UdeC quisiera mejorar un solo servicio basándose en estos datos, ¿cuál recomendarías? ¿Por qué?','¿Podrías construir una gráfica circular con estos datos? Justifica tu respuesta.']
+  }
+};
+
+let currentEnc = null;
+let encCounts = [];
+let encChartMode = 'bar';
+
+function setTopic(id) {
+  const t = TOPICS[id];
+  currentEnc = id;
+  encCounts = new Array(t.opts.length).fill(0);
+  
+  // Show panel
+  document.getElementById('encPanel').style.display = 'block';
+  document.getElementById('encTableWrap').style.display = 'none';
+  
+  // Fill meta
+  document.getElementById('encTopicLabel').textContent = t.label;
+  document.getElementById('encTopicDesc').textContent = t.desc;
+  document.getElementById('encMultiNote').style.display = t.multi ? 'block' : 'none';
+  
+  // Build inputs
+  const inp = document.getElementById('encInputs');
+  inp.innerHTML = t.opts.map((o, i) => `
+    <div style="display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px solid var(--rule);">
+      <div style="flex:1;font-size:.84rem;font-weight:600;color:var(--ink2);">${String.fromCharCode(65+i)}. ${o}</div>
+      <input type="number" id="eInp${i}" min="0" max="60" value="0" 
+        style="width:56px;border:1.5px solid var(--rule);border-radius:7px;padding:4px 6px;font-family:var(--ff-m);font-size:.9rem;font-weight:700;text-align:center;outline:none;background:var(--surf);"
+        oninput="encCounts[${i}]=parseInt(this.value)||0;recalcEnc()">
+    </div>`).join('');
+  
+  // Scroll to panel
+  document.getElementById('encPanel').scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+function recalcEnc() {
+  if (!currentEnc) return;
+  const t = TOPICS[currentEnc];
+  const n = parseInt(document.getElementById('encTotal').value) || 28;
+  const total = encCounts.reduce((a,b)=>a+b, 0);
+  const warn = document.getElementById('encWarning');
+  
+  if (!t.multi && total > n) {
+    warn.style.display = 'block';
+    warn.innerHTML = `⚠ La suma de conteos (${total}) supera el número de estudiantes (${n}). Para respuesta única, la suma debe ser ≤ n.`;
+  } else {
+    warn.style.display = 'none';
+  }
+}
+
+function clearEnc() {
+  if (!currentEnc) return;
+  const t = TOPICS[currentEnc];
+  encCounts = new Array(t.opts.length).fill(0);
+  t.opts.forEach((_, i) => {
+    const el = document.getElementById('eInp'+i);
+    if (el) el.value = 0;
+  });
+  document.getElementById('encTableWrap').style.display = 'none';
+  document.getElementById('encWarning').style.display = 'none';
+}
+
+function buildEncTable() {
+  if (!currentEnc) return;
+  const t = TOPICS[currentEnc];
+  const n = parseInt(document.getElementById('encTotal').value) || 28;
+  const total = encCounts.reduce((a,b)=>a+b, 0);
+  
+  if (total === 0) {
+    alert('Ingresa al menos algunos conteos antes de construir la tabla.');
+    return;
+  }
+
+  const tableWrap = document.getElementById('encTableWrap');
+  tableWrap.style.display = 'block';
+  
+  // Build table
+  const tbl = document.getElementById('encTable');
+  const canCumulate = !t.multi; // Only for single-choice
+  
+  // Note
+  const note = document.getElementById('encTableNote');
+  if (t.multi) {
+    note.innerHTML = `<strong>Datos de respuesta múltiple:</strong> la suma de frecuencias (${total}) ${total>n?'supera':'puede superar'} el total de estudiantes (n=${n}) porque cada persona pudo marcar varias opciones. Se calculan f y fr de forma independiente por categoría. No se construye la columna F (acumulada) porque las categorías no son ordenadas ni excluyentes.`;
+  } else {
+    note.innerHTML = `<strong>Datos de respuesta única:</strong> cada estudiante eligió exactamente una opción. Total de respuestas = ${total} (de n=${n} estudiantes${total<n?' — '+(n-total)+' no respondieron':''}). Se construyen las 4 columnas: f, fr, F y Fr.`;
+  }
+  
+  // Build rows
+  let cumF = 0, html = '';
+  if (canCumulate) {
+    html = '<tr><th>Categoría</th><th>f</th><th>fr (%)</th><th>F</th><th>Fr (%)</th></tr>';
+    t.opts.forEach((o, i) => {
+      const f = encCounts[i];
+      const fr = total > 0 ? (f/total*100).toFixed(1) : '0.0';
+      cumF += f;
+      const F = cumF;
+      const Fr = total > 0 ? (cumF/total*100).toFixed(1) : '0.0';
+      const rowBg = i===encCounts.indexOf(Math.max(...encCounts)) ? 'background:var(--navy-l);' : '';
+      html += `<tr style="${rowBg}"><td class="l">${o}</td><td>${f}</td><td>${fr}%</td><td>${F}</td><td>${Fr}%</td></tr>`;
+    });
+    html += `<tr class="tot"><td class="l">TOTAL</td><td>${total}</td><td>100%</td><td>—</td><td>100%</td></tr>`;
+  } else {
+    html = '<tr><th>Categoría</th><th>f</th><th>fr (%)</th><th>Nota</th></tr>';
+    t.opts.forEach((o, i) => {
+      const f = encCounts[i];
+      const fr = n > 0 ? (f/n*100).toFixed(1) : '0.0';
+      const pct_of_total = total > 0 ? (f/total*100).toFixed(1) : '0.0';
+      const rowBg = i===encCounts.indexOf(Math.max(...encCounts)) ? 'background:var(--navy-l);' : '';
+      html += `<tr style="${rowBg}"><td class="l">${o}</td><td>${f}</td><td>${fr}% de n</td><td style="font-size:.75rem;color:var(--muted);">${pct_of_total}% de resp.</td></tr>`;
+    });
+    html += `<tr class="tot"><td class="l">TOTAL RESP.</td><td>${total}</td><td>—</td><td>—</td></tr>`;
+  }
+  tbl.innerHTML = html;
+
+  // Chart note and buttons
+  const chartNote = document.getElementById('encChartNote');
+  const chartBtns = document.getElementById('encChartBtns');
+  
+  let modes = [];
+  if (t.grafRec === 'barras') {
+    chartNote.innerHTML = `<strong>Gráfica recomendada: de barras.</strong> Los datos son cualitativos — las categorías no tienen orden matemático intrínseco. La gráfica de barras (con espacios entre barras) es la apropiada. Una gráfica circular <em>no aplica</em> porque con respuesta múltiple los porcentajes no suman 100% independiente.`;
+    modes = ['bar'];
+  } else if (t.grafRec === 'barras_y_circular') {
+    chartNote.innerHTML = `<strong>Opciones disponibles: barras o circular.</strong> Como la pregunta fue de respuesta única, los porcentajes sí suman 100% y se puede construir la gráfica circular. La de barras también aplica para comparar cantidades.`;
+    modes = ['bar','pie'];
+  } else if (t.grafRec === 'barras_y_poligono') {
+    chartNote.innerHTML = `<strong>Opciones disponibles: barras o polígono de frecuencias.</strong> Como los datos tienen orden (0 < 1-2 < 3-4 < 5+), se puede construir el polígono que muestra la forma de la distribución.`;
+    modes = ['bar','poly'];
+  }
+  
+  chartBtns.innerHTML = modes.map(m => {
+    const labels = {bar:'📊 Barras', pie:'⭕ Circular', poly:'〰️ Polígono'};
+    return `<button class="btn btn-out" onclick="encChartMode='${m}';drawEncChart()" style="font-size:.72rem;padding:6px 11px;">${labels[m]}</button>`;
+  }).join('');
+
+  // Analysis
+  const aq = document.getElementById('encAnalysisQ');
+  aq.innerHTML = t.analysis.map((q,i)=>`<div style="padding:6px 0;border-bottom:1px solid var(--rule);display:flex;gap:8px;"><span style="font-size:.7rem;font-weight:700;color:var(--navy);flex-shrink:0;">${i+1}.</span><span>${q}</span></div>`).join('');
+
+  encChartMode = modes[0];
+  drawEncChart();
+  
+  tableWrap.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+function drawEncChart() {
+  const t = TOPICS[currentEnc];
+  const svg = document.getElementById('encChart');
+  const n = parseInt(document.getElementById('encTotal').value) || 28;
+  const total = encCounts.reduce((a,b)=>a+b, 0);
+  const col = t.color;
+  
+  document.getElementById('encChartTitle').textContent = t.label;
+
+  if (encChartMode === 'bar') {
+    // Bar chart
+    const W=400,H=220,ml=44,mr=10,mt=12,mb=66,cw=W-ml-mr,ch=H-mt-mb;
+    const maxV = Math.max(...encCounts, 1);
+    const bw = (cw / t.opts.length) * 0.6;
+    const gap = (cw / t.opts.length) * 0.4;
+    const maxTick = Math.ceil(maxV/2)*2;
+    let out = '';
+    
+    // Grid lines
+    [0, Math.round(maxTick/2), maxTick].forEach(v => {
+      const y = mt+ch-v*(ch/maxTick);
+      out += `<line x1="${ml}" y1="${y}" x2="${W-mr}" y2="${y}" stroke="#E6E4DC" stroke-width="${v===0?1.5:.7}"/>`;
+      out += `<text x="${ml-4}" y="${y+4}" text-anchor="end" font-size="9" fill="#B0B2CC">${v}</text>`;
+    });
+    
+    t.opts.forEach((o, i) => {
+      const f = encCounts[i];
+      const x = ml + i*(cw/t.opts.length) + gap/2;
+      const bh = f * (ch/maxTick);
+      const y = mt+ch-bh;
+      const isMax = f === Math.max(...encCounts);
+      out += `<rect x="${x}" y="${y}" width="${bw}" height="${bh}" fill="${isMax?col:'#B0B2CC'}" opacity="${isMax?.9:.65}" rx="2"/>`;
+      if (f > 0) out += `<text x="${x+bw/2}" y="${y-3}" text-anchor="middle" font-size="9.5" fill="${isMax?col:'#767898'}">${f}</text>`;
+      // Label (truncated)
+      const label = o.length > 9 ? o.substring(0,8)+'…' : o;
+      out += `<text x="${x+bw/2}" y="${H-mb+14}" text-anchor="middle" font-size="8.5" fill="#767898">${label}</text>`;
+      if (total > 0) {
+        const pct = (f/total*100).toFixed(0);
+        out += `<text x="${x+bw/2}" y="${H-mb+25}" text-anchor="middle" font-size="8" fill="#B0B2CC">${pct}%</text>`;
+      }
+    });
+    out += `<text x="${W/2}" y="${H-2}" text-anchor="middle" font-size="9" fill="#767898">${t.label}</text>`;
+    svg.innerHTML = out;
+
+  } else if (encChartMode === 'pie') {
+    // Pie chart
+    const W=400,H=220,cx=130,cy=110,r=88;
+    const colors=['#1B3A6B','#0A6E5F','#A84A00','#4A1E7A','#1A5C34','#8B1A1A'];
+    let out='', angle=-Math.PI/2;
+    const validTotal = encCounts.reduce((a,b)=>a+b, 0);
+    t.opts.forEach((o, i) => {
+      const f = encCounts[i];
+      if (f === 0) return;
+      const pct = f/validTotal;
+      const slice = 2*Math.PI*pct;
+      const x1=cx+r*Math.cos(angle), y1=cy+r*Math.sin(angle);
+      angle += slice;
+      const x2=cx+r*Math.cos(angle), y2=cy+r*Math.sin(angle);
+      const large = pct>0.5?1:0;
+      const mx=cx+r*.65*Math.cos(angle-slice/2), my=cy+r*.65*Math.sin(angle-slice/2);
+      out += `<path d="M${cx},${cy} L${x1},${y1} A${r},${r} 0 ${large},1 ${x2},${y2} Z" fill="${colors[i%colors.length]}" opacity=".88" stroke="#fff" stroke-width="1.5"/>`;
+      if (pct >= 0.08) out += `<text x="${mx}" y="${my}" text-anchor="middle" font-size="8.5" fill="#fff" font-weight="700">${(pct*100).toFixed(0)}%</text>`;
+    });
+    // Legend
+    const lx=240, ly=30;
+    t.opts.forEach((o, i) => {
+      if (encCounts[i] === 0) return;
+      out += `<rect x="${lx}" y="${ly+i*24}" width="10" height="10" fill="${colors[i%colors.length]}" rx="2"/>`;
+      const label = o.length > 14 ? o.substring(0,13)+'…' : o;
+      out += `<text x="${lx+14}" y="${ly+i*24+9}" font-size="9" fill="#1A1C2C">${label} (${encCounts[i]})</text>`;
+    });
+    svg.innerHTML = out;
+
+  } else if (encChartMode === 'poly') {
+    // Frequency polygon for ordinal data
+    const W=400,H=220,ml=50,mr=12,mt=14,mb=44,cw=W-ml-mr,ch=H-mt-mb;
+    const maxV = Math.max(...encCounts, 1);
+    const n2 = t.opts.length;
+    const xp = i => ml + (i+0.5)*(cw/n2);
+    const yp = v => mt+ch-v*(ch/maxV);
+    let out='';
+    
+    [0, Math.round(maxV/2), maxV].forEach(v => {
+      const y = yp(v);
+      out += `<line x1="${ml}" y1="${y}" x2="${W-mr}" y2="${y}" stroke="#E6E4DC" stroke-width="${v===0?1.5:.7}"/>`;
+      out += `<text x="${ml-4}" y="${y+4}" text-anchor="end" font-size="9" fill="#B0B2CC">${v}</text>`;
+    });
+    
+    // Polygon points (close at both ends)
+    let pts = [`${ml},${yp(0)}`];
+    encCounts.forEach((f, i) => pts.push(`${xp(i)},${yp(f)}`));
+    pts.push(`${W-mr},${yp(0)}`);
+    out += `<polyline points="${pts.join(' ')}" fill="rgba(27,58,107,.1)" stroke="#1B3A6B" stroke-width="2.2" stroke-linejoin="round"/>`;
+    encCounts.forEach((f, i) => {
+      out += `<circle cx="${xp(i)}" cy="${yp(f)}" r="4.5" fill="#1B3A6B"/>`;
+      if (f>0) out += `<text x="${xp(i)}" y="${yp(f)-8}" text-anchor="middle" font-size="9.5" fill="#1B3A6B">${f}</text>`;
+      const label = t.opts[i].replace('–','−');
+      out += `<text x="${xp(i)}" y="${H-mb+16}" text-anchor="middle" font-size="8.5" fill="#767898">${label}</text>`;
+    });
+    out += `<text x="${W/2}" y="${H-2}" text-anchor="middle" font-size="9" fill="#767898">Actividad física semanal — Polígono de frecuencias</text>`;
+    svg.innerHTML = out;
+  }
+}
+
+// ===== INIT =====
+document.addEventListener('DOMContentLoaded',()=>{
+  renderVC2();initWA();renderQZ();renderPctGrid();
+  drawH1();drawP1();drawH2();drawP2();
+  drawBarMoto();drawLineCheri();drawMed();drawHT();
+});
+</script>
+</body>
+</html>
