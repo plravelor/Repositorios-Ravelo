@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>LabPsy · Detección de Cambio Visual</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#07101F; --bg2:#0D1B2F; --bg3:#132340;
+  --card:rgba(255,255,255,0.04); --border:rgba(255,255,255,0.07);
+  --az:#3B82F6; --az-d:rgba(59,130,246,0.12);
+  --am:#F59E0B; --am-d:rgba(245,158,11,0.12);
+  --gn:#10B981; --gn-d:rgba(16,185,129,0.12);
+  --rd:#EF4444; --rd-d:rgba(239,68,68,0.12);
+  --tx:#EEF2FF; --tx2:#94A3B8; --tx3:#475569;
+  --mono:'JetBrains Mono',monospace; --sans:'DM Sans',sans-serif; --serif:'DM Serif Display',serif;
+  --r:12px; --rs:6px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--sans);background:var(--bg);color:var(--tx);min-height:100vh;-webkit-font-smoothing:antialiased;}
+
+/* ── EXPERIMENT OVERLAY ── */
+#exp{position:fixed;inset:0;background:#000;z-index:100;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;}
+#exp.hidden{display:none;}
+#trial-area{position:relative;width:360px;height:360px;}
+#fix{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#fff;font-size:42px;font-weight:200;line-height:1;display:none;font-family:var(--sans);}
+#fix.show{display:block;}
+.sq{position:absolute;width:52px;height:52px;border-radius:4px;display:none;}
+.sq.show{display:block;}
+#resp-area{display:none;gap:14px;width:360px;}
+#resp-area.show{display:flex;}
+#resp-area button{flex:1;padding:18px 10px;border:none;border-radius:var(--r);font-family:var(--sans);font-size:16px;font-weight:700;cursor:pointer;transition:transform .1s;letter-spacing:.3px;}
+#resp-area button:active{transform:scale(.96);}
+#btn-chg{background:var(--am);color:#000;}
+#btn-same{background:rgba(255,255,255,0.11);color:#fff;border:1px solid rgba(255,255,255,0.15);}
+#trial-count{font-family:var(--mono);font-size:11px;color:rgba(255,255,255,0.25);letter-spacing:2px;text-transform:uppercase;}
+#kb-hint{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,0.15);letter-spacing:1px;}
+#fb-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:700;border-radius:var(--r);opacity:0;pointer-events:none;transition:opacity .15s;font-family:var(--sans);}
+#fb-overlay.show{opacity:1;}
+#fb-overlay.ok{background:rgba(16,185,129,0.3);color:#6EE7B7;}
+#fb-overlay.bad{background:rgba(239,68,68,0.3);color:#FCA5A5;}
+
+/* ── MAIN APP ── */
+#main{max-width:680px;margin:0 auto;padding:24px 20px 80px;}
+.screen{display:none;} .screen.active{display:block;}
+
+/* Top bar */
+.top-bar{display:flex;align-items:center;gap:10px;margin-bottom:36px;}
+.badge{font-family:var(--mono);font-size:10px;font-weight:600;color:var(--gn);background:var(--gn-d);border:1px solid rgba(16,185,129,0.2);padding:4px 10px;border-radius:20px;letter-spacing:1.5px;text-transform:uppercase;white-space:nowrap;}
+.prog-bar{flex:1;height:3px;background:rgba(255,255,255,0.06);border-radius:2px;}
+.prog-fill{height:100%;background:var(--gn);border-radius:2px;transition:width .5s ease;}
+.step-n{font-family:var(--mono);font-size:10px;color:var(--tx3);white-space:nowrap;}
+
+h1{font-family:var(--serif);font-size:clamp(30px,7vw,50px);line-height:1.1;margin-bottom:16px;}
+h2{font-family:var(--serif);font-size:clamp(24px,5vw,38px);line-height:1.15;margin-bottom:12px;}
+h3{font-size:17px;font-weight:700;margin-bottom:8px;}
+.lead{font-size:16px;line-height:1.7;color:var(--tx2);margin-bottom:22px;}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:20px;margin-bottom:14px;}
+.btn-p{display:block;background:var(--gn);color:#000;font-family:var(--sans);font-size:16px;font-weight:700;padding:15px 28px;border:none;border-radius:var(--r);cursor:pointer;width:100%;margin-top:10px;transition:transform .15s,box-shadow .15s;text-align:center;}
+.btn-p:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(16,185,129,.25);}
+.btn-p:active{transform:translateY(0);}
+.divider{height:1px;background:var(--border);margin:28px 0;}
+
+/* Chips */
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0;}
+.chip{padding:5px 13px;border-radius:20px;font-size:12px;font-weight:600;font-family:var(--mono);}
+.c-same{background:rgba(148,163,184,0.12);color:#94A3B8;}
+.c-expand{background:rgba(245,158,11,0.12);color:#FBBF24;}
+.c-random{background:rgba(239,68,68,0.12);color:#F87171;}
+
+/* Diagram */
+.diagram{display:flex;align-items:flex-start;justify-content:center;gap:6px;flex-wrap:wrap;padding:22px 0;}
+.d-step{text-align:center;}
+.d-box{background:rgba(255,255,255,0.06);border:1px solid var(--border);border-radius:var(--rs);padding:9px 13px;font-family:var(--mono);font-size:11px;color:var(--tx2);white-space:nowrap;}
+.d-ms{font-size:10px;color:var(--tx3);margin-top:4px;font-family:var(--mono);}
+.d-arr{color:var(--tx3);font-size:18px;padding-top:8px;}
+
+/* Stats row */
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0;}
+.stat-box{background:var(--card);border:1px solid var(--border);border-radius:var(--rs);padding:14px 10px;text-align:center;}
+.stat-lbl{font-size:10px;font-family:var(--mono);font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;}
+.stat-v{font-family:var(--mono);font-size:22px;font-weight:600;line-height:1;margin-bottom:2px;}
+.stat-s{font-size:11px;color:var(--tx3);}
+.lbl-same{color:#94A3B8;} .lbl-expand{color:#FBBF24;} .lbl-random{color:#F87171;}
+
+/* Chart container */
+.chart-section{margin-bottom:28px;}
+.chart-title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--tx2);margin-bottom:14px;}
+.chart-wrap{overflow-x:auto;}
+svg.chart{display:block;overflow:visible;}
+
+/* Legend */
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:10px;}
+.leg-item{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--tx2);}
+.leg-dot{width:11px;height:11px;border-radius:3px;flex-shrink:0;}
+
+/* Insight */
+.insight{border-left:3px solid var(--gn);padding:14px 16px;background:var(--gn-d);border-radius:0 var(--rs) var(--rs) 0;margin:16px 0;font-size:14.5px;line-height:1.65;color:var(--tx);}
+.insight.am{border-color:var(--am);background:var(--am-d);}
+.insight.az{border-color:var(--az);background:var(--az-d);}
+
+/* Question box */
+.q-box{background:var(--az-d);border:1px solid rgba(59,130,246,0.2);border-radius:var(--r);padding:18px 20px;margin:22px 0;}
+.q-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--az);margin-bottom:8px;}
+.q-box p{font-size:15px;line-height:1.6;}
+
+/* Notation */
+.notation{background:var(--bg2);border:1px solid var(--border);border-radius:var(--rs);padding:14px 18px;font-family:var(--mono);font-size:13px;line-height:2;margin:14px 0;overflow-x:auto;white-space:pre;}
+
+/* Predict buttons */
+.predict-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0;}
+.pred-btn{padding:20px 14px;border:2px solid var(--border);border-radius:var(--r);background:transparent;color:var(--tx);font-family:var(--sans);font-size:14px;font-weight:600;cursor:pointer;transition:all .2s;text-align:center;line-height:1.5;}
+.pred-btn .mini{font-size:10px;font-family:var(--mono);letter-spacing:1.5px;opacity:.6;display:block;margin-bottom:6px;}
+.pred-btn.az{color:#60A5FA;} .pred-btn.az:hover{border-color:#60A5FA;background:rgba(96,165,250,.1);}
+.pred-btn.am{color:#FBBF24;} .pred-btn.am:hover{border-color:#FBBF24;background:rgba(251,191,36,.1);}
+
+/* Expandable detail */
+details.xd{background:var(--card);border:1px solid var(--border);border-radius:var(--rs);padding:14px 16px;margin:10px 0;}
+details.xd summary{font-weight:600;font-size:14px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--tx);}
+details.xd summary::-webkit-details-marker{display:none;}
+details.xd summary::after{content:'▼';font-size:10px;color:var(--tx3);}
+details.xd[open] summary::after{content:'▲';}
+details.xd .xd-body{margin-top:14px;font-size:14px;line-height:1.7;color:var(--tx2);}
+details.xd .xd-body p+p{margin-top:10px;}
+details.xd .xd-body strong{color:var(--tx);}
+
+/* Activity card */
+.act-card{border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:14px;}
+.act-head{background:var(--bg3);padding:13px 18px;font-weight:700;font-size:14px;display:flex;align-items:center;gap:10px;}
+.act-body{padding:16px 18px;font-size:14px;line-height:1.75;color:var(--tx2);}
+.act-body ul{padding-left:18px;}
+.act-body li{margin-bottom:6px;}
+.act-body strong{color:var(--tx);}
+
+/* Computing */
+.computing{min-height:55vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;text-align:center;}
+.spinner{width:38px;height:38px;border:3px solid rgba(255,255,255,0.08);border-top-color:var(--gn);border-radius:50%;animation:spin 1s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.comp-lbl{font-family:var(--mono);font-size:12px;color:var(--tx2);letter-spacing:1px;}
+
+/* Design matrix */
+.matrix{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border-radius:var(--rs);overflow:hidden;margin:16px 0;}
+.m-cell{background:var(--bg2);padding:12px 8px;text-align:center;font-size:12px;line-height:1.4;}
+.m-cell.head{background:var(--bg3);font-weight:700;font-size:11px;color:var(--tx2);text-transform:uppercase;letter-spacing:.5px;}
+.m-cell.ea{color:#60A5FA;font-weight:600;} .m-cell.we{color:#FBBF24;font-weight:600;}
+.m-cell.cond{color:var(--tx);font-size:11px;font-family:var(--mono);}
+</style>
+</head>
+<body>
+
+<!-- ════ EXPERIMENT OVERLAY ════ -->
+<div id="exp" class="hidden">
+  <div id="trial-area">
+    <div id="fix">+</div>
+    <div class="sq" id="sq0"></div>
+    <div class="sq" id="sq1"></div>
+    <div class="sq" id="sq2"></div>
+    <div class="sq" id="sq3"></div>
+    <div id="fb-overlay"></div>
+  </div>
+  <div id="resp-area">
+    <button id="btn-chg" onclick="respond('changed')">↤ Cambió</button>
+    <button id="btn-same" onclick="respond('same')">Igual ↦</button>
+  </div>
+  <div id="trial-count"></div>
+  <div id="kb-hint">← Cambió &nbsp;|&nbsp; Igual →</div>
+</div>
+
+<!-- ════ MAIN APP ════ -->
+<div id="main">
+
+<!-- ── S0: INTRO ── -->
+<div id="s-intro" class="screen active">
+  <div class="top-bar">
+    <div class="badge">LabPsy · App 1</div>
+    <div class="prog-bar"><div class="prog-fill" style="width:0"></div></div>
+    <div class="step-n">1 / 7</div>
+  </div>
+  <h1>Antes de analizar datos ajenos, genera los tuyos.</h1>
+  <p class="lead">Vas a participar en una versión simplificada del experimento del Proyecto Integrador. El objetivo no es nota: es que <em>sientas</em> lo que mide el experimento antes de interpretar los datos.</p>
+  <div class="card">
+    <h3>La tarea</h3>
+    <p style="font-size:14px;line-height:1.7;color:var(--tx2);margin-top:6px">Una <strong style="color:var(--tx)">tarea de detección de cambio visual</strong>. Verás 4 cuadrados de colores durante 150ms. Desaparecerán un momento. Volverán. Tu misión: ¿cambió alguno de color?</p>
+    <div class="chips" style="margin-top:14px">
+      <span class="chip c-same">Misma posición</span>
+      <span class="chip c-expand">Posición expandida</span>
+      <span class="chip c-random">Posición aleatoria</span>
+    </div>
+    <p style="font-size:12px;color:var(--tx3);margin-top:8px">3 condiciones · 12 ensayos reales · ~5 minutos</p>
+  </div>
+  <div class="card">
+    <h3>¿Por qué importa?</h3>
+    <p style="font-size:14px;line-height:1.7;color:var(--tx2);margin-top:6px">Al terminar verás tus tiempos de reacción y precisión comparados con los dos grupos del experimento original. Esa comparación te abrirá la puerta a entender el diseño factorial 2×3, el ANOVA y los elementos que necesitas para tu discusión (Actividad 3).</p>
+  </div>
+  <button class="btn-p" onclick="showScreen('s-inst')">Empezar → Ver instrucciones</button>
+</div>
+
+<!-- ── S1: INSTRUCTIONS ── -->
+<div id="s-inst" class="screen">
+  <div class="top-bar">
+    <div class="badge">Instrucciones</div>
+    <div class="prog-bar"><div class="prog-fill" style="width:14%"></div></div>
+    <div class="step-n">2 / 7</div>
+  </div>
+  <h2>La secuencia de cada ensayo</h2>
+  <div class="diagram">
+    <div class="d-step"><div class="d-box">＋ Fijación</div><div class="d-ms">600 ms</div></div>
+    <div class="d-arr">→</div>
+    <div class="d-step"><div class="d-box" style="border-color:rgba(245,158,11,.3);color:#FBBF24">■■■■ Display 1</div><div class="d-ms">150 ms</div></div>
+    <div class="d-arr">→</div>
+    <div class="d-step"><div class="d-box">— Retención</div><div class="d-ms">900 ms</div></div>
+    <div class="d-arr">→</div>
+    <div class="d-step"><div class="d-box" style="border-color:rgba(16,185,129,.3);color:#34D399">■■■■ Display 2</div><div class="d-ms">hasta respuesta</div></div>
+  </div>
+  <div class="card">
+    <h3>Las tres condiciones del experimento</h3>
+    <p style="font-size:14px;color:var(--tx2);margin:10px 0"><span class="chip c-same">Misma</span> El segundo display aparece en <strong style="color:var(--tx)">las mismas posiciones</strong> que el primero. Tarea relativamente fácil.</p>
+    <p style="font-size:14px;color:var(--tx2);margin:10px 0"><span class="chip c-expand">Expandida</span> Los cuadrados se <strong style="color:var(--tx)">alejan del centro</strong>. Para detectar cambios necesitas distribuir la atención en un área más grande.</p>
+    <p style="font-size:14px;color:var(--tx2);margin:10px 0"><span class="chip c-random">Aleatoria</span> Las posiciones cambian de manera <strong style="color:var(--tx)">impredecible</strong>. Debes buscar activamente dónde quedó cada cuadrado.</p>
+  </div>
+  <div class="insight">
+    Pulsa <strong>"Cambió"</strong> si algún cuadrado cambió de color, o <strong>"Igual"</strong> si todo es idéntico. Solo cambia el color, nunca la forma ni el tamaño. En desktop: ← = Cambió, → = Igual.
+  </div>
+  <p style="font-size:13px;color:var(--tx3);margin:14px 0">Primero harás 3 ensayos de práctica con retroalimentación. Luego comenzarán los 12 ensayos reales sin retroalimentación.</p>
+  <button class="btn-p" onclick="startPractice()">Iniciar práctica →</button>
+</div>
+
+<!-- ── S2: READY ── -->
+<div id="s-ready" class="screen">
+  <div class="top-bar">
+    <div class="badge">Práctica OK</div>
+    <div class="prog-bar"><div class="prog-fill" style="width:30%"></div></div>
+    <div class="step-n">3 / 7</div>
+  </div>
+  <h2 id="ready-h">Práctica completada</h2>
+  <p class="lead" id="ready-p">Ya conoces la tarea. Ahora comenzarán los 12 ensayos reales. <strong>No habrá retroalimentación</strong> después de cada respuesta. Solo confía en tu percepción.</p>
+  <div class="card">
+    <p style="font-size:14px;color:var(--tx2)"><strong style="color:var(--tx)">12 ensayos</strong> · Condiciones mezcladas aleatoriamente · Responde tan rápido como puedas sin sacrificar precisión.</p>
+  </div>
+  <button class="btn-p" onclick="startExperiment()">Comenzar ensayos reales →</button>
+</div>
+
+<!-- ── S3: COMPUTING ── -->
+<div id="s-comp" class="screen">
+  <div class="top-bar">
+    <div class="badge">Procesando</div>
+    <div class="prog-bar"><div class="prog-fill" style="width:56%"></div></div>
+    <div class="step-n">4 / 7</div>
+  </div>
+  <div class="computing">
+    <div class="spinner"></div>
+    <div class="comp-lbl" id="comp-msg">Calculando métricas por condición...</div>
+  </div>
+</div>
+
+<!-- ── S4: RESULTS ── -->
+<div id="s-results" class="screen">
+  <div class="top-bar">
+    <div class="badge">Tus resultados</div>
+    <div class="prog-bar"><div class="prog-fill" style="width:56%"></div></div>
+    <div class="step-n">4 / 7</div>
+  </div>
+  <h2>Así distribuiste tu atención</h2>
+  <p class="lead">Tus datos de precisión y tiempo de reacción, por condición.</p>
+
+  <div id="stats-acc" class="stats-row"></div>
+  <div class="chart-section">
+    <div class="chart-title">Precisión — % respuestas correctas</div>
+    <div class="chart-wrap"><svg id="ch-acc" class="chart" width="580" height="200"></svg></div>
+  </div>
+  <div class="divider"></div>
+  <div id="stats-rt" class="stats-row"></div>
+  <div class="chart-section">
+    <div class="chart-title">Tiempo de reacción — ms promedio (ensayos correctos)</div>
+    <div class="chart-wrap"><svg id="ch-rt" class="chart" width="580" height="200"></svg></div>
+  </div>
+  <div class="q-box">
+    <div class="q-lbl">Reflexiona antes de continuar</div>
+    <p>¿En qué condición te fue mejor? ¿Por qué crees que fue más difícil detectar cambios cuando los cuadrados cambiaron de posición?</p>
+  </div>
+  <button class="btn-p" onclick="showScreen('s-comp2')">Ver comparación con el PI →</button>
+</div>
+
+<!-- ── S5: COMPARISON ── -->
+<div id="s-comp2" class="screen">
+  <div class="top-bar">
+    <div class="badge">Comparación · PI</div>
+    <div class="prog-bar"><div class="prog-fill" style="width:70%"></div></div>
+    <div class="step-n">5 / 7</div>
+  </div>
+  <h2>Tu patrón vs. los grupos del experimento</h2>
+  <p class="lead">El experimento comparó dos grupos culturales en esta misma tarea. Antes de ver la comparación: ¿a cuál se parece más tu patrón de resultados?</p>
+
+  <div class="predict-row" id="pred-row">
+    <button class="pred-btn az" onclick="showComparison('ea')">
+      <span class="mini">GRUPO ORIENTAL</span>
+      Mejor en condición<br><strong>expandida</strong><br>
+      <span style="font-size:12px;color:var(--tx2);margin-top:4px;display:block">Atención más distribuida</span>
+    </button>
+    <button class="pred-btn am" onclick="showComparison('we')">
+      <span class="mini">GRUPO OCCIDENTAL</span>
+      Mejor en condición<br><strong>misma posición</strong><br>
+      <span style="font-size:12px;color:var(--tx2);margin-top:4px;display:block">Atención más centrada</span>
+    </button>
+  </div>
+
+  <div id="comp-content" style="display:none">
+    <div class="divider"></div>
+    <div class="legend">
+      <div class="leg-item"><div class="leg-dot" style="background:#60A5FA"></div>Grupo Oriental (East Asian)</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#FBBF24"></div>Grupo Occidental (Western)</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#34D399"></div>Tú</div>
+    </div>
+    <div class="chart-section" style="margin-top:20px">
+      <div class="chart-title">d' por condición — sensibilidad de detección de cambio</div>
+      <div class="chart-wrap"><svg id="ch-dprime" class="chart" width="580" height="230"></svg></div>
+      <p style="font-size:11px;color:var(--tx3);margin-top:8px">d' (d-prima, Teoría de Detección de Señales): mide sensibilidad real descontando respuestas al azar. Mayor d' = mejor detección real de cambios.</p>
+    </div>
+    <div class="chart-section">
+      <div class="chart-title">TR focal — ms para estímulo central único</div>
+      <div class="chart-wrap"><svg id="ch-trfocal" class="chart" width="580" height="200"></svg></div>
+      <p style="font-size:11px;color:var(--tx3);margin-top:8px">TR focal: tiempo de reacción cuando aparece solo un estímulo en el centro. Mayor TR = atención menos concentrada al centro → foco más distribuido hacia la periferia.</p>
+    </div>
+    <div class="insight" id="comp-insight"></div>
+    <button class="btn-p" onclick="showScreen('s-method')" style="margin-top:16px">Entender el diseño metodológico →</button>
+  </div>
+</div>
+
+<!-- ── S6: METHOD ── -->
+<div id="s-method" class="screen">
+  <div class="top-bar">
+    <div class="badge">Diseño · Cap. 7</div>
+    <div class="prog-bar"><div class="prog-fill" style="width:84%"></div></div>
+    <div class="step-n">6 / 7</div>
+  </div>
+  <h2>El diseño experimental del PI</h2>
+  <p class="lead">Acabas de hacer el experimento. Ahora clasifícalo. Esto es lo que va en la sección <strong>Método</strong> de tu informe.</p>
+
+  <div class="card">
+    <h3>¿Experimental puro, cuasiexperimental o no experimental?</h3>
+    <p style="font-size:14px;line-height:1.7;color:var(--tx2);margin-top:8px">Para ser <strong style="color:var(--tx)">experimental puro</strong> necesitas dos cosas (Sampieri, Cap. 7): <strong style="color:var(--tx)">(1)</strong> manipular deliberadamente la VI y <strong style="color:var(--tx)">(2)</strong> asignar participantes al azar a los grupos.</p>
+    <p style="font-size:14px;line-height:1.7;color:var(--tx2);margin-top:8px">En el PI: la condición (misma / expandida / aleatoria) fue manipulada ✓. Los ensayos se asignaron aleatoriamente a cada participante ✓. Pero los grupos culturales ya existían antes del experimento — no se asignaron al azar. Eso convierte la variable <em>cultura</em> en cuasiexperimental.</p>
+    <div class="insight am" style="margin-top:14px">El PI es un <strong>diseño mixto</strong>: experimental en la variable condición (intra-sujeto), cuasiexperimental en la variable cultura (entre-sujetos).</div>
+  </div>
+
+  <div class="card">
+    <h3>Simbología del diseño (Sampieri, Cap. 7, Fig. 7.5)</h3>
+    <p style="font-size:13px;color:var(--tx2);margin-bottom:10px">R = aleatorización · G = grupo · X = condición/estímulo · O = medición · — = ausencia</p>
+    <div class="notation">G₁ (Oriental)    R → X₁(same) X₂(expand) X₃(random) → O₁  O₂  O₃
+G₂ (Occidental)  R → X₁(same) X₂(expand) X₃(random) → O₁  O₂  O₃</div>
+    <p style="font-size:13px;color:var(--tx2);margin-top:10px">La R indica que el orden de las condiciones se aleatorizó para cada participante. Los Gs son grupos intactos (culturas pre-existentes). Las Os son mediciones de d' y TR.</p>
+  </div>
+
+  <div class="card">
+    <h3>Diseño factorial 2 × 3</h3>
+    <p style="font-size:14px;line-height:1.7;color:var(--tx2);margin-top:8px">Un diseño factorial manipula <strong style="color:var(--tx)">dos o más variables independientes</strong> en combinación (Sampieri, Cap. 7). El PI tiene:</p>
+    <div class="matrix" style="margin-top:14px">
+      <div class="m-cell head"></div>
+      <div class="m-cell head cond">Misma</div>
+      <div class="m-cell head cond">Expandida</div>
+      <div class="m-cell head cond">Aleatoria</div>
+      <div class="m-cell ea">Oriental</div>
+      <div class="m-cell" style="font-size:11px;color:var(--tx2)">O₁ (d' + TR)</div>
+      <div class="m-cell" style="font-size:11px;color:var(--tx2)">O₂ (d' + TR)</div>
+      <div class="m-cell" style="font-size:11px;color:var(--tx2)">O₃ (d' + TR)</div>
+      <div class="m-cell we">Occidental</div>
+      <div class="m-cell" style="font-size:11px;color:var(--tx2)">O₄ (d' + TR)</div>
+      <div class="m-cell" style="font-size:11px;color:var(--tx2)">O₅ (d' + TR)</div>
+      <div class="m-cell" style="font-size:11px;color:var(--tx2)">O₆ (d' + TR)</div>
+    </div>
+    <p style="font-size:13px;color:var(--tx2);margin-top:10px">Este arreglo 2 × 3 genera 6 celdas. La prueba estadística clave es un <strong style="color:var(--tx)">ANOVA de dos vías</strong> que evalúa el efecto de cultura, el efecto de condición y la <strong style="color:var(--tx)">interacción cultura × condición</strong>. Esa interacción es el hallazgo central.</p>
+  </div>
+
+  <div class="card">
+    <h3>Grupo control y aleatorización vs. emparejamiento</h3>
+    <p style="font-size:14px;line-height:1.7;color:var(--tx2);margin-top:8px">La condición <span class="chip c-same">Misma</span> funciona como <strong style="color:var(--tx)">línea de base</strong>: si la cultura no influyera en la atención, ambos grupos deberían rendir igual en las tres condiciones. Es el referente de comparación.</p>
+    <p style="font-size:14px;line-height:1.7;color:var(--tx2);margin-top:10px"><strong style="color:var(--tx)">Asignación al azar (R)</strong> asegura probabilísticamente que variables extrañas (fatiga, experiencia con videojuegos, agudeza visual) se distribuyan por igual entre condiciones. Sampieri recomienda mínimo 15 participantes por grupo para que la aleatorización funcione.</p>
+    <p style="font-size:14px;line-height:1.7;color:var(--tx2);margin-top:10px"><strong style="color:var(--tx)">Emparejamiento (E)</strong> es la alternativa cuando la muestra es pequeña o cuando hay una variable específica que puede contaminar los resultados (por ejemplo, emparejar grupos por agudeza visual en un experimento de atención visual).</p>
+  </div>
+
+  <details class="xd">
+    <summary>Tabla 7.5 — ¿Qué diseño corresponde a qué alcance?</summary>
+    <div class="xd-body">
+      <p>Sampieri (Cap. 7, Tabla 7.5) vincula directamente el tipo de estudio con el diseño apropiado. El PI tiene alcance <strong>explicativo</strong>: no solo describe diferencias culturales, sino que las atribuye a diferencias en el sistema atencional producidas por la cultura. Por eso el diseño es experimental (con matiz cuasiexperimental en cultura). Un estudio solo correlacional observaría la relación sin manipular las condiciones, y no podría establecer causalidad.</p>
+      <p>Estudio explicativo → hipótesis de diferencia de grupos atribuyendo causalidad → diseño experimental puro o cuasiexperimental. ✓ El PI cumple esto.</p>
+    </div>
+  </details>
+
+  <details class="xd">
+    <summary>Validez interna vs. validez externa en el PI</summary>
+    <div class="xd-body">
+      <p><strong>Validez interna alta:</strong> condiciones controladas con precisión milimétrica (150ms de exposición), distancia estandarizada a la pantalla, tamaño de estímulos calibrado en grados visuales, orden aleatorizado. Esto da confianza en que las diferencias entre grupos se deben a la cultura + condición, no a factores externos.</p>
+      <p><strong>Validez externa limitada:</strong> muestra de estudiantes universitarios jóvenes con visión normal o corregida. Los resultados no se pueden generalizar directamente a adultos mayores, personas con baja escolaridad, o poblaciones con experiencias visuales muy distintas. Esto es una <strong>limitación que debes incluir en la Actividad 3.</strong></p>
+    </div>
+  </details>
+
+  <details class="xd">
+    <summary>Gaviria y la causalidad sin experimento</summary>
+    <div class="xd-body">
+      <p>Cuando Gaviria afirmó que la política de paz total <em>causó</em> la crisis de seguridad, usó razonamiento causal con datos no experimentales (observacionales). En un diseño no experimental, las variables covarían pero no podemos atribuir causalidad con certeza porque no se manipuló la VI ni se controló el resto. El diseño experimental del PI sí puede establecer causalidad dentro de sus condiciones de control, porque la condición fue manipulada y el resto fue controlado. Esa es la diferencia fundamental que Sampieri establece en el Cap. 7.</p>
+    </div>
+  </details>
+
+  <button class="btn-p" onclick="showScreen('s-pi')" style="margin-top:14px">Ir a las actividades del PI →</button>
+</div>
+
+<!-- ── S7: PI ACTIVITIES ── -->
+<div id="s-pi" class="screen">
+  <div class="top-bar">
+    <div class="badge">Proyecto Integrador</div>
+    <div class="prog-bar"><div class="prog-fill" style="width:100%"></div></div>
+    <div class="step-n">7 / 7</div>
+  </div>
+  <h2>De aquí a las actividades</h2>
+  <p class="lead">Hiciste el experimento. Viste tus datos. Comparaste con los grupos. Entendiste el diseño factorial. Ahora a construir el informe.</p>
+
+  <div class="act-card">
+    <div class="act-head">📊 Actividad 2 — Análisis de datos</div>
+    <div class="act-body">
+      <p style="margin-bottom:12px">Con la base de datos del PI (2 grupos × 3 condiciones, n=54):</p>
+      <ul>
+        <li><strong>Depuración:</strong> identifica outliers en d' y TR. Un valor atípico cae a más de ±2 DE de la media de su celda (grupo × condición). Justifica por qué excluirlo o no.</li>
+        <li><strong>Descriptivo 2×3:</strong> calcula Media y DE de d' para cada una de las 6 celdas. Eso es la tabla de resultados principal.</li>
+        <li><strong>Inferencial:</strong> ANOVA de dos vías — prueba el efecto de cultura (F₁), el efecto de condición (F₂) y la interacción cultura × condición (F₁×₂). La interacción es el hallazgo central.</li>
+        <li><strong>Gráficos:</strong> gráfico de líneas con condición en eje X y grupos en líneas separadas. Si las líneas se cruzan o divergen → hay interacción.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="act-card">
+    <div class="act-head">✍️ Actividad 3 — Discusión académica</div>
+    <div class="act-body">
+      <p style="margin-bottom:12px">Seis elementos obligatorios del PI:</p>
+      <ul>
+        <li><strong>Interpretación:</strong> ¿qué dicen los valores d' de cada celda sobre el foco atencional? No basta decir "el Grupo A fue mejor" — menciona en qué condición, cuánto, y qué implica.</li>
+        <li><strong>Comparación con literatura:</strong> ¿tus resultados coinciden con los 5+ artículos de la Actividad 1? Cita con APA y menciona qué hallazgo confirmas o contradices.</li>
+        <li><strong>Similitudes y discrepancias:</strong> si tus resultados difieren de la literatura, explica por qué (diferente muestra, instrumento, contexto cultural, tamaño de efecto).</li>
+        <li><strong>Implicaciones teóricas:</strong> ¿qué dice esto sobre atención y cultura? ¿Apoya o refuta la teoría del foco atencional amplio vs. estrecho?</li>
+        <li><strong>Limitaciones:</strong> validez externa, tamaño de muestra, muestra WEIRD (Western, Educated, Industrialized, Rich, Democratic), variables no controladas.</li>
+        <li><strong>Propuestas futuras:</strong> ¿qué cambiarías en el diseño? ¿qué variable agregarías? ¿qué pregunta dejó abierta el experimento?</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="insight am">
+    <strong>Clave anti-simplismo (citada en el PI):</strong> los resultados no significan que un grupo "ve mejor" o "es más inteligente". Significan que los sistemas atencionales están organizados de manera diferente. Foco amplio = ventaja en expand, desventaja en tareas de atención central. Foco estrecho = lo inverso. Ambos tienen costos y beneficios.
+  </div>
+
+  <div class="card" style="margin-top:20px">
+    <h3>Conceptos del Cap. 10 que necesitas para el análisis</h3>
+    <p style="font-size:14px;line-height:1.7;color:var(--tx2);margin-top:8px">Para la Actividad 2 usarás: <strong style="color:var(--tx)">Media y DE</strong> (estadística descriptiva), <strong style="color:var(--tx)">ANOVA de dos vías con interacción</strong> (estadística inferencial), <strong style="color:var(--tx)">valor F y significancia</strong> (p &lt; 0.05 en ciencias sociales, p &lt; 0.01 para mayor certeza), <strong style="color:var(--tx)">η² (eta cuadrado)</strong> para el tamaño del efecto.</p>
+    <p style="font-size:14px;line-height:1.7;color:var(--tx2);margin-top:10px">Recuerda (Sampieri, Cap. 10): el valor p no te dice qué tan grande es el efecto, solo si es estadísticamente significativo. Un ANOVA significativo con p=0.001 puede ser con un efecto muy pequeño si la muestra es grande. El η² complementa esa información.</p>
+  </div>
+  <div style="height:48px"></div>
+</div>
+
+</div><!-- #main -->
+
+<script>
+// ════ CONSTANTS ════
+const SQ_COLORS = ['#E63946','#3B82F6','#2DC653','#FFB703'];
+const SQ_SZ = 52;
+
+// Positions (top-left corner of each square, 360×360 container)
+const POS_SAME   = [{x:80,y:80},{x:228,y:80},{x:80,y:228},{x:228,y:228}];
+const POS_EXPAND = [{x:12,y:12},{x:296,y:12},{x:12,y:296},{x:296,y:296}];
+
+function getRandomPos() {
+  // One square per quadrant, randomized assignment
+  const half = 180, m = 14, maxPos = 360-SQ_SZ-m;
+  const quadrants = [
+    {xmn:m,xmx:half-SQ_SZ-m,ymn:m,ymx:half-SQ_SZ-m},
+    {xmn:half+m,xmx:maxPos,ymn:m,ymx:half-SQ_SZ-m},
+    {xmn:m,xmx:half-SQ_SZ-m,ymn:half+m,ymx:maxPos},
+    {xmn:half+m,xmx:maxPos,ymn:half+m,ymx:maxPos}
+  ];
+  const order = shuffle([0,1,2,3]);
+  return order.map(qi => ({
+    x: Math.floor(Math.random()*(quadrants[qi].xmx-quadrants[qi].xmn)+quadrants[qi].xmn),
+    y: Math.floor(Math.random()*(quadrants[qi].ymx-quadrants[qi].ymn)+quadrants[qi].ymn)
+  }));
+}
+
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+const sleep = ms => new Promise(r=>setTimeout(r,ms));
+
+// PI data (calculated from dataset)
+const PI = {
+  ea:{dprime:{same:2.58,expand:3.16,random:2.30},trFocal:{same:1046,expand:1032,random:1139}},
+  we:{dprime:{same:2.69,expand:2.51,random:2.31},trFocal:{same:881,expand:912,random:835}}
+};
+
+// ════ STATE ════
+let S = {
+  practiceCorrect:0,
+  trials:[],
+  trialIdx:0,
+  responses:[],
+  responseCallback:null,
+  computed:null
+};
+
+// ════ SCREEN MANAGEMENT ════
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  const el=document.getElementById(id);
+  if(el){el.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+}
+function showExp(){document.getElementById('exp').classList.remove('hidden');}
+function hideExp(){document.getElementById('exp').classList.add('hidden');}
+
+// ════ TRIAL GENERATION ════
+function makeTrial(cond, hasChange){
+  const colors=[...SQ_COLORS];
+  const second=[...colors];
+  let changedIdx=null;
+  if(hasChange){
+    changedIdx=Math.floor(Math.random()*4);
+    const others=SQ_COLORS.filter(c=>c!==colors[changedIdx]);
+    second[changedIdx]=others[Math.floor(Math.random()*others.length)];
+  }
+  const firstPos=[...POS_SAME];
+  const secondPos = cond==='same'?[...POS_SAME]:cond==='expand'?[...POS_EXPAND]:getRandomPos();
+  return {cond,hasChange,changedIdx,firstColors:colors,secondColors:second,firstPos,secondPos};
+}
+
+function genTrials(){
+  const conditions=['same','expand','random'];
+  const trials=[];
+  for(const c of conditions){
+    trials.push(makeTrial(c,true),makeTrial(c,true),makeTrial(c,false),makeTrial(c,false));
+  }
+  return shuffle(trials);
+}
+
+// ════ DISPLAY ════
+function setPhase(phase, trial=null){
+  const fix=document.getElementById('fix');
+  const resp=document.getElementById('resp-area');
+  const sqs=[0,1,2,3].map(i=>document.getElementById('sq'+i));
+  fix.classList.remove('show');
+  resp.classList.remove('show');
+  sqs.forEach(s=>s.classList.remove('show'));
+
+  if(phase==='fix'){
+    fix.classList.add('show');
+  } else if(phase==='first'&&trial){
+    sqs.forEach((s,i)=>{
+      s.style.background=trial.firstColors[i];
+      s.style.left=trial.firstPos[i].x+'px';
+      s.style.top=trial.firstPos[i].y+'px';
+      s.classList.add('show');
+    });
+  } else if(phase==='second'&&trial){
+    sqs.forEach((s,i)=>{
+      s.style.background=trial.secondColors[i];
+      s.style.left=trial.secondPos[i].x+'px';
+      s.style.top=trial.secondPos[i].y+'px';
+      s.classList.add('show');
+    });
+    resp.classList.add('show');
+  }
+}
+
+function respond(r){if(S.responseCallback){const cb=S.responseCallback;S.responseCallback=null;cb(r);}}
+function waitResp(){return new Promise(res=>{S.responseCallback=res;});}
+
+// Keyboard
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowLeft'||e.key==='z'||e.key==='Z') respond('changed');
+  if(e.key==='ArrowRight'||e.key==='m'||e.key==='M') respond('same');
+});
+
+// ════ TRIAL RUNNER ════
+async function runTrial(trial, isPractice=false){
+  setPhase('blank');
+  await sleep(350);
+  setPhase('fix');
+  await sleep(620);
+  setPhase('first', trial);
+  await sleep(150);
+  setPhase('blank');
+  await sleep(900);
+  setPhase('second', trial);
+  const t0=performance.now();
+  const response=await waitResp();
+  const rt=performance.now()-t0;
+  const correct=(response==='changed')===trial.hasChange;
+  if(isPractice){
+    const fb=document.getElementById('fb-overlay');
+    fb.textContent=correct?'✓ Correcto': trial.hasChange?'✗ Había un cambio':'✗ No hubo cambio';
+    fb.className='show '+(correct?'ok':'bad');
+    setPhase('blank');
+    await sleep(1300);
+    fb.className='';
+    await sleep(200);
+  } else {
+    setPhase('blank');
+    await sleep(200);
+  }
+  return {response,rt,correct,cond:trial.cond,hasChange:trial.hasChange};
+}
+
+// ════ PRACTICE ════
+async function startPractice(){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  showExp();
+  const practiceTrials=[makeTrial('same',true),makeTrial('expand',false),makeTrial('random',true)];
+  S.practiceCorrect=0;
+  const counter=document.getElementById('trial-count');
+  for(let i=0;i<practiceTrials.length;i++){
+    counter.textContent=`PRÁCTICA ${i+1} DE 3`;
+    const res=await runTrial(practiceTrials[i],true);
+    if(res.correct) S.practiceCorrect++;
+  }
+  setPhase('blank');
+  hideExp();
+  document.getElementById('ready-h').textContent=`Práctica completada — ${S.practiceCorrect}/3 correctas`;
+  document.getElementById('ready-p').innerHTML=`Ya conoces la tarea. Ahora comenzarán los 12 ensayos reales. <strong>No habrá retroalimentación</strong> después de cada respuesta. Solo confía en tu percepción.`;
+  showScreen('s-ready');
+}
+
+// ════ EXPERIMENT ════
+async function startExperiment(){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  showExp();
+  S.trials=genTrials();
+  S.responses=[];
+  const counter=document.getElementById('trial-count');
+  for(let i=0;i<S.trials.length;i++){
+    counter.textContent=`ENSAYO ${i+1} DE ${S.trials.length}`;
+    const res=await runTrial(S.trials[i],false);
+    S.responses.push(res);
+  }
+  setPhase('blank');
+  hideExp();
+  showScreen('s-comp');
+  computeAndRender();
+}
+
+// ════ COMPUTATION ════
+async function computeAndRender(){
+  const msgs=['Calculando métricas por condición...','Analizando tiempos de reacción...','Comparando con datos del PI...','Generando visualizaciones...'];
+  const el=document.getElementById('comp-msg');
+  for(const m of msgs){el.textContent=m;await sleep(650);}
+
+  const conditions=['same','expand','random'];
+  const acc={}, rt={};
+  for(const c of conditions){
+    const cr=S.responses.filter(r=>r.cond===c);
+    const ok=cr.filter(r=>r.correct);
+    acc[c]=cr.length>0?Math.round(ok.length/cr.length*100):50;
+    const rts=ok.map(r=>r.rt);
+    rt[c]=rts.length>0?Math.round(rts.reduce((a,b)=>a+b,0)/rts.length):900;
+  }
+  S.computed={acc,rt};
+  renderResults();
+  showScreen('s-results');
+}
+
+// ════ CHARTS ════
+function barChart(svgId, vals, colors, yMax, suffix, width=580){
+  const svg=document.getElementById(svgId);
+  if(!svg)return;
+  svg.innerHTML='';
+  const h=200,pL=48,pB=40,pT=18,pR=16;
+  const W=width-pL-pR;
+  const conds=['same','expand','random'];
+  const labels=['Misma','Expandida','Aleatoria'];
+  const barW=Math.min(76, W/3*0.55);
+
+  for(let t=0;t<=4;t++){
+    const v=yMax*t/4;
+    const y=pT+(h-pT-pB)*(1-t/4);
+    svg.innerHTML+=`<line x1="${pL}" y1="${y}" x2="${pL+W}" y2="${y}" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>`;
+    svg.innerHTML+=`<text x="${pL-5}" y="${y+4}" text-anchor="end" font-size="10" fill="#475569" font-family="JetBrains Mono,monospace">${Math.round(v)}${suffix}</text>`;
+  }
+  conds.forEach((c,i)=>{
+    const v=vals[c]||0;
+    const x=pL+(W/3)*i+(W/3-barW)/2;
+    const bh=Math.max(2,(h-pT-pB)*(v/yMax));
+    const y=pT+(h-pT-pB)-bh;
+    svg.innerHTML+=`<rect x="${x}" y="${y}" width="${barW}" height="${bh}" rx="4" fill="${colors[i]}" opacity="0.85"/>`;
+    svg.innerHTML+=`<text x="${x+barW/2}" y="${y-5}" text-anchor="middle" font-size="11" fill="#E2E8F0" font-family="JetBrains Mono,monospace" font-weight="600">${v}${suffix}</text>`;
+    svg.innerHTML+=`<text x="${x+barW/2}" y="${h-pB+15}" text-anchor="middle" font-size="11" fill="#64748B" font-family="DM Sans,sans-serif">${labels[i]}</text>`;
+  });
+  svg.innerHTML+=`<line x1="${pL}" y1="${pT}" x2="${pL}" y2="${h-pB}" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>`;
+  svg.setAttribute('viewBox',`0 0 ${width} ${h}`);
+}
+
+function groupedBarChart(svgId, groups, yMax, dp, width=580){
+  const svg=document.getElementById(svgId);
+  if(!svg)return;
+  svg.innerHTML='';
+  const h=230,pL=52,pB=46,pT=18,pR=16;
+  const W=width-pL-pR;
+  const conds=['same','expand','random'];
+  const labels=['Misma','Expandida','Aleatoria'];
+  const ng=groups.length;
+  const groupW=W/3;
+  const totalBarW=groupW*0.75;
+  const barW=totalBarW/ng;
+  const startOff=(groupW-totalBarW)/2;
+
+  for(let t=0;t<=4;t++){
+    const v=yMax*t/4;
+    const y=pT+(h-pT-pB)*(1-t/4);
+    svg.innerHTML+=`<line x1="${pL}" y1="${y}" x2="${pL+W}" y2="${y}" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>`;
+    const label=dp?v.toFixed(1):Math.round(v);
+    svg.innerHTML+=`<text x="${pL-5}" y="${y+4}" text-anchor="end" font-size="10" fill="#475569" font-family="JetBrains Mono,monospace">${label}</text>`;
+  }
+  conds.forEach((c,ci)=>{
+    const gx=pL+groupW*ci;
+    groups.forEach((grp,gi)=>{
+      const v=grp.values[c]||0;
+      const bh=Math.max(2,(h-pT-pB)*(v/yMax));
+      const y=pT+(h-pT-pB)-bh;
+      const x=gx+startOff+gi*barW;
+      svg.innerHTML+=`<rect x="${x}" y="${y}" width="${barW-2}" height="${bh}" rx="3" fill="${grp.color}" opacity="0.85"/>`;
+    });
+    svg.innerHTML+=`<text x="${gx+groupW/2}" y="${h-pB+16}" text-anchor="middle" font-size="11" fill="#64748B" font-family="DM Sans,sans-serif">${labels[ci]}</text>`;
+  });
+  svg.innerHTML+=`<line x1="${pL}" y1="${pT}" x2="${pL}" y2="${h-pB}" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>`;
+  svg.setAttribute('viewBox',`0 0 ${width} ${h}`);
+}
+
+// ════ RESULTS RENDERING ════
+function renderResults(){
+  const {acc,rt}=S.computed;
+  const BC=['#94A3B8','#FBBF24','#F87171'];
+  const CL=['same','expand','random'];
+  const CN=['Misma','Expandida','Aleatoria'];
+  const CC=['lbl-same','lbl-expand','lbl-random'];
+
+  document.getElementById('stats-acc').innerHTML=CL.map((c,i)=>`
+    <div class="stat-box">
+      <div class="stat-lbl ${CC[i]}">${CN[i]}</div>
+      <div class="stat-v">${acc[c]}%</div>
+      <div class="stat-s">precisión</div>
+    </div>`).join('');
+
+  barChart('ch-acc',acc,BC,100,'%');
+
+  document.getElementById('stats-rt').innerHTML=CL.map((c,i)=>`
+    <div class="stat-box">
+      <div class="stat-lbl ${CC[i]}">${CN[i]}</div>
+      <div class="stat-v" style="font-size:18px">${rt[c]||'—'}</div>
+      <div class="stat-s">ms TR</div>
+    </div>`).join('');
+
+  const maxRT=Math.max(rt.same||0,rt.expand||0,rt.random||0,800);
+  barChart('ch-rt',rt,BC,Math.ceil(maxRT/200)*200+200,'');
+}
+
+// ════ COMPARISON ════
+function showComparison(prediction){
+  document.getElementById('pred-row').style.display='none';
+  document.getElementById('comp-content').style.display='block';
+
+  const {acc,rt}=S.computed;
+  // Map accuracy to rough d' estimate (pedagogical, not TDT exact)
+  const userDP={};
+  ['same','expand','random'].forEach(c=>{
+    const p=Math.min(0.98,Math.max(0.52,acc[c]/100));
+    userDP[c]=parseFloat(((p-0.5)/0.5*3.0).toFixed(2));
+  });
+
+  const groups=[
+    {name:'Oriental',color:'#60A5FA',values:PI.ea.dprime},
+    {name:'Occidental',color:'#FBBF24',values:PI.we.dprime},
+    {name:'Tú',color:'#34D399',values:userDP}
+  ];
+  groupedBarChart('ch-dprime',groups,4.0,true);
+
+  const rtGroups=[
+    {name:'Oriental',color:'#60A5FA',values:PI.ea.trFocal},
+    {name:'Occidental',color:'#FBBF24',values:PI.we.trFocal},
+    {name:'Tú',color:'#34D399',values:{same:rt.same,expand:rt.expand,random:rt.random}}
+  ];
+  groupedBarChart('ch-trfocal',rtGroups,1500,false);
+
+  const insight=document.getElementById('comp-insight');
+  insight.innerHTML=`<strong>El hallazgo central del experimento:</strong> el Grupo Oriental detecta cambios significativamente mejor en la condición <em>expandida</em> (d'=3.16 vs 2.51). En contraste, el Grupo Occidental tiene ventaja en la condición <em>misma posición</em> (d'=2.69 vs 2.58). El TR focal del Grupo Oriental es considerablemente mayor (1032–1139ms vs 835–912ms), lo que indica que su atención está <em>menos</em> concentrada en el centro — es decir, distribuida más ampliamente. Esta interacción entre cultura y condición es el hallazgo que reportarás en la Actividad 3.`;
+
+  setTimeout(()=>{
+    document.getElementById('comp-content').scrollIntoView({behavior:'smooth',block:'start'});
+  },100);
+}
+
+// ════ MOBILE SCALE ════
+(function(){
+  const maxW=Math.min(360,window.innerWidth*0.86);
+  if(maxW<360){
+    const ta=document.getElementById('trial-area');
+    ta.style.width=maxW+'px';
+    ta.style.height=maxW+'px';
+    const sc=maxW/360;
+    [0,1,2,3].forEach(i=>{
+      const sq=document.getElementById('sq'+i);
+      sq.style.width=Math.round(SQ_SZ*sc)+'px';
+      sq.style.height=Math.round(SQ_SZ*sc)+'px';
+    });
+    document.getElementById('resp-area').style.width=maxW+'px';
+  }
+})();
+</script>
+</body>
+</html>
